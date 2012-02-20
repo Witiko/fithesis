@@ -18,6 +18,7 @@
 % etc.
 %
 % History:
+% 2004/05/13 v0.2.4 fix SK declaration [Peter Cerensky, JP]
 % 2004/05/13 v0.2.3 fix title spacing [PS, JP]
 % 2004/05/12 v0.2.2 fix encoding bug [JP]
 % 2004/05/11 v0.2.1 add subsubsection to toc [JP]
@@ -101,7 +102,7 @@
 %    \begin{macrocode}
 %<*class>
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{fithesis}[2004/05/13 version 0.2.3 (FI) MU thesis class]
+\ProvidesClass{fithesis}[2004/05/17 version 0.2.4 (FI) MU thesis class]
 
 \ifx\clsclass\undefined
  \def\clsclass{rapport3}
@@ -331,9 +332,9 @@
 \def\DeclarationTextsk{%
 	Prehlasujem, ¾e táto \expandafter\lowecasewrapper\@thesissubtitle{} 
 	je mojím pôvodným autorským
-	dielom, které som vypracoval\@w\ samostatne. V¹etky zdroje, pramene a
+	dielom, ktoré som vypracoval\@w\ samostatne. V¹etky zdroje, pramene a
 	literatúru, ktoré som pri vypracovaní pou¾íval\@w\ alebo z~nich
-	èerpal\@w, v~práci riadne citujem s~uvedením úplného odkazu na pøíslu¹ný
+	èerpal\@w, v~práci riadne citujem s~uvedením úplného odkazu na príslu¹ný
 	zdroj.}
 \def\DeclarationTexten{%
 	Hereby I declare, that this paper is my original authorial work, 
