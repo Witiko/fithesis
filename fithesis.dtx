@@ -18,6 +18,8 @@
 % etc.
 %
 % History:
+% 2004/05/12 v0.2.2 fix encoding bug [JP]
+% 2004/05/11 v0.2.1 add subsubsection to toc [JP]
 % 2004/05/03 v0.2  add sk lang [JP, Peter Cerensky]
 %                  set default cls class to rapport3 [JP]
 % 2004/04/01 v0.1g change of default size (12pt->11pt) [JP]
@@ -98,7 +100,7 @@
 %    \begin{macrocode}
 %<*class>
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{fithesis}[2004/05/03 version 0.2 (FI) MU thesis class]
+\ProvidesClass{fithesis}[2004/05/12 version 0.2.2 (FI) MU thesis class]
 
 \ifx\clsclass\undefined
  \def\clsclass{rapport3}
@@ -179,7 +181,7 @@
 
 \usepackage[latin2]{inputenc}
 
-\setcounter{tocdepth}{3}
+\setcounter{tocdepth}{4}
 
 \input fit1\@ptsize.clo\relax
 
@@ -758,6 +760,7 @@
 \renewcommand*\l@chapter{\@dottedtocline{1}{0em}{1.5em}}
 \renewcommand*\l@section{\@dottedtocline{2}{1.5em}{2.3em}}
 \renewcommand*\l@subsection{\@dottedtocline{2}{3.8em}{3.2em}}
+\renewcommand*\l@subsubsection{\@dottedtocline{2}{7.0em}{3.8em}}
 
 %</class>
 %    \end{macrocode}
