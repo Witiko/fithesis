@@ -1,0 +1,105 @@
+%%
+%% This file will generate fast loadable files and documentation
+%% driver files from the doc files in this package when run through
+%% LaTeX or TeX.
+%%
+%% Copyright 1993 1994 1995 The LaTeX3 Project and any individual
+%% authors listed elsewhere in this file. 
+%% 
+%% This file is part of the LaTeX2e system.
+%% ----------------------------------------
+%%   This system is distributed in the hope that it will be useful,
+%%   but WITHOUT ANY WARRANTY; without even the implied warranty of
+%%   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+%% 
+%% IMPORTANT COPYRIGHT NOTICE:
+%% 
+%% You are NOT ALLOWED to distribute this file alone.
+%% 
+%% If you receive only some of these files from someone, complain!
+%% 
+%% 
+%% No other permissions to distribute this file in any form are
+%% granted and in particular NO PERMISSION to modify its contents.
+%% 
+%% You are NOT ALLOWED to change this file.
+%% 
+\def\batchfile{fithesis.ins}
+\input docstrip.tex
+\preamble
+
+
+Copyright 1993 1994 1995 The LaTeX3 Project and any individual
+authors listed elsewhere in this file. 
+
+For further copyright information, and conditions for modification
+and distribution, see the file legal.txt, and any other copyright
+notices in this file.
+
+This file is part of the LaTeX2e system.
+----------------------------------------
+  This system is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+IMPORTANT COPYRIGHT NOTICE:
+
+You are NOT ALLOWED to distribute this file alone.
+
+If you receive only some of these files from someone, complain!
+
+However, NO PERMISSION is granted to generate or to distribute a
+modified version of this file under its original name.
+ 
+You are NOT ALLOWED to change this file.
+
+
+MODIFICATION ADVICE:
+
+If you want to customize this file, it is best to make a copy of
+the source file(s) from which it was produced.  Use a different
+name for your copy(ies) and modify the copy(ies); this will ensure
+that your modifications do not get overwritten when you install a
+new release of the standard system.  You should also ensure that
+your modified source file does not generate any modified file with
+the same name as a standard file.
+
+You will also need to produce your own, suitably named, .ins file to
+control the generation of files from your source file; this file
+should contain your own preambles for the files it generates, not
+those in the standard .ins files.
+
+The names of the source files used are shown above.
+
+\endpreamble
+
+\def\batchfile{fithesis.dst}  % ignored in distribution
+\input docstrip.tex           % ignored in distribution
+
+\keepsilent
+
+\Msg{*** Generating the files ***}
+
+\generateFile{fithesis.cls}{t}{\from{fithesis.dtx}{class}}
+\generateFile{fit10.clo}{t}{\from{fithesis.dtx}{opt,10pt}}
+\generateFile{fit11.clo}{t}{\from{fithesis.dtx}{opt,11pt}}
+\generateFile{fit12.clo}{t}{\from{fithesis.dtx}{opt,12pt}}
+
+
+\Msg{***********************************************************}
+\Msg{*}
+\Msg{* To finish the installation you have to move the following}
+\Msg{* files into a directory searched by TeX:}
+\Msg{*}
+\Msg{* \space\space fithesis.cls}
+\Msg{* \space\space fit10.clo}
+\Msg{* \space\space fit11.clo}
+\Msg{* \space\space fit12.clo}
+\Msg{*}
+\Msg{* To produce the documentation run the files ending with}
+\Msg{* `.dtx' through LaTeX.}
+\Msg{*}
+\Msg{* Happy TeXing}
+\Msg{***********************************************************}
+
+\endinput

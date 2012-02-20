@@ -1,0 +1,1020 @@
+% \iffalse meta-comment
+% 
+% This file is part of 'fithesis' distribution 
+% --------------------------------------------
+%
+% (c) 1998--2003 Daniel Marek, Jan Pavloviè, Petr Sojka,
+% Faculty of Informatics, Masaryk University
+%
+% This file is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+%
+% You are not allowed to change this file.
+%
+% You are NOT ALLOWED to distribute this file alone.  You are NOT
+% ALLOWED to take money for the distribution or use of either this
+% file or a changed version, except for a nominal charge for copying
+% etc.
+%
+% History:
+% 2004/04/01 v0.1g change of default size (12pt->11pt) [JP]
+% 2004/01/24 v0.1f add documentation for hyperref [JP]
+% 2004/01/07 v0.1e add Brno to MU title [JP]
+% 2003/03/24 v0.1d removed def schapter from fit1*.clo [JP]
+% 2003/02/21 v0.1c default values of \facultyname and \@thesissubtitle
+%                  set for backward compatibility) [PS]
+% 2003/02/14 v0.1b change of default size (11pt->12pt) [JP]
+% 2003/02/12 v0.1a minor documentation changes (CZ only, sorry) [PS]
+% 2003/02/11 v0.1 new release, documentation editing (CZ only, sorry) [PS]
+% 2002 - changes by Jan Pavloviè to allow fithesis being
+%        backend of docbook based system for thesis writing
+% 1998 - bachelor project of Daniel Marek under supervision of Petr Sojka
+%
+% TODO:
+% - commented source
+% - index dodìlat
+% - adding reference to docbook
+% - english version
+%
+%    \begin{macrocode}
+%<*driver>
+\documentclass{ltxdoc}
+\makeindex
+\usepackage{czech}
+\usepackage{makeidx}
+\usepackage[latin2]{inputenc} % tento soubor je v ISO-Latin2
+\usepackage{csquot,mflogo}
+\EnableCrossrefs
+\begin{document}
+\DocInput{fithesis.dtx}
+\end{document}
+%</driver>
+%    \end{macrocode}
+% \fi
+%
+% \newcommand{\bs}{\char`\\}
+% \newcommand{\prikaz}[1]{\texttt{\bs #1}\index{#1@\texttt{\bs#1}}}
+% \newcommand{\fit}{\textsf{fithesis}}
+% \newcommand{\itm}[1]{\noindent{\bf #1}} 
+% \title{Sada maker \fit\ pro sazbu\\ diplomové a bakaláøské práce}
+% \author{Daniel Marek, Jan Pavloviè, Petr Sojka}
+% \date{\today}
+% \maketitle
+%
+% \begin{abstract}
+% \noindent 
+% Tento text popisuje instalaci a pou¾ití sady maker
+% pro sazbu diplomové a bakaláøské práce na Fakultì informatiky 
+% Masarykovy univerzity v~systému \LaTeX. U¾ivateli 
+% umo¾ní jednotnì
+% vysadit v¹echny potøebné povinné i nepovinné èásti stanovené
+% v~pokynech pro vypracování diplomové a bakaláøské práce 
+% na FI~MU. Jeho pou¾ití v¹ak automaticky \emph{nezaruèuje}
+% typografickou správnost, je tøeba ho pøípadnì pou¾ít jako
+% pomùcku.
+% \end{abstract}
+%
+% \tableofcontents
+%
+% \section{Instalace maker \texttt{fithesis}}
+% K~samotné instalaci stylu jsou potøeba alespoò dva soubory:
+% standardní instalaèní soubory \LaTeX u 
+% \texttt{fithesis.dtx} a \texttt{fithesis.ins}.
+% Proto¾e je v~makrech pou¾íváno písmo Palatino, logo
+% Fakulty informatiky a samotná sazba diplomové a bakaláøské práce je
+% zalo¾ena na stylu {\sf scrreprt}, je tøeba zároveò  
+% instalovat i tuto podporu, pokud ji distribuce \TeX u kterou
+% pou¾íváte neobsahuje.
+%
+% Po spu¹tìní instalace pøíkazem \texttt{tex fithesis.ins} se vygenerují
+% soubory \texttt{fithesis.cls} (základní tøída) a soubory \texttt{fit10.clo}, 
+% \texttt{fit11.clo} a \texttt{fit12.clo} (volby urèující velikost písma). 
+% Pøíkazem \texttt{cslatex fithesis.dtx} je mo¾né pøelo¾it dokumentaci.
+%
+% \iffalse
+%    \begin{macrocode}
+%<*class>
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesClass{fithesis}[2004/04/01 version 0.1g (FI) MU thesis class]
+
+\ifx\clsclass\undefined
+ \def\clsclass{scrreprt}
+\fi
+\LoadClass{\clsclass}
+
+%</class>
+%    \end{macrocode}
+% \fi
+%
+% \section{Pou¾ití tøídy \fit}
+% Pro pou¾ití sady maker uvedeme v~pøíkazu \prikaz{documentclass}
+% vytváøeného dokumentu tøídu (styl) \fit, která mù¾e být modifikována 
+% volbami, umístìnými ve volitelném parametru tohoto pøíkazu. 	
+% Mo¾né volby jsou tyto:
+% \begin{itemize}
+% \item [--]{\bf 10pt} -- zmìní základní velikost písma na 10~bodù. Pøi
+% této volbì je poèet øádek vysazené strany roven 40ti, prùmìrný poèet
+% znakù na øádku se pohybuje mezi 70ti a¾ 80ti. Nedoporuèováno,
+% pokud nebude pøi výsledném tisku tiskové zrcadlo zvìt¹ováno z~B5
+% na A4. 
+% \item [--]{\bf 11pt} -- základní velikost písma bude 11 bodù. 
+% Tato volba byla ve star¹í verzi nastavena implicitnì.
+% Poèet øádek vysazené strany je~40, 
+% prùmìrný poèet znakù na øádce pøi pou¾ití fontu Palatino
+% je 65 a¾~70.
+% \item [--]{\bf 12pt} -- Základní velikost písma se touto volbou zmìní na 
+% 12 bodù. Poèet øádek na stránce je 38, prùmìrný poèet znakù na øádce
+% je 55 a¾ 60. Tato volba je implicitní a doporuèována.
+% \item [--]{\bf oneside} -- Tato volba umo¾ní sazbu práce pouze
+% jednostranì, je nastavena implicitnì. Sazba je pouze 
+% na stranách lichých. Tato volba je implicitní a doporuèována.
+% \item [--]{\bf twoside} -- Sazba práce bude oboustraná,
+% rozli¹ují se liché a sudé strany, zaèátky kapitol a jiných významných
+% celkù jsou umístìny v¾dy na stranì liché, tedy pravé.
+% \item [--]{\bf onecolumn} -- Implicitnì nastavená volba pro sazbu textu
+% do jednoho sloupce na stránce. Text je zarovnaný oba okraje sloupce.
+% \item [--]{\bf twocolumn} -- Tato volba umo¾ní sazbu textu do dvou
+% sloupcù na stánku. Text je zarovnaný na oba okraje sloupce.
+% Tato volba je implicitní a doporuèována.
+% \item [--]{\bf draft} -- Po nastavení této volby bude ¹patnì zalomený
+% text na koncích øádkù zvýraznìn èerným obdélníèkem pro sna¾¹í vizuální
+% identifikaci. Dále volbu pøebírají dal¹í balíky, jako je 
+% \texttt{graphics}, a zde zpùsobí sazbu rámeèkù místo
+% vkládání obrázkù.
+% \item [--]{\bf final} -- Opak volby draft. Tato volba je nastavena
+% implicitnì.
+% \end{itemize}
+% Jednotlivé volby se mohou patøiènì kombinovat. Lze volit mezi velikostí
+% základního písma (10pt, 11pt a 12pt), mezi sazbou jednostrannou a
+% oboustrannou, sazbou jednosloupcovou a dvousloupcovou a mezi koneènou
+% finální podobou a konceptem dokumentu (volby final a draft). 
+% \iffalse
+%    \begin{macrocode}
+%<*class>
+\DeclareOption{10pt}{\renewcommand\@ptsize{0}}
+\DeclareOption{11pt}{\renewcommand\@ptsize{1}}
+\DeclareOption{12pt}{\renewcommand\@ptsize{2}}
+\DeclareOption{oneside}{\@twosidefalse \@mparswitchfalse}
+\DeclareOption{twoside}{\@twosidetrue  \@mparswitchtrue}
+\DeclareOption{onecolumn}{\@twolumnfalse}
+\DeclareOption{twocolumn}{\@twocolumntrue}
+\DeclareOption{draft}{\setlength\overfullrule{5pt}}
+\DeclareOption{final}{\setlength\overfullrule{0pt}}
+
+\ExecuteOptions{11pt,oneside,final}
+\ProcessOptions
+
+\RequirePackage{palatino}
+
+%%\newcommand*\ChapFont{\bfseries}
+%%\newcommand*\PageFont{\bfseries}
+
+\setcounter{tocdepth}{3}
+
+\input fit1\@ptsize.clo\relax
+
+\def\ps@thesisheadings{%
+\def\chaptermark##1{%
+\markright{%
+\ifnum\c@secnumdepth >\m@ne
+\thechapter.\ %
+\fi ##1}}
+\let\@oddfoot\@empty
+\let\@oddhead\@empty
+\def\@oddhead{\vbox{\hbox to \textwidth{%
+\hfil{\sc\rightmark}}\vskip 4pt\hrule}}
+\if@twoside
+ \def\@evenhead{\vbox{\hbox to \textwidth{%
+ {\sc\rightmark}\hfil}\vskip 4pt\hrule}}
+\else
+ \let\@evenhead\@oddhead
+\fi
+\def\@oddfoot{\hfil\PageFont\thepage}
+\if@twoside
+ \def\@evenfoot{\PageFont\thepage\hfil}%
+\else
+ \let\@evenfoot\@oddfoot
+\fi
+}
+
+\renewcommand*\chapter{%
+\if@twoside
+ \clearpage
+ \thispagestyle{empty}
+ \cleardoublepage
+\else
+ \clearpage
+\fi
+\thispagestyle{plain}%
+\global\@topnum\z@
+\@afterindentfalse
+\secdef\@chapter\@schapter}
+
+\renewcommand*\part{%
+\clearpage
+\thispagestyle{empty}
+\cleardoublepage
+\thispagestyle{empty}%
+\if@twocolumn%
+ \onecolumn
+ \@tempswatrue
+\else
+ \@tempswafalse
+\fi
+\hbox{}\vfil
+\secdef\@part\@spart}
+
+\font\filogo fi-logo at 40mm
+\def\logopath{loga/}
+\def\facultylogo{\logopath\@thesisfaculty-logo}
+\def\universityname{Masarykova univerzita v Brnì}
+\def\facultyname{Fakulta informatiky}
+\def\@thesissubtitle{Diplomová práce}
+\def\lowecasewrapper#1{\lowercase{#1}}
+\def\Fi{fi}
+\def\Sci{sci}
+\def\Law{law}
+\def\Eco{eco}
+\def\Fss{fss}
+\def\Med{med}
+\def\Ped{ped}
+\def\Phil{phil}
+\def\True{true}
+
+\def\titlefont{\fontsize\@xxvpt{30}\selectfont}
+\def\thesistitle#1{\gdef\@thesistitle{#1}}
+\def\thesisstudent#1{\gdef\@thesisstudent{#1}}
+\def\thesisyear#1{\gdef\@thesisyear{#1}}
+\def\thesisplaceyear{Brno, \@thesisyear}
+\def\thesissubtitle#1{\gdef\@thesissubtitle{#1}}
+\def\thesisuniversity#1{\gdef\@thesisuniversity{#1}}
+\def\thesislogo#1{\gdef\@thesislogo{#1}}
+\def\thesisadvisor#1{\gdef\@thesisadvisor{#1}}
+\def\thesisfaculty#1{\gdef\@thesisfaculty{#1}
+\ifx\@thesisfaculty\Fi
+ \def\facultyname{Fakulta informatiky}
+ \else \ifx\@thesisfaculty\Sci
+  \def\facultyname{Pøírodovìdecká fakulta}
+  \else \ifx\@thesisfaculty\Law
+   \def\facultyname{Právnická fakulta}
+   \else \ifx\@thesisfaculty\Eco
+    \def\facultyname{Ekonomicko-správní fakulta}
+    \else \ifx\@thesisfaculty\Fss
+     \def\facultyname{Fakulta sociálních studií}
+     \else \ifx\@thesisfaculty\Med
+      \def\facultyname{Lékaøská fakulta}
+      \else \ifx\@thesisfaculty\Ped
+       \def\facultyname{Pedagogická fakulta}
+       \else \ifx\@thesisfaculty\Phil
+        \def\facultyname{Filozofická fakulta}
+        \else
+         \def\facultyname{\@thesisfaculty}
+         \def\universityname{\@thesisuniversity}
+         \def\facultylogo{\@thesislogo}
+         \def\thesisplaceyear{\@thesisyear}
+        \fi
+       \fi
+      \fi
+     \fi
+    \fi
+   \fi
+  \fi
+\fi
+}
+
+\newif\if@restonecol
+
+\def\alwayssingle{%
+\@restonecolfalse\if@twocolumn\@restonecoltrue\onecolumn\fi}
+\def\endalwayssingle{\if@restonecol\twocolumn\fi}
+
+%</class>
+%    \end{macrocode}
+% \fi
+%
+% \iffalse
+%    \begin{macrocode}
+%<*class>
+\newif\ifwoman\womanfalse
+\def\w{\ifwoman{a}\else\fi}
+\def\thesiswoman#1{\gdef\@thesiswoman{#1}
+\ifx\@thesiswoman\True\def\w{a}\else\def\w{}\fi}
+
+\def\DeclarationText{%
+Prohla¹uji, ¾e tato \expandafter\lowecasewrapper\@thesissubtitle{} 
+je mým pùvodním autorským
+dílem, které jsem vypracoval\w\ samostatnì. V¹echny zdroje, prameny a
+literaturu, které jsem pøi vypracování pou¾íval\w\ nebo z~nich
+èerpal\w, v~práci øádnì cituji s~uvedením úplného odkazu na pøíslu¹ný
+zdroj.}
+
+\def\AdvisorName{\par\vfill{\bf Vedoucí práce:} \@thesisadvisor}
+
+\def\FrontMatter{%
+\pagestyle{plain}
+\parindent 1.5em
+\setcounter{page}{1}
+\pagenumbering{roman}}
+
+\newcommand{\ThesisTitlePage}{
+\begin{alwayssingle}
+\thispagestyle{empty}
+\begin{center}
+{\sc \universityname\\ \facultyname}
+\vskip 1em
+
+\ifx\@thesisfaculty\Fi
+ {\filogo SL}\\[0.4in]
+\else
+ \includegraphics[width=40mm]{\facultylogo}\\[0.4in]
+\fi
+
+\let\footnotesize\small
+\let\footnoterule\relax{}
+{\titlefont\bf\@thesistitle}\\[0.8in]
+{\sc \@thesissubtitle}\\[0.3in]
+{\Large\bf\@thesisstudent}
+\par\vfill
+{\large \thesisplaceyear}
+\end{center}
+\end{alwayssingle}
+\newpage}
+
+\newenvironment{ThesisDeclaration}{%
+\begin{alwayssingle}
+\chapter*{Prohlá¹ení}}
+{\par\vfil
+\end{alwayssingle}
+\newpage}
+
+\newenvironment{ThesisThanks}{%
+\begin{alwayssingle}
+\chapter*{Podìkování}}
+{\par\vfill
+\end{alwayssingle}
+\newpage}
+
+\newenvironment{ThesisAbstract}{%
+\begin{alwayssingle}
+\chapter*{Shrnutí}}
+{\par\vfil\null
+\end{alwayssingle}
+\newpage}
+
+\newenvironment{ThesisKeyWords}{%
+\begin{alwayssingle}
+\chapter*{Klíèová slova}}
+{\par\vfill
+\end{alwayssingle}
+\newpage}
+
+\def\MainMatter{%
+\if@twoside
+ \clearpage
+ \thispagestyle{empty}
+ \cleardoublepage
+\else
+ \clearpage
+\fi
+\setcounter{page}{1}
+\pagenumbering{arabic}
+\pagestyle{thesisheadings}
+\parindent 1.5em}
+
+%</class>
+%    \end{macrocode}
+% \fi
+%
+% \section{Popis jednotlivých maker}
+% Následující makra slou¾í k vlo¾ení základních údajù potøebných 
+% k~vysazení titulní strany. Na titulní stranu se kromì názvu
+% práce, jména studenta a roku vypracování vysadí také logo fakulty.
+%
+% \begin{macro}{\thesistitle}
+% Makro umo¾ní vlo¾it název práce, u dvouøádkových
+% èi víceøádkových názvù se standardnì oddìlí jednotlivé èásti
+% pøíkazem $\backslash$$\backslash$ s volitelným parametrem 
+% meziøádkového prokladu.
+% \end{macro}
+%
+% \begin{macro}{\thesissubtitle}
+% Makro umo¾ní vlo¾it název typu práce, napø. bakaláøská práce
+% diplomová práce atd.
+% \end{macro}
+%
+% \begin{macro}{\thesisstudent}
+% Makro umo¾ní pomocí svého jediného parametru vlo¾it jméno studenta.
+% \end{macro}
+%
+% \begin{macro}{\thesiswoman}
+% Makro umo¾ní vlo¾it pohlaví studenta, volby jsou: true, false 
+% (nahrazuje pou¾ití pøepínaèe \prikaz{ifwoman}).
+% \end{macro}
+%
+% \begin{macro}{\thesisfaculty}
+% Makro umo¾ní stanovit pod jakou fakultou byla práce napsána. Podle toho
+% se také vlo¾í patøièné logo a název fakulty na titulní stránku.
+% Jsou podporovány tyto fakulty MU:
+% \begin{itemize}
+% \item Fakulta informatiky -- fi\footnote{Pou¾ije se originální 
+% opticky ¹kálované logo v~jazyce~\MF{}.},  
+% \item Pøírodovìdecká fakulta -- sci,
+% \item Právnická fakulta -- law,
+% \item Ekonomicko-správní fakulta -- eco,
+% \item Fakulta sociálních studií -- fss,
+% \item Lékaøská fakulta -- med,
+% \item Pedagogická fakulta -- ped,
+% \item Filozofická fakulta -- phil
+% \end{itemize}
+% napøíklad: \prikaz{thesisfaculty\{fi\}}.
+% Lze pou¾ít i vlastní název, pokud práce není psaná pod 
+% ¾ádnou z~vý¹e uvedených fakult MU, pak je nutné zadat 
+% i název univerzity \prikaz{thesisuniversity\{\}}, 
+% jméno souboru loga fakulty (bez pøípony) 
+% \prikaz{thesislogo\{\}} a té¾ do makra 
+% \prikaz{thesisyear\{\}} sídlo dané univerzity 
+% (pro MU toto není tøeba).
+% \end{macro}
+%
+% \begin{macro}{\thesisyear}
+% Makro umo¾ní vlo¾it rok vypracování práce. 
+% \end{macro}
+%
+% \begin{macro}{\thesisadvisor}
+% Makro umo¾ní vlo¾it jméno vedoucího práce.
+% \end{macro}
+%
+% \begin{macro}{\thesisuniversity}
+% Makro umo¾ní stanovit pod jakou univerzitou byla práce napsána.
+% Má význam jen v pøípadì, ¾e práce není psaná pod MU.
+% \end{macro}
+%
+% \begin{macro}{\thesislogo}
+% Makro umo¾ní stanovit soubor (bez pøípony) loga fakulty pod jakou byla práce napsaná.
+% Má význam jen v~pøípadì, ¾e práce není psaná pod MU.
+% \end{macro}
+%
+% \begin{macro}{\ThesisTitlePage}
+% Titulní strana práce se vysadí pøíkazem 
+% \prikaz{ThesisTitlePage} a vyu¾ije pøedem zadaných údajù
+% názvu práce a jména studenta a roku vypracování.
+% \end{macro}
+%
+% \begin{macro}{\FrontMatter}
+% Toto makro se vlo¾í na zaèátek dokumentu (nejlépe za pøíkaz
+% \prikaz{begin\{document\}}). 
+% První strany dokumentu obsahujících prohlá¹ení, abstrakt a klíèová
+% slova se nastaví na øímské èíslování. U~dal¹ích stran vèetnì
+% obsahu a následujících kapitol se pomocí makra \prikaz{MainMatter} 
+% nastaví arabské èíslování.
+% \end{macro}
+%
+% \subsubsection*{Povinné èásti diplomové práce}
+% Následující makra jsou potøebná k vysazení povinných èástí diplomové
+% práce. Jsou jimi {\it prohlá¹ení o samostatném vypracování\/}, {\it 
+% shrnutí diplomové práce\/} a {\it klíèová slova\/}. Nepovinou èástí je
+% {\it podìkování\/}. Pro v¹echny tyto celky je v¾dy definováno prostøedí,
+% které zajistí kromì vysazení ka¾dé èásti na samostatnou stranu
+% napøíklad také
+% jednotné styly nadpisù. Poslední povinnou èástí je {\it seznam
+% literatury\/}, ten se, stejnì jako {\it obsah diplomové práce\/} ji¾
+% sází pomocí standardních \LaTeX ových pøíkazù. 
+%
+% \begin{macro}{ThesisDeclaration}
+% Prostøedí \texttt{ThesisDeclaration} vysadí stránku s prohlá¹ením o
+% samostatném vypracování
+% diplomové práce. Text tohoto prohlá¹ení mù¾e u¾ivatel pøedefinovat
+% pomocí makra \prikaz{DeclarationText}. Implicitnì sázený text je
+% následovný: 
+% \begin{quote}{\it
+% Prohla¹uji, ¾e tato diplomová práce je mým pùvodním autorským
+% dílem, které jsem vypracoval samostatnì. V¹echny zdroje, prameny a
+% literaturu, které jsem pøi vypracování pou¾íval nebo z~nich
+% èerpal, v~práci øádnì cituji s~uvedením úplného odkazu na pøíslu¹ný
+% zdroj.}
+% \end{quote}
+% Dále se vlo¾í makro \prikaz{AdvisorName}, které vysází údaje o vedoucím práce.
+% \end{macro}
+%
+% \begin{macro}{ThesisThanks}
+% Toto prostøedí umo¾ní vysadit {\it podìkování\/}.
+% \end{macro}
+% \begin{macro}{ThesisAbstract}
+% {\it Shrnutí\/} diplomové práce je mo¾no vysadit pomocí prostøedí {\tt
+% ThesisAbstract}. Shrnutí by mìlo zabírat prostor nejvý¹e jedné strany. 
+% \end{macro}
+%
+% \begin{macro}{ThesisKeyWords}
+% {\it Klíèová slova\/} oddìlená èárkami se vepí¹í do prostøedí {\tt
+% ThesisKeyWords}. 
+% \end{macro}
+%
+% \begin{macro}{\MainMatter}
+% Makro \prikaz{MainMatter} nastaví kromì arabského èíslování stránek  
+% také implicitní styl stránky pro sazbu následujících kapitol. V~tomto
+% stylu se do hlavièky stránky vkládá název aktuální kapitoly a od
+% ostatního textu se záhlaví oddìlí horizontální èarou.
+% \end{macro}
+%
+% Proto¾e je pou¾ito dvojí èíslování je nutné zadat hyperrefu
+% parametry, které zajistí správné odkazování unitø dokumentu.
+% \prikaz{usepackage[plainpages=false, pdfpagelabels]{hyperref}}
+%
+% Dal¹í text diplomové práce (obsah, úvod, jednotlivé kapitoly a èásti,
+% popøípadì závìr, literatura èi dodatky) se ji¾ sází standardními
+% pøíkazy. Následuje zjednodu¹ený ukázkový pøíklad 
+% \textit{kostry} diplomové práce.
+% \begin{verbatim}
+%
+% \documentclass[12pt,draft,oneside]{fithesis}
+% \usepackage[plainpages=false, pdfpagelabels]{hyperref}
+%
+% \thesistitle{Tvorba dokumentu v XML}
+% \thesissubtitle{Bakaláøská práce}
+% \thesisstudent{Jméno Pøíjmení}
+% \thesiswoman{false}
+% \thesisfaculty{fi}
+% \thesisyear{jaro 2003}
+% \thesisadvisor{Jméno Pøíjmení}
+%
+% \begin{document}
+% \FrontMatter
+% \ThesisTitlePage
+% 
+% \begin{ThesisDeclaration}
+% \DeclarationText
+% \AdvisorName
+% \end{ThesisDeclaration}
+%
+% \begin{ThesisThanks}
+% Zde bude uvedeno \uv{podìkování} ...
+% \end{ThesisThanks}
+% 
+% Obdobnì jako podìkování se mohou vysadit shrnutí a klíèová
+% slova pomocí prostøedí "ThesisAbstract" a "ThesisKeyWords".
+%
+% \MainMatter
+% \tableofcontents
+% \chapter*{Úvod}
+% Text \ldots
+%
+% % Následují dal¹í kapitoly a podkapitoly, popøípadì závìr, dodatky,
+% % seznam literatury èi pou¾itých obrázkù nebo tabulek.
+%
+% \bibliographystyle{plain}  % bibliografický styl
+% \bibliography{mujbisoubor} % soubor s citovanými 
+%                            % polo¾kami bibliografie
+% \end{document}
+% \end{verbatim}
+% 
+% \printindex
+% \iffalse
+%    \begin{macrocode}
+%<*class>
+
+\renewcommand*\l@part[2]{%
+  \ifnum \c@tocdepth >-2\relax
+    \addpenalty{-\@highpenalty}%
+    \addvspace{0.5em \@plus\p@}%
+    \begingroup
+      \setlength\@tempdima{3em}%
+      \parindent \z@ \rightskip \@pnumwidth
+      \parfillskip -\@pnumwidth
+      {\leavevmode
+       \normalfont \bfseries #1\hfil \hb@xt@\@pnumwidth{\hss #2}}\par
+       \nobreak
+         \global\@nobreaktrue
+         \everypar{\global\@nobreakfalse\everypar{}}%
+    \endgroup
+    \addvspace{0.2em \@plus\p@}%
+  \fi}
+
+\renewcommand*\l@chapter[2]{%
+  \ifnum \c@tocdepth >\m@ne
+    \addpenalty{-\@highpenalty}%
+    \vskip 1.0em \@plus\p@
+    \setlength\@tempdima{1.5em}%
+    \begingroup
+      \parindent \z@ \rightskip \@pnumwidth
+      \parfillskip -\@pnumwidth
+      \leavevmode \bfseries
+      \advance\leftskip\@tempdima
+      \hskip -\leftskip
+      #1\nobreak\hfil \nobreak\hb@xt@\@pnumwidth{\hss #2}\par
+      \penalty\@highpenalty
+    \endgroup
+  \fi}
+
+\renewcommand*\l@chapter{\@dottedtocline{1}{0em}{1.5em}}
+\renewcommand*\l@section{\@dottedtocline{2}{1.5em}{2.3em}}
+\renewcommand*\l@subsection{\@dottedtocline{2}{3.8em}{3.2em}}
+
+%</class>
+%    \end{macrocode}
+% \fi
+% 
+%
+% \iffalse
+%    \begin{macrocode}
+%<*opt>
+%<*10pt>
+\ProvidesFile{fit10.clo}[1998/03/30 fithesis (size option)]
+
+\renewcommand{\normalsize}{\fontsize\@xpt{12}\selectfont%
+\abovedisplayskip 10\p@ plus2\p@ minus5\p@
+\belowdisplayskip \abovedisplayskip
+\abovedisplayshortskip  \z@ plus3\p@
+\belowdisplayshortskip  6\p@ plus3\p@ minus3\p@
+\let\@listi\@listI}
+
+\renewcommand{\small}{\fontsize\@ixpt{11}\selectfont%
+\abovedisplayskip 8.5\p@ plus3\p@ minus4\p@
+\belowdisplayskip \abovedisplayskip
+\abovedisplayshortskip \z@ plus2\p@
+\belowdisplayshortskip 4\p@ plus2\p@ minus2\p@
+\def\@listi{\leftmargin\leftmargini
+\topsep 4\p@ plus2\p@ minus2\p@\parsep 2\p@ plus\p@ minus\p@
+\itemsep \parsep}}
+
+\renewcommand{\footnotesize}{\fontsize\@viiipt{9.5}\selectfont%
+\abovedisplayskip 6\p@ plus2\p@ minus4\p@
+\belowdisplayskip \abovedisplayskip
+\abovedisplayshortskip \z@ plus\p@
+\belowdisplayshortskip 3\p@ plus\p@ minus2\p@
+\def\@listi{\leftmargin\leftmargini %% Added 22 Dec 87
+\topsep 3\p@ plus\p@ minus\p@\parsep 2\p@ plus\p@ minus\p@
+\itemsep \parsep}}
+
+\renewcommand{\scriptsize}{\fontsize\@viipt{8pt}\selectfont}
+\renewcommand{\tiny}{\fontsize\@vpt{6pt}\selectfont}
+\renewcommand{\large}{\fontsize\@xiipt{14pt}\selectfont}
+\renewcommand{\Large}{\fontsize\@xivpt{18pt}\selectfont}
+\renewcommand{\LARGE}{\fontsize\@xviipt{22pt}\selectfont}
+\renewcommand{\huge}{\fontsize\@xxpt{25pt}\selectfont}
+\renewcommand{\Huge}{\fontsize\@xxvpt{30pt}\selectfont}
+
+%</10pt>
+%
+%<*11pt>
+\ProvidesFile{fit11.clo}[1998/03/30 fithesis (size option)]
+
+\renewcommand{\normalsize}{\fontsize\@xipt{14}\selectfont%
+\abovedisplayskip 11\p@ plus3\p@ minus6\p@
+\belowdisplayskip \abovedisplayskip
+\belowdisplayshortskip  6.5\p@ plus3.5\p@ minus3\p@
+%\abovedisplayshortskip  \z@ plus3\@p
+\let\@listi\@listI}
+
+\renewcommand{\small}{\fontsize\@xpt{12}\selectfont%
+\abovedisplayskip 10\p@ plus2\p@ minus5\p@ 
+\belowdisplayskip \abovedisplayskip
+\abovedisplayshortskip  \z@ plus3\p@
+\belowdisplayshortskip  6\p@ plus3\p@ minus3\p@
+\def\@listi{\leftmargin\leftmargini
+\topsep 6\p@ plus2\p@ minus2\p@\parsep 3\p@ plus2\p@ minus\p@
+\itemsep \parsep}}
+
+\renewcommand{\footnotesize}{\fontsize\@ixpt{11}\selectfont%
+\abovedisplayskip 8\p@ plus2\p@ minus4\p@
+\belowdisplayskip \abovedisplayskip
+\abovedisplayshortskip \z@ plus\p@ 
+\belowdisplayshortskip 4\p@ plus2\p@ minus2\p@
+\def\@listi{\leftmargin\leftmargini
+\topsep 4\p@ plus2\p@ minus2\p@\parsep 2\p@ plus\p@ minus\p@
+\itemsep \parsep}}
+
+\renewcommand{\scriptsize}{\fontsize\@viiipt{9.5pt}\selectfont}
+\renewcommand{\tiny}{\fontsize\@vipt{7pt}\selectfont}
+\renewcommand{\large}{\fontsize\@xiipt{14pt}\selectfont}
+\renewcommand{\Large}{\fontsize\@xivpt{18pt}\selectfont}
+\renewcommand{\LARGE}{\fontsize\@xviipt{22pt}\selectfont}
+\renewcommand{\huge}{\fontsize\@xxpt{25pt}\selectfont}
+\renewcommand{\Huge}{\fontsize\@xxvpt{30pt}\selectfont}
+
+%</11pt>
+%
+%<*12pt>
+\ProvidesFile{fit12.clo}[1998/03/30 fithesis (size option)]
+
+\renewcommand{\normalsize}{\fontsize\@xiipt{14.5}\selectfont%
+\abovedisplayskip 12\p@ plus3\p@ minus7\p@
+\belowdisplayskip \abovedisplayskip
+\abovedisplayshortskip  \z@ plus3\p@
+\belowdisplayshortskip  6.5\p@ plus3.5\p@ minus3\p@
+\let\@listi\@listI}
+
+\renewcommand{\small}{\fontsize\@xipt{13.6}\selectfont%
+\abovedisplayskip 11\p@ plus3\p@ minus6\p@
+\belowdisplayskip \abovedisplayskip
+\abovedisplayshortskip  \z@ plus3\p@
+\belowdisplayshortskip  6.5\p@ plus3.5\p@ minus3\p@
+\def\@listi{\leftmargin\leftmargini %% Added 22 Dec 87
+\parsep 4.5\p@ plus2\p@ minus\p@
+            \itemsep \parsep
+            \topsep 9\p@ plus3\p@ minus5\p@}}
+
+\renewcommand{\footnotesize}{\fontsize\@xpt{12}\selectfont%
+\abovedisplayskip 10\p@ plus2\p@ minus5\p@
+\belowdisplayskip \abovedisplayskip
+\abovedisplayshortskip  \z@ plus3\p@
+\belowdisplayshortskip  6\p@ plus3\p@ minus3\p@
+\def\@listi{\leftmargin\leftmargini %% Added 22 Dec 87
+\topsep 6\p@ plus2\p@ minus2\p@\parsep 3\p@ plus2\p@ minus\p@
+\itemsep \parsep}}
+            
+\renewcommand{\scriptsize}{\fontsize\@viiipt{9.5pt}\selectfont}
+\renewcommand{\tiny}{\fontsize\@vipt{7pt}\selectfont}
+\renewcommand{\large}{\fontsize\@xivpt{18pt}\selectfont}
+\renewcommand{\Large}{\fontsize\@xviipt{22pt}\selectfont}
+\renewcommand{\LARGE}{\fontsize\@xxpt{25pt}\selectfont}
+\renewcommand{\huge}{\fontsize\@xxvpt{30pt}\selectfont}
+\renewcommand{\Huge}{\fontsize\@xxvpt{30pt}\selectfont}
+
+%</12pt>
+\let\@normalsize\normalsize
+\normalsize
+
+\if@twoside               
+   \oddsidemargin 0.75in  
+   \evensidemargin 0.4in  
+   \marginparwidth 0pt    
+\else                     
+   \oddsidemargin 0.75in  
+   \evensidemargin 0.75in
+   \marginparwidth 0pt
+\fi
+\marginparsep 10pt        
+
+\topmargin 0.4in          
+                          
+\headheight 20pt          
+\headsep 10pt             
+\topskip 10pt    
+\footskip 30pt 
+
+%<*10pt>
+\textheight = 43\baselineskip
+\advance\textheight by \topskip
+\textwidth 5.0truein
+\columnsep 10pt       
+\columnseprule 0pt
+
+\footnotesep 6.65pt
+\skip\footins 9pt plus 4pt minus 2pt
+\floatsep 12pt plus 2pt minus 2pt
+\textfloatsep 20pt plus 2pt minus 4pt
+\intextsep 12pt plus 2pt minus 2pt
+\dblfloatsep 12pt plus 2pt minus 2pt
+\dbltextfloatsep 20pt plus 2pt minus 4pt
+
+\@fptop 0pt plus 1fil
+\@fpsep 8pt plus 2fil
+\@fpbot 0pt plus 1fil
+\@dblfptop 0pt plus 1fil
+\@dblfpsep 8pt plus 2fil
+\@dblfpbot 0pt plus 1fil
+\marginparpush 5pt
+
+\parskip 0pt plus 1pt
+\partopsep 2pt plus 1pt minus 1pt
+
+%</10pt>
+%
+%<*11pt>
+\textheight = 39\baselineskip
+\advance\textheight by \topskip
+\textwidth 5.0truein
+\columnsep 10pt
+\columnseprule 0pt
+
+\footnotesep 7.7pt
+\skip\footins 10pt plus 4pt minus 2pt
+\floatsep 12pt plus 2pt minus 2pt
+\textfloatsep 20pt plus 2pt minus 4pt
+\intextsep 12pt plus 2pt minus 2pt
+\dblfloatsep 12pt plus 2pt minus 2pt
+\dbltextfloatsep 20pt plus 2pt minus 4pt
+
+\@fptop 0pt plus 1fil
+\@fpsep 8pt plus 2fil
+\@fpbot 0pt plus 1fil
+\@dblfptop 0pt plus 1fil
+\@dblfpsep 8pt plus 2fil
+\@dblfpbot 0pt plus 1fil
+\marginparpush 5pt 
+
+\parskip 0pt plus 0pt
+\partopsep 3pt plus 1pt minus 2pt
+
+%</11pt>
+%
+%<*12pt>
+\textheight = 37\baselineskip
+\advance\textheight by \topskip
+\textwidth 5.0truein
+\columnsep 10pt
+\columnseprule 0pt
+
+\footnotesep 8.4pt
+\skip\footins 10.8pt plus 4pt minus 2pt
+\floatsep 14pt plus 2pt minus 4pt 
+\textfloatsep 20pt plus 2pt minus 4pt
+\intextsep 14pt plus 4pt minus 4pt
+\dblfloatsep 14pt plus 2pt minus 4pt
+\dbltextfloatsep 20pt plus 2pt minus 4pt
+
+\@fptop 0pt plus 1fil
+\@fpsep 10pt plus 2fil
+\@fpbot 0pt plus 1fil
+\@dblfptop 0pt plus 1fil
+\@dblfpsep 10pt plus 2fil
+\@dblfpbot 0pt plus 1fil
+\marginparpush 7pt
+
+\parskip 0pt plus 0pt
+\partopsep 3pt plus 2pt minus 2pt
+
+%</12pt>
+\@lowpenalty   51
+\@medpenalty  151
+\@highpenalty 301
+\@beginparpenalty -\@lowpenalty
+\@endparpenalty   -\@lowpenalty
+\@itempenalty     -\@lowpenalty
+
+\def\@makechapterhead#1{%
+  \vspace*{50\p@ \@plus 5\p@}%
+  {\setlength\parindent{\z@}%
+   \setlength\parskip  {\z@}%
+    \ifnum \c@secnumdepth >\m@ne
+        \large\ChapFont \@chapapp{} \thechapter
+        \par\nobreak
+        \vskip 10\p@
+    \fi
+    \Large \ChapFont #1\par
+    \nobreak
+    \vskip 20\p@
+  }}
+
+\def\@makeschapterhead#1{%
+  \vspace*{50\p@ \@plus 5\p@}%
+  {\setlength\parindent{\z@}%
+   \setlength\parskip  {\z@}%
+   \Large \ChapFont #1\par
+    \nobreak
+    \vskip 20\p@
+  }}
+
+\def\chapter{\clearpage  
+   \thispagestyle{plain}
+   \global\@topnum\z@ 
+   \@afterindentfalse  
+ \secdef\@chapter\@schapter}
+
+\def\@chapter[#1]#2{\ifnum \c@secnumdepth >\m@ne
+        \refstepcounter{chapter}%
+        \typeout{\@chapapp\space\thechapter.}% 
+        \addcontentsline{toc}{chapter}{\protect
+        \numberline{\thechapter}\bfseries #1}\else
+      \addcontentsline{toc}{chapter}{\bfseries #1}\fi
+   \chaptermark{#1}%
+   \addtocontents{lof}%
+       {\protect\addvspace{4\p@}} 
+   \addtocontents{lot}%
+       {\protect\addvspace{4\p@}} 
+   \if@twocolumn                   
+           \@topnewpage[\@makechapterhead{#2}]%
+     \else \@makechapterhead{#2}%
+           \@afterheading          
+     \fi}                     
+
+%\def\@schapter#1{\if@twocolumn \@topnewpage[\@makeschapterhead{#1}]%
+%        \else \@makeschapterhead{#1}%
+%              \markright{#1}
+%              \@afterheading\fi}
+
+\def\section{\@startsection {section}{1}{\z@}{-3.5ex plus-1ex minus
+    -.2ex}{2.3ex plus.2ex}{\reset@font\large\bfseries}}
+\def\subsection{\@startsection{subsection}{2}{\z@}{-3.25ex plus-1ex
+    minus-.2ex}{1.5ex plus.2ex}{\reset@font\normalsize\bfseries}}
+\def\subsubsection{\@startsection{subsubsection}{3}{\z@}{-3.25ex plus   
+    -1ex minus-.2ex}{1.5ex plus.2ex}{\reset@font\normalsize}}
+\def\paragraph{\@startsection
+    {paragraph}{4}{\z@}{3.25ex plus1ex minus.2ex}{-1em}{\reset@font
+    \normalsize\bfseries}}
+\def\subparagraph{\@startsection
+     {subparagraph}{4}{\parindent}{3.25ex plus1ex minus
+     .2ex}{-1em}{\reset@font\normalsize\bfseries}}
+
+\setcounter{secnumdepth}{2}
+
+\def\appendix{\par
+  \setcounter{chapter}{0}%
+  \setcounter{section}{0}%
+  \def\@chapapp{\appendixname}%
+  \def\thechapter{\Alph{chapter}}}
+
+\leftmargini 2.5em
+\leftmarginii 2.2em     % > \labelsep + width of '(m)'
+\leftmarginiii 1.87em   % > \labelsep + width of 'vii.'
+\leftmarginiv 1.7em     % > \labelsep + width of 'M.'
+\leftmarginv 1em
+\leftmarginvi 1em
+
+\leftmargin\leftmargini
+\labelsep .5em
+\labelwidth\leftmargini\advance\labelwidth-\labelsep
+
+%<*10pt>
+\def\@listI{\leftmargin\leftmargini \parsep 4\p@ plus2\p@ minus\p@%
+\topsep 8\p@ plus2\p@ minus4\p@
+\itemsep 4\p@ plus2\p@ minus\p@}
+
+\let\@listi\@listI
+\@listi
+
+\def\@listii{\leftmargin\leftmarginii
+   \labelwidth\leftmarginii\advance\labelwidth-\labelsep
+   \topsep 4\p@ plus2\p@ minus\p@
+   \parsep 2\p@ plus\p@ minus\p@
+   \itemsep \parsep}
+
+\def\@listiii{\leftmargin\leftmarginiii
+    \labelwidth\leftmarginiii\advance\labelwidth-\labelsep
+    \topsep 2\p@ plus\p@ minus\p@
+    \parsep \z@ \partopsep\p@ plus\z@ minus\p@
+    \itemsep \topsep}
+
+\def\@listiv{\leftmargin\leftmarginiv
+     \labelwidth\leftmarginiv\advance\labelwidth-\labelsep}
+   
+\def\@listv{\leftmargin\leftmarginv
+     \labelwidth\leftmarginv\advance\labelwidth-\labelsep}
+   
+\def\@listvi{\leftmargin\leftmarginvi
+     \labelwidth\leftmarginvi\advance\labelwidth-\labelsep}
+%</10pt>
+%
+%<*11pt>
+\def\@listI{\leftmargin\leftmargini \parsep 4.5\p@ plus2\p@ minus\p@
+\topsep 9\p@ plus3\p@ minus5\p@
+\itemsep 4.5\p@ plus2\p@ minus\p@}
+
+\let\@listi\@listI
+\@listi
+
+\def\@listii{\leftmargin\leftmarginii
+   \labelwidth\leftmarginii\advance\labelwidth-\labelsep
+   \topsep 4.5\p@ plus2\p@ minus\p@
+   \parsep 2\p@ plus\p@ minus\p@
+   \itemsep \parsep}
+
+\def\@listiii{\leftmargin\leftmarginiii
+    \labelwidth\leftmarginiii\advance\labelwidth-\labelsep
+    \topsep 2\p@ plus\p@ minus\p@
+    \parsep \z@ \partopsep \p@ plus\z@ minus\p@
+    \itemsep \topsep}
+
+\def\@listiv{\leftmargin\leftmarginiv
+     \labelwidth\leftmarginiv\advance\labelwidth-\labelsep}
+   
+\def\@listv{\leftmargin\leftmarginv
+     \labelwidth\leftmarginv\advance\labelwidth-\labelsep}
+    
+\def\@listvi{\leftmargin\leftmarginvi
+     \labelwidth\leftmarginvi\advance\labelwidth-\labelsep}
+%</11pt>
+%
+%<*12pt>
+\def\@listI{\leftmargin\leftmargini \parsep 5\p@ plus2.5\p@ minus\p@
+\topsep 10\p@ plus4\p@ minus6\p@
+\itemsep 5\p@ plus2.5\p@ minus\p@}
+
+\let\@listi\@listI
+\@listi
+
+\def\@listii{\leftmargin\leftmarginii
+   \labelwidth\leftmarginii\advance\labelwidth-\labelsep
+   \topsep 5\p@ plus2.5\p@ minus\p@
+   \parsep 2.5\p@ plus\p@ minus\p@
+   \itemsep \parsep}
+
+\def\@listiii{\leftmargin\leftmarginiii
+    \labelwidth\leftmarginiii\advance\labelwidth-\labelsep
+    \topsep 2.5\p@ plus\p@ minus\p@
+    \parsep \z@ \partopsep \p@ plus\z@ minus\p@
+    \itemsep \topsep}
+
+\def\@listiv{\leftmargin\leftmarginiv
+     \labelwidth\leftmarginiv\advance\labelwidth-\labelsep}
+   
+\def\@listv{\leftmargin\leftmarginv
+     \labelwidth\leftmarginv\advance\labelwidth-\labelsep}
+    
+\def\@listvi{\leftmargin\leftmarginvi
+     \labelwidth\leftmarginvi\advance\labelwidth-\labelsep}
+%</12pt>
+%</opt>
+%    \end{macrocode}
+% \fi

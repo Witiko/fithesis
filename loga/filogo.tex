@@ -1,0 +1,23 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% filogo.sty prelim version of 19/1/95 Petr Sojka
+% work with both plain and latex
+% 
+% skip if already loaded
+\expandafter\ifx\csname setfilogo\endcsname\relax\else\endinput\fi
+%
+\newbox\filogobox
+\newdimen\filogowidth
+\font\filogofont=fi-logo600
+\setbox\filogobox=\vbox{\hbox{%
+\filogofont SL}}
+\filogowidth=\wd\filogobox
+\setbox\filogobox=\hbox{\vbox{\hsize=\filogowidth
+\parskip=0pt\offinterlineskip\parindent0pt
+\hbox{\filogofont SL}}}
+\ifx\parbox\undefined
+    \def\setfilogo{\copy\filogobox}
+\else
+    \def\setfilogo{\parbox{\wd\filogobox}{\copy\filogobox}}
+\fi
+\endinput
