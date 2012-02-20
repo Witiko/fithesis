@@ -18,6 +18,7 @@
 % etc.
 %
 % History:
+% 2006/06/08 v0.2.9 add EN version of University name [JP]
 % 2006/01/20 v0.2.8 add change of University name [JP]
 % 2005/05/10 v0.2.7 escape all czech letters [JP]
 %                   babel is used insted of stupid package czech [JP]
@@ -107,7 +108,7 @@
 %    \begin{macrocode}
 %<*class>
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{fithesis}[2006/01/20 version 0.2.8 (FI) MU thesis class]
+\ProvidesClass{fithesis}[2006/06/08 version 0.2.9 (FI) MU thesis class]
 
 \ifx\clsclass\undefined
  \def\clsclass{rapport3}
@@ -277,26 +278,65 @@
 \def\thesisadvisor#1{\gdef\@thesisadvisor{#1}}
 \def\thesisfaculty#1{\gdef\@thesisfaculty{#1}
 \ifx\@thesisfaculty\Fi
- \def\facultyname{Fakulta informatiky}
+ \ifx\@thesislang\Langen
+  \def\facultyname{Faculty of Informatics}
+  \def\universityname{Masaryk University}
+   \else \def\facultyname{Fakulta informatiky}
+  \fi
  \else \ifx\@thesisfaculty\Sci
-  \def\facultyname{P\v{r}\'{i}rodov\v{e}deck\'{a} fakulta}
+  \ifx\@thesislang\Langen
+   \def\facultyname{Faculty of Science}
+   \def\universityname{Masaryk University}
+  \else \def\facultyname{P\v{r}\'{i}rodov\v{e}deck\'{a} fakulta}
+  \fi
   \else \ifx\@thesisfaculty\Law
-   \def\facultyname{Pr\'{a}vnick\'{a} fakulta}
-   \else \ifx\@thesisfaculty\Eco
-    \def\facultyname{Ekonomicko-spr\'{a}vn\'{i} fakulta}
-    \else \ifx\@thesisfaculty\Fss
-     \def\facultyname{Fakulta soci\'{a}ln\'{i}ch studi\'{i}}
-     \else \ifx\@thesisfaculty\Med
-      \def\facultyname{L\'{e}ka\v{r}sk\'{a} fakulta}
-      \else \ifx\@thesisfaculty\Ped
-       \def\facultyname{Pedagogick\'{a} fakulta}
-       \else \ifx\@thesisfaculty\Phil
-        \def\facultyname{Filozofick\'{a} fakulta}
-        \else
-         \def\facultyname{\@thesisfaculty}
-         \def\universityname{\@thesisuniversity}
-         \def\facultylogo{\@thesislogo}
-         \def\thesisplaceyear{\@thesisyear}
+   \ifx\@thesislang\Langen
+    \def\facultyname{Faculty of Law}
+    \def\universityname{Masaryk University}
+   \else \def\facultyname{Pr\'{a}vnick\'{a} fakulta}
+   \fi
+  \else \ifx\@thesisfaculty\Eco
+   \ifx\@thesislang\Langen
+    \def\facultyname{Faculty of Economics and Administration}
+    \def\universityname{Masaryk University}
+   \else \def\facultyname{Ekonomicko-spr\'{a}vn\'{i} fakulta}
+   \fi
+  \else \ifx\@thesisfaculty\Fss
+   \ifx\@thesislang\Langen
+    \def\facultyname{Faculty of Social Studies}
+    \def\universityname{Masaryk University}
+   \else \def\facultyname{Fakulta soci\'{a}ln\'{i}ch studi\'{i}}
+   \fi
+  \else \ifx\@thesisfaculty\Med
+   \ifx\@thesislang\Langen
+    \def\facultyname{Faculty of Medicine}
+    \def\universityname{Masaryk University}
+   \else \def\facultyname{L\'{e}ka\v{r}sk\'{a} fakulta}
+   \fi
+  \else \ifx\@thesisfaculty\Ped
+   \ifx\@thesislang\Langen
+    \def\facultyname{Faculty of Education}
+    \def\universityname{Masaryk University}
+   \else \def\facultyname{Pedagogick\'{a} fakulta}
+   \fi
+  \else \ifx\@thesisfaculty\Phil
+   \ifx\@thesislang\Langen
+    \def\facultyname{Faculty of Arts}
+    \def\universityname{Masaryk University}
+   \else \def\facultyname{Filozofick\'{a} fakulta}
+   \fi
+  \else \ifx\@thesisfaculty\Fsps
+   \ifx\@thesislang\Langen
+    \def\facultyname{Faculty of Sports Studies}
+    \def\universityname{Masaryk University}
+   \else \def\facultyname{Fakulta sportovn\'{i}ch studi\'{i}}
+   \fi
+         \else
+          \def\facultyname{\@thesisfaculty}
+          \def\universityname{\@thesisuniversity}
+          \def\facultylogo{\@thesislogo}
+          \def\thesisplaceyear{\@thesisyear}
+         \fi
         \fi
        \fi
       \fi
