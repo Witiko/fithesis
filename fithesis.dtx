@@ -18,6 +18,7 @@
 % etc.
 %
 % History:
+% 2004/05/13 v0.2.3 fix title spacing [PS, JP]
 % 2004/05/12 v0.2.2 fix encoding bug [JP]
 % 2004/05/11 v0.2.1 add subsubsection to toc [JP]
 % 2004/05/03 v0.2  add sk lang [JP, Peter Cerensky]
@@ -100,7 +101,7 @@
 %    \begin{macrocode}
 %<*class>
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{fithesis}[2004/05/12 version 0.2.2 (FI) MU thesis class]
+\ProvidesClass{fithesis}[2004/05/13 version 0.2.3 (FI) MU thesis class]
 
 \ifx\clsclass\undefined
  \def\clsclass{rapport3}
@@ -172,6 +173,7 @@
 \RequirePackage{palatino}
 
 \def\Scrreprtcls{scrreprt}
+\def\Rapport1cls{rapport1}
 \def\Rapport3cls{rapport3}
 
 \ifx\clsclass\Scrreprtcls
@@ -334,6 +336,9 @@
 	èerpal\@w, v~práci riadne citujem s~uvedením úplného odkazu na pøíslu¹ný
 	zdroj.}
 \def\DeclarationTexten{%
+	Hereby I declare, that this paper is my original authorial work, 
+	which I have worked out by my own. All sources, references and literature used or excerpted 
+	during elaboration of this work are properly cited and listed in complete reference to the due source.
 }
 
 \def\DeclarationTitlecs{%
@@ -443,7 +448,7 @@
 
 \let\footnotesize\small
 \let\footnoterule\relax{}
-{\titlefont\bf\@thesistitle}\\[0.8in]
+{\titlefont\bf\@thesistitle\par\vfil}\vskip 0.8in
 {\sc \@thesissubtitle}\\[0.3in]
 {\Large\bf\@thesisstudent}
 \par\vfill
