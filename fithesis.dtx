@@ -18,6 +18,7 @@
 % etc.
 %
 % History:
+% 2006/01/20 v0.2.8 add change of University name [JP]
 % 2005/05/10 v0.2.7 escape all czech letters [JP]
 %                   babel is used insted of stupid package czech [JP]
 %                   \MainMatter should be placed after \tablesofcontents [PS]
@@ -76,7 +77,7 @@
 % \noindent 
 % Tento text popisuje instalaci a pou\v{z}it\'{u} sady maker
 % pro sazbu diplomov\'{e} a bakal\'{a}\v{r}sk\'{e} pr\'{a}ce na Fakult\v{e} informatiky 
-% Masarykovy univerzity v~Brn\v{e} v~syst\'{e}mu \LaTeX. U\v{z}ivateli 
+% Masarykovy univerzity v~syst\'{e}mu \LaTeX. U\v{z}ivateli 
 % umo\v{z}n\'{i} jednotn\v{e}
 % vysadit v\v{s}echny pot\v{r}ebn\'{e} povinn\'{e} i nepovinn\'{e} \v{c}\'{a}sti stanoven\'{e}
 % v~pokynech pro vypracov\'{a}n\'{i} diplomov\'{e} a bakal\'{a}\v{r}sk\'{e} pr\'{a}ce 
@@ -106,7 +107,7 @@
 %    \begin{macrocode}
 %<*class>
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{fithesis}[2005/05/10 version 0.2.7 (FI) MU thesis class]
+\ProvidesClass{fithesis}[2006/01/20 version 0.2.8 (FI) MU thesis class]
 
 \ifx\clsclass\undefined
  \def\clsclass{rapport3}
@@ -246,7 +247,7 @@
 \font\filogo fi-logo at 40mm
 \def\logopath{loga/}
 \def\facultylogo{\logopath\@thesisfaculty-logo}
-\def\universityname{Masarykova univerzita v Brn\v{e}}
+\def\universityname{Masarykova univerzita}
 \def\facultyname{Fakulta informatiky}
 \def\@thesissubtitle{Diplomov\'{a} pr\'{a}ce}
 \def\lowecasewrapper#1{\lowercase{#1}}
