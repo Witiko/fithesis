@@ -18,7 +18,8 @@
 % etc.
 %
 % History:
-% 2004/04/28 v0.1h add sk lang [JP, Peter Cerensky]
+% 2004/05/03 v0.2  add sk lang [JP, Peter Cerensky]
+%                  set default cls class to rapport3 [JP]
 % 2004/04/01 v0.1g change of default size (12pt->11pt) [JP]
 % 2004/01/24 v0.1f add documentation for hyperref [JP]
 % 2004/01/07 v0.1e add Brno to MU title [JP]
@@ -42,7 +43,7 @@
 %<*driver>
 \documentclass{ltxdoc}
 \makeindex
-\usepackage[czech]{babel}
+\usepackage{czech}
 \usepackage{makeidx}
 \usepackage[latin2]{inputenc} % tento soubor je v ISO-Latin2
 \usepackage{csquot,mflogo}
@@ -97,10 +98,10 @@
 %    \begin{macrocode}
 %<*class>
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{fithesis}[2004/04/28 version 0.1h (FI) MU thesis class]
+\ProvidesClass{fithesis}[2004/05/03 version 0.2 (FI) MU thesis class]
 
 \ifx\clsclass\undefined
- \def\clsclass{scrreprt}
+ \def\clsclass{rapport3}
 \fi
 \LoadClass{\clsclass}
 
@@ -168,8 +169,13 @@
 
 \RequirePackage{palatino}
 
-%%\newcommand*\ChapFont{\bfseries}
-%%\newcommand*\PageFont{\bfseries}
+\def\Scrreprtcls{scrreprt}
+\def\Rapport3cls{rapport3}
+
+\ifx\clsclass\Scrreprtcls
+ \newcommand*\ChapFont{\bfseries}
+ \newcommand*\PageFont{\bfseries}
+\fi
 
 \usepackage[latin2]{inputenc}
 
@@ -245,11 +251,10 @@
 \def\Phil{phil}
 \def\True{true}
 
-% --- NOVE ---------------
 \def\Langcs{cs}
 \def\Langsk{sk}
+\def\Langen{en}
 \def\@thesislang{cs}
-% ------------------------
 
 \def\titlefont{\fontsize\@xxvpt{30}\selectfont}
 \def\thesistitle#1{\gdef\@thesistitle{#1}}
@@ -292,35 +297,6 @@
 \fi
 }
 
-
-\newif\ifwoman\womanfalse
-\def\@w{\ifwoman{a}\else\fi}
-\def\thesiswoman#1{\gdef\@thesiswoman{#1}
-\ifx\@thesiswoman\True\def\@w{a}\else\def\@w{}\fi}
-
-\def\thesislang#1{\gdef\@thesislang{#1}
-\ifx\@thesislang\Langcs
- \def\DeclarationText{%
-		Prohla¹uji, ¾e tato \expandafter\lowecasewrapper\@thesissubtitle{} 
-		je mým pùvodním autorským
-		dílem, které jsem vypracoval\@w\ samostatnì. V¹echny zdroje, prameny a
-		literaturu, které jsem pøi vypracování pou¾íval\@w\ nebo z~nich
-		èerpal\@w, v~práci øádnì cituji s~uvedením úplného odkazu na pøíslu¹ný
-		zdroj.}
- \else \ifx\@thesislang\Langsk
-  \def\DeclarationText{%
-		Prehlasujem, ¾e táto \expandafter\lowecasewrapper\@thesissubtitle{} 
-		je mojím pôvodným autorským
-		dielom, které som vypracoval\@w\ samostatne. V¹etky zdroje, pramene a
-		literatúru, ktoré som pri vypracovaní pou¾íval\@w\ alebo z~nich
-		èerpal\@w, v~práci riadne citujem s~uvedením úplného odkazu na pøíslu¹ný
-		zdroj.}
-  \else
-   \def\thesislang{\@thesislang}
- \fi
-\fi
-}
-
 \newif\if@restonecol
 
 \def\alwayssingle{%
@@ -334,9 +310,115 @@
 % \iffalse
 %    \begin{macrocode}
 %<*class>
+\newif\ifwoman\womanfalse
+\def\@w{\ifwoman{a}\else\fi}
+\def\thesiswoman#1{\gdef\@thesiswoman{#1}
+\ifx\@thesiswoman\True\def\@w{a}\else\def\@w{}\fi}
+
+\def\thesislang#1{\gdef\@thesislang{#1}}
+
+\def\DeclarationTextcs{%
+	Prohla¹uji, ¾e tato \expandafter\lowecasewrapper\@thesissubtitle{} 
+	je mým pùvodním autorským
+	dílem, které jsem vypracoval\@w\ samostatnì. V¹echny zdroje, prameny a
+	literaturu, které jsem pøi vypracování pou¾íval\@w\ nebo z~nich
+	èerpal\@w, v~práci øádnì cituji s~uvedením úplného odkazu na pøíslu¹ný
+	zdroj.}
+\def\DeclarationTextsk{%
+	Prehlasujem, ¾e táto \expandafter\lowecasewrapper\@thesissubtitle{} 
+	je mojím pôvodným autorským
+	dielom, které som vypracoval\@w\ samostatne. V¹etky zdroje, pramene a
+	literatúru, ktoré som pri vypracovaní pou¾íval\@w\ alebo z~nich
+	èerpal\@w, v~práci riadne citujem s~uvedením úplného odkazu na pøíslu¹ný
+	zdroj.}
+\def\DeclarationTexten{%
+}
+
+\def\DeclarationTitlecs{%
+	Prohlá¹ení
+}
+
+\def\DeclarationTitlesk{%
+	Prehlásenie
+}
+
+\def\DeclarationTitleen{%
+	Declaration
+}
+
+\def\ThanksTitlecs{%
+	Podìkování
+}
+
+\def\ThanksTitlesk{%
+	Poïakovanie
+}
+
+\def\ThanksTitleen{%
+	Thanks
+}
+
+\def\AbstractTitlecs{%
+	Shrnutí
+}
+
+\def\AbstractTitlesk{%
+	Zhrnutie
+}
+
+\def\AbstractTitleen{%
+	Abstract
+}
+
+\def\KeyWordsTitlecs{%
+	Klíèová slova
+}
+
+\def\KeyWordsTitlesk{%
+	Kµúèové slová
+}
+
+\def\KeyWordsTitleen{%
+	Keywords
+}
+
+\def\AdvisorTitlecs{%
+	Vedoucí práce:
+}
+
+\def\AdvisorTitlesk{%
+	Vedúci práce
+}
+
+\def\AdvisorTitleen{%
+	Advisor
+}
 
 
-\def\AdvisorName{\par\vfill{\bf Vedoucí práce:} \@thesisadvisor}
+\def\DeclarationText{%
+	\ifx\@thesislang\Langcs
+	 \DeclarationTextcs
+	 \else \ifx\@thesislang\Langsk
+	  \DeclarationTextsk
+	  \else \ifx\@thesislang\Langen
+	   \DeclarationTexten
+	   \else \DeclarationTextcs
+	  \fi
+	 \fi
+	\fi
+}
+
+\def\AdvisorName{\par\vfill{
+\ifx\@thesislang\Langcs
+ \bf \AdvisorTitlecs
+ \else \ifx\@thesislang\Langsk
+  \bf \AdvisorTitlesk
+  \else \ifx\@thesislang\Langen
+   \bf \AdvisorTitleen
+   \else \bf \AdvisorTitlecs
+  \fi
+ \fi
+\fi} \@thesisadvisor}
 
 \def\FrontMatter{%
 \pagestyle{plain}
@@ -370,28 +452,64 @@
 
 \newenvironment{ThesisDeclaration}{%
 \begin{alwayssingle}
-\chapter*{Prohlá¹ení}}
+\ifx\@thesislang\Langcs
+ \chapter*{\DeclarationTitlecs}
+ \else \ifx\@thesislang\Langsk
+  \chapter*{\DeclarationTitlesk}
+  \else \ifx\@thesislang\Langen
+   \chapter*{\DeclarationTitleen}
+   \else \chapter*{\DeclarationTitlecs}
+  \fi
+ \fi
+\fi}
 {\par\vfil
 \end{alwayssingle}
 \newpage}
 
 \newenvironment{ThesisThanks}{%
 \begin{alwayssingle}
-\chapter*{Podìkování}}
+\ifx\@thesislang\Langcs
+ \chapter*{\ThanksTitlecs}
+ \else \ifx\@thesislang\Langsk
+  \chapter*{\ThanksTitlesk}
+  \else \ifx\@thesislang\Langen
+   \chapter*{\ThanksTitleen}
+   \else \chapter*{\ThanksTitlecs}
+  \fi
+ \fi
+\fi}
 {\par\vfill
 \end{alwayssingle}
 \newpage}
 
 \newenvironment{ThesisAbstract}{%
 \begin{alwayssingle}
-\chapter*{Shrnutí}}
+\ifx\@thesislang\Langcs
+ \chapter*{\AbstractTitlecs}
+ \else \ifx\@thesislang\Langsk
+  \chapter*{\AbstractTitlesk}
+  \else \ifx\@thesislang\Langen
+   \chapter*{\AbstractTitleen}
+   \else \chapter*{\AbstractTitlecs}
+  \fi
+ \fi
+\fi}
 {\par\vfil\null
 \end{alwayssingle}
 \newpage}
 
 \newenvironment{ThesisKeyWords}{%
 \begin{alwayssingle}
-\chapter*{Klíèová slova}}
+\ifx\@thesislang\Langcs
+ \chapter*{\KeyWordsTitlecs}
+ \else \ifx\@thesislang\Langsk
+  \chapter*{\KeyWordsTitlesk}
+  \else \ifx\@thesislang\Langen
+   \chapter*{\KeyWordsTitleen}
+   \else \chapter*{\KeyWordsTitlecs}
+  \fi
+ \fi
+\fi}
 {\par\vfill
 \end{alwayssingle}
 \newpage}
@@ -480,6 +598,10 @@
 % \begin{macro}{\thesislogo}
 % Makro umo¾ní stanovit soubor (bez pøípony) loga fakulty pod jakou byla práce napsaná.
 % Má význam jen v~pøípadì, ¾e práce není psaná pod MU.
+% \end{macro}
+%
+% \begin{macro}{\thesislang}
+% Makro umo¾ní stanovit jazyk, ve kterém je práce napsaná (v souèasné dobì jsou podporovany variany: cs, sk, en).
 % \end{macro}
 %
 % \begin{macro}{\ThesisTitlePage}
