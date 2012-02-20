@@ -112,7 +112,7 @@
 %    \begin{macrocode}
 %<*class>
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{fithesis}[2008/08/27 version 0.2.12 (FI) MU thesis class]
+\ProvidesClass{fithesis}[2008/12/15 fithesis2 version 0.1 MU thesis class]
 
 \ifx\clsclass\undefined
  \def\clsclass{rapport3}
@@ -178,7 +178,7 @@
 \DeclareOption{draft}{\setlength\overfullrule{5pt}}
 \DeclareOption{final}{\setlength\overfullrule{0pt}}
 
-\ExecuteOptions{11pt,oneside,final}
+\ExecuteOptions{12pt,oneside,final}
 \ProcessOptions
 
 \RequirePackage{palatino}
@@ -191,8 +191,6 @@
  \newcommand*\ChapFont{\bfseries}
  \newcommand*\PageFont{\bfseries}
 \fi
-
-\usepackage[latin2]{inputenc}
 
 \setcounter{tocdepth}{4}
 
@@ -250,8 +248,7 @@
 \secdef\@part\@spart}
 
 \font\filogo fi-logo at 40mm
-\def\logopath{loga/}
-\def\facultylogo{\logopath\@thesisfaculty-logo}
+\def\facultylogo{\@thesisfaculty-logo}
 \def\universityname{Masarykova univerzita}
 \def\facultyname{Fakulta informatiky}
 \def\@thesissubtitle{Diplomov\'{a} pr\'{a}ce}
@@ -264,6 +261,7 @@
 \def\Med{med}
 \def\Ped{ped}
 \def\Phil{phil}
+\def\Fsps{fsps}
 \def\True{true}
 
 \def\Langcs{cs}
@@ -380,7 +378,7 @@
 	zdroj.}
 \def\DeclarationTextsk{%
 	Prehlasujem, \v{z}e t\'{a}to \expandafter\lowecasewrapper\@thesissubtitle{} 
-	je moj\'{i}m pôvodn\'{y}m autorsk\'{y}m
+	je moj\'{i}m p\^{o}vodn\'{y}m autorsk\'{y}m
 	dielom, ktor\'{e} som vypracoval\@w\ samostatne. V\v{s}etky zdroje, pramene a
 	literat\'{u}ru, ktor\'{e} som pri vypracovan\'{i} pou\v{z}\'{i}val\@w\ alebo z~nich
 	\v{c}erpal\@w, v~pr\'{a}ci riadne citujem s~uveden\'{i}m \'{u}pln\'{e}ho odkazu na pr\'{i}slu\v{s}n\'{y}
@@ -408,7 +406,7 @@
 }
 
 \def\ThanksTitlesk{%
-	Poïakovanie
+	Po\v{d}akovanie
 }
 
 \def\ThanksTitleen{%
@@ -432,7 +430,7 @@
 }
 
 \def\KeyWordsTitlesk{%
-	Kµ\'{u}\v{c}ov\'{e} slov\'{a}
+	K\v{l}\'{u}\v{c}ov\'{e} slov\'{a}
 }
 
 \def\KeyWordsTitleen{%
@@ -463,6 +461,8 @@
 	  \fi
 	 \fi
 	\fi
+	\vskip 2cm
+	\hfill\@thesisstudent
 }
 
 \def\AdvisorName{\par\vfill{
@@ -839,7 +839,7 @@
 %    \begin{macrocode}
 %<*opt>
 %<*10pt>
-\ProvidesFile{fit10.clo}[1998/03/30 fithesis (size option)]
+\ProvidesFile{fit10.clo}[2008/12/15 fithesis2 (size option)]
 
 \renewcommand{\normalsize}{\fontsize\@xpt{12}\selectfont%
 \abovedisplayskip 10\p@ plus2\p@ minus5\p@
@@ -877,7 +877,7 @@
 %</10pt>
 %
 %<*11pt>
-\ProvidesFile{fit11.clo}[1998/03/30 fithesis (size option)]
+\ProvidesFile{fit11.clo}[2008/12/15 fithesis2 (size option)]
 
 \renewcommand{\normalsize}{\fontsize\@xipt{14}\selectfont%
 \abovedisplayskip 11\p@ plus3\p@ minus6\p@
@@ -915,7 +915,7 @@
 %</11pt>
 %
 %<*12pt>
-\ProvidesFile{fit12.clo}[1998/03/30 fithesis (size option)]
+\ProvidesFile{fit12.clo}[2008/12/15 fithesis2 (size option)]
 
 \renewcommand{\normalsize}{\fontsize\@xiipt{14.5}\selectfont%
 \abovedisplayskip 12\p@ plus3\p@ minus7\p@
@@ -1064,21 +1064,18 @@
 \@itempenalty     -\@lowpenalty
 
 \def\@makechapterhead#1{%
-  \vspace*{50\p@ \@plus 5\p@}%
   {\setlength\parindent{\z@}%
    \setlength\parskip  {\z@}%
     \ifnum \c@secnumdepth >\m@ne
-        \large\ChapFont \@chapapp{} \thechapter
         \par\nobreak
         \vskip 10\p@
     \fi
-    \Large \ChapFont #1\par
+    \Large \ChapFont \thechapter{} \space #1\par
     \nobreak
     \vskip 20\p@
   }}
 
 \def\@makeschapterhead#1{%
-  \vspace*{50\p@ \@plus 5\p@}%
   {\setlength\parindent{\z@}%
    \setlength\parskip  {\z@}%
    \Large \ChapFont #1\par

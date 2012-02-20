@@ -1,3 +1,0 @@
-dpi:=6;
-input fi-logo;
-end;
