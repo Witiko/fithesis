@@ -181,7 +181,13 @@
 \ExecuteOptions{12pt,oneside,final}
 \ProcessOptions
 
-\RequirePackage{palatino}
+% pridat volbu, aby slo vypnout mathpazo, zapnout lmodern, atd.
+\RequirePackage{tgpagella}
+\RequirePackage{mathpazo}
+\RequirePackage{graphicx}
+% FIXME: pridat ifxetex apod.
+\RequirePackage{cmap}
+\RequirePackage[T1]{fontenc}
 
 \def\Scrreprtcls{scrreprt}
 \def\Rapport1cls{rapport1}
