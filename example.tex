@@ -1,0 +1,44 @@
+\documentclass[12pt,oneside]{fithesis}
+\usepackage{lmodern}           % Latin modern fonts
+\usepackage[english]{babel}    % Babel
+\usepackage[utf8]{inputenc}    % UTF-8
+\usepackage[T1]{fontenc}       % T1 font encoding
+\usepackage[
+  plainpages = false,          % We have multiple page numberings
+  pdfpagelabels                % Set pdf page labels
+]{hyperref}
+\usepackage{blindtext}         % Blind text
+
+\thesistitle{Sample thesis}
+\thesissubtitle{Bachelor thesis}
+\thesisstudent{Jane Doe}
+\thesiswoman{true}
+\thesisfaculty{fi}
+\thesiscolor{true}
+\thesisyear{spring 2008}
+\thesisadvisor{John Foo, Ph.D.}
+\thesislang{en}
+
+\begin{document}
+  \FrontMatter
+  \ThesisTitlePage
+  \begin{ThesisDeclaration}
+  \DeclarationText
+  \AdvisorName
+  \end{ThesisDeclaration}
+  \begin{ThesisThanks}
+  I would like to thank my supervisor\,...
+  \end{ThesisThanks}
+  \begin{ThesisAbstract}
+  The aim of the bachelor work is to provide\,...
+  \end{ThesisAbstract}
+  \begin{ThesisKeyWords}
+  keyword1, keyword2\,...
+  \end{ThesisKeyWords}
+  \MainMatter
+  \chapter{Introduction}
+  This is the first chapter of the thesis.
+  \chapter{Another chapter}
+  \Blindtext
+  \tableofcontents % prints table of contents
+\end{document}

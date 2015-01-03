@@ -1,6 +1,6 @@
 % \iffalse meta-comment
 % fithesis.dtx
-% Copyright 1998--2008 Daniel Marek, Jan Pavlovi\v{c}, Petr Sojka,
+% Copyright 1998--2008 Daniel Marek, Jan Pavlovi\v{c}, V\'{i}t Novotn\'{y}, Petr Sojka,
 % Faculty of Informatics, Masaryk University
 %
 % This work may be distributed and/or modified under the
@@ -13,12 +13,15 @@
 %
 % This work has the LPPL maintenance status `maintained'.
 % 
-% The Current Maintainer of this work is Jan Pavlovi\v{c}.
+% The Current Maintainer of this work is V\'{i}t Novotn\'{y}.
 %
 % This work consists of the files fithesis.dtx and fithesis.ins
 % and the derived file fithesis.cls, fit10.clo, fit11.clo, fit12.clo.
 %
 % History:
+% 2015/01/01 v0.3.0 fi logo is no longer special-cased (added eps and pdf) [VN]
+%                   \thesislogopath added to set the logo directory path [VN]
+%                   \thesiscolor added to enable colorful typo elements (currenly only fi logo) [VN]
 % 2008/07/27 v0.2.12 Licence change to the LPPL [JP]
 % 2008/01/07 v0.2.11 fix missing fi-logo.mf [JP,PS]
 % 2006/05/12 v0.2.10 fix EN name of Acknowledgement [JP]
@@ -74,7 +77,7 @@
 % \newcommand{\fit}{\textsf{fithesis}}
 % \newcommand{\itm}[1]{\noindent{\bf #1}} 
 % \title{Sada maker \fit\ pro sazbu\\ diplomov\'{e} a bakal\'{a}\v{r}sk\'{e} pr\'{a}ce}
-% \author{Daniel Marek, Jan Pavlovi\v{c}, Petr Sojka}
+% \author{Daniel Marek, Jan Pavlovi\v{c}, V\'{i}t Novotn\'{y}, Petr Sojka}
 % \date{\today}
 % \maketitle
 %
@@ -112,7 +115,7 @@
 %    \begin{macrocode}
 %<*class>
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{fithesis}[2008/12/15 fithesis2 version 0.1 MU thesis class]
+\ProvidesClass{fithesis}[2008/12/15 fithesis3 version 0.3.0 MU thesis class]
 
 \ifx\clsclass\undefined
  \def\clsclass{rapport3}
@@ -256,12 +259,8 @@
 \hbox{}\vfil
 \secdef\@part\@spart}
 
-\def\logopath{loga/}
-\font\filogo fi-logo at 40mm
-\def\facultylogo{\logopath\@thesisfaculty-logo}
 \def\universityname{Masarykova univerzita}
 \def\facultyname{Fakulta informatiky}
-\def\@thesissubtitle{Diplomov\'{a} pr\'{a}ce}
 \def\lowecasewrapper#1{\lowercase{#1}}
 \def\Fi{fi}
 \def\Sci{sci}
@@ -277,7 +276,11 @@
 \def\Langcs{cs}
 \def\Langsk{sk}
 \def\Langen{en}
-\def\@thesislang{cs}
+
+\def\@thesislang{\Langcs}
+\def\@thesissubtitle{Diplomov\'{a} pr\'{a}ce}
+\def\@thesislogopath{loga/} % The loga/ directory by default
+\def\@thesiscolor{false} % Implicitly not colorful
 
 \def\titlefont{\fontsize\@xxvpt{30}\selectfont}
 \def\thesistitle#1{\gdef\@thesistitle{#1}}
@@ -285,10 +288,17 @@
 \def\thesisyear#1{\gdef\@thesisyear{#1}}
 \def\thesisplaceyear{Brno, \@thesisyear}
 \def\thesissubtitle#1{\gdef\@thesissubtitle{#1}}
+\def\thesislogopath#1{\gdef\@thesislogopath{#1}}
+\def\thesiscolor#1{\gdef\@thesiscolor{#1}}
 \def\thesisuniversity#1{\gdef\@thesisuniversity{#1}}
 \def\thesislogo#1{\gdef\@thesislogo{#1}}
 \def\thesisadvisor#1{\gdef\@thesisadvisor{#1}}
 \def\thesisfaculty#1{\gdef\@thesisfaculty{#1}
+\def\facultylogo{\@thesislogopath\@thesisfaculty-logo\ifx\@thesiscolor\True%
+  \ifx\@thesisfaculty\Fi%
+    -color%
+  \fi
+\fi}
 \ifx\@thesisfaculty\Fi
  \ifx\@thesislang\Langen
   \def\facultyname{Faculty of Informatics}
@@ -346,7 +356,8 @@
          \else
           \def\facultyname{\@thesisfaculty}
           \def\universityname{\@thesisuniversity}
-          \def\facultylogo{\@thesislogo}
+          \def\@thesislogopath{./} % The current directory by default
+          \def\facultylogo{\@thesislogopath\@thesislogo}
           \def\thesisplaceyear{\@thesisyear}
          \fi
         \fi
@@ -372,6 +383,7 @@
 % \iffalse
 %    \begin{macrocode}
 %<*class>
+
 \newif\ifwoman\womanfalse
 \def\@w{\ifwoman{a}\else\fi}
 \def\thesiswoman#1{\gdef\@thesiswoman{#1}
@@ -498,13 +510,9 @@
 \thispagestyle{empty}
 \begin{center}
 {\sc \universityname\\ \facultyname}
-\vskip 1em
+\vskip 1.4em
 
-\ifx\@thesisfaculty\Fi
- {\filogo SL}\\[0.4in]
-\else
- \includegraphics[width=40mm]{\facultylogo}\\[0.4in]
-\fi
+\includegraphics[width=40mm]{\facultylogo}\\[0.4in]
 
 \let\footnotesize\small
 \let\footnoterule\relax{}
@@ -637,8 +645,7 @@
 % se tak\'{e} vlo\v{z}\'{i} pat\v{r}i\v{c}n\'{e} logo a n\'{a}zev fakulty na tituln\'{i} str\'{a}nku.
 % Jsou podporov\'{a}ny tyto fakulty MU:
 % \begin{itemize}
-% \item Fakulta informatiky -- fi\footnote{Pou\v{z}ije se origin\'{a}ln\'{i} 
-% opticky \v{s}k\'{a}lovan\'{e} logo v~jazyce~\MF{}.},  
+% \item Fakulta informatiky -- fi
 % \item P\v{r}\'{i}rodov\v{e}deck\'{a} fakulta -- sci,
 % \item Pr\'{a}vnick\'{a} fakulta -- law,
 % \item Ekonomicko-spr\'{a}vn\'{i} fakulta -- eco,
@@ -670,9 +677,18 @@
 % M\'{a} v\'{y}znam jen v p\v{r}\'{i}pad\v{e}, \v{z}e pr\'{a}ce nen\'{i} psan\'{a} pod MU.
 % \end{macro}
 %
+% \begin{macro}{\thesislogopath}
+% Makro umo\v{z}n\'{i} stanovit cestu k adres\'{a}\v{r}i s logy fakult. Implicitn\'{i} hodnota
+% je \texttt{loga/} pro pr\'{a}ce psan\'{e} pod MU a \texttt{./} pro pr\'{a}ce psan\'{e} mimo MU.
+% \end{macro}
+%
 % \begin{macro}{\thesislogo}
 % Makro umo\v{z}n\'{i} stanovit soubor (bez p\v{r}\'{i}pony) loga fakulty pod jakou byla pr\'{a}ce napsan\'{a}.
 % M\'{a} v\'{y}znam jen v~p\v{r}\'{i}pad\v{e}, \v{z}e pr\'{a}ce nen\'{i} psan\'{a} pod MU.
+% \end{macro}
+%
+% \begin{macro}{\thesiscolor}
+% Makro umo\v{z}\v{n}\'{i} aktivovat barevn\'{e} typografick\'{e} prvky v s\'{a}zen\'{e}m dokumentu p\v{r}ed\'{a}n\'{i}m hodnoty \texttt{true} jako prvn\'{i}ho argumentu. Implicitn\'{i} hodnota je \texttt{false}.
 % \end{macro}
 %
 % \begin{macro}{\thesislang}
@@ -748,7 +764,7 @@
 %
 % Proto\v{z}e je pou\v{z}ito dvoj\'{i} \v{c}\'{i}slov\'{a}n\'{i} je nutn\'{e} zadat hyperrefu
 % parametry, kter\'{e} zajist\'{i} spr\'{a}vn\'{e} odkazov\'{a}n\'{i} unit\v{r} dokumentu.
-% \prikaz{usepackage[plainpages=false, pdfpagelabels]{hyperref}}
+% \prikaz{usepackage[plainpages=false, pdfpagelabels]\{hyperref\}}
 %
 % Dal\v{s}\'{i} text diplomov\'{e} pr\'{a}ce (obsah, \'{u}vod, jednotliv\'{e} kapitoly a \v{c}\'{a}sti,
 % pop\v{r}\'{i}pad\v{e} z\'{a}v\v{e}r, literatura \v{c}i dodatky) se ji\v{z} s\'{a}z\'{i} standardn\'{i}mi
@@ -849,7 +865,7 @@
 %    \begin{macrocode}
 %<*opt>
 %<*10pt>
-\ProvidesFile{fit10.clo}[2008/12/15 fithesis2 (size option)]
+\ProvidesFile{fit10.clo}[2008/12/15 fithesis3 (size option)]
 
 \renewcommand{\normalsize}{\fontsize\@xpt{12}\selectfont%
 \abovedisplayskip 10\p@ plus2\p@ minus5\p@
@@ -887,7 +903,7 @@
 %</10pt>
 %
 %<*11pt>
-\ProvidesFile{fit11.clo}[2008/12/15 fithesis2 (size option)]
+\ProvidesFile{fit11.clo}[2008/12/15 fithesis3 (size option)]
 
 \renewcommand{\normalsize}{\fontsize\@xipt{14}\selectfont%
 \abovedisplayskip 11\p@ plus3\p@ minus6\p@
@@ -925,7 +941,7 @@
 %</11pt>
 %
 %<*12pt>
-\ProvidesFile{fit12.clo}[2008/12/15 fithesis2 (size option)]
+\ProvidesFile{fit12.clo}[2008/12/15 fithesis3 (size option)]
 
 \renewcommand{\normalsize}{\fontsize\@xiipt{14.5}\selectfont%
 \abovedisplayskip 12\p@ plus3\p@ minus7\p@
@@ -1126,7 +1142,6 @@
   %        \else \@makeschapterhead{#1}%
   %              \markright{#1}
   %              \@afterheading\fi}
-\fi
 
 \def\section{\@startsection {section}{1}{\z@}{-3.5ex plus-1ex minus
     -.2ex}{2.3ex plus.2ex}{\reset@font\large\bfseries}}
