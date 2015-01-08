@@ -1,4 +1,5 @@
 all: fithesis.cls fithesis.pdf example.pdf
+	cd loga && make all
 
 fithesis.cls: fithesis.ins fithesis.dtx
 	yes | tex fithesis.ins

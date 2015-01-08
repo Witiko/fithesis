@@ -21,7 +21,7 @@
 % History:
 % 2015/01/01 v0.3.0 fi logo is no longer special-cased (added eps and pdf) [VN]
 %                   \thesislogopath added to set the logo directory path [VN]
-%                   \thesiscolor added to enable colorful typo elements (currenly only fi logo) [VN]
+%                   \thesiscolor added to enable colorful typo elements (currently only faculty logos) [VN]
 % 2008/07/27 v0.2.12 Licence change to the LPPL [JP]
 % 2008/01/07 v0.2.11 fix missing fi-logo.mf [JP,PS]
 % 2006/05/12 v0.2.10 fix EN name of Acknowledgement [JP]
@@ -294,11 +294,9 @@
 \def\thesislogo#1{\gdef\@thesislogo{#1}}
 \def\thesisadvisor#1{\gdef\@thesisadvisor{#1}}
 \def\thesisfaculty#1{\gdef\@thesisfaculty{#1}
-\def\facultylogo{\@thesislogopath\@thesisfaculty-logo\ifx\@thesiscolor\True%
-  \ifx\@thesisfaculty\Fi%
-    -color%
-  \fi
-\fi}
+\def\facultylogo{\@thesislogopath\ifx\@thesiscolor\True%
+  color%
+\fi/\@thesisfaculty-logo}
 \ifx\@thesisfaculty\Fi
  \ifx\@thesislang\Langen
   \def\facultyname{Faculty of Informatics}
@@ -692,7 +690,7 @@
 % \end{macro}
 %
 % \begin{macro}{\thesislang}
-% Makro umo\v{z}n\'{i} stanovit jazyk, ve kter\'{e}m je pr\'{a}ce napsan\'{a} (v sou\v{c}asn\'{e} dob\v{e} jsou podporovany variany: cs, sk, en).
+% Makro umo\v{z}n\'{i} stanovit jazyk, ve kter\'{e}m je pr\'{a}ce napsan\'{a} (v sou\v{c}asn\'{e} dob\v{e} jsou podporovany variany: cs, sk, en). Jazyk je t\v{r}eba stanovit p\v{r}ed pou\v{z}it\'{i}m p\v{r}\'{i}kazu \prikaz{thesisfaculty}, jinak dojde k vys\'{a}zen\'{i} jm\'{e}na fakulty v \v{c}e\v{s}tin\v{e}.
 % \end{macro}
 %
 % \begin{macro}{\ThesisTitlePage}
