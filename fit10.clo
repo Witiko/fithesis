@@ -1,0 +1,255 @@
+%%
+%% This is file `fit10.clo',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% fithesis.dtx  (with options: `opt,10pt')
+%% 
+%% 
+%% Copyright 1993 1994 1995 The LaTeX3 Project and any individual
+%% authors listed elsewhere in this file.
+%% 
+%% For further copyright information, and conditions for modification
+%% and distribution, see the file legal.txt, and any other copyright
+%% notices in this file.
+%% 
+%% This file is part of the LaTeX2e system.
+%% ----------------------------------------
+%%   This system is distributed in the hope that it will be useful,
+%%   but WITHOUT ANY WARRANTY; without even the implied warranty of
+%%   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+%% 
+%% IMPORTANT COPYRIGHT NOTICE:
+%% 
+%% You are NOT ALLOWED to distribute this file alone.
+%% 
+%% If you receive only some of these files from someone, complain!
+%% 
+%% However, NO PERMISSION is granted to generate or to distribute a
+%% modified version of this file under its original name.
+%% 
+%% You are NOT ALLOWED to change this file.
+%% 
+%% 
+%% MODIFICATION ADVICE:
+%% 
+%% If you want to customize this file, it is best to make a copy of
+%% the source file(s) from which it was produced.  Use a different
+%% name for your copy(ies) and modify the copy(ies); this will ensure
+%% that your modifications do not get overwritten when you install a
+%% new release of the standard system.  You should also ensure that
+%% your modified source file does not generate any modified file with
+%% the same name as a standard file.
+%% 
+%% You will also need to produce your own, suitably named, .ins file to
+%% control the generation of files from your source file; this file
+%% should contain your own preambles for the files it generates, not
+%% those in the standard .ins files.
+%% 
+%% The names of the source files used are shown above.
+%% 
+\ProvidesFile{fit10.clo}[2015/01/09 fithesis3 (size option)]
+
+\renewcommand{\normalsize}{\fontsize\@xpt{12}\selectfont%
+\abovedisplayskip 10\p@ plus2\p@ minus5\p@
+\belowdisplayskip \abovedisplayskip
+\abovedisplayshortskip  \z@ plus3\p@
+\belowdisplayshortskip  6\p@ plus3\p@ minus3\p@
+\let\@listi\@listI}
+
+\renewcommand{\small}{\fontsize\@ixpt{11}\selectfont%
+\abovedisplayskip 8.5\p@ plus3\p@ minus4\p@
+\belowdisplayskip \abovedisplayskip
+\abovedisplayshortskip \z@ plus2\p@
+\belowdisplayshortskip 4\p@ plus2\p@ minus2\p@
+\def\@listi{\leftmargin\leftmargini
+\topsep 4\p@ plus2\p@ minus2\p@\parsep 2\p@ plus\p@ minus\p@
+\itemsep \parsep}}
+
+\renewcommand{\footnotesize}{\fontsize\@viiipt{9.5}\selectfont%
+\abovedisplayskip 6\p@ plus2\p@ minus4\p@
+\belowdisplayskip \abovedisplayskip
+\abovedisplayshortskip \z@ plus\p@
+\belowdisplayshortskip 3\p@ plus\p@ minus2\p@
+\def\@listi{\leftmargin\leftmargini %% Added 22 Dec 87
+\topsep 3\p@ plus\p@ minus\p@\parsep 2\p@ plus\p@ minus\p@
+\itemsep \parsep}}
+
+\renewcommand{\scriptsize}{\fontsize\@viipt{8pt}\selectfont}
+\renewcommand{\tiny}{\fontsize\@vpt{6pt}\selectfont}
+\renewcommand{\large}{\fontsize\@xiipt{14pt}\selectfont}
+\renewcommand{\Large}{\fontsize\@xivpt{18pt}\selectfont}
+\renewcommand{\LARGE}{\fontsize\@xviipt{22pt}\selectfont}
+\renewcommand{\huge}{\fontsize\@xxpt{25pt}\selectfont}
+\renewcommand{\Huge}{\fontsize\@xxvpt{30pt}\selectfont}
+
+\let\@normalsize\normalsize
+\normalsize
+
+\if@twoside
+   \oddsidemargin 0.75in
+   \evensidemargin 0.4in
+   \marginparwidth 0pt
+\else
+   \oddsidemargin 0.75in
+   \evensidemargin 0.75in
+   \marginparwidth 0pt
+\fi
+\marginparsep 10pt
+
+\topmargin 0.4in
+
+\headheight 20pt
+\headsep 10pt
+\topskip 10pt
+\footskip 30pt
+
+\textheight = 43\baselineskip
+\advance\textheight by \topskip
+\textwidth 5.0truein
+\columnsep 10pt
+\columnseprule 0pt
+
+\footnotesep 6.65pt
+\skip\footins 9pt plus 4pt minus 2pt
+\floatsep 12pt plus 2pt minus 2pt
+\textfloatsep 20pt plus 2pt minus 4pt
+\intextsep 12pt plus 2pt minus 2pt
+\dblfloatsep 12pt plus 2pt minus 2pt
+\dbltextfloatsep 20pt plus 2pt minus 4pt
+
+\@fptop 0pt plus 1fil
+\@fpsep 8pt plus 2fil
+\@fpbot 0pt plus 1fil
+\@dblfptop 0pt plus 1fil
+\@dblfpsep 8pt plus 2fil
+\@dblfpbot 0pt plus 1fil
+\marginparpush 5pt
+
+\parskip 0pt plus 1pt
+\partopsep 2pt plus 1pt minus 1pt
+
+\@lowpenalty   51
+\@medpenalty  151
+\@highpenalty 301
+\@beginparpenalty -\@lowpenalty
+\@endparpenalty   -\@lowpenalty
+\@itempenalty     -\@lowpenalty
+
+\newif\iffichapters
+\fichaptersfalse
+\ifx\clsclass\Scrreprtcls\fichapterstrue\fi
+\ifx\clsclass\RapportIcls\fichapterstrue\fi
+\ifx\clsclass\RapportIIIcls\fichapterstrue\fi
+\iffichapters
+  \def\@makechapterhead#1{%
+    {\setlength\parindent{\z@}%
+     \setlength\parskip  {\z@}%
+      \ifnum \c@secnumdepth >\m@ne
+  \par\nobreak
+  \vskip 10\p@
+      \fi
+      \Large \ChapFont \thechapter{} \space #1\par
+      \nobreak
+      \vskip 20\p@
+    }}
+
+  \def\@makeschapterhead#1{%
+    {\setlength\parindent{\z@}%
+     \setlength\parskip  {\z@}%
+     \Large \ChapFont #1\par
+      \nobreak
+      \vskip 20\p@
+    }}
+
+  \def\chapter{\clearpage
+     \thispagestyle{plain}
+     \global\@topnum\z@
+     \@afterindentfalse
+   \secdef\@chapter\@schapter}
+
+  \def\@chapter[#1]#2{\ifnum \c@secnumdepth >\m@ne
+  \refstepcounter{chapter}%
+  \typeout{\@chapapp\space\thechapter.}%
+  \addcontentsline{toc}{chapter}{\protect
+  \numberline{\thechapter}\bfseries #1}\else
+\addcontentsline{toc}{chapter}{\bfseries #1}\fi
+     \chaptermark{#1}%
+     \addtocontents{lof}%
+ {\protect\addvspace{4\p@}}
+     \addtocontents{lot}%
+ {\protect\addvspace{4\p@}}
+     \if@twocolumn
+     \@topnewpage[\@makechapterhead{#2}]%
+       \else \@makechapterhead{#2}%
+     \@afterheading
+       \fi}
+
+  %\def\@schapter#1{\if@twocolumn \@topnewpage[\@makeschapterhead{#1}]%
+  %        \else \@makeschapterhead{#1}%
+  %              \markright{#1}
+  %              \@afterheading\fi}
+
+\def\section{\@startsection {section}{1}{\z@}{-3.5ex plus-1ex minus
+    -.2ex}{2.3ex plus.2ex}{\reset@font\large\bfseries}}
+\def\subsection{\@startsection{subsection}{2}{\z@}{-3.25ex plus-1ex
+    minus-.2ex}{1.5ex plus.2ex}{\reset@font\normalsize\bfseries}}
+\def\subsubsection{\@startsection{subsubsection}{3}{\z@}{-3.25ex plus
+    -1ex minus-.2ex}{1.5ex plus.2ex}{\reset@font\normalsize}}
+\def\paragraph{\@startsection
+    {paragraph}{4}{\z@}{3.25ex plus1ex minus.2ex}{-1em}{\reset@font
+    \normalsize\bfseries}}
+\def\subparagraph{\@startsection
+     {subparagraph}{4}{\parindent}{3.25ex plus1ex minus
+     .2ex}{-1em}{\reset@font\normalsize\bfseries}}
+
+\setcounter{secnumdepth}{2}
+
+\def\appendix{\par
+  \setcounter{chapter}{0}%
+  \setcounter{section}{0}%
+  \def\@chapapp{\appendixname}%
+  \def\thechapter{\Alph{chapter}}}
+
+\leftmargini 2.5em
+\leftmarginii 2.2em     % > \labelsep + width of '(m)'
+\leftmarginiii 1.87em   % > \labelsep + width of 'vii.'
+\leftmarginiv 1.7em     % > \labelsep + width of 'M.'
+\leftmarginv 1em
+\leftmarginvi 1em
+
+\leftmargin\leftmargini
+\labelsep .5em
+\labelwidth\leftmargini\advance\labelwidth-\labelsep
+
+\def\@listI{\leftmargin\leftmargini \parsep 4\p@ plus2\p@ minus\p@%
+\topsep 8\p@ plus2\p@ minus4\p@
+\itemsep 4\p@ plus2\p@ minus\p@}
+
+\let\@listi\@listI
+\@listi
+
+\def\@listii{\leftmargin\leftmarginii
+   \labelwidth\leftmarginii\advance\labelwidth-\labelsep
+   \topsep 4\p@ plus2\p@ minus\p@
+   \parsep 2\p@ plus\p@ minus\p@
+   \itemsep \parsep}
+
+\def\@listiii{\leftmargin\leftmarginiii
+    \labelwidth\leftmarginiii\advance\labelwidth-\labelsep
+    \topsep 2\p@ plus\p@ minus\p@
+    \parsep \z@ \partopsep\p@ plus\z@ minus\p@
+    \itemsep \topsep}
+
+\def\@listiv{\leftmargin\leftmarginiv
+     \labelwidth\leftmarginiv\advance\labelwidth-\labelsep}
+
+\def\@listv{\leftmargin\leftmarginv
+     \labelwidth\leftmarginv\advance\labelwidth-\labelsep}
+
+\def\@listvi{\leftmargin\leftmarginvi
+     \labelwidth\leftmarginvi\advance\labelwidth-\labelsep}
+\endinput
+%%
+%% End of file `fit10.clo'.
