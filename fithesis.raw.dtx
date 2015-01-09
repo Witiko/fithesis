@@ -1,6 +1,6 @@
 % \iffalse meta-comment
 % fithesis.dtx
-% Copyright 1998--2008 Daniel Marek, Jan Pavlovi\v{c}, V\'{i}t Novotn\'{y}, Petr Sojka,
+% Copyright 1998--%%%year%%% Daniel Marek, Jan Pavlovič, Vít Novotný, Petr Sojka,
 % Faculty of Informatics, Masaryk University
 %
 % This work may be distributed and/or modified under the
@@ -13,12 +13,14 @@
 %
 % This work has the LPPL maintenance status `maintained'.
 % 
-% The Current Maintainer of this work is V\'{i}t Novotn\'{y}.
+% The Current Maintainer of this work is Vít Novotný.
 %
 % This work consists of the files fithesis.dtx and fithesis.ins
-% and the derived file fithesis.cls, fit10.clo, fit11.clo, fit12.clo.
+% and the derived files fithesis.cls, fit10.clo, fit11.clo, fit12.clo.
 %
 % History:
+% 2015/01/09 v0.3.1 the documentation now uses babel and cmap packages and was converted into utf8 [VN]
+%                   the \thesiscolor macro was replaced by color document class option [VN]
 % 2015/01/01 v0.3.0 fi logo is no longer special-cased (added eps and pdf) [VN]
 %                   \thesislogopath added to set the logo directory path [VN]
 %                   \thesiscolor added to enable colorful typo elements (currently only faculty logos) [VN]
@@ -47,13 +49,13 @@
 % 2003/02/14 v0.1b change of default size (11pt->12pt) [JP]
 % 2003/02/12 v0.1a minor documentation changes (CZ only, sorry) [PS]
 % 2003/02/11 v0.1 new release, documentation editing (CZ only, sorry) [PS]
-% 2002 - changes by Jan Pavlovi\v{c} to allow fithesis being
+% 2002 - changes by Jan Pavlovič to allow fithesis being
 %        backend of docbook based system for thesis writing
 % 1998 - bachelor project of Daniel Marek under supervision of Petr Sojka
 %
 % TODO:
 % - commented source
-% - index dod\v{e}lat
+% - index dodělat
 % - adding reference to docbook
 %
 %    \begin{macrocode}
@@ -61,8 +63,10 @@
 \documentclass{ltxdoc}
 \makeindex
 \usepackage{makeidx}
-\usepackage[latin2]{inputenc} % tento soubor je v ISO-Latin2
-\usepackage[T1]{fontenc} % tento soubor je v ISO-Latin2
+\usepackage[resetfonts]{cmap}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[czech]{babel}
 \usepackage{csquot,mflogo}
 \EnableCrossrefs
 \begin{document}
@@ -76,46 +80,46 @@
 % \newcommand{\prikaz}[1]{\texttt{\bs #1}\index{#1@\texttt{\bs#1}}}
 % \newcommand{\fit}{\textsf{fithesis}}
 % \newcommand{\itm}[1]{\noindent{\bf #1}} 
-% \title{Sada maker \fit\ pro sazbu\\ diplomov\'{e} a bakal\'{a}\v{r}sk\'{e} pr\'{a}ce}
-% \author{Daniel Marek, Jan Pavlovi\v{c}, V\'{i}t Novotn\'{y}, Petr Sojka}
+% \title{Sada maker \fit\ pro sazbu\\ diplomové a bakalářské práce}
+% \author{Daniel Marek, Jan Pavlovič, Vít Novotný, Petr Sojka}
 % \date{\today}
 % \maketitle
 %
 % \begin{abstract}
 % \noindent 
-% Tento text popisuje instalaci a pou\v{z}it\'{u} sady maker
-% pro sazbu diplomov\'{e} a bakal\'{a}\v{r}sk\'{e} pr\'{a}ce na Fakult\v{e} informatiky 
-% Masarykovy univerzity v~syst\'{e}mu \LaTeX. U\v{z}ivateli 
-% umo\v{z}n\'{i} jednotn\v{e}
-% vysadit v\v{s}echny pot\v{r}ebn\'{e} povinn\'{e} i nepovinn\'{e} \v{c}\'{a}sti stanoven\'{e}
-% v~pokynech pro vypracov\'{a}n\'{i} diplomov\'{e} a bakal\'{a}\v{r}sk\'{e} pr\'{a}ce 
-% na FI~MU. Jeho pou\v{z}it\'{i} v\'v{s}ak automaticky \emph{nezaru\v{c}uje}
-% typografickou spr\'{a}vnost, je t\v{r}eba ho p\v{r}\'{i}padn\v{e} pou\v{z}\'{i}t jako
+% Tento text popisuje instalaci a použití sady maker
+% pro sazbu diplomové a bakalářské práce na Fakultě informatiky 
+% Masarykovy univerzity v~systému \LaTeX. Uživateli 
+% umožní jednotně
+% vysadit všechny potřebné povinné i nepovinné části stanovené
+% v~pokynech pro vypracování diplomové a bakalářské práce 
+% na FI~MU. Jeho použití v\'v{s}ak automaticky \emph{nezaručuje}
+% typografickou správnost, je třeba ho případně použít jako
 % pom\r{u}cku.
 % \end{abstract}
 %
 % \tableofcontents
 %
 % \section{Instalace maker \texttt{fithesis}}
-% K~samotn\'{e} instalaci stylu jsou pot\v{r}eba alespo\v{n} dva soubory:
-% standardn\'{i} instala\v{c}n\'{i} soubory \LaTeX u 
+% K~samotné instalaci stylu jsou potřeba alespoň dva soubory:
+% standardní instalační soubory \LaTeX u 
 % \texttt{fithesis.dtx} a \texttt{fithesis.ins}.
-% Proto\v{z}e je v~makrech pou\v{z}\'{i}v\'{a}no p\'{i}smo Palatino, logo
-% Fakulty informatiky a samotn\'{a} sazba diplomov\'{e} a bakal\'{a}\v{r}sk\'{e} pr\'{a}ce je
-% zalo\v{z}ena na stylu {\sf scrreprt}, je t\v{r}eba z\'{a}rove\v{n}  
+% Protože je v~makrech používáno písmo Palatino, logo
+% Fakulty informatiky a samotná sazba diplomové a bakalářské práce je
+% založena na stylu {\sf scrreprt}, je třeba zároveň  
 % instalovat i tuto podporu, pokud ji distribuce \TeX u kterou
-% pou\v{z}\'{i}v\'{a}te neobsahuje.
+% používáte neobsahuje.
 %
-% Po spu\v{s}t\v{e}n\'{i} instalace p\v{r}\'{i}kazem \texttt{tex fithesis.ins} se vygeneruj\'{i}
-% soubory \texttt{fithesis.cls} (z\'{a}kladn\'{i} t\v{r}\'{i}da) a soubory \texttt{fit10.clo}, 
-% \texttt{fit11.clo} a \texttt{fit12.clo} (volby ur\v{c}uj\'{i}c\'{i} velikost p\'{i}sma). 
-% P\v{r}\'{i}kazem \texttt{cslatex fithesis.dtx} je mo\v{z}n\'{e} p\v{r}elo\v{z}it dokumentaci.
+% Po spuštění instalace příkazem \texttt{tex fithesis.ins} se vygenerují
+% soubory \texttt{fithesis.cls} (základní třída) a soubory \texttt{fit10.clo}, 
+% \texttt{fit11.clo} a \texttt{fit12.clo} (volby určující velikost písma). 
+% Příkazem \texttt{cslatex fithesis.dtx} je možné přeložit dokumentaci.
 %
 % \iffalse
 %    \begin{macrocode}
 %<*class>
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{fithesis}[2008/12/15 fithesis3 version 0.3.0 MU thesis class]
+\ProvidesClass{fithesis}[%%%date%%% fithesis3 version %%%version%%% MU thesis class]
 
 \ifx\clsclass\undefined
  \def\clsclass{rapport3}
@@ -126,48 +130,52 @@
 %    \end{macrocode}
 % \fi
 %
-% \section{Pou\v{z}it\'{i} t\v{r}\'{i}dy \fit}
-% Pro pou\v{z}it\'{i} sady maker uvedeme v~p\v{r}\'{i}kazu \prikaz{documentclass}
-% vytv\'{a}\v{r}en\'{e}ho dokumentu t\v{r}\'{i}du (styl) \fit, kter\'{a} m\r{u}\v{z}e b\'{y}t modifikov\'{a}na 
-% volbami, um\'{i}st\v{e}n\'{y}mi ve voliteln\'{e}m parametru tohoto p\v{r}\'{i}kazu. 	
-% Mo\v{z}n\'{e} volby jsou tyto:
+% \section{Použití třídy \fit}
+% Pro použití sady maker uvedeme v~příkazu \prikaz{documentclass}
+% vytvářeného dokumentu třídu (styl) \fit, která m\r{u}že být modifikována 
+% volbami, umístěnými ve volitelném parametru tohoto příkazu. 	
+% Možné volby jsou tyto:
 % \begin{itemize}
-% \item [--]{\bf 10pt} -- zm\v{e}n\'{i} z\'{a}kladn\'{i} velikost p\'{i}sma na 10~bod\r{u}. P\v{r}i
-% t\'{e}to volb\v{e} je po\v{c}et \v{r}\'{a}dek vysazen\'{e} strany roven 40ti, pr\r{u}m\v{e}rn\'{y} po\v{c}et
-% znak\r{u} na \v{r}\'{a}dku se pohybuje mezi 70ti a\v{z} 80ti. Nedoporu\v{c}ov\'{a}no,
-% pokud nebude p\v{r}i v\'{y}sledn\'{e}m tisku tiskov\'{e} zrcadlo zv\v{e}t\v{s}ov\'{a}no z~B5
+% \item [--]{\bf 10pt} -- změní základní velikost písma na 10~bod\r{u}. Při
+% této volbě je počet řádek vysazené strany roven 40ti, pr\r{u}měrný počet
+% znak\r{u} na řádku se pohybuje mezi 70ti až 80ti. Nedoporučováno,
+% pokud nebude při výsledném tisku tiskové zrcadlo zvětšováno z~B5
 % na A4. 
-% \item [--]{\bf 11pt} -- z\'{a}kladn\'{i} velikost p\'{i}sma bude 11 bod\r{u}. 
-% Tato volba byla ve star\v{s}\'{i} verzi nastavena implicitn\v{e}.
-% Po\v{c}et \v{r}\'{a}dek vysazen\'{e} strany je~40, 
-% pr\r{u}m\v{e}rn\'{y} po\v{c}et znak\r{u} na \v{r}\'{a}dce p\v{r}i pou\v{z}it\'{i} fontu Palatino
-% je 65 a\v{z}~70.
-% \item [--]{\bf 12pt} -- Z\'{a}kladn\'{i} velikost p\'{i}sma se touto volbou zm\v{e}n\'{i} na 
-% 12 bod\r{u}. Po\v{c}et \v{r}\'{a}dek na str\'{a}nce je 38, pr\r{u}m\v{e}rn\'{y} po\v{c}et znak\r{u} na \v{r}\'{a}dce
-% je 55 a\v{z} 60. Tato volba je implicitn\'{i} a doporu\v{c}ov\'{a}na.
-% \item [--]{\bf oneside} -- Tato volba umo\v{z}n\'{i} sazbu pr\'{a}ce pouze
-% jednostran\v{e}, je nastavena implicitn\v{e}. Sazba je pouze 
-% na stran\'{a}ch lich\'{y}ch. Tato volba je implicitn\'{i} a doporu\v{c}ov\'{a}na.
-% \item [--]{\bf twoside} -- Sazba pr\'{a}ce bude oboustran\'{a},
-% rozli\v{s}uj\'{i} se lich\'{e} a sud\'{e} strany, za\v{c}\'{a}tky kapitol a jin\'{y}ch v\'{y}znamn\'{y}ch
-% celk\r{u} jsou um\'{i}st\v{e}ny v\v{z}dy na stran\v{e} lich\'{e}, tedy prav\'{e}.
-% \item [--]{\bf onecolumn} -- Implicitn\v{e} nastaven\'{a} volba pro sazbu textu
-% do jednoho sloupce na str\'{a}nce. Text je zarovnan\'{y} oba okraje sloupce.
-% \item [--]{\bf twocolumn} -- Tato volba umo\v{z}n\'{i} sazbu textu do dvou
-% sloupc\r{u} na st\'{a}nku. Text je zarovnan\'{y} na oba okraje sloupce.
-% Tato volba je implicitn\'{i} a doporu\v{c}ov\'{a}na.
-% \item [--]{\bf draft} -- Po nastaven\'{i} t\'{e}to volby bude \v{s}patn\v{e} zalomen\'{y}
-% text na konc\'{i}ch \v{r}\'{a}dk\r{u} zv\'{y}razn\v{e}n \v{c}ern\'{y}m obd\'{e}ln\'{i}\v{c}kem pro sna\v{z}\v{s}\'{i} vizu\'{a}ln\'{i}
-% identifikaci. D\'{a}le volbu p\v{r}eb\'{i}raj\'{i} dal\v{s}\'{i} bal\'{i}ky, jako je 
-% \texttt{graphics}, a zde zp\r{u}sob\'{i} sazbu r\'{a}me\v{c}k\r{u} m\'{i}sto
-% vkl\'{a}d\'{a}n\'{i} obr\'{a}zk\r{u}.
+% \item [--]{\bf 11pt} -- základní velikost písma bude 11 bod\r{u}. 
+% Tato volba byla ve starší verzi nastavena implicitně.
+% Počet řádek vysazené strany je~40, 
+% pr\r{u}měrný počet znak\r{u} na řádce při použití fontu Palatino
+% je 65 až~70.
+% \item [--]{\bf 12pt} -- Základní velikost písma se touto volbou změní na 
+% 12 bod\r{u}. Počet řádek na stránce je 38, pr\r{u}měrný počet znak\r{u} na řádce
+% je 55 až 60. Tato volba je implicitní a doporučována.
+% \item [--]{\bf oneside} -- Tato volba umožní sazbu práce pouze
+% jednostraně, je nastavena implicitně. Sazba je pouze 
+% na stranách lichých. Tato volba je implicitní a doporučována pro sazbu verze určené pro čtení na monitoru.
+% \item [--]{\bf twoside} -- Sazba práce bude oboustraná,
+% rozlišují se liché a sudé strany, začátky kapitol a jiných významných
+% celk\r{u} jsou umístěny vždy na straně liché, tedy pravé.
+% Tato volba je doporučována pro sazbu verze určené pro tisk.
+% \item [--]{\bf onecolumn} -- Implicitně nastavená volba pro sazbu textu
+% do jednoho sloupce na stránce. Text je zarovnaný oba okraje sloupce.
+% \item [--]{\bf twocolumn} -- Tato volba umožní sazbu textu do dvou
+% sloupc\r{u} na stánku. Text je zarovnaný na oba okraje sloupce.
+% Tato volba je implicitní a je doporučována.
+% \item [--]{\bf draft} -- Po nastavení této volby bude špatně zalomený
+% text na koncích řádk\r{u} zvýrazněn černým obdélníčkem pro snažší vizuální
+% identifikaci. Dále volbu přebírají další balíky, jako je 
+% \texttt{graphics}, a zde zp\r{u}sobí sazbu rámečk\r{u} místo
+% vkládání obrázk\r{u}.
 % \item [--]{\bf final} -- Opak volby draft. Tato volba je nastavena
-% implicitn\v{e}.
+% implicitně.
+% \item [--]{\bf color} -- Určité typografické prvky, jako například logo
+% fakulty, budou vysázeny barevně. Tuto volbu použijte pouze při sazbě dokumentu
+% určeného pro čtení na monitoru, nebo pro barevný tisk.
 % \end{itemize}
-% Jednotliv\'{e} volby se mohou pat\v{r}i\v{c}n\v{e} kombinovat. Lze volit mezi velikost\'{i}
-% z\'{a}kladn\'{i}ho p\'{i}sma (10pt, 11pt a 12pt), mezi sazbou jednostrannou a
-% oboustrannou, sazbou jednosloupcovou a dvousloupcovou a mezi kone\v{c}nou
-% fin\'{a}ln\'{i} podobou a konceptem dokumentu (volby final a draft). 
+% Jednotlivé volby se mohou patřičně kombinovat. Lze volit mezi velikostí
+% základního písma (10pt, 11pt a 12pt), mezi sazbou jednostrannou a
+% oboustrannou, sazbou jednosloupcovou a dvousloupcovou a mezi konečnou
+% finální podobou a konceptem dokumentu (volby final a draft). 
 % \iffalse
 %    \begin{macrocode}
 %<*class>
@@ -180,6 +188,7 @@
 \DeclareOption{twocolumn}{\@twocolumntrue}
 \DeclareOption{draft}{\setlength\overfullrule{5pt}}
 \DeclareOption{final}{\setlength\overfullrule{0pt}}
+\DeclareOption{color}{\gdef\@thesiscolor{true}}
 
 \ExecuteOptions{12pt,oneside,final}
 \ProcessOptions
@@ -278,9 +287,8 @@
 \def\Langen{en}
 
 \def\@thesislang{\Langcs}
-\def\@thesissubtitle{Diplomov\'{a} pr\'{a}ce}
-\def\@thesislogopath{loga/} % The loga/ directory by default
-\def\@thesiscolor{false} % Implicitly not colorful
+\def\@thesissubtitle{Diplomová práce}
+\def\@thesislogopath{loga} % The loga directory by default
 
 \def\titlefont{\fontsize\@xxvpt{30}\selectfont}
 \def\thesistitle#1{\gdef\@thesistitle{#1}}
@@ -289,14 +297,14 @@
 \def\thesisplaceyear{Brno, \@thesisyear}
 \def\thesissubtitle#1{\gdef\@thesissubtitle{#1}}
 \def\thesislogopath#1{\gdef\@thesislogopath{#1}}
-\def\thesiscolor#1{\gdef\@thesiscolor{#1}}
 \def\thesisuniversity#1{\gdef\@thesisuniversity{#1}}
 \def\thesislogo#1{\gdef\@thesislogo{#1}}
 \def\thesisadvisor#1{\gdef\@thesisadvisor{#1}}
 \def\thesisfaculty#1{\gdef\@thesisfaculty{#1}
+\def\@slash{/}
 \def\facultylogo{\@thesislogopath\ifx\@thesiscolor\True%
-  color%
-\fi/\@thesisfaculty-logo}
+  \@slash color%
+\fi\@slash\@thesisfaculty-logo}
 \ifx\@thesisfaculty\Fi
  \ifx\@thesislang\Langen
   \def\facultyname{Faculty of Informatics}
@@ -307,55 +315,55 @@
   \ifx\@thesislang\Langen
    \def\facultyname{Faculty of Science}
    \def\universityname{Masaryk University}
-  \else \def\facultyname{P\v{r}\'{i}rodov\v{e}deck\'{a} fakulta}
+  \else \def\facultyname{Přírodovědecká fakulta}
   \fi
   \else \ifx\@thesisfaculty\Law
    \ifx\@thesislang\Langen
     \def\facultyname{Faculty of Law}
     \def\universityname{Masaryk University}
-   \else \def\facultyname{Pr\'{a}vnick\'{a} fakulta}
+   \else \def\facultyname{Právnická fakulta}
    \fi
   \else \ifx\@thesisfaculty\Eco
    \ifx\@thesislang\Langen
     \def\facultyname{Faculty of Economics and Administration}
     \def\universityname{Masaryk University}
-   \else \def\facultyname{Ekonomicko-spr\'{a}vn\'{i} fakulta}
+   \else \def\facultyname{Ekonomicko-správní fakulta}
    \fi
   \else \ifx\@thesisfaculty\Fss
    \ifx\@thesislang\Langen
     \def\facultyname{Faculty of Social Studies}
     \def\universityname{Masaryk University}
-   \else \def\facultyname{Fakulta soci\'{a}ln\'{i}ch studi\'{i}}
+   \else \def\facultyname{Fakulta sociálních studií}
    \fi
   \else \ifx\@thesisfaculty\Med
    \ifx\@thesislang\Langen
     \def\facultyname{Faculty of Medicine}
     \def\universityname{Masaryk University}
-   \else \def\facultyname{L\'{e}ka\v{r}sk\'{a} fakulta}
+   \else \def\facultyname{Lékařská fakulta}
    \fi
   \else \ifx\@thesisfaculty\Ped
    \ifx\@thesislang\Langen
     \def\facultyname{Faculty of Education}
     \def\universityname{Masaryk University}
-   \else \def\facultyname{Pedagogick\'{a} fakulta}
+   \else \def\facultyname{Pedagogická fakulta}
    \fi
   \else \ifx\@thesisfaculty\Phil
    \ifx\@thesislang\Langen
     \def\facultyname{Faculty of Arts}
     \def\universityname{Masaryk University}
-   \else \def\facultyname{Filozofick\'{a} fakulta}
+   \else \def\facultyname{Filozofická fakulta}
    \fi
   \else \ifx\@thesisfaculty\Fsps
    \ifx\@thesislang\Langen
     \def\facultyname{Faculty of Sports Studies}
     \def\universityname{Masaryk University}
-   \else \def\facultyname{Fakulta sportovn\'{i}ch studi\'{i}}
+   \else \def\facultyname{Fakulta sportovních studií}
    \fi
          \else
           \def\facultyname{\@thesisfaculty}
           \def\universityname{\@thesisuniversity}
-          \def\@thesislogopath{./} % The current directory by default
-          \def\facultylogo{\@thesislogopath\@thesislogo}
+          \def\@thesislogopath{.} % The current directory by default
+          \def\facultylogo{\@thesislogopath/\@thesislogo}
           \def\thesisplaceyear{\@thesisyear}
          \fi
         \fi
@@ -390,18 +398,18 @@
 \def\thesislang#1{\gdef\@thesislang{#1}}
 
 \def\DeclarationTextcs{%
-	Prohla\v{s}uji, \v{z}e tato \expandafter\lowecasewrapper\@thesissubtitle{} 
-	je m\'{y}m p\r{u}vodn\'{i}m autorsk\'{y}m
-	d\'{i}lem, kter\'{e} jsem vypracoval\@w\ samostatn\v{e}. V\v{s}echny zdroje, prameny a
-	literaturu, kter\'{e} jsem p\v{r}i vypracov\'{a}n\'{i} pou\v{z}\'{i}val\@w\ nebo z~nich
-	\v{c}erpal\@w, v~pr\'{a}ci \v{r}\'{a}dn\v{e} cituji s~uveden\'{i}m \'{u}pln\'{e}ho odkazu na p\v{r}\'{i}slu\v{s}n\'{y}
+	Prohlašuji, že tato \expandafter\lowecasewrapper\@thesissubtitle{} 
+	je mým p\r{u}vodním autorským
+	dílem, které jsem vypracoval\@w\ samostatně. Všechny zdroje, prameny a
+	literaturu, které jsem při vypracování používal\@w\ nebo z~nich
+	čerpal\@w, v~práci řádně cituji s~uvedením úplného odkazu na příslušný
 	zdroj.}
 \def\DeclarationTextsk{%
-	Prehlasujem, \v{z}e t\'{a}to \expandafter\lowecasewrapper\@thesissubtitle{} 
-	je moj\'{i}m p\^{o}vodn\'{y}m autorsk\'{y}m
-	dielom, ktor\'{e} som vypracoval\@w\ samostatne. V\v{s}etky zdroje, pramene a
-	literat\'{u}ru, ktor\'{e} som pri vypracovan\'{i} pou\v{z}\'{i}val\@w\ alebo z~nich
-	\v{c}erpal\@w, v~pr\'{a}ci riadne citujem s~uveden\'{i}m \'{u}pln\'{e}ho odkazu na pr\'{i}slu\v{s}n\'{y}
+	Prehlasujem, že táto \expandafter\lowecasewrapper\@thesissubtitle{} 
+	je mojím p\^{o}vodným autorským
+	dielom, ktoré som vypracoval\@w\ samostatne. Všetky zdroje, pramene a
+	literatúru, ktoré som pri vypracovaní používal\@w\ alebo z~nich
+	čerpal\@w, v~práci riadne citujem s~uvedením úplného odkazu na príslušný
 	zdroj.}
 \def\DeclarationTexten{%
 	Hereby I declare, that this paper is my original authorial work, 
@@ -410,11 +418,11 @@
 }
 
 \def\DeclarationTitlecs{%
-	Prohl\'{a}\v{s}en\'{i}
+	Prohlášení
 }
 
 \def\DeclarationTitlesk{%
-	Prehl\'{a}senie
+	Prehlásenie
 }
 
 \def\DeclarationTitleen{%
@@ -422,11 +430,11 @@
 }
 
 \def\ThanksTitlecs{%
-	Pod\v{e}kov\'{a}n\'{i}
+	Poděkování
 }
 
 \def\ThanksTitlesk{%
-	Po\v{d}akovanie
+	Poďakovanie
 }
 
 \def\ThanksTitleen{%
@@ -434,7 +442,7 @@
 }
 
 \def\AbstractTitlecs{%
-	Shrnut\'{i}
+	Shrnutí
 }
 
 \def\AbstractTitlesk{%
@@ -446,11 +454,11 @@
 }
 
 \def\KeyWordsTitlecs{%
-	Kl\'{i}\v{c}ov\'{a} slova
+	Klíčová slova
 }
 
 \def\KeyWordsTitlesk{%
-	K\v{l}\'{u}\v{c}ov\'{e} slov\'{a}
+	K\v{l}účové slová
 }
 
 \def\KeyWordsTitleen{%
@@ -458,11 +466,11 @@
 }
 
 \def\AdvisorTitlecs{%
-	Vedouc\'{i} pr\'{a}ce:
+	Vedoucí práce:
 }
 
 \def\AdvisorTitlesk{%
-	Ved\'{u}ci pr\'{a}ce:
+	Vedúci práce:
 }
 
 \def\AdvisorTitleen{%
@@ -612,203 +620,211 @@
 %    \end{macrocode}
 % \fi
 %
-% \section{Popis jednotliv\'{y}ch maker}
-% N\'{a}sleduj\'{i}c\'{i} makra slou\v{z}\'{i} k vlo\v{z}en\'{i} z\'{a}kladn\'{i}ch \'{u}daj\r{u} pot\v{r}ebn\'{y}ch 
-% k~vysazen\'{i} tituln\'{i} strany. Na tituln\'{i} stranu se krom\v{e} n\'{a}zvu
-% pr\'{a}ce, jm\'{e}na studenta a roku vypracov\'{a}n\'{i} vysad\'{i} tak\'{e} logo fakulty.
+% \section{Popis jednotlivých maker}
+% Následující makra slouží k vložení základních údaj\r{u} potřebných 
+% k~vysazení titulní strany. Na titulní stranu se kromě názvu
+% práce, jména studenta a roku vypracování vysadí také logo fakulty.
 %
 % \begin{macro}{\thesistitle}
-% Makro umo\v{z}n\'{i} vlo\v{z}it n\'{a}zev pr\'{a}ce, u dvou\v{r}\'{a}dkov\'{y}ch
-% \v{c}i v\'{i}ce\v{r}\'{a}dkov\'{y}ch n\'{a}zv\r{u} se standardn\v{e} odd\v{e}l\'{i} jednotliv\'{e} \v{c}\'{a}sti
-% p\v{r}\'{i}kazem $\backslash$$\backslash$ s voliteln\'{y}m parametrem 
-% mezi\v{r}\'{a}dkov\'{e}ho prokladu.
+% Makro umožní vložit název práce, u dvouřádkových
+% či víceřádkových názv\r{u} se standardně oddělí jednotlivé části
+% příkazem $\backslash$$\backslash$ s volitelným parametrem 
+% meziřádkového prokladu.
 % \end{macro}
 %
 % \begin{macro}{\thesissubtitle}
-% Makro umo\v{z}n\'{i} vlo\v{z}it n\'{a}zev typu pr\'{a}ce, nap\v{r}. bakal\'{a}\v{r}sk\'{a} pr\'{a}ce
-% diplomov\'{a} pr\'{a}ce atd.
+% Makro umožní vložit název typu práce, např. bakalářská práce
+% diplomová práce atd.
 % \end{macro}
 %
 % \begin{macro}{\thesisstudent}
-% Makro umo\v{z}n\'{i} pomoc\'{i} sv\'{e}ho jedin\'{e}ho parametru vlo\v{z}it jm\'{e}no studenta.
+% Makro umožní pomocí svého jediného parametru vložit jméno studenta.
 % \end{macro}
 %
 % \begin{macro}{\thesiswoman}
-% Makro umo\v{z}n\'{i} vlo\v{z}it pohlav\'{i} studenta, volby jsou: true, false 
-% (nahrazuje pou\v{z}it\'{i} p\v{r}ep\'{i}na\v{c}e \prikaz{ifwoman}).
+% Makro umožní vložit pohlaví studenta, volby jsou: true, false 
+% (nahrazuje použití přepínače \prikaz{ifwoman}).
 % \end{macro}
 %
 % \begin{macro}{\thesisfaculty}
-% Makro umo\v{z}n\'{i} stanovit pod jakou fakultou byla pr\'{a}ce naps\'{a}na. Podle toho
-% se tak\'{e} vlo\v{z}\'{i} pat\v{r}i\v{c}n\'{e} logo a n\'{a}zev fakulty na tituln\'{i} str\'{a}nku.
-% Jsou podporov\'{a}ny tyto fakulty MU:
+% Makro umožní stanovit pod jakou fakultou byla práce napsána. Podle toho
+% se také vloží patřičné logo a název fakulty na titulní stránku.
+% Jsou podporovány tyto fakulty MU:
 % \begin{itemize}
 % \item Fakulta informatiky -- fi
-% \item P\v{r}\'{i}rodov\v{e}deck\'{a} fakulta -- sci,
-% \item Pr\'{a}vnick\'{a} fakulta -- law,
-% \item Ekonomicko-spr\'{a}vn\'{i} fakulta -- eco,
-% \item Fakulta soci\'{a}ln\'{i}ch studi\'{i} -- fss,
-% \item L\'{e}ka\v{r}sk\'{a} fakulta -- med,
-% \item Pedagogick\'{a} fakulta -- ped,
-% \item Filozofick\'{a} fakulta -- phil
+% \item Přírodovědecká fakulta -- sci,
+% \item Právnická fakulta -- law,
+% \item Ekonomicko-správní fakulta -- eco,
+% \item Fakulta sociálních studií -- fss,
+% \item Lékařská fakulta -- med,
+% \item Pedagogická fakulta -- ped,
+% \item Filozofická fakulta -- phil
 % \end{itemize}
-% nap\v{r}\'{i}klad: \prikaz{thesisfaculty\{fi\}}.
-% Lze pou\v{z}\'{i}t i vlastn\'{i} n\'{a}zev, pokud pr\'{a}ce nen\'{i} psan\'{a} pod 
-% \v{z}\'{a}dnou z~v\'{y}\v{s}e uveden\'{y}ch fakult MU, pak je nutn\'{e} zadat 
-% i n\'{a}zev univerzity \prikaz{thesisuniversity\{\}}, 
-% jm\'{e}no souboru loga fakulty (bez p\v{r}\'{i}pony) 
-% \prikaz{thesislogo\{\}} a t\'{e}\v{z} do makra 
-% \prikaz{thesisyear\{\}} s\'{i}dlo dan\'{e} univerzity 
-% (pro MU toto nen\'{i} t\v{r}eba).
+% například: \prikaz{thesisfaculty\{fi\}}.
+% Lze použít i vlastní název, pokud práce není psaná pod 
+% žádnou z~výše uvedených fakult MU, pak je nutné zadat 
+% i název univerzity \prikaz{thesisuniversity\{\}}, 
+% jméno souboru loga fakulty (bez přípony) 
+% \prikaz{thesislogo\{\}} a též do makra 
+% \prikaz{thesisyear\{\}} sídlo dané univerzity 
+% (pro MU toto není třeba).
 % \end{macro}
 %
 % \begin{macro}{\thesisyear}
-% Makro umo\v{z}n\'{i} vlo\v{z}it rok vypracov\'{a}n\'{i} pr\'{a}ce. 
+% Makro umožní vložit rok vypracování práce. 
 % \end{macro}
 %
 % \begin{macro}{\thesisadvisor}
-% Makro umo\v{z}n\'{i} vlo\v{z}it jm\'{e}no vedouc\'{i}ho pr\'{a}ce.
+% Makro umožní vložit jméno vedoucího práce.
 % \end{macro}
 %
 % \begin{macro}{\thesisuniversity}
-% Makro umo\v{z}n\'{i} stanovit pod jakou univerzitou byla pr\'{a}ce naps\'{a}na.
-% M\'{a} v\'{y}znam jen v p\v{r}\'{i}pad\v{e}, \v{z}e pr\'{a}ce nen\'{i} psan\'{a} pod MU.
+% Makro umožní stanovit pod jakou univerzitou byla práce napsána.
+% Má význam jen v případě, že práce není psaná pod MU.
 % \end{macro}
 %
 % \begin{macro}{\thesislogopath}
-% Makro umo\v{z}n\'{i} stanovit cestu k adres\'{a}\v{r}i s logy fakult. Implicitn\'{i} hodnota
-% je \texttt{loga/} pro pr\'{a}ce psan\'{e} pod MU a \texttt{./} pro pr\'{a}ce psan\'{e} mimo MU.
+% Makro umožní stanovit cestu k adresáři s logy fakult. Implicitní hodnota
+% je \texttt{loga/} pro práce psané pod MU a \texttt{./} pro práce psané mimo MU.
 % \end{macro}
 %
 % \begin{macro}{\thesislogo}
-% Makro umo\v{z}n\'{i} stanovit soubor (bez p\v{r}\'{i}pony) loga fakulty pod jakou byla pr\'{a}ce napsan\'{a}.
-% M\'{a} v\'{y}znam jen v~p\v{r}\'{i}pad\v{e}, \v{z}e pr\'{a}ce nen\'{i} psan\'{a} pod MU.
-% \end{macro}
-%
-% \begin{macro}{\thesiscolor}
-% Makro umo\v{z}\v{n}\'{i} aktivovat barevn\'{e} typografick\'{e} prvky v s\'{a}zen\'{e}m dokumentu p\v{r}ed\'{a}n\'{i}m hodnoty \texttt{true} jako prvn\'{i}ho argumentu. Implicitn\'{i} hodnota je \texttt{false}.
+% Makro umožní stanovit soubor (bez přípony) loga fakulty pod jakou byla práce napsaná.
+% Má význam jen v~případě, že práce není psaná pod MU.
 % \end{macro}
 %
 % \begin{macro}{\thesislang}
-% Makro umo\v{z}n\'{i} stanovit jazyk, ve kter\'{e}m je pr\'{a}ce napsan\'{a} (v sou\v{c}asn\'{e} dob\v{e} jsou podporovany variany: cs, sk, en). Jazyk je t\v{r}eba stanovit p\v{r}ed pou\v{z}it\'{i}m p\v{r}\'{i}kazu \prikaz{thesisfaculty}, jinak dojde k vys\'{a}zen\'{i} jm\'{e}na fakulty v \v{c}e\v{s}tin\v{e}.
+% Makro umožní stanovit jazyk, ve kterém je práce napsaná (v současné době jsou podporovany variany: cs, sk, en). Jazyk je třeba stanovit před použitím příkazu \prikaz{thesisfaculty}, jinak dojde k vysázení jména fakulty v češtině.
 % \end{macro}
 %
 % \begin{macro}{\ThesisTitlePage}
-% Tituln\'{i} strana pr\'{a}ce se vysad\'{i} p\v{r}\'{i}kazem 
-% \prikaz{ThesisTitlePage} a vyu\v{z}ije p\v{r}edem zadan\'{y}ch \'{u}daj\r{u}
-% n\'{a}zvu pr\'{a}ce a jm\'{e}na studenta a roku vypracov\'{a}n\'{i}.
+% Titulní strana práce se vysadí příkazem 
+% \prikaz{ThesisTitlePage} a využije předem zadaných údaj\r{u}
+% názvu práce a jména studenta a roku vypracování.
 % \end{macro}
 %
 % \begin{macro}{\FrontMatter}
-% Toto makro se vlo\v{z}\'{i} na za\v{c}\'{a}tek dokumentu (nejl\'{e}pe za p\v{r}\'{i}kaz
+% Toto makro se vloží na začátek dokumentu (nejlépe za příkaz
 % \prikaz{begin\{document\}}). 
-% Prvn\'{i} strany dokumentu obsahuj\'{i}c\'{i}ch prohl\'{a}\v{s}en\'{i}, abstrakt a kl\'{i}\v{c}ov\'{a}
-% slova se nastav\'{i} na \v{r}\'{i}msk\'{e} \v{c}\'{i}slov\'{a}n\'{i}. U~dal\v{s}\'{i}ch stran v\v{c}etn\v{e}
-% obsahu a n\'{a}sleduj\'{i}c\'{i}ch kapitol se pomoc\'{i} makra \prikaz{MainMatter} 
-% nastav\'{i} arabsk\'{e} \v{c}\'{i}slov\'{a}n\'{i}.
+% První strany dokumentu obsahujících prohlášení, abstrakt a klíčová
+% slova se nastaví na římské číslování. U~dalších stran včetně
+% obsahu a následujících kapitol se pomocí makra \prikaz{MainMatter} 
+% nastaví arabské číslování.
 % \end{macro}
 %
-% \subsubsection*{Povinn\'{e} \v{c}\'{a}sti diplomov\'{e} pr\'{a}ce}
-% N\'{a}sleduj\'{i}c\'{i} makra jsou pot\v{r}ebn\'{a} k vysazen\'{i} povinn\'{y}ch \v{c}\'{a}st\'{i} diplomov\'{e}
-% pr\'{a}ce. Jsou jimi {\it prohl\'{a}\v{s}en\'{i} o samostatn\'{e}m vypracov\'{a}n\'{i}\/}, {\it 
-% shrnut\'{i} diplomov\'{e} pr\'{a}ce\/} a {\it kl\'{i}\v{c}ov\'{a} slova\/}. Nepovinou \v{c}\'{a}st\'{i} je
-% {\it pod\v{e}kov\'{a}n\'{i}\/}. Pro v\v{s}echny tyto celky je v\v{z}dy definov\'{a}no prost\v{r}ed\'{i},
-% kter\'{e} zajist\'{i} krom\v{e} vysazen\'{i} ka\v{z}d\'{e} \v{c}\'{a}sti na samostatnou stranu
-% nap\v{r}\'{i}klad tak\'{e}
-% jednotn\'{e} styly nadpis\r{u}. Posledn\'{i} povinnou \v{c}\'{a}st\'{i} je {\it seznam
-% literatury\/}, ten se, stejn\v{e} jako {\it obsah diplomov\'{e} pr\'{a}ce\/} ji\v{z}
-% s\'{a}z\'{i} pomoc\'{i} standardn\'{i}ch \LaTeX ov\'{y}ch p\v{r}\'{i}kaz\r{u}. 
+% \subsubsection*{Povinné části diplomové práce}
+% Následující makra jsou potřebná k vysazení povinných částí diplomové
+% práce. Jsou jimi {\it prohlášení o samostatném vypracování\/}, {\it 
+% shrnutí diplomové práce\/} a {\it klíčová slova\/}. Nepovinou částí je
+% {\it poděkování\/}. Pro všechny tyto celky je vždy definováno prostředí,
+% které zajistí kromě vysazení každé části na samostatnou stranu
+% například také
+% jednotné styly nadpis\r{u}. Poslední povinnou částí je {\it seznam
+% literatury\/}, ten se, stejně jako {\it obsah diplomové práce\/} již
+% sází pomocí standardních \LaTeX ových příkaz\r{u}. 
 %
 % \begin{macro}{ThesisDeclaration}
-% Prost\v{r}ed\'{i} \texttt{ThesisDeclaration} vysad\'{i} str\'{a}nku s prohl\'{a}\v{s}en\'{i}m o
-% samostatn\'{e}m vypracov\'{a}n\'{i}
-% diplomov\'{e} pr\'{a}ce. Text tohoto prohl\'{a}\v{s}en\'{i} m\r{u}\v{z}e u\v{z}ivatel p\v{r}edefinovat
-% pomoc\'{i} makra \prikaz{DeclarationText}. Implicitn\v{e} s\'{a}zen\'{y} text je
-% n\'{a}sledovn\'{y}: 
+% Prostředí \texttt{ThesisDeclaration} vysadí stránku s prohlášením o
+% samostatném vypracování
+% diplomové práce. Text tohoto prohlášení m\r{u}že uživatel předefinovat
+% pomocí makra \prikaz{DeclarationText}. Implicitně sázený text je
+% následovný: 
 % \begin{quote}{\it
-% Prohla\v{s}uji, \v{z}e tato diplomov\'{a} pr\'{a}ce je m\'{y}m p\r{u}vodn\'{i}m autorsk\'{y}m
-% d\'{i}lem, kter\'{e} jsem vypracoval samostatn\v{e}. V\v{s}echny zdroje, prameny a
-% literaturu, kter\'{e} jsem p\v{r}i vypracov\'{a}n\'{i} pou\v{z}\'{i}val nebo z~nich
-% \v{c}erpal, v~pr\'{a}ci \v{r}\'{a}dn\v{e} cituji s~uveden\'{i}m \'{u}pln\'{e}ho odkazu na p\v{r}\'{i}slu\v{s}n\'{y}
+% Prohlašuji, že tato diplomová práce je mým p\r{u}vodním autorským
+% dílem, které jsem vypracoval samostatně. Všechny zdroje, prameny a
+% literaturu, které jsem při vypracování používal nebo z~nich
+% čerpal, v~práci řádně cituji s~uvedením úplného odkazu na příslušný
 % zdroj.}
 % \end{quote}
-% D\'{a}le se vlo\v{z}\'{i} makro \prikaz{AdvisorName}, kter\'{e} vys\'{a}z\'{i} \'{u}daje o vedouc\'{i}m pr\'{a}ce.
+% Dále se vloží makro \prikaz{AdvisorName}, které vysází údaje o vedoucím práce.
 % \end{macro}
 %
 % \begin{macro}{ThesisThanks}
-% Toto prost\v{r}ed\'{i} umo\v{z}n\'{i} vysadit {\it pod\v{e}kov\'{a}n\'{i}\/}.
+% Toto prostředí umožní vysadit {\it poděkování\/}.
 % \end{macro}
 % \begin{macro}{ThesisAbstract}
-% {\it Shrnut\'{i}\/} diplomov\'{e} pr\'{a}ce je mo\v{z}no vysadit pomoc\'{i} prost\v{r}ed\'{i} {\tt
-% ThesisAbstract}. Shrnut\'{i} by m\v{e}lo zab\'{i}rat prostor nejv\'{y}\v{s}e jedn\'{e} strany. 
+% {\it Shrnutí\/} diplomové práce je možno vysadit pomocí prostředí {\tt
+% ThesisAbstract}. Shrnutí by mělo zabírat prostor nejvýše jedné strany. 
 % \end{macro}
 %
 % \begin{macro}{ThesisAbstracten}
-% {\it Abstract\/} diplomov\'{e} pr\'{a}ce v angli\v{c}tin\v{e} je mo\v{z}no vysadit pomoc\'{i} prost\v{r}ed\'{i} {\tt
-% ThesisAbstracten}. Abstract by m\v{e}l zab\'{i}rat prostor nejv\'{y}\v{s}e jedn\'{e} strany. 
+% {\it Abstract\/} diplomové práce v angličtině je možno vysadit pomocí prostředí {\tt
+% ThesisAbstracten}. Abstract by měl zabírat prostor nejvýše jedné strany. 
 % \end{macro}
 %
 % \begin{macro}{ThesisKeyWords}
-% {\it Kl\'{i}\v{c}ov\'{a} slova\/} odd\v{e}len\'{a} \v{c}\'{a}rkami se vep\'{i}\v{s}\'{i} do prost\v{r}ed\'{i} {\tt
+% {\it Klíčová slova\/} oddělená čárkami se vepíší do prostředí {\tt
 % ThesisKeyWords}. 
 % \end{macro}
 %
 % \begin{macro}{\MainMatter}
-% Makro \prikaz{MainMatter} nastav\'{i} krom\v{e} arabsk\'{e}ho \v{c}\'{i}slov\'{a}n\'{i} str\'{a}nek  
-% tak\'{e} implicitn\'{i} styl str\'{a}nky pro sazbu n\'{a}sleduj\'{i}c\'{i}ch kapitol. V~tomto
-% stylu se do hlavi\v{c}ky str\'{a}nky vkl\'{a}d\'{a} n\'{a}zev aktu\'{a}ln\'{i} kapitoly a od
-% ostatn\'{i}ho textu se z\'{a}hlav\'{i} odd\v{e}l\'{i} horizont\'{a}ln\'{i} \v{c}arou.
+% Makro \prikaz{MainMatter} nastaví kromě arabského číslování stránek  
+% také implicitní styl stránky pro sazbu následujících kapitol. V~tomto
+% stylu se do hlavičky stránky vkládá název aktuální kapitoly a od
+% ostatního textu se záhlaví oddělí horizontální čarou.
 % \end{macro}
 %
-% Proto\v{z}e je pou\v{z}ito dvoj\'{i} \v{c}\'{i}slov\'{a}n\'{i} je nutn\'{e} zadat hyperrefu
-% parametry, kter\'{e} zajist\'{i} spr\'{a}vn\'{e} odkazov\'{a}n\'{i} unit\v{r} dokumentu.
+% Protože je použito dvojí číslování je nutné zadat hyperrefu
+% parametry, které zajistí správné odkazování unitř dokumentu.
 % \prikaz{usepackage[plainpages=false, pdfpagelabels]\{hyperref\}}
 %
-% Dal\v{s}\'{i} text diplomov\'{e} pr\'{a}ce (obsah, \'{u}vod, jednotliv\'{e} kapitoly a \v{c}\'{a}sti,
-% pop\v{r}\'{i}pad\v{e} z\'{a}v\v{e}r, literatura \v{c}i dodatky) se ji\v{z} s\'{a}z\'{i} standardn\'{i}mi
-% p\v{r}\'{i}kazy. N\'{a}sleduje zjednodu\v{s}en\'{y} uk\'{a}zkov\'{y} p\v{r}\'{i}klad 
-% \textit{kostry} diplomov\'{e} pr\'{a}ce.
+% Další text diplomové práce (obsah, úvod, jednotlivé kapitoly a části,
+% popřípadě závěr, literatura či dodatky) se již sází standardními
+% příkazy. Následuje zjednodušený ukázkový příklad 
+% \textit{kostry} diplomové práce.
 % \begin{verbatim}
-%
-% \documentclass[12pt,draft,oneside]{fithesis}
-% \usepackage[plainpages=false, pdfpagelabels]{hyperref}
-%
-% \thesistitle{Tvorba dokumentu v XML}
-% \thesissubtitle{Bakal\'{a}\v{r}sk\'{a} pr\'{a}ce}
-% \thesisstudent{Jm\'{e}no P\v{r}\'{i}jmen\'{i}}
-% \thesiswoman{false}
-% \thesisfaculty{fi}
-% \thesisyear{jaro 2003}
-% \thesisadvisor{Jm\'{e}no P\v{r}\'{i}jmen\'{i}}
-%
+% \documentclass[12pt,oneside]{fithesis}
+% \usepackage[english]{babel}       % Multilingual support
+% \usepackage[utf8]{inputenc}       % UTF-8 encoding
+% \usepackage[T1]{fontenc}          % T1 font encoding
+% \usepackage[                      % Clickable links
+%   plainpages = false,               % We have multiple page numberings
+%   pdfpagelabels                     % Generate pdf page labels
+% ]{hyperref}
+% \usepackage{blindtext}            % Lorem ipsum generator
+% 
+% \thesislang{en}                   % The language of the thesis
+% \thesistitle{Sample thesis}       % The title of the thesis
+% \thesissubtitle{Bachelor thesis}  % The type of the thesis
+% \thesisstudent{Jane Doe}          % Your name
+% \thesiswoman{true}                % Your gender
+% \thesisfaculty{fi}                % Your faculty
+% \thesisyear{spring \the\year}     % The academic term of your thesis defense
+% \thesisadvisor{John Foo, Ph.D.}   % Your advisor
+% 
 % \begin{document}
-% \FrontMatter
-% \ThesisTitlePage
-% 
-% \begin{ThesisDeclaration}
-% \DeclarationText
-% \AdvisorName
-% \end{ThesisDeclaration}
-%
-% \begin{ThesisThanks}
-% Zde bude uvedeno \uv{pod\v{e}kov\'{a}n\'{i}} ...
-% \end{ThesisThanks}
-% 
-% Obdobn\v{e} jako pod\v{e}kov\'{a}n\'{i} se mohou vysadit shrnut\'{i} a kl\'{i}\v{c}ov\'{a}
-% slova pomoc\'{i} prost\v{r}ed\'{i} "ThesisAbstract" a "ThesisKeyWords".
-%
-% \tableofcontents
-% \MainMatter
-% \chapter*{\'{u}vod}
-% Text \ldots
-%
-% % N\'{a}sleduj\'{i} dal\v{s}\'{i} kapitoly a podkapitoly, pop\v{r}\'{i}pad\v{e} z\'{a}v\v{e}r, dodatky,
-% % seznam literatury \v{c}i pou\v{z}it\'{y}ch obr\'{a}zk\r{u} nebo tabulek.
-%
-% \bibliographystyle{plain}  % bibliografick\'{y} styl
-% \bibliography{mujbisoubor} % soubor s citovan\'{y}mi 
-%                            % polo\v{z}kami bibliografie
-% \end{document}
+%   \FrontMatter                    % The front matter
+%     \ThesisTitlePage                % The title page
+%     \begin{ThesisDeclaration}       % The declaration
+%       \DeclarationText
+%       \AdvisorName
+%     \end{ThesisDeclaration}
+%     \begin{ThesisThanks}            % The acknowledgements (optional)
+%       I would like to thank my supervisor\,\dots
+%     \end{ThesisThanks}
+%     \begin{ThesisAbstract}          % The abstract
+%       The aim of the bachelor work is to provide\,\dots
+%     \end{ThesisAbstract}
+%     \begin{ThesisKeyWords}          % The keywords
+%       keyword1, keyword2\,\dots
+%     \end{ThesisKeyWords}
+%     \tableofcontents                % The table of contents
+% %   \listoftables                   % The list of tables (optional)
+% %   \listoffigures                  % The list of figures (optional)
+%   
+%   \MainMatter                     % The main matter
+%     \chapter{Introduction}          % Chapters
+%     \Blindtext
+%     \chapter{Another chapter}
+%     \Blindtext
+%     \appendix
+%     \chapter{First appendix}        % Appendices
+%     \Blindtext
+%     \chapter{Another appendix}
+%     \Blindtext
+%     % Bibliography goes here
+%     % Index goes here (optional)
+% \end{document} 
 % \end{verbatim}
 % 
 % \printindex
@@ -863,7 +879,7 @@
 %    \begin{macrocode}
 %<*opt>
 %<*10pt>
-\ProvidesFile{fit10.clo}[2008/12/15 fithesis3 (size option)]
+\ProvidesFile{fit10.clo}[%%%date%%% fithesis3 (size option)]
 
 \renewcommand{\normalsize}{\fontsize\@xpt{12}\selectfont%
 \abovedisplayskip 10\p@ plus2\p@ minus5\p@
@@ -901,7 +917,7 @@
 %</10pt>
 %
 %<*11pt>
-\ProvidesFile{fit11.clo}[2008/12/15 fithesis3 (size option)]
+\ProvidesFile{fit11.clo}[%%%date%%% fithesis3 (size option)]
 
 \renewcommand{\normalsize}{\fontsize\@xipt{14}\selectfont%
 \abovedisplayskip 11\p@ plus3\p@ minus6\p@
@@ -939,7 +955,7 @@
 %</11pt>
 %
 %<*12pt>
-\ProvidesFile{fit12.clo}[2008/12/15 fithesis3 (size option)]
+\ProvidesFile{fit12.clo}[%%%date%%% fithesis3 (size option)]
 
 \renewcommand{\normalsize}{\fontsize\@xiipt{14.5}\selectfont%
 \abovedisplayskip 12\p@ plus3\p@ minus7\p@
