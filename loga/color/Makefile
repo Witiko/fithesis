@@ -1,0 +1,4 @@
+all: eco-logo.pdf fsps-logo.pdf law-logo.pdf med-logo.pdf ped-logo.pdf phil-logo.pdf sci-logo.pdf fi-logo.pdf examples.pdf
+
+%.pdf: %.eps
+	epstopdf $<
