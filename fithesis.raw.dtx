@@ -21,6 +21,7 @@
 % History:
 % 2015/01/09 v0.3.1 the documentation now uses babel and cmap packages and was converted into utf8 [VN]
 %                   the \thesiscolor macro was replaced by color document class option [VN]
+%                   added metadata stamping support [VN]
 % 2015/01/01 v0.3.0 fi logo is no longer special-cased (added eps and pdf) [VN]
 %                   \thesislogopath added to set the logo directory path [VN]
 %                   \thesiscolor added to enable colorful typo elements (currently only faculty logos) [VN]
@@ -200,6 +201,13 @@
 % FIXME: pridat ifxetex apod.
 \RequirePackage{cmap}
 \RequirePackage[T1]{fontenc}
+\RequirePackage{hyperref}
+\hypersetup{plainpages=false} % Multiple page numbering support
+\hypersetup{pdfpagelabels}    % Generate pdf page labels
+\hypersetup{pdftex}           % PDF Metadata stamping
+\hypersetup{
+  pdfcreator={fithesis3 v%%%version%%% MU thesis class}
+}
 
 \def\Scrreprtcls{scrreprt}
 \def\RapportIcls{rapport1}
@@ -763,10 +771,6 @@
 % stylu se do hlavičky stránky vkládá název aktuální kapitoly a od
 % ostatního textu se záhlaví oddělí horizontální čarou.
 % \end{macro}
-%
-% Protože je použito dvojí číslování je nutné zadat hyperrefu
-% parametry, které zajistí správné odkazování unitř dokumentu.
-% \prikaz{usepackage[plainpages=false, pdfpagelabels]\{hyperref\}}
 %
 % Další text diplomové práce (obsah, úvod, jednotlivé kapitoly a části,
 % popřípadě závěr, literatura či dodatky) se již sází standardními

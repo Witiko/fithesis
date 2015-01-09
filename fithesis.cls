@@ -76,6 +76,13 @@
 \RequirePackage{graphicx}
 \RequirePackage{cmap}
 \RequirePackage[T1]{fontenc}
+\RequirePackage{hyperref}
+\hypersetup{plainpages=false} % Multiple page numbering support
+\hypersetup{pdfpagelabels}    % Generate pdf page labels
+\hypersetup{pdftex}           % PDF Metadata stamping
+\hypersetup{
+  pdfcreator={fithesis3 v0.3.1 MU thesis class}
+}
 
 \def\Scrreprtcls{scrreprt}
 \def\RapportIcls{rapport1}
