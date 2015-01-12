@@ -1,3 +1,5 @@
+.PHONY: all clean clean-all
+
 all: fithesis.cls fithesis.pdf example.pdf
 	cd loga && make all
 
