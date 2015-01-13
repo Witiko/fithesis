@@ -1,6 +1,6 @@
 .PHONY: all clean clean-all
 
-all: fithesis.cls fithesis.pdf example.pdf
+all: fithesis.cls fithesis.pdf example.pdf clean
 	cd loga && make all
 
 fithesis.dtx: fithesis.raw.dtx
