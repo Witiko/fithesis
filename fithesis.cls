@@ -50,7 +50,7 @@
 %% The names of the source files used are shown above.
 %% 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{fithesis}[2015/01/09 fithesis3 version 0.3.1 MU thesis class]
+\ProvidesClass{fithesis}[2015/01/13 fithesis3 version 0.3.2 MU thesis class]
 
 \ifx\clsclass\undefined
  \def\clsclass{rapport3}
@@ -81,7 +81,7 @@
 \hypersetup{pdfpagelabels}    % Generate pdf page labels
 \hypersetup{pdftex}           % PDF Metadata stamping
 \hypersetup{
-  pdfcreator={fithesis3 v0.3.1 MU thesis class}
+  pdfcreator={fithesis3 v0.3.2 MU thesis class},
 }
 
 \def\Scrreprtcls{scrreprt}
@@ -174,8 +174,14 @@
 \def\@thesislogopath{loga} % The loga directory by default
 
 \def\titlefont{\fontsize\@xxvpt{30}\selectfont}
-\def\thesistitle#1{\gdef\@thesistitle{#1}}
-\def\thesisstudent#1{\gdef\@thesisstudent{#1}}
+\def\thesistitle#1{
+  \hypersetup{pdftitle={#1}}
+  \gdef\@thesistitle{#1}
+}
+\def\thesisstudent#1{
+  \hypersetup{pdfauthor={#1}}
+  \gdef\@thesisstudent{#1}
+}
 \def\thesisyear#1{\gdef\@thesisyear{#1}}
 \def\thesisplaceyear{Brno, \@thesisyear}
 \def\thesissubtitle#1{\gdef\@thesissubtitle{#1}}

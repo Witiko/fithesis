@@ -19,10 +19,11 @@
 % and the derived files fithesis.cls, fit10.clo, fit11.clo, fit12.clo.
 %
 % History:
+% 2015/01/13 v0.3.2 pdf metadata stamping added for \thesistitle and \thesisstudent [VN]
 % 2015/01/09 v0.3.1 documentation now uses babel and cmap packages [VN]
 %                   the entire file was transcoded into utf8 [VN]
 %                   \thesiscolor was replaced by color class option [VN]
-%                   added metadata stamping support [VN]
+%                   added pdf metadata stamping support [VN]
 % 2015/01/01 v0.3.0 fi logo is no longer special-cased (added eps and pdf) [VN]
 %                   \thesislogopath added to set the logo directory path [VN]
 %                   \thesiscolor added to enable colorful typo elements [VN]
@@ -207,7 +208,7 @@
 \hypersetup{pdfpagelabels}    % Generate pdf page labels
 \hypersetup{pdftex}           % PDF Metadata stamping
 \hypersetup{
-  pdfcreator={fithesis3 v%%%version%%% MU thesis class}
+  pdfcreator={fithesis3 v%%%version%%% MU thesis class},
 }
 
 \def\Scrreprtcls{scrreprt}
@@ -300,8 +301,14 @@
 \def\@thesislogopath{loga} % The loga directory by default
 
 \def\titlefont{\fontsize\@xxvpt{30}\selectfont}
-\def\thesistitle#1{\gdef\@thesistitle{#1}}
-\def\thesisstudent#1{\gdef\@thesisstudent{#1}}
+\def\thesistitle#1{
+  \hypersetup{pdftitle={#1}}
+  \gdef\@thesistitle{#1}
+}
+\def\thesisstudent#1{
+  \hypersetup{pdfauthor={#1}}
+  \gdef\@thesisstudent{#1}
+}
 \def\thesisyear#1{\gdef\@thesisyear{#1}}
 \def\thesisplaceyear{Brno, \@thesisyear}
 \def\thesissubtitle#1{\gdef\@thesissubtitle{#1}}
