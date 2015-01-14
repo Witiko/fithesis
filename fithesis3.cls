@@ -1,5 +1,5 @@
 %%
-%% This is file `fithesis.cls',
+%% This is file `fithesis3.cls',
 %% generated with the docstrip utility.
 %%
 %% The original source files were:
@@ -50,7 +50,7 @@
 %% The names of the source files used are shown above.
 %% 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{fithesis}[2015/01/13 fithesis3 version 0.3.2 MU thesis class]
+\ProvidesClass{fithesis3}[2015/01/13 fithesis3 version 0.3.2 MU thesis class]
 
 \ifx\clsclass\undefined
  \def\clsclass{rapport3}
@@ -538,4 +538,4 @@ Advisor:
 
 \endinput
 %%
-%% End of file `fithesis.cls'.
+%% End of file `fithesis3.cls'.

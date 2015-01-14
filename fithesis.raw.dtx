@@ -16,7 +16,7 @@
 % The Current Maintainer of this work is Vít Novotný.
 %
 % This work consists of the files fithesis.dtx and fithesis.ins
-% and the derived files fithesis.cls, fit10.clo, fit11.clo, fit12.clo.
+% and the derived files fithesis3.cls, fit10.clo, fit11.clo, fit12.clo.
 %
 % History:
 % 2015/01/13 v0.3.2 pdf metadata stamping added for \thesistitle and \thesisstudent [VN]
@@ -114,7 +114,7 @@
 % používáte neobsahuje.
 %
 % Po spuštění instalace příkazem \texttt{tex fithesis.ins} se vygenerují
-% soubory \texttt{fithesis.cls} (základní třída) a soubory \texttt{fit10.clo}, 
+% soubory \texttt{fithesis3.cls} (základní třída) a soubory \texttt{fit10.clo}, 
 % \texttt{fit11.clo} a \texttt{fit12.clo} (volby určující velikost písma). 
 % Příkazem \texttt{cslatex fithesis.dtx} je možné přeložit dokumentaci.
 %
@@ -122,7 +122,7 @@
 %    \begin{macrocode}
 %<*class>
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{fithesis}[%%%date%%% fithesis3 version %%%version%%% MU thesis class]
+\ProvidesClass{fithesis3}[%%%date%%% fithesis3 version %%%version%%% MU thesis class]
 
 \ifx\clsclass\undefined
  \def\clsclass{rapport3}
@@ -785,7 +785,7 @@
 % příkazy. Následuje zjednodušený ukázkový příklad 
 % \textit{kostry} diplomové práce.
 % \begin{verbatim}
-% \documentclass[12pt,oneside]{fithesis}
+% \documentclass[12pt,oneside]{fithesis3}
 % \usepackage[english]{babel}       % Multilingual support
 % \usepackage[utf8]{inputenc}       % UTF-8 encoding
 % \usepackage[T1]{fontenc}          % T1 font encoding

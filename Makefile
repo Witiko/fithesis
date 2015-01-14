@@ -1,18 +1,18 @@
 .PHONY: all clean clean-all
 
-all: fithesis.cls fithesis.pdf example.pdf clean
+all: fithesis2.cls fithesis.pdf example.pdf clean
 	cd loga && make all
 
 fithesis.dtx: fithesis.raw.dtx
 	./fithesis.raw.sh $< $@
 
-fithesis.cls: fithesis.ins fithesis.dtx
+fithesis2.cls: fithesis.ins fithesis.dtx
 	yes | tex $<
 
 fithesis.pdf: fithesis.dtx
 	pdflatex $<
 
-example.pdf: example.tex fithesis.cls
+example.pdf: example.tex fithesis2.cls
 	pdflatex $<
 	pdflatex $<
 
@@ -22,4 +22,4 @@ clean:
 
 clean-all: clean
 	rm -f example.pdf
-	rm -f fit1[012].clo fithesis.cls fithesis.dtx fithesis.pdf
+	rm -f fit1[012].clo fithesis2.cls fithesis.dtx fithesis.pdf
