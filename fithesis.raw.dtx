@@ -19,7 +19,17 @@
 % and the derived files fithesis3.cls, fit10.clo, fit11.clo, fit12.clo.
 %
 % History:
-% 2015/01/13 v0.3.2 pdf metadata stamping added for \thesistitle and \thesisstudent [VN]
+% 2015/01/14 v0.3.4 Import the url package to allow for the use of
+%                   \url{} within the documentation. (backport of v0.2.15) [VN]
+% 2015/01/14 v0.3.3 Small fixes (added \relax at \MainMatter),
+%                   generating both fithesis.cls (obsolete, loading
+%                   fithesis2.cls) and fithesis2.cls, minor doc edits,
+%                   version numbering of .clo fixed, switch to utf8
+%                   and ensuring that .dtx compiles. Documentation
+%                   adjusted to the current status quo, added link
+%                   to discussion forum (backport of v0.2.14) [PS]
+% 2015/01/13 v0.3.2 pdf metadata stamping added for \thesistitle
+%                   and \thesisstudent [VN]
 % 2015/01/09 v0.3.1 documentation now uses babel and cmap packages [VN]
 %                   the entire file was transcoded into utf8 [VN]
 %                   \thesiscolor was replaced by color class option [VN]
@@ -33,7 +43,7 @@
 % 2006/05/08 v0.2.9 add EN version of University name [JP]
 % 2006/01/20 v0.2.8 add change of University name [JP]
 % 2005/05/10 v0.2.7 escape all czech letters [JP]
-%                   babel is used insted of stupid package czech [JP]
+%                   babel is used instead of stupid package czech [JP]
 %                   \MainMatter should be placed after \tablesofcontents [PS]
 % 2004/12/22 v0.2.6 fix : behind Advisor [JP]
 % 2004/05/13 v0.2.5 add english abstract [JP]
@@ -57,8 +67,8 @@
 % 1998 - bachelor project of Daniel Marek under supervision of Petr Sojka
 %
 % TODO:
-% - commented source
-% - index dodělat
+% - commented source, in english
+% - index support
 % - adding reference to docbook
 %
 %    \begin{macrocode}
@@ -66,12 +76,16 @@
 \documentclass{ltxdoc}
 \makeindex
 \usepackage{makeidx}
-\usepackage[resetfonts]{cmap}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc} % this file uses UTF-8
 \usepackage[czech]{babel}
+\usepackage{tgpagella}
+\usepackage[resetfonts]{cmap}
+\usepackage[T1]{fontenc} % use 8bit fonts
 \usepackage{csquot,mflogo}
+\usepackage{url}
+\usepackage{hyperref}
 \EnableCrossrefs
+\emergencystretch 2dd
 \begin{document}
 \DocInput{fithesis.dtx}
 \end{document}
@@ -81,24 +95,23 @@
 %
 % \newcommand{\bs}{\char`\\}
 % \newcommand{\prikaz}[1]{\texttt{\bs #1}\index{#1@\texttt{\bs#1}}}
-% \newcommand{\fit}{\textsf{fithesis}}
+% \newcommand{\fit}{\textsf{fithesis3}}
 % \newcommand{\itm}[1]{\noindent{\bf #1}} 
-% \title{Sada maker \fit\ pro sazbu\\ diplomové a bakalářské práce}
+% \title{Sada maker \fit\ pro sazbu závěrečných prací MU}
 % \author{Daniel Marek, Jan Pavlovič, Vít Novotný, Petr Sojka}
 % \date{\today}
 % \maketitle
 %
 % \begin{abstract}
 % \noindent 
-% Tento text popisuje instalaci a použití sady maker
-% pro sazbu diplomové a bakalářské práce na Fakultě informatiky 
-% Masarykovy univerzity v~systému \LaTeX. Uživateli 
-% umožní jednotně
-% vysadit všechny potřebné povinné i nepovinné části stanovené
-% v~pokynech pro vypracování diplomové a bakalářské práce 
-% na FI~MU. Jeho použití v\'v{s}ak automaticky \emph{nezaručuje}
+% Tento text popisuje instalaci a použití sady \LaTeX ových maker
+% pro sazbu diplomové či bakalářské práce na fakultách
+% Masarykovy univerzity. Uživateli umožní jednotně
+% vysadit všechny potřebné povinné i nepovinné části
+% stanovené v~pokynech pro vypracování závěrečných prací 
+% na MU. Jeho použití však automaticky \emph{nezaručuje}
 % typografickou správnost, je třeba ho případně použít jako
-% pom\r{u}cku.
+% pomůcku.
 % \end{abstract}
 %
 % \tableofcontents
@@ -107,16 +120,31 @@
 % K~samotné instalaci stylu jsou potřeba alespoň dva soubory:
 % standardní instalační soubory \LaTeX u 
 % \texttt{fithesis.dtx} a \texttt{fithesis.ins}.
-% Protože je v~makrech používáno písmo Palatino, logo
+% Protože je v~makrech používáno písmo Palatino
+% (verze z balíku TeX Gyre), logo
 % Fakulty informatiky a samotná sazba diplomové a bakalářské práce je
 % založena na stylu {\sf scrreprt}, je třeba zároveň  
-% instalovat i tuto podporu, pokud ji distribuce \TeX u kterou
-% používáte neobsahuje.
+% instalovat i tuto podporu, pokud ji distribuce \TeX u, kterou
+% používáte, neobsahuje.
+%
+% Instalaci je možné automatizovat programem \texttt{make}
+% přiloženým \texttt{Makefile}.
 %
 % Po spuštění instalace příkazem \texttt{tex fithesis.ins} se vygenerují
-% soubory \texttt{fithesis3.cls} (základní třída) a soubory \texttt{fit10.clo}, 
-% \texttt{fit11.clo} a \texttt{fit12.clo} (volby určující velikost písma). 
-% Příkazem \texttt{cslatex fithesis.dtx} je možné přeložit dokumentaci.
+% soubory \texttt{fithesis3.cls} (základní třída) a soubory 
+% \texttt{fit10.clo}, \texttt{fit11.clo} a \texttt{fit12.clo} 
+% (volby určující velikost písma a mezerování). 
+% Příkazy
+% \begin{verbatim}
+% pdflatex fithesis.dtx
+% makeindex fithesis
+% pdflatex fithesis.dtx
+% \end{verbatim} 
+% je možné přeložit dokumentaci.
+%
+% Užití stylu je na [FI] MU podporováno, návrhy a připomínky jsou vítány
+% na diskusním fóru Informačního systému MU na URL\newline
+% \url{https://is.muni.cz/auth/df/fithesis-sazba/}.
 %
 % \iffalse
 %    \begin{macrocode}
@@ -297,7 +325,7 @@
 \def\Langen{en}
 
 \def\@thesislang{\Langcs}
-\def\@thesissubtitle{Diplomová práce}
+\def\@thesissubtitle{Diplomov\'{a} pr\'{a}ce}
 \def\@thesislogopath{loga} % The loga directory by default
 
 \def\titlefont{\fontsize\@xxvpt{30}\selectfont}
@@ -331,49 +359,49 @@
   \ifx\@thesislang\Langen
    \def\facultyname{Faculty of Science}
    \def\universityname{Masaryk University}
-  \else \def\facultyname{Přírodovědecká fakulta}
+  \else \def\facultyname{P\v{r}\'{i}rodov\v{e}deck\'{a} fakulta}
   \fi
   \else \ifx\@thesisfaculty\Law
    \ifx\@thesislang\Langen
     \def\facultyname{Faculty of Law}
     \def\universityname{Masaryk University}
-   \else \def\facultyname{Právnická fakulta}
+   \else \def\facultyname{Pr\'{a}vnick\'{a} fakulta}
    \fi
   \else \ifx\@thesisfaculty\Eco
    \ifx\@thesislang\Langen
     \def\facultyname{Faculty of Economics and Administration}
     \def\universityname{Masaryk University}
-   \else \def\facultyname{Ekonomicko-správní fakulta}
+   \else \def\facultyname{Ekonomicko-spr\'{a}vn\'{i} fakulta}
    \fi
   \else \ifx\@thesisfaculty\Fss
    \ifx\@thesislang\Langen
     \def\facultyname{Faculty of Social Studies}
     \def\universityname{Masaryk University}
-   \else \def\facultyname{Fakulta sociálních studií}
+   \else \def\facultyname{Fakulta soci\'{a}ln\'{i}ch studi\'{i}}
    \fi
   \else \ifx\@thesisfaculty\Med
    \ifx\@thesislang\Langen
     \def\facultyname{Faculty of Medicine}
     \def\universityname{Masaryk University}
-   \else \def\facultyname{Lékařská fakulta}
+   \else \def\facultyname{L\'{e}ka\v{r}sk\'{a} fakulta}
    \fi
   \else \ifx\@thesisfaculty\Ped
    \ifx\@thesislang\Langen
     \def\facultyname{Faculty of Education}
     \def\universityname{Masaryk University}
-   \else \def\facultyname{Pedagogická fakulta}
+   \else \def\facultyname{Pedagogick\'{a} fakulta}
    \fi
   \else \ifx\@thesisfaculty\Phil
    \ifx\@thesislang\Langen
     \def\facultyname{Faculty of Arts}
     \def\universityname{Masaryk University}
-   \else \def\facultyname{Filozofická fakulta}
+   \else \def\facultyname{Filozofick\'{a} fakulta}
    \fi
   \else \ifx\@thesisfaculty\Fsps
    \ifx\@thesislang\Langen
     \def\facultyname{Faculty of Sports Studies}
     \def\universityname{Masaryk University}
-   \else \def\facultyname{Fakulta sportovních studií}
+   \else \def\facultyname{Fakulta sportovn\'{i}ch studi\'{i}}
    \fi
          \else
           \def\facultyname{\@thesisfaculty}
@@ -414,18 +442,18 @@
 \def\thesislang#1{\gdef\@thesislang{#1}}
 
 \def\DeclarationTextcs{%
-	Prohlašuji, že tato \expandafter\lowecasewrapper\@thesissubtitle{} 
-	je mým p\r{u}vodním autorským
-	dílem, které jsem vypracoval\@w\ samostatně. Všechny zdroje, prameny a
-	literaturu, které jsem při vypracování používal\@w\ nebo z~nich
-	čerpal\@w, v~práci řádně cituji s~uvedením úplného odkazu na příslušný
+	Prohla\v{s}uji, \v{z}e tato \expandafter\lowecasewrapper\@thesissubtitle{} 
+	je m\'{y}m p\r{u}vodn\'{i}m autorsk\'{y}m
+	d\'{i}lem, kter\'{e} jsem vypracoval\@w\ samostatn\v{e}. V\v{s}echny zdroje, prameny a
+	literaturu, kter\'{e} jsem p\v{r}i vypracov\'{a}n\'{i} pou\v{z}\'{i}val\@w\ nebo z~nich
+	\v{c}erpal\@w, v~pr\'{a}ci \v{r}\'{a}dn\v{e} cituji s~uveden\'{i}m \'{u}pln\'{e}ho odkazu na p\v{r}\'{i}slu\v{s}n\'{y}
 	zdroj.}
 \def\DeclarationTextsk{%
-	Prehlasujem, že táto \expandafter\lowecasewrapper\@thesissubtitle{} 
-	je mojím p\^{o}vodným autorským
-	dielom, ktoré som vypracoval\@w\ samostatne. Všetky zdroje, pramene a
-	literatúru, ktoré som pri vypracovaní používal\@w\ alebo z~nich
-	čerpal\@w, v~práci riadne citujem s~uvedením úplného odkazu na príslušný
+	Prehlasujem, \v{z}e t\'{a}to \expandafter\lowecasewrapper\@thesissubtitle{} 
+	je moj\'{i}m p\^{o}vodn\'{y}m autorsk\'{y}m
+	dielom, ktor\'{e} som vypracoval\@w\ samostatne. V\v{s}etky zdroje, pramene a
+	literat\'{u}ru, ktor\'{e} som pri vypracovan\'{i} pou\v{z}\'{i}val\@w\ alebo z~nich
+	\v{c}erpal\@w, v~pr\'{a}ci riadne citujem s~uveden\'{i}m \'{u}pln\'{e}ho odkazu na pr\'{i}slu\v{s}n\'{y}
 	zdroj.}
 \def\DeclarationTexten{%
 	Hereby I declare, that this paper is my original authorial work, 
@@ -434,11 +462,11 @@
 }
 
 \def\DeclarationTitlecs{%
-	Prohlášení
+	Prohl\'{a}\v{s}en\'{i}
 }
 
 \def\DeclarationTitlesk{%
-	Prehlásenie
+	Prehl\'{a}senie
 }
 
 \def\DeclarationTitleen{%
@@ -446,11 +474,11 @@
 }
 
 \def\ThanksTitlecs{%
-	Poděkování
+	Pod\v{e}kov\'{a}n\'{i}
 }
 
 \def\ThanksTitlesk{%
-	Poďakovanie
+	Po\v{d}akovanie
 }
 
 \def\ThanksTitleen{%
@@ -458,7 +486,7 @@
 }
 
 \def\AbstractTitlecs{%
-	Shrnutí
+	Shrnut\'{i}
 }
 
 \def\AbstractTitlesk{%
@@ -470,11 +498,11 @@
 }
 
 \def\KeyWordsTitlecs{%
-	Klíčová slova
+	Kl\'{i}\v{c}ov\'{a} slova
 }
 
 \def\KeyWordsTitlesk{%
-	K\v{l}účové slová
+	K\v{l}\'{u}\v{c}ov\'{e} slov\'{a}
 }
 
 \def\KeyWordsTitleen{%
@@ -482,11 +510,11 @@
 }
 
 \def\AdvisorTitlecs{%
-	Vedoucí práce:
+	Vedouc\'{i} pr\'{a}ce:
 }
 
 \def\AdvisorTitlesk{%
-	Vedúci práce:
+	Ved\'{u}ci pr\'{a}ce:
 }
 
 \def\AdvisorTitleen{%
@@ -630,7 +658,7 @@
 \setcounter{page}{1}
 \pagenumbering{arabic}
 \pagestyle{thesisheadings}
-\parindent 1.5em}
+\parindent 1.5em\relax}
 
 %</class>
 %    \end{macrocode}
@@ -794,6 +822,7 @@
 %   pdfpagelabels                     % Generate pdf page labels
 % ]{hyperref}
 % \usepackage{blindtext}            % Lorem ipsum generator
+% \usepackage[toc,page]{appendix}   % Appendices
 % 
 % \thesislang{en}                   % The language of the thesis
 % \thesistitle{Sample thesis}       % The title of the thesis
@@ -821,24 +850,26 @@
 %       keyword1, keyword2\,\dots
 %     \end{ThesisKeyWords}
 %     \tableofcontents                % The table of contents
-% %   \listoftables                   % The list of tables (optional)
-% %   \listoffigures                  % The list of figures (optional)
 %   
 %   \MainMatter                     % The main matter
 %     \chapter{Introduction}          % Chapters
 %     \Blindtext
 %     \chapter{Another chapter}
 %     \Blindtext
-%     \appendix
-%     \chapter{First appendix}        % Appendices
+%                                     % Bibliography
+%     \listoftables                   % The list of tables (optional)
+%     \listoffigures                  % The list of figures (optional)
+%                                     % Index (optional)
+% 
+%   \begin{appendices}              % Appendices
+%     \chapter{First appendix}
 %     \Blindtext
 %     \chapter{Another appendix}
 %     \Blindtext
-%     % Bibliography goes here
-%     % Index goes here (optional)
+%   \end{appendices}
 % \end{document} 
 % \end{verbatim}
-% 
+% \newpage
 % \printindex
 % \iffalse
 %    \begin{macrocode}

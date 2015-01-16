@@ -50,7 +50,7 @@
 %% The names of the source files used are shown above.
 %% 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{fithesis3}[2015/01/13 fithesis3 version 0.3.2 MU thesis class]
+\ProvidesClass{fithesis3}[2015/01/14 fithesis3 version 0.3.4 MU thesis class]
 
 \ifx\clsclass\undefined
  \def\clsclass{rapport3}
@@ -81,7 +81,7 @@
 \hypersetup{pdfpagelabels}    % Generate pdf page labels
 \hypersetup{pdftex}           % PDF Metadata stamping
 \hypersetup{
-  pdfcreator={fithesis3 v0.3.2 MU thesis class},
+  pdfcreator={fithesis3 v0.3.4 MU thesis class},
 }
 
 \def\Scrreprtcls{scrreprt}
@@ -170,7 +170,7 @@
 \def\Langen{en}
 
 \def\@thesislang{\Langcs}
-\def\@thesissubtitle{Diplomov^^c3^^a1 pr^^c3^^a1ce}
+\def\@thesissubtitle{Diplomov\'{a} pr\'{a}ce}
 \def\@thesislogopath{loga} % The loga directory by default
 
 \def\titlefont{\fontsize\@xxvpt{30}\selectfont}
@@ -204,49 +204,49 @@
   \ifx\@thesislang\Langen
    \def\facultyname{Faculty of Science}
    \def\universityname{Masaryk University}
-  \else \def\facultyname{P^^c5^^99^^c3^^adrodov^^c4^^9bdeck^^c3^^a1 fakulta}
+  \else \def\facultyname{P\v{r}\'{i}rodov\v{e}deck\'{a} fakulta}
   \fi
   \else \ifx\@thesisfaculty\Law
    \ifx\@thesislang\Langen
     \def\facultyname{Faculty of Law}
     \def\universityname{Masaryk University}
-   \else \def\facultyname{Pr^^c3^^a1vnick^^c3^^a1 fakulta}
+   \else \def\facultyname{Pr\'{a}vnick\'{a} fakulta}
    \fi
   \else \ifx\@thesisfaculty\Eco
    \ifx\@thesislang\Langen
     \def\facultyname{Faculty of Economics and Administration}
     \def\universityname{Masaryk University}
-   \else \def\facultyname{Ekonomicko-spr^^c3^^a1vn^^c3^^ad fakulta}
+   \else \def\facultyname{Ekonomicko-spr\'{a}vn\'{i} fakulta}
    \fi
   \else \ifx\@thesisfaculty\Fss
    \ifx\@thesislang\Langen
     \def\facultyname{Faculty of Social Studies}
     \def\universityname{Masaryk University}
-   \else \def\facultyname{Fakulta soci^^c3^^a1ln^^c3^^adch studi^^c3^^ad}
+   \else \def\facultyname{Fakulta soci\'{a}ln\'{i}ch studi\'{i}}
    \fi
   \else \ifx\@thesisfaculty\Med
    \ifx\@thesislang\Langen
     \def\facultyname{Faculty of Medicine}
     \def\universityname{Masaryk University}
-   \else \def\facultyname{L^^c3^^a9ka^^c5^^99sk^^c3^^a1 fakulta}
+   \else \def\facultyname{L\'{e}ka\v{r}sk\'{a} fakulta}
    \fi
   \else \ifx\@thesisfaculty\Ped
    \ifx\@thesislang\Langen
     \def\facultyname{Faculty of Education}
     \def\universityname{Masaryk University}
-   \else \def\facultyname{Pedagogick^^c3^^a1 fakulta}
+   \else \def\facultyname{Pedagogick\'{a} fakulta}
    \fi
   \else \ifx\@thesisfaculty\Phil
    \ifx\@thesislang\Langen
     \def\facultyname{Faculty of Arts}
     \def\universityname{Masaryk University}
-   \else \def\facultyname{Filozofick^^c3^^a1 fakulta}
+   \else \def\facultyname{Filozofick\'{a} fakulta}
    \fi
   \else \ifx\@thesisfaculty\Fsps
    \ifx\@thesislang\Langen
     \def\facultyname{Faculty of Sports Studies}
     \def\universityname{Masaryk University}
-   \else \def\facultyname{Fakulta sportovn^^c3^^adch studi^^c3^^ad}
+   \else \def\facultyname{Fakulta sportovn\'{i}ch studi\'{i}}
    \fi
          \else
           \def\facultyname{\@thesisfaculty}
@@ -280,18 +280,18 @@
 \def\thesislang#1{\gdef\@thesislang{#1}}
 
 \def\DeclarationTextcs{%
-Prohla^^c5^^a1uji, ^^c5^^bee tato \expandafter\lowecasewrapper\@thesissubtitle{}
-je m^^c3^^bdm p\r{u}vodn^^c3^^adm autorsk^^c3^^bdm
-d^^c3^^adlem, kter^^c3^^a9 jsem vypracoval\@w\ samostatn^^c4^^9b. V^^c5^^a1echny zdroje, prameny a
-literaturu, kter^^c3^^a9 jsem p^^c5^^99i vypracov^^c3^^a1n^^c3^^ad pou^^c5^^be^^c3^^adval\@w\ nebo z~nich
-^^c4^^8derpal\@w, v~pr^^c3^^a1ci ^^c5^^99^^c3^^a1dn^^c4^^9b cituji s~uveden^^c3^^adm ^^c3^^bapln^^c3^^a9ho odkazu na p^^c5^^99^^c3^^adslu^^c5^^a1n^^c3^^bd
+Prohla\v{s}uji, \v{z}e tato \expandafter\lowecasewrapper\@thesissubtitle{}
+je m\'{y}m p\r{u}vodn\'{i}m autorsk\'{y}m
+d\'{i}lem, kter\'{e} jsem vypracoval\@w\ samostatn\v{e}. V\v{s}echny zdroje, prameny a
+literaturu, kter\'{e} jsem p\v{r}i vypracov\'{a}n\'{i} pou\v{z}\'{i}val\@w\ nebo z~nich
+\v{c}erpal\@w, v~pr\'{a}ci \v{r}\'{a}dn\v{e} cituji s~uveden\'{i}m \'{u}pln\'{e}ho odkazu na p\v{r}\'{i}slu\v{s}n\'{y}
 zdroj.}
 \def\DeclarationTextsk{%
-Prehlasujem, ^^c5^^bee t^^c3^^a1to \expandafter\lowecasewrapper\@thesissubtitle{}
-je moj^^c3^^adm p\^{o}vodn^^c3^^bdm autorsk^^c3^^bdm
-dielom, ktor^^c3^^a9 som vypracoval\@w\ samostatne. V^^c5^^a1etky zdroje, pramene a
-literat^^c3^^baru, ktor^^c3^^a9 som pri vypracovan^^c3^^ad pou^^c5^^be^^c3^^adval\@w\ alebo z~nich
-^^c4^^8derpal\@w, v~pr^^c3^^a1ci riadne citujem s~uveden^^c3^^adm ^^c3^^bapln^^c3^^a9ho odkazu na pr^^c3^^adslu^^c5^^a1n^^c3^^bd
+Prehlasujem, \v{z}e t\'{a}to \expandafter\lowecasewrapper\@thesissubtitle{}
+je moj\'{i}m p\^{o}vodn\'{y}m autorsk\'{y}m
+dielom, ktor\'{e} som vypracoval\@w\ samostatne. V\v{s}etky zdroje, pramene a
+literat\'{u}ru, ktor\'{e} som pri vypracovan\'{i} pou\v{z}\'{i}val\@w\ alebo z~nich
+\v{c}erpal\@w, v~pr\'{a}ci riadne citujem s~uveden\'{i}m \'{u}pln\'{e}ho odkazu na pr\'{i}slu\v{s}n\'{y}
 zdroj.}
 \def\DeclarationTexten{%
 Hereby I declare, that this paper is my original authorial work,
@@ -300,11 +300,11 @@ during elaboration of this work are properly cited and listed in complete refere
 }
 
 \def\DeclarationTitlecs{%
-Prohl^^c3^^a1^^c5^^a1en^^c3^^ad
+Prohl\'{a}\v{s}en\'{i}
 }
 
 \def\DeclarationTitlesk{%
-Prehl^^c3^^a1senie
+Prehl\'{a}senie
 }
 
 \def\DeclarationTitleen{%
@@ -312,11 +312,11 @@ Declaration
 }
 
 \def\ThanksTitlecs{%
-Pod^^c4^^9bkov^^c3^^a1n^^c3^^ad
+Pod\v{e}kov\'{a}n\'{i}
 }
 
 \def\ThanksTitlesk{%
-Po^^c4^^8fakovanie
+Po\v{d}akovanie
 }
 
 \def\ThanksTitleen{%
@@ -324,7 +324,7 @@ Acknowledgement
 }
 
 \def\AbstractTitlecs{%
-Shrnut^^c3^^ad
+Shrnut\'{i}
 }
 
 \def\AbstractTitlesk{%
@@ -336,11 +336,11 @@ Abstract
 }
 
 \def\KeyWordsTitlecs{%
-Kl^^c3^^ad^^c4^^8dov^^c3^^a1 slova
+Kl\'{i}\v{c}ov\'{a} slova
 }
 
 \def\KeyWordsTitlesk{%
-K\v{l}^^c3^^ba^^c4^^8dov^^c3^^a9 slov^^c3^^a1
+K\v{l}\'{u}\v{c}ov\'{e} slov\'{a}
 }
 
 \def\KeyWordsTitleen{%
@@ -348,11 +348,11 @@ Keywords
 }
 
 \def\AdvisorTitlecs{%
-Vedouc^^c3^^ad pr^^c3^^a1ce:
+Vedouc\'{i} pr\'{a}ce:
 }
 
 \def\AdvisorTitlesk{%
-Ved^^c3^^baci pr^^c3^^a1ce:
+Ved\'{u}ci pr\'{a}ce:
 }
 
 \def\AdvisorTitleen{%
@@ -495,7 +495,7 @@ Advisor:
 \setcounter{page}{1}
 \pagenumbering{arabic}
 \pagestyle{thesisheadings}
-\parindent 1.5em}
+\parindent 1.5em\relax}
 
 
 \renewcommand*\l@part[2]{%

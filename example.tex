@@ -3,6 +3,7 @@
 \usepackage[utf8]{inputenc}       % UTF-8 encoding
 \usepackage[T1]{fontenc}          % T1 font encoding
 \usepackage{blindtext}            % Lorem ipsum generator
+\usepackage[toc,page]{appendix}   % Appendices
 
 \thesislang{en}                   % The language of the thesis
 \thesistitle{Sample thesis}       % The title of the thesis
@@ -30,19 +31,21 @@
       keyword1, keyword2\,\dots
     \end{ThesisKeyWords}
     \tableofcontents                % The table of contents
-%   \listoftables                   % The list of tables (optional)
-%   \listoffigures                  % The list of figures (optional)
   
   \MainMatter                     % The main matter
     \chapter{Introduction}          % Chapters
     \Blindtext
     \chapter{Another chapter}
     \Blindtext
-    \appendix
-    \chapter{First appendix}        % Appendices
+                                    % Bibliography
+    \listoftables                   % The list of tables (optional)
+    \listoffigures                  % The list of figures (optional)
+                                    % Index (optional)
+
+  \begin{appendices}              % Appendices
+    \chapter{First appendix}
     \Blindtext
     \chapter{Another appendix}
     \Blindtext
-    % Bibliography goes here
-    % Index goes here (optional)
-\end{document}
+  \end{appendices}
+\end{document} 
