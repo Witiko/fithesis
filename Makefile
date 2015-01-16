@@ -24,4 +24,4 @@ clean:
 
 clean-all: clean
 	rm -f example.pdf
-	rm -f fit1[012].clo fithesis3.cls fithesis.dtx fithesis.pdf
+	rm -f fit1[012].clo fithesis.cls fithesis[23] fithesis.dtx fithesis.pdf

@@ -131,7 +131,9 @@
 % přiloženým \texttt{Makefile}.
 %
 % Po spuštění instalace příkazem \texttt{tex fithesis.ins} se vygenerují
-% soubory \texttt{fithesis3.cls} (základní třída) a soubory 
+% soubory \texttt{fithesis.cls} (třída \textsf{fithesis1}),
+% \texttt{fithesis2.cls} (třída \textsf{fithesis2}),
+% \texttt{fithesis3.cls} (základní třída) a soubory 
 % \texttt{fit10.clo}, \texttt{fit11.clo} a \texttt{fit12.clo} 
 % (volby určující velikost písma a mezerování). 
 % Příkazy
@@ -1322,5 +1324,38 @@
      \labelwidth\leftmarginvi\advance\labelwidth-\labelsep}
 %</12pt>
 %</opt>
+%
+%<*oldclass1>
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesClass{oldfithesis1}[%%%date%%% old fithesis will load fithesis3 version %%%version%%% MU thesis class]
+
+\errmessage{%
+  You are using the fithesis class, which has been deprecated.
+  The fithesis3 class will be used instead.
+  For more information, see <https://www.fi.muni.cz/tech/unix/tex/fithesis.xhtml>%
+}
+
+\ifx\clsclass\undefined
+ \def\clsclass{fithesis3}
+\fi
+\LoadClass{\clsclass}
+%</oldclass1>
+%
+%<*oldclass2>
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesClass{oldfithesis2}[%%%date%%% old fithesis2 will load fithesis3 version %%%version%%% MU thesis class]
+
+\errmessage{%
+  You are using the fithesis2 class, which has been deprecated.
+  The fithesis3 class will be used instead.
+  For more information, see <https://www.fi.muni.cz/tech/unix/tex/fithesis.xhtml>%
+}
+
+\ifx\clsclass\undefined
+ \def\clsclass{fithesis3}
+\fi
+\LoadClass{\clsclass}
+%</oldclass2>
 %    \end{macrocode}
 % \fi
+%
