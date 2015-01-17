@@ -191,7 +191,7 @@
 \def\thesisadvisor#1{\gdef\@thesisadvisor{#1}}
 \def\thesisfaculty#1{\gdef\@thesisfaculty{#1}
 \def\@slash{/}
-\def\facultylogo{\@thesislogopath\ifx\@thesiscolor\True%
+\def\@facultylogo{\@thesislogopath\ifx\@thesiscolor\True%
   \@slash color%
 \fi\@slash\@thesisfaculty-logo}
 \ifx\@thesisfaculty\Fi
@@ -252,7 +252,7 @@
           \def\facultyname{\@thesisfaculty}
           \def\universityname{\@thesisuniversity}
           \def\@thesislogopath{.} % The current directory by default
-          \def\facultylogo{\@thesislogopath/\@thesislogo}
+          \def\@facultylogo{\@thesislogopath/\@thesislogo}
           \def\thesisplaceyear{\@thesisyear}
          \fi
         \fi
@@ -399,7 +399,7 @@ Advisor:
 {\sc \universityname\\ \facultyname}
 \vskip 1.4em
 
-\includegraphics[width=40mm]{\facultylogo}\\[0.4in]
+\includegraphics[width=40mm]{\@facultylogo}\\[0.4in]
 
 \let\footnotesize\small
 \let\footnoterule\relax{}
