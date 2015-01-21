@@ -49,7 +49,7 @@
 %% 
 %% The names of the source files used are shown above.
 %% 
-\ProvidesFile{fit10.clo}[2015/01/14 fithesis3 (size option)]
+\ProvidesFile{fit10.clo}[2015/01/21 fithesis3 (size option)]
 
 \renewcommand{\normalsize}{\fontsize\@xpt{12}\selectfont%
 \abovedisplayskip 10\p@ plus2\p@ minus5\p@

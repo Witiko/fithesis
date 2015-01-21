@@ -50,7 +50,7 @@
 %% The names of the source files used are shown above.
 %% 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{fithesis3}[2015/01/14 fithesis3 version 0.3.4 MU thesis class]
+\ProvidesClass{fithesis3}[2015/01/21 fithesis3 version 0.3.5 MU thesis class]
 
 \ifx\clsclass\undefined
  \def\clsclass{rapport3}
@@ -81,7 +81,7 @@
 \hypersetup{pdfpagelabels}    % Generate pdf page labels
 \hypersetup{pdftex}           % PDF Metadata stamping
 \hypersetup{
-  pdfcreator={fithesis3 v0.3.4 MU thesis class},
+  pdfcreator={fithesis3 v0.3.5 MU thesis class},
 }
 
 \def\Scrreprtcls{scrreprt}
@@ -168,8 +168,9 @@
 \def\Langcs{cs}
 \def\Langsk{sk}
 \def\Langen{en}
+\def\Langcz{cz}
+\def\@thesislang{cs}
 
-\def\@thesislang{\Langcs}
 \def\@thesissubtitle{Diplomov\'{a} pr\'{a}ce}
 \def\@thesislogopath{loga} % The loga directory by default
 
@@ -277,7 +278,8 @@
 \def\thesiswoman#1{\gdef\@thesiswoman{#1}
 \ifx\@thesiswoman\True\def\@w{a}\else\def\@w{}\fi}
 
-\def\thesislang#1{\gdef\@thesislang{#1}}
+\def\thesislang#1{\gdef\@thesislang{#1}%
+  \ifx\@thesislang\Langcz\gdef\@thesislang{cs}\fi}
 
 \def\DeclarationTextcs{%
 Prohla\v{s}uji, \v{z}e tato \expandafter\lowecasewrapper\@thesissubtitle{}
@@ -392,7 +394,7 @@ Advisor:
 \setcounter{page}{1}
 \pagenumbering{roman}}
 
-\newcommand{\ThesisTitlePage}{
+\newcommand{\ThesisTitlePage}{%
 \begin{alwayssingle}
 \thispagestyle{empty}
 \begin{center}

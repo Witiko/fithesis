@@ -50,7 +50,7 @@
 %% The names of the source files used are shown above.
 %% 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{oldfithesis2}[2015/01/14 old fithesis2 will load fithesis3 version 0.3.4 MU thesis class]
+\ProvidesClass{oldfithesis2}[2015/01/21 old fithesis2 will load fithesis3 version 0.3.5 MU thesis class]
 
 \errmessage{%
   You are using the fithesis2 class, which has been deprecated.
