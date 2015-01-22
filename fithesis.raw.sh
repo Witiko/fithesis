@@ -9,7 +9,7 @@
 # %%%year%%% with YYYY and stores the result in $2.
 
 REGEX='.*\(\\changes\s*{v\([^}]*\)}\s*{\([^}]*\)}\).*'
-LINE="$(grep "$REGEX" "$1" | sed s/"$REGEX"/\\1/ | sort -Vr | head -n 1)"
+LINE="$(grep "$REGEX" "$1"  | sed s/"$REGEX"/\\1/ | sort -Vr | head -n 1)"
 VERS="$(printf '%s' "$LINE" | sed s/"$REGEX"/\\2/)"
 DATE="$(printf '%s' "$LINE" | sed s/"$REGEX"/\\3/)"
 YEAR="$(printf '%s' "$DATE" | head -c 4)"
