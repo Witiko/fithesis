@@ -5,7 +5,8 @@ AUXFILES=example.aux example.log example.out example.toc example.lot example.lof
 PDFFILES=fithesis.pdf example.pdf
 LOGOFILES=loga/eco-logo.pdf loga/fi-logo.pdf loga/fsps-logo.pdf loga/law-logo.pdf loga/med-logo.pdf loga/ped-logo.pdf loga/phil-logo.pdf loga/sci-logo.pdf loga/color/eco-logo.pdf loga/color/fi-logo.pdf loga/color/fsps-logo.pdf loga/color/law-logo.pdf loga/color/med-logo.pdf loga/color/ped-logo.pdf loga/color/phil-logo.pdf loga/color/sci-logo.pdf loga/eco-logo.eps loga/fi-logo.eps loga/fsps-logo.eps loga/law-logo.eps loga/med-logo.eps loga/ped-logo.eps loga/phil-logo.eps loga/sci-logo.eps loga/color/eco-logo.eps loga/color/fi-logo.eps loga/color/fsps-logo.eps loga/color/law-logo.eps loga/color/med-logo.eps loga/color/ped-logo.eps loga/color/phil-logo.eps loga/color/sci-logo.eps
 SOURCEFILE=fithesis.dtx
-INSTALLFILES=$(CLASSFILES) $(LOGOFILES) $(PDFFILES) $(SOURCEFILE)
+OTHERFILES=csquot.sty example.tex fithesis.ins Makefile
+INSTALLFILES=$(CLASSFILES) $(LOGOFILES) $(PDFFILES) $(SOURCEFILE) $(OTHERFILES)
 
 # This pseudo-target creates the class files, typesets both
 # the example file and the technical documentation and
