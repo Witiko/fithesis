@@ -38,8 +38,8 @@ example.pdf: example.tex fithesis3.cls
 # into the directory provided as the "to" argument.
 install:
 	@if [ -z "$(to)" ]; then echo "Usage: make to=DIRECTORY install"; exit 1; fi
-	mkdir --parents "$(to)"
-	cp --parents --verbose $(INSTALLFILES) "$(to)"
+	mkdir --parents "$(to)/fithesis3"
+	cp --parents --verbose $(INSTALLFILES) "$(to)/fithesis3"
 
 # This pseudo-target removes any existing auxiliary files.
 clean:
