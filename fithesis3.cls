@@ -53,7 +53,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{fithesis3}[2015/01/21 fithesis3 version 0.3.5 MU thesis class]
+\ProvidesClass{fithesis3}[2015/01/21 fithesis3 version 0.3.05 MU thesis class]
 
 \ifx\clsclass\undefined
  \def\clsclass{rapport3}
@@ -84,7 +84,7 @@
 \hypersetup{pdfpagelabels}    % Generate pdf page labels
 \hypersetup{pdftex}           % PDF Metadata stamping
 \hypersetup{
-  pdfcreator={fithesis3 v0.3.5 MU thesis class},
+  pdfcreator={fithesis3 v0.3.05 MU thesis class},
 }
 
 \def\Scrreprtcls{scrreprt}
@@ -182,17 +182,22 @@
   \hypersetup{pdftitle={#1}}
   \gdef\@thesistitle{#1}
 }
+\def\thesissubtitle#1{\gdef\@thesissubtitle{#1}}
 \def\thesisstudent#1{
   \hypersetup{pdfauthor={#1}}
   \gdef\@thesisstudent{#1}
 }
-\def\thesisyear#1{\gdef\@thesisyear{#1}}
-\def\@thesisplaceyear{Brno, \@thesisyear}
-\def\thesissubtitle#1{\gdef\@thesissubtitle{#1}}
-\def\thesislogopath#1{\gdef\@thesislogopath{#1/}}
-\def\thesisuniversity#1{\gdef\@thesisuniversity{#1}}
-\def\thesislogo#1{\gdef\@thesislogo{#1}}
-\def\thesisadvisor#1{\gdef\@thesisadvisor{#1}}
+
+\newif\if@restonecol
+\def\alwayssingle{%
+  \@restonecolfalse\if@twocolumn\@restonecoltrue\onecolumn\fi}
+\def\endalwayssingle{\if@restonecol\twocolumn\fi}
+
+\newif\ifwoman\womanfalse
+\def\@w{\ifwoman a\else\fi}
+
+\def\thesiswoman#1{\gdef\@thesiswoman{#1}
+  \ifx\@thesiswoman\True\womantrue\else\womanfalse\fi}
 \def\thesisfaculty#1{
   \gdef\@thesisfaculty{#1}
   \def\@slash{/}
@@ -268,17 +273,12 @@
     \fi
   \fi
 }
-
-\newif\if@restonecol
-\def\alwayssingle{%
-  \@restonecolfalse\if@twocolumn\@restonecoltrue\onecolumn\fi}
-\def\endalwayssingle{\if@restonecol\twocolumn\fi}
-
-\newif\ifwoman\womanfalse
-\def\@w{\ifwoman a\else\fi}
-
-\def\thesiswoman#1{\gdef\@thesiswoman{#1}
-  \ifx\@thesiswoman\True\womantrue\else\womanfalse\fi}
+\def\thesisyear#1{\gdef\@thesisyear{#1}}
+\def\@thesisplaceyear{Brno, \@thesisyear}
+\def\thesisadvisor#1{\gdef\@thesisadvisor{#1}}
+\def\thesisuniversity#1{\gdef\@thesisuniversity{#1}}
+\def\thesislogopath#1{\gdef\@thesislogopath{#1/}}
+\def\thesislogo#1{\gdef\@thesislogo{#1}}
 \def\thesislang#1{\gdef\@thesislang{#1}%
   \ifx\@thesislang\Langcz\gdef\@thesislang{cs}\fi}
 \def\DeclarationTextcs{%

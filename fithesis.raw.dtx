@@ -32,7 +32,7 @@
 %<*driver>
 \documentclass{ltxdoc}
 \usepackage[utf8]{inputenc} % this file uses UTF-8
-\usepackage[english]{babel}
+\usepackage[czech]{babel}
 \usepackage{tgpagella}
 \usepackage[resetfonts]{cmap}
 \usepackage[T1]{fontenc} % use 8bit fonts
@@ -52,13 +52,18 @@ položka popsána. Podtržené číslice odkazují na řádek v kódu, na které
 je položka definována. Číslice v základním řezu odkazují na řádky kódu,
 na nichž je položka použita.
 }
-\AtEndDocument{\PrintIndex}
-\DoNotIndex{\def,\gdef,\hypersetup,\ifx,\fi,\True,\False,\\else,\\end,\\begin,\',\\\\,\bf,\footnoterule,\footnotesize,\large,\Large,\let,\newpage,\newcommand,\pagenumbering,\pagestyle,\par,\parindent,\relax,\setcounter,\small,\v,\vfil,\vfill,\vskip,\newenvironment,\chapter,\cleardoublepage,\clearpage,\null,\\if@twoside,\includegraphics}
-\AtBeginDocument{\RecordChanges}
-\AtEndDocument{\PrintChanges}
+\DoNotIndex{\def,\gdef,\hypersetup,\ifx,\fi,\True,\False,\\else,\\end,
+  \\begin,\',\\\\,\bf,\footnoterule,\footnotesize,\large,\Large,\let,
+  \newpage,\newcommand,\pagenumbering,\pagestyle,\par,\parindent,
+  \relax,\setcounter,\small,\v,\vfil,\vfill,\vskip,\newenvironment,
+  \chapter,\cleardoublepage,\clearpage,\null,\\if@twoside,
+  \includegraphics}
 
 \begin{document}
-\DocInput{fithesis.dtx}
+  \RecordChanges
+  \DocInput{fithesis.dtx}
+  \PrintIndex
+  \PrintChanges
 \end{document}
 %</driver>
 %    \end{macrocode}
@@ -66,26 +71,26 @@ na nichž je položka použita.
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-% \changes{v0.3.5}  {2015/01/21}{Added support for change typesetting.
+% \changes{v0.3.05}  {2015/01/21}{Added support for change typesetting.
 %   Restructured the code to make it more amenable to literal programming.
 %   Added support for \cs{CodelineIndex} typesetting. Added information about
 %   the usage of \textsf{fithesis1} and \textsf{fithesis2} on the FI unix
 %   machines. (backport of v0.2.16) [VN]\\Minor changes throughout the text,
 %   added a link to the the fithesis forums [PS] (backport of v0.2.15@r14:15)}
-% \changes{v0.3.4}  {2015/01/14}{Import the url package to allow for the use of
+% \changes{v0.3.04}  {2015/01/14}{Import the url package to allow for the use of
 %   \cs{url} within the documentation. (backport of v0.2.15@r13) [VN]}
-% \changes{v0.3.3}  {2015/01/14}{Small fixes (added \cs{relax} at
+% \changes{v0.3.03}  {2015/01/14}{Small fixes (added \cs{relax} at
 %   \cs{MainMatter}), generating both fithesis.cls (obsolete, loading
 %   \texttt{fithesis2.cls}) and \texttt{fithesis2.cls}, minor doc edits,
 %   version numbering of \texttt{.clo} fixed, switch to utf8 and ensuring that
 %   \texttt{.dtx} compiles. Documentation adjusted to the status quo, added
 %   link to discussion forum (backport of v0.2.14) [PS]}
-% \changes{v0.3.2}  {2015/01/13}{pdf metadata stamping added for
+% \changes{v0.3.02}  {2015/01/13}{pdf metadata stamping added for
 %   \cs{thesistitle} and \cs{thesisstudent} [VN]}
-% \changes{v0.3.1}  {2015/01/09}{documentation now uses babel and cmap packages.
+% \changes{v0.3.01}  {2015/01/09}{documentation now uses babel and cmap packages.
 %   the entire file was transcoded into utf8, \cs{thesiscolor} was replaced by
 %   color class option, added pdf metadata stamping support [VN]}
-% \changes{v0.3.0}  {2015/01/01}{fi logo is no longer special-cased (added eps
+% \changes{v0.3.00}  {2015/01/01}{fi logo is no longer special-cased (added eps
 %   and pdf), \cs{thesislogopath} added to set the logo directory path,
 %   \cs{thesiscolor} added to enable colorful typo elements [VN]}
 % \changes{v0.2.12a}{2008--2011}{fork fithesis2 by Mr. Filipčík and Janoušek;
@@ -93,18 +98,18 @@ na nichž je položka použita.
 % \changes{v0.2.12} {2008/07/27}{Licence change to the LPPL [JP]}
 % \changes{v0.2.11} {2008/01/07}{fix missing \texttt{fi-logo.mf} [JP,PS]}
 % \changes{v0.2.10} {2006/05/12}{fix EN name of Acknowledgement [JP]}
-% \changes{v0.2.9}  {2006/05/08}{add EN version of University name [JP]}
-% \changes{v0.2.8}  {2006/01/20}{add change of University name [JP]}
-% \changes{v0.2.7}  {2005/05/10}{escape all czech letters [JP]
+% \changes{v0.2.09}  {2006/05/08}{add EN version of University name [JP]}
+% \changes{v0.2.08}  {2006/01/20}{add change of University name [JP]}
+% \changes{v0.2.07}  {2005/05/10}{escape all czech letters [JP]
 %   babel is used instead of stupid package czech [JP]
 %   \cs{MainMatter} should be placed after \cs{tablesofcontents} [PS]}
-% \changes{v0.2.6}  {2004/12/22}{fix : behind Advisor [JP]}
-% \changes{v0.2.5}  {2004/05/13}{add english abstract [JP]}
-% \changes{v0.2.4}  {2004/05/13}{fix SK declaration [Peter Cerensky, JP]}
-% \changes{v0.2.3}  {2004/05/13}{fix title spacing [PS, JP]}
-% \changes{v0.2.2}  {2004/05/12}{fix encoding bug [JP]}
-% \changes{v0.2.1}  {2004/05/11}{add subsubsection to toc [JP]}
-% \changes{v0.2.0}  {2004/05/03}{add sk lang [JP, Peter Cerensky]
+% \changes{v0.2.06}  {2004/12/22}{fix : behind Advisor [JP]}
+% \changes{v0.2.05}  {2004/05/13}{add english abstract [JP]}
+% \changes{v0.2.04}  {2004/05/13}{fix SK declaration [Peter Cerensky, JP]}
+% \changes{v0.2.03}  {2004/05/13}{fix title spacing [PS, JP]}
+% \changes{v0.2.02}  {2004/05/12}{fix encoding bug [JP]}
+% \changes{v0.2.01}  {2004/05/11}{add subsubsection to toc [JP]}
+% \changes{v0.2.00}  {2004/05/03}{add sk lang [JP, Peter Cerensky]
 %   set default cls class to \textsf{rapport3} [JP]}
 % \changes{v0.1g}   {2004/04/01}{change of default size (12pt->11pt) [JP]}
 % \changes{v0.1f}   {2004/01/24}{add documentation for hyperref [JP]}
@@ -212,12 +217,12 @@ na nichž je položka použita.
 % volbami, umístěnými ve volitelném parametru tohoto příkazu. 	
 % Možné volby jsou tyto:
 % \begin{itemize}
-% \item [--]{\bf 10pt} -- změní základní velikost písma na 10~bodů. Při
+% \item [--]{\bf 10pt} -- Změní základní velikost písma na 10~bodů. Při
 % této volbě je počet řádek vysazené strany roven 40ti, průměrný počet
 % znaků na řádku se pohybuje mezi 70ti až 80ti. Nedoporučováno,
 % pokud nebude při výsledném tisku tiskové zrcadlo zvětšováno z~B5
 % na A4. 
-% \item [--]{\bf 11pt} -- základní velikost písma bude 11 bodů. 
+% \item [--]{\bf 11pt} -- Základní velikost písma bude 11 bodů. 
 % Tato volba byla ve starší verzi nastavena implicitně.
 % Počet řádek vysazené strany je~40, 
 % průměrný počet znaků na řádce při použití fontu Palatino
@@ -395,6 +400,13 @@ na nichž je položka použita.
 }
 %    \end{macrocode}
 %
+% \DescribeMacro{\thesissubtitle}
+% Makro umožní vložit název typu práce, např. bakalářská práce
+% diplomová práce atd.
+%    \begin{macrocode}
+\def\thesissubtitle#1{\gdef\@thesissubtitle{#1}}
+%    \end{macrocode}
+%
 % \DescribeMacro{\thesisstudent}
 % Makro umožní pomocí svého jediného parametru vložit jméno studenta.
 %    \begin{macrocode}
@@ -404,47 +416,26 @@ na nichž je položka použita.
 }
 %    \end{macrocode}
 %
-% \DescribeMacro{\thesisyear}
-% Makro umožní vložit rok vypracování práce. 
+% \iffalse
 %    \begin{macrocode}
-\def\thesisyear#1{\gdef\@thesisyear{#1}}
-\def\@thesisplaceyear{Brno, \@thesisyear}
+
+\newif\if@restonecol
+\def\alwayssingle{%
+  \@restonecolfalse\if@twocolumn\@restonecoltrue\onecolumn\fi}
+\def\endalwayssingle{\if@restonecol\twocolumn\fi}
+
+\newif\ifwoman\womanfalse
+\def\@w{\ifwoman a\else\fi}
+
 %    \end{macrocode}
+% \fi
 %
-% \DescribeMacro{\thesissubtitle}
-% Makro umožní vložit název typu práce, např. bakalářská práce
-% diplomová práce atd.
+% \DescribeMacro{\thesiswoman}
+% Makro umožní vložit pohlaví studenta. Volby jsou: true, false.
+% (nahrazuje použití přepínače \prikaz{ifwoman}).
 %    \begin{macrocode}
-\def\thesissubtitle#1{\gdef\@thesissubtitle{#1}}
-%    \end{macrocode}
-%
-% \DescribeMacro{\thesislogopath}
-% Makro umožní stanovit cestu k adresáři s logy fakult.
-% Implicitní hodnota je \texttt{loga/} pro práce psané pod MU
-% a prázdný řetězec pro práce psané mimo MU.
-%    \begin{macrocode}
-\def\thesislogopath#1{\gdef\@thesislogopath{#1/}}
-%    \end{macrocode}
-%
-% \DescribeMacro{\thesisuniversity}
-% Makro umožní stanovit pod jakou univerzitou byla práce napsána.
-% Má význam jen v případě, že práce není psaná pod MU.
-%    \begin{macrocode}
-\def\thesisuniversity#1{\gdef\@thesisuniversity{#1}}
-%    \end{macrocode}
-%
-% \DescribeMacro{\thesislogo}
-% Makro umožní stanovit soubor (bez přípony) loga fakulty pod
-% jakou byla práce napsaná.
-% Má význam jen v~případě, že práce není psaná pod MU.
-%    \begin{macrocode}
-\def\thesislogo#1{\gdef\@thesislogo{#1}}
-%    \end{macrocode}
-%
-% \DescribeMacro{\thesisadvisor}
-% Makro umožní vložit jméno vedoucího práce.
-%    \begin{macrocode}
-\def\thesisadvisor#1{\gdef\@thesisadvisor{#1}}
+\def\thesiswoman#1{\gdef\@thesiswoman{#1}
+  \ifx\@thesiswoman\True\womantrue\else\womanfalse\fi}
 %    \end{macrocode}
 %
 % \DescribeMacro{\thesisfaculty}
@@ -547,26 +538,40 @@ na nichž je položka použita.
 }
 %    \end{macrocode}
 %
-% \iffalse
+% \DescribeMacro{\thesisyear}
+% Makro umožní vložit rok vypracování práce. 
 %    \begin{macrocode}
-
-\newif\if@restonecol
-\def\alwayssingle{%
-  \@restonecolfalse\if@twocolumn\@restonecoltrue\onecolumn\fi}
-\def\endalwayssingle{\if@restonecol\twocolumn\fi}
-
-\newif\ifwoman\womanfalse
-\def\@w{\ifwoman a\else\fi}
-
+\def\thesisyear#1{\gdef\@thesisyear{#1}}
+\def\@thesisplaceyear{Brno, \@thesisyear}
 %    \end{macrocode}
-% \fi
 %
-% \DescribeMacro{\thesiswoman}
-% Makro umožní vložit pohlaví studenta. Volby jsou: true, false.
-% (nahrazuje použití přepínače \prikaz{ifwoman}).
+% \DescribeMacro{\thesisadvisor}
+% Makro umožní vložit jméno vedoucího práce.
 %    \begin{macrocode}
-\def\thesiswoman#1{\gdef\@thesiswoman{#1}
-  \ifx\@thesiswoman\True\womantrue\else\womanfalse\fi}
+\def\thesisadvisor#1{\gdef\@thesisadvisor{#1}}
+%    \end{macrocode}
+%
+% \DescribeMacro{\thesisuniversity}
+% Makro umožní stanovit pod jakou univerzitou byla práce napsána.
+% Má význam jen v případě, že práce není psaná pod MU.
+%    \begin{macrocode}
+\def\thesisuniversity#1{\gdef\@thesisuniversity{#1}}
+%    \end{macrocode}
+%
+% \DescribeMacro{\thesislogopath}
+% Makro umožní stanovit cestu k adresáři s logy fakult.
+% Implicitní hodnota je \texttt{loga/} pro práce psané pod MU
+% a prázdný řetězec pro práce psané mimo MU.
+%    \begin{macrocode}
+\def\thesislogopath#1{\gdef\@thesislogopath{#1/}}
+%    \end{macrocode}
+%
+% \DescribeMacro{\thesislogo}
+% Makro umožní stanovit soubor (bez přípony) loga fakulty pod
+% jakou byla práce napsaná.
+% Má význam jen v~případě, že práce není psaná pod MU.
+%    \begin{macrocode}
+\def\thesislogo#1{\gdef\@thesislogo{#1}}
 %    \end{macrocode}
 %
 % \DescribeMacro{\thesislang}
@@ -578,6 +583,7 @@ na nichž je položka použita.
 \def\thesislang#1{\gdef\@thesislang{#1}%
   \ifx\@thesislang\Langcz\gdef\@thesislang{cs}\fi}
 %    \end{macrocode}
+%
 % \iffalse
 %    \begin{macrocode}
 \def\DeclarationTextcs{%

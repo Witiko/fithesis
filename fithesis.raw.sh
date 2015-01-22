@@ -2,11 +2,11 @@
 # This script finds the latest occurance of a \changes command (sorted by
 # the version number) in "$1" and parses the VERSION and DATE out of it:
 #
-#   \changes{vVERSION}{DATE} (important: must be on the same line)
+#   \changes{vVERSION}{YYYY/MM/DD} (important: must be on the same line)
 #
-# It then takes $1, replaces every occurance of %%%date%%% with ????/??/??,
-# every occurance of %%%version%%% with ?.??.?? and every occurance of
-# %%%year%%% with ???? and stores the result in $2.
+# It then takes $1, replaces every occurance of %%%date%%% with YYYY/MM/DD,
+# every occurance of %%%version%%% with VERSION and every occurance of
+# %%%year%%% with YYYY and stores the result in $2.
 
 REGEX='.*\(\\changes\s*{v\([^}]*\)}\s*{\([^}]*\)}\).*'
 LINE="$(grep "$REGEX" "$1" | sed s/"$REGEX"/\\1/ | sort -Vr | head -n 1)"
