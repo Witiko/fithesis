@@ -49,6 +49,9 @@
 %% 
 %% The names of the source files used are shown above.
 %% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{fithesis3}[2015/01/21 fithesis3 version 0.3.5 MU thesis class]
 
@@ -172,7 +175,7 @@
 \def\@thesislang{cs}
 
 \def\@thesissubtitle{Diplomov\'{a} pr\'{a}ce}
-\def\@thesislogopath{loga} % The loga directory by default
+\def\@thesislogopath{loga/} % The loga directory by default
 
 \def\titlefont{\fontsize\@xxvpt{30}\selectfont}
 \def\thesistitle#1{
@@ -184,103 +187,100 @@
   \gdef\@thesisstudent{#1}
 }
 \def\thesisyear#1{\gdef\@thesisyear{#1}}
-\def\thesisplaceyear{Brno, \@thesisyear}
+\def\@thesisplaceyear{Brno, \@thesisyear}
 \def\thesissubtitle#1{\gdef\@thesissubtitle{#1}}
-\def\thesislogopath#1{\gdef\@thesislogopath{#1}}
+\def\thesislogopath#1{\gdef\@thesislogopath{#1/}}
 \def\thesisuniversity#1{\gdef\@thesisuniversity{#1}}
 \def\thesislogo#1{\gdef\@thesislogo{#1}}
 \def\thesisadvisor#1{\gdef\@thesisadvisor{#1}}
-\def\thesisfaculty#1{\gdef\@thesisfaculty{#1}
-\def\@slash{/}
-\def\@facultylogo{\@thesislogopath\ifx\@thesiscolor\True%
-  \@slash color%
-\fi\@slash\@thesisfaculty-logo}
-\ifx\@thesisfaculty\Fi
- \ifx\@thesislang\Langen
-  \def\facultyname{Faculty of Informatics}
-  \def\universityname{Masaryk University}
-   \else \def\facultyname{Fakulta informatiky}
-  \fi
- \else \ifx\@thesisfaculty\Sci
-  \ifx\@thesislang\Langen
-   \def\facultyname{Faculty of Science}
-   \def\universityname{Masaryk University}
-  \else \def\facultyname{P\v{r}\'{i}rodov\v{e}deck\'{a} fakulta}
-  \fi
-  \else \ifx\@thesisfaculty\Law
+\def\thesisfaculty#1{
+  \gdef\@thesisfaculty{#1}
+  \def\@slash{/}
+  \def\@facultylogo{\@thesislogopath\ifx\@thesiscolor\True%
+    color\@slash%
+  \fi\@thesisfaculty-logo}
+  \ifx\@thesisfaculty\Fi
    \ifx\@thesislang\Langen
-    \def\facultyname{Faculty of Law}
+    \def\facultyname{Faculty of Informatics}
     \def\universityname{Masaryk University}
-   \else \def\facultyname{Pr\'{a}vnick\'{a} fakulta}
-   \fi
-  \else \ifx\@thesisfaculty\Eco
-   \ifx\@thesislang\Langen
-    \def\facultyname{Faculty of Economics and Administration}
-    \def\universityname{Masaryk University}
-   \else \def\facultyname{Ekonomicko-spr\'{a}vn\'{i} fakulta}
-   \fi
-  \else \ifx\@thesisfaculty\Fss
-   \ifx\@thesislang\Langen
-    \def\facultyname{Faculty of Social Studies}
-    \def\universityname{Masaryk University}
-   \else \def\facultyname{Fakulta soci\'{a}ln\'{i}ch studi\'{i}}
-   \fi
-  \else \ifx\@thesisfaculty\Med
-   \ifx\@thesislang\Langen
-    \def\facultyname{Faculty of Medicine}
-    \def\universityname{Masaryk University}
-   \else \def\facultyname{L\'{e}ka\v{r}sk\'{a} fakulta}
-   \fi
-  \else \ifx\@thesisfaculty\Ped
-   \ifx\@thesislang\Langen
-    \def\facultyname{Faculty of Education}
-    \def\universityname{Masaryk University}
-   \else \def\facultyname{Pedagogick\'{a} fakulta}
-   \fi
-  \else \ifx\@thesisfaculty\Phil
-   \ifx\@thesislang\Langen
-    \def\facultyname{Faculty of Arts}
-    \def\universityname{Masaryk University}
-   \else \def\facultyname{Filozofick\'{a} fakulta}
-   \fi
-  \else \ifx\@thesisfaculty\Fsps
-   \ifx\@thesislang\Langen
-    \def\facultyname{Faculty of Sports Studies}
-    \def\universityname{Masaryk University}
-   \else \def\facultyname{Fakulta sportovn\'{i}ch studi\'{i}}
-   \fi
-         \else
-          \def\facultyname{\@thesisfaculty}
-          \def\universityname{\@thesisuniversity}
-          \def\@thesislogopath{.} % The current directory by default
-          \def\@facultylogo{\@thesislogopath/\@thesislogo}
-          \def\thesisplaceyear{\@thesisyear}
+     \else \def\facultyname{Fakulta informatiky}
+    \fi
+   \else \ifx\@thesisfaculty\Sci
+    \ifx\@thesislang\Langen
+     \def\facultyname{Faculty of Science}
+     \def\universityname{Masaryk University}
+    \else \def\facultyname{P\v{r}\'{i}rodov\v{e}deck\'{a} fakulta}
+    \fi
+    \else \ifx\@thesisfaculty\Law
+     \ifx\@thesislang\Langen
+      \def\facultyname{Faculty of Law}
+      \def\universityname{Masaryk University}
+     \else \def\facultyname{Pr\'{a}vnick\'{a} fakulta}
+     \fi
+    \else \ifx\@thesisfaculty\Eco
+     \ifx\@thesislang\Langen
+      \def\facultyname{Faculty of Economics and Administration}
+      \def\universityname{Masaryk University}
+     \else \def\facultyname{Ekonomicko-spr\'{a}vn\'{i} fakulta}
+     \fi
+    \else \ifx\@thesisfaculty\Fss
+     \ifx\@thesislang\Langen
+      \def\facultyname{Faculty of Social Studies}
+      \def\universityname{Masaryk University}
+     \else \def\facultyname{Fakulta soci\'{a}ln\'{i}ch studi\'{i}}
+     \fi
+    \else \ifx\@thesisfaculty\Med
+     \ifx\@thesislang\Langen
+      \def\facultyname{Faculty of Medicine}
+      \def\universityname{Masaryk University}
+     \else \def\facultyname{L\'{e}ka\v{r}sk\'{a} fakulta}
+     \fi
+    \else \ifx\@thesisfaculty\Ped
+     \ifx\@thesislang\Langen
+      \def\facultyname{Faculty of Education}
+      \def\universityname{Masaryk University}
+     \else \def\facultyname{Pedagogick\'{a} fakulta}
+     \fi
+    \else \ifx\@thesisfaculty\Phil
+     \ifx\@thesislang\Langen
+      \def\facultyname{Faculty of Arts}
+      \def\universityname{Masaryk University}
+     \else \def\facultyname{Filozofick\'{a} fakulta}
+     \fi
+    \else \ifx\@thesisfaculty\Fsps
+     \ifx\@thesislang\Langen
+      \def\facultyname{Faculty of Sports Studies}
+      \def\universityname{Masaryk University}
+     \else \def\facultyname{Fakulta sportovn\'{i}ch studi\'{i}}
+     \fi
+           \else
+            \def\facultyname{\@thesisfaculty}
+            \def\universityname{\@thesisuniversity}
+            \def\@thesislogopath{} % Zero directory by default
+            \def\@facultylogo{\@thesislogopath/\@thesislogo}
+           \fi
+          \fi
          \fi
         \fi
        \fi
       \fi
      \fi
     \fi
-   \fi
   \fi
-\fi
 }
 
 \newif\if@restonecol
-
 \def\alwayssingle{%
-\@restonecolfalse\if@twocolumn\@restonecoltrue\onecolumn\fi}
+  \@restonecolfalse\if@twocolumn\@restonecoltrue\onecolumn\fi}
 \def\endalwayssingle{\if@restonecol\twocolumn\fi}
 
-
 \newif\ifwoman\womanfalse
-\def\@w{\ifwoman{a}\else\fi}
-\def\thesiswoman#1{\gdef\@thesiswoman{#1}
-\ifx\@thesiswoman\True\def\@w{a}\else\def\@w{}\fi}
+\def\@w{\ifwoman a\else\fi}
 
+\def\thesiswoman#1{\gdef\@thesiswoman{#1}
+  \ifx\@thesiswoman\True\womantrue\else\womanfalse\fi}
 \def\thesislang#1{\gdef\@thesislang{#1}%
   \ifx\@thesislang\Langcz\gdef\@thesislang{cs}\fi}
-
 \def\DeclarationTextcs{%
 Prohla\v{s}uji, \v{z}e tato \expandafter\lowecasewrapper\@thesissubtitle{}
 je m\'{y}m p\r{u}vodn\'{i}m autorsk\'{y}m
@@ -389,103 +389,94 @@ Advisor:
 \fi} \@thesisadvisor}
 
 \def\FrontMatter{%
-\pagestyle{plain}
-\parindent 1.5em
-\setcounter{page}{1}
-\pagenumbering{roman}}
-
+  \pagestyle{plain}
+  \parindent 1.5em
+  \setcounter{page}{1}
+  \pagenumbering{roman}}
 \newcommand{\ThesisTitlePage}{%
-\begin{alwayssingle}
-\thispagestyle{empty}
-\begin{center}
-{\sc \universityname\\ \facultyname}
-\vskip 1.4em
-
-\includegraphics[width=40mm]{\@facultylogo}\\[0.4in]
-
-\let\footnotesize\small
-\let\footnoterule\relax{}
-{\titlefont\bf\@thesistitle\par\vfil}\vskip 0.8in
-{\sc \@thesissubtitle}\\[0.3in]
-{\Large\bf\@thesisstudent}
-\par\vfill
-{\large \thesisplaceyear}
-\end{center}
-\end{alwayssingle}
-\newpage}
-
+  \begin{alwayssingle}
+  \thispagestyle{empty}
+  \begin{center}
+  {\sc \universityname\\ \facultyname}
+  \vskip 1.4em
+  \includegraphics[width=40mm]{\@facultylogo}\\[0.4in]
+  \let\footnotesize\small
+  \let\footnoterule\relax{}
+  {\titlefont\bf\@thesistitle\par\vfil}\vskip 0.8in
+  {\sc \@thesissubtitle}\\[0.3in]
+  {\Large\bf\@thesisstudent}
+  \par\vfill
+  {\large \@thesisplaceyear}
+  \end{center}
+  \end{alwayssingle}
+  \newpage}
 \newenvironment{ThesisDeclaration}{%
-\begin{alwayssingle}
-\ifx\@thesislang\Langcs
- \chapter*{\DeclarationTitlecs}
- \else \ifx\@thesislang\Langsk
-  \chapter*{\DeclarationTitlesk}
-  \else \ifx\@thesislang\Langen
-   \chapter*{\DeclarationTitleen}
-   \else \chapter*{\DeclarationTitlecs}
-  \fi
- \fi
-\fi}
-{\par\vfil
-\end{alwayssingle}
-\newpage}
-
+  \begin{alwayssingle}
+  \ifx\@thesislang\Langcs
+   \chapter*{\DeclarationTitlecs}
+   \else \ifx\@thesislang\Langsk
+    \chapter*{\DeclarationTitlesk}
+    \else \ifx\@thesislang\Langen
+     \chapter*{\DeclarationTitleen}
+     \else \chapter*{\DeclarationTitlecs}
+    \fi
+   \fi
+  \fi}
+  {\par\vfil
+  \end{alwayssingle}
+  \newpage}
 \newenvironment{ThesisThanks}{%
-\begin{alwayssingle}
-\ifx\@thesislang\Langcs
- \chapter*{\ThanksTitlecs}
- \else \ifx\@thesislang\Langsk
-  \chapter*{\ThanksTitlesk}
-  \else \ifx\@thesislang\Langen
-   \chapter*{\ThanksTitleen}
-   \else \chapter*{\ThanksTitlecs}
-  \fi
- \fi
-\fi}
-{\par\vfill
-\end{alwayssingle}
-\newpage}
-
+  \begin{alwayssingle}
+  \ifx\@thesislang\Langcs
+   \chapter*{\ThanksTitlecs}
+   \else \ifx\@thesislang\Langsk
+    \chapter*{\ThanksTitlesk}
+    \else \ifx\@thesislang\Langen
+     \chapter*{\ThanksTitleen}
+     \else \chapter*{\ThanksTitlecs}
+    \fi
+   \fi
+  \fi}
+  {\par\vfill
+  \end{alwayssingle}
+  \newpage}
 \newenvironment{ThesisAbstract}{%
-\begin{alwayssingle}
-\ifx\@thesislang\Langcs
- \chapter*{\AbstractTitlecs}
- \else \ifx\@thesislang\Langsk
-  \chapter*{\AbstractTitlesk}
-  \else \ifx\@thesislang\Langen
-   \chapter*{\AbstractTitleen}
-   \else \chapter*{\AbstractTitlecs}
-  \fi
- \fi
-\fi}
-{\par\vfil\null
-\end{alwayssingle}
-\newpage}
-
+  \begin{alwayssingle}
+  \ifx\@thesislang\Langcs
+   \chapter*{\AbstractTitlecs}
+   \else \ifx\@thesislang\Langsk
+    \chapter*{\AbstractTitlesk}
+    \else \ifx\@thesislang\Langen
+     \chapter*{\AbstractTitleen}
+     \else \chapter*{\AbstractTitlecs}
+    \fi
+   \fi
+  \fi}
+  {\par\vfil\null
+  \end{alwayssingle}
+  \newpage}
 \newenvironment{ThesisAbstracten}{%
-\begin{alwayssingle}
-\chapter*{\AbstractTitleen}
-}
-{\par\vfil\null
-\end{alwayssingle}
-\newpage}
-
+  \begin{alwayssingle}
+  \chapter*{\AbstractTitleen}
+  }
+  {\par\vfil\null
+  \end{alwayssingle}
+  \newpage}
 \newenvironment{ThesisKeyWords}{%
-\begin{alwayssingle}
-\ifx\@thesislang\Langcs
- \chapter*{\KeyWordsTitlecs}
- \else \ifx\@thesislang\Langsk
-  \chapter*{\KeyWordsTitlesk}
-  \else \ifx\@thesislang\Langen
-   \chapter*{\KeyWordsTitleen}
-   \else \chapter*{\KeyWordsTitlecs}
-  \fi
- \fi
-\fi}
-{\par\vfill
-\end{alwayssingle}
-\newpage}
-
+  \begin{alwayssingle}
+  \ifx\@thesislang\Langcs
+   \chapter*{\KeyWordsTitlecs}
+   \else \ifx\@thesislang\Langsk
+    \chapter*{\KeyWordsTitlesk}
+    \else \ifx\@thesislang\Langen
+     \chapter*{\KeyWordsTitleen}
+     \else \chapter*{\KeyWordsTitlecs}
+    \fi
+   \fi
+  \fi}
+  {\par\vfill
+  \end{alwayssingle}
+  \newpage}
 \def\MainMatter{%
 \if@twoside
  \clearpage
@@ -498,7 +489,6 @@ Advisor:
 \pagenumbering{arabic}
 \pagestyle{thesisheadings}
 \parindent 1.5em\relax}
-
 
 \renewcommand*\l@part[2]{%
   \ifnum \c@tocdepth >-2\relax

@@ -49,6 +49,8 @@
 %% 
 %% The names of the source files used are shown above.
 %% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \ProvidesFile{fit11.clo}[2015/01/21 fithesis3 (size option)]
 
 \renewcommand{\normalsize}{\fontsize\@xipt{14}\selectfont%

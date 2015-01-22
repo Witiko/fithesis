@@ -24,70 +24,13 @@
 % and the derived files fithesis3.cls, fithesis2.cls, fithesis.cls,
 % fit10.clo, fit11.clo, fit12.clo.
 %
-% History:
-% 2015/01/21 v0.3.5 Added information about the usage of fithesis1 and
-%                   fithesis2 on the FI unix machines (backport of v0.2.16) [VN]
-%                   Minor changes throughout the text, added a link
-%                   to the the fithesis forums [PS] (backport of v0.2.15@r14:15)
-% 2015/01/14 v0.3.4 Import the url package to allow for the use of
-%                   \url{} within the documentation. (backport of v0.2.15@r13) [VN]
-% 2015/01/14 v0.3.3 Small fixes (added \relax at \MainMatter),
-%                   generating both fithesis.cls (obsolete, loading
-%                   fithesis2.cls) and fithesis2.cls, minor doc edits,
-%                   version numbering of .clo fixed, switch to utf8
-%                   and ensuring that .dtx compiles. Documentation
-%                   adjusted to the current status quo, added link
-%                   to discussion forum (backport of v0.2.14) [PS]
-% 2015/01/13 v0.3.2 pdf metadata stamping added for \thesistitle
-%                   and \thesisstudent [VN]
-% 2015/01/09 v0.3.1 documentation now uses babel and cmap packages [VN]
-%                   the entire file was transcoded into utf8 [VN]
-%                   \thesiscolor was replaced by color class option [VN]
-%                   added pdf metadata stamping support [VN]
-% 2015/01/01 v0.3.0 fi logo is no longer special-cased (added eps and pdf) [VN]
-%                   \thesislogopath added to set the logo directory path [VN]
-%                   \thesiscolor added to enable colorful typo elements [VN]
-% 2008--2011 fork fithesis2 by Mr. Filipčík and Janoušek; 
-%            cf. github
-% 2008/07/27 v0.2.12 Licence change to the LPPL [JP]
-% 2008/01/07 v0.2.11 fix missing fi-logo.mf [JP,PS]
-% 2006/05/12 v0.2.10 fix EN name of Acknowledgement [JP]
-% 2006/05/08 v0.2.9 add EN version of University name [JP]
-% 2006/01/20 v0.2.8 add change of University name [JP]
-% 2005/05/10 v0.2.7 escape all czech letters [JP]
-%                   babel is used instead of stupid package czech [JP]
-%                   \MainMatter should be placed after \tablesofcontents [PS]
-% 2004/12/22 v0.2.6 fix : behind Advisor [JP]
-% 2004/05/13 v0.2.5 add english abstract [JP]
-% 2004/05/13 v0.2.4 fix SK declaration [Peter Cerensky, JP]
-% 2004/05/13 v0.2.3 fix title spacing [PS, JP]
-% 2004/05/12 v0.2.2 fix encoding bug [JP]
-% 2004/05/11 v0.2.1 add subsubsection to toc [JP]
-% 2004/05/03 v0.2  add sk lang [JP, Peter Cerensky]
-%                  set default cls class to rapport3 [JP]
-% 2004/04/01 v0.1g change of default size (12pt->11pt) [JP]
-% 2004/01/24 v0.1f add documentation for hyperref [JP]
-% 2004/01/07 v0.1e add Brno to MU title [JP]
-% 2003/03/24 v0.1d removed def schapter from fit1*.clo [JP]
-% 2003/02/21 v0.1c default values of \facultyname and \@thesissubtitle
-%                  set for backward compatibility) [PS]
-% 2003/02/14 v0.1b change of default size (11pt->12pt) [JP]
-% 2003/02/12 v0.1a minor documentation changes (CZ only, sorry) [PS]
-% 2003/02/11 v0.1 new release, documentation editing (CZ only, sorry) [PS]
-% 2002 - changes by Jan Pavlovič to allow fithesis being
-%        backend of docbook based system for thesis writing
-% 1998 - bachelor project of Daniel Marek under supervision of Petr Sojka
-%
 % TODO:
 % - commented source, in english
-% - index support
 % - adding reference to docbook
 %
 %    \begin{macrocode}
 %<*driver>
 \documentclass{ltxdoc}
-\makeindex
-\usepackage{makeidx}
 \usepackage[utf8]{inputenc} % this file uses UTF-8
 \usepackage[english]{babel}
 \usepackage{tgpagella}
@@ -95,9 +38,25 @@
 \usepackage[T1]{fontenc} % use 8bit fonts
 \usepackage{csquot,mflogo}
 \usepackage{url}
-\usepackage{hyperref}
-\EnableCrossrefs
 \emergencystretch 2dd
+
+\CodelineIndex % ltxdoc class index
+\EnableCrossrefs
+\GlossaryPrologue{
+  \section*{Změny}
+}
+\IndexPrologue{
+  \section*{Rejstřík}
+  Číslice vysázené kurzívou odkazují na stránku, na které je příslušná
+položka popsána. Podtržené číslice odkazují na řádek v kódu, na kterém
+je položka definována. Číslice v základním řezu odkazují na řádky kódu,
+na nichž je položka použita.
+}
+\AtEndDocument{\PrintIndex}
+\DoNotIndex{\def,\gdef,\hypersetup,\ifx,\fi,\True,\False,\\else,\\end,\\begin,\',\\\\,\bf,\footnoterule,\footnotesize,\large,\Large,\let,\newpage,\newcommand,\pagenumbering,\pagestyle,\par,\parindent,\relax,\setcounter,\small,\v,\vfil,\vfill,\vskip,\newenvironment,\chapter,\cleardoublepage,\clearpage,\null,\\if@twoside,\includegraphics}
+\AtBeginDocument{\RecordChanges}
+\AtEndDocument{\PrintChanges}
+
 \begin{document}
 \DocInput{fithesis.dtx}
 \end{document}
@@ -105,8 +64,68 @@
 %    \end{macrocode}
 % \fi
 %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% \changes{v0.3.5}  {2015/01/21}{Added support for change typesetting.
+%   Restructured the code to make it more amenable to literal programming.
+%   Added support for \cs{CodelineIndex} typesetting. Added information about
+%   the usage of \textsf{fithesis1} and \textsf{fithesis2} on the FI unix
+%   machines. (backport of v0.2.16) [VN]\\Minor changes throughout the text,
+%   added a link to the the fithesis forums [PS] (backport of v0.2.15@r14:15)}
+% \changes{v0.3.4}  {2015/01/14}{Import the url package to allow for the use of
+%   \cs{url} within the documentation. (backport of v0.2.15@r13) [VN]}
+% \changes{v0.3.3}  {2015/01/14}{Small fixes (added \cs{relax} at
+%   \cs{MainMatter}), generating both fithesis.cls (obsolete, loading
+%   \texttt{fithesis2.cls}) and \texttt{fithesis2.cls}, minor doc edits,
+%   version numbering of \texttt{.clo} fixed, switch to utf8 and ensuring that
+%   \texttt{.dtx} compiles. Documentation adjusted to the status quo, added
+%   link to discussion forum (backport of v0.2.14) [PS]}
+% \changes{v0.3.2}  {2015/01/13}{pdf metadata stamping added for
+%   \cs{thesistitle} and \cs{thesisstudent} [VN]}
+% \changes{v0.3.1}  {2015/01/09}{documentation now uses babel and cmap packages.
+%   the entire file was transcoded into utf8, \cs{thesiscolor} was replaced by
+%   color class option, added pdf metadata stamping support [VN]}
+% \changes{v0.3.0}  {2015/01/01}{fi logo is no longer special-cased (added eps
+%   and pdf), \cs{thesislogopath} added to set the logo directory path,
+%   \cs{thesiscolor} added to enable colorful typo elements [VN]}
+% \changes{v0.2.12a}{2008--2011}{fork fithesis2 by Mr. Filipčík and Janoušek;
+%   cf. \protect\url{https://github.com/liskin/fithesis}}
+% \changes{v0.2.12} {2008/07/27}{Licence change to the LPPL [JP]}
+% \changes{v0.2.11} {2008/01/07}{fix missing \texttt{fi-logo.mf} [JP,PS]}
+% \changes{v0.2.10} {2006/05/12}{fix EN name of Acknowledgement [JP]}
+% \changes{v0.2.9}  {2006/05/08}{add EN version of University name [JP]}
+% \changes{v0.2.8}  {2006/01/20}{add change of University name [JP]}
+% \changes{v0.2.7}  {2005/05/10}{escape all czech letters [JP]
+%   babel is used instead of stupid package czech [JP]
+%   \cs{MainMatter} should be placed after \cs{tablesofcontents} [PS]}
+% \changes{v0.2.6}  {2004/12/22}{fix : behind Advisor [JP]}
+% \changes{v0.2.5}  {2004/05/13}{add english abstract [JP]}
+% \changes{v0.2.4}  {2004/05/13}{fix SK declaration [Peter Cerensky, JP]}
+% \changes{v0.2.3}  {2004/05/13}{fix title spacing [PS, JP]}
+% \changes{v0.2.2}  {2004/05/12}{fix encoding bug [JP]}
+% \changes{v0.2.1}  {2004/05/11}{add subsubsection to toc [JP]}
+% \changes{v0.2.0}  {2004/05/03}{add sk lang [JP, Peter Cerensky]
+%   set default cls class to \textsf{rapport3} [JP]}
+% \changes{v0.1g}   {2004/04/01}{change of default size (12pt->11pt) [JP]}
+% \changes{v0.1f}   {2004/01/24}{add documentation for hyperref [JP]}
+% \changes{v0.1e}   {2004/01/07}{add Brno to MU title [JP]}
+% \changes{v0.1d}   {2003/03/24}{removed def schapter from fit1*.clo [JP]}
+% \changes{v0.1c}   {2003/02/21}{default values of \cs{facultyname} and
+%   \\\cs{@thesissubtitle} set for backward compatibility) [PS]}
+% \changes{v0.1b}   {2003/02/14}{change of default size (11pt->12pt) [JP]}
+% \changes{v0.1a}   {2003/02/12}{minor documentation changes (CZ only,
+%   sorry) [PS]}
+% \changes{v0.1}    {2003/02/11}{new release, documentation editing (CZ only,
+%   sorry) [PS]}
+% \changes{v0.0a}   {2002}{changes by Jan Pavlovič to allow fithesis being
+%   backend of docbook based system for thesis writing}
+% \changes{v0.0}    {1998}{bachelor project of Daniel Marek under
+%   supervision of Petr Sojka}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
 % \newcommand{\bs}{\char`\\}
-% \newcommand{\prikaz}[1]{\texttt{\bs #1}\index{#1@\texttt{\bs#1}}}
+% \newcommand{\prikaz}[1]{\texttt{\bs #1}}
 % \newcommand{\fit}{\textsf{fithesis3}}
 % \newcommand{\itm}[1]{\noindent{\bf #1}} 
 % \title{Sada maker \fit\ pro sazbu závěrečných prací MU}
@@ -174,6 +193,7 @@
 % \iffalse
 %    \begin{macrocode}
 %<*class>
+
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{fithesis3}[%%%date%%% fithesis3 version %%%version%%% MU thesis class]
 
@@ -352,122 +372,214 @@
 \def\@thesislang{cs}
 
 \def\@thesissubtitle{Diplomov\'{a} pr\'{a}ce}
-\def\@thesislogopath{loga} % The loga directory by default
+\def\@thesislogopath{loga/} % The loga directory by default
 
 \def\titlefont{\fontsize\@xxvpt{30}\selectfont}
+%    \end{macrocode}
+% \fi
+%
+% \section{Popis jednotlivých maker}
+% Následující makra slouží k vložení základních údajů potřebných 
+% k~vysazení titulní strany. Na titulní stranu se kromě názvu
+% práce, jména studenta a roku vypracování vysadí také logo fakulty.
+%
+% \DescribeMacro{\thesistitle}
+% Makro umožní vložit název práce, u dvouřádkových
+% či víceřádkových názvů se standardně oddělí jednotlivé části
+% příkazem $\backslash$$\backslash$ s volitelným parametrem 
+% meziřádkového prokladu.
+%    \begin{macrocode}
 \def\thesistitle#1{
   \hypersetup{pdftitle={#1}}
   \gdef\@thesistitle{#1}
 }
+%    \end{macrocode}
+%
+% \DescribeMacro{\thesisstudent}
+% Makro umožní pomocí svého jediného parametru vložit jméno studenta.
+%    \begin{macrocode}
 \def\thesisstudent#1{
   \hypersetup{pdfauthor={#1}}
   \gdef\@thesisstudent{#1}
 }
+%    \end{macrocode}
+%
+% \DescribeMacro{\thesisyear}
+% Makro umožní vložit rok vypracování práce. 
+%    \begin{macrocode}
 \def\thesisyear#1{\gdef\@thesisyear{#1}}
-\def\thesisplaceyear{Brno, \@thesisyear}
+\def\@thesisplaceyear{Brno, \@thesisyear}
+%    \end{macrocode}
+%
+% \DescribeMacro{\thesissubtitle}
+% Makro umožní vložit název typu práce, např. bakalářská práce
+% diplomová práce atd.
+%    \begin{macrocode}
 \def\thesissubtitle#1{\gdef\@thesissubtitle{#1}}
-\def\thesislogopath#1{\gdef\@thesislogopath{#1}}
+%    \end{macrocode}
+%
+% \DescribeMacro{\thesislogopath}
+% Makro umožní stanovit cestu k adresáři s logy fakult.
+% Implicitní hodnota je \texttt{loga/} pro práce psané pod MU
+% a prázdný řetězec pro práce psané mimo MU.
+%    \begin{macrocode}
+\def\thesislogopath#1{\gdef\@thesislogopath{#1/}}
+%    \end{macrocode}
+%
+% \DescribeMacro{\thesisuniversity}
+% Makro umožní stanovit pod jakou univerzitou byla práce napsána.
+% Má význam jen v případě, že práce není psaná pod MU.
+%    \begin{macrocode}
 \def\thesisuniversity#1{\gdef\@thesisuniversity{#1}}
+%    \end{macrocode}
+%
+% \DescribeMacro{\thesislogo}
+% Makro umožní stanovit soubor (bez přípony) loga fakulty pod
+% jakou byla práce napsaná.
+% Má význam jen v~případě, že práce není psaná pod MU.
+%    \begin{macrocode}
 \def\thesislogo#1{\gdef\@thesislogo{#1}}
+%    \end{macrocode}
+%
+% \DescribeMacro{\thesisadvisor}
+% Makro umožní vložit jméno vedoucího práce.
+%    \begin{macrocode}
 \def\thesisadvisor#1{\gdef\@thesisadvisor{#1}}
-\def\thesisfaculty#1{\gdef\@thesisfaculty{#1}
-\def\@slash{/}
-\def\@facultylogo{\@thesislogopath\ifx\@thesiscolor\True%
-  \@slash color%
-\fi\@slash\@thesisfaculty-logo}
-\ifx\@thesisfaculty\Fi
- \ifx\@thesislang\Langen
-  \def\facultyname{Faculty of Informatics}
-  \def\universityname{Masaryk University}
-   \else \def\facultyname{Fakulta informatiky}
-  \fi
- \else \ifx\@thesisfaculty\Sci
-  \ifx\@thesislang\Langen
-   \def\facultyname{Faculty of Science}
-   \def\universityname{Masaryk University}
-  \else \def\facultyname{P\v{r}\'{i}rodov\v{e}deck\'{a} fakulta}
-  \fi
-  \else \ifx\@thesisfaculty\Law
+%    \end{macrocode}
+%
+% \DescribeMacro{\thesisfaculty}
+% Makro umožní stanovit pod jakou fakultou byla práce napsána. Podle toho
+% se také vloží patřičné logo a název fakulty na titulní stránku.
+% Jsou podporovány tyto fakulty MU:
+% \begin{itemize}
+% \item Fakulta informatiky -- fi
+% \item Přírodovědecká fakulta -- sci,
+% \item Právnická fakulta -- law,
+% \item Ekonomicko-správní fakulta -- eco,
+% \item Fakulta sociálních studií -- fss,
+% \item Lékařská fakulta -- med,
+% \item Pedagogická fakulta -- ped,
+% \item Filozofická fakulta -- phil
+% \end{itemize}
+% například: \prikaz{thesisfaculty\{fi\}}.
+% Lze použít i vlastní název, pokud práce není psaná pod 
+% žádnou z~výše uvedených fakult MU, pak je nutné zadat 
+% i název univerzity \prikaz{thesisuniversity\{\}}, 
+% jméno souboru loga fakulty (bez přípony) 
+% \prikaz{thesislogo\{\}} a též do makra 
+% \prikaz{thesisyear\{\}} sídlo dané univerzity 
+% (pro MU toto není třeba).
+%    \begin{macrocode}
+\def\thesisfaculty#1{
+  \gdef\@thesisfaculty{#1}
+  \def\@slash{/}
+  \def\@facultylogo{\@thesislogopath\ifx\@thesiscolor\True%
+    color\@slash%
+  \fi\@thesisfaculty-logo}
+  \ifx\@thesisfaculty\Fi
    \ifx\@thesislang\Langen
-    \def\facultyname{Faculty of Law}
+    \def\facultyname{Faculty of Informatics}
     \def\universityname{Masaryk University}
-   \else \def\facultyname{Pr\'{a}vnick\'{a} fakulta}
-   \fi
-  \else \ifx\@thesisfaculty\Eco
-   \ifx\@thesislang\Langen
-    \def\facultyname{Faculty of Economics and Administration}
-    \def\universityname{Masaryk University}
-   \else \def\facultyname{Ekonomicko-spr\'{a}vn\'{i} fakulta}
-   \fi
-  \else \ifx\@thesisfaculty\Fss
-   \ifx\@thesislang\Langen
-    \def\facultyname{Faculty of Social Studies}
-    \def\universityname{Masaryk University}
-   \else \def\facultyname{Fakulta soci\'{a}ln\'{i}ch studi\'{i}}
-   \fi
-  \else \ifx\@thesisfaculty\Med
-   \ifx\@thesislang\Langen
-    \def\facultyname{Faculty of Medicine}
-    \def\universityname{Masaryk University}
-   \else \def\facultyname{L\'{e}ka\v{r}sk\'{a} fakulta}
-   \fi
-  \else \ifx\@thesisfaculty\Ped
-   \ifx\@thesislang\Langen
-    \def\facultyname{Faculty of Education}
-    \def\universityname{Masaryk University}
-   \else \def\facultyname{Pedagogick\'{a} fakulta}
-   \fi
-  \else \ifx\@thesisfaculty\Phil
-   \ifx\@thesislang\Langen
-    \def\facultyname{Faculty of Arts}
-    \def\universityname{Masaryk University}
-   \else \def\facultyname{Filozofick\'{a} fakulta}
-   \fi
-  \else \ifx\@thesisfaculty\Fsps
-   \ifx\@thesislang\Langen
-    \def\facultyname{Faculty of Sports Studies}
-    \def\universityname{Masaryk University}
-   \else \def\facultyname{Fakulta sportovn\'{i}ch studi\'{i}}
-   \fi
-         \else
-          \def\facultyname{\@thesisfaculty}
-          \def\universityname{\@thesisuniversity}
-          \def\@thesislogopath{.} % The current directory by default
-          \def\@facultylogo{\@thesislogopath/\@thesislogo}
-          \def\thesisplaceyear{\@thesisyear}
+     \else \def\facultyname{Fakulta informatiky}
+    \fi
+   \else \ifx\@thesisfaculty\Sci
+    \ifx\@thesislang\Langen
+     \def\facultyname{Faculty of Science}
+     \def\universityname{Masaryk University}
+    \else \def\facultyname{P\v{r}\'{i}rodov\v{e}deck\'{a} fakulta}
+    \fi
+    \else \ifx\@thesisfaculty\Law
+     \ifx\@thesislang\Langen
+      \def\facultyname{Faculty of Law}
+      \def\universityname{Masaryk University}
+     \else \def\facultyname{Pr\'{a}vnick\'{a} fakulta}
+     \fi
+    \else \ifx\@thesisfaculty\Eco
+     \ifx\@thesislang\Langen
+      \def\facultyname{Faculty of Economics and Administration}
+      \def\universityname{Masaryk University}
+     \else \def\facultyname{Ekonomicko-spr\'{a}vn\'{i} fakulta}
+     \fi
+    \else \ifx\@thesisfaculty\Fss
+     \ifx\@thesislang\Langen
+      \def\facultyname{Faculty of Social Studies}
+      \def\universityname{Masaryk University}
+     \else \def\facultyname{Fakulta soci\'{a}ln\'{i}ch studi\'{i}}
+     \fi
+    \else \ifx\@thesisfaculty\Med
+     \ifx\@thesislang\Langen
+      \def\facultyname{Faculty of Medicine}
+      \def\universityname{Masaryk University}
+     \else \def\facultyname{L\'{e}ka\v{r}sk\'{a} fakulta}
+     \fi
+    \else \ifx\@thesisfaculty\Ped
+     \ifx\@thesislang\Langen
+      \def\facultyname{Faculty of Education}
+      \def\universityname{Masaryk University}
+     \else \def\facultyname{Pedagogick\'{a} fakulta}
+     \fi
+    \else \ifx\@thesisfaculty\Phil
+     \ifx\@thesislang\Langen
+      \def\facultyname{Faculty of Arts}
+      \def\universityname{Masaryk University}
+     \else \def\facultyname{Filozofick\'{a} fakulta}
+     \fi
+    \else \ifx\@thesisfaculty\Fsps
+     \ifx\@thesislang\Langen
+      \def\facultyname{Faculty of Sports Studies}
+      \def\universityname{Masaryk University}
+     \else \def\facultyname{Fakulta sportovn\'{i}ch studi\'{i}}
+     \fi
+           \else
+            \def\facultyname{\@thesisfaculty}
+            \def\universityname{\@thesisuniversity}
+            \def\@thesislogopath{} % Zero directory by default
+            \def\@facultylogo{\@thesislogopath/\@thesislogo}
+           \fi
+          \fi
          \fi
         \fi
        \fi
       \fi
      \fi
     \fi
-   \fi
   \fi
-\fi
 }
-
-\newif\if@restonecol
-
-\def\alwayssingle{%
-\@restonecolfalse\if@twocolumn\@restonecoltrue\onecolumn\fi}
-\def\endalwayssingle{\if@restonecol\twocolumn\fi}
-
-%</class>
 %    \end{macrocode}
-% \fi
 %
 % \iffalse
 %    \begin{macrocode}
-%<*class>
+
+\newif\if@restonecol
+\def\alwayssingle{%
+  \@restonecolfalse\if@twocolumn\@restonecoltrue\onecolumn\fi}
+\def\endalwayssingle{\if@restonecol\twocolumn\fi}
 
 \newif\ifwoman\womanfalse
-\def\@w{\ifwoman{a}\else\fi}
-\def\thesiswoman#1{\gdef\@thesiswoman{#1}
-\ifx\@thesiswoman\True\def\@w{a}\else\def\@w{}\fi}
+\def\@w{\ifwoman a\else\fi}
 
+%    \end{macrocode}
+% \fi
+%
+% \DescribeMacro{\thesiswoman}
+% Makro umožní vložit pohlaví studenta. Volby jsou: true, false.
+% (nahrazuje použití přepínače \prikaz{ifwoman}).
+%    \begin{macrocode}
+\def\thesiswoman#1{\gdef\@thesiswoman{#1}
+  \ifx\@thesiswoman\True\womantrue\else\womanfalse\fi}
+%    \end{macrocode}
+%
+% \DescribeMacro{\thesislang}
+% Makro umožní stanovit jazyk, ve kterém je práce napsána. V~současné
+% době jsou podporovány varianty cs nebo cz, sk a en. Jazyk je třeba
+% stanovit před použitím příkazu \prikaz{thesisfaculty}, jinak dojde
+% k vysázení jména fakulty v češtině.
+%    \begin{macrocode}
 \def\thesislang#1{\gdef\@thesislang{#1}%
   \ifx\@thesislang\Langcz\gdef\@thesislang{cs}\fi}
-
+%    \end{macrocode}
+% \iffalse
+%    \begin{macrocode}
 \def\DeclarationTextcs{%
 	Prohla\v{s}uji, \v{z}e tato \expandafter\lowecasewrapper\@thesissubtitle{} 
 	je m\'{y}m p\r{u}vodn\'{i}m autorsk\'{y}m
@@ -576,216 +688,47 @@
  \fi
 \fi} \@thesisadvisor}
 
-\def\FrontMatter{%
-\pagestyle{plain}
-\parindent 1.5em
-\setcounter{page}{1}
-\pagenumbering{roman}}
-
-\newcommand{\ThesisTitlePage}{%
-\begin{alwayssingle}
-\thispagestyle{empty}
-\begin{center}
-{\sc \universityname\\ \facultyname}
-\vskip 1.4em
-
-\includegraphics[width=40mm]{\@facultylogo}\\[0.4in]
-
-\let\footnotesize\small
-\let\footnoterule\relax{}
-{\titlefont\bf\@thesistitle\par\vfil}\vskip 0.8in
-{\sc \@thesissubtitle}\\[0.3in]
-{\Large\bf\@thesisstudent}
-\par\vfill
-{\large \thesisplaceyear}
-\end{center}
-\end{alwayssingle}
-\newpage}
-
-\newenvironment{ThesisDeclaration}{%
-\begin{alwayssingle}
-\ifx\@thesislang\Langcs
- \chapter*{\DeclarationTitlecs}
- \else \ifx\@thesislang\Langsk
-  \chapter*{\DeclarationTitlesk}
-  \else \ifx\@thesislang\Langen
-   \chapter*{\DeclarationTitleen}
-   \else \chapter*{\DeclarationTitlecs}
-  \fi
- \fi
-\fi}
-{\par\vfil
-\end{alwayssingle}
-\newpage}
-
-\newenvironment{ThesisThanks}{%
-\begin{alwayssingle}
-\ifx\@thesislang\Langcs
- \chapter*{\ThanksTitlecs}
- \else \ifx\@thesislang\Langsk
-  \chapter*{\ThanksTitlesk}
-  \else \ifx\@thesislang\Langen
-   \chapter*{\ThanksTitleen}
-   \else \chapter*{\ThanksTitlecs}
-  \fi
- \fi
-\fi}
-{\par\vfill
-\end{alwayssingle}
-\newpage}
-
-\newenvironment{ThesisAbstract}{%
-\begin{alwayssingle}
-\ifx\@thesislang\Langcs
- \chapter*{\AbstractTitlecs}
- \else \ifx\@thesislang\Langsk
-  \chapter*{\AbstractTitlesk}
-  \else \ifx\@thesislang\Langen
-   \chapter*{\AbstractTitleen}
-   \else \chapter*{\AbstractTitlecs}
-  \fi
- \fi
-\fi}
-{\par\vfil\null
-\end{alwayssingle}
-\newpage}
-
-\newenvironment{ThesisAbstracten}{%
-\begin{alwayssingle}
-\chapter*{\AbstractTitleen}
-}
-{\par\vfil\null
-\end{alwayssingle}
-\newpage}
-
-\newenvironment{ThesisKeyWords}{%
-\begin{alwayssingle}
-\ifx\@thesislang\Langcs
- \chapter*{\KeyWordsTitlecs}
- \else \ifx\@thesislang\Langsk
-  \chapter*{\KeyWordsTitlesk}
-  \else \ifx\@thesislang\Langen
-   \chapter*{\KeyWordsTitleen}
-   \else \chapter*{\KeyWordsTitlecs}
-  \fi
- \fi
-\fi}
-{\par\vfill
-\end{alwayssingle}
-\newpage}
-
-\def\MainMatter{%
-\if@twoside
- \clearpage
- \thispagestyle{empty}
- \cleardoublepage
-\else
- \clearpage
-\fi
-\setcounter{page}{1}
-\pagenumbering{arabic}
-\pagestyle{thesisheadings}
-\parindent 1.5em\relax}
-
-%</class>
 %    \end{macrocode}
 % \fi
 %
-% \section{Popis jednotlivých maker}
-% Následující makra slouží k vložení základních údajů potřebných 
-% k~vysazení titulní strany. Na titulní stranu se kromě názvu
-% práce, jména studenta a roku vypracování vysadí také logo fakulty.
-%
-% \begin{macro}{\thesistitle}
-% Makro umožní vložit název práce, u dvouřádkových
-% či víceřádkových názvů se standardně oddělí jednotlivé části
-% příkazem $\backslash$$\backslash$ s volitelným parametrem 
-% meziřádkového prokladu.
-% \end{macro}
-%
-% \begin{macro}{\thesissubtitle}
-% Makro umožní vložit název typu práce, např. bakalářská práce
-% diplomová práce atd.
-% \end{macro}
-%
-% \begin{macro}{\thesisstudent}
-% Makro umožní pomocí svého jediného parametru vložit jméno studenta.
-% \end{macro}
-%
-% \begin{macro}{\thesiswoman}
-% Makro umožní vložit pohlaví studenta, volby jsou: true, false 
-% (nahrazuje použití přepínače \prikaz{ifwoman}).
-% \end{macro}
-%
-% \begin{macro}{\thesisfaculty}
-% Makro umožní stanovit pod jakou fakultou byla práce napsána. Podle toho
-% se také vloží patřičné logo a název fakulty na titulní stránku.
-% Jsou podporovány tyto fakulty MU:
-% \begin{itemize}
-% \item Fakulta informatiky -- fi
-% \item Přírodovědecká fakulta -- sci,
-% \item Právnická fakulta -- law,
-% \item Ekonomicko-správní fakulta -- eco,
-% \item Fakulta sociálních studií -- fss,
-% \item Lékařská fakulta -- med,
-% \item Pedagogická fakulta -- ped,
-% \item Filozofická fakulta -- phil
-% \end{itemize}
-% například: \prikaz{thesisfaculty\{fi\}}.
-% Lze použít i vlastní název, pokud práce není psaná pod 
-% žádnou z~výše uvedených fakult MU, pak je nutné zadat 
-% i název univerzity \prikaz{thesisuniversity\{\}}, 
-% jméno souboru loga fakulty (bez přípony) 
-% \prikaz{thesislogo\{\}} a též do makra 
-% \prikaz{thesisyear\{\}} sídlo dané univerzity 
-% (pro MU toto není třeba).
-% \end{macro}
-%
-% \begin{macro}{\thesisyear}
-% Makro umožní vložit rok vypracování práce. 
-% \end{macro}
-%
-% \begin{macro}{\thesisadvisor}
-% Makro umožní vložit jméno vedoucího práce.
-% \end{macro}
-%
-% \begin{macro}{\thesisuniversity}
-% Makro umožní stanovit pod jakou univerzitou byla práce napsána.
-% Má význam jen v případě, že práce není psaná pod MU.
-% \end{macro}
-%
-% \begin{macro}{\thesislogopath}
-% Makro umožní stanovit cestu k adresáři s logy fakult. Implicitní hodnota
-% je \texttt{loga/} pro práce psané pod MU a \texttt{./} pro práce psané mimo MU.
-% \end{macro}
-%
-% \begin{macro}{\thesislogo}
-% Makro umožní stanovit soubor (bez přípony) loga fakulty pod
-% jakou byla práce napsaná.
-% Má význam jen v~případě, že práce není psaná pod MU.
-% \end{macro}
-%
-% \begin{macro}{\thesislang}
-% Makro umožní stanovit jazyk, ve kterém je práce napsána. V~současné
-% době jsou podporovány varianty cs nebo cz, sk a en. Jazyk je třeba
-% stanovit před použitím příkazu \prikaz{thesisfaculty}, jinak dojde
-% k vysázení jména fakulty v češtině.
-% \end{macro}
-%
-% \begin{macro}{\ThesisTitlePage}
-% Titulní strana práce se vysadí příkazem 
-% \prikaz{ThesisTitlePage} a využije předem zadaných údaje
-% názvu práce a jména studenta a roku vypracování.
-% \end{macro}
-%
-% \begin{macro}{\FrontMatter}
+% \DescribeMacro{\FrontMatter}
 % Toto makro se vloží na začátek dokumentu (nejlépe za příkaz
 % \prikaz{begin\{document\}}). 
 % První strany dokumentu obsahujících prohlášení, abstrakt a klíčová
 % slova se nastaví na římské číslování. U~dalších stran včetně
 % obsahu a následujících kapitol se pomocí makra \prikaz{MainMatter} 
 % nastaví arabské číslování.
-% \end{macro}
+%   \begin{macrocode}
+\def\FrontMatter{%
+  \pagestyle{plain}
+  \parindent 1.5em
+  \setcounter{page}{1}
+  \pagenumbering{roman}}
+%    \end{macrocode}
+%
+% \DescribeMacro{\ThesisTitlePage}
+% Titulní strana práce se vysadí příkazem 
+% \prikaz{ThesisTitlePage} a využije předem zadané údaje
+% názvu práce, jména studenta a roku vypracování.
+%    \begin{macrocode}
+\newcommand{\ThesisTitlePage}{%
+  \begin{alwayssingle}
+  \thispagestyle{empty}
+  \begin{center}
+  {\sc \universityname\\ \facultyname}
+  \vskip 1.4em
+  \includegraphics[width=40mm]{\@facultylogo}\\[0.4in]
+  \let\footnotesize\small
+  \let\footnoterule\relax{}
+  {\titlefont\bf\@thesistitle\par\vfil}\vskip 0.8in
+  {\sc \@thesissubtitle}\\[0.3in]
+  {\Large\bf\@thesisstudent}
+  \par\vfill
+  {\large \@thesisplaceyear}
+  \end{center}
+  \end{alwayssingle}
+  \newpage}
+%    \end{macrocode}
 %
 % \subsubsection*{Povinné části diplomové práce}
 % Následující makra jsou potřebná k vysazení povinných částí diplomové
@@ -799,7 +742,7 @@
 % \textit{obsah diplomové práce\/} již sází pomocí 
 % standardních \LaTeX ových příkazů. 
 %
-% \begin{macro}{ThesisDeclaration}
+% \DescribeMacro{ThesisDeclaration}
 % Prostředí \texttt{ThesisDeclaration} vysadí stránku 
 % s~prohlášením o samostatném vypracování
 % diplomové práce. Text tohoto prohlášení může uživatel předefinovat
@@ -814,39 +757,129 @@
 % \end{quote}
 % Dále se vloží makro \prikaz{AdvisorName}, které vysází 
 % údaje o vedoucím práce.
-% \end{macro}
+%    \begin{macrocode}
+\newenvironment{ThesisDeclaration}{%
+  \begin{alwayssingle}
+  \ifx\@thesislang\Langcs
+   \chapter*{\DeclarationTitlecs}
+   \else \ifx\@thesislang\Langsk
+    \chapter*{\DeclarationTitlesk}
+    \else \ifx\@thesislang\Langen
+     \chapter*{\DeclarationTitleen}
+     \else \chapter*{\DeclarationTitlecs}
+    \fi
+   \fi
+  \fi}
+  {\par\vfil
+  \end{alwayssingle}
+  \newpage}
+%    \end{macrocode}
 %
-% \begin{macro}{ThesisThanks}
+% \DescribeMacro{ThesisThanks}
 % Toto prostředí umožní vysadit \textit{poděkování\/}.
-% \end{macro}
-% \begin{macro}{ThesisAbstract}
+%    \begin{macrocode}
+\newenvironment{ThesisThanks}{%
+  \begin{alwayssingle}
+  \ifx\@thesislang\Langcs
+   \chapter*{\ThanksTitlecs}
+   \else \ifx\@thesislang\Langsk
+    \chapter*{\ThanksTitlesk}
+    \else \ifx\@thesislang\Langen
+     \chapter*{\ThanksTitleen}
+     \else \chapter*{\ThanksTitlecs}
+    \fi
+   \fi
+  \fi}
+  {\par\vfill
+  \end{alwayssingle}
+  \newpage}
+%    \end{macrocode}
+%
+% \DescribeMacro{ThesisAbstract}
 % \textit{Shrnutí\/} diplomové práce je možno vysadit pomocí 
 % prostředí \texttt{ThesisAbstract}. Shrnutí by mělo 
 % zabírat prostor nejvýše jedné strany. 
-% \end{macro}
+%    \begin{macrocode}
+\newenvironment{ThesisAbstract}{%
+  \begin{alwayssingle}
+  \ifx\@thesislang\Langcs
+   \chapter*{\AbstractTitlecs}
+   \else \ifx\@thesislang\Langsk
+    \chapter*{\AbstractTitlesk}
+    \else \ifx\@thesislang\Langen
+     \chapter*{\AbstractTitleen}
+     \else \chapter*{\AbstractTitlecs}
+    \fi
+   \fi
+  \fi}
+  {\par\vfil\null
+  \end{alwayssingle}
+  \newpage}
+%    \end{macrocode}
 %
-% \begin{macro}{ThesisAbstracten}
+% \DescribeMacro{ThesisAbstracten}
 % \textit{Abstract\/} diplomové práce v~angličtině je 
 % možno vysadit pomocí prostředí \texttt{ThesisAbstracten}. 
 % Abstract by měl zabírat prostor nejvýše jedné strany. 
-% \end{macro}
+%    \begin{macrocode}
+\newenvironment{ThesisAbstracten}{%
+  \begin{alwayssingle}
+  \chapter*{\AbstractTitleen}
+  }
+  {\par\vfil\null
+  \end{alwayssingle}
+  \newpage}
+%    \end{macrocode}
 %
-% \begin{macro}{ThesisKeyWords}
+% \DescribeMacro{ThesisKeywords}
 % \textit{Klíčová slova\/} oddělená čárkami se vepíší 
 % do prostředí \texttt{ThesisKeyWords}. 
-% \end{macro}
+%    \begin{macrocode}
+\newenvironment{ThesisKeyWords}{%
+  \begin{alwayssingle}
+  \ifx\@thesislang\Langcs
+   \chapter*{\KeyWordsTitlecs}
+   \else \ifx\@thesislang\Langsk
+    \chapter*{\KeyWordsTitlesk}
+    \else \ifx\@thesislang\Langen
+     \chapter*{\KeyWordsTitleen}
+     \else \chapter*{\KeyWordsTitlecs}
+    \fi
+   \fi
+  \fi}
+  {\par\vfill
+  \end{alwayssingle}
+  \newpage}
+%    \end{macrocode}
 %
-% \begin{macro}{\MainMatter}
+% \DescribeMacro{MainMatter}
 % Makro \prikaz{MainMatter} nastaví kromě arabského číslování stránek  
 % také implicitní styl stránky pro sazbu následujících kapitol. V~tomto
 % stylu se do hlavičky stránky vkládá název aktuální kapitoly a od
 % ostatního textu se záhlaví oddělí horizontální čarou.
-% \end{macro}
+%    \begin{macrocode}
+\def\MainMatter{%
+\if@twoside
+ \clearpage
+ \thispagestyle{empty}
+ \cleardoublepage
+\else
+ \clearpage
+\fi
+\setcounter{page}{1}
+\pagenumbering{arabic}
+\pagestyle{thesisheadings}
+\parindent 1.5em\relax}
+%    \end{macrocode}
+% \iffalse
+%</class>
+% \fi
 %
 % Další text diplomové práce (obsah, úvod, jednotlivé kapitoly a části,
 % popřípadě závěr, literatura či dodatky) se již sází standardními
 % příkazy. Následuje zjednodušený ukázkový příklad 
 % \textit{kostry} diplomové práce.
+%
 % \begin{verbatim}
 % \documentclass[12pt,oneside]{fithesis3}
 % \usepackage[english]{babel}       % Multilingual support
@@ -905,7 +938,6 @@
 % \end{document} 
 % \end{verbatim}
 % \newpage
-% \printindex
 % \iffalse
 %    \begin{macrocode}
 %<*class>
