@@ -71,6 +71,13 @@ na nichž je položka použita.
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
+% \changes{v0.3.06}  {2015/01/26}{Added the colorx package and the base colors
+%   for each faculty. If the color option is specified, the tabular environment
+%   gets redefined and uses the faculty colors to color alternating table rows
+%   to improve readability. The hyperref links in the e-version are now likewise
+%   colored according to the chosen faculty, in this case regardless of the
+%   presence of the color option. Dropped the support for typesetting theses
+%   outside MU. [VN]}
 % \changes{v0.3.05}  {2015/01/21}{Added support for change typesetting.
 %   Restructured the code to make it more amenable to literal programming.
 %   Added support for \cs{CodelineIndex} typesetting. Added information about
@@ -281,13 +288,13 @@ na nichž je položka použita.
 % FIXME: pridat ifxetex apod.
 \RequirePackage{cmap}
 \RequirePackage[T1]{fontenc}
-\RequirePackage{hyperref}
-\hypersetup{plainpages=false} % Multiple page numbering support
-\hypersetup{pdfpagelabels}    % Generate pdf page labels
-\hypersetup{pdftex}           % PDF Metadata stamping
-\hypersetup{
-  pdfcreator={fithesis3 v%%%version%%% MU thesis class},
-}
+\RequirePackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\RequirePackage[
+  plainpages=false,          % Multiple page numbering support
+  pdfpagelabels,             % Generate pdf page labels
+  pdftex,                    % PDF Metadata stamping
+  pdfcreator={fithesis3 v%%%version%%% MU thesis class}
+]{hyperref}
 
 \def\Scrreprtcls{scrreprt}
 \def\RapportIcls{rapport1}
@@ -379,6 +386,17 @@ na nichž je položka použita.
 \def\@thesissubtitle{Diplomov\'{a} pr\'{a}ce}
 \def\@thesislogopath{loga/} % The loga directory by default
 
+% Redefining the tabular environment for the printing of colorful tables
+% Use \show\tabular to see the original definition of \tabular
+\ifx\@thesiscolor\True
+  \renewcommand{\tabular}{%
+    \let\@halignto\@empty\rowcolors{1}{facultyxlight}{facultylight}\@tabular}
+\else
+  \definecolor{lightgrey}{gray}{0.9}
+  \renewcommand{\tabular}{%
+    \let\@halignto\@empty\rowcolors{1}{white}{lightgrey}\@tabular}
+\fi
+
 \def\titlefont{\fontsize\@xxvpt{30}\selectfont}
 %    \end{macrocode}
 % \fi
@@ -453,13 +471,6 @@ na nichž je položka použita.
 % \item Filozofická fakulta -- phil
 % \end{itemize}
 % například: \prikaz{thesisfaculty\{fi\}}.
-% Lze použít i vlastní název, pokud práce není psaná pod 
-% žádnou z~výše uvedených fakult MU, pak je nutné zadat 
-% i název univerzity \prikaz{thesisuniversity\{\}}, 
-% jméno souboru loga fakulty (bez přípony) 
-% \prikaz{thesislogo\{\}} a též do makra 
-% \prikaz{thesisyear\{\}} sídlo dané univerzity 
-% (pro MU toto není třeba).
 %    \begin{macrocode}
 \def\thesisfaculty#1{
   \gdef\@thesisfaculty{#1}
@@ -468,73 +479,114 @@ na nichž je položka použita.
     color\@slash%
   \fi\@thesisfaculty-logo}
   \ifx\@thesisfaculty\Fi
-   \ifx\@thesislang\Langen
-    \def\facultyname{Faculty of Informatics}
-    \def\universityname{Masaryk University}
-     \else \def\facultyname{Fakulta informatiky}
-    \fi
-   \else \ifx\@thesisfaculty\Sci
+    % The Faculty of Informatics
+    \definecolor{faculty}{HTML}{FFD451} % Pantone 122
+    \definecolor{facultylight}{HTML}{FFECB3}
+    \definecolor{facultyxlight}{HTML}{FFF9E5}
+    \hypersetup{linkbordercolor = faculty}
     \ifx\@thesislang\Langen
-     \def\facultyname{Faculty of Science}
-     \def\universityname{Masaryk University}
-    \else \def\facultyname{P\v{r}\'{i}rodov\v{e}deck\'{a} fakulta}
+      \def\facultyname{Faculty of Informatics}
+      \def\universityname{Masaryk University}
+    \else
+      \def\facultyname{Fakulta informatiky}
     \fi
-    \else \ifx\@thesisfaculty\Law
-     \ifx\@thesislang\Langen
+  \else\ifx\@thesisfaculty\Sci
+    % The Faculty of Science
+    \definecolor{faculty}{HTML}{00AF3F} % Pantone 354
+    \definecolor{facultylight}{HTML}{B8E8C9}
+    \definecolor{facultyxlight}{HTML}{E0F5E8}
+    \hypersetup{linkbordercolor = faculty}
+    \ifx\@thesislang\Langen
+      \def\facultyname{Faculty of Science}
+      \def\universityname{Masaryk University}
+    \else
+      \def\facultyname{P\v{r}\'{i}rodov\v{e}deck\'{a} fakulta}
+    \fi
+  \else\ifx\@thesisfaculty\Law
+    % The Faculty of Law
+    \definecolor{faculty}{HTML}{80379B} % Pantone 2593
+    \definecolor{facultylight}{HTML}{D3BADC}
+    \definecolor{facultyxlight}{HTML}{F0E7F3}
+    \hypersetup{linkbordercolor = faculty}
+    \ifx\@thesislang\Langen
       \def\facultyname{Faculty of Law}
       \def\universityname{Masaryk University}
-     \else \def\facultyname{Pr\'{a}vnick\'{a} fakulta}
-     \fi
-    \else \ifx\@thesisfaculty\Eco
-     \ifx\@thesislang\Langen
+    \else
+      \def\facultyname{Pr\'{a}vnick\'{a} fakulta}
+    \fi
+  \else\ifx\@thesisfaculty\Eco
+    % The Faculty of Economics and Administration
+    \definecolor{faculty}{HTML}{7C211E} % Pantone 1815
+    \definecolor{facultylight}{HTML}{DAC1BF}
+    \definecolor{facultyxlight}{HTML}{EFE4E3}
+    \hypersetup{linkbordercolor = facultylight}
+    \ifx\@thesislang\Langen
       \def\facultyname{Faculty of Economics and Administration}
       \def\universityname{Masaryk University}
-     \else \def\facultyname{Ekonomicko-spr\'{a}vn\'{i} fakulta}
-     \fi
-    \else \ifx\@thesisfaculty\Fss
-     \ifx\@thesislang\Langen
+    \else
+      \def\facultyname{Ekonomicko-spr\'{a}vn\'{i} fakulta}
+    \fi
+  \else\ifx\@thesisfaculty\Fss
+    % The Faculty of Social Studies
+    \definecolor{faculty}{HTML}{007B69} % Pantone 3295
+    \definecolor{facultylight}{HTML}{B8DAD5}
+    \definecolor{facultyxlight}{HTML}{E3F1EE}
+    \hypersetup{linkbordercolor = facultylight}
+    \ifx\@thesislang\Langen
       \def\facultyname{Faculty of Social Studies}
       \def\universityname{Masaryk University}
-     \else \def\facultyname{Fakulta soci\'{a}ln\'{i}ch studi\'{i}}
-     \fi
-    \else \ifx\@thesisfaculty\Med
-     \ifx\@thesislang\Langen
+    \else
+      \def\facultyname{Fakulta soci\'{a}ln\'{i}ch studi\'{i}}
+    \fi
+  \else\ifx\@thesisfaculty\Med
+    % The Faculty of Medicine
+    \definecolor{faculty}{HTML}{F01928} % Pantone 1795
+    \definecolor{facultylight}{HTML}{FABFC2}
+    \definecolor{facultyxlight}{HTML}{FAE3E5}
+    \hypersetup{linkbordercolor = faculty}
+    \ifx\@thesislang\Langen
       \def\facultyname{Faculty of Medicine}
       \def\universityname{Masaryk University}
-     \else \def\facultyname{L\'{e}ka\v{r}sk\'{a} fakulta}
-     \fi
-    \else \ifx\@thesisfaculty\Ped
-     \ifx\@thesislang\Langen
+    \else
+      \def\facultyname{L\'{e}ka\v{r}sk\'{a} fakulta}
+    \fi
+  \else\ifx\@thesisfaculty\Ped
+    % The Faculty of Education
+    \definecolor{faculty}{HTML}{FFA02F} % Pantone 1375
+    \definecolor{facultylight}{HTML}{FFDEB7}
+    \definecolor{facultyxlight}{HTML}{FFF1E0}
+    \hypersetup{linkbordercolor = faculty}
+    \ifx\@thesislang\Langen
       \def\facultyname{Faculty of Education}
       \def\universityname{Masaryk University}
-     \else \def\facultyname{Pedagogick\'{a} fakulta}
-     \fi
-    \else \ifx\@thesisfaculty\Phil
-     \ifx\@thesislang\Langen
+    \else
+      \def\facultyname{Pedagogick\'{a} fakulta}
+    \fi
+  \else\ifx\@thesisfaculty\Phil
+    % The Faculty of Arts
+    \definecolor{faculty}{HTML}{00A1DE} % Pantone 299
+    \definecolor{facultylight}{HTML}{B8E4F5}
+    \definecolor{facultyxlight}{HTML}{E0F3FA}
+    \hypersetup{linkbordercolor = faculty}
+    \ifx\@thesislang\Langen
       \def\facultyname{Faculty of Arts}
       \def\universityname{Masaryk University}
-     \else \def\facultyname{Filozofick\'{a} fakulta}
-     \fi
-    \else \ifx\@thesisfaculty\Fsps
-     \ifx\@thesislang\Langen
+    \else
+      \def\facultyname{Filozofick\'{a} fakulta}
+    \fi
+  \else\ifx\@thesisfaculty\Fsps
+    % The Faculty of Sport Studies
+    \definecolor{faculty}{HTML}{002776} % Pantone 280
+    \definecolor{facultylight}{HTML}{B8C2D8}
+    \definecolor{facultyxlight}{HTML}{E0E5EE}
+    \hypersetup{linkbordercolor = facultylight}
+    \ifx\@thesislang\Langen
       \def\facultyname{Faculty of Sports Studies}
       \def\universityname{Masaryk University}
-     \else \def\facultyname{Fakulta sportovn\'{i}ch studi\'{i}}
-     \fi
-           \else
-            \def\facultyname{\@thesisfaculty}
-            \def\universityname{\@thesisuniversity}
-            \def\@thesislogopath{} % Zero directory by default
-            \def\@facultylogo{\@thesislogopath/\@thesislogo}
-           \fi
-          \fi
-         \fi
-        \fi
-       \fi
-      \fi
-     \fi
+    \else
+      \def\facultyname{Fakulta sportovn\'{i}ch studi\'{i}}
     \fi
-  \fi
+  \fi\fi\fi\fi\fi\fi\fi\fi\fi
 }
 %    \end{macrocode}
 %
@@ -551,17 +603,9 @@ na nichž je položka použita.
 \def\thesisadvisor#1{\gdef\@thesisadvisor{#1}}
 %    \end{macrocode}
 %
-% \DescribeMacro{\thesisuniversity}
-% Makro umožní stanovit pod jakou univerzitou byla práce napsána.
-% Má význam jen v případě, že práce není psaná pod MU.
-%    \begin{macrocode}
-\def\thesisuniversity#1{\gdef\@thesisuniversity{#1}}
-%    \end{macrocode}
-%
 % \DescribeMacro{\thesislogopath}
 % Makro umožní stanovit cestu k adresáři s logy fakult.
-% Implicitní hodnota je \texttt{loga/} pro práce psané pod MU
-% a prázdný řetězec pro práce psané mimo MU.
+% Implicitní hodnota je \texttt{loga/}.
 %    \begin{macrocode}
 \def\thesislogopath#1{\gdef\@thesislogopath{#1/}}
 %    \end{macrocode}
@@ -929,7 +973,21 @@ na nichž je položka použita.
 %     \chapter{Introduction}          % Chapters
 %     \Blindtext
 %     \chapter{Another chapter}
-%     \Blindtext
+%     \blindtext
+%     This chapter also contains a table \ref{table:example}.
+%     
+%     \begin{table}
+%       \centering
+%       \begin{tabular}{ccc}
+%         \textbf{Column 1} & \textbf{Column 2} & \textbf{Column 3} \\
+%         \hline
+%         1 & 2 & 3 \\
+%         4 & 5 & 6 \\
+%         7 & 8 & 9
+%       \end{tabular}
+%       \caption{A table full of depth and meaning}
+%       \label{table:example}
+%     \end{table}
 %                                     % Bibliography
 %     \listoftables                   % The list of tables (optional)
 %     \listoffigures                  % The list of figures (optional)

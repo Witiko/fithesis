@@ -51,7 +51,7 @@
 %% 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\ProvidesFile{fit12.clo}[2015/01/21 fithesis3 (size option)]
+\ProvidesFile{fit12.clo}[2015/01/26 fithesis3 (size option)]
 
 \renewcommand{\normalsize}{\fontsize\@xiipt{14.5}\selectfont%
 \abovedisplayskip 12\p@ plus3\p@ minus7\p@

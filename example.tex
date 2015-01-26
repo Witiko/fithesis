@@ -36,7 +36,21 @@
     \chapter{Introduction}          % Chapters
     \Blindtext
     \chapter{Another chapter}
-    \Blindtext
+    \blindtext
+    This chapter also contains a table \ref{table:example}.
+    
+    \begin{table}
+      \centering
+      \begin{tabular}{ccc}
+        \textbf{Column 1} & \textbf{Column 2} & \textbf{Column 3} \\
+        \hline
+        1 & 2 & 3 \\
+        4 & 5 & 6 \\
+        7 & 8 & 9
+      \end{tabular}
+      \caption{A table full of depth and meaning}
+      \label{table:example}
+    \end{table}
                                     % Bibliography
     \listoftables                   % The list of tables (optional)
     \listoffigures                  % The list of figures (optional)
