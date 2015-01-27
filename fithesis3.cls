@@ -177,13 +177,17 @@
 \def\@thesissubtitle{Diplomov\'{a} pr\'{a}ce}
 \def\@thesislogopath{loga/} % The loga directory by default
 
+\let\oldtabular\tabular
+\let\endoldtabular\endtabular
 \ifx\@thesiscolor\True
-  \renewcommand{\tabular}{%
-    \let\@halignto\@empty\rowcolors{1}{facultyxlight}{facultylight}\@tabular}
+  \renewenvironment{tabular}
+    {\rowcolors{1}{facultyxlight}{facultylight}\oldtabular}
+    {\endoldtabular}
 \else
-  \definecolor{lightgrey}{gray}{0.9}
-  \renewcommand{\tabular}{%
-    \let\@halignto\@empty\rowcolors{1}{white}{lightgrey}\@tabular}
+  \definecolor{lightgray}{gray}{0.9}
+  \renewenvironment{tabular}
+    {\rowcolors{1}{white}{lightgray}\oldtabular}
+    {\endoldtabular}
 \fi
 
 \def\titlefont{\fontsize\@xxvpt{30}\selectfont}
