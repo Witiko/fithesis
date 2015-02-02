@@ -83,8 +83,9 @@
 \RequirePackage[
   plainpages=false,          % Multiple page numbering support
   pdfpagelabels,             % Generate pdf page labels
-  pdftex,                    % PDF Metadata stamping
-  pdfcreator={fithesis3 v0.3.06 MU thesis class}
+  pdfcreator={%              % PDF data stamping
+    fithesis3 v0.3.06 MU thesis class%
+  }
 ]{hyperref}
 
 \def\Scrreprtcls{scrreprt}

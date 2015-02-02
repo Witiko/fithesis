@@ -52,7 +52,7 @@ položka popsána. Podtržené číslice odkazují na řádek v kódu, na které
 je položka definována. Číslice v základním řezu odkazují na řádky kódu,
 na nichž je položka použita.
 }
-\DoNotIndex{\def,\gdef,\hypersetup,\ifx,\fi,\True,\False,\\else,\\end,
+\DoNotIndex{\def,\gdef,\hypersetup,\\ifx,\\fi,\True,\False,\\else,\\end,
   \\begin,\',\\\\,\bf,\footnoterule,\footnotesize,\large,\Large,\let,
   \newpage,\newcommand,\pagenumbering,\pagestyle,\par,\parindent,
   \relax,\setcounter,\small,\v,\vfil,\vfill,\vskip,\newenvironment,
@@ -94,9 +94,9 @@ na nichž je položka použita.
 %   link to discussion forum (backport of v0.2.14) [PS]}
 % \changes{v0.3.02}  {2015/01/13}{pdf metadata stamping added for
 %   \cs{thesistitle} and \cs{thesisstudent} [VN]}
-% \changes{v0.3.01}  {2015/01/09}{documentation now uses babel and cmap packages.
-%   the entire file was transcoded into utf8, \cs{thesiscolor} was replaced by
-%   color class option, added pdf metadata stamping support [VN]}
+% \changes{v0.3.01}  {2015/01/09}{documentation now uses babel and cmap
+%   packages. the entire file was transcoded into utf8, \cs{thesiscolor} was
+%   replaced by color class option, added pdf metadata stamping support [VN]}
 % \changes{v0.3.00}  {2015/01/01}{fi logo is no longer special-cased (added eps
 %   and pdf), \cs{thesislogopath} added to set the logo directory path,
 %   \cs{thesiscolor} added to enable colorful typo elements [VN]}
@@ -292,8 +292,9 @@ na nichž je položka použita.
 \RequirePackage[
   plainpages=false,          % Multiple page numbering support
   pdfpagelabels,             % Generate pdf page labels
-  pdftex,                    % PDF Metadata stamping
-  pdfcreator={fithesis3 v%%%version%%% MU thesis class}
+  pdfcreator={%              % PDF data stamping
+    fithesis3 v%%%version%%% MU thesis class%
+  }
 ]{hyperref}
 
 \def\Scrreprtcls{scrreprt}
