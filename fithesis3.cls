@@ -53,7 +53,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{fithesis3}[2015/01/26 fithesis3 version 0.3.06 MU thesis class]
+\ProvidesClass{fithesis3}[2015/02/03 fithesis3 version 0.3.07 MU thesis class]
 
 \ifx\clsclass\undefined
  \def\clsclass{rapport3}
@@ -84,7 +84,7 @@
   plainpages=false,          % Multiple page numbering support
   pdfpagelabels,             % Generate pdf page labels
   pdfcreator={%              % PDF data stamping
-    fithesis3 v0.3.06 MU thesis class%
+    fithesis3 v0.3.07 MU thesis class%
   }
 ]{hyperref}
 
@@ -207,11 +207,15 @@
   \@restonecolfalse\if@twocolumn\@restonecoltrue\onecolumn\fi}
 \def\endalwayssingle{\if@restonecol\twocolumn\fi}
 
-\newif\ifwoman\womanfalse
-\def\@w{\ifwoman a\else\fi}
 
-\def\thesiswoman#1{\gdef\@thesiswoman{#1}
-  \ifx\@thesiswoman\True\womantrue\else\womanfalse\fi}
+\newif\ifwoman\womanfalse
+\def\Male{male}
+\def\Female{female}
+
+\def\thesisgender#1{%
+  \def\arg{#1}%
+  \ifx\arg\Female\womantrue\else\womanfalse\fi}
+
 \def\thesisfaculty#1{
   \gdef\@thesisfaculty{#1}
   \def\@slash{/}
@@ -335,6 +339,8 @@
 \def\thesislogo#1{\gdef\@thesislogo{#1}}
 \def\thesislang#1{\gdef\@thesislang{#1}%
   \ifx\@thesislang\Langcz\gdef\@thesislang{cs}\fi}
+
+\def\@w{\ifwoman a\else\fi}
 \def\DeclarationTextcs{%
 Prohla\v{s}uji, \v{z}e tato \expandafter\lowecasewrapper\@thesissubtitle{}
 je m\'{y}m p\r{u}vodn\'{i}m autorsk\'{y}m

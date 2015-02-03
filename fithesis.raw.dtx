@@ -71,6 +71,8 @@ na nichž je položka použita.
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
+% \changes{v0.3.07}  {2015/02/03}{Replaced the \cs{thesiswoman} command with
+%   \cs{thesisgender}. [VN]}
 % \changes{v0.3.06}  {2015/01/26}{Added the colorx package and the base colors
 %   for each faculty. If the color option is specified, the tabular environment
 %   gets redefined and uses the faculty colors to color alternating table rows
@@ -446,18 +448,22 @@ na nichž je položka použita.
   \@restonecolfalse\if@twocolumn\@restonecoltrue\onecolumn\fi}
 \def\endalwayssingle{\if@restonecol\twocolumn\fi}
 
-\newif\ifwoman\womanfalse
-\def\@w{\ifwoman a\else\fi}
-
 %    \end{macrocode}
 % \fi
 %
-% \DescribeMacro{\thesiswoman}
-% Makro umožní vložit pohlaví studenta. Volby jsou: true, false.
-% (nahrazuje použití přepínače \prikaz{ifwoman}).
+% \DescribeMacro{\thesisgender}
+% Makro umožní vložit pohlaví studenta. Volby jsou: male (implicitní)
+% a female. Hodnotu je možné testovat pomocí podmínky \prikaz{ifwoman}.
 %    \begin{macrocode}
-\def\thesiswoman#1{\gdef\@thesiswoman{#1}
-  \ifx\@thesiswoman\True\womantrue\else\womanfalse\fi}
+
+\newif\ifwoman\womanfalse
+\def\Male{male}
+\def\Female{female}
+
+\def\thesisgender#1{%
+  \def\arg{#1}%
+  \ifx\arg\Female\womantrue\else\womanfalse\fi}
+
 %    \end{macrocode}
 %
 % \DescribeMacro{\thesisfaculty}
@@ -634,6 +640,8 @@ na nichž je položka použita.
 %
 % \iffalse
 %    \begin{macrocode}
+
+\def\@w{\ifwoman a\else\fi}
 \def\DeclarationTextcs{%
 	Prohla\v{s}uji, \v{z}e tato \expandafter\lowecasewrapper\@thesissubtitle{} 
 	je m\'{y}m p\r{u}vodn\'{i}m autorsk\'{y}m
@@ -936,24 +944,24 @@ na nichž je položka použita.
 %
 % \begin{verbatim}
 % \documentclass[12pt,oneside]{fithesis3}
-% \usepackage[english]{babel}       % Multilingual support
-% \usepackage[utf8]{inputenc}       % UTF-8 encoding
-% \usepackage[T1]{fontenc}          % T1 font encoding
-% \usepackage[                      % Clickable links
-%   plainpages = false,               % We have multiple page numberings
-%   pdfpagelabels                     % Generate pdf page labels
+% \usepackage[english]{babel}         % Multilingual support
+% \usepackage[utf8]{inputenc}         % UTF-8 encoding
+% \usepackage[T1]{fontenc}            % T1 font encoding
+% \usepackage[                        % Clickable links
+%   plainpages = false,                 % We have multiple page numberings
+%   pdfpagelabels                       % Generate pdf page labels
 % ]{hyperref}
-% \usepackage{blindtext}            % Lorem ipsum generator
-% \usepackage[toc,page]{appendix}   % Appendices
+% \usepackage{blindtext}              % Lorem ipsum generator
+% \usepackage[toc,page]{appendix}     % Appendices
 % 
-% \thesislang{en}                   % The language of the thesis
-% \thesistitle{Sample thesis}       % The title of the thesis
-% \thesissubtitle{Bachelor thesis}  % The type of the thesis
-% \thesisstudent{Jane Doe}          % Your name
-% \thesiswoman{true}                % Your gender
-% \thesisfaculty{fi}                % Your faculty
-% \thesisyear{spring \the\year}     % The academic term of your thesis defense
-% \thesisadvisor{John Foo, Ph.D.}   % Your advisor
+% \thesislang{en}                     % The language of the thesis
+% \thesistitle{Sample thesis}         % The title of the thesis
+% \thesissubtitle{Bachelor's thesis}  % The type of the thesis
+% \thesisstudent{Jane Doe}            % Your name
+% \thesisgender{female}               % Your gender
+% \thesisfaculty{fi}                  % Your faculty
+% \thesisyear{spring \the\year}       % The academic term of your thesis defense
+% \thesisadvisor{John Foo, Ph.D.}     % Your advisor
 % 
 % \begin{document}
 %   \FrontMatter                    % The front matter
