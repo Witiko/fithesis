@@ -7,11 +7,14 @@ LOGOFILES=loga/phil-logo.eps loga/med-logo.pdf loga/fi-logo.pdf loga/ped-logo.pd
 SOURCEFILE=fithesis.dtx
 OTHERFILES=csquot.sty example.tex fithesis.ins Makefile
 INSTALLFILES=$(CLASSFILES) $(LOGOFILES) $(PDFFILES) $(SOURCEFILE) $(OTHERFILES)
+TEXLIVEFILES=$(CLASSFILES) $(LOGOFILES)
 
 # This pseudo-target creates the class files, typesets both
 # the example file and the technical documentation and
 # removes any auxiliary files.
 all: fithesis3.cls $(PDFFILES) clean
+	@if ! kpsewhich scrreprt.cls > /dev/null; then echo "The scrreprt document class isn't installed."; exit 1; fi
+	@if ! kpsewhich tex-gyre/qplr.pfb > /dev/null; then echo "The TeX Gyre Pagella font isn't installed."; exit 1; fi
 	cd loga && make all
 
 # This target preprocesses the `fithesis.raw.dtx` file into
@@ -36,11 +39,23 @@ example.pdf: example.tex fithesis3.cls
 	pdflatex $<
 
 # This pseudo-target installs any non-auxiliary files
-# into the directory provided as the "to" argument.
+# into the directory provided within the "to" argument.
 install:
 	@if [ -z "$(to)" ]; then echo "Usage: make to=DIRECTORY install"; exit 1; fi
 	mkdir --parents "$(to)/fithesis3"
 	cp --parents --verbose $(INSTALLFILES) "$(to)/fithesis3"
+
+# This pseudo-target installs the class files and
+# the technical documentation into the folder structure
+# of the TeXLive package, whose root directory is
+# specified within the "to" argument.
+install-texlive:
+	@if [ -z "$(to)" ]; then echo "Usage: make to=DIRECTORY install-texlive"; exit 1; fi
+	mkdir --parents "$(to)/texmf-local/tex/latex/fithesis3"
+	cp --parents --verbose $(TEXLIVEFILES) "$(to)/texmf-local/tex/latex/fithesis2"
+	mkdir --parents "$(to)/texmf-local/doc/latex/fithesis3"
+	cp fithesis.pdf "$(to)/texmf-local/doc/latex/fithesis3/manual.pdf"
+	texhash
 
 # This pseudo-target removes any existing auxiliary files.
 clean:
