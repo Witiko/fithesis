@@ -51,7 +51,7 @@
 %% 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\ProvidesFile{fit10.clo}[2015/02/03 fithesis3 (size option)]
+\ProvidesFile{fit10.clo}[2015/03/04 fithesis3 (size option)]
 
 \renewcommand{\normalsize}{\fontsize\@xpt{12}\selectfont%
 \abovedisplayskip 10\p@ plus2\p@ minus5\p@
@@ -139,59 +139,72 @@
 \@endparpenalty   -\@lowpenalty
 \@itempenalty     -\@lowpenalty
 
-\newif\iffichapters
-\fichaptersfalse
-\ifx\clsclass\Scrreprtcls\fichapterstrue\fi
-\ifx\clsclass\RapportIcls\fichapterstrue\fi
-\ifx\clsclass\RapportIIIcls\fichapterstrue\fi
-\iffichapters
+\let\@fichapters\False
+\ifx\clsclass\Scrreprtcls\let\@fichapters\True\fi
+\ifx\clsclass\RapportIcls\let\@fichapters\True\fi
+\ifx\clsclass\RapportIIIcls\let\@fichapters\True\fi
+\ifx\@fichapters\True
   \def\@makechapterhead#1{%
-    {\setlength\parindent{\z@}%
-     \setlength\parskip  {\z@}%
-      \ifnum \c@secnumdepth >\m@ne
-  \par\nobreak
-  \vskip 10\p@
+    {%
+      \setlength\parindent{\z@}%
+      \setlength\parskip  {\z@}%
+      \ifnum
+        \c@secnumdepth >\m@ne
+      \par\nobreak
+      \vskip 10\p@
       \fi
       \Large \ChapFont \thechapter{} \space #1\par
       \nobreak
       \vskip 20\p@
-    }}
+    }%
+  }
 
   \def\@makeschapterhead#1{%
-    {\setlength\parindent{\z@}%
-     \setlength\parskip  {\z@}%
-     \Large \ChapFont #1\par
+    {%
+      \setlength\parindent{\z@}%
+      \setlength\parskip  {\z@}%
+      \Large \ChapFont #1\par
       \nobreak
       \vskip 20\p@
-    }}
+    }%
+  }
 
-  \def\chapter{\clearpage
+  \def\chapter{%
+     \clearpage
      \thispagestyle{plain}
      \global\@topnum\z@
      \@afterindentfalse
-   \secdef\@chapter\@schapter}
+     \secdef\@chapter\@schapter
+   }
 
-  \def\@chapter[#1]#2{\ifnum \c@secnumdepth >\m@ne
-  \refstepcounter{chapter}%
-  \typeout{\@chapapp\space\thechapter.}%
-  \addcontentsline{toc}{chapter}{\protect
-  \numberline{\thechapter}\bfseries #1}\else
-\addcontentsline{toc}{chapter}{\bfseries #1}\fi
-     \chaptermark{#1}%
-     \addtocontents{lof}%
- {\protect\addvspace{4\p@}}
-     \addtocontents{lot}%
- {\protect\addvspace{4\p@}}
-     \if@twocolumn
-     \@topnewpage[\@makechapterhead{#2}]%
-       \else \@makechapterhead{#2}%
-     \@afterheading
-       \fi}
+  \def\@chapter[#1]#2{%
+    \ifnum \c@secnumdepth
+      >\m@ne
+    \refstepcounter{chapter}%
+    \typeout{\@chapapp\space\thechapter.}%
+    \addcontentsline{toc}{chapter}{\protect
+    \numberline{\thechapter}\bfseries #1}
+    \else%
+     \addcontentsline{toc}{chapter}{\bfseries #1}
+    \fi
+    \chaptermark{#1}%
+    \addtocontents{lof}%
+  {\protect\addvspace{4\p@}}
+    \addtocontents{lot}%
+  {\protect\addvspace{4\p@}}
+    \if@twocolumn
+    \@topnewpage[\@makechapterhead{#2}]%
+    \else
+      \@makechapterhead{#2}%
+    \@afterheading
+    \fi
+  }
 
   %\def\@schapter#1{\if@twocolumn \@topnewpage[\@makeschapterhead{#1}]%
   %        \else \@makeschapterhead{#1}%
   %              \markright{#1}
   %              \@afterheading\fi}
+\fi
 
 \def\section{\@startsection {section}{1}{\z@}{-3.5ex plus-1ex minus
     -.2ex}{2.3ex plus.2ex}{\reset@font\large\bfseries}}

@@ -52,7 +52,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{oldfithesis2}[2015/02/03 old fithesis2 will load fithesis3 version 0.3.07 MU thesis class]
+\ProvidesClass{oldfithesis2}[2015/03/04 old fithesis2 will load fithesis3 version 0.3.08 MU thesis class]
 
 \errmessage{%
   You are using the fithesis2 class, which has been deprecated.

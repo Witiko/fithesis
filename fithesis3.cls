@@ -53,7 +53,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{fithesis3}[2015/02/03 fithesis3 version 0.3.07 MU thesis class]
+\ProvidesClass{fithesis3}[2015/03/04 fithesis3 version 0.3.08 MU thesis class]
 
 \ifx\clsclass\undefined
  \def\clsclass{rapport3}
@@ -84,7 +84,7 @@
   plainpages=false,          % Multiple page numbering support
   pdfpagelabels,             % Generate pdf page labels
   pdfcreator={%              % PDF data stamping
-    fithesis3 v0.3.07 MU thesis class%
+    fithesis3 v0.3.08 MU thesis class%
   }
 ]{hyperref}
 
@@ -161,7 +161,7 @@
 \def\Fi{fi}
 \def\Sci{sci}
 \def\Law{law}
-\def\Eco{eco}
+\def\Econ{econ}
 \def\Fss{fss}
 \def\Med{med}
 \def\Ped{ped}
@@ -258,7 +258,7 @@
     \else
       \def\facultyname{Pr\'{a}vnick\'{a} fakulta}
     \fi
-  \else\ifx\@thesisfaculty\Eco
+  \else\ifx\@thesisfaculty\Econ
     % The Faculty of Economics and Administration
     \definecolor{faculty}{HTML}{7C211E} % Pantone 1815
     \definecolor{facultylight}{HTML}{DAC1BF}
@@ -346,8 +346,8 @@ Prohla\v{s}uji, \v{z}e tato \expandafter\lowecasewrapper\@thesissubtitle{}
 je m\'{y}m p\r{u}vodn\'{i}m autorsk\'{y}m
 d\'{i}lem, kter\'{e} jsem vypracoval\@w\ samostatn\v{e}. V\v{s}echny zdroje, prameny a
 literaturu, kter\'{e} jsem p\v{r}i vypracov\'{a}n\'{i} pou\v{z}\'{i}val\@w\ nebo z~nich
-\v{c}erpal\@w, v~pr\'{a}ci \v{r}\'{a}dn\v{e} cituji s~uveden\'{i}m \'{u}pln\'{e}ho odkazu na p\v{r}\'{i}slu\v{s}n\'{y}
-zdroj.}
+\v{c}erpal\@w, v~pr\'{a}ci \v{r}\'{a}dn\v{e} cituji s~uveden\'{i}m
+\'{u}pln\'{e}ho odkazu na p\v{r}\'{i}slu\v{s}n\'{y} zdroj.}
 \def\DeclarationTextsk{%
 Prehlasujem, \v{z}e t\'{a}to \expandafter\lowecasewrapper\@thesissubtitle{}
 je moj\'{i}m p\^{o}vodn\'{y}m autorsk\'{y}m
@@ -357,9 +357,9 @@ literat\'{u}ru, ktor\'{e} som pri vypracovan\'{i} pou\v{z}\'{i}val\@w\ alebo z~n
 zdroj.}
 \def\DeclarationTexten{%
 Hereby I declare, that this paper is my original authorial work,
-which I have worked out by my own. All sources, references and literature used or excerpted
-during elaboration of this work are properly cited and listed in complete reference to the due source.
-}
+which I have worked out by my own. All sources, references and
+literature used or excerpted during elaboration of this work
+are properly cited and listed in complete reference to the due source.}
 
 \def\DeclarationTitlecs{%
 Prohl\'{a}\v{s}en\'{i}
