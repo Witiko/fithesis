@@ -216,12 +216,17 @@
   \def\arg{#1}%
   \ifx\arg\Female\womantrue\else\womanfalse\fi}
 
+\def\@w{\ifwoman a\else\fi}
+
 \def\thesisfaculty#1{
   \gdef\@thesisfaculty{#1}
-  \def\@slash{/}
-  \def\@facultylogo{\@thesislogopath\ifx\@thesiscolor\True%
-    color\@slash%
-  \fi\@thesisfaculty-logo}
+  \ifx\@facultylogo\undefined
+    \def\@slash{/}
+    \gdef\@facultylogo{%
+      \@thesislogopath\ifx\@thesiscolor\True%
+        color\@slash%
+      \fi\@thesisfaculty-logo}
+  \fi
   \ifx\@thesisfaculty\Fi
     % The Faculty of Informatics
     \definecolor{faculty}{HTML}{FFD451} % Pantone 122
@@ -335,12 +340,11 @@
 \def\thesisyear#1{\gdef\@thesisyear{#1}}
 \def\@thesisplaceyear{Brno, \@thesisyear}
 \def\thesisadvisor#1{\gdef\@thesisadvisor{#1}}
-\def\thesislogopath#1{\gdef\@thesislogopath{#1/}}
-\def\thesislogo#1{\gdef\@thesislogo{#1}}
+\def\thesislogopath#1{\def\@thesislogopath{#1/}}
+\def\thesislogo#1{\def\@facultylogo{#1}}
 \def\thesislang#1{\gdef\@thesislang{#1}%
   \ifx\@thesislang\Langcz\gdef\@thesislang{cs}\fi}
 
-\def\@w{\ifwoman a\else\fi}
 \def\DeclarationTextcs{%
 Prohla\v{s}uji, \v{z}e tato \expandafter\lowecasewrapper\@thesissubtitle{}
 je m\'{y}m p\r{u}vodn\'{i}m autorsk\'{y}m

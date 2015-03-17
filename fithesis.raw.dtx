@@ -421,6 +421,8 @@ na nichž je položka použita.
 % práce, jména studenta a roku vypracování vysadí také logo fakulty.
 %
 % \DescribeMacro{\thesistitle}
+% Makro umožní vložit název práce, u dvouřádkových
+% či víceřádkových názvů se standardně oddělí jednotlivé části
 % příkazem $\backslash$$\backslash$ s~volitelným parametrem 
 % meziřádkového prokladu. Další možností je části nadpisu 
 % požadované na stejném řádku (kolokace, fráze) spojit 
@@ -458,7 +460,7 @@ na nichž je položka použita.
 \def\endalwayssingle{\if@restonecol\twocolumn\fi}
 
 %    \end{macrocode}
-% \fi
+% \fi\fi
 %
 % \DescribeMacro{\thesisgender}
 % Makro umožní vložit pohlaví studenta. Volby jsou: male (implicitní)
@@ -472,6 +474,8 @@ na nichž je položka použita.
 \def\thesisgender#1{%
   \def\arg{#1}%
   \ifx\arg\Female\womantrue\else\womanfalse\fi}
+
+\def\@w{\ifwoman a\else\fi}
 
 %    \end{macrocode}
 %
@@ -494,10 +498,13 @@ na nichž je položka použita.
 %    \begin{macrocode}
 \def\thesisfaculty#1{
   \gdef\@thesisfaculty{#1}
-  \def\@slash{/}
-  \def\@facultylogo{\@thesislogopath\ifx\@thesiscolor\True%
-    color\@slash%
-  \fi\@thesisfaculty-logo}
+  \ifx\@facultylogo\undefined
+    \def\@slash{/}
+    \gdef\@facultylogo{%
+      \@thesislogopath\ifx\@thesiscolor\True%
+        color\@slash%
+      \fi\@thesisfaculty-logo}
+  \fi
   \ifx\@thesisfaculty\Fi
     % The Faculty of Informatics
     \definecolor{faculty}{HTML}{FFD451} % Pantone 122
@@ -627,15 +634,15 @@ na nichž je položka použita.
 % Makro umožní stanovit cestu k adresáři s logy fakult.
 % Implicitní hodnota je \texttt{loga/}.
 %    \begin{macrocode}
-\def\thesislogopath#1{\gdef\@thesislogopath{#1/}}
+\def\thesislogopath#1{\def\@thesislogopath{#1/}}
 %    \end{macrocode}
 %
 % \DescribeMacro{\thesislogo}
-% Makro umožní stanovit soubor (bez přípony) loga fakulty pod
-% jakou byla práce napsaná.
-% Má význam jen v~případě, že práce není psaná pod MU.
+% Makro umožňuje ručně stanovit pdf soubor loga,
+% které se vysadí na titulní stranu práce. Jméno
+% souboru se zadává bez přípony.
 %    \begin{macrocode}
-\def\thesislogo#1{\gdef\@thesislogo{#1}}
+\def\thesislogo#1{\def\@facultylogo{#1}}
 %    \end{macrocode}
 %
 % \DescribeMacro{\thesislang}
@@ -651,7 +658,6 @@ na nichž je položka použita.
 % \iffalse
 %    \begin{macrocode}
 
-\def\@w{\ifwoman a\else\fi}
 \def\DeclarationTextcs{%
 	Prohla\v{s}uji, \v{z}e tato \expandafter\lowecasewrapper\@thesissubtitle{} 
 	je m\'{y}m p\r{u}vodn\'{i}m autorsk\'{y}m
