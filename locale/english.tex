@@ -1,0 +1,31 @@
+% Placeholders
+\def\thesis@titlePlaceholder{Thesis Title}
+\def\thesis@keywordsPlaceholder{keyword1, keyword2, ...}
+\def\thesis@abstractPlaceholder{Abstract text}
+\def\thesis@authorPlaceholder{Author's name}
+\def\thesis@universityName{University name}
+\def\thesis@facultyName{Faculty name}
+\def\thesis@advisorPlaceholder{Advisor's name}
+\def\thesis@departmentPlaceholder{Department name}
+\def\thesis@programmePlaceholder{Study programme name}
+\def\thesis@thanksPlaceholder{Acknowledgement text ...}
+\def\thesis@declaration{Declaration text ...}
+
+% Miscellaneous
+\def\thesis@advisorTitle{Advisor}
+\def\thesis@abstractTitle{Abstract}
+\def\thesis@keywordsTitle{Keywords}
+\def\thesis@thanksTitle{Acknowledgement}
+\def\thesis@declarationTitle{Declaration}
+\def\thesis@typeName{%
+  \ifx\thesis@type\thesis@bachelors%
+    Bachelor's Thesis%
+  \else\ifx\thesis@type\thesis@masters%
+    Master's Thesis%
+  \else\ifx\thesis@type\thesis@doctoral%
+    Doctoral Thesis%
+  \else\ifx\thesis@type\thesis@rigorous%
+    Rigorous Thesis%
+  \else%
+    Unknown thesis type%
+  \fi\fi\fi\fi}

@@ -1,597 +1,299 @@
-%%
-%% This is file `fithesis3.cls',
-%% generated with the docstrip utility.
-%%
-%% The original source files were:
-%%
-%% fithesis.dtx  (with options: `class')
-%% 
-%% 
-%% Copyright 1993 1994 1995 The LaTeX3 Project and any individual
-%% authors listed elsewhere in this file.
-%% 
-%% For further copyright information, and conditions for modification
-%% and distribution, see the file legal.txt, and any other copyright
-%% notices in this file.
-%% 
-%% This file is part of the LaTeX2e system.
-%% ----------------------------------------
-%%   This system is distributed in the hope that it will be useful,
-%%   but WITHOUT ANY WARRANTY; without even the implied warranty of
-%%   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-%% 
-%% IMPORTANT COPYRIGHT NOTICE:
-%% 
-%% You are NOT ALLOWED to distribute this file alone.
-%% 
-%% If you receive only some of these files from someone, complain!
-%% 
-%% However, NO PERMISSION is granted to generate or to distribute a
-%% modified version of this file under its original name.
-%% 
-%% You are NOT ALLOWED to change this file.
-%% 
-%% 
-%% MODIFICATION ADVICE:
-%% 
-%% If you want to customize this file, it is best to make a copy of
-%% the source file(s) from which it was produced.  Use a different
-%% name for your copy(ies) and modify the copy(ies); this will ensure
-%% that your modifications do not get overwritten when you install a
-%% new release of the standard system.  You should also ensure that
-%% your modified source file does not generate any modified file with
-%% the same name as a standard file.
-%% 
-%% You will also need to produce your own, suitably named, .ins file to
-%% control the generation of files from your source file; this file
-%% should contain your own preambles for the files it generates, not
-%% those in the standard .ins files.
-%% 
-%% The names of the source files used are shown above.
-%% 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{fithesis3}[2015/03/04 fithesis3 version 0.3.08 MU thesis class]
+\def\thesis@version{2015/03/21 fithesis3 version 0.3.09 MU thesis class}
+\ProvidesClass{fithesis3}[\thesis@version]
 
-\ifx\clsclass\undefined
- \def\clsclass{rapport3}
-\fi
-\LoadClass[a4paper]{\clsclass}
+% The base class and packages
+\LoadClass[a4paper]{rapport3}
+\RequirePackage{xstring}
+\RequirePackage{keyval}
+\RequirePackage{newfile}
+\RequirePackage{etoolbox}
 
-\DeclareOption{10pt}{\renewcommand\@ptsize{0}}
-\DeclareOption{11pt}{\renewcommand\@ptsize{1}}
-\DeclareOption{12pt}{\renewcommand\@ptsize{2}}
-\DeclareOption{oneside}{\@twosidefalse \@mparswitchfalse}
-\DeclareOption{twoside}{\@twosidetrue  \@mparswitchtrue}
-\DeclareOption{onecolumn}{\@twolumnfalse}
-\DeclareOption{twocolumn}{\@twocolumntrue}
-\DeclareOption{draft}{\setlength\overfullrule{5pt}}
-\DeclareOption{final}{\setlength\overfullrule{0pt}}
-\DeclareOption{color}{\gdef\@thesiscolor{true}}
+% Interface
+\def\thesissetup#1{%
+  \setkeys{thesis}{#1}%
+  \thesis@load}
 
-\ExecuteOptions{12pt,oneside,final}
-\ProcessOptions
-
-\RequirePackage{tgpagella}
-\RequirePackage{mathpazo}
-\RequirePackage{graphicx}
-\RequirePackage{cmap}
-\RequirePackage[T1]{fontenc}
-\RequirePackage[usenames,dvipsnames,svgnames,table]{xcolor}
-\RequirePackage[
-  plainpages=false,          % Multiple page numbering support
-  pdfpagelabels,             % Generate pdf page labels
-  pdfcreator={%              % PDF data stamping
-    fithesis3 v0.3.08 MU thesis class%
-  }
-]{hyperref}
-
-\def\Scrreprtcls{scrreprt}
-\def\RapportIcls{rapport1}
-\def\RapportIIIcls{rapport3}
-
-\ifx\clsclass\RapportIcls\else
-\ifx\clsclass\RapportIIIcls\else
- \newcommand*\ChapFont{\bfseries}
- \newcommand*\PageFont{\bfseries}
-\fi
-\fi
-
-\setcounter{tocdepth}{4}
-
-\input fit1\@ptsize.clo\relax
-
-\def\ps@thesisheadings{%
-\def\chaptermark##1{%
-\markright{%
-\ifnum\c@secnumdepth >\m@ne
-\thechapter.\ %
-\fi ##1}}
-\let\@oddfoot\@empty
-\let\@oddhead\@empty
-\def\@oddhead{\vbox{\hbox to \textwidth{%
-\hfil{\sc\rightmark}}\vskip 4pt\hrule}}
-\if@twoside
- \def\@evenhead{\vbox{\hbox to \textwidth{%
- {\sc\rightmark}\hfil}\vskip 4pt\hrule}}
-\else
- \let\@evenhead\@oddhead
-\fi
-\def\@oddfoot{\hfil\PageFont\thepage}
-\if@twoside
- \def\@evenfoot{\PageFont\thepage\hfil}%
-\else
- \let\@evenfoot\@oddfoot
-\fi
-\let\@mkboth\markboth
-}
-
-\renewcommand*\chapter{%
-\if@twoside
- \clearpage
- \thispagestyle{empty}
- \cleardoublepage
-\else
- \clearpage
-\fi
-\thispagestyle{plain}%
-\global\@topnum\z@
-\@afterindentfalse
-\secdef\@chapter\@schapter}
-
-\renewcommand*\part{%
-\clearpage
-\thispagestyle{empty}
-\cleardoublepage
-\thispagestyle{empty}%
-\if@twocolumn%
- \onecolumn
- \@tempswatrue
-\else
- \@tempswafalse
-\fi
-\hbox{}\vfil
-\secdef\@part\@spart}
-
-\def\universityname{Masarykova univerzita}
-\def\facultyname{Fakulta informatiky}
-\def\lowecasewrapper#1{\lowercase{#1}}
-\def\Fi{fi}
-\def\Sci{sci}
-\def\Law{law}
-\def\Econ{econ}
-\def\Fss{fss}
-\def\Med{med}
-\def\Ped{ped}
-\def\Phil{phil}
-\def\Fsps{fsps}
-\def\True{true}
-
-\def\Langcs{cs}
-\def\Langsk{sk}
-\def\Langen{en}
-\def\Langcz{cz}
-\def\@thesislang{cs}
-
-\def\@thesissubtitle{Diplomov\'{a} pr\'{a}ce}
-\def\@thesislogopath{loga/} % The loga directory by default
-
-\let\oldtabular\tabular
-\let\endoldtabular\endtabular
-\ifx\@thesiscolor\True
-  \renewenvironment{tabular}
-    {\rowcolors{1}{facultyxlight}{facultylight}\oldtabular}
-    {\endoldtabular}
-\else
-  \definecolor{lightgray}{gray}{0.9}
-  \renewenvironment{tabular}
-    {\rowcolors{1}{white}{lightgray}\oldtabular}
-    {\endoldtabular}
-\fi
-
-\def\titlefont{\fontsize\@xxvpt{30}\selectfont}
-\def\thesistitle#1{
-  \hypersetup{pdftitle={#1}}
-  \gdef\@thesistitle{#1}
-}
-\def\thesissubtitle#1{\gdef\@thesissubtitle{#1}}
-\def\thesisstudent#1{
-  \hypersetup{pdfauthor={#1}}
-  \gdef\@thesisstudent{#1}
-}
-
-\newif\if@restonecol
-\def\alwayssingle{%
-  \@restonecolfalse\if@twocolumn\@restonecoltrue\onecolumn\fi}
-\def\endalwayssingle{\if@restonecol\twocolumn\fi}
-
-
-\newif\ifwoman\womanfalse
-\def\Male{male}
-\def\Female{female}
-
-\def\thesisgender#1{%
-  \def\arg{#1}%
-  \ifx\arg\Female\womantrue\else\womanfalse\fi}
-
-\def\@w{\ifwoman a\else\fi}
-
-\def\thesisfaculty#1{
-  \gdef\@thesisfaculty{#1}
-  \ifx\@facultylogo\undefined
-    \def\@slash{/}
-    \gdef\@facultylogo{%
-      \@thesislogopath\ifx\@thesiscolor\True%
-        color\@slash%
-      \fi\@thesisfaculty-logo}
-  \fi
-  \ifx\@thesisfaculty\Fi
-    % The Faculty of Informatics
-    \definecolor{faculty}{HTML}{FFD451} % Pantone 122
-    \definecolor{facultylight}{HTML}{FFECB3}
-    \definecolor{facultyxlight}{HTML}{FFF9E5}
-    \hypersetup{linkbordercolor = faculty}
-    \ifx\@thesislang\Langen
-      \def\facultyname{Faculty of Informatics}
-      \def\universityname{Masaryk University}
-    \else
-      \def\facultyname{Fakulta informatiky}
-    \fi
-  \else\ifx\@thesisfaculty\Sci
-    % The Faculty of Science
-    \definecolor{faculty}{HTML}{00AF3F} % Pantone 354
-    \definecolor{facultylight}{HTML}{B8E8C9}
-    \definecolor{facultyxlight}{HTML}{E0F5E8}
-    \hypersetup{linkbordercolor = faculty}
-    \ifx\@thesislang\Langen
-      \def\facultyname{Faculty of Science}
-      \def\universityname{Masaryk University}
-    \else
-      \def\facultyname{P\v{r}\'{i}rodov\v{e}deck\'{a} fakulta}
-    \fi
-  \else\ifx\@thesisfaculty\Law
-    % The Faculty of Law
-    \definecolor{faculty}{HTML}{80379B} % Pantone 2593
-    \definecolor{facultylight}{HTML}{D3BADC}
-    \definecolor{facultyxlight}{HTML}{F0E7F3}
-    \hypersetup{linkbordercolor = faculty}
-    \ifx\@thesislang\Langen
-      \def\facultyname{Faculty of Law}
-      \def\universityname{Masaryk University}
-    \else
-      \def\facultyname{Pr\'{a}vnick\'{a} fakulta}
-    \fi
-  \else\ifx\@thesisfaculty\Econ
-    % The Faculty of Economics and Administration
-    \definecolor{faculty}{HTML}{7C211E} % Pantone 1815
-    \definecolor{facultylight}{HTML}{DAC1BF}
-    \definecolor{facultyxlight}{HTML}{EFE4E3}
-    \hypersetup{linkbordercolor = facultylight}
-    \ifx\@thesislang\Langen
-      \def\facultyname{Faculty of Economics and Administration}
-      \def\universityname{Masaryk University}
-    \else
-      \def\facultyname{Ekonomicko-spr\'{a}vn\'{i} fakulta}
-    \fi
-  \else\ifx\@thesisfaculty\Fss
-    % The Faculty of Social Studies
-    \definecolor{faculty}{HTML}{007B69} % Pantone 3295
-    \definecolor{facultylight}{HTML}{B8DAD5}
-    \definecolor{facultyxlight}{HTML}{E3F1EE}
-    \hypersetup{linkbordercolor = facultylight}
-    \ifx\@thesislang\Langen
-      \def\facultyname{Faculty of Social Studies}
-      \def\universityname{Masaryk University}
-    \else
-      \def\facultyname{Fakulta soci\'{a}ln\'{i}ch studi\'{i}}
-    \fi
-  \else\ifx\@thesisfaculty\Med
-    % The Faculty of Medicine
-    \definecolor{faculty}{HTML}{F01928} % Pantone 1795
-    \definecolor{facultylight}{HTML}{FABFC2}
-    \definecolor{facultyxlight}{HTML}{FAE3E5}
-    \hypersetup{linkbordercolor = faculty}
-    \ifx\@thesislang\Langen
-      \def\facultyname{Faculty of Medicine}
-      \def\universityname{Masaryk University}
-    \else
-      \def\facultyname{L\'{e}ka\v{r}sk\'{a} fakulta}
-    \fi
-  \else\ifx\@thesisfaculty\Ped
-    % The Faculty of Education
-    \definecolor{faculty}{HTML}{FFA02F} % Pantone 1375
-    \definecolor{facultylight}{HTML}{FFDEB7}
-    \definecolor{facultyxlight}{HTML}{FFF1E0}
-    \hypersetup{linkbordercolor = faculty}
-    \ifx\@thesislang\Langen
-      \def\facultyname{Faculty of Education}
-      \def\universityname{Masaryk University}
-    \else
-      \def\facultyname{Pedagogick\'{a} fakulta}
-    \fi
-  \else\ifx\@thesisfaculty\Phil
-    % The Faculty of Arts
-    \definecolor{faculty}{HTML}{00A1DE} % Pantone 299
-    \definecolor{facultylight}{HTML}{B8E4F5}
-    \definecolor{facultyxlight}{HTML}{E0F3FA}
-    \hypersetup{linkbordercolor = faculty}
-    \ifx\@thesislang\Langen
-      \def\facultyname{Faculty of Arts}
-      \def\universityname{Masaryk University}
-    \else
-      \def\facultyname{Filozofick\'{a} fakulta}
-    \fi
-  \else\ifx\@thesisfaculty\Fsps
-    % The Faculty of Sport Studies
-    \definecolor{faculty}{HTML}{002776} % Pantone 280
-    \definecolor{facultylight}{HTML}{B8C2D8}
-    \definecolor{facultyxlight}{HTML}{E0E5EE}
-    \hypersetup{linkbordercolor = facultylight}
-    \ifx\@thesislang\Langen
-      \def\facultyname{Faculty of Sports Studies}
-      \def\universityname{Masaryk University}
-    \else
-      \def\facultyname{Fakulta sportovn\'{i}ch studi\'{i}}
-    \fi
-  \fi\fi\fi\fi\fi\fi\fi\fi\fi
-}
-\def\thesisyear#1{\gdef\@thesisyear{#1}}
-\def\@thesisplaceyear{Brno, \@thesisyear}
-\def\thesisadvisor#1{\gdef\@thesisadvisor{#1}}
-\def\thesislogopath#1{\def\@thesislogopath{#1/}}
-\def\thesislogo#1{\def\@facultylogo{#1}}
-\def\thesislang#1{\gdef\@thesislang{#1}%
-  \ifx\@thesislang\Langcz\gdef\@thesislang{cs}\fi}
-
-\def\DeclarationTextcs{%
-Prohla\v{s}uji, \v{z}e tato \expandafter\lowecasewrapper\@thesissubtitle{}
-je m\'{y}m p\r{u}vodn\'{i}m autorsk\'{y}m
-d\'{i}lem, kter\'{e} jsem vypracoval\@w\ samostatn\v{e}. V\v{s}echny zdroje, prameny a
-literaturu, kter\'{e} jsem p\v{r}i vypracov\'{a}n\'{i} pou\v{z}\'{i}val\@w\ nebo z~nich
-\v{c}erpal\@w, v~pr\'{a}ci \v{r}\'{a}dn\v{e} cituji s~uveden\'{i}m
-\'{u}pln\'{e}ho odkazu na p\v{r}\'{i}slu\v{s}n\'{y} zdroj.}
-\def\DeclarationTextsk{%
-Prehlasujem, \v{z}e t\'{a}to \expandafter\lowecasewrapper\@thesissubtitle{}
-je moj\'{i}m p\^{o}vodn\'{y}m autorsk\'{y}m
-dielom, ktor\'{e} som vypracoval\@w\ samostatne. V\v{s}etky zdroje, pramene a
-literat\'{u}ru, ktor\'{e} som pri vypracovan\'{i} pou\v{z}\'{i}val\@w\ alebo z~nich
-\v{c}erpal\@w, v~pr\'{a}ci riadne citujem s~uveden\'{i}m \'{u}pln\'{e}ho odkazu na pr\'{i}slu\v{s}n\'{y}
-zdroj.}
-\def\DeclarationTexten{%
-Hereby I declare, that this paper is my original authorial work,
-which I have worked out by my own. All sources, references and
-literature used or excerpted during elaboration of this work
-are properly cited and listed in complete reference to the due source.}
-
-\def\DeclarationTitlecs{%
-Prohl\'{a}\v{s}en\'{i}
-}
-
-\def\DeclarationTitlesk{%
-Prehl\'{a}senie
-}
-
-\def\DeclarationTitleen{%
-Declaration
-}
-
-\def\ThanksTitlecs{%
-Pod\v{e}kov\'{a}n\'{i}
-}
-
-\def\ThanksTitlesk{%
-Po\v{d}akovanie
-}
-
-\def\ThanksTitleen{%
-Acknowledgement
-}
-
-\def\AbstractTitlecs{%
-Shrnut\'{i}
-}
-
-\def\AbstractTitlesk{%
-Zhrnutie
-}
-
-\def\AbstractTitleen{%
-Abstract
-}
-
-\def\KeyWordsTitlecs{%
-Kl\'{i}\v{c}ov\'{a} slova
-}
-
-\def\KeyWordsTitlesk{%
-K\v{l}\'{u}\v{c}ov\'{e} slov\'{a}
-}
-
-\def\KeyWordsTitleen{%
-Keywords
-}
-
-\def\AdvisorTitlecs{%
-Vedouc\'{i} pr\'{a}ce:
-}
-
-\def\AdvisorTitlesk{%
-Ved\'{u}ci pr\'{a}ce:
-}
-
-\def\AdvisorTitleen{%
-Advisor:
-}
-
-\def\DeclarationText{%
-\ifx\@thesislang\Langcs
- \DeclarationTextcs
- \else \ifx\@thesislang\Langsk
-  \DeclarationTextsk
-  \else \ifx\@thesislang\Langen
-   \DeclarationTexten
-   \else \DeclarationTextcs
-  \fi
- \fi
-\fi
-\vskip 2cm
-\hfill\@thesisstudent
-}
-
-\def\AdvisorName{\par\vfill{
-\ifx\@thesislang\Langcs
- \bf \AdvisorTitlecs
- \else \ifx\@thesislang\Langsk
-  \bf \AdvisorTitlesk
-  \else \ifx\@thesislang\Langen
-   \bf \AdvisorTitleen
-   \else \bf \AdvisorTitlecs
-  \fi
- \fi
-\fi} \@thesisadvisor}
-
-\def\FrontMatter{%
-  \pagestyle{plain}
-  \parindent 1.5em
-  \setcounter{page}{1}
-  \pagenumbering{roman}}
-\newcommand{\ThesisTitlePage}{%
-  \begin{alwayssingle}
-  \thispagestyle{empty}
-  \begin{center}
-  {\sc \universityname\\ \facultyname}
-  \vskip 1.4em
-  \includegraphics[width=40mm]{\@facultylogo}\\[0.4in]
-  \let\footnotesize\small
-  \let\footnoterule\relax{}
-  {\titlefont\bf\@thesistitle\par\vfil}\vskip 0.8in
-  {\sc \@thesissubtitle}\\[0.3in]
-  {\Large\bf\@thesisstudent}
-  \par\vfill
-  {\large \@thesisplaceyear}
-  \end{center}
-  \end{alwayssingle}
-  \newpage}
-\newenvironment{ThesisDeclaration}{%
-  \begin{alwayssingle}
-  \ifx\@thesislang\Langcs
-   \chapter*{\DeclarationTitlecs}
-   \else \ifx\@thesislang\Langsk
-    \chapter*{\DeclarationTitlesk}
-    \else \ifx\@thesislang\Langen
-     \chapter*{\DeclarationTitleen}
-     \else \chapter*{\DeclarationTitlecs}
-    \fi
-   \fi
-  \fi}
-  {\par\vfil
-  \end{alwayssingle}
-  \newpage}
-\newenvironment{ThesisThanks}{%
-  \begin{alwayssingle}
-  \ifx\@thesislang\Langcs
-   \chapter*{\ThanksTitlecs}
-   \else \ifx\@thesislang\Langsk
-    \chapter*{\ThanksTitlesk}
-    \else \ifx\@thesislang\Langen
-     \chapter*{\ThanksTitleen}
-     \else \chapter*{\ThanksTitlecs}
-    \fi
-   \fi
-  \fi}
-  {\par\vfill
-  \end{alwayssingle}
-  \newpage}
-\newenvironment{ThesisAbstract}{%
-  \begin{alwayssingle}
-  \ifx\@thesislang\Langcs
-   \chapter*{\AbstractTitlecs}
-   \else \ifx\@thesislang\Langsk
-    \chapter*{\AbstractTitlesk}
-    \else \ifx\@thesislang\Langen
-     \chapter*{\AbstractTitleen}
-     \else \chapter*{\AbstractTitlecs}
-    \fi
-   \fi
-  \fi}
-  {\par\vfil\null
-  \end{alwayssingle}
-  \newpage}
-\newenvironment{ThesisAbstracten}{%
-  \begin{alwayssingle}
-  \chapter*{\AbstractTitleen}
-  }
-  {\par\vfil\null
-  \end{alwayssingle}
-  \newpage}
-\newenvironment{ThesisKeyWords}{%
-  \begin{alwayssingle}
-  \ifx\@thesislang\Langcs
-   \chapter*{\KeyWordsTitlecs}
-   \else \ifx\@thesislang\Langsk
-    \chapter*{\KeyWordsTitlesk}
-    \else \ifx\@thesislang\Langen
-     \chapter*{\KeyWordsTitleen}
-     \else \chapter*{\KeyWordsTitlecs}
-    \fi
-   \fi
-  \fi}
-  {\par\vfill
-  \end{alwayssingle}
-  \newpage}
-\def\MainMatter{%
-\if@twoside
- \clearpage
- \thispagestyle{empty}
- \cleardoublepage
-\else
- \clearpage
-\fi
-\setcounter{page}{1}
-\pagenumbering{arabic}
-\pagestyle{thesisheadings}
-\parindent 1.5em\relax}
-
-\renewcommand*\l@part[2]{%
-  \ifnum \c@tocdepth >-2\relax
-    \addpenalty{-\@highpenalty}%
-    \addvspace{0.5em \@plus\p@}%
-    \begingroup
-      \setlength\@tempdima{3em}%
-      \parindent \z@ \rightskip \@pnumwidth
-      \parfillskip -\@pnumwidth
-      {\leavevmode
-       \normalfont \bfseries #1\hfil \hb@xt@\@pnumwidth{\hss #2}}\par
-       \nobreak
-         \global\@nobreaktrue
-         \everypar{\global\@nobreakfalse\everypar{}}%
-    \endgroup
-    \addvspace{0.2em \@plus\p@}%
+\def\thesis@basepath{}
+\define@key{thesis}{basepath}{%
+  \ifx\@empty#1\@empty%
+    \def\thesis@basepath{}%
+  \else%
+    \def\thesis@basepath{#1/}%
   \fi}
 
-\renewcommand*\l@chapter[2]{%
-  \ifnum \c@tocdepth >\m@ne
-    \addpenalty{-\@highpenalty}%
-    \vskip 1.0em \@plus\p@
-    \setlength\@tempdima{1.5em}%
-    \begingroup
-      \parindent \z@ \rightskip \@pnumwidth
-      \parfillskip -\@pnumwidth
-      \leavevmode \bfseries
-      \advance\leftskip\@tempdima
-      \hskip -\leftskip
-      #1\nobreak\hfil \nobreak\hb@xt@\@pnumwidth{\hss #2}\par
-      \penalty\@highpenalty
-    \endgroup
+\def\thesis@logopath{\thesis@basepath   logo/\thesis@university/}
+\define@key{thesis}{logopath}{%
+  \def\thesis@logopath{\thesis@subdir{#1}}}
+
+\def\thesis@stylepath{\thesis@basepath  style/}
+\define@key{thesis}{stylepath}{%
+  \def\thesis@stylepath{\thesis@subdir{#1}}}
+
+\def\thesis@localepath{\thesis@basepath locale/}
+\define@key{thesis}{localepath}{%
+  \def\thesis@localepath{\thesis@subdir{#1}}}
+
+\def\thesis@subdir#1{%
+  \ifx\@empty#1\@empty%
+    \thesis@basepath%
+  \else%
+    \def\@slash{/}%
+    \StrLeft{#1}{1}[\@fst]%
+    \ifx\@fst\@slash%
+      #1/%
+    \else%
+      \thesis@basepath#1/%
+    \fi%
   \fi}
 
-\renewcommand*\l@chapter{\@dottedtocline{1}{0em}{1.5em}}
-\renewcommand*\l@section{\@dottedtocline{2}{1.5em}{2.3em}}
-\renewcommand*\l@subsection{\@dottedtocline{2}{3.8em}{3.2em}}
-\renewcommand*\l@subsubsection{\@dottedtocline{2}{7.0em}{3.8em}}
+\newif\ifthesis@woman\thesis@womanfalse
+\define@key{thesis}{gender}{%
+  \def\thesis@male{m}%
+  \def\thesis@arg{#1}%
+  \ifx\thesis@male\thesis@arg%
+    \thesis@womanfalse%
+  \else%
+    \thesis@womantrue%
+  \fi}
 
-\endinput
-%%
-%% End of file `fithesis3.cls'.
+\def\thesis@author{\thesis@authorPlaceholder}
+\define@key{thesis}{author}{%
+  \def\thesis@author{#1}}
+
+\def\thesis@bachelors{bc}
+\def\thesis@masters{mgr}
+\def\thesis@doctoral{d}
+\def\thesis@rigorous{r}
+\let\thesis@type\thesis@bachelors
+\define@key{thesis}{type}{%
+  \def\thesis@type{#1}}
+
+\def\thesis@university{mu}
+\define@key{thesis}{university}{%
+  \def\thesis@university{#1}}
+
+\def\thesis@faculty{fi}
+\define@key{thesis}{faculty}{%
+  \def\thesis@faculty{#1}}
+
+\def\thesis@department{\thesis@departmentPlaceholder}
+\define@key{thesis}{department}{%
+  \def\thesis@department{#1}}
+
+\def\thesis@programme{\thesis@programmePlaceholder}
+\define@key{thesis}{programme}{%
+  \def\thesis@Programme{#1}}
+  
+\def\thesis@logo{\thesis@faculty}
+\define@key{thesis}{logo}{%
+  \def\thesis@logo{#1}}
+
+\def\thesis@style{\thesis@university/\thesis@faculty}
+\define@key{thesis}{style}{%
+  \def\thesis@style{#1}}
+
+\newif\ifthesis@style@inheritance\thesis@style@inheritancetrue
+\define@key{thesis}{styleInheritance}[true]{%
+  \def\@true{true}%
+  \def\@arg{#1}%
+  \ifx\@true\@arg%
+    \thesis@style@inheritancetrue%
+  \else%
+    \thesis@style@inheritancefalse%
+  \fi}
+
+\def\thesis@locale{%
+  % Babel detection
+  \ifx\languagename\undefined%
+  czech\else\languagename\fi}
+\define@key{thesis}{locale}{%
+  \def\thesis@locale{#1}}
+
+\newif\ifthesis@locale@inheritance\thesis@locale@inheritancetrue
+\define@key{thesis}{localeInheritance}[true]{%
+  \def\@true{true}%
+  \def\@arg{#1}%
+  \ifx\@true\@arg%
+    \thesis@locale@inheritancetrue%
+  \else%
+    \thesis@locale@inheritancefalse%
+  \fi}
+
+\def\thesis@year{\the\year}
+\define@key{thesis}{year}{%
+  \def\thesis@year{#1}}
+
+\def\thesis@place{Brno}
+\define@key{thesis}{place}{%
+  \def\thesis@place{#1}}
+
+\def\thesis@title{\thesis@titlePlaceholder}
+\define@key{thesis}{title}{%
+  \def\thesis@title{#1}}
+
+\let\thesis@titleEn\undefined
+\define@key{thesis}{titleen}{%
+  \def\thesis@titleEn{#1}}
+
+\def\thesis@keywords{\thesis@keywordsPlaceholder}
+\define@key{thesis}{keywords}{%
+  \def\thesis@keywords{#1}}
+
+\let\thesis@keywordsEn\undefined
+\define@key{thesis}{keywordsEn}{%
+  \def\thesis@keywordsEn{#1}}
+
+\def\thesis@abstract{\thesis@abstractPlaceholder}
+\define@key{thesis}{abstract}{%
+  \def\thesis@abstract{#1}}
+
+\let\thesis@abstractEn\undefined
+\define@key{thesis}{abstractEn}{%
+  \def\thesis@abstractEn{#1}}
+
+\def\thesis@advisor{\thesis@advisorPlaceholder}
+\define@key{thesis}{advisor}{%
+  \def\thesis@advisor{#1}}
+
+\def\thesis@thanks{\thesis@thanksPlaceholder}
+\define@key{thesis}{thanks}{%
+  \long\def\thesis@thanks{#1}}
+
+\newif\ifthesis@auto\thesis@autotrue
+\define@key{thesis}{autoLayout}[true]{%
+  \def\@true{true}%
+  \def\@arg{#1}%
+  \ifx\@true\@arg%
+    \thesis@autotrue%
+  \else%
+    \thesis@autofalse%
+  \fi}
+
+\def\thesis@documentStart{}
+\def\thesis@documentEnd{}
+
+% Utility functions
+\def\thesis@lower#1{%
+  \edef\thesis@expanded{\csname thesis@#1\endcsname}%
+  \expandafter\lowercase\expandafter{\thesis@expanded}}
+
+% The loading routine
+\def\thesis@exists#1#2{%
+  \IfFileExists{#1}{#2}{%
+  \typeout{File #1 doesn't exist.}}}
+
+\def\thesis@input#1{%
+  \thesis@exists{#1}{\input{#1}}}
+
+% The BibTeX file generator
+%% Temporarily swap the meaning of {} and <>
+{\catcode`\<=1
+\catcode`\>=2
+\catcode`\{=12
+\catcode`\}=12
+\catcode`\_=13
+\gdef\thesis@bibgen#1<<%
+  % Helper macros
+  \def\add<\addtostream<#1>>%
+  \let\ea\expandafter%
+  %% Find the last space-separated word
+  \def\tail##1<\xtail##1 \relax>%
+  \def\xtail##1 ##2<%
+    \ifx\relax##2%
+      ##1%
+      \ea\@gobbletwo%
+    \fi%
+    \xtail##2>%
+  %% Pre-cooked parts of the output
+  \edef\thesis@author@toks<\thesis@author>
+  \def\surname<\ea\tail\ea<\thesis@author@toks>>%
+  \edef\entryType<@\ifx\thesis@type\thesis@masters%
+      MastersThesis%
+    \else\ifx\thesis@type\thesis@doctoral%
+      PhdThesis%
+    \else%
+      misc%
+    \fi\fi>%
+  % Generate the file
+  <%% Temporarily turn _s into spaces
+    \catcode`\_=13 \let_=\space
+    % Temporarily disable the UTF-8 encoding
+    \def\UTFviii@two@octets##1##2<%
+      \string##1\string##2>%
+    \def\UTFviii@three@octets##1##2##3<%
+      \string##1\string##2\string##3>%
+    \def\UTFviii@four@octets##1##2##3##4<%
+      \string##1\string##2\string##3\string##4>%
+    % Fill the output stream
+    \add<\entryType{\surname\thesis@year thesis,>%
+    \add<__AUTHOR_____=_"\thesis@author",>%
+    \add<__TITLE______=_"\thesis@title",>%
+    \add<__YEAR_______=_"\thesis@year",>%
+    \add<__TYPE_______=_"\thesis@typeName",>%
+    \add<__SCHOOL_____=_"\thesis@universityName,
+      \thesis@facultyName",>%
+    \add<__SUPERVISOR_=_"\thesis@advisor",>%
+    \add<__PAGES______=_"\thepage">%
+    \add<}>
+  >>>%
+>
+
+\newif\ifthesis@loaded\thesis@loadedfalse
+\AtEndPreamble{\thesis@load}
+\def\thesis@load{%
+  \ifthesis@loaded\else%
+    \thesis@loadedtrue
+    \makeatletter%
+      % Load the locale
+      \ifthesis@locale@inheritance
+        \input{\thesis@localepath base}
+      \fi
+      \thesis@input{\thesis@localepath\thesis@locale}%
+      \ifthesis@locale@inheritance
+        \thesis@input{\thesis@localepath\thesis@university/%
+          \thesis@locale}% 
+        \thesis@input{\thesis@localepath\thesis@university/%
+          \thesis@faculty/\thesis@locale}%
+      \fi
+      % Inject the PDF options
+      \@ifpackageloaded{hyperref}{}{\RequirePackage{hyperref}}%
+      \hypersetup{%
+        pdftitle={\ifx\thesis@titleEn\undefined%
+          \thesis@title%
+        \else%
+          \thesis@titleEn%
+        \fi}, pdfauthor={\thesis@author},%
+        pdfkeywords={\ifx\thesis@keywordsEn\undefined%
+          \thesis@keywords%
+        \else%
+          \thesis@keywordsEn%
+        \fi}, pdfcreator={\thesis@version},%
+        pdfsubject={\ifx\thesis@abstractEn\undefined%
+          \thesis@abstract%
+        \else%
+          \thesis@abstractEn%
+        \fi}
+      }%
+      % Load the style files
+      \ifthesis@style@inheritance
+        \thesis@exists{\thesis@stylepath base.sty}{%
+          \RequirePackageWithOptions{\thesis@stylepath base}}%
+        \thesis@exists{\thesis@stylepath\thesis@university/%
+          base.sty}{\RequirePackageWithOptions{\thesis@stylepath%
+          \thesis@university/base}}%
+      \fi
+      \thesis@exists{\thesis@stylepath\thesis@style.sty}{%
+        \RequirePackageWithOptions{\thesis@stylepath\thesis@style}}%
+      % Include the autolayout
+      \ifthesis@auto%
+        \AtBeginDocument{\thesis@documentStart}%
+        \AtEndDocument{\thesis@documentEnd%
+          % Generate the BibTeX file
+          \newoutputstream{bib}
+          \openoutputfile{\jobname.bib}{bib}
+          \thesis@bibgen{bib}
+          \closeoutputstream{bib}}%
+      \fi%
+    \makeatother%
+  \fi}

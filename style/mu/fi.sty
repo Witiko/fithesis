@@ -1,0 +1,18 @@
+\NeedsTeXFormat{LaTeX2e}
+
+% Autolayout definition
+\def\thesis@documentStart{%
+  \thesis@blocks@frontMatter%
+    \thesis@blocks@cover%
+    \thesis@blocks@titlePage%
+    \thesis@blocks@declaration%
+    \thesis@blocks@thanks%
+    \thesis@blocks@abstract%
+    \thesis@blocks@abstractEn%
+    \thesis@blocks@keywords%
+    \thesis@blocks@keywordsEn%
+    \tableofcontents%
+    \listoftables%
+    \listoffigures%
+  \thesis@blocks@mainMatter%
+}

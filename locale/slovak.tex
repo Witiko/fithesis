@@ -1,0 +1,38 @@
+% Symbolický odkaz na český preklad
+\input{\thesis@localepath czech.tex}
+
+% Pomocná makrá
+\def\thesis@gender@koncovka{%
+  \ifthesis@woman a\fi}
+
+% Zástupné texty
+\def\thesis@titlePlaceholder{Názov práce}
+\def\thesis@keywordsPlaceholder{kľúčové slovo 1, kľúčové slovo 2, ...}
+\def\thesis@abstractPlaceholder{Text zhrnutie}
+\def\thesis@authorPlaceholder{Meno autora}
+\def\thesis@universityName{Názov univerzity}
+\def\thesis@facultyName{Názov fakulty}
+\def\thesis@advisorPlaceholder{Meno vedoucího}
+\def\thesis@departmentPlaceholder{Názov katedry}
+\def\thesis@programmePlaceholder{Názov študijného programu}
+\def\thesis@thanksPlaceholder{Text poďakovanie ...}
+\def\thesis@declaration{Text prehlásenie ...}
+
+% Rôzne
+\def\thesis@advisorTitle{Vedúci práce}
+\def\thesis@abstractTitle{Zhrnutie}
+\def\thesis@keywordsTitle{Kľúčové slová}
+\def\thesis@thanksTitle{Poďakovanie}
+\def\thesis@declarationTitle{Prehlásenie}
+\def\thesis@typeName{%
+  \ifx\thesis@type\thesis@bachelors%
+    Bakalárska práca%
+  \else\ifx\thesis@type\thesis@masters%
+    Diplomová práca%
+  \else\ifx\thesis@type\thesis@doctoral%
+    Dizertačná práca%
+  \else\ifx\thesis@type\thesis@rigorous%
+    Rigorózna práca%
+  \else%
+    Neznámy typ práce%
+  \fi\fi\fi\fi}

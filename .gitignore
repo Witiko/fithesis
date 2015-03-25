@@ -1,10 +1,1 @@
-.svn
-*.swp
-*.vim
-fithesis.dtx
-*.aux
-*.log
-*.out
-*.idx
-*.toc
-test.sh
+example.*
