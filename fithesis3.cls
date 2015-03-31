@@ -1,19 +1,70 @@
+%%
+%% This is file `fithesis3.cls',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% fithesis.dtx  (with options: `class')
+%% 
+%% 
+%% Copyright 1993 1994 1995 The LaTeX3 Project and any individual
+%% authors listed elsewhere in this file.
+%% 
+%% For further copyright information, and conditions for modification
+%% and distribution, see the file legal.txt, and any other copyright
+%% notices in this file.
+%% 
+%% This file is part of the LaTeX2e system.
+%% ----------------------------------------
+%%   This system is distributed in the hope that it will be useful,
+%%   but WITHOUT ANY WARRANTY; without even the implied warranty of
+%%   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+%% 
+%% IMPORTANT COPYRIGHT NOTICE:
+%% 
+%% You are NOT ALLOWED to distribute this file alone.
+%% 
+%% If you receive only some of these files from someone, complain!
+%% 
+%% However, NO PERMISSION is granted to generate or to distribute a
+%% modified version of this file under its original name.
+%% 
+%% You are NOT ALLOWED to change this file.
+%% 
+%% 
+%% MODIFICATION ADVICE:
+%% 
+%% If you want to customize this file, it is best to make a copy of
+%% the source file(s) from which it was produced.  Use a different
+%% name for your copy(ies) and modify the copy(ies); this will ensure
+%% that your modifications do not get overwritten when you install a
+%% new release of the standard system.  You should also ensure that
+%% your modified source file does not generate any modified file with
+%% the same name as a standard file.
+%% 
+%% You will also need to produce your own, suitably named, .ins file to
+%% control the generation of files from your source file; this file
+%% should contain your own preambles for the files it generates, not
+%% those in the standard .ins files.
+%% 
+%% The names of the source files used are shown above.
+%% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \NeedsTeXFormat{LaTeX2e}
 \def\thesis@version{2015/03/21 fithesis3 version 0.3.09 MU thesis class}
 \ProvidesClass{fithesis3}[\thesis@version]
 
-% The base class and packages
 \LoadClass[a4paper]{rapport3}
 \RequirePackage{xstring}
 \RequirePackage{keyval}
 \RequirePackage{newfile}
 \RequirePackage{etoolbox}
 
-% Interface
 \def\thesissetup#1{%
   \setkeys{thesis}{#1}%
   \thesis@load}
-
 \def\thesis@basepath{}
 \define@key{thesis}{basepath}{%
   \ifx\@empty#1\@empty%
@@ -21,18 +72,9 @@
   \else%
     \def\thesis@basepath{#1/}%
   \fi}
-
-\def\thesis@logopath{\thesis@basepath   logo/\thesis@university/}
+\def\thesis@logopath{\thesis@basepath logo/\thesis@university/}
 \define@key{thesis}{logopath}{%
   \def\thesis@logopath{\thesis@subdir{#1}}}
-
-\def\thesis@stylepath{\thesis@basepath  style/}
-\define@key{thesis}{stylepath}{%
-  \def\thesis@stylepath{\thesis@subdir{#1}}}
-
-\def\thesis@localepath{\thesis@basepath locale/}
-\define@key{thesis}{localepath}{%
-  \def\thesis@localepath{\thesis@subdir{#1}}}
 
 \def\thesis@subdir#1{%
   \ifx\@empty#1\@empty%
@@ -46,7 +88,12 @@
       \thesis@basepath#1/%
     \fi%
   \fi}
-
+\def\thesis@stylepath{\thesis@basepath  style/}
+\define@key{thesis}{stylepath}{%
+  \def\thesis@stylepath{\thesis@subdir{#1}}}
+\def\thesis@localepath{\thesis@basepath locale/}
+\define@key{thesis}{localepath}{%
+  \def\thesis@localepath{\thesis@subdir{#1}}}
 \newif\ifthesis@woman\thesis@womanfalse
 \define@key{thesis}{gender}{%
   \def\thesis@male{m}%
@@ -56,11 +103,9 @@
   \else%
     \thesis@womantrue%
   \fi}
-
 \def\thesis@author{\thesis@authorPlaceholder}
 \define@key{thesis}{author}{%
   \def\thesis@author{#1}}
-
 \def\thesis@bachelors{bc}
 \def\thesis@masters{mgr}
 \def\thesis@doctoral{d}
@@ -68,11 +113,9 @@
 \let\thesis@type\thesis@bachelors
 \define@key{thesis}{type}{%
   \def\thesis@type{#1}}
-
 \def\thesis@university{mu}
 \define@key{thesis}{university}{%
   \def\thesis@university{#1}}
-
 \def\thesis@faculty{fi}
 \define@key{thesis}{faculty}{%
   \def\thesis@faculty{#1}}
@@ -84,7 +127,7 @@
 \def\thesis@programme{\thesis@programmePlaceholder}
 \define@key{thesis}{programme}{%
   \def\thesis@Programme{#1}}
-  
+
 \def\thesis@logo{\thesis@faculty}
 \define@key{thesis}{logo}{%
   \def\thesis@logo{#1}}
@@ -173,12 +216,10 @@
 \def\thesis@documentStart{}
 \def\thesis@documentEnd{}
 
-% Utility functions
 \def\thesis@lower#1{%
   \edef\thesis@expanded{\csname thesis@#1\endcsname}%
   \expandafter\lowercase\expandafter{\thesis@expanded}}
 
-% The loading routine
 \def\thesis@exists#1#2{%
   \IfFileExists{#1}{#2}{%
   \typeout{File #1 doesn't exist.}}}
@@ -186,7 +227,6 @@
 \def\thesis@input#1{%
   \thesis@exists{#1}{\input{#1}}}
 
-% The BibTeX file generator
 %% Temporarily swap the meaning of {} and <>
 {\catcode`\<=1
 \catcode`\>=2
@@ -252,7 +292,7 @@
       \thesis@input{\thesis@localepath\thesis@locale}%
       \ifthesis@locale@inheritance
         \thesis@input{\thesis@localepath\thesis@university/%
-          \thesis@locale}% 
+          \thesis@locale}%
         \thesis@input{\thesis@localepath\thesis@university/%
           \thesis@faculty/\thesis@locale}%
       \fi
@@ -297,3 +337,7 @@
       \fi%
     \makeatother%
   \fi}
+
+\endinput
+%%
+%% End of file `fithesis3.cls'.
