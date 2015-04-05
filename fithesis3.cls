@@ -51,21 +51,17 @@
 %% 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \NeedsTeXFormat{LaTeX2e}
 \def\thesis@version{2015/03/21 fithesis3 version 0.3.09 MU thesis class}
 \ProvidesClass{fithesis3}[\thesis@version]
-
 \LoadClass[a4paper]{rapport3}
 \RequirePackage{xstring}
 \RequirePackage{keyval}
 \RequirePackage{newfile}
 \RequirePackage{etoolbox}
-
 \def\thesissetup#1{%
-  \setkeys{thesis}{#1}%
-  \thesis@load}
-\def\thesis@basepath{}
+  \setkeys{thesis}{#1}}
+\def\thesis@basepath{fithesis3/}
 \define@key{thesis}{basepath}{%
   \ifx\@empty#1\@empty%
     \def\thesis@basepath{}%
@@ -103,7 +99,7 @@
   \else%
     \thesis@womantrue%
   \fi}
-\def\thesis@author{\thesis@authorPlaceholder}
+\def\thesis@author{\thesis@placeholders@author}
 \define@key{thesis}{author}{%
   \def\thesis@author{#1}}
 \def\thesis@bachelors{bc}
@@ -116,26 +112,22 @@
 \def\thesis@university{mu}
 \define@key{thesis}{university}{%
   \def\thesis@university{#1}}
+  % whose implicit value is \texttt{fi}.
 \def\thesis@faculty{fi}
 \define@key{thesis}{faculty}{%
   \def\thesis@faculty{#1}}
-
-\def\thesis@department{\thesis@departmentPlaceholder}
+\def\thesis@department{\thesis@placeholders@department}
 \define@key{thesis}{department}{%
   \def\thesis@department{#1}}
-
-\def\thesis@programme{\thesis@programmePlaceholder}
+\def\thesis@programme{\thesis@placeholders@programme}
 \define@key{thesis}{programme}{%
   \def\thesis@Programme{#1}}
-
 \def\thesis@logo{\thesis@faculty}
 \define@key{thesis}{logo}{%
   \def\thesis@logo{#1}}
-
 \def\thesis@style{\thesis@university/\thesis@faculty}
 \define@key{thesis}{style}{%
   \def\thesis@style{#1}}
-
 \newif\ifthesis@style@inheritance\thesis@style@inheritancetrue
 \define@key{thesis}{styleInheritance}[true]{%
   \def\@true{true}%
@@ -145,14 +137,12 @@
   \else%
     \thesis@style@inheritancefalse%
   \fi}
-
 \def\thesis@locale{%
   % Babel detection
   \ifx\languagename\undefined%
   czech\else\languagename\fi}
 \define@key{thesis}{locale}{%
   \def\thesis@locale{#1}}
-
 \newif\ifthesis@locale@inheritance\thesis@locale@inheritancetrue
 \define@key{thesis}{localeInheritance}[true]{%
   \def\@true{true}%
@@ -162,47 +152,36 @@
   \else%
     \thesis@locale@inheritancefalse%
   \fi}
-
 \def\thesis@year{\the\year}
 \define@key{thesis}{year}{%
   \def\thesis@year{#1}}
-
 \def\thesis@place{Brno}
 \define@key{thesis}{place}{%
   \def\thesis@place{#1}}
-
-\def\thesis@title{\thesis@titlePlaceholder}
+\def\thesis@title{\thesis@placeholders@title}
 \define@key{thesis}{title}{%
   \def\thesis@title{#1}}
-
 \let\thesis@titleEn\undefined
 \define@key{thesis}{titleen}{%
   \def\thesis@titleEn{#1}}
-
-\def\thesis@keywords{\thesis@keywordsPlaceholder}
+\def\thesis@keywords{\thesis@placeholders@keywords}
 \define@key{thesis}{keywords}{%
   \def\thesis@keywords{#1}}
-
 \let\thesis@keywordsEn\undefined
 \define@key{thesis}{keywordsEn}{%
   \def\thesis@keywordsEn{#1}}
-
-\def\thesis@abstract{\thesis@abstractPlaceholder}
+\def\thesis@abstract{\thesis@placeholders@abstract}
 \define@key{thesis}{abstract}{%
   \def\thesis@abstract{#1}}
-
 \let\thesis@abstractEn\undefined
 \define@key{thesis}{abstractEn}{%
   \def\thesis@abstractEn{#1}}
-
-\def\thesis@advisor{\thesis@advisorPlaceholder}
+\def\thesis@advisor{\thesis@placeholders@advisor}
 \define@key{thesis}{advisor}{%
   \def\thesis@advisor{#1}}
-
-\def\thesis@thanks{\thesis@thanksPlaceholder}
+\def\thesis@thanks{\thesis@placeholders@thanks}
 \define@key{thesis}{thanks}{%
   \long\def\thesis@thanks{#1}}
-
 \newif\ifthesis@auto\thesis@autotrue
 \define@key{thesis}{autoLayout}[true]{%
   \def\@true{true}%
@@ -212,22 +191,69 @@
   \else%
     \thesis@autofalse%
   \fi}
-
 \def\thesis@documentStart{}
 \def\thesis@documentEnd{}
-
-\def\thesis@lower#1{%
-  \edef\thesis@expanded{\csname thesis@#1\endcsname}%
-  \expandafter\lowercase\expandafter{\thesis@expanded}}
-
+\newif\ifthesis@loaded\thesis@loadedfalse
+\AtEndPreamble{\thesis@load}
+\def\thesis@load{%
+  \ifthesis@loaded\else%
+    \thesis@loadedtrue
+    \makeatletter%
+      \ifthesis@locale@inheritance
+        \input{\thesis@localepath base}
+      \fi
+      \thesis@input{\thesis@localepath\thesis@locale}%
+      \ifthesis@locale@inheritance
+        \thesis@input{\thesis@localepath\thesis@university/%
+          \thesis@locale}%
+        \thesis@input{\thesis@localepath\thesis@university/%
+          \thesis@faculty/\thesis@locale}%
+      \fi
+      \@ifpackageloaded{hyperref}{}{\RequirePackage{hyperref}}%
+      \hypersetup{%
+        pdftitle={\ifx\thesis@titleEn\undefined%
+          \thesis@title%
+        \else%
+          \thesis@titleEn%
+        \fi}, pdfauthor={\thesis@author},%
+        pdfkeywords={\ifx\thesis@keywordsEn\undefined%
+          \thesis@keywords%
+        \else%
+          \thesis@keywordsEn%
+        \fi}, pdfcreator={\thesis@version},%
+        pdfsubject={\ifx\thesis@abstractEn\undefined%
+          \thesis@abstract%
+        \else%
+          \thesis@abstractEn%
+        \fi}
+      }%
+      \ifthesis@style@inheritance
+        \thesis@exists{\thesis@stylepath base.sty}{%
+          \RequirePackageWithOptions{\thesis@stylepath base}}%
+        \thesis@exists{\thesis@stylepath\thesis@university/%
+          base.sty}{\RequirePackageWithOptions{\thesis@stylepath%
+          \thesis@university/base}}%
+      \fi
+      \thesis@exists{\thesis@stylepath\thesis@style.sty}{%
+        \RequirePackageWithOptions{\thesis@stylepath\thesis@style}}%
+      \ifthesis@auto%
+        \AtBeginDocument{\thesis@documentStart}%
+        \AtEndDocument{\thesis@documentEnd}%
+      \fi%
+      \AtEndDocument{%
+        % Generate the BibTeX file
+        \newoutputstream{bib}%
+        \openoutputfile{\jobname.bib}{bib}%
+        \thesis@bibgen{bib}
+        \closeoutputstream{bib}}%
+    \makeatother%
+  \fi}
 \def\thesis@exists#1#2{%
   \IfFileExists{#1}{#2}{%
   \typeout{File #1 doesn't exist.}}}
 
 \def\thesis@input#1{%
   \thesis@exists{#1}{\input{#1}}}
-
-%% Temporarily swap the meaning of {} and <>
 {\catcode`\<=1
 \catcode`\>=2
 \catcode`\{=12
@@ -278,66 +304,12 @@
     \add<}>
   >>>%
 >
-
-\newif\ifthesis@loaded\thesis@loadedfalse
-\AtEndPreamble{\thesis@load}
-\def\thesis@load{%
-  \ifthesis@loaded\else%
-    \thesis@loadedtrue
-    \makeatletter%
-      % Load the locale
-      \ifthesis@locale@inheritance
-        \input{\thesis@localepath base}
-      \fi
-      \thesis@input{\thesis@localepath\thesis@locale}%
-      \ifthesis@locale@inheritance
-        \thesis@input{\thesis@localepath\thesis@university/%
-          \thesis@locale}%
-        \thesis@input{\thesis@localepath\thesis@university/%
-          \thesis@faculty/\thesis@locale}%
-      \fi
-      % Inject the PDF options
-      \@ifpackageloaded{hyperref}{}{\RequirePackage{hyperref}}%
-      \hypersetup{%
-        pdftitle={\ifx\thesis@titleEn\undefined%
-          \thesis@title%
-        \else%
-          \thesis@titleEn%
-        \fi}, pdfauthor={\thesis@author},%
-        pdfkeywords={\ifx\thesis@keywordsEn\undefined%
-          \thesis@keywords%
-        \else%
-          \thesis@keywordsEn%
-        \fi}, pdfcreator={\thesis@version},%
-        pdfsubject={\ifx\thesis@abstractEn\undefined%
-          \thesis@abstract%
-        \else%
-          \thesis@abstractEn%
-        \fi}
-      }%
-      % Load the style files
-      \ifthesis@style@inheritance
-        \thesis@exists{\thesis@stylepath base.sty}{%
-          \RequirePackageWithOptions{\thesis@stylepath base}}%
-        \thesis@exists{\thesis@stylepath\thesis@university/%
-          base.sty}{\RequirePackageWithOptions{\thesis@stylepath%
-          \thesis@university/base}}%
-      \fi
-      \thesis@exists{\thesis@stylepath\thesis@style.sty}{%
-        \RequirePackageWithOptions{\thesis@stylepath\thesis@style}}%
-      % Include the autolayout
-      \ifthesis@auto%
-        \AtBeginDocument{\thesis@documentStart}%
-        \AtEndDocument{\thesis@documentEnd%
-          % Generate the BibTeX file
-          \newoutputstream{bib}
-          \openoutputfile{\jobname.bib}{bib}
-          \thesis@bibgen{bib}
-          \closeoutputstream{bib}}%
-      \fi%
-    \makeatother%
-  \fi}
-
+\def\thesis@lower#1{%
+  \edef\thesis@expanded{\csname thesis@#1\endcsname}%
+  \expandafter\lowercase\expandafter{\thesis@expanded}}
+\def\thesis@upper#1{%
+  \edef\thesis@expanded{\csname thesis@#1\endcsname}%
+  \expandafter\uppercase\expandafter{\thesis@expanded}}
 \endinput
 %%
 %% End of file `fithesis3.cls'.

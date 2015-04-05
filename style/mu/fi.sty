@@ -1,5 +1,12 @@
 \NeedsTeXFormat{LaTeX2e}
 
+\DeclareOption{nolot}{\def\thesis@blocks@lot{}}
+\DeclareOption{lot}{\let\thesis@blocks@lot\listoftables}
+\DeclareOption{nolof}{\def\thesis@blocks@lof{}}
+\DeclareOption{lof}{\let\thesis@blocks@lof\listoffigures}
+\ExecuteOptions{lot,lof}
+\ProcessOptions
+
 % Autolayout definition
 \def\thesis@documentStart{%
   \thesis@blocks@frontMatter%
@@ -12,7 +19,7 @@
     \thesis@blocks@keywords%
     \thesis@blocks@keywordsEn%
     \tableofcontents%
-    \listoftables%
-    \listoffigures%
+    \thesis@blocks@lot%
+    \thesis@blocks@lof%
   \thesis@blocks@mainMatter%
 }
