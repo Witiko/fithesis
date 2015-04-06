@@ -1,5 +1,6 @@
-.PHONY: all clean clean-all install
+.PHONY: all explode clean clean-all install
 
+SUBMAKEFILES=logo/mu logo/mu/color locale
 CLASSFILES=fithesis.cls fithesis[23].cls
 STYLEFILES=style/*.sty style/*/*.sty style/*/*.clo
 AUXFILES=example.aux example.log example.out example.toc example.lot example.lof example.bib fithesis.aux fithesis.log fithesis.toc fithesis.ind fithesis.idx fithesis.out fithesis.ilg fithesis.gls fithesis.glo
@@ -11,17 +12,21 @@ INSTALLFILES=$(CLASSFILES) $(STYLEFILES) $(LOGOFILES) $(PDFFILES) $(SOURCEFILE) 
 TEXLIVEFILES=$(CLASSFILES) $(STYLEFILES) $(LOGOFILES)
 
 # This pseudo-target creates the class files, typesets both
-# the example file and the technical documentation and
-# removes any auxiliary files.
-all: fithesis3.cls $(PDFFILES) clean
+# the example file and the technical documentation, makes
+# the style and locale files and removes any auxiliary files.
+all:
 	@if ! kpsewhich scrreprt.cls > /dev/null; then echo "The scrreprt document class isn't installed."; exit 1; fi
 	@if ! kpsewhich tex-gyre/qplr.pfb > /dev/null; then echo "The TeX Gyre Pagella font isn't installed."; exit 1; fi
-	cd logo/mu; make all
-	cd logo/mu/color; make all
+	for dir in $(SUBMAKEFILES); do make all -C "$$dir"; done
+	make explode clean
+
+# This pseudo-target creates the class files and typesets
+# both the example file and the technical documentation
+explode: fithesis3.cls $(PDFFILES)
 
 # This target creates the class files.
 fithesis3.cls: fithesis.ins fithesis.dtx
-	yes | tex $< # TODO: Remove the `yes`
+	tex $<
 
 # This target typesets the technical documentation.
 fithesis.pdf: fithesis.dtx
@@ -49,7 +54,7 @@ install:
 install-texlive:
 	@if [ -z "$(to)" ]; then echo "Usage: make to=DIRECTORY install-texlive"; exit 1; fi
 	mkdir --parents "$(to)/tex/latex/fithesis3"
-	cp --parents --verbose $(TEXLIVEFILES) "$(to)/texmf-local/tex/latex/fithesis2"
+	cp --parents --verbose $(TEXLIVEFILES) "$(to)/tex/latex/fithesis3"
 	mkdir --parents "$(to)/doc/latex/fithesis3"
 	cp fithesis.pdf "$(to)/doc/latex/fithesis3/manual.pdf"
 	texhash
@@ -59,5 +64,6 @@ clean:
 	rm -f $(AUXFILES)
 
 # This pseudo-target removes any makeable files.
-clean-all: clean
+implode: clean
 	rm -f $(PDFFILES) $(CLASSFILES)
+	for dir in $(SUBMAKEFILES); do make implode -C "$$dir"; done

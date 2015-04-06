@@ -1,0 +1,85 @@
+%    \begin{macrocode}
+%<*base>
+% Symbolický odkaz na český preklad
+\input{\thesis@localepath czech.tex}
+
+% Pomocná makrá
+\def\thesis@gender@koncovka{%
+  \ifthesis@woman a\fi}
+
+% Zástupné texty
+\def\thesis@placeholders@title{Názov práce}
+\def\thesis@placeholders@keywords{kľúčové slovo 1, kľúčové slovo 2, ...}
+\def\thesis@placeholders@abstract{Text zhrnutie}
+\def\thesis@placeholders@author{Meno autora}
+\def\thesis@universityName{Názov univerzity}
+\def\thesis@facultyName{Názov fakulty}
+\def\thesis@placeholders@advisor{Meno vedoucího}
+\def\thesis@placeholders@department{Názov katedry}
+\def\thesis@placeholders@programme{Názov študijného programu}
+\def\thesis@placeholders@thanks{Text poďakovanie ...}
+\def\thesis@declaration{Text prehlásenie ...}
+
+% Rôzne
+\def\thesis@advisorTitle{Vedúci práce}
+\def\thesis@abstractTitle{Zhrnutie}
+\def\thesis@keywordsTitle{Kľúčové slová}
+\def\thesis@thanksTitle{Poďakovanie}
+\def\thesis@declarationTitle{Prehlásenie}
+\def\thesis@typeName{%
+  \ifx\thesis@type\thesis@bachelors%
+    Bakalárska práca%
+  \else\ifx\thesis@type\thesis@masters%
+    Diplomová práca%
+  \else\ifx\thesis@type\thesis@doctoral%
+    Dizertačná práca%
+  \else\ifx\thesis@type\thesis@rigorous%
+    Rigorózna práca%
+  \else%
+    Neznámy typ práce%
+  \fi\fi\fi\fi}
+%</base>
+%<*mu>
+% Symbolický odkaz na český preklad
+\input{\thesis@localepath mu/czech.tex}
+
+\def\thesis@declaration{%
+  Prehlasujem, že táto \thesis@lower{typeName} je mojím pôvodným
+  autorským dielom, ktoré som vypracoval\thesis@gender@koncovka\ 
+  samostatne. Všetky zdroje, pramene a literatúru, ktoré som pri
+  vypracovaní používal\thesis@gender@koncovka\ alebo z~nich
+  čerpal\thesis@gender@koncovka\ , v~práci riadne citujem
+  s~uvedením úplného odkazu na príslušný zdroj.}
+%</mu>
+%<*mu/law>
+% Symbolický odkaz na český preklad
+\input{\thesis@localepath mu/law/czech.tex}
+%</mu/law>
+%<*mu/fsps>
+\def\thesis@facultyName{Fakulta športových štúdií}
+%</mu/fsps>
+%<*mu/fss>
+\def\thesis@facultyName{Fakulta sociálnych štúdií}
+%</mu/fss>
+%<*mu/econ>
+\def\thesis@facultyName{Ekonomicko-správna fakulta}
+%</mu/econ>
+%<*mu/med>
+\def\thesis@facultyName{Lekárska fakulta}
+%</mu/med>
+%<*mu/fi>
+% Symbolický odkaz na český preklad
+\input{\thesis@localepath mu/fi/czech.tex}
+%</mu/fi>
+%<*mu/phil>
+% Symbolický odkaz na český preklad
+\input{\thesis@localepath mu/phil/czech.tex}
+%</mu/phil>
+%<*mu/ped>
+% Symbolický odkaz na český preklad
+\input{\thesis@localepath mu/ped/czech.tex}
+%</mu/ped>
+%<*mu/sci>
+\def\thesis@facultyName{Prírodovedecká fakulta}
+%</mu/sci>
+%    \end{macrocode}

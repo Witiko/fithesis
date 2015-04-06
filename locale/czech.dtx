@@ -1,3 +1,5 @@
+%    \begin{macrocode}
+%<*base>
 % Pomocná makra
 \def\thesis@gender@koncovka{%
   \ifthesis@woman a\fi}
@@ -33,3 +35,42 @@
   \else%
     Neznámý typ práce%
   \fi\fi\fi\fi}
+%</base>
+%<*mu>
+\def\thesis@universityName{Masarykova Univerzita}
+\def\thesis@declaration{%
+  Prohlašuji, že tato \thesis@lower{typeName} je mým původním
+  autorským dílem, které jsem vypracoval\thesis@gender@koncovka\ 
+  samostatně. Všechny zdroje, prameny a literaturu, které jsem
+  při vypracování používal\thesis@gender@koncovka\ nebo z~nich
+  čerpal\thesis@gender@koncovka, v~práci řádně cituji s~uvedením
+  úplného odkazu na příslušný zdroj.}
+%</mu>
+%<*mu/law>
+\def\thesis@facultyName{Právnická fakulta}
+%</mu/law>
+%<*mu/fsps>
+\def\thesis@facultyName{Fakulta sportovních studií}
+%</mu/fsps>
+%<*mu/fss>
+\def\thesis@facultyName{Fakulta sociálních studií}
+%</mu/fss>
+%<*mu/econ>
+\def\thesis@facultyName{Ekonomicko-správní fakulta}
+%</mu/econ>
+%<*mu/med>
+\def\thesis@facultyName{Lékařská fakulta}
+%</mu/med>
+%<*mu/fi>
+\def\thesis@facultyName{Fakulta informatiky}
+%</mu/fi>
+%<*mu/phil>
+\def\thesis@facultyName{Filozofická fakulta}
+%</mu/phil>
+%<*mu/ped>
+\def\thesis@facultyName{Pedagogická fakulta}
+%</mu/ped>
+%<*mu/sci>
+\def\thesis@facultyName{Přírodovědecká fakulta}
+%</mu/sci>
+%    \end{macrocode}

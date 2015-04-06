@@ -56,7 +56,10 @@
 
 %</driver>
 %    \end{macrocode}
+%<*class>
+\NeedsTeXFormat{LaTeX2e}
 % \fi
+\def\thesis@version{2015/03/21 fithesis3 version 0.3.09 MU thesis class}
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -132,7 +135,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 % \title{The \textsf{fithesis3} class for the typesetting of theses written
-%   at the Masaryk Univerzity in Brno}
+%   at the Masaryk Univerzity in Brno\thanks{The documentation
+%   concerns the \thesis@version.}}
 % \author{Daniel Marek, Jan Pavlovič, Vít Novotný, Petr Sojka}
 % \date{\today}
 % \maketitle
@@ -170,11 +174,6 @@
 % also conditionally loaded during the expansion of the
 % |\thesis@load| macro (see section \ref{sec:thesis@load}).
 % Other packages may be required by the style files you are using.
-% \iffalse
-%<*class>
-\NeedsTeXFormat{LaTeX2e}
-% \fi
-\def\thesis@version{2015/03/21 fithesis3 version 0.3.09 MU thesis class}
 %    \begin{macrocode}
 \ProvidesClass{fithesis3}[\thesis@version]
 \LoadClass[a4paper]{rapport3}
@@ -588,8 +587,8 @@
 % The \marg{\texttt{autoLayout}=bool} pair either enables,
 % if \textit{bool} is \texttt{true} or unspecified, or disables
 % autolayout. Autolayout injects the
-% |\thesis@documentStart| and |\thesis@documentEnd| private macros
-% at the beginning and the end of the thesis, respectively. The
+% |\thesis@preamble| and |\thesis@postamble| private macros
+% at the beginning and the end of the document, respectively. The
 % setting can be tested using the \DescribeMacro{\ifthesis@auto}
 % |\ifthesis@auto| ... |\else| ... |\fi| conditional. The
 % autolayout is enabled by default.
@@ -604,13 +603,13 @@
     \thesis@autofalse%
   \fi}
 %    \end{macrocode}
-% The \DescribeMacro{\thesis@documentStart}|\thesis@documentStart|
-% and \DescribeMacro{\thesis@documentEnd}|\thesis@documentEnd|
+% The \DescribeMacro{\thesis@preamble}|\thesis@postamble|
+% and \DescribeMacro{\thesis@postamble}|\thesis@preamble|
 % private macros are defined as empty strings by default and are
 % subject to redefinition by the style files.
 %    \begin{macrocode}
-\def\thesis@documentStart{}
-\def\thesis@documentEnd{}
+\def\thesis@preamble{}
+\def\thesis@postamble{}
 %    \end{macrocode}
 % \section{Private API}
 % \subsection{Main routine}\label{sec:thesis@load}
@@ -708,13 +707,13 @@
       \thesis@exists{\thesis@stylepath\thesis@style.sty}{%
         \RequirePackageWithOptions{\thesis@stylepath\thesis@style}}%
 %    \end{macrocode}
-% If autolayout is enabled, the |\thesis@documentStart| and
-% |\thesis@documentEnd| macros are scheduled for expansion at the
-% beginning or the end of the document, respectively.
+% If autolayout is enabled, the |\thesis@preamble| and
+% |\thesis@postamble| macros are scheduled for expansion at the
+% beginning and at the end of the document, respectively.
 %    \begin{macrocode}
       \ifthesis@auto%
-        \AtBeginDocument{\thesis@documentStart}%
-        \AtEndDocument{\thesis@documentEnd}%
+        \AtBeginDocument{\thesis@preamble}%
+        \AtEndDocument{\thesis@postamble}%
       \fi%
 %    \end{macrocode}
 % Lastly, a \BibTeX\ file named |\jobname.bib| containing the
@@ -847,6 +846,66 @@
 %
 % \subsection{Locale files}
 % \label{sec:locale-files}
+% Locale files contain macro definitions for various locales. They
+% live in the \texttt{locale/} subtree and they are loaded during
+% the main routine (see section \ref{sec:thesis@load}). A locale
+% file needs to define the following private macros:\begin{itemize}
+%   \item\DescribeMacro{\thesis@placeholders@title}
+%                      |\thesis@placeholders@title| -- The
+%                      placeholder title of the thesis
+%   \item\DescribeMacro{\thesis@placeholders@keywords}
+%                      |\thesis@placeholders@keywords| -- The
+%                      placeholder keywords of the thesis
+%   \item\DescribeMacro{\thesis@placeholders@abstract}
+%                      |\thesis@placeholders@abstract| -- The
+%                      placeholder abstract of the thesis 
+%   \item\DescribeMacro{\thesis@placeholders@author}
+%                      |\thesis@placeholders@author| -- The
+%                      placeholder name of the thesis author
+%   \item\DescribeMacro{\thesis@universityName}
+%                      |\thesis@universityName| -- The name of the
+%                      university
+%   \item\DescribeMacro{\thesis@facultyName}
+%                      |\thesis@facultyName| -- The name of the
+%                      faculty
+%   \item\DescribeMacro{\thesis@placeholders@advisor}
+%                      |\thesis@placeholders@advisor| -- The
+%                      placeholder name of the advisor
+%   \item\DescribeMacro{\thesis@placeholders@department}
+%                      |\thesis@placeholders@department| -- The
+%                      placeholder department name
+%   \item\DescribeMacro{\thesis@placeholders@programme}
+%                      |\thesis@placeholders@programme| -- The
+%                      placeholder programme name
+%   \item\DescribeMacro{\thesis@placeholders@thanks}
+%                      |\thesis@placeholders@thanks| -- The
+%                      placeholder acknowledgement text
+%   \item\DescribeMacro{\thesis@declaration}
+%                      |\thesis@declaration| -- The declaration
+%                      text
+%   \item\DescribeMacro{\thesis@advisorTitle}
+%                      |\thesis@advisorTitle| -- The title of the
+%                      advisor
+%   \item\DescribeMacro{\thesis@abstractTitle}
+%                      |\thesis@abstractTitle| -- The title of the
+%                      abstract section
+%   \item\DescribeMacro{\thesis@keywordsTitle}
+%                      |\thesis@keywordsTitle| -- The title of the
+%                      keywords section
+%   \item\DescribeMacro{\thesis@thanksTitle}
+%                      |\thesis@thanksTitle| -- The title of the
+%                      acknowledgement section
+%   \item\DescribeMacro{\thesis@declarationTitle}
+%                      |\thesis@declarationTitle| -- The title of
+%                      the declaration section
+%   \item\DescribeMacro{\thesis@typeName}
+%                      |\thesis@typeName| -- The name of the
+%                      thesis type
+% \end{itemize}
+% ^^A \input{locale/base.dtx}
+% \input{locale/english.dtx}
+% \input{locale/czech.dtx}
+% \input{locale/slovak.dtx}
 %
 % \subsection{Style files}
 % \label{sec:style-files}
