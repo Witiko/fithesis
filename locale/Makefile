@@ -12,6 +12,6 @@ explode: $(LOGS)
 %.log: %.ins %.dtx
 	tex $<
 
-implode: clean
+implode:
 	rm -f $(OUTPUT) $(LOGS)
 	@-rmdir $(DIRECTORIES)
