@@ -1,5 +1,9 @@
-%    \begin{macrocode}
+% \file{locale/english.tex}
+% This is the base file of the English locale. It defines all the
+% private macros mandated by the locale file interface.
+% \iffalse
 %<*base>
+% \fi\begin{macrocode}
 % Placeholders
 \def\thesis@placeholders@title{Thesis Title}
 \def\thesis@placeholders@keywords{keyword1, keyword2, ...}
@@ -31,40 +35,118 @@
   \else%
     Unknown thesis type%
   \fi\fi\fi\fi}
+%    \end{macrocode}\iffalse
 %</base>
+% \fi\file{locale/mu/english.tex}
+% This is the English locale file specific to the Masaryk
+% University in Brno. It replaces the |\thesis@universityName|
+% placeholder with the correct value and defines the declaration
+% text.
+% \iffalse
 %<*mu>
+% \fi\begin{macrocode}
 \def\thesis@universityName{Masaryk University}
 \def\thesis@declaration{%
   Hereby I declare that this paper is my original authorial work, 
   which I have worked out by my own. All sources, references and
   literature used or excerpted during elaboration of this work are
   properly cited and listed in complete reference to the due source.}
+%    \end{macrocode}\iffalse
 %</mu>
+% \fi\file{locale/mu/law/english.tex}
+% This is the English locale file specific to the Faculty of Law at
+% the Masaryk University in Brno. It replaces the
+% |\thesis@facultyName| placeholder with the correct value.
+% \iffalse
 %<*mu/law>
+% \fi\begin{macrocode}
 \def\thesis@facultyName{Faculty of Law}
+%    \end{macrocode}\iffalse
 %</mu/law>
+% \fi\file{locale/mu/fsps/english.tex}
+% This is the English locale file specific to the Faculty of Sports
+% Studies at the Masaryk University in Brno. It replaces the
+% |\thesis@facultyName| placeholder with the correct value.
+% \iffalse
 %<*mu/fsps>
+% \fi\begin{macrocode}
 \def\thesis@facultyName{Faculty of Sports Studies}
+%    \end{macrocode}\iffalse
 %</mu/fsps>
+% \fi\file{locale/mu/fss/english.tex}
+% This is the English locale file specific to the Faculty of Social
+% Studies at the Masaryk University in Brno. It replaces the
+% |\thesis@facultyName| placeholder with the correct value.
+% \iffalse
 %<*mu/fss>
+% \fi\begin{macrocode}
 \def\thesis@facultyName{Faculty of Social Studies}
+%    \end{macrocode}\iffalse
 %</mu/fss>
+% \fi\file{locale/mu/econ/english.tex}
+% This is the English locale file specific to the Faculty of
+% Economics and Administration at the Masaryk University in Brno.
+% It replaces the |\thesis@facultyName| placeholder with the
+% correct value.
+% \iffalse
 %<*mu/econ>
+% \fi\begin{macrocode}
 \def\thesis@facultyName{Faculty of Economics and Administration}
+%    \end{macrocode}\iffalse
 %</mu/econ>
+% \fi\file{locale/mu/med/english.tex}
+% This is the English locale file specific to the Faculty of
+% Medicine at the Masaryk University in Brno.
+% It replaces the |\thesis@facultyName| placeholder with the
+% correct value.
+% \iffalse
 %<*mu/med>
+% \fi\begin{macrocode}
 \def\thesis@facultyName{Faculty of Medicine}
+%    \end{macrocode}\iffalse
 %</mu/med>
+% \fi\file{locale/mu/fi/english.tex}
+% This is the English locale file specific to the Faculty of
+% Informatics at the Masaryk University in Brno.
+% It replaces the |\thesis@facultyName| placeholder with the
+% correct value.
+% \iffalse
 %<*mu/fi>
+% \fi\begin{macrocode}
 \def\thesis@facultyName{Faculty of Informatics}
+%    \end{macrocode}\iffalse
 %</mu/fi>
+% \fi\file{locale/mu/phil/english.tex}
+% This is the English locale file specific to the Faculty of
+% Arts at the Masaryk University in Brno.
+% It replaces the |\thesis@facultyName| placeholder with the
+% correct value.
+% \iffalse
 %<*mu/phil>
+% \fi\begin{macrocode}
 \def\thesis@facultyName{Faculty of Arts}
+%    \end{macrocode}\iffalse
 %</mu/phil>
+% \fi\file{locale/mu/ped/english.tex}
+% This is the English locale file specific to the Faculty of
+% Education at the Masaryk University in Brno.
+% It replaces the |\thesis@facultyName| placeholder with the
+% correct value.
+% \iffalse
 %<*mu/ped>
+% \fi\begin{macrocode}
 \def\thesis@facultyName{Faculty of Education}
+%    \end{macrocode}\iffalse
 %</mu/ped>
+% \fi\file{locale/mu/sci/english.tex}
+% This is the English locale file specific to the Faculty of
+% Science at the Masaryk University in Brno.
+% It replaces the |\thesis@facultyName| placeholder with the
+% correct value.
+% \iffalse
 %<*mu/sci>
+% \fi\begin{macrocode}
 \def\thesis@facultyName{Faculty of Science}
+%    \end{macrocode}\iffalse
 %</mu/sci>
-%    \end{macrocode}
+% \fi
