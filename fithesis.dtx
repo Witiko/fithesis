@@ -534,6 +534,22 @@
   \def\thesis@title{#1}}
 %    \end{macrocode}
 % \end{macro}
+% \begin{macro}{\thesis@TeXtitle}
+% \subsubsection{The \texttt{TeXtitle} key}
+% The \marg{\texttt{TeXtitle}=title} pair sets the \TeX\ title of
+% the thesis to \textit{title}. The \textit{title} is used, when
+% typesetting the title, whereas |\thesis@title| is a plain text,
+% which gets included in the PDF header of the
+% resulting document as well as in the \BibTeX\ file containing
+% the bibliographical entry for the thesis. The \textit{title}
+% is stored within the private |\thesis@TeXtitle| macro, whose
+% implicit value is |\thesis@title|.
+%    \begin{macrocode}
+\def\thesis@TeXtitle{\thesis@title}
+\define@key{thesis}{TeXtitle}{%
+  \def\thesis@TeXtitle{#1}}
+%    \end{macrocode}
+% \end{macro}
 % \begin{macro}{\thesis@titleEn}
 % \subsubsection{The \texttt{titleEn} key}
 % The \marg{\texttt{titleEn}=title} pair sets the English title of
@@ -792,6 +808,13 @@
 \catcode`\}=12
 \catcode`\_=13
 \gdef\thesis@bibgen#1<<%
+  % Temporarily disable the UTF-8 encoding
+  \def\UTFviii@two@octets##1##2<%
+    \string##1\string##2>%
+  \def\UTFviii@three@octets##1##2##3<%
+    \string##1\string##2\string##3>%
+  \def\UTFviii@four@octets##1##2##3##4<%
+    \string##1\string##2\string##3\string##4>%
   % Helper macros
   \def\add<\addtostream<#1>>%
   \let\ea\expandafter%
@@ -816,13 +839,6 @@
   % Generate the file
   <%% Temporarily turn _s into spaces
     \catcode`\_=13 \let_=\space
-    % Temporarily disable the UTF-8 encoding
-    \def\UTFviii@two@octets##1##2<%
-      \string##1\string##2>%
-    \def\UTFviii@three@octets##1##2##3<%
-      \string##1\string##2\string##3>%
-    \def\UTFviii@four@octets##1##2##3##4<%
-      \string##1\string##2\string##3\string##4>%
     % Fill the output stream
     \add<\entryType{\surname\thesis@year thesis,>%
     \add<__AUTHOR_____=_"\thesis@author",>%
@@ -860,7 +876,7 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{oldfithesis1}[2015/03/04 old fithesis will load fithesis3 MU thesis class]
 
-\errmessage{%
+\ClassWarning{oldfithesis1}{%
   You are using the fithesis class, which has been deprecated.
   The fithesis3 class will be used instead.
   For more information, see <https://www.fi.muni.cz/tech/unix/tex/fithesis.xhtml>%
@@ -873,7 +889,7 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{oldfithesis2}[2015/03/04 old fithesis2 will load fithesis3 MU thesis class]
 
-\errmessage{%
+\ClassWarning{oldfithesis2}{%
   You are using the fithesis2 class, which has been deprecated.
   The fithesis3 class will be used instead.
   For more information, see <https://www.fi.muni.cz/tech/unix/tex/fithesis.xhtml>%

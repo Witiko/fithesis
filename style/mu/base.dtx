@@ -22,6 +22,11 @@
 %     the parity of the page. Blank pages are optionally inserted
 %     prior the beginning of the next chapter to ensure that it
 %     starts on an odd page.
+%
+%     The \DescribeMacro{\ifthesis@twoside}|\ifthesis@twoside|
+%     conditional is set to \textit{false} or \textit{true},
+%     respectively. This value can be tested in the subsequently
+%     loaded style files.
 %   \item\texttt{onecolumn}, \texttt{twocolumn} -- The document
 %     is going to be set in a single column or in two columns,
 %     respectively.
@@ -39,8 +44,11 @@
 \DeclareOption{10pt}{\def\thesis@ptsize{0}}
 \DeclareOption{11pt}{\def\thesis@ptsize{1}}
 \DeclareOption{12pt}{\def\thesis@ptsize{2}}
-\DeclareOption{oneside}{\@twosidefalse\@mparswitchfalse}
-\DeclareOption{twoside}{\@twosidetrue\@mparswitchtrue}
+\newif\ifthesis@twoside
+\DeclareOption{oneside}{%
+  \thesis@twosidefalse\@twosidefalse\@mparswitchfalse}
+\DeclareOption{twoside}{%
+  \thesis@twosidetrue \@twosidetrue \@mparswitchtrue}
 \DeclareOption{onecolumn}{\@twocolumnfalse}
 \DeclareOption{twocolumn}{\@twocolumntrue}
 \DeclareOption{draft}{\setlength\overfullrule{5pt}}
@@ -93,22 +101,25 @@
 % cover.
 % \end{macro}\begin{macrocode}
 \def\thesis@blocks@cover{%
+  \ifthesis@twoside\@twosidefalse\fi % Temporarily disable twoside
   \begin{alwayssingle}
-  \thispagestyle{empty}
-  \begin{center}
-  {\sc\thesis@universityName\\\thesis@facultyName}
-  \vskip 1.4em
-  \includegraphics[width=40mm]{\thesis@logopath\thesis@logo}\\[0.4in]
-  \let\footnotesize\small
-  \let\footnoterule\relax{}
-  {\titlefont\bf\thesis@title\par\vfil}\vskip 0.8in
-  {\sc \thesis@typeName}\\[0.3in]
-  {\Large\bf\thesis@author}
-  \par\vfill
-  {\large\thesis@place, \thesis@year}
-  \end{center}
+    \thispagestyle{empty}
+    \begin{center}
+    {\sc\thesis@universityName\\\thesis@facultyName}
+    \vskip 1.4em
+    \includegraphics[width=40mm]{\thesis@logopath\thesis@logo}\\[0.4in]
+    \let\footnotesize\small
+    \let\footnoterule\relax{}
+    {\titlefont\bf\thesis@TeXtitle\par\vfil}\vskip 0.8in
+    {\sc \thesis@typeName}\\[0.3in]
+    {\Large\bf\thesis@author}
+    \par\vfill
+    {\large\thesis@place, \thesis@year}
+    \end{center}
   \end{alwayssingle}
-  \newpage}
+  \newpage
+  \ifthesis@twoside\@twosidetrue\fi % Re-enable twoside
+  }
 %    \end{macrocode}
 % \begin{macro}{\thesis@blocks@titlePage}
 % The |\thesis@blocks@titlePage| private macro typesets the thesis
@@ -118,23 +129,26 @@
 % |\thesis@logopath|.
 % \end{macro}\begin{macrocode}
 \def\thesis@blocks@titlePage{%
+  \ifthesis@twoside\@twosidefalse\fi % Temporarily disable twoside
   \begin{alwayssingle}
-  \thispagestyle{empty}
-  \begin{center}
-  {\sc\thesis@universityName\\\thesis@facultyName}
-  \vskip 1.4em
-  \edef\thesis@logopath@color{\thesis@logopath\ifthesis@color color/\fi}
-  \includegraphics[width=40mm]{\thesis@logopath@color\thesis@logo}\\[0.4in]
-  \let\footnotesize\small
-  \let\footnoterule\relax{}
-  {\titlefont\bf\thesis@title\par\vfil}\vskip 0.8in
-  {\sc \thesis@typeName}\\[0.3in]
-  {\Large\bf\thesis@author}
-  \par\vfill
-  {\large\thesis@place, \thesis@year}
-  \end{center}
+    \thispagestyle{empty}
+    \begin{center}
+    {\sc\thesis@universityName\\\thesis@facultyName}
+    \vskip 1.4em
+    \edef\thesis@logopath@color{\thesis@logopath\ifthesis@color color/\fi}
+    \includegraphics[width=40mm]{\thesis@logopath@color\thesis@logo}\\[0.4in]
+    \let\footnotesize\small
+    \let\footnoterule\relax{}
+    {\titlefont\bf\thesis@TeXtitle\par\vfil}\vskip 0.8in
+    {\sc \thesis@typeName}\\[0.3in]
+    {\Large\bf\thesis@author}
+    \par\vfill
+    {\large\thesis@place, \thesis@year}
+    \end{center}
   \end{alwayssingle}
-  \newpage}
+  \newpage
+  \ifthesis@twoside\@twosidetrue\fi % Re-enable twoside
+  }
 %    \end{macrocode}
 % \begin{macro}{\thesis@blocks@declaration}
 % The |\thesis@blocks@declaration| private macro typesets the
