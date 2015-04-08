@@ -1,4 +1,4 @@
-% \file{locale/czech.tex}
+% \file{locale/czech.def}
 % This is the base file of the Czech locale. It defines all the
 % private macros mandated by the locale file interface.
 % \begin{macro}{\thesis@gender@koncovka}
@@ -8,6 +8,8 @@
 % \end{macro}\iffalse
 %<*base>
 % \fi\begin{macrocode}
+\ProvidesFile{czech.def}[2015/04/08]
+
 % Pomocná makra
 \def\thesis@gender@koncovka{%
   \ifthesis@woman a\fi}
@@ -45,7 +47,7 @@
   \fi\fi\fi\fi}
 %    \end{macrocode}\iffalse
 %</base>
-% \fi\file{locale/mu/czech.tex}
+% \fi\file{locale/mu/czech.def}
 % This is the Czech locale file specific to the Masaryk
 % University in Brno. It replaces the |\thesis@universityName|
 % placeholder with the correct value and defines the declaration
@@ -53,6 +55,7 @@
 % \iffalse
 %<*mu>
 % \fi\begin{macrocode}
+\ProvidesFile{czech.def}[2015/04/08]
 \def\thesis@universityName{Masarykova Univerzita}
 \def\thesis@declaration{%
   Prohlašuji, že tato \thesis@lower{typeName} je mým původním
@@ -63,37 +66,40 @@
   úplného odkazu na příslušný zdroj.}
 %    \end{macrocode}\iffalse
 %</mu>
-% \fi\file{locale/mu/law/czech.tex}
+% \fi\file{locale/mu/law/czech.def}
 % This is the Czech locale file specific to the Faculty of Law at
 % the Masaryk University in Brno. It replaces the
 % |\thesis@facultyName| placeholder with the correct value.
 % \iffalse
 %<*mu/law>
 % \fi\begin{macrocode}
+\ProvidesFile{czech.def}[2015/04/08]
 \def\thesis@facultyName{Právnická fakulta}
 %    \end{macrocode}\iffalse
 %</mu/law>
-% \fi\file{locale/mu/fsps/czech.tex}
+% \fi\file{locale/mu/fsps/czech.def}
 % This is the Czech locale file specific to the Faculty of Sports
 % Studies at the Masaryk University in Brno. It replaces the
 % |\thesis@facultyName| placeholder with the correct value.
 % \iffalse
 %<*mu/fsps>
 % \fi\begin{macrocode}
+\ProvidesFile{czech.def}[2015/04/08]
 \def\thesis@facultyName{Fakulta sportovních studií}
 %    \end{macrocode}\iffalse
 %</mu/fsps>
-% \fi\file{locale/mu/fss/czech.tex}
+% \fi\file{locale/mu/fss/czech.def}
 % This is the Czech locale file specific to the Faculty of Social
 % Studies at the Masaryk University in Brno. It replaces the
 % |\thesis@facultyName| placeholder with the correct value.
 % \iffalse
 %<*mu/fss>
 % \fi\begin{macrocode}
+\ProvidesFile{czech.def}[2015/04/08]
 \def\thesis@facultyName{Fakulta sociálních studií}
 %    \end{macrocode}\iffalse
 %</mu/fss>
-% \fi\file{locale/mu/econ/czech.tex}
+% \fi\file{locale/mu/econ/czech.def}
 % This is the Czech locale file specific to the Faculty of
 % Economics and Administration at the Masaryk University in Brno.
 % It replaces the |\thesis@facultyName| placeholder with the
@@ -101,10 +107,11 @@
 % \iffalse
 %<*mu/econ>
 % \fi\begin{macrocode}
+\ProvidesFile{czech.def}[2015/04/08]
 \def\thesis@facultyName{Ekonomicko-správní fakulta}
 %    \end{macrocode}\iffalse
 %</mu/econ>
-% \fi\file{locale/mu/med/czech.tex}
+% \fi\file{locale/mu/med/czech.def}
 % This is the Czech locale file specific to the Faculty of
 % Medicine at the Masaryk University in Brno.
 % It replaces the |\thesis@facultyName| placeholder with the
@@ -112,10 +119,11 @@
 % \iffalse
 %<*mu/med>
 % \fi\begin{macrocode}
+\ProvidesFile{czech.def}[2015/04/08]
 \def\thesis@facultyName{Lékařská fakulta}
 %    \end{macrocode}\iffalse
 %</mu/med>
-% \fi\file{locale/mu/fi/czech.tex}
+% \fi\file{locale/mu/fi/czech.def}
 % This is the Czech locale file specific to the Faculty of
 % Informatics at the Masaryk University in Brno.
 % It replaces the |\thesis@facultyName| placeholder with the
@@ -123,10 +131,11 @@
 % \iffalse
 %<*mu/fi>
 % \fi\begin{macrocode}
+\ProvidesFile{czech.def}[2015/04/08]
 \def\thesis@facultyName{Fakulta informatiky}
 %    \end{macrocode}\iffalse
 %</mu/fi>
-% \fi\file{locale/mu/phil/czech.tex}
+% \fi\file{locale/mu/phil/czech.def}
 % This is the Czech locale file specific to the Faculty of
 % Arts at the Masaryk University in Brno.
 % It replaces the |\thesis@facultyName| placeholder with the
@@ -134,10 +143,11 @@
 % \iffalse
 %<*mu/phil>
 % \fi\begin{macrocode}
+\ProvidesFile{czech.def}[2015/04/08]
 \def\thesis@facultyName{Filozofická fakulta}
 %    \end{macrocode}\iffalse
 %</mu/phil>
-% \fi\file{locale/mu/ped/czech.tex}
+% \fi\file{locale/mu/ped/czech.def}
 % This is the Czech locale file specific to the Faculty of
 % Education at the Masaryk University in Brno.
 % It replaces the |\thesis@facultyName| placeholder with the
@@ -145,10 +155,11 @@
 % \iffalse
 %<*mu/ped>
 % \fi\begin{macrocode}
+\ProvidesFile{czech.def}[2015/04/08]
 \def\thesis@facultyName{Pedagogická fakulta}
 %    \end{macrocode}\iffalse
 %</mu/ped>
-% \fi\file{locale/mu/sci/czech.tex}
+% \fi\file{locale/mu/sci/czech.def}
 % This is the Czech locale file specific to the Faculty of
 % Science at the Masaryk University in Brno.
 % It replaces the |\thesis@facultyName| placeholder with the
@@ -156,6 +167,7 @@
 % \iffalse
 %<*mu/sci>
 % \fi\begin{macrocode}
+\ProvidesFile{czech.def}[2015/04/08]
 \def\thesis@facultyName{Přírodovědecká fakulta}
 %    \end{macrocode}\iffalse
 %</mu/sci>

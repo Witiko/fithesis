@@ -1,0 +1,54 @@
+% \file{style/mu/fi.sty}
+% This is the style file for the theses written at the Faculty of
+% Informatics at the Masaryk University in Brno. It has been
+% prepared in accordance with the formal requirements published at
+% the website of the faculty\footnote{See
+% \url{https://www.fi.muni.cz/docs/BP_DP_na_FI.pdf}}.
+%    \begin{macrocode}
+\NeedsTeXFormat{LaTeX2e}
+%    \end{macrocode}
+% The file recognizes the following options:
+% \begin{itemize}
+%   \item\texttt{lot}, \texttt{nolot} -- A list of tables is or
+%     isn't going to be included in the autolayout preamble,
+%     respectively.
+%   \item\texttt{lof}, \texttt{nolof} -- A list of figures is or
+%     isn't going to be included in the autolayout preamble,
+%     respectively.
+% \end{itemize}
+% The defaults are \texttt{lot} and \texttt{lof}.
+%    \begin{macrocode}
+\ProvidesPackage{fithesis3/style/mu/fi}[2015/04/08]
+\DeclareOption{nolot}{\def\thesis@blocks@lot{}}
+\DeclareOption{lot}{\let\thesis@blocks@lot\listoftables}
+\DeclareOption{nolof}{\def\thesis@blocks@lof{}}
+\DeclareOption{lof}{\let\thesis@blocks@lof\listoffigures}
+\ExecuteOptions{lot,lof}
+\ProcessOptions
+%    \end{macrocode}
+% The style file defines the autolayout preamble as the cover and
+% the title page followed by the declaration, acknowledgement,
+% abstract, keywords and tables of contents, tables and figures as
+% a part of the front matter. All of the blocks are defined in the
+% \texttt{style/mu/base.tex} file except for the
+% \DescribeMacro{\thesis@blocks@lof}|\thesis@blocks@lof| and
+% \DescribeMacro{\thesis@blocks@lot}|\thesis@blocks@lot|, which
+% expand to either |\listoffigures| or |\listoftables|,
+% respectively, or to an empty string based on the options.
+%    \begin{macrocode}
+\def\thesis@preamble{%
+  \thesis@blocks@frontMatter%
+    \thesis@blocks@cover%
+    \thesis@blocks@titlePage%
+    \thesis@blocks@declaration%
+    \thesis@blocks@thanks%
+    \thesis@blocks@abstract%
+    \thesis@blocks@abstractEn%
+    \thesis@blocks@keywords%
+    \thesis@blocks@keywordsEn%
+    \tableofcontents%
+    \thesis@blocks@lot%
+    \thesis@blocks@lof%
+  \thesis@blocks@mainMatter%
+}
+%    \end{macrocode}

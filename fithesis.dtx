@@ -40,6 +40,16 @@
 \emergencystretch 2dd
 \usepackage{hypdoc}
 
+% Making paragraphs numbered
+\makeatletter
+\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
+            {-2.5ex\@plus -1ex \@minus -.25ex}%
+            {1.25ex \@plus .25ex}%
+            {\normalfont\normalsize\bfseries}}
+\makeatother
+\setcounter{secnumdepth}{4} % how many sectioning levels to assign
+\setcounter{tocdepth}{4}    % how many sectioning levels to show
+
 % ltxdoc class options
 \CodelineIndex
 \MakeShortVerb{|}
@@ -58,10 +68,14 @@
 %<*class>
 \NeedsTeXFormat{LaTeX2e}
 % \fi
-\def\thesis@version{2015/03/21 fithesis3 version 0.3.09 MU thesis class}
+\def\thesis@version{2015/04/08 v0.3.09 fithesis3 MU thesis class}
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
+% \changes{v0.3.09}  {2015/04/08}{A complete refactoring of the class. The class
+%   was decomposed into a base class, locale files and style files. The \TeX
+%   Gyre Pagella font has been replaced by Adobe Palatino provided by the
+%   \textsf{mathpazo} package.}
 % \changes{v0.3.08}  {2015/03/04}{Fixed a non-terminated \cs{if} condition.
 %   [VN] (backport of v0.2.18)\\Fixed mostly documentation errors reported
 %   at the new fithesis discussion forum (-ti, eco$\rightarrow$econ, implicit
@@ -146,33 +160,14 @@
 %
 % \tableofcontents
 %
-% \section{Basic structure}
-% The document class comprises the following types of files:
-% \begin{enumerate}
-%   \item\emph{Locale files} -- These files contain macro definitions for
-%        various locales. They live in the \texttt{locale/} subtree and
-%        their API is covered in section \ref{sec:locale-files}.
-%   \item\emph{Style files} -- These files define the structure and the
-%        look of the resulting document. They live in the \texttt{style/}
-%        subtree and their API is covered in section \ref{sec:style-files}.
-%   \item\emph{Logo files} -- These files contain the logos of the
-%        respective faculties of the Masaryk University and they live in the
-%        \texttt{logo/} subtree. New logos should be added in
-%        \texttt{pdf} and \texttt{eps} formats in both color and black-and-white versions,
-%        as described in section \ref{sec:mu-base-style-file}.
-%   \item\emph{Class file} -- The class file serves as a glue, which loads
-%        all of the aforementioned files and provides a public API to the
-%        end user. The public API of the class is covered in section
-%        \ref{sec:public-api}.
-% \end{enumerate}
-%
 % \section{Required classes and packages}
 % The class loads the \texttt{rapport3} base class and the
 % \texttt{xstring}, \texttt{keyval}, \texttt{newfile} and
 % \texttt{etoolbox} packages. The \texttt{hyperref} package is
 % also conditionally loaded during the expansion of the
 % |\thesis@load| macro (see section \ref{sec:thesis@load}).
-% Other packages may be required by the style files you are using.
+% Other packages may be required by the style files (see
+% section \ref{sec:style-files}) you are using.
 %    \begin{macrocode}
 \ProvidesClass{fithesis3}[\thesis@version]
 \LoadClass[a4paper]{rapport3}
@@ -674,24 +669,24 @@
 % First, the locale files are included. If inheritance is
 % enabled for locale files, then each of the following files is
 % input in sequence, provided they exist:\begin{enumerate}
-%   \item|\thesis@localepath base.tex|
-%   \item|\thesis@localepath\thesis@locale.tex|
-%   \item|\thesis@localepath\thesis@university/\thesis@locale.tex|
+%   \item|\thesis@localepath base.def|
+%   \item|\thesis@localepath\thesis@locale.def|
+%   \item|\thesis@localepath\thesis@university/\thesis@locale.def|
 %   \item|\thesis@localepath\thesis@university/\thesis@faculty/|^^A
-%     |\thesis@locale.tex|
+%     |\thesis@locale.def|
 % \end{enumerate}If inheritance is disabled for locale files,
 % then only the |\thesis@localepath|\discretionary{}{}{}^^A
 % |\thesis@locale.tex| file is loaded.
 %    \begin{macrocode}
       \ifthesis@locale@inheritance
-        \input{\thesis@localepath base}
+        \input{\thesis@localepath base.def}
       \fi
-      \thesis@input{\thesis@localepath\thesis@locale}%
+      \thesis@input{\thesis@localepath\thesis@locale.def}%
       \ifthesis@locale@inheritance
         \thesis@input{\thesis@localepath\thesis@university/%
-          \thesis@locale}% 
+          \thesis@locale.def}% 
         \thesis@input{\thesis@localepath\thesis@university/%
-          \thesis@faculty/\thesis@locale}%
+          \thesis@faculty/\thesis@locale.def}%
       \fi
 %    \end{macrocode}
 % With the placeholder strings loaded from the locale files, we
@@ -773,6 +768,7 @@
         \closeoutputstream{bib}}%
     \makeatother%
   \fi}
+
 %    \end{macrocode}
 % The \DescribeMacro{\thesis@exists}|\thesis@exists| and
 % \DescribeMacro{\thesis@input}|\thesis@input| macros are used to
@@ -780,7 +776,7 @@
 %    \begin{macrocode}
 \def\thesis@exists#1#2{%
   \IfFileExists{#1}{#2}{%
-  \typeout{File #1 doesn't exist.}}}
+  \ClassWarning{fithesis3}{File #1 doesn't exist}}}
 
 \def\thesis@input#1{%
   \thesis@exists{#1}{\input{#1}}}
@@ -890,13 +886,17 @@
 % \label{sec:locale-files}
 % Locale files contain macro definitions for various locales. They
 % live in the \texttt{locale/} subtree and they are loaded during
-% the main routine (see section \ref{sec:thesis@load}). When
-% creating a new locale file, it is advisable to create one
+% the main routine (see section \ref{sec:thesis@load}).
+%
+% When creating a new locale file, it is advisable to create one
 % self-contained \texttt{dtx} file, which is then partitioned into
 % locale files via the \textsf{docstrip} tool based on the
-% respective \texttt{ins} file. For more information about
-% \texttt{dtx} files and the \textsf{docstrip} tool, consult the
-% \textsf{dtxtut, docstrip, doc} and \textsf{ltxdoc} manuals.
+% respective \texttt{ins} file. A \DescribeMacro{\file} macro
+% |\file|\marg{filename} is available for the sectioning the
+% documentation of various files within the \texttt{dtx} file.
+% \textit{filename}. For more information about \texttt{dtx} files
+% and the \textsf{docstrip} tool, consult the \textsf{dtxtut,
+% docstrip, doc} and \textsf{ltxdoc} manuals.
 %
 % \subsubsection{Interface}
 % A locale file needs to define the following private macros:
@@ -954,7 +954,7 @@
 %                      thesis type
 % \end{itemize}
 %
-% \def\file#1{\paragraph{\texttt{#1}}}
+% \def\file#1{\paragraph{The \texttt{#1} file}}
 % \subsubsection{The base locale file}
 % \input{locale/base.dtx}
 % \subsubsection{English locale files}
@@ -966,6 +966,37 @@
 %
 % \subsection{Style files}
 % \label{sec:style-files}
+% Style files define the structure and the look of the resulting
+% document. They live in the \texttt{style/} subtree and they are
+% loaded during the main routine (see section
+% \ref{sec:thesis@load}).
 %
-% \subsubsection{The \texttt{style/mu/base.sty} style file}
-% \label{sec:mu-base-style-file}
+% When creating a new style file, it is advisable to create one
+% self-contained \texttt{dtx} file, which can contain several
+% files to be extracted via the \textsf{docstrip} tool based on the
+% respective \texttt{ins} file. A \DescribeMacro{\file} macro
+% |\file|\marg{filename} is available for sectioning the
+% documentation of various files within the \texttt{dtx} file.
+% For more information about \texttt{dtx} files and the
+% \textsf{docstrip} tool, consult the \textsf{dtxtut, docstrip,
+% doc} and \textsf{ltxdoc} manuals.
+%
+% \subsubsection{Interface}
+% A style file should redefine at least one of the following
+% private macros:
+% \begin{itemize}
+%   \item\DescribeMacro{\thesis@preamble}
+%                      |\thesis@preamble| -- If autolayout is
+%                      enabled, then this macro is expanded at the
+%                      very beginning of the document.
+%   \item\DescribeMacro{\thesis@postamble}
+%                      |\thesis@postamble| -- If autolayout is
+%                      enabled, then this macro is expanded at the
+%                      very end of the document.
+% \end{itemize}
+%
+% \subsubsection{Base style files}
+% \input{style/base.dtx}
+% \input{style/mu/base.dtx}
+% \subsubsection{The style file of the Faculty of Informatics}
+% \input{style/mu/fi.dtx}

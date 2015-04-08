@@ -1,13 +1,13 @@
 .PHONY: all explode clean clean-all install
 
-SUBMAKEFILES=logo/mu logo/mu/color locale
+SUBMAKEFILES=logo/mu logo/mu/color locale style style/mu
 CLASSFILES=fithesis.cls fithesis[23].cls
 STYLEFILES=style/*.sty style/*/*.sty style/*/*.clo
 LOGOFILES=logo/*/*.eps logo/*/color/*.eps logo/*/*.pdf logo/*/color/*.pdf
 LOCALEFILES=locale/*.tex locale/*/*.tex locale/*/*/*.tex
-DTXFILES=*.dtx locale/*.dtx
+DTXFILES=*.dtx locale/*.dtx style/*.dtx style/*/*.dtx
 RESOURCES=$(STYLEFILES) $(LOGOFILES) $(LOCALEFILES)
-AUXFILES=example.aux example.log example.out example.toc example.lot example.lof example.bib fithesis.aux fithesis.log fithesis.toc fithesis.ind fithesis.idx fithesis.out fithesis.ilg fithesis.gls fithesis.glo
+AUXFILES=example.aux example.log example.out example.toc example.lot example.lof example.bib fithesis.aux fithesis.log fithesis.toc fithesis.ind fithesis.idx fithesis.out fithesis.ilg fithesis.gls fithesis.glo fithesis.hd
 MANUAL=fithesis.pdf
 PDFFILES=$(MANUAL) example.pdf
 TEXLIVEFILES=$(CLASSFILES) $(RESOURCES)
@@ -33,6 +33,7 @@ fithesis.pdf: $(DTXFILES)
 	pdflatex $<
 	makeindex -s gind.ist fithesis
 	makeindex -s gglo.ist -o fithesis.gls fithesis.glo
+	pdflatex $<
 	pdflatex $<
 
 # This target typesets the example.

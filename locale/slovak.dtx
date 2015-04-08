@@ -1,4 +1,4 @@
-% \file{locale/slovak.tex}
+% \file{locale/slovak.def}
 % This is the base file of the Slovak locale. It defines all the
 % private macros mandated by the locale file interface. To ensure
 % graceful death in case of any missing strings, the locale file
@@ -10,8 +10,10 @@
 % \end{macro}\iffalse
 %<*base>
 % \fi\begin{macrocode}
+\ProvidesFile{slovak.def}[2015/04/08]
+
 % Symbolický odkaz na český preklad
-\input{\thesis@localepath czech.tex}
+\input{\thesis@localepath czech.def}
 
 % Pomocná makrá
 \def\thesis@gender@koncovka{%
@@ -50,7 +52,7 @@
   \fi\fi\fi\fi}
 %    \end{macrocode}\iffalse
 %</base>
-% \fi\file{locale/mu/slovak.tex}
+% \fi\file{locale/mu/slovak.def}
 % This is the Slovak locale file specific to the Masaryk
 % University in Brno. It inherits the value of the
 % |\thesis@universityName| private macro from the respective
@@ -58,8 +60,10 @@
 % \iffalse
 %<*mu>
 % \fi\begin{macrocode}
+\ProvidesFile{slovak.def}[2015/04/08]
+
 % Symbolický odkaz na český preklad
-\input{\thesis@localepath mu/czech.tex}
+\input{\thesis@localepath mu/czech.def}
 
 \def\thesis@declaration{%
   Prehlasujem, že táto \thesis@lower{typeName} je mojím pôvodným
@@ -70,7 +74,7 @@
   s~uvedením úplného odkazu na príslušný zdroj.}
 %    \end{macrocode}\iffalse
 %</mu>
-% \fi\file{locale/mu/law/slovak.tex}
+% \fi\file{locale/mu/law/slovak.def}
 % This is the Slovak locale file specific to the Faculty of Law at
 % the Masaryk University in Brno. It inherits the value of the
 % |\thesis@facultyName| private macro from the respective Czech
@@ -78,31 +82,35 @@
 % \iffalse
 %<*mu/law>
 % \fi\begin{macrocode}
+\ProvidesFile{slovak.def}[2015/04/08]
+
 % Symbolický odkaz na český preklad
-\input{\thesis@localepath mu/law/czech.tex}
+\input{\thesis@localepath mu/law/czech.def}
 %    \end{macrocode}\iffalse
 %</mu/law>
-% \fi\file{locale/mu/fsps/slovak.tex}
+% \fi\file{locale/mu/fsps/slovak.def}
 % This is the Slovak locale file specific to the Faculty of Sports
 % Studies at the Masaryk University in Brno. It replaces the
 % |\thesis@facultyName| placeholder with the correct value.
 % \iffalse
 %<*mu/fsps>
 % \fi\begin{macrocode}
+\ProvidesFile{slovak.def}[2015/04/08]
 \def\thesis@facultyName{Fakulta športových štúdií}
 %    \end{macrocode}\iffalse
 %</mu/fsps>
-% \fi\file{locale/mu/fss/slovak.tex}
+% \fi\file{locale/mu/fss/slovak.def}
 % This is the Slovak locale file specific to the Faculty of Social
 % Studies at the Masaryk University in Brno. It replaces the
 % |\thesis@facultyName| placeholder with the correct value.
 % \iffalse
 %<*mu/fss>
 % \fi\begin{macrocode}
+\ProvidesFile{slovak.def}[2015/04/08]
 \def\thesis@facultyName{Fakulta sociálnych štúdií}
 %    \end{macrocode}\iffalse
 %</mu/fss>
-% \fi\file{locale/mu/econ/slovak.tex}
+% \fi\file{locale/mu/econ/slovak.def}
 % This is the Slovak locale file specific to the Faculty of
 % Economics and Administration at the Masaryk University in Brno.
 % It replaces the |\thesis@facultyName| placeholder with the
@@ -110,10 +118,11 @@
 % \iffalse
 %<*mu/econ>
 % \fi\begin{macrocode}
+\ProvidesFile{slovak.def}[2015/04/08]
 \def\thesis@facultyName{Ekonomicko-správna fakulta}
 %    \end{macrocode}\iffalse
 %</mu/econ>
-% \fi\file{locale/mu/med/slovak.tex}
+% \fi\file{locale/mu/med/slovak.def}
 % This is the Slovak locale file specific to the Faculty of
 % Medicine at the Masaryk University in Brno.
 % It replaces the |\thesis@facultyName| placeholder with the
@@ -121,10 +130,11 @@
 % \iffalse
 %<*mu/med>
 % \fi\begin{macrocode}
+\ProvidesFile{slovak.def}[2015/04/08]
 \def\thesis@facultyName{Lekárska fakulta}
 %    \end{macrocode}\iffalse
 %</mu/med>
-% \fi\file{locale/mu/fi/slovak.tex}
+% \fi\file{locale/mu/fi/slovak.def}
 % This is the Slovak locale file specific to the Faculty of
 % Informatics at the Masaryk University in Brno. It
 % inherits the value of the |\thesis@facultyName| private macro
@@ -132,11 +142,13 @@
 % \iffalse
 %<*mu/fi>
 % \fi\begin{macrocode}
+\ProvidesFile{slovak.def}[2015/04/08]
+
 % Symbolický odkaz na český preklad
-\input{\thesis@localepath mu/fi/czech.tex}
+\input{\thesis@localepath mu/fi/czech.def}
 %    \end{macrocode}\iffalse
 %</mu/fi>
-% \fi\file{locale/mu/phil/slovak.tex}
+% \fi\file{locale/mu/phil/slovak.def}
 % This is the Slovak locale file specific to the Faculty of
 % Arts at the Masaryk University in Brno. It inherits the value
 % of the |\thesis@facultyName| private macro from the respective
@@ -144,11 +156,13 @@
 % \iffalse
 %<*mu/phil>
 % \fi\begin{macrocode}
+\ProvidesFile{slovak.def}[2015/04/08]
+
 % Symbolický odkaz na český preklad
-\input{\thesis@localepath mu/phil/czech.tex}
+\input{\thesis@localepath mu/phil/czech.def}
 %    \end{macrocode}\iffalse
 %</mu/phil>
-% \fi\file{locale/mu/ped/slovak.tex}
+% \fi\file{locale/mu/ped/slovak.def}
 % This is the Slovak locale file specific to the Faculty of
 % Education at the Masaryk University in Brno. It inherits the
 % value of the |\thesis@facultyName| private macro from the
@@ -156,11 +170,13 @@
 % \iffalse
 %<*mu/ped>
 % \fi\begin{macrocode}
+\ProvidesFile{slovak.def}[2015/04/08]
+
 % Symbolický odkaz na český preklad
-\input{\thesis@localepath mu/ped/czech.tex}
+\input{\thesis@localepath mu/ped/czech.def}
 %    \end{macrocode}\iffalse
 %</mu/ped>
-% \fi\file{locale/mu/sci/slovak.tex}
+% \fi\file{locale/mu/sci/slovak.def}
 % This is the Slovak locale file specific to the Faculty of
 % Science at the Masaryk University in Brno.
 % It replaces the |\thesis@facultyName| placeholder with the
@@ -168,6 +184,7 @@
 % \iffalse
 %<*mu/sci>
 % \fi\begin{macrocode}
+\ProvidesFile{slovak.def}[2015/04/08]
 \def\thesis@facultyName{Prírodovedecká fakulta}
 %    \end{macrocode}\iffalse
 %</mu/sci>
