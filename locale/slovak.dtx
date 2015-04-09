@@ -30,6 +30,8 @@
 \def\thesis@placeholders@department{Názov katedry}
 \def\thesis@placeholders@programme{Názov študijného programu}
 \def\thesis@placeholders@thanks{Text poďakovanie ...}
+\def\thesis@placeholders@assignment{Namiesto tejto stránky vložte
+  kópiu oficiálneho podpísaného zadania práce.}
 \def\thesis@declaration{Text prehlásenie ...}
 
 % Rôzne
@@ -139,6 +141,8 @@
 % Informatics at the Masaryk University in Brno. It
 % inherits the value of the |\thesis@facultyName| private macro
 % from the respective Czech locale file.
+% It also updates the |\thesis@placeholders@assignment|
+% to reflect the requirements specific to the faculty.
 % \iffalse
 %<*mu/fi>
 % \fi\begin{macrocode}
@@ -146,6 +150,10 @@
 
 % Symbolický odkaz na český preklad
 \input{\thesis@localepath mu/fi/czech.def}
+
+\def\thesis@placeholders@assignment{Namiesto tejto stránky vložte
+  kópiu oficiálneho podpísaného zadania práce a prehlásenie autora
+  školského diela.}
 %    \end{macrocode}\iffalse
 %</mu/fi>
 % \fi\file{locale/mu/phil/slovak.def}

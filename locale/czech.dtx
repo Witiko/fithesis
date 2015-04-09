@@ -25,6 +25,8 @@
 \def\thesis@placeholders@department{Název katedry}
 \def\thesis@placeholders@programme{Název studijního programu}
 \def\thesis@placeholders@thanks{Text poděkování ...}
+\def\thesis@placeholders@assignment{Místo tohoto listu vložte kopii
+  oficiálního podepsaného zadání práce.}
 \def\thesis@declaration{Text prohlášení ...}
 
 % Různé
@@ -127,12 +129,16 @@
 % This is the Czech locale file specific to the Faculty of
 % Informatics at the Masaryk University in Brno.
 % It replaces the |\thesis@facultyName| placeholder with the
-% correct value.
+% correct value and updates the |\thesis@placeholders@assignment|
+% to reflect the requirements specific to the faculty.
 % \iffalse
 %<*mu/fi>
 % \fi\begin{macrocode}
 \ProvidesFile{czech.def}[2015/04/08]
 \def\thesis@facultyName{Fakulta informatiky}
+\def\thesis@placeholders@assignment{Místo tohoto listu vložte kopie
+  oficiálního podepsaného zadání práce a prohlášení autora školního
+  díla.}
 %    \end{macrocode}\iffalse
 %</mu/fi>
 % \fi\file{locale/mu/phil/czech.def}

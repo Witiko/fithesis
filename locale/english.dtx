@@ -17,6 +17,8 @@
 \def\thesis@placeholders@department{Department name}
 \def\thesis@placeholders@programme{Study programme name}
 \def\thesis@placeholders@thanks{Acknowledgement text ...}
+\def\thesis@placeholders@assignment{Replace this page with a copy
+  of the official signed thesis assignment.}
 \def\thesis@declaration{Declaration text ...}
 
 % Miscellaneous
@@ -117,12 +119,16 @@
 % This is the English locale file specific to the Faculty of
 % Informatics at the Masaryk University in Brno.
 % It replaces the |\thesis@facultyName| placeholder with the
-% correct value.
+% correct value and updates the |\thesis@placeholders@assignment|
+% to reflect the requirements specific to the faculty.
 % \iffalse
 %<*mu/fi>
 % \fi\begin{macrocode}
 \ProvidesFile{english.def}[2015/04/08]
 \def\thesis@facultyName{Faculty of Informatics}
+\def\thesis@placeholders@assignment{Replace this page with a copy
+  of the official signed thesis assignment and the copy of the
+  Statement of an Author.}
 %    \end{macrocode}\iffalse
 %</mu/fi>
 % \fi\file{locale/mu/phil/english.def}

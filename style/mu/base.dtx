@@ -21,7 +21,7 @@
 %     other elements are rearranged based on
 %     the parity of the page. Blank pages are optionally inserted
 %     prior the beginning of the next chapter to ensure that it
-%     starts on an odd page.
+%     starts on an left-hand (even-numbered) page.
 %
 %     The \DescribeMacro{\ifthesis@twoside}|\ifthesis@twoside|
 %     conditional is set to \textit{false} or \textit{true},
@@ -37,9 +37,20 @@
 %     is set to \textit{false} or \textit{true}, respectively.
 %     This value can be tested in the subsequently loaded style
 %     files.
+%   \item\texttt{lot}, \texttt{nolot} -- |\listoftables| is or
+%     isn't going to be included in the
+%     \DescribeMacro{\thesis@blocks@tables}|\thesis@blocks@tables|
+%     block, respectively.
+%   \item\texttt{lof}, \texttt{nolof} -- |\listoffigures| is or
+%     isn't going to be included in the
+%     \DescribeMacro{\thesis@blocks@tables}|\thesis@blocks@tables|
+%     block, respectively.
+%   \item\texttt{lof}, \texttt{nolof} -- The |\thesis@blocks@cover|
+%     is or isn't going to expand to the thesis cover.
 % \end{itemize}
-% The defaults are \texttt{12pt}, \texttt{twoside}, \texttt{final}
-% and \texttt{monochrome}.
+% The defaults are \texttt{12pt}, \texttt{oneside}, \texttt{final},
+% \texttt{monochrome}, \texttt{lof}, \texttt{lot} and
+% \texttt{nocover}.
 %    \begin{macrocode}
 \DeclareOption{10pt}{\def\thesis@ptsize{0}}
 \DeclareOption{11pt}{\def\thesis@ptsize{1}}
@@ -56,7 +67,15 @@
 \newif\ifthesis@color\thesis@colorfalse
 \DeclareOption{monochrome}{\thesis@colorfalse}
 \DeclareOption{color}{\thesis@colortrue}
-\ExecuteOptions{12pt,twoside,final,monochrome}
+\DeclareOption{nolot}{\def\thesis@blocks@lot{}}
+\DeclareOption{lot}{\let\thesis@blocks@lot\listoftables}
+\DeclareOption{nolof}{\def\thesis@blocks@lof{}}
+\DeclareOption{lof}{\let\thesis@blocks@lof\listoffigures}
+\newif\ifthesis@cover
+\DeclareOption{nocover}{\thesis@covertrue}
+\DeclareOption{cover}{\thesis@coverfalse}
+
+\ExecuteOptions{12pt,oneside,final,monochrome,lot,lof,nocover}
 \ProcessOptions
 %    \end{macrocode}
 % The file loads the following packages: \begin{itemize}
@@ -96,30 +115,45 @@
   \setcounter{page}{1}
   \pagenumbering{roman}}
 %    \end{macrocode}
+% \begin{macro}{\thesis@blocks@clear}
+% The |\thesis@blocks@clear| private macro clears the current page
+% along with the next left-handed (even-numbered) page, when
+% double-sided typesetting is enabled.
+% \end{macro}\begin{macrocode}
+\def\thesis@blocks@clear{%
+  \ifthesis@twoside%
+    \clearpage%
+    \thispagestyle{empty}%
+    \cleardoublepage%
+  \else%
+    \newpage%
+  \fi
+}
+%    \end{macrocode}
 % \begin{macro}{\thesis@blocks@cover}
 % The |\thesis@blocks@cover| private macro typesets the thesis
 % cover.
 % \end{macro}\begin{macrocode}
 \def\thesis@blocks@cover{%
-  \ifthesis@twoside\@twosidefalse\fi % Temporarily disable twoside
-  \begin{alwayssingle}
-    \thispagestyle{empty}
-    \begin{center}
-    {\sc\thesis@universityName\\\thesis@facultyName}
-    \vskip 1.4em
-    \includegraphics[width=40mm]{\thesis@logopath\thesis@logo}\\[0.4in]
-    \let\footnotesize\small
-    \let\footnoterule\relax{}
-    {\titlefont\bf\thesis@TeXtitle\par\vfil}\vskip 0.8in
-    {\sc \thesis@typeName}\\[0.3in]
-    {\Large\bf\thesis@author}
-    \par\vfill
-    {\large\thesis@place, \thesis@year}
-    \end{center}
-  \end{alwayssingle}
-  \newpage
-  \ifthesis@twoside\@twosidetrue\fi % Re-enable twoside
-  }
+  \ifthesis@cover\else
+    \ifthesis@twoside\@twosidefalse\fi % Temporarily disable twoside
+    \begin{alwayssingle}
+      \thispagestyle{empty}
+      \begin{center}
+      {\sc\thesis@universityName\\\thesis@facultyName}
+      \vskip 1.4em
+      \includegraphics[width=40mm]{\thesis@logopath\thesis@logo}\\[0.4in]
+      \let\footnotesize\small
+      \let\footnoterule\relax{}
+      {\titlefont\bf\thesis@TeXtitle\par\vfil}\vskip 0.8in
+      {\sc \thesis@typeName}\\[0.3in]
+      {\Large\bf\thesis@author}
+      \par\vfill
+      {\large\thesis@place, \thesis@year}
+      \end{center}
+    \end{alwayssingle}
+    \ifthesis@twoside\@twosidetrue\fi % Re-enable twoside
+  \fi}
 %    \end{macrocode}
 % \begin{macro}{\thesis@blocks@titlePage}
 % The |\thesis@blocks@titlePage| private macro typesets the thesis
@@ -129,7 +163,7 @@
 % |\thesis@logopath|.
 % \end{macro}\begin{macrocode}
 \def\thesis@blocks@titlePage{%
-  \ifthesis@twoside\@twosidefalse\fi % Temporarily disable twoside
+  \thesis@blocks@clear
   \begin{alwayssingle}
     \thispagestyle{empty}
     \begin{center}
@@ -145,10 +179,19 @@
     \par\vfill
     {\large\thesis@place, \thesis@year}
     \end{center}
-  \end{alwayssingle}
-  \newpage
-  \ifthesis@twoside\@twosidetrue\fi % Re-enable twoside
-  }
+  \end{alwayssingle}}
+%    \end{macrocode}
+% \begin{macro}{\thesis@blocks@tables}
+% The |\thesis@blocks@tables| private macro typesets the table of
+% contents and optionally the |\listoftables| and the
+% |\listoffigures|.
+% \end{macro}\begin{macrocode}
+\def\thesis@blocks@tables{%
+  \tableofcontents%
+  \thesis@blocks@lot%
+  \thesis@blocks@lof%
+  \newpage%
+}
 %    \end{macrocode}
 % \begin{macro}{\thesis@blocks@declaration}
 % The |\thesis@blocks@declaration| private macro typesets the
@@ -230,6 +273,19 @@
     \newpage%
   \fi}
 %    \end{macrocode}
+% \begin{macro}{\thesis@blocks@assignment}
+% The |\thesis@blocks@assignment| private macro typesets a blank
+% page to be replaced with the official thesis assignment.
+% \end{macro}\begin{macrocode}
+\def\thesis@blocks@assignment{%
+  \thesis@blocks@clear
+  \begin{alwayssingle}%
+    \thispagestyle{empty}
+    \addtocounter{page}{-\ifthesis@twoside2\else1\fi}
+    \noindent\textit{\thesis@placeholders@assignment}%
+  \end{alwayssingle}%
+  \newpage}
+%    \end{macrocode}
 % The file defines several blocks to be used in the redefinitions
 % of the |\thesis@preamble| and |\thesis@postable| private macros
 % by the subsequently loaded style files.
@@ -239,13 +295,7 @@
 % of the main matter of the thesis.
 % \end{macro}\begin{macrocode}
 \def\thesis@blocks@mainMatter{%
-  \if@twoside
-    \clearpage
-    \thispagestyle{empty}
-    \cleardoublepage
-  \else
-    \clearpage
-  \fi
+  \thesis@blocks@clear
   \setcounter{page}{1}
   \pagenumbering{arabic}
   \pagestyle{thesisheadings}
