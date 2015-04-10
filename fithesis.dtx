@@ -300,18 +300,21 @@
   \fi}
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{\thesis@author}
+% \begin{macro}{\thesis@author}\begin{macro}{\thesis@authorEn}
 % \subsubsection{The \texttt{author} key}
 % The \marg{\texttt{author}=name} pair sets the author's full
 % name to \textit{name}. The \textit{name} is stored within the
-% private |\thesis@author|
-% macro, whose implicit value is |\thesis@placeholders@author|.
+% private |\thesis@author| and |\thesis@authorEn| macros, whose
+% implicit value is |\thesis@placeholders@author| and
+% |\thesis@placeholders@authorEn|, respectively.
 %    \begin{macrocode}
 \def\thesis@author{\thesis@placeholders@author}
+\def\thesis@authorEn{\thesis@placeholders@authorEn}
 \define@key{thesis}{author}{%
-  \def\thesis@author{#1}}
+  \def\thesis@author{#1}%
+  \def\thesis@authorEn{#1}}
 %    \end{macrocode}
-% \end{macro}
+% \end{macro}\end{macro}
 % \begin{macro}{\thesis@type}
 % \subsubsection{The \texttt{type} key}
 % The \marg{\texttt{type}=type} pair sets the type of the thesis
@@ -398,6 +401,19 @@
   \def\thesis@department{#1}}
 %    \end{macrocode}
 % \end{macro}
+% \begin{macro}{\thesis@departmentEn}
+% \subsubsection{The \texttt{departmentEn} key}
+% The \marg{\texttt{departmentEn}=name} pair sets the English
+% name of the department, at which the thesis is being written, to
+% \textit{name}. The \textit{name} is stored within the private
+% |\thesis@departmentEn| macro, whose implicit value is
+% |\thesis@placeholders@departmentEn|.
+%    \begin{macrocode}
+\def\thesis@departmentEn{\thesis@placeholders@departmentEn}
+\define@key{thesis}{departmentEn}{%
+  \def\thesis@departmentEn{#1}}
+%    \end{macrocode}
+% \end{macro}
 % \begin{macro}{\thesis@programme}
 % \subsubsection{The \texttt{programme} key}
 % The \marg{\texttt{programme}=name} pair sets the name of the
@@ -408,6 +424,43 @@
 \def\thesis@programme{\thesis@placeholders@programme}
 \define@key{thesis}{programme}{%
   \def\thesis@programme{#1}}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\thesis@programmeEn}
+% \subsubsection{The \texttt{programmeEn} key}
+% The \marg{\texttt{programmeEn}=name} pair sets the English name
+% of the author's study programme to \textit{name}. The
+% \textit{name} is stored within the private |\thesis@programmeEn|
+% macro, whose implicit value is
+% |\thesis@placeholders@programmeEn|.
+%    \begin{macrocode}
+\def\thesis@programmeEn{\thesis@placeholders@programmeEn}
+\define@key{thesis}{programmeEn}{%
+  \def\thesis@programmeEn{#1}}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\thesis@field}
+% \subsubsection{The \texttt{field} key}
+% The \marg{\texttt{field}=name} pair sets the name of the
+% author's field of stufy to \textit{name}. The \textit{name}
+% is stored within the private |\thesis@field| macro, whose
+% implicit value is |\thesis@placeholders@field|.
+%    \begin{macrocode}
+\def\thesis@field{\thesis@placeholders@field}
+\define@key{thesis}{field}{%
+  \def\thesis@field{#1}}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\thesis@fieldEn}
+% \subsubsection{The \texttt{fieldEn} key}
+% The \marg{\texttt{fieldEn}=name} pair sets the English name of
+% the author's field of stufy to \textit{name}. The \textit{name}
+% is stored within the private |\thesis@fieldEn| macro, whose
+% implicit value is |\thesis@placeholders@fieldEn|.
+%    \begin{macrocode}
+\def\thesis@fieldEn{\thesis@placeholders@fieldEn}
+\define@key{thesis}{fieldEn}{%
+  \def\thesis@fieldEn{#1}}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\thesis@logo}
@@ -498,18 +551,67 @@
   \fi}
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{\thesis@year}
-% \subsubsection{The \texttt{year} key}
-% The \marg{\texttt{year}=year} pair sets the year of the thesis
-% defence to \textit{year}. The \textit{year} is stored witin the
-% private |\thesis@year| macro, whose implicit value is
-% |\the\year|.
+% \subsubsection{The \texttt{date} key}
+% The \marg{\texttt{date}=date} pair sets the date of the thesis
+% defence to \textit{date}, where \textit{date} is a string
+% in the \texttt{YYYY/MM/DD} format, where \texttt{YYYY} stands
+% for full year, \texttt{MM} stands for month and \texttt{DD}
+% stands for day. The \textit{date} is parsed and stored using
+% the \DescribeMacro{\thesis@parseDate}|\thesis@parseDate| private
+% macro within the following private macros:
+% \begin{itemize}
+%   \item\DescribeMacro{\thesis@date}|\thesis@date| -- The whole
+%     date
+%   \item\DescribeMacro{\thesis@year}|\thesis@year| -- The year
+%   \item\DescribeMacro{\thesis@month}|\thesis@month| -- The month
+%   \item\DescribeMacro{\thesis@day}|\thesis@day| -- The day of
+%     month
+%   \item\DescribeMacro{\thesis@season}|\thesis@season| -- Expands
+%     to either:
+%     \begin{itemize}
+%       \item|\thesis@winter| if \texttt{MM} $<7$.
+%       \item|\thesis@summer| if \texttt{MM} $\geq7$.
+%     \end{itemize}
+%   \item\DescribeMacro{\thesis@academicYear}|\thesis@academicYear|
+%     -- The academic year of the given semester:
+%     \begin{itemize}
+%       \item\texttt{YYYY/YYYY}$+1$ in case of a summer semester
+%       \item\texttt{YYYY}$-1$\texttt{/YYYY} in case of a winter
+%            semester
+%     \end{itemize}
+% \end{itemize}
+% To set up the default values, the |\thesis@parseDate| macro is
+% called with the fully expanded |\the\year/\the\month/\the\day|
+% string.
 %    \begin{macrocode}
-\def\thesis@year{\the\year}
-\define@key{thesis}{year}{%
-  \def\thesis@year{#1}}
+\def\thesis@parseDate#1/#2/#3|{{
+  % Basic info
+  \gdef\thesis@date{#1/#2/#3}%
+  \gdef\thesis@year{#1}%
+  \gdef\thesis@month{#2}%
+  \gdef\thesis@day{#3}%
+  
+  % Season and academic year
+  \newcount\@year \expandafter\@year \thesis@year \relax%
+  \newcount\@month\expandafter\@month\thesis@month\relax%
+  \ifnum\@month<7%
+    \gdef\thesis@season{\thesis@winter}%
+    \advance\@year-1\edef\@yearA{\the\@year}%
+    \advance\@year 1\edef\@yearB{\the\@year}%
+  \else
+    \gdef\thesis@season{\thesis@summer}%
+                    \edef\@yearA{\the\@year}%
+    \advance\@year 1\edef\@yearB{\the\@year}%
+  \fi
+  \global\edef\thesis@academicYear{\@yearA/\@yearB}}}
+
+\edef\thesis@date{\the\year/\the\month/\the\day}
+\expandafter\thesis@parseDate\thesis@date|
+
+\define@key{thesis}{date}{{%
+  \edef\@date{#1}%
+  \expandafter\thesis@parseDate\@date|}}
 %    \end{macrocode}
-% \end{macro}
 % \begin{macro}{\thesis@place}
 % \subsubsection{The \texttt{place} key}
 % The \marg{\texttt{place}=place} pair sets the location of the
@@ -555,11 +657,25 @@
 % The \marg{\texttt{titleEn}=title} pair sets the English title of
 % the thesis to \textit{title}. The \textit{title} is stored within
 % the private |\thesis@titleEn| macro, whose implicit value is
-% |\undefined|.
+% |\thesis@placeholders@|\discretionary{}{}{}|titleEn|.
 %    \begin{macrocode}
-\let\thesis@titleEn\undefined
-\define@key{thesis}{titleen}{%
+\def\thesis@titleEn{\thesis@placeholders@titleEn}
+\define@key{thesis}{titleEn}{%
   \def\thesis@titleEn{#1}}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\thesis@TeXtitleEn}
+% \subsubsection{The \texttt{TeXtitleEn} key}
+% The \marg{\texttt{TeXtitleEn}=title} pair sets the English \TeX\ 
+% title of the thesis to \textit{title}. The \textit{title} is
+% used, when typesetting the title, whereas |\thesis@titleEn| is a
+% plain textA. The \textit{title} is stored within the private
+% |\thesis@TeXtitleEn| macro, whose implicit value is
+% |\thesis@titleEn|.
+%    \begin{macrocode}
+\def\thesis@TeXtitleEn{\thesis@titleEn}
+\define@key{thesis}{TeXtitleEn}{%
+  \def\thesis@TeXtitleEn{#1}}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\thesis@keywords}
@@ -579,9 +695,9 @@
 % The \marg{\texttt{keywordsEn}=list} pair sets the English
 % keywords of the thesis to the comma-delimited \textit{list}. The
 % \textit{list} is stored within the private |\thesis@keywordsEn|
-% macro, whose implicit value is |\undefined|.
+% macro, whose implicit value is |\thesis@placeholders@keywordsEn|.
 %    \begin{macrocode}
-\let\thesis@keywordsEn\undefined
+\def\thesis@keywordsEn{\thesis@placeholders@keywordsEn}
 \define@key{thesis}{keywordsEn}{%
   \def\thesis@keywordsEn{#1}}
 %    \end{macrocode}
@@ -603,25 +719,28 @@
 % The \marg{\texttt{abstractEn}=text} pair sets the English
 % abstract of the thesis to \textit{text}. The \textit{text}
 % is stored within the private |\thesis@abstractEn| macro,
-% whose implicit value is |\undefined|.
+% whose implicit value is |\thesis@placeholders@abstractEn|.
 %    \begin{macrocode}
-\let\thesis@abstractEn\undefined
+\def\thesis@abstractEn{\thesis@placeholders@abstractEn}
 \define@key{thesis}{abstractEn}{%
   \def\thesis@abstractEn{#1}}
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{\thesis@advisor}
+% \begin{macro}{\thesis@advisor}\begin{macro}{\thesis@advisorEn}
 % \subsubsection{The \texttt{advisor} key}
 % The \marg{\texttt{advisor}=name} pair sets the thesis advisor's
 % full name to \textit{name}. The \textit{name} is stored within
-% the private |\thesis@advisor| macro, whose implicit value is
-% |\thesis@placeholders@advisor|.
+% the private |\thesis@advisor| and |\thesis@advisorEn| macro,
+% whose implicit values are |\thesis@placeholders@advisor| and
+% |\thesis@placeholders@advisorEn|, respectively.
 %    \begin{macrocode}
 \def\thesis@advisor{\thesis@placeholders@advisor}
+\def\thesis@advisorEn{\thesis@placeholders@advisorEn}
 \define@key{thesis}{advisor}{%
-  \def\thesis@advisor{#1}}
+  \def\thesis@advisor{#1}%
+  \def\thesis@advisorEn{#1}}
 %    \end{macrocode}
-% \end{macro}
+% \end{macro}\end{macro}
 % \begin{macro}{\thesis@thanks}
 % \subsubsection{The \texttt{thanks} key}
 % The \marg{\texttt{thanks}=text} pair sets the acknowledgement
@@ -632,6 +751,20 @@
 \def\thesis@thanks{\thesis@placeholders@thanks}
 \define@key{thesis}{thanks}{%
   \long\def\thesis@thanks{#1}}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\thesis@assignmentPDF}
+% \subsubsection{The \texttt{assignment} key}
+% The \marg{\texttt{assignment}=path} pair sets the path to the pdf
+% file containing the thesis assignment to \textit{path}. If the
+% \textit{path} points to an existing file, it is stored within the
+% private |\thesis@assignmentPDF| macro, whose implicit value is
+% |\undefined|. When defined, the PDF file is injected into the
+% resulting document instead of the placeholder
+% |\thesis@assignment| string.
+%    \begin{macrocode}
+\define@key{thesis}{assignment}{%
+  \thesis@exists{#1}{\def\thesis@assignmentPDF{#1}}}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\ifthesis@auto}
@@ -687,7 +820,10 @@
 % input in sequence, provided they exist:\begin{enumerate}
 %   \item|\thesis@localepath base.def|
 %   \item|\thesis@localepath\thesis@locale.def|
+%   \item|\thesis@localepath\thesis@university/base.def|
 %   \item|\thesis@localepath\thesis@university/\thesis@locale.def|
+%   \item|\thesis@localepath\thesis@university/\thesis@faculty/|^^A
+%     |base.def|
 %   \item|\thesis@localepath\thesis@university/\thesis@faculty/|^^A
 %     |\thesis@locale.def|
 % \end{enumerate}If inheritance is disabled for locale files,
@@ -700,7 +836,11 @@
       \thesis@input{\thesis@localepath\thesis@locale.def}%
       \ifthesis@locale@inheritance
         \thesis@input{\thesis@localepath\thesis@university/%
+          base.def}% 
+        \thesis@input{\thesis@localepath\thesis@university/%
           \thesis@locale.def}% 
+        \thesis@input{\thesis@localepath\thesis@university/%
+          \thesis@faculty/base.def}%
         \thesis@input{\thesis@localepath\thesis@university/%
           \thesis@faculty/\thesis@locale.def}%
       \fi
@@ -772,11 +912,15 @@
 % Lastly, a \BibTeX\ file named |\jobname.bib| containing the
 % bibliographical entry for the thesis is scheduled to be
 % generated at the end of the document in the working directory
-% using the |\thesis@bibgen| macro. The document needs to be
-% typeset at least twice for the style files to be able to use the
-% file.
+% using the |\thesis@bibgen| macro and the
+% \DescribeMacro{\thesis@pages}|\thesis@pages| private macro
+% definition containing the length of the document is scheduled to
+% be included in the auxiliary file.
 %    \begin{macrocode}
       \AtEndDocument{%
+        % Define \thesis@pages for the next run
+        \write\@auxout{\noexpand\gdef\noexpand%
+          \thesis@pages{\thepage}}
         % Generate the BibTeX file
         \newoutputstream{bib}%
         \openoutputfile{\jobname.bib}{bib}%
@@ -867,6 +1011,13 @@
 \def\thesis@upper#1{%
   \edef\thesis@expanded{\csname thesis@#1\endcsname}%
   \expandafter\uppercase\expandafter{\thesis@expanded}}
+%    \end{macrocode}
+% The \DescribeMacro{\thesis@pages}|\thesis@pages| macro is defined
+% at the beginning of the second \LaTeX\ run as a part of the main
+% routine (see section \ref{sec:thesis@load}). During the first
+% run, the macro expands to \texttt{??}.
+%    \begin{macrocode}
+\ifx\thesis@pages\undefined\def\thesis@pages{??}\fi
 %    \end{macrocode}
 % \iffalse
 %</class>
@@ -968,11 +1119,26 @@
 %   \item\DescribeMacro{\thesis@typeName}
 %                      |\thesis@typeName| -- The name of the
 %                      thesis type
+%   \item\DescribeMacro{\thesis@assignment}
+%                      |\thesis@assignment| -- Instructions to
+%                      replace the current page with the official
+%                      thesis assignment
+%   \item\DescribeMacro{\thesis@winter}
+%                      |\thesis@winter| -- The name of the winter
+%                      semester
+%   \item\DescribeMacro{\thesis@summer}
+%                      |\thesis@summer| -- The name of the summer
+%                      semester
+%   \item\DescribeMacro{\thesis@semester}
+%                      |\thesis@semester| -- The full name of the
+%                      current semester
 % \end{itemize}
+% English versions of these macros must also be defined with the
+% \texttt{En} suffix. It's preferrable for these to be defined in
+% \texttt{base.def} files, which are automatically loaded, if
+% inheritance is enabled for locale files.
 %
 % \def\file#1{\paragraph{The \texttt{#1} file}}
-% \subsubsection{The base locale file}
-% \input{locale/base.dtx}
 % \subsubsection{English locale files}
 % \input{locale/english.dtx}
 % \subsubsection{Czech locale files}

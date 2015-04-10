@@ -4,7 +4,7 @@ SUBMAKEFILES=logo/mu logo/mu/color locale style style/mu
 CLASSFILES=fithesis.cls fithesis[23].cls
 STYLEFILES=style/*.sty style/*/*.sty style/*/*.clo
 LOGOFILES=logo/*/*.eps logo/*/color/*.eps logo/*/*.pdf logo/*/color/*.pdf
-LOCALEFILES=locale/*.tex locale/*/*.tex locale/*/*/*.tex
+LOCALEFILES=locale/*.def locale/*/*.def locale/*/*/*.def
 DTXFILES=*.dtx locale/*.dtx style/*.dtx style/*/*.dtx
 RESOURCES=$(STYLEFILES) $(LOGOFILES) $(LOCALEFILES)
 AUXFILES=example.aux example.log example.out example.toc example.lot example.lof example.bib fithesis.aux fithesis.log fithesis.toc fithesis.ind fithesis.idx fithesis.out fithesis.ilg fithesis.gls fithesis.glo fithesis.hd
@@ -37,7 +37,7 @@ fithesis.pdf: $(DTXFILES)
 	pdflatex $<
 
 # This target typesets the example.
-example.pdf: example.tex fithesis3.cls
+example.pdf: example.tex fithesis3.cls $(RESOURCES)
 	pdflatex $<
 	pdflatex $<
 

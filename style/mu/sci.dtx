@@ -1,6 +1,4 @@
-% \iffalse
-%<*base>
-% \fi\file{style/mu/sci.sty}
+% \file{style/mu/sci.sty}
 % This is the style file for the theses written at the Faculty of
 % Science at the Masaryk University in Brno. It has been
 % prepared in accordance with the formal requirements published at
@@ -10,35 +8,166 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{fithesis3/style/mu/sci}[2015/04/09]
 %    \end{macrocode}
-% Yet to be documented.
+% \begin{macro}{\thesis@blocks@bibEntry}
+% The |\thesis@blocks@bibEntry| private macro typesets a
+% bibliographical entry. Along with the macros required by the
+% locale file interface, the locale files need to define the
+% following private macros:
+% \begin{itemize}
+%   \item\DescribeMacro{\thesis@bibTitle}|\thesis@bibTitle| --
+%     The title of the |\thesis@blocks@bibtry| block
+%   \item\DescribeMacro{\thesis@bib@author}|\thesis@bib@author|
+%     -- The label of the author name entry
+%   \item\DescribeMacro{\thesis@bib@title}|\thesis@bib@title|
+%     -- The label of the title name entry
+%   \item\DescribeMacro{\thesis@bib@programme}
+%     |\thesis@bib@programme| -- The label of the programme name
+%     entry
+%   \item\DescribeMacro{\thesis@bib@field}|\thesis@bib@field|
+%     -- The label of the field name entry
+%   \item\DescribeMacro{\thesis@bib@advisor}
+%     |\thesis@bib@advisor| -- The label of the advisor name
+%     entry
+%   \item\DescribeMacro{\thesis@bib@academicYear}
+%     |\thesis@bib@academicYear| -- The label of the academic
+%     year entry
+%   \item\DescribeMacro{\thesis@bib@pages}
+%     |\thesis@bib@pages| -- The label of the number of pages
+%     entry
+%   \item\DescribeMacro{\thesis@bib@keywords}
+%     |\thesis@bib@keywords| -- The label of the keywords entry
+% \end{itemize}
+%    \begin{macrocode}
+\def\thesis@blocks@bibEntry{%
+  \thesis@blocks@clear
+  \begin{alwayssingle}
+    \chapter*{\thesis@bibTitle}
+    {\renewcommand{\arraystretch}{2}
+    \begin{tabular}{ll}
+      \textbf{\thesis@bib@author:} & \vtop{%
+        \hbox{\strut\thesis@author}%
+        \hbox{\strut\thesis@facultyName, \thesis@universityName}%
+        \hbox{\strut\thesis@department}} \\
+      \textbf{\thesis@bib@title:}
+        & \thesis@title \\
+      \textbf{\thesis@bib@programme:}
+        & \thesis@programme \\
+      \textbf{\thesis@bib@field:}
+        & \thesis@field \\
+      \textbf{\thesis@bib@advisor:}
+        & \thesis@advisor \\
+      \textbf{\thesis@bib@academicYear:}
+        & \thesis@academicYear \\
+      \textbf{\thesis@bib@pages:}
+        & \thesis@pages \\
+      \textbf{\thesis@bib@keywords:}
+        & \thesis@keywords \\
+    \end{tabular}}
+  \end{alwayssingle}
+  \thesis@blocks@clear}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\thesis@blocks@bibEntryEn}
+% The |\thesis@blocks@bibEntryEn| private macro typesets a
+% bibliographical entry in English. Along with the macros
+% required by the locale file interface, the locale files
+% need to define the following private macros:
+% \begin{itemize}
+%   \item\DescribeMacro{\thesis@bibTitleEn}|\thesis@bibTitleEn| --
+%     The title of the |\thesis@blocks@bibEntryEn| block
+%   \item\DescribeMacro{\thesis@bib@authorEn}|\thesis@bib@authorEn|
+%     -- The label of the author name entry
+%   \item\DescribeMacro{\thesis@bib@titleEn}|\thesis@bib@titleEn|
+%     -- The label of the title name entry
+%   \item\DescribeMacro{\thesis@bib@programmeEn}
+%     |\thesis@bib@programmeEn| -- The label of the programme name
+%     entry
+%   \item\DescribeMacro{\thesis@bib@fieldEn}|\thesis@bib@fieldEn|
+%     -- The label of the field name entry
+%   \item\DescribeMacro{\thesis@bib@advisorEn}
+%     |\thesis@bib@advisorEn| -- The label of the advisor name
+%     entry
+%   \item\DescribeMacro{\thesis@bib@academicYearEn}
+%     |\thesis@bib@academicYearEn| -- The label of the academic
+%     year entry
+%   \item\DescribeMacro{\thesis@bib@pagesEn}
+%     |\thesis@bib@pagesEn| -- The label of the number of pages
+%     entry
+%   \item\DescribeMacro{\thesis@bib@keywordsEn}
+%     |\thesis@bib@keywordsEn| -- The label of the keywords entry
+% \end{itemize}
+% \begin{itemize}
+%   \item\DescribeMacro{\thesis@bibTitle}|\thesis@bibTitle| --
+%     The title of the |\thesis@blocks@bibtry| block
+%   \item\DescribeMacro{\thesis@bib@author}|\thesis@bib@author|
+%     -- The label of the author name entry
+%   \item\DescribeMacro{\thesis@bib@title}|\thesis@bib@title|
+%     -- The label of the title name entry
+%   \item\DescribeMacro{\thesis@bib@programme}
+%     |\thesis@bib@programme| -- The label of the programme name
+%     entry
+%   \item\DescribeMacro{\thesis@bib@field}|\thesis@bib@field|
+%     -- The label of the field name entry
+%   \item\DescribeMacro{\thesis@bib@advisor}
+%     |\thesis@bib@advisor| -- The label of the advisor name
+%     entry
+%   \item\DescribeMacro{\thesis@bib@academicYear}
+%     |\thesis@bib@academicYear| -- The label of the academic
+%     year entry
+%   \item\DescribeMacro{\thesis@bib@pages}
+%     |\thesis@bib@pages| -- The label of the number of pages
+%     entry
+%   \item\DescribeMacro{\thesis@bib@keywords}
+%     |\thesis@bib@keywords| -- The label of the keywords entry
+% \end{itemize}
+%    \begin{macrocode}
+\def\thesis@blocks@bibEntryEn{%
+  \thesis@blocks@clear
+  \begin{alwayssingle}
+    \chapter*{\thesis@bibTitleEn}
+    {\renewcommand{\arraystretch}{2}
+    \begin{tabular}{ll}
+      \textbf{\thesis@bib@authorEn:} & \vtop{%
+        \hbox{\strut\thesis@authorEn}%
+        \hbox{\strut\thesis@facultyNameEn, \thesis@universityNameEn}%
+        \hbox{\strut\thesis@departmentEn}} \\
+      \textbf{\thesis@bib@titleEn:}
+        & \thesis@titleEn \\
+      \textbf{\thesis@bib@programmeEn:}
+        & \thesis@programmeEn \\
+      \textbf{\thesis@bib@fieldEn:}
+        & \thesis@fieldEn \\
+      \textbf{\thesis@bib@advisorEn:}
+        & \thesis@advisorEn \\
+      \textbf{\thesis@bib@academicYearEn:}
+        & \thesis@academicYear \\
+      \textbf{\thesis@bib@pagesEn:}
+        & \thesis@pages \\
+      \textbf{\thesis@bib@keywords:}
+        & \thesis@keywordsEn \\
+    \end{tabular}}
+  \end{alwayssingle}
+  \thesis@blocks@clear}
+%    \end{macrocode}
+% \end{macro}
+% The style file defines the autolayout preamble as the cover and
+% the title page followed by the bibliographic entry, the abstract
+% assignment, acknowledgement, table of contents and list of tables
+% and figures as a part of the front matter. All of the blocks 
+% beside |\thesis@blocks@bibEntry| and |\thesis@blocks@bibEntryEn|
+% are defined in the \texttt{style/mu/base.tex} file.
 %    \begin{macrocode}
 \def\thesis@preamble{%
   \thesis@blocks@cover%
   \thesis@blocks@titlePage%
   \thesis@blocks@frontMatter%
-    %\thesis@blocks@bibEntry   % TODO
-    %\thesis@blocks@bibEntryEn % TODO
+    \thesis@blocks@bibEntry%
+    \thesis@blocks@bibEntryEn%
     \thesis@blocks@abstract%
     \thesis@blocks@abstractEn%
     \thesis@blocks@assignment%
     \thesis@blocks@thanks%
     \thesis@blocks@declaration%
     \thesis@blocks@tables%
-  \thesis@blocks@mainMatter%
-}
+  \thesis@blocks@mainMatter}
 %    \end{macrocode}
-% \iffalse
-%</base>
-%<*bbx>
-% \fi\file{style/mu/sci.bbx}
-% This style file defines the \textsc{Bib}\LaTeX\ style file used
-% to typeset the |\thesis@blocks@bibEntry| and
-% |\thesis@blocks@bibEntryEn| blocks based on the data from the
-% \texttt{\jobname.bib} file generated as a part of the main
-% routine (see section \ref{sec:thesis@load}).
-%    \begin{macrocode}
-\ProvidesFile{sci.bbx}[2015/04/10]
-%    \end{macrocode}
-% \iffalse
-%</bbx>
-% \fi

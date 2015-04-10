@@ -1,33 +1,39 @@
-% \file{locale/english.def}
-% This is the base file of the English locale. It defines all the
-% private macros mandated by the locale file interface.
+% \file{locale/base.def}
+% This is the base file of the English locale to be shared with
+% non-English locale files. It contains definitions of English
+% versions of all strings as mandated by the locale file interface.
+%
 % \iffalse
-%<*base>
+%<*base-shared>
 % \fi\begin{macrocode}
-\ProvidesFile{english.def}[2015/04/08]
+\ProvidesFile{fithesis3/locale/base.def}[2015/04/10]
 
 % Placeholders
-\def\thesis@placeholders@title{Thesis Title}
-\def\thesis@placeholders@keywords{keyword1, keyword2, ...}
-\def\thesis@placeholders@abstract{Abstract text}
-\def\thesis@placeholders@author{Author's name}
-\def\thesis@universityName{University name}
-\def\thesis@facultyName{Faculty name}
-\def\thesis@placeholders@advisor{Advisor's name}
-\def\thesis@placeholders@department{Department name}
-\def\thesis@placeholders@programme{Study programme name}
-\def\thesis@placeholders@thanks{Acknowledgement text ...}
-\def\thesis@placeholders@assignment{Replace this page with a copy
+\def\thesis@placeholders@titleEn{Thesis Title}
+\def\thesis@placeholders@keywordsEn{keyword1, keyword2, ...}
+\def\thesis@placeholders@abstractEn{Abstract text}
+\def\thesis@placeholders@authorEn{Author's name}
+\def\thesis@placeholders@universityNameEn{University name}
+\def\thesis@facultyNameEn{Faculty name}
+\def\thesis@placeholders@advisorEn{Advisor's name}
+\def\thesis@placeholders@departmentEn{Department name}
+\def\thesis@placeholders@programmeEn{Study programme name}
+\def\thesis@placeholders@fieldEn{The field of study}
+\def\thesis@placeholders@thanksEn{Acknowledgement text ...}
+\def\thesis@assignmentEn{Replace this page with a copy
   of the official signed thesis assignment.}
-\def\thesis@declaration{Declaration text ...}
+\def\thesis@declarationEn{Declaration text ...}
 
 % Miscellaneous
-\def\thesis@advisorTitle{Advisor}
-\def\thesis@abstractTitle{Abstract}
-\def\thesis@keywordsTitle{Keywords}
-\def\thesis@thanksTitle{Acknowledgement}
-\def\thesis@declarationTitle{Declaration}
-\def\thesis@typeName{%
+\def\thesis@advisorTitleEn{Advisor}
+\def\thesis@abstractTitleEn{Abstract}
+\def\thesis@keywordsTitleEn{Keywords}
+\def\thesis@thanksTitleEn{Acknowledgement}
+\def\thesis@declarationTitleEn{Declaration}
+\def\thesis@winterEn{Winter}
+\def\thesis@summerEn{Summer}
+\def\thesis@semesterEn{\thesis@season\ \thesis@year}
+\def\thesis@typeNameEn{%
   \ifx\thesis@type\thesis@bachelors%
     Bachelor's Thesis%
   \else\ifx\thesis@type\thesis@masters%
@@ -40,24 +46,85 @@
     Unknown thesis type%
   \fi\fi\fi\fi}
 %    \end{macrocode}\iffalse
-%</base>
-% \fi\file{locale/mu/english.def}
-% This is the English locale file specific to the Masaryk
-% University in Brno. It replaces the |\thesis@universityName|
-% placeholder with the correct value and defines the declaration
-% text.
+%</base-shared>
+% \fi\file{locale/english.def}
+% This is the base file of the English locale. It defines thr rest
+% of the private macros mandated by the locale file interface. 
 % \iffalse
-%<*mu>
+%<*base>
 % \fi\begin{macrocode}
-\ProvidesFile{english.def}[2015/04/08]
-\def\thesis@universityName{Masaryk University}
-\def\thesis@declaration{%
+\ProvidesFile{fithesis3/locale/english.def}[2015/04/10]
+
+% Placeholders
+\let\thesis@placeholders@title=\thesis@placeholders@titleEn
+\let\thesis@placeholders@keywords=\thesis@placeholders@keywordsEn
+\let\thesis@placeholders@abstract=\thesis@placeholders@abstractEn
+\let\thesis@placeholders@author=\thesis@placeholders@authorEn
+\let\thesis@universityName=\thesis@placeholders@universityNameEn
+\let\thesis@facultyName=\thesis@facultyNameEn
+\let\thesis@placeholders@advisor=\thesis@placeholders@advisorEn
+\let\thesis@placeholders@department=\thesis@placeholders@departmentEn
+\let\thesis@placeholders@programme=\thesis@placeholders@programmeEn
+\let\thesis@placeholders@field=\thesis@placeholders@fieldEn
+\let\thesis@placeholders@thanks=\thesis@placeholders@thanksEn
+\let\thesis@assignment=\thesis@assignmentEn
+\let\thesis@declaration=\thesis@declarationEn
+
+% Miscellaneous
+\let\thesis@advisorTitle=\thesis@advisorTitleEn
+\let\thesis@abstractTitle=\thesis@abstractEnTitle
+\let\thesis@keywordsTitle=\thesis@keywordsEnTitle
+\let\thesis@thanksTitle=\thesis@thanksTitleEn
+\let\thesis@declarationTitle=\thesis@declarationTitleEn
+\let\thesis@winter=\thesis@winterEn
+\let\thesis@summer=\thesis@summerEn
+\let\thesis@semester=\thesis@semesterEn
+\let\thesis@typeName=\thesis@typeNameEn
+%    \end{macrocode}\iffalse
+%</base>
+% \fi\file{locale/mu/base.def}
+% This is the English locale file specific to the Masaryk
+% University in Brno containing strings to be shared with
+% non-English locale files. It replaces the
+% |\thesis@universityNameEn| placeholder with the correct
+% value and defines the |\thesis@declarationEn| macro.
+% \iffalse
+%<*mu-shared>
+% \fi\begin{macrocode}
+\ProvidesFile{fithesis3/locale/mu/base.def}[2015/04/08]
+\def\thesis@universityNameEn{Masaryk University}
+\def\thesis@declarationEn{%
   Hereby I declare that this paper is my original authorial work, 
   which I have worked out by my own. All sources, references and
   literature used or excerpted during elaboration of this work are
   properly cited and listed in complete reference to the due source.}
 %    \end{macrocode}\iffalse
+%</mu-shared>
+% \fi\file{locale/mu/english.def}
+% This is the English locale file specific to the Masaryk
+% University in Brno. It replaces the
+% |\thesis@universityName| placeholder with the correct
+% value and defines the |\thesis@declaration| macro.
+% \iffalse
+%<*mu>
+% \fi\begin{macrocode}
+\ProvidesFile{fithesis3/locale/mu/english.def}[2015/04/10]
+\let\thesis@universityName=\thesis@universityNameEn
+\let\thesis@declaration=\thesis@declarationEn
+%    \end{macrocode}\iffalse
 %</mu>
+% \fi\file{locale/mu/law/base.def}
+% This is the English locale file specific to the Faculty of Law at
+% the Masaryk University in Brno containing strings to be shared
+% with non-English locale files. It replaces the
+% |\thesis@facultyNameEn| placeholder with the correct value.
+% \iffalse
+%<*mu/law-shared>
+% \fi\begin{macrocode}
+\ProvidesFile{fithesis3/locale/mu/law/base.def}[2015/04/10]
+\def\thesis@facultyNameEn{Faculty of Law}
+%    \end{macrocode}\iffalse
+%</mu/law-shared>
 % \fi\file{locale/mu/law/english.def}
 % This is the English locale file specific to the Faculty of Law at
 % the Masaryk University in Brno. It replaces the
@@ -65,10 +132,22 @@
 % \iffalse
 %<*mu/law>
 % \fi\begin{macrocode}
-\ProvidesFile{english.def}[2015/04/08]
-\def\thesis@facultyName{Faculty of Law}
+\ProvidesFile{fithesis3/locale/mu/law/english.def}[2015/04/10]
+\let\thesis@facultyName=\thesis@facultyNameEn
 %    \end{macrocode}\iffalse
 %</mu/law>
+% \fi\file{locale/mu/fsps/base.def}
+% This is the English locale file specific to the Faculty of Sports
+% at the Masaryk University in Brno containing strings to be shared
+% with non-English locale files. It replaces the
+% |\thesis@facultyNameEn| placeholder with the correct value.
+% \iffalse
+%<*mu/fsps-shared>
+% \fi\begin{macrocode}
+\ProvidesFile{fithesis3/locale/mu/fsps/base.def}[2015/04/10]
+\def\thesis@facultyNameEn{Faculty of Sports Studies}
+%    \end{macrocode}\iffalse
+%</mu/fsps-shared>
 % \fi\file{locale/mu/fsps/english.def}
 % This is the English locale file specific to the Faculty of Sports
 % Studies at the Masaryk University in Brno. It replaces the
@@ -76,10 +155,22 @@
 % \iffalse
 %<*mu/fsps>
 % \fi\begin{macrocode}
-\ProvidesFile{english.def}[2015/04/08]
-\def\thesis@facultyName{Faculty of Sports Studies}
+\ProvidesFile{fithesis3/locale/mu/fsps/english.def}[2015/04/10]
+\let\thesis@facultyName=\thesis@facultyNameEn
 %    \end{macrocode}\iffalse
 %</mu/fsps>
+% \fi\file{locale/mu/fss/base.def}
+% This is the English locale file specific to the Faculty of Social
+% Studies at the Masaryk University in Brno containing strings to
+% be shared with non-English locale files. It replaces the
+% |\thesis@facultyNameEn| placeholder with the correct value.
+% \iffalse
+%<*mu/fss-shared>
+% \fi\begin{macrocode}
+\ProvidesFile{fithesis3/locale/mu/fss/base.def}[2015/04/10]
+\def\thesis@facultyNameEn{Faculty of Social Studies}
+%    \end{macrocode}\iffalse
+%</mu/fss-shared>
 % \fi\file{locale/mu/fss/english.def}
 % This is the English locale file specific to the Faculty of Social
 % Studies at the Masaryk University in Brno. It replaces the
@@ -87,10 +178,23 @@
 % \iffalse
 %<*mu/fss>
 % \fi\begin{macrocode}
-\ProvidesFile{english.def}[2015/04/08]
-\def\thesis@facultyName{Faculty of Social Studies}
+\ProvidesFile{fithesis3/locale/mu/fss/english.def}[2015/04/08]
+\let\thesis@facultyName=\thesis@facultyNameEn
 %    \end{macrocode}\iffalse
 %</mu/fss>
+% \fi\file{locale/mu/econ/base.def}
+% This is the English locale file specific to the Faculty of
+% Economics and Administration at the Masaryk University in Brno
+% containing strings to be shared with non-English locale files.
+% It replaces the |\thesis@facultyNameEn| placeholder with the
+% correct value.
+% \iffalse
+%<*mu/econ-shared>
+% \fi\begin{macrocode}
+\ProvidesFile{fithesis3/locale/mu/econ/base.def}[2015/04/10]
+\def\thesis@facultyNameEn{Faculty of Economics and Administration}
+%    \end{macrocode}\iffalse
+%</mu/econ-shared>
 % \fi\file{locale/mu/econ/english.def}
 % This is the English locale file specific to the Faculty of
 % Economics and Administration at the Masaryk University in Brno.
@@ -99,10 +203,23 @@
 % \iffalse
 %<*mu/econ>
 % \fi\begin{macrocode}
-\ProvidesFile{english.def}[2015/04/08]
-\def\thesis@facultyName{Faculty of Economics and Administration}
+\ProvidesFile{fithesis3/locale/mu/econ/english.def}[2015/04/10]
+\let\thesis@facultyName=\thesis@facultyNameEn
 %    \end{macrocode}\iffalse
 %</mu/econ>
+% \fi\file{locale/mu/med/base.def}
+% This is the English locale file specific to the Faculty of
+% Medicine at the Masaryk University in Brno containing strings
+% to be shared with non-English locale files.
+% It replaces the |\thesis@facultyNameEn| placeholder with the
+% correct value.
+% \iffalse
+%<*mu/med-shared>
+% \fi\begin{macrocode}
+\ProvidesFile{fithesis3/locale/mu/med/base.def}[2015/04/10]
+\def\thesis@facultyNameEn{Faculty of Medicine}
+%    \end{macrocode}\iffalse
+%</mu/med-shared>
 % \fi\file{locale/mu/med/english.def}
 % This is the English locale file specific to the Faculty of
 % Medicine at the Masaryk University in Brno.
@@ -111,26 +228,54 @@
 % \iffalse
 %<*mu/med>
 % \fi\begin{macrocode}
-\ProvidesFile{english.def}[2015/04/08]
-\def\thesis@facultyName{Faculty of Medicine}
+\ProvidesFile{fithesis3/locale/mu/med/english.def}[2015/04/10]
+\let\thesis@facultyName=\thesis@facultyNameEn
 %    \end{macrocode}\iffalse
 %</mu/med>
+% \fi\file{locale/mu/fi/base.def}
+% This is the English locale file specific to the Faculty of
+% Informatics at the Masaryk University in Brno containing strings
+% to be shared with non-English locale files.
+% It replaces the |\thesis@facultyNameEn| placeholder with the
+% correct value and updates the |\thesis@placeholders@assignmentEn|
+% in accordance with the requirements of the faculty.
+% \iffalse
+%<*mu/fi-shared>
+% \fi\begin{macrocode}
+\ProvidesFile{fithesis3/locale/mu/fi/base.def}[2015/04/10]
+\def\thesis@facultyNameEn{Faculty of Informatics}
+\def\thesis@assignmentEn{Replace this page with a copy
+  of the official signed thesis assignment and the copy of the
+  Statement of an Author.}
+%    \end{macrocode}\iffalse
+%</mu/fi-shared>
 % \fi\file{locale/mu/fi/english.def}
 % This is the English locale file specific to the Faculty of
 % Informatics at the Masaryk University in Brno.
 % It replaces the |\thesis@facultyName| placeholder with the
 % correct value and updates the |\thesis@placeholders@assignment|
-% to reflect the requirements specific to the faculty.
+% in accordance with the requirements of the faculty.
 % \iffalse
 %<*mu/fi>
 % \fi\begin{macrocode}
-\ProvidesFile{english.def}[2015/04/08]
-\def\thesis@facultyName{Faculty of Informatics}
-\def\thesis@placeholders@assignment{Replace this page with a copy
-  of the official signed thesis assignment and the copy of the
-  Statement of an Author.}
+\ProvidesFile{fithesis3/locale/mu/fi/english.def}[2015/04/10]
+\let\thesis@facultyName=\thesis@facultyNameEn
+\let\thesis@assignment=\thesis@assignmentEn
 %    \end{macrocode}\iffalse
 %</mu/fi>
+% \fi\file{locale/mu/phil/base.def}
+% This is the English locale file specific to the Faculty of
+% Arts at the Masaryk University in Brno containing strings
+% to be shared with non-English locale files.
+% It replaces the |\thesis@facultyNameEn| placeholder with the
+% correct value.
+% \iffalse
+%<*mu/phil-shared>
+% \fi\begin{macrocode}
+\ProvidesFile{fithesis3/locale/mu/phil/base.def}[2015/04/10]
+\def\thesis@facultyNameEn{Faculty of Arts}
+%    \end{macrocode}\iffalse
+%</mu/phil-shared>
 % \fi\file{locale/mu/phil/english.def}
 % This is the English locale file specific to the Faculty of
 % Arts at the Masaryk University in Brno.
@@ -139,10 +284,23 @@
 % \iffalse
 %<*mu/phil>
 % \fi\begin{macrocode}
-\ProvidesFile{english.def}[2015/04/08]
-\def\thesis@facultyName{Faculty of Arts}
+\ProvidesFile{fithesis3/locale/mu/phil/english.def}[2015/04/10]
+\let\thesis@facultyName=\thesis@facultyNameEn
 %    \end{macrocode}\iffalse
 %</mu/phil>
+% \fi\file{locale/mu/ped/base.def}
+% This is the English locale file specific to the Faculty of
+% Education at the Masaryk University in Brno containing strings
+% to be shared with non-English locale files.
+% It replaces the |\thesis@facultyNameEn| placeholder with the
+% correct value.
+% \iffalse
+%<*mu/ped-shared>
+% \fi\begin{macrocode}
+\ProvidesFile{fithesis3/locale/mu/ped/english.def}[2015/04/10]
+\def\thesis@facultyNameEn{Faculty of Education}
+%    \end{macrocode}\iffalse
+%</mu/ped-shared>
 % \fi\file{locale/mu/ped/english.def}
 % This is the English locale file specific to the Faculty of
 % Education at the Masaryk University in Brno.
@@ -151,20 +309,72 @@
 % \iffalse
 %<*mu/ped>
 % \fi\begin{macrocode}
-\ProvidesFile{english.def}[2015/04/08]
-\def\thesis@facultyName{Faculty of Education}
+\ProvidesFile{fithesis3/locale/mu/ped/english.def}[2015/04/10]
+\let\thesis@facultyName=\thesis@facultyNameEn
 %    \end{macrocode}\iffalse
 %</mu/ped>
+% \fi\file{locale/mu/sci/base.def}
+% This is the English locale file specific to the Faculty of
+% Science at the Masaryk University in Brno containing strings to
+% be shared with non-English locale files.
+% It defines the private macros required by the
+% |\thesis@blocks@bibEntryEn| block defined within the
+% \texttt{style/mu/sci.sty} style file.
+% It also replaces the |\thesis@facultyNameEn| placeholder with the
+% correct value and redefines the |\thesis@advisorTitleEn| macro in
+% accordance with the formal requirements of the faculty.
+% \iffalse
+%<*mu/sci-shared>
+% \fi\begin{macrocode}
+\ProvidesFile{fithesis3/locale/mu/sci/base.def}[2015/04/10]
+
+% Bibliographic entry
+\def\thesis@bibTitleEn{Bibliographic entry}
+\def\thesis@bib@authorEn{Author}
+\def\thesis@bib@titleEn{Title of Thesis}
+\def\thesis@bib@programmeEn{Degree Programme}
+\def\thesis@bib@fieldEn{Field of Study}
+\def\thesis@bib@advisorEn{Supervisor}
+\def\thesis@bib@academicYearEn{Academic Year}
+\def\thesis@bib@pagesEn{Number of Pages}
+\let\thesis@bib@keywordsEn=\thesis@keywordsEnTitle
+
+% Placeholders
+\def\thesis@facultyNameEn{Faculty of Science}
+
+% Miscellaneous
+\let\thesis@advisorTitleEn=\thesis@bib@advisorEn
+%    \end{macrocode}\iffalse
+%</mu/sci-shared>
 % \fi\file{locale/mu/sci/english.def}
 % This is the English locale file specific to the Faculty of
 % Science at the Masaryk University in Brno.
-% It replaces the |\thesis@facultyName| placeholder with the
-% correct value.
+% It defines the private macros required by the
+% |\thesis@blocks@bibEntry| block defined within the
+% \texttt{style/mu/sci.sty} style file.
+% It also replaces the |\thesis@facultyName| placeholder with the
+% correct value and redefines the |\thesis@advisorTitle| macro in
+% accordance with the formal requirements of the faculty.
 % \iffalse
 %<*mu/sci>
 % \fi\begin{macrocode}
-\ProvidesFile{english.def}[2015/04/08]
-\def\thesis@facultyName{Faculty of Science}
+\ProvidesFile{fithesis3/locale/mu/sci/english.def}[2015/04/10]
+
+% Bibliographic entry
+\let\thesis@bib@author=\thesis@bib@authorEn
+\let\thesis@bib@title=\thesis@bib@titleEn
+\let\thesis@bib@programme=\thesis@bib@programmeEn
+\let\thesis@bib@field=\thesis@bib@fieldEn
+\let\thesis@bib@advisor=\thesis@bib@advisorEn
+\let\thesis@bib@academicYear=\thesis@bib@academicYearEn
+\let\thesis@bib@pages=\thesis@bib@pagesEn
+\let\thesis@bib@keywords=\thesis@bib@keywordsEn
+
+% Placeholders
+\let\thesis@facultyName=\thesis@facultyNameEn
+
+% Miscellaneous
+\let\thesis@advisorTitle=\thesis@advisorTitleEn
 %    \end{macrocode}\iffalse
 %</mu/sci>
 % \fi

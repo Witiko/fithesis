@@ -8,7 +8,10 @@
 % \end{macro}\iffalse
 %<*base>
 % \fi\begin{macrocode}
-\ProvidesFile{czech.def}[2015/04/08]
+\ProvidesFile{fithesis3/locale/czech.def}[2015/04/08]
+
+% Symbolický odkaz na anglický překlad
+\input{\thesis@localepath english.def}
 
 % Pomocná makra
 \def\thesis@gender@koncovka{%
@@ -24,8 +27,9 @@
 \def\thesis@placeholders@advisor{Jméno vedoucího}
 \def\thesis@placeholders@department{Název katedry}
 \def\thesis@placeholders@programme{Název studijního programu}
+\def\thesis@placeholders@field{Název studijního oboru}
 \def\thesis@placeholders@thanks{Text poděkování ...}
-\def\thesis@placeholders@assignment{Místo tohoto listu vložte kopii
+\def\thesis@assignment{Místo tohoto listu vložte kopii
   oficiálního podepsaného zadání práce.}
 \def\thesis@declaration{Text prohlášení ...}
 
@@ -35,6 +39,8 @@
 \def\thesis@keywordsTitle{Klíčová slova}
 \def\thesis@thanksTitle{Poděkování}
 \def\thesis@declarationTitle{Prohlášení}
+\def\thesis@winter{Jaro}
+\def\thesis@summer{Podzim}
 \def\thesis@typeName{%
   \ifx\thesis@type\thesis@bachelors%
     Bakalářská práce%
@@ -57,7 +63,7 @@
 % \iffalse
 %<*mu>
 % \fi\begin{macrocode}
-\ProvidesFile{czech.def}[2015/04/08]
+\ProvidesFile{fithesis3/locale/mu/czech.def}[2015/04/08]
 \def\thesis@universityName{Masarykova Univerzita}
 \def\thesis@declaration{%
   Prohlašuji, že tato \thesis@lower{typeName} je mým původním
@@ -75,7 +81,7 @@
 % \iffalse
 %<*mu/law>
 % \fi\begin{macrocode}
-\ProvidesFile{czech.def}[2015/04/08]
+\ProvidesFile{fithesis3/locale/mu/law/czech.def}[2015/04/08]
 \def\thesis@facultyName{Právnická fakulta}
 %    \end{macrocode}\iffalse
 %</mu/law>
@@ -86,7 +92,7 @@
 % \iffalse
 %<*mu/fsps>
 % \fi\begin{macrocode}
-\ProvidesFile{czech.def}[2015/04/08]
+\ProvidesFile{fithesis3/locale/mu/fsps/czech.def}[2015/04/08]
 \def\thesis@facultyName{Fakulta sportovních studií}
 %    \end{macrocode}\iffalse
 %</mu/fsps>
@@ -97,7 +103,7 @@
 % \iffalse
 %<*mu/fss>
 % \fi\begin{macrocode}
-\ProvidesFile{czech.def}[2015/04/08]
+\ProvidesFile{fithesis3/locale/mu/fss/czech.def}[2015/04/08]
 \def\thesis@facultyName{Fakulta sociálních studií}
 %    \end{macrocode}\iffalse
 %</mu/fss>
@@ -109,7 +115,7 @@
 % \iffalse
 %<*mu/econ>
 % \fi\begin{macrocode}
-\ProvidesFile{czech.def}[2015/04/08]
+\ProvidesFile{fithesis3/locale/mu/econ/czech.def}[2015/04/08]
 \def\thesis@facultyName{Ekonomicko-správní fakulta}
 %    \end{macrocode}\iffalse
 %</mu/econ>
@@ -121,7 +127,7 @@
 % \iffalse
 %<*mu/med>
 % \fi\begin{macrocode}
-\ProvidesFile{czech.def}[2015/04/08]
+\ProvidesFile{fithesis3/locale/mu/med/czech.def}[2015/04/08]
 \def\thesis@facultyName{Lékařská fakulta}
 %    \end{macrocode}\iffalse
 %</mu/med>
@@ -130,15 +136,15 @@
 % Informatics at the Masaryk University in Brno.
 % It replaces the |\thesis@facultyName| placeholder with the
 % correct value and updates the |\thesis@placeholders@assignment|
-% to reflect the requirements specific to the faculty.
+% in accordance with the requirements of the faculty.
 % \iffalse
 %<*mu/fi>
 % \fi\begin{macrocode}
-\ProvidesFile{czech.def}[2015/04/08]
+\ProvidesFile{fithesis3/locale/mu/fi/czech.def}[2015/04/08]
 \def\thesis@facultyName{Fakulta informatiky}
-\def\thesis@placeholders@assignment{Místo tohoto listu vložte kopie
-  oficiálního podepsaného zadání práce a prohlášení autora školního
-  díla.}
+\def\thesis@placeholders@assignment{Místo tohoto listu vložte
+  kopie oficiálního podepsaného zadání práce a prohlášení
+  autora školního díla.}
 %    \end{macrocode}\iffalse
 %</mu/fi>
 % \fi\file{locale/mu/phil/czech.def}
@@ -149,7 +155,7 @@
 % \iffalse
 %<*mu/phil>
 % \fi\begin{macrocode}
-\ProvidesFile{czech.def}[2015/04/08]
+\ProvidesFile{fithesis3/locale/mu/phil/czech.def}[2015/04/08]
 \def\thesis@facultyName{Filozofická fakulta}
 %    \end{macrocode}\iffalse
 %</mu/phil>
@@ -161,20 +167,40 @@
 % \iffalse
 %<*mu/ped>
 % \fi\begin{macrocode}
-\ProvidesFile{czech.def}[2015/04/08]
+\ProvidesFile{fithesis3/locale/mu/ped/czech.def}[2015/04/08]
 \def\thesis@facultyName{Pedagogická fakulta}
 %    \end{macrocode}\iffalse
 %</mu/ped>
 % \fi\file{locale/mu/sci/czech.def}
 % This is the Czech locale file specific to the Faculty of
 % Science at the Masaryk University in Brno.
-% It replaces the |\thesis@facultyName| placeholder with the
-% correct value.
+% It defines the private macros required by the
+% |\thesis@blocks@bibEntry| block defined within the
+% \texttt{style/mu/sci.sty} style file.
+% It also replaces the |\thesis@facultyName| placeholder with the
+% correct value and redefines the |\thesis@abstractTitle| macro in
+% accordance with the formal requirements of the faculty.
 % \iffalse
 %<*mu/sci>
 % \fi\begin{macrocode}
-\ProvidesFile{czech.def}[2015/04/08]
+\ProvidesFile{fithesis3/locale/mu/sci/czech.def}[2015/04/10]
+
+% Zástupné texty
 \def\thesis@facultyName{Přírodovědecká fakulta}
+
+% Ostatní
+\def\thesis@abstractTitle{Abstrakt}
+
+% Bibliografický záznam
+\def\thesis@bibTitle{Bibliografický záznam}
+\def\thesis@bib@author{Autor}
+\def\thesis@bib@title{Název práce}
+\def\thesis@bib@programme{Studijní program}
+\def\thesis@bib@field{Studijní obor}
+\def\thesis@bib@advisor{\thesis@advisorTitle}
+\def\thesis@bib@academicYear{Akademický rok}
+\def\thesis@bib@pages{Počet stran}
+\def\thesis@bib@keywords{\thesis@keywordsTitle}
 %    \end{macrocode}\iffalse
 %</mu/sci>
 % \fi

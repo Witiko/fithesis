@@ -10,7 +10,7 @@
 % \end{macro}\iffalse
 %<*base>
 % \fi\begin{macrocode}
-\ProvidesFile{slovak.def}[2015/04/08]
+\ProvidesFile{fithesis3/locale/slovak.def}[2015/04/08]
 
 % Symbolický odkaz na český preklad
 \input{\thesis@localepath czech.def}
@@ -26,12 +26,13 @@
 \def\thesis@placeholders@author{Meno autora}
 \def\thesis@universityName{Názov univerzity}
 \def\thesis@facultyName{Názov fakulty}
-\def\thesis@placeholders@advisor{Meno vedoucího}
+\def\thesis@placeholders@advisor{Meno vedúceho}
 \def\thesis@placeholders@department{Názov katedry}
 \def\thesis@placeholders@programme{Názov študijného programu}
+\def\thesis@placeholders@field{Název študijného odboru}
 \def\thesis@placeholders@thanks{Text poďakovanie ...}
-\def\thesis@placeholders@assignment{Namiesto tejto stránky vložte
-  kópiu oficiálneho podpísaného zadania práce.}
+\def\thesis@assignment{Namiesto tejto stránky vložte kópiu
+  oficiálneho podpísaného zadania práce.}
 \def\thesis@declaration{Text prehlásenie ...}
 
 % Rôzne
@@ -40,6 +41,8 @@
 \def\thesis@keywordsTitle{Kľúčové slová}
 \def\thesis@thanksTitle{Poďakovanie}
 \def\thesis@declarationTitle{Prehlásenie}
+\def\thesis@winter{Jar}
+\def\thesis@summer{Jeseň}
 \def\thesis@typeName{%
   \ifx\thesis@type\thesis@bachelors%
     Bakalárska práca%
@@ -62,7 +65,7 @@
 % \iffalse
 %<*mu>
 % \fi\begin{macrocode}
-\ProvidesFile{slovak.def}[2015/04/08]
+\ProvidesFile{fithesis3/locale/mu/slovak.def}[2015/04/08]
 
 % Symbolický odkaz na český preklad
 \input{\thesis@localepath mu/czech.def}
@@ -84,7 +87,7 @@
 % \iffalse
 %<*mu/law>
 % \fi\begin{macrocode}
-\ProvidesFile{slovak.def}[2015/04/08]
+\ProvidesFile{fithesis3/locale/mu/law/slovak.def}[2015/04/08]
 
 % Symbolický odkaz na český preklad
 \input{\thesis@localepath mu/law/czech.def}
@@ -97,7 +100,7 @@
 % \iffalse
 %<*mu/fsps>
 % \fi\begin{macrocode}
-\ProvidesFile{slovak.def}[2015/04/08]
+\ProvidesFile{fithesis3/locale/mu/fsps/slovak.def}[2015/04/08]
 \def\thesis@facultyName{Fakulta športových štúdií}
 %    \end{macrocode}\iffalse
 %</mu/fsps>
@@ -108,7 +111,7 @@
 % \iffalse
 %<*mu/fss>
 % \fi\begin{macrocode}
-\ProvidesFile{slovak.def}[2015/04/08]
+\ProvidesFile{fithesis3/locale/mu/fss/slovak.def}[2015/04/08]
 \def\thesis@facultyName{Fakulta sociálnych štúdií}
 %    \end{macrocode}\iffalse
 %</mu/fss>
@@ -120,7 +123,7 @@
 % \iffalse
 %<*mu/econ>
 % \fi\begin{macrocode}
-\ProvidesFile{slovak.def}[2015/04/08]
+\ProvidesFile{fithesis3/locale/mu/econ/slovak.def}[2015/04/08]
 \def\thesis@facultyName{Ekonomicko-správna fakulta}
 %    \end{macrocode}\iffalse
 %</mu/econ>
@@ -132,7 +135,7 @@
 % \iffalse
 %<*mu/med>
 % \fi\begin{macrocode}
-\ProvidesFile{slovak.def}[2015/04/08]
+\ProvidesFile{fithesis3/locale/mu/med/slovak.def}[2015/04/08]
 \def\thesis@facultyName{Lekárska fakulta}
 %    \end{macrocode}\iffalse
 %</mu/med>
@@ -142,17 +145,17 @@
 % inherits the value of the |\thesis@facultyName| private macro
 % from the respective Czech locale file.
 % It also updates the |\thesis@placeholders@assignment|
-% to reflect the requirements specific to the faculty.
+% in accordance with the requirements of the faculty.
 % \iffalse
 %<*mu/fi>
 % \fi\begin{macrocode}
-\ProvidesFile{slovak.def}[2015/04/08]
+\ProvidesFile{fithesis3/locale/mu/fi/slovak.def}[2015/04/08]
 
 % Symbolický odkaz na český preklad
 \input{\thesis@localepath mu/fi/czech.def}
 
-\def\thesis@placeholders@assignment{Namiesto tejto stránky vložte
-  kópiu oficiálneho podpísaného zadania práce a prehlásenie autora
+\def\thesis@assignment{Namiesto tejto stránky vložte kópiu
+  oficiálneho podpísaného zadania práce a prehlásenie autora
   školského diela.}
 %    \end{macrocode}\iffalse
 %</mu/fi>
@@ -164,7 +167,7 @@
 % \iffalse
 %<*mu/phil>
 % \fi\begin{macrocode}
-\ProvidesFile{slovak.def}[2015/04/08]
+\ProvidesFile{fithesis3/locale/mu/phil/slovak.def}[2015/04/08]
 
 % Symbolický odkaz na český preklad
 \input{\thesis@localepath mu/phil/czech.def}
@@ -178,7 +181,7 @@
 % \iffalse
 %<*mu/ped>
 % \fi\begin{macrocode}
-\ProvidesFile{slovak.def}[2015/04/08]
+\ProvidesFile{fithesis3/locale/mu/ped/slovak.def}[2015/04/10]
 
 % Symbolický odkaz na český preklad
 \input{\thesis@localepath mu/ped/czech.def}
@@ -187,13 +190,34 @@
 % \fi\file{locale/mu/sci/slovak.def}
 % This is the Slovak locale file specific to the Faculty of
 % Science at the Masaryk University in Brno.
-% It replaces the |\thesis@facultyName| placeholder with the
-% correct value.
+% It defines the private macros required by the
+% |\thesis@blocks@bibEntry| block defined within the
+% \texttt{style/mu/sci.sty} style file.
+% It also replaces the |\thesis@facultyName| placeholder with the
+% correct value. The redefinition of the |\thesis@abstractTitle|
+% macro is inherited from the respective Czech locale file in
+% accordance with the formal requirements of the faculty. The
+% |\thesis@bib@academicYear| macro is likewise inherited from the
+% respective Czech locale file.
 % \iffalse
 %<*mu/sci>
 % \fi\begin{macrocode}
-\ProvidesFile{slovak.def}[2015/04/08]
+\ProvidesFile{fithesis3/locale/mu/sci/slovak.def}[2015/04/08]
+
+%% Symbolický odkaz na český preklad
+\input{\thesis@localepath mu/sci/czech.def}
+
+% Zástupné texty
 \def\thesis@facultyName{Prírodovedecká fakulta}
+
+% Bibliografický záznam
+\def\thesis@bib@author{Autor}
+\def\thesis@bib@title{Názov práce}
+\def\thesis@bib@programme{Študijný program}
+\def\thesis@bib@field{Študijný odbor}
+\def\thesis@bib@advisor{\thesis@advisorTitle}
+\def\thesis@bib@pages{Počet strán}
+\def\thesis@bib@keywords{\thesis@keywordsTitle}
 %    \end{macrocode}\iffalse
 %</mu/sci>
 % \fi

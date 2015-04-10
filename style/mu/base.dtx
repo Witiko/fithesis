@@ -88,6 +88,9 @@
 %     the text of the document.
 %   \item\textsf{graphix} -- Adds support for the inclusion of
 %     graphics files.
+%   \item\textsf{pdfpages} -- Adds support for the injection of PDF
+%     documents into the resulting document, namely the thesis
+%     assignment.
 % \end{itemize}
 % In addition to that, the \textsf{hyperref} package is configured
 % to support both roman and arabic page numbering in one document.
@@ -96,6 +99,7 @@
 \RequirePackage[T1]{fontenc}
 \RequirePackage[sc]{mathpazo}
 \RequirePackage{graphicx}
+\RequirePackage{pdfpages}
 \hypersetup{
   plainpages=false,          % Multiple page numbering support
   pdfpagelabels              % Generate pdf page labels
@@ -135,6 +139,7 @@
 % cover.
 % \end{macro}\begin{macrocode}
 \def\thesis@blocks@cover{%
+  \thesis@blocks@clear
   \ifthesis@cover\else
     \ifthesis@twoside\@twosidefalse\fi % Temporarily disable twoside
     \begin{alwayssingle}
@@ -153,6 +158,7 @@
       \end{center}
     \end{alwayssingle}
     \ifthesis@twoside\@twosidetrue\fi % Re-enable twoside
+    \thesis@blocks@clear
   \fi}
 %    \end{macrocode}
 % \begin{macro}{\thesis@blocks@titlePage}
@@ -179,7 +185,8 @@
     \par\vfill
     {\large\thesis@place, \thesis@year}
     \end{center}
-  \end{alwayssingle}}
+  \end{alwayssingle}
+  \thesis@blocks@clear}
 %    \end{macrocode}
 % \begin{macro}{\thesis@blocks@tables}
 % The |\thesis@blocks@tables| private macro typesets the table of
@@ -187,10 +194,11 @@
 % |\listoffigures|.
 % \end{macro}\begin{macrocode}
 \def\thesis@blocks@tables{%
+  \thesis@blocks@clear%
   \tableofcontents%
   \thesis@blocks@lot%
   \thesis@blocks@lof%
-  \newpage%
+  \thesis@blocks@clear%
 }
 %    \end{macrocode}
 % \begin{macro}{\thesis@blocks@declaration}
@@ -198,93 +206,100 @@
 % declaration text.
 % \end{macro}\begin{macrocode}
 \def\thesis@blocks@declaration{%
-    \begin{alwayssingle}%
-      \chapter*{\thesis@declarationTitle}%
-      \thesis@declaration%
-      \vskip 2cm%
-      \hfill\thesis@author%
-      \par\vfill%
-      \textbf{\thesis@advisorTitle:} \thesis@advisor%
-      \par\vfil%
-      \newpage%
-    \end{alwayssingle}}
+  \thesis@blocks@clear%
+  \begin{alwayssingle}%
+    \chapter*{\thesis@declarationTitle}%
+    \thesis@declaration%
+    \vskip 2cm%
+    \hfill\thesis@author%
+    \par\vfill%
+    \textbf{\thesis@advisorTitle:} \thesis@advisor%
+    \par\vfil%
+  \end{alwayssingle}
+  \thesis@blocks@clear}
 %    \end{macrocode}
 % \begin{macro}{\thesis@blocks@thanks}
 % The |\thesis@blocks@thanks| private macro typesets the
 % acknowledgement.
 % \end{macro}\begin{macrocode}
 \def\thesis@blocks@thanks{%
+  \thesis@blocks@clear%
   \begin{alwayssingle}%
     \chapter*{\thesis@thanksTitle}%
     \thesis@thanks%
     \par\vfill%
   \end{alwayssingle}%
-  \newpage}
+  \thesis@blocks@clear}
 %    \end{macrocode}
 % \begin{macro}{\thesis@blocks@abstract}
 % The |\thesis@blocks@abstract| private macro typesets the
 % abstract.
 % \end{macro}\begin{macrocode}
 \def\thesis@blocks@abstract{%
+  \thesis@blocks@clear%
   \begin{alwayssingle}%
     \chapter*{\thesis@abstractTitle}%
     \thesis@abstract%
     \par\vfil\null%
   \end{alwayssingle}%
-  \newpage}
+  \thesis@blocks@clear}
 %    \end{macrocode}
 % \begin{macro}{\thesis@blocks@abstractEn}
 % The |\thesis@blocks@abstractEn| private macro typesets the
 % abstract in English.
 % \end{macro}\begin{macrocode}
 \def\thesis@blocks@abstractEn{%
-  \ifx\thesis@abstractEn\undefined\else%
-    \begin{alwayssingle}%
-      \chapter*{\thesis@abstractTitle}%
-      \thesis@abstractEn%
-      \par\vfil\null%
-    \end{alwayssingle}%
-    \newpage%
-  \fi}
+  \thesis@blocks@clear%
+  \begin{alwayssingle}%
+    \chapter*{\thesis@abstractTitleEn}%
+    \thesis@abstractEn%
+    \par\vfil\null%
+  \end{alwayssingle}%
+  \thesis@blocks@clear}
 %    \end{macrocode}
 % \begin{macro}{\thesis@blocks@keywords}
 % The |\thesis@blocks@keywords| private macro typesets the
 % abstract in English.
 % \end{macro}\begin{macrocode}
 \def\thesis@blocks@keywords{%
+  \thesis@blocks@clear%
   \begin{alwayssingle}%
     \chapter*{\thesis@keywordsTitle}%
     \thesis@keywords%
     \par\vfill%
   \end{alwayssingle}%
-  \newpage}
+  \thesis@blocks@clear}
 %    \end{macrocode}
 % \begin{macro}{\thesis@blocks@keywordsEn}
 % The |\thesis@blocks@keywordsEn| private macro typesets the
 % abstract in English.
 % \end{macro}\begin{macrocode}
 \def\thesis@blocks@keywordsEn{%
-  \ifx\thesis@keywordsEn\undefined\else%
-    \begin{alwayssingle}%
-      \chapter*{\thesis@keywordsTitle}%
-      \thesis@keywords%
-      \par\vfill%
-    \end{alwayssingle}%
-    \newpage%
-  \fi}
+  \thesis@blocks@clear%
+  \begin{alwayssingle}%
+    \chapter*{\thesis@keywordsTitleEn}%
+    \thesis@keywords%
+    \par\vfill%
+  \end{alwayssingle}%
+  \thesis@blocks@clear}
 %    \end{macrocode}
 % \begin{macro}{\thesis@blocks@assignment}
-% The |\thesis@blocks@assignment| private macro typesets a blank
-% page to be replaced with the official thesis assignment.
+% The |\thesis@blocks@assignment| private macro either typesets a
+% blank page to be replaced with the official thesis assignment or
+% injects the file located at the |\thesis@assignmentPDF| path, if
+% defined.
 % \end{macro}\begin{macrocode}
 \def\thesis@blocks@assignment{%
-  \thesis@blocks@clear
-  \begin{alwayssingle}%
-    \thispagestyle{empty}
-    \addtocounter{page}{-\ifthesis@twoside2\else1\fi}
-    \noindent\textit{\thesis@placeholders@assignment}%
-  \end{alwayssingle}%
-  \newpage}
+  \thesis@blocks@clear%
+  \ifx\thesis@assignmentPDF\undefined%
+    \begin{alwayssingle}%
+      \thispagestyle{empty}
+      \addtocounter{page}{-\ifthesis@twoside2\else1\fi}
+      \noindent\textit{\thesis@assignment}%
+    \end{alwayssingle}%
+  \else%
+    \includepdf[pages=-]{\thesis@assignmentPDF}%
+  \fi\thesis@blocks@clear}
 %    \end{macrocode}
 % The file defines several blocks to be used in the redefinitions
 % of the |\thesis@preamble| and |\thesis@postable| private macros
