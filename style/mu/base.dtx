@@ -75,6 +75,7 @@
 \DeclareOption{nocover}{\thesis@covertrue}
 \DeclareOption{cover}{\thesis@coverfalse}
 
+% Options executed by default
 \ExecuteOptions{12pt,oneside,final,monochrome,lot,lof,nocover}
 \ProcessOptions
 %    \end{macrocode}
@@ -136,8 +137,11 @@
 %    \end{macrocode}
 % \begin{macro}{\thesis@blocks@cover}
 % The |\thesis@blocks@cover| private macro typesets the thesis
-% cover.
+% cover. The size of the font used to typeset the thesis title is
+% defined within the \DescribeMacro{\thesis@titleFont}
+% |\thesis@titleFont| private macro.
 % \end{macro}\begin{macrocode}
+\def\thesis@titleFont{\fontsize\@xxvpt{30}\selectfont}
 \def\thesis@blocks@cover{%
   \thesis@blocks@clear
   \ifthesis@cover\else
@@ -147,10 +151,11 @@
       \begin{center}
       {\sc\thesis@universityName\\\thesis@facultyName}
       \vskip 1.4em
-      \includegraphics[width=40mm]{\thesis@logopath\thesis@logo}\\[0.4in]
+      \includegraphics[width=40mm]{%
+        \thesis@logopath\thesis@logo}\\[0.4in]
       \let\footnotesize\small
       \let\footnoterule\relax{}
-      {\titlefont\bf\thesis@TeXtitle\par\vfil}\vskip 0.8in
+      {\thesis@titleFont\bf\thesis@TeXtitle\par\vfil}\vskip 0.8in
       {\sc \thesis@typeName}\\[0.3in]
       {\Large\bf\thesis@author}
       \par\vfill
@@ -166,7 +171,9 @@
 % title page. The title page is similar to the cover except for the
 % fact that if color typesetting is enables, the logo is loaded
 % from the |\thesis@logopath color/| directory instead of
-% |\thesis@logopath|.
+% |\thesis@logopath|. The size of the font used to typeset the
+% thesis title is defined within the |\thesis@titleFont| private
+% macro.
 % \end{macro}\begin{macrocode}
 \def\thesis@blocks@titlePage{%
   \thesis@blocks@clear
@@ -176,10 +183,11 @@
     {\sc\thesis@universityName\\\thesis@facultyName}
     \vskip 1.4em
     \edef\thesis@logopath@color{\thesis@logopath\ifthesis@color color/\fi}
-    \includegraphics[width=40mm]{\thesis@logopath@color\thesis@logo}\\[0.4in]
+    \includegraphics[width=40mm]{%
+      \thesis@logopath@color\thesis@logo}\\[0.4in]
     \let\footnotesize\small
     \let\footnoterule\relax{}
-    {\titlefont\bf\thesis@TeXtitle\par\vfil}\vskip 0.8in
+    {\thesis@titleFont\bf\thesis@TeXtitle\par\vfil}\vskip 0.8in
     {\sc \thesis@typeName}\\[0.3in]
     {\Large\bf\thesis@author}
     \par\vfill
@@ -329,8 +337,11 @@
 % \texttt{fit12.clo} file is loaded from the |\thesis@stylepath mu|
 % directory, respectively.
 %    \begin{macrocode}
+% Table of contents will contain sectioning commands up to
+% \subsubsection
 \setcounter{tocdepth}{4}
 
+% Load the `fit1*.clo` size option
 \input\thesis@stylepath mu/fit1\thesis@ptsize.clo\relax
 
 \def\ps@thesisheadings{%
@@ -358,6 +369,7 @@
 \let\@mkboth\markboth
 }
 
+% Redefines the style of the chapter headings
 \renewcommand*\chapter{%
 \if@twoside
  \clearpage
@@ -371,6 +383,7 @@
 \@afterindentfalse
 \secdef\@chapter\@schapter}
 
+% Redefines the style of part headings
 \renewcommand*\part{%
 \clearpage
 \thispagestyle{empty}
@@ -384,8 +397,6 @@
 \fi
 \hbox{}\vfil
 \secdef\@part\@spart}
-
-\def\titlefont{\fontsize\@xxvpt{30}\selectfont}
 
 \newif\if@restonecol
 \def\alwayssingle{%
