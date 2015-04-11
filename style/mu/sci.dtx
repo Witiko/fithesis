@@ -96,58 +96,37 @@
 %   \item\DescribeMacro{\thesis@bib@keywordsEn}
 %     |\thesis@bib@keywordsEn| -- The label of the keywords entry
 % \end{itemize}
-% \begin{itemize}
-%   \item\DescribeMacro{\thesis@bibTitle}|\thesis@bibTitle| --
-%     The title of the |\thesis@blocks@bibtry| block
-%   \item\DescribeMacro{\thesis@bib@author}|\thesis@bib@author|
-%     -- The label of the author name entry
-%   \item\DescribeMacro{\thesis@bib@title}|\thesis@bib@title|
-%     -- The label of the title name entry
-%   \item\DescribeMacro{\thesis@bib@programme}
-%     |\thesis@bib@programme| -- The label of the programme name
-%     entry
-%   \item\DescribeMacro{\thesis@bib@field}|\thesis@bib@field|
-%     -- The label of the field name entry
-%   \item\DescribeMacro{\thesis@bib@advisor}
-%     |\thesis@bib@advisor| -- The label of the advisor name
-%     entry
-%   \item\DescribeMacro{\thesis@bib@academicYear}
-%     |\thesis@bib@academicYear| -- The label of the academic
-%     year entry
-%   \item\DescribeMacro{\thesis@bib@pages}
-%     |\thesis@bib@pages| -- The label of the number of pages
-%     entry
-%   \item\DescribeMacro{\thesis@bib@keywords}
-%     |\thesis@bib@keywords| -- The label of the keywords entry
-% \end{itemize}
+% If the current locale is English, the macro produces no output.
 %    \begin{macrocode}
 \def\thesis@blocks@bibEntryEn{%
-  \thesis@blocks@clear
-  \begin{alwayssingle}
-    \chapter*{\thesis@bibTitleEn}
-    {\renewcommand{\arraystretch}{2}
-    \begin{tabular}{ll}
-      \textbf{\thesis@bib@authorEn:} & \vtop{%
-        \hbox{\strut\thesis@authorEn}%
-        \hbox{\strut\thesis@facultyNameEn, \thesis@universityNameEn}%
-        \hbox{\strut\thesis@departmentEn}} \\
-      \textbf{\thesis@bib@titleEn:}
-        & \thesis@titleEn \\
-      \textbf{\thesis@bib@programmeEn:}
-        & \thesis@programmeEn \\
-      \textbf{\thesis@bib@fieldEn:}
-        & \thesis@fieldEn \\
-      \textbf{\thesis@bib@advisorEn:}
-        & \thesis@advisorEn \\
-      \textbf{\thesis@bib@academicYearEn:}
-        & \thesis@academicYear \\
-      \textbf{\thesis@bib@pagesEn:}
-        & \thesis@pages \\
-      \textbf{\thesis@bib@keywords:}
-        & \thesis@keywordsEn \\
-    \end{tabular}}
-  \end{alwayssingle}
-  \thesis@blocks@clear}
+  \ifthesis@english\else
+    \thesis@blocks@clear
+    \begin{alwayssingle}
+      \chapter*{\thesis@bibTitleEn}
+      {\renewcommand{\arraystretch}{2}
+      \begin{tabular}{ll}
+        \textbf{\thesis@bib@authorEn:} & \vtop{%
+          \hbox{\strut\thesis@authorEn}%
+          \hbox{\strut\thesis@facultyNameEn, \thesis@universityNameEn}%
+          \hbox{\strut\thesis@departmentEn}} \\
+        \textbf{\thesis@bib@titleEn:}
+          & \thesis@titleEn \\
+        \textbf{\thesis@bib@programmeEn:}
+          & \thesis@programmeEn \\
+        \textbf{\thesis@bib@fieldEn:}
+          & \thesis@fieldEn \\
+        \textbf{\thesis@bib@advisorEn:}
+          & \thesis@advisorEn \\
+        \textbf{\thesis@bib@academicYearEn:}
+          & \thesis@academicYear \\
+        \textbf{\thesis@bib@pagesEn:}
+          & \thesis@pages \\
+        \textbf{\thesis@bib@keywords:}
+          & \thesis@keywordsEn \\
+      \end{tabular}}
+    \end{alwayssingle}
+    \thesis@blocks@clear
+  \fi}
 %    \end{macrocode}
 % \end{macro}
 % The style file defines the autolayout preamble as the cover and

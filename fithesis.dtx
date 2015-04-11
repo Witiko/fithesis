@@ -68,14 +68,14 @@
 %<*class>
 \NeedsTeXFormat{LaTeX2e}
 % \fi
-\def\thesis@version{2015/04/08 v0.3.09 fithesis3 MU thesis class}
+\def\thesis@version{2015/04/11 v0.3.09 fithesis3 MU thesis class}
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 % \changes{v0.3.09}  {2015/04/08}{A complete refactoring of the class. The class
 %   was decomposed into a base class, locale files and style files. The \TeX
 %   Gyre Pagella font has been replaced by Adobe Palatino provided by the
-%   \textsf{mathpazo} package.}
+%   \textsf{mathpazo} package. [VN]}
 % \changes{v0.3.08}  {2015/03/04}{Fixed a non-terminated \cs{if} condition.
 %   [VN] (backport of v0.2.18)\\Fixed mostly documentation errors reported
 %   at the new fithesis discussion forum (-ti, eco$\rightarrow$econ, implicit
@@ -162,12 +162,18 @@
 %
 % \section{Required classes and packages}
 % The class loads the \texttt{rapport3} base class and the
-% \texttt{xstring}, \texttt{keyval}, \texttt{newfile} and
-% \texttt{etoolbox} packages. The \texttt{hyperref} package is
-% also conditionally loaded during the expansion of the
-% |\thesis@load| macro (see section \ref{sec:thesis@load}).
-% Other packages may be required by the style files (see
-% section \ref{sec:style-files}) you are using.
+% following packages for string parsing and comparisons:
+% \begin{itemize}
+%   \item\textsf{xstring}
+%   \item\textsf{keyval}
+%   \item\textsf{newfile}
+%   \item\textsf{etoolbox}
+%   \item\textsf{pdftexcmds}
+% \end{itemize}
+% The \texttt{hyperref} package is also conditionally loaded during
+% the expansion of the |\thesis@load| macro (see section
+% \ref{sec:thesis@load}). Other packages may be required by the
+% style files (see section \ref{sec:style-files}) you are using.
 %    \begin{macrocode}
 \ProvidesClass{fithesis3}[\thesis@version]
 \LoadClass[a4paper]{rapport3}
@@ -175,6 +181,7 @@
 \RequirePackage{keyval}
 \RequirePackage{newfile}
 \RequirePackage{etoolbox}
+\RequirePackage{pdftexcmds}
 %    \end{macrocode}
 % \section{Public API}
 % \label{sec:public-api}
@@ -286,8 +293,8 @@
 % The \marg{\texttt{gender}=char} pair sets the author's gender to
 % either a male, if \textit{char} is the character \texttt{m}, or
 % to a female. The gender can be tested using the
-% |\ifthesis@woman| ... |\else| ... |\fi| conditional. The implicit
-% gender is male.
+% |\ifthesis@woman| \ldots |\else| \ldots |\fi| conditional. The
+% implicit gender is male.
 %    \begin{macrocode}
 \newif\ifthesis@woman\thesis@womanfalse
 \define@key{thesis}{gender}{%
@@ -496,9 +503,9 @@
 % inheritance for style files. The effects of the inheritance
 % are documented within the subsection documenting the
 % |\thesis@load| macro. The setting can be tested using the
-% |\ifthesis@style@inheritance| ...
-% |\else| ... |\fi| conditional. Inheritance is enabled for style
-% files by default.
+% |\ifthesis@style@inheritance| \ldots
+% |\else| \ldots |\fi| conditional. Inheritance is enabled for
+% style files by default.
 %    \begin{macrocode}
 \newif\ifthesis@style@inheritance\thesis@style@inheritancetrue
 \define@key{thesis}{styleInheritance}[true]{%
@@ -529,6 +536,25 @@
   \def\thesis@locale{#1}}
 %    \end{macrocode}
 % \end{macro}
+% \begin{macro}{\ifthesis@english}
+% The English locale is special. Several parts of the document will
+% typically be typeset in both the current locale and English.
+% However, if the current locale is English, this would result in
+% duplicity. To avoid this, the |\ifthesis@english| \ldots |\else|
+% \ldots |\fi| conditional is made available for testing, whether
+% or not the current locale is English.
+%    \begin{macrocode}
+\def\ifthesis@english{{
+  \let\ea\expandafter%
+  \edef\@locale{\thesis@locale}%
+  % Would've used \ifx, but babel strings have funny catcodes
+  \ea\csname\ea i\ea f\ifnum\pdf@strcmp{\@locale}{english}=0%
+    true%
+  \else%
+    false%
+  \fi\endcsname}}
+%    \end{macrocode}
+% \end{macro}
 % \begin{macro}{\thesis@locale@inheritance}
 % \subsubsection{The \texttt{localeInheritance} key}
 % The \marg{\texttt{localeInheritance}=bool} pair either enables,
@@ -536,8 +562,8 @@
 % inheritance. The effects of the inheritance are
 % documented within the subsection documenting the |\thesis@load| 
 % macro. The setting can be tested using the
-% |\ifthesis@locale@inheritance| ...
-% |\else| ... |\fi| conditional. Inheritance is enabled for locale
+% |\ifthesis@locale@inheritance| \ldots
+% |\else| \ldots |\fi| conditional. Inheritance is enabled for locale
 % files by default.
 %    \begin{macrocode}
 \newif\ifthesis@locale@inheritance\thesis@locale@inheritancetrue
@@ -756,15 +782,15 @@
 % \begin{macro}{\thesis@assignmentPDF}
 % \subsubsection{The \texttt{assignment} key}
 % The \marg{\texttt{assignment}=path} pair sets the path to the pdf
-% file containing the thesis assignment to \textit{path}. If the
-% \textit{path} points to an existing file, it is stored within the
-% private |\thesis@assignmentPDF| macro, whose implicit value is
+% file containing the thesis assignment to \textit{path}. The
+% \textit{path} is stored within the private
+% |\thesis@assignmentPDF| macro, whose implicit value is
 % |\undefined|. When defined, the PDF file is injected into the
 % resulting document instead of the placeholder
 % |\thesis@assignment| string.
 %    \begin{macrocode}
 \define@key{thesis}{assignment}{%
-  \thesis@exists{#1}{\def\thesis@assignmentPDF{#1}}}
+  \def\thesis@assignmentPDF{#1}}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\ifthesis@auto}
@@ -774,8 +800,8 @@
 % autolayout. Autolayout injects the
 % |\thesis@preamble| and |\thesis@postamble| private macros
 % at the beginning and the end of the document, respectively. The
-% setting can be tested using the |\ifthesis@auto| ... |\else| ...
-% |\fi| conditional. The autolayout is enabled by default.
+% setting can be tested using the |\ifthesis@auto| \ldots |\else|
+% \ldots |\fi| conditional. The autolayout is enabled by default.
 %    \begin{macrocode}
 \newif\ifthesis@auto\thesis@autotrue
 \define@key{thesis}{autoLayout}[true]{%

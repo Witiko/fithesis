@@ -246,20 +246,23 @@
 %    \end{macrocode}
 % \begin{macro}{\thesis@blocks@abstractEn}
 % The |\thesis@blocks@abstractEn| private macro typesets the
-% abstract in English.
+% abstract in English. If the current locale is English, the
+% macro produces no output.
 % \end{macro}\begin{macrocode}
 \def\thesis@blocks@abstractEn{%
-  \thesis@blocks@clear%
-  \begin{alwayssingle}%
-    \chapter*{\thesis@abstractTitleEn}%
-    \thesis@abstractEn%
-    \par\vfil\null%
-  \end{alwayssingle}%
-  \thesis@blocks@clear}
+  \ifthesis@english\else%
+    \thesis@blocks@clear%
+    \begin{alwayssingle}%
+      \chapter*{\thesis@abstractTitleEn}%
+      \thesis@abstractEn%
+      \par\vfil\null%
+    \end{alwayssingle}%
+    \thesis@blocks@clear%
+  \fi}
 %    \end{macrocode}
 % \begin{macro}{\thesis@blocks@keywords}
 % The |\thesis@blocks@keywords| private macro typesets the
-% abstract in English.
+% keywords.
 % \end{macro}\begin{macrocode}
 \def\thesis@blocks@keywords{%
   \thesis@blocks@clear%
@@ -272,16 +275,19 @@
 %    \end{macrocode}
 % \begin{macro}{\thesis@blocks@keywordsEn}
 % The |\thesis@blocks@keywordsEn| private macro typesets the
-% abstract in English.
+% keywords in English. If the current locale is English, the
+% macro produces no output.
 % \end{macro}\begin{macrocode}
 \def\thesis@blocks@keywordsEn{%
-  \thesis@blocks@clear%
-  \begin{alwayssingle}%
-    \chapter*{\thesis@keywordsTitleEn}%
-    \thesis@keywords%
-    \par\vfill%
-  \end{alwayssingle}%
-  \thesis@blocks@clear}
+  \ifthesis@english\else%
+    \thesis@blocks@clear%
+    \begin{alwayssingle}%
+      \chapter*{\thesis@keywordsTitleEn}%
+      \thesis@keywords%
+      \par\vfill%
+    \end{alwayssingle}%
+    \thesis@blocks@clear%
+  \fi}
 %    \end{macrocode}
 % \begin{macro}{\thesis@blocks@assignment}
 % The |\thesis@blocks@assignment| private macro either typesets a
