@@ -188,11 +188,16 @@
 %
 % \subsection{The \cs{thesissetup} macro}
 % \begin{macro}{\thesissetup}
-% The only public macro is the |\thesissetup|\marg{keyvals}
+% The main public macro is the |\thesissetup|\marg{keyvals}
 % command, where \textit{keyvals} is a comma-delimited list of
 % key-value pairs as defined by the \textsf{keyval} package. This
 % macro needs to be included prior to the beginning of a \LaTeX\ 
 % document. When used, the \textit{keyvals} are processed.
+%
+% It is noteworthy that the values as defined by the |\thesissetup|
+% public macro can only contain one paragraph of text. If you wish
+% to set multiple paragraphs of text as the value, you should use
+% the |\thesislong| public macro.
 %    \begin{macrocode}
 \def\thesissetup#1{%
   \setkeys{thesis}{#1}}
@@ -465,17 +470,32 @@
   \def\thesis@fieldEn{#1}}
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{\thesis@logo}
-% \subsubsection{The \texttt{logo} key}
-% The \marg{\texttt{logo}=filename} pair sets the filename of the
-% logo file to be used to \textit{filename}. The \textit{filename}
-% is stored within the private |\thesis@logo| macro, whose implicit
-% value is |\thesis@faculty|. The logo file is loaded from the
+% \begin{macro}{\thesis@universityLogo}
+% \subsubsection{The \texttt{universityLogo} key}
+% The \marg{\texttt{universityLogo}=filename} pair sets the
+% filename of the logo file to be used to \textit{filename}. The
+% \textit{filename} is stored within the private
+% |\thesis@universityLogo| macro, whose implicit value is
+% \texttt{base}. The logo file is loaded from the
 % |\thesis@logopath\thesis@logo| path.
 %    \begin{macrocode}
-\def\thesis@logo{\thesis@faculty}
-\define@key{thesis}{logo}{%
-  \def\thesis@logo{#1}}
+\def\thesis@universityLogo{base}
+\define@key{thesis}{universityLogo}{%
+  \def\thesis@universityLogo{#1}}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\thesis@facultyLogo}
+% \subsubsection{The \texttt{facultyLogo} key}
+% The \marg{\texttt{facultyLogo}=filename} pair sets the filename
+% of the logo file to be used to \textit{filename}. The
+% \textit{filename} is stored within the private
+% |\thesis@facultyLogo| macro, whose implicit value is
+% |\thesis@faculty|. The logo file is loaded from the
+% |\thesis@logopath\thesis@logo| path.
+%    \begin{macrocode}
+\def\thesis@facultyLogo{\thesis@faculty}
+\define@key{thesis}{facultyLogo}{%
+  \def\thesis@facultyLogo{#1}}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\thesis@style}
@@ -731,8 +751,8 @@
 % |\thesis@placeholders@abstract|.
 %    \begin{macrocode}
 \def\thesis@abstract{\thesis@placeholders@abstract}
-\define@key{thesis}{abstract}{%
-  \def\thesis@abstract{#1}}
+\long\def\KV@thesis@abstract#1{%
+  \long\def\thesis@abstract{#1}}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\thesis@abstractEn}
@@ -743,8 +763,8 @@
 % whose implicit value is |\thesis@placeholders@abstractEn|.
 %    \begin{macrocode}
 \def\thesis@abstractEn{\thesis@placeholders@abstractEn}
-\define@key{thesis}{abstractEn}{%
-  \def\thesis@abstractEn{#1}}
+\long\def\KV@thesis@abstractEn#1{%
+  \long\def\thesis@abstractEn{#1}}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\thesis@advisor}\begin{macro}{\thesis@advisorEn}
@@ -767,10 +787,9 @@
 % The \marg{\texttt{thanks}=text} pair sets the acknowledgement
 % text to \textit{text}. The \textit{text} is stored within
 % the private |\thesis@thanks| macro, whose implicit value is
-% |\thesis@|\discretionary{}{}{}|placeholders@thanks|.
+% |\undefined|.
 %    \begin{macrocode}
-\def\thesis@thanks{\thesis@placeholders@thanks}
-\define@key{thesis}{thanks}{%
+\long\def\KV@thesis@thanks#1{%
   \long\def\thesis@thanks{#1}}
 %    \end{macrocode}
 % \end{macro}
@@ -818,6 +837,23 @@
 \def\thesis@preamble{}
 \def\thesis@postamble{}
 %    \end{macrocode}
+% \subsection{The \cs{thesislong} macro}
+% \begin{macro}{\thesislong}
+% The public macro |\thesislong|\marg{key}\marg{value},
+% where \textit{value} may contain multiple paragraphs of text, can
+% be used for the following \textit{key}s as an alternative to the
+% |\thesissetup| public macro, which only permits a single
+% paragraph as the \textit{value}:
+% \begin{itemize}
+%   \item\texttt{abstract}
+%   \item\texttt{abstractEn}
+%   \item\texttt{thanks}
+% \end{itemize}
+%    \begin{macrocode}
+\long\def\thesislong#1#2{%
+  \csname KV@thesis@#1\endcsname{#2}}
+%    \end{macrocode}
+% \end{macro}
 % \section{Private API}
 % \subsection{Main routine}\label{sec:thesis@load}
 % The |\thesis@load| macro is responsible for preparing the
@@ -877,28 +913,23 @@
 %   \item\texttt{Keywords} is set to either |\thesis@keywordsEn|,
 %     if defined, or to |\thesis@keywords|.
 %   \item\texttt{Creator} is set to \texttt{\thesis@version}.
-%   \item\texttt{Subject} is set to either |\thesis@abstractEn|, if
-%     defined, or to |\thesis@abstract|.
 % \end{itemize}
 %    \begin{macrocode}
-      \@ifpackageloaded{hyperref}{}{\RequirePackage{hyperref}}%
-      \hypersetup{%
-        pdftitle={\ifx\thesis@titleEn\undefined%
-          \thesis@title%
-        \else%
-          \thesis@titleEn%
-        \fi}, pdfauthor={\thesis@author},%
-        pdfkeywords={\ifx\thesis@keywordsEn\undefined%
-          \thesis@keywords%
-        \else%
-          \thesis@keywordsEn%
-        \fi}, pdfcreator={\thesis@version},%
-        pdfsubject={\ifx\thesis@abstractEn\undefined%
-          \thesis@abstract%
-        \else%
-          \thesis@abstractEn%
-        \fi}
-      }%
+       \thesis@require{hyperref}%
+      {\def\@titleEnPlaceholder{\thesis@placeholders@titleEn}
+       \def\@keywordsEnPlaceholder{\thesis@placeholders@keywordsEn}
+       \hypersetup{%
+       pdftitle={\ifx\thesis@titleEn\@titleEnPlaceholder%
+         \thesis@title%
+       \else%
+         \thesis@titleEn%
+       \fi}, pdfauthor={\thesis@author},%
+       pdfkeywords={\ifx\thesis@keywordsEn\@keywordsEnPlaceholder%
+         \thesis@keywords%
+       \else%
+         \thesis@keywordsEn%
+       \fi}, pdfcreator={\thesis@version},%
+     }}%
 %    \end{macrocode}
 % Consequently, the style files are loaded with the class
 % options passed onto them. If inheritance is enabled for
@@ -949,11 +980,11 @@
         \closeoutputstream{bib}}%
     \makeatother%
   \fi}
-
 %    \end{macrocode}
-% The \DescribeMacro{\thesis@exists}|\thesis@exists| and
-% \DescribeMacro{\thesis@input}|\thesis@input| macros are used to
-% include locale files and test the existance of files in general.
+% The \DescribeMacro{\thesis@exists}|\thesis@exists|\marg{path}
+% and \DescribeMacro{\thesis@input}|\thesis@input|\marg{path}
+% private macros are internally used to include locale files
+% and to test the existance of files in general.
 %    \begin{macrocode}
 \def\thesis@exists#1#2{%
   \IfFileExists{#1}{#2}{%
@@ -961,6 +992,15 @@
 
 \def\thesis@input#1{%
   \thesis@exists{#1}{\input{#1}}}
+%    \end{macrocode}
+% The \DescribeMacro{\thesis@require}|\thesis@require|%
+% \marg{package} expands to |\RequirePackage|\marg{package}, if
+% the specified \textit{package} has not yet been loaded. This
+% generally serves to prevents options clashes, when the options
+% with which the package had been loaded are of no consequence.
+%    \begin{macrocode}
+\def\thesis@require#1{%
+  \@ifpackageloaded{#1}{}{\RequirePackage{#1}}}
 %    \end{macrocode}
 % The \DescribeMacro{\thesis@bibgen}|\thesis@bibgen| macro
 % generates the contents of a \BibTeX\ file containing a
@@ -1201,7 +1241,7 @@
 % \subsubsection{Base style files}
 % \input{style/base.dtx}
 % \input{style/mu/base.dtx}
-% \subsubsection{The style file of the Faculty of Informatics}
+% \subsubsection{The style files of the Faculty of Informatics}
 % \input{style/mu/fi.dtx}
-% \subsubsection{The style file of the Faculty of Science}
+% \subsubsection{The style files of the Faculty of Science}
 % \input{style/mu/sci.dtx}

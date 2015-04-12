@@ -8,6 +8,16 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{fithesis3/style/mu/sci}[2015/04/09]
 %    \end{macrocode}
+% The file loads the following packages:
+% \begin{itemize}
+%   \item\textsf{tikz} -- Used for dimension arithmetic.
+%   \item\textsf{changepage} -- Used for altering the geometry of
+%     the page.
+% \end{itemize}
+%    \begin{macrocode}
+\thesis@require{tikz}
+\thesis@require{changepage}
+%    \end{macrocode}
 % \begin{macro}{\thesis@blocks@bibEntry}
 % The |\thesis@blocks@bibEntry| private macro typesets a
 % bibliographical entry. Along with the macros required by the
@@ -42,8 +52,38 @@
   \thesis@blocks@clear
   \begin{alwayssingle}
     \chapter*{\thesis@bibTitle}
-    {\renewcommand{\arraystretch}{2}
-    \begin{tabular}{ll}
+    {% Calculate the width of the columns
+    \let\@A\relax\newlength{\@A}\settowidth{\@A}{{%
+      \bf\thesis@bib@author:}}
+    \let\@B\relax\newlength{\@B}\settowidth{\@B}{{%
+      \bf\thesis@bib@title:}}
+    \let\@C\relax\newlength{\@C}\settowidth{\@C}{{%
+      \bf\thesis@bib@programme:}}
+    \let\@D\relax\newlength{\@D}\settowidth{\@D}{{%
+      \bf\thesis@bib@field:}}
+    % Unless this is a rigorous thesis, we will be typesetting the
+    % name of the thesis advisor.
+    \let\@E\relax\newlength{\@E}
+      \ifx\thesis@type\thesis@rigorous%
+        \setlength{\@E}{0pt}%
+      \else%
+        \settowidth{\@E}{{\bf\thesis@bib@advisor:}}
+      \fi%
+    \let\@F\relax\newlength{\@F}\settowidth{\@F}{{%
+      \bf\thesis@bib@academicYear:}}
+    \let\@G\relax\newlength{\@G}\settowidth{\@G}{{%
+      \bf\thesis@bib@pages:}}
+    \let\@H\relax\newlength{\@H}\settowidth{\@H}{{%
+      \bf\thesis@bib@keywords:}}
+    \let\@skip\relax\newlength{\@skip}\setlength{\@skip}{16pt}
+    \let\@left\relax\newlength{\@left}\pgfmathsetlength{\@left}{%
+      max(\@A,\@B,\@C,\@D,\@E,\@F,\@G,\@H)}
+    \let\@right\relax\newlength{\@right}\setlength{\@right}{%
+      \textwidth-\@left-\@skip}
+    
+    % Typeset the table
+    \renewcommand{\arraystretch}{2}
+    \begin{tabular}{@{}p{\@left}@{\hskip\@skip}p{\@right}@{}}
       \textbf{\thesis@bib@author:} & \vtop{%
         \hbox{\strut\thesis@author}%
         \hbox{\strut\thesis@facultyName, \thesis@universityName}%
@@ -54,8 +94,12 @@
         & \thesis@programme \\
       \textbf{\thesis@bib@field:}
         & \thesis@field \\
-      \textbf{\thesis@bib@advisor:}
-        & \thesis@advisor \\
+      % Unless this is a rigorous thesis, typeset the name of the
+      % thesis advisor.
+      \ifx\thesis@type\thesis@rigorous\else%
+        \textbf{\thesis@bib@advisor:}
+          & \thesis@advisor \\
+      \fi
       \textbf{\thesis@bib@academicYear:}
         & \thesis@academicYear \\
       \textbf{\thesis@bib@pages:}
@@ -66,8 +110,7 @@
   \end{alwayssingle}
   \thesis@blocks@clear}
 %    \end{macrocode}
-% \end{macro}
-% \begin{macro}{\thesis@blocks@bibEntryEn}
+% \end{macro}\begin{macro}{\thesis@blocks@bibEntryEn}
 % The |\thesis@blocks@bibEntryEn| private macro typesets a
 % bibliographical entry in English. Along with the macros
 % required by the locale file interface, the locale files
@@ -103,11 +146,42 @@
     \thesis@blocks@clear
     \begin{alwayssingle}
       \chapter*{\thesis@bibTitleEn}
-      {\renewcommand{\arraystretch}{2}
-      \begin{tabular}{ll}
+      {% Calculate the width of the columns
+      \let\@A\relax\newlength{\@A}\settowidth{\@A}{{%
+        \bf\thesis@bib@authorEn:}}
+      \let\@B\relax\newlength{\@B}\settowidth{\@B}{{%
+        \bf\thesis@bib@titleEn:}}
+      \let\@C\relax\newlength{\@C}\settowidth{\@C}{{%
+        \bf\thesis@bib@programmeEn:}}
+      \let\@D\relax\newlength{\@D}\settowidth{\@D}{{%
+        \bf\thesis@bib@fieldEn:}}
+      % Unless this is a rigorous thesis, we will be typesetting
+      % the name of the thesis advisor.
+      \let\@E\relax\newlength{\@E}
+        \ifx\thesis@type\thesis@rigorous%
+          \setlength{\@E}{0pt}%
+        \else%
+          \settowidth{\@E}{{\bf\thesis@bib@advisorEn:}}
+        \fi%
+      \let\@F\relax\newlength{\@F}\settowidth{\@F}{{%
+        \bf\thesis@bib@academicYearEn:}}
+      \let\@G\relax\newlength{\@G}\settowidth{\@G}{{%
+        \bf\thesis@bib@pages:}}
+      \let\@H\relax\newlength{\@H}\settowidth{\@H}{{%
+        \bf\thesis@bib@keywordsEn:}}
+      \let\@skip\relax\newlength{\@skip}\setlength{\@skip}{16pt}
+      \let\@left\relax\newlength{\@left}\pgfmathsetlength{\@left}{%
+        max(\@A,\@B,\@C,\@D,\@E,\@F,\@G,\@H)}
+      \let\@right\relax\newlength{\@right}\setlength{\@right}{%
+        \textwidth-\@left-\@skip}
+
+    % Typeset the table
+    \renewcommand{\arraystretch}{2}
+    \begin{tabular}{@{}p{\@left}@{\hskip\@skip}p{\@right}@{}}
         \textbf{\thesis@bib@authorEn:} & \vtop{%
           \hbox{\strut\thesis@authorEn}%
-          \hbox{\strut\thesis@facultyNameEn, \thesis@universityNameEn}%
+          \hbox{\strut\thesis@facultyNameEn,
+                \thesis@universityNameEn}%
           \hbox{\strut\thesis@departmentEn}} \\
         \textbf{\thesis@bib@titleEn:}
           & \thesis@titleEn \\
@@ -115,8 +189,12 @@
           & \thesis@programmeEn \\
         \textbf{\thesis@bib@fieldEn:}
           & \thesis@fieldEn \\
-        \textbf{\thesis@bib@advisorEn:}
-          & \thesis@advisorEn \\
+        % Unless this is a rigorous thesis, typeset the name of the
+        % thesis advisor.
+        \ifx\thesis@type\thesis@rigorous\else%
+          \textbf{\thesis@bib@advisorEn:}
+            & \thesis@advisorEn \\
+        \fi
         \textbf{\thesis@bib@academicYearEn:}
           & \thesis@academicYear \\
         \textbf{\thesis@bib@pagesEn:}
@@ -128,6 +206,99 @@
     \thesis@blocks@clear
   \fi}
 %    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@blocks@frontMatter}
+% The |\thesis@blocks@frontMatter| private macro sets up the style
+% of the front matter front matter of the thesis. The front matter
+% is typeset without any visible numbering, as mandated by the
+% formal requirements of the faculty.
+%    \begin{macrocode}
+\def\thesis@blocks@frontMatter{%
+  \pagestyle{empty}
+  \parindent 1.5em
+  \setcounter{page}{1}
+  \pagenumbering{roman}}
+%    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@blocks@cover}
+% The |\thesis@blocks@cover| private macro typesets the thesis
+% cover.
+% \begin{macrocode}
+\def\thesis@blocks@cover{%
+  \thesis@blocks@clear
+  \ifthesis@cover\else
+    \ifthesis@twoside\@twosidefalse\fi % Temporarily disable twoside
+    \begin{alwayssingle}
+      \thispagestyle{empty}
+      \begin{center}
+      {\sc\thesis@titlePage@LARGE\thesis@universityName\\%
+          \thesis@titlePage@Large\thesis@facultyName\\[0.3em]%
+          \thesis@titlePage@large\thesis@department}
+      \vfill
+      {\bf\thesis@titlePage@Huge\thesis@typeName}
+      \vfill
+      {\thesis@titlePage@large\thesis@place
+       \ \thesis@year\hfill\thesis@author}
+      \end{center}
+    \end{alwayssingle}
+    \ifthesis@twoside\@twosidetrue\fi % Re-enable twoside
+    \thesis@blocks@clear
+  \fi}
+%    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@blocks@titlePage}
+% The |\thesis@blocks@titlePage| private macro typesets the thesis
+% title page.
+% \begin{macrocode}
+\def\thesis@blocks@titlePage{{%
+  \edef\thesis@logopath@color{\thesis@logopath\ifthesis@color color/\fi}
+  \thesis@blocks@clear
+  \ifthesis@twoside\@twosidefalse\fi % Temporarily disable twoside
+  \begin{alwayssingle}
+    \thispagestyle{empty}
+    % The top of the page
+    \begin{adjustwidth}{-12mm}{}
+      \begin{minipage}{30mm}
+        \includegraphics[width=30mm]{%
+          \thesis@logopath@color\thesis@universityLogo}
+      \end{minipage}
+      \begin{minipage}{89mm}
+        \begin{center}
+          {\sc\thesis@titlePage@LARGE\thesis@universityName\\%
+              \thesis@titlePage@Large\thesis@facultyName\\[0.3em]%
+              \thesis@titlePage@large\thesis@department}
+          \rule{\textwidth}{2pt}\vspace*{2mm}
+        \end{center}
+      \end{minipage}
+      \begin{minipage}{30mm}
+        \includegraphics[width=30mm]{%
+          \thesis@logopath@color\thesis@facultyLogo}
+      \end{minipage}
+    \end{adjustwidth}
+    % The middle of the page
+    \vfill
+    {\bf\thesis@titlePage@Huge\thesis@TeXtitle\\[0.8em]}
+    {\thesis@titlePage@large\thesis@typeName\\[1em]}
+    {\bf\thesis@titlePage@LARGE\thesis@author\\}
+    \vfill\noindent
+    % The bottom of the page
+    {\bf\thesis@titlePage@large%
+      % Unless this is a rigorous thesis, typeset the name of the
+      % thesis advisor.
+      \ifx\thesis@type\thesis@rigorous\else%
+          \thesis@advisorTitle: \thesis@advisor\hfill%
+      \fi%
+      \thesis@place\ \thesis@year}
+  \end{alwayssingle}
+  \ifthesis@twoside\@twosidetrue\fi % Re-enable twoside
+  \thesis@blocks@clear}
+\def\thesis@blocks@declaration{%
+  \thesis@blocks@clear%
+  \begin{alwayssingle}%
+    \chapter*{\thesis@declarationTitle}%
+    \thesis@declaration%
+    \vskip 2cm%
+    \hfill\thesis@author%
+  \end{alwayssingle}
+  \thesis@blocks@clear}}
+%    \end{macrocode}
 % \end{macro}
 % The style file defines the autolayout preamble as the cover and
 % the title page followed by the bibliographic entry, the abstract
@@ -138,8 +309,8 @@
 %    \begin{macrocode}
 \def\thesis@preamble{%
   \thesis@blocks@cover%
-  \thesis@blocks@titlePage%
   \thesis@blocks@frontMatter%
+    \thesis@blocks@titlePage%
     \thesis@blocks@bibEntry%
     \thesis@blocks@bibEntryEn%
     \thesis@blocks@abstract%

@@ -15,11 +15,10 @@
 \def\thesis@placeholders@authorEn{Author's name}
 \def\thesis@placeholders@universityNameEn{University name}
 \def\thesis@facultyNameEn{Faculty name}
-\def\thesis@placeholders@advisorEn{Advisor's name}
+\def\thesis@placeholders@advisorEn{\thesis@advisorTitleEn's name}
 \def\thesis@placeholders@departmentEn{Department name}
 \def\thesis@placeholders@programmeEn{Study programme name}
 \def\thesis@placeholders@fieldEn{The field of study}
-\def\thesis@placeholders@thanksEn{Acknowledgement text ...}
 \def\thesis@assignmentEn{Replace this page with a copy
   of the official signed thesis assignment.}
 \def\thesis@declarationEn{Declaration text ...}
@@ -43,7 +42,7 @@
   \else\ifx\thesis@type\thesis@rigorous%
     Rigorous Thesis%
   \else%
-    Unknown thesis type%
+    <<Unknown thesis type (\thesis@type)>>%
   \fi\fi\fi\fi}
 %    \end{macrocode}\iffalse
 %</base-shared>
@@ -66,7 +65,6 @@
 \let\thesis@placeholders@department=\thesis@placeholders@departmentEn
 \let\thesis@placeholders@programme=\thesis@placeholders@programmeEn
 \let\thesis@placeholders@field=\thesis@placeholders@fieldEn
-\let\thesis@placeholders@thanks=\thesis@placeholders@thanksEn
 \let\thesis@assignment=\thesis@assignmentEn
 \let\thesis@declaration=\thesis@declarationEn
 
@@ -238,7 +236,8 @@
 % to be shared with non-English locale files.
 % It replaces the |\thesis@facultyNameEn| placeholder with the
 % correct value and updates the |\thesis@placeholders@assignmentEn|
-% in accordance with the requirements of the faculty.
+% and |\thesis@declarationEn| private macros in accordance with the
+% requirements of the faculty.
 % \iffalse
 %<*mu/fi-shared>
 % \fi\begin{macrocode}
@@ -254,7 +253,8 @@
 % Informatics at the Masaryk University in Brno.
 % It replaces the |\thesis@facultyName| placeholder with the
 % correct value and updates the |\thesis@placeholders@assignment|
-% in accordance with the requirements of the faculty.
+% and |\thesis@declaration| private macros in accordance with the
+% requirements of the faculty.
 % \iffalse
 %<*mu/fi>
 % \fi\begin{macrocode}

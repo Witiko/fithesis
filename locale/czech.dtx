@@ -4,7 +4,8 @@
 % \begin{macro}{\thesis@gender@koncovka}
 % The locale file defines the |\thesis@gender@koncovka| macro,
 % which expands to the correct verb ending based on the value of
-% the |\thesis@ifwoman| macro.
+% the |\thesis@ifwoman| macro and the |\thesis@typeName@akuzativ|
+% containing the accusative case of the thesis type name.
 % \end{macro}\iffalse
 %<*base>
 % \fi\begin{macrocode}
@@ -28,7 +29,6 @@
 \def\thesis@placeholders@department{Název katedry}
 \def\thesis@placeholders@programme{Název studijního programu}
 \def\thesis@placeholders@field{Název studijního oboru}
-\def\thesis@placeholders@thanks{Text poděkování ...}
 \def\thesis@assignment{Místo tohoto listu vložte kopii
   oficiálního podepsaného zadání práce.}
 \def\thesis@declaration{Text prohlášení ...}
@@ -51,27 +51,31 @@
   \else\ifx\thesis@type\thesis@rigorous%
     Rigorózní práce%
   \else%
-    Neznámý typ práce%
+    <<Neznámý typ práce (\thesis@type)>>%
+  \fi\fi\fi\fi}
+\def\thesis@typeName@akuzativ{%
+  \ifx\thesis@type\thesis@bachelors%
+    Bakalářskou práci%
+  \else\ifx\thesis@type\thesis@masters%
+    Diplomovou práci%
+  \else\ifx\thesis@type\thesis@doctoral%
+    Disertační práci%
+  \else\ifx\thesis@type\thesis@rigorous%
+    Rigorózní práci%
+  \else%
+    <<Neznámý typ práce (\thesis@type)>>%
   \fi\fi\fi\fi}
 %    \end{macrocode}\iffalse
 %</base>
 % \fi\file{locale/mu/czech.def}
 % This is the Czech locale file specific to the Masaryk
 % University in Brno. It replaces the |\thesis@universityName|
-% placeholder with the correct value and defines the declaration
-% text.
+% placeholder with the correct value.
 % \iffalse
 %<*mu>
 % \fi\begin{macrocode}
 \ProvidesFile{fithesis3/locale/mu/czech.def}[2015/04/08]
 \def\thesis@universityName{Masarykova Univerzita}
-\def\thesis@declaration{%
-  Prohlašuji, že tato \thesis@lower{typeName} je mým původním
-  autorským dílem, které jsem vypracoval\thesis@gender@koncovka\ 
-  samostatně. Všechny zdroje, prameny a literaturu, které jsem
-  při vypracování používal\thesis@gender@koncovka\ nebo z~nich
-  čerpal\thesis@gender@koncovka, v~práci řádně cituji s~uvedením
-  úplného odkazu na příslušný zdroj.}
 %    \end{macrocode}\iffalse
 %</mu>
 % \fi\file{locale/mu/law/czech.def}
@@ -136,15 +140,25 @@
 % Informatics at the Masaryk University in Brno.
 % It replaces the |\thesis@facultyName| placeholder with the
 % correct value and updates the |\thesis@placeholders@assignment|
-% in accordance with the requirements of the faculty.
+% and |\thesis@declaration| private macros in accordance with the
+% requirements of the faculty.
 % \iffalse
 %<*mu/fi>
 % \fi\begin{macrocode}
 \ProvidesFile{fithesis3/locale/mu/fi/czech.def}[2015/04/08]
 \def\thesis@facultyName{Fakulta informatiky}
+
+% Zástupné texty
 \def\thesis@placeholders@assignment{Místo tohoto listu vložte
   kopie oficiálního podepsaného zadání práce a prohlášení
   autora školního díla.}
+\def\thesis@declaration{%
+  Prohlašuji, že tato \thesis@lower{typeName} je mým původním
+  autorským dílem, které jsem vypracoval\thesis@gender@koncovka\ 
+  samostatně. Všechny zdroje, prameny a literaturu, které jsem
+  při vypracování používal\thesis@gender@koncovka\ nebo z~nich
+  čerpal\thesis@gender@koncovka, v~práci řádně cituji s~uvedením
+  úplného odkazu na příslušný zdroj.}
 %    \end{macrocode}\iffalse
 %</mu/fi>
 % \fi\file{locale/mu/phil/czech.def}
@@ -177,9 +191,11 @@
 % It defines the private macros required by the
 % |\thesis@blocks@bibEntry| block defined within the
 % \texttt{style/mu/sci.sty} style file.
-% It also replaces the |\thesis@facultyName| placeholder with the
-% correct value and redefines the |\thesis@abstractTitle| macro in
-% accordance with the formal requirements of the faculty.
+% It also replaces the |\thesis@facultyName| and
+% |\thesis@placeholders@department| placeholders with the
+% correct value and redefines the |\thesis@abstractTitle|,
+% |\thesis@placeholders@abstract| and |\thesis@declaration| macros
+% in accordance with the formal requirements of the faculty.
 % \iffalse
 %<*mu/sci>
 % \fi\begin{macrocode}
@@ -187,9 +203,15 @@
 
 % Zástupné texty
 \def\thesis@facultyName{Přírodovědecká fakulta}
+\def\thesis@placeholders@department{Název ústavu}
+\def\thesis@placeholders@abstract{Text abstraktu}
 
 % Ostatní
 \def\thesis@abstractTitle{Abstrakt}
+\def\thesis@declaration{%
+  Prohlašuji, že jsem svoji \thesis@lower{typeName@akuzativ}
+  vypracoval\thesis@gender@koncovka\ samostatně s~využitím
+  informačních zdrojů, které jsou v~práci citovány.}
 
 % Bibliografický záznam
 \def\thesis@bibTitle{Bibliografický záznam}
