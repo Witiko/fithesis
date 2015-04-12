@@ -6,8 +6,7 @@
 % \begin{macro}{\thesis@gender@koncovka}
 % The locale file defines the |\thesis@gender@koncovka| macro,
 % which expands to the correct verb ending based on the value of
-% the |\thesis@ifwoman| macro and the |\thesis@typeName@akuzativ|
-% containing the accusative case of the thesis type name.
+% the |\thesis@ifwoman| macro.
 % \end{macro}\iffalse
 %<*base>
 % \fi\begin{macrocode}
@@ -150,11 +149,14 @@
 % from the respective Czech locale file.
 % It also updates the |\thesis@placeholders@assignment| and
 % |\thesis@declaration| private macros in accordance with the
-% requirements of the faculty.
+% requirements of the faculty. The file also defines the
+% |\thesis@advisorSignature| macro required by the
+% |\thesis@titlePage| block defined within the
+% \texttt{style/mu/fi.sty} style file.
 % \iffalse
 %<*mu/fi>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis3/locale/mu/fi/slovak.def}[2015/04/08]
+\ProvidesFile{fithesis3/locale/mu/fi/slovak.def}[2015/04/12]
 
 % Symbolický odkaz na český preklad
 \input{\thesis@localepath mu/fi/czech.def}
@@ -163,6 +165,8 @@
 \def\thesis@assignment{Namiesto tejto stránky vložte kópiu
   oficiálneho podpísaného zadania práce a prehlásenie autora
   školského diela.}
+
+% Rôzne
 \def\thesis@declaration{%
   Prehlasujem, že táto \thesis@lower{typeName} je mojím pôvodným
   autorským dielom, ktoré som vypracoval\thesis@gender@koncovka\ 
@@ -170,6 +174,7 @@
   vypracovaní používal\thesis@gender@koncovka\ alebo z~nich
   čerpal\thesis@gender@koncovka, v~práci riadne citujem
   s~uvedením úplného odkazu na príslušný zdroj.}
+\def\thesis@advisorSignature{Podpis vedúceho}
 %    \end{macrocode}\iffalse
 %</mu/fi>
 % \fi\file{locale/mu/phil/slovak.def}
@@ -204,8 +209,8 @@
 % This is the Slovak locale file specific to the Faculty of
 % Science at the Masaryk University in Brno.
 % It defines the private macros required by the
-% |\thesis@blocks@bibEntry| block defined within the
-% \texttt{style/mu/sci.sty} style file.
+% |\thesis@blocks@bibEntry| block
+% defined within the \texttt{style/mu/sci.sty} style file.
 % It also replaces the |\thesis@facultyName| and
 % |\thesis@placeholders@department| placeholders with the
 % correct value. The redefinitions of the |\thesis@abstractTitle|
@@ -217,7 +222,7 @@
 % \iffalse
 %<*mu/sci>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis3/locale/mu/sci/slovak.def}[2015/04/08]
+\ProvidesFile{fithesis3/locale/mu/sci/slovak.def}[2015/04/12]
 
 %% Symbolický odkaz na český preklad
 \input{\thesis@localepath mu/sci/czech.def}

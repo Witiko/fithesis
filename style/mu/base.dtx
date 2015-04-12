@@ -8,7 +8,7 @@
 % \texttt{style/base.tex}, regardless of the
 % value of the |\thesis@style| macro.
 %    \begin{macrocode}
-\ProvidesPackage{fithesis3/style/mu/base}[2015/04/08]
+\ProvidesPackage{fithesis3/style/mu/base}[2015/04/12]
 \NeedsTeXFormat{LaTeX2e}
 %    \end{macrocode}
 % The file recognizes the following options: \begin{itemize}
@@ -156,40 +156,12 @@
       {\sc \thesis@typeName}\\[0.3in]
       {\thesis@titlePage@Large\bf\thesis@author}
       \par\vfill
-      {\thesis@titlePage@large\thesis@place, \thesis@year}
+      {\thesis@titlePage@large\thesis@place, \thesis@semester}
       \end{center}
     \end{alwayssingle}
     \ifthesis@twoside\@twosidetrue\fi % Re-enable twoside
     \thesis@blocks@clear
   \fi}
-%    \end{macrocode}
-% \end{macro}\begin{macro}{\thesis@blocks@titlePage}
-% The |\thesis@blocks@titlePage| private macro typesets the thesis
-% title page. The title page is similar to the cover except for the
-% fact that if color typesetting is enables, the logo is loaded
-% from the |\thesis@logopath color/| directory instead of
-% |\thesis@logopath|.
-% \begin{macrocode}
-\def\thesis@blocks@titlePage{%
-  \thesis@blocks@clear
-  \begin{alwayssingle}
-    \thispagestyle{empty}
-    \begin{center}
-    {\sc\thesis@universityName\\\thesis@facultyName}
-    \vskip 1.4em
-    \edef\thesis@logopath@color{\thesis@logopath\ifthesis@color color/\fi}
-    \includegraphics[width=40mm]{%
-      \thesis@logopath@color\thesis@facultyLogo}\\[0.4in]
-    \let\footnotesize\small
-    \let\footnoterule\relax{}
-    {\thesis@titlePage@Huge\bf\thesis@TeXtitle\par\vfil}\vskip 0.8in
-    {\sc \thesis@typeName}\\[0.3in]
-    {\thesis@titlePage@Large\bf\thesis@author}
-    \par\vfill
-    {\thesis@titlePage@large\thesis@place, \thesis@year}
-    \end{center}
-  \end{alwayssingle}
-  \thesis@blocks@clear}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@tables}
 % The |\thesis@blocks@tables| private macro typesets the table of

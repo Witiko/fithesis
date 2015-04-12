@@ -2,14 +2,14 @@
 % This is the base file of the Czech locale. It defines all the
 % private macros mandated by the locale file interface.
 % \begin{macro}{\thesis@gender@koncovka}
-% The locale file defines the |\thesis@gender@koncovka| macro,
+% The locale file also defines the |\thesis@gender@koncovka| macro,
 % which expands to the correct verb ending based on the value of
 % the |\thesis@ifwoman| macro and the |\thesis@typeName@akuzativ|
 % containing the accusative case of the thesis type name.
 % \end{macro}\iffalse
 %<*base>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis3/locale/czech.def}[2015/04/08]
+\ProvidesFile{fithesis3/locale/czech.def}[2015/04/12]
 
 % Symbolický odkaz na anglický překlad
 \input{\thesis@localepath english.def}
@@ -141,17 +141,22 @@
 % It replaces the |\thesis@facultyName| placeholder with the
 % correct value and updates the |\thesis@placeholders@assignment|
 % and |\thesis@declaration| private macros in accordance with the
-% requirements of the faculty.
+% requirements of the faculty. The file also defines the
+% |\thesis@advisorSignature| macro required by the
+% |\thesis@titlePage| block defined within the
+% \texttt{style/mu/fi.sty} style file.
 % \iffalse
 %<*mu/fi>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis3/locale/mu/fi/czech.def}[2015/04/08]
+\ProvidesFile{fithesis3/locale/mu/fi/czech.def}[2015/04/12]
 \def\thesis@facultyName{Fakulta informatiky}
 
 % Zástupné texty
 \def\thesis@placeholders@assignment{Místo tohoto listu vložte
   kopie oficiálního podepsaného zadání práce a prohlášení
   autora školního díla.}
+
+% Ostatní
 \def\thesis@declaration{%
   Prohlašuji, že tato \thesis@lower{typeName} je mým původním
   autorským dílem, které jsem vypracoval\thesis@gender@koncovka\ 
@@ -159,6 +164,7 @@
   při vypracování používal\thesis@gender@koncovka\ nebo z~nich
   čerpal\thesis@gender@koncovka, v~práci řádně cituji s~uvedením
   úplného odkazu na příslušný zdroj.}
+\def\thesis@advisorSignature{Podpis vedoucího}
 %    \end{macrocode}\iffalse
 %</mu/fi>
 % \fi\file{locale/mu/phil/czech.def}
@@ -199,7 +205,7 @@
 % \iffalse
 %<*mu/sci>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis3/locale/mu/sci/czech.def}[2015/04/10]
+\ProvidesFile{fithesis3/locale/mu/sci/czech.def}[2015/04/12]
 
 % Zástupné texty
 \def\thesis@facultyName{Přírodovědecká fakulta}
