@@ -793,18 +793,20 @@
   \long\def\thesis@thanks{#1}}
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{\thesis@assignmentPDF}
+% \begin{macro}{\thesis@assignmentFiles}
 % \subsubsection{The \texttt{assignment} key}
-% The \marg{\texttt{assignment}=path} pair sets the path to the pdf
-% file containing the thesis assignment to \textit{path}. The
-% \textit{path} is stored within the private
-% |\thesis@assignmentPDF| macro, whose implicit value is
-% |\undefined|. When defined, the PDF file is injected into the
+% The \marg{\texttt{assignment}=list} pair sets the comma-separated
+% list of paths (and optional page spec specifiers, see the
+% \textsf{pdfpages} package |\includepdfmerge| command
+% documentation) to the pdf files containing the thesis assignment
+% to \textit{list}. The \textit{list} is stored within the private
+% |\thesis@assignmentFiles| macro, whose implicit value is
+% |\undefined|. When defined, the PDF files are injected into the
 % resulting document instead of the placeholder
 % |\thesis@assignment| string.
 %    \begin{macrocode}
 \define@key{thesis}{assignment}{%
-  \def\thesis@assignmentPDF{#1}}
+  \def\thesis@assignmentFiles{#1}}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\ifthesis@auto}

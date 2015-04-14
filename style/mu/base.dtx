@@ -277,14 +277,15 @@
 \def\thesis@blocks@assignment{%
   \ifx\thesis@type\thesis@rigorous\else%
     \thesis@blocks@clear%
-    \ifx\thesis@assignmentPDF\undefined%
+    \ifx\thesis@assignmentFiles\undefined%
       \begin{alwayssingle}%
         \thispagestyle{empty}
         \addtocounter{page}{-\ifthesis@twoside2\else1\fi}
         \noindent\textit{\thesis@assignment}%
       \end{alwayssingle}%
     \else%
-      \includepdf[pages=-]{\thesis@assignmentPDF}%
+      {\edef\@pdfList{\thesis@assignmentFiles}%
+      \expandafter\includepdfmerge\expandafter{\@pdfList}}%
     \fi%
     \thesis@blocks@clear
   \fi}
