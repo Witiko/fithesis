@@ -194,9 +194,9 @@
 % macro needs to be included prior to the beginning of a \LaTeX\ 
 % document. When used, the \textit{keyvals} are processed.
 %
-% It is noteworthy that the values as defined by the |\thesissetup|
-% public macro can only contain one paragraph of text. If you wish
-% to set multiple paragraphs of text as the value, you should use
+% Note that the values specified to the |\thesissetup| public macro
+% may only contain one paragraph of text. If you wish to set
+% multiple paragraphs of text as the value, you need to use
 % the |\thesislong| public macro.
 %    \begin{macrocode}
 \def\thesissetup#1{%
@@ -206,7 +206,8 @@
 % \begin{macro}{\thesis@basepath}
 % The \marg{\texttt{basepath}=path} pair sets the \textit{path}
 % containing the class files. The \textit{path} is prepended to
-% each other path used by the class. If non-empty, the
+% each other path (|\thesis@logopath|, |\thesis@stylepath| and
+% |\thesis@localepath|) used by the class. If non-empty, the
 % \textit{path} gets normalized to \textit{path/}. The normalized
 % \textit{path} is stored within the private |\thesis@basepath| macro,
 % whose implicit value is |fithesis3/|.
@@ -1051,6 +1052,7 @@
     \add<__AUTHOR_____=_"\thesis@author",>%
     \add<__TITLE______=_"\thesis@title",>%
     \add<__YEAR_______=_"\thesis@year",>%
+    \add<__MONTH______=_"\thesis@month",>%
     \add<__TYPE_______=_"\thesis@typeName",>%
     \add<__SCHOOL_____=_"\thesis@universityName,
       \thesis@facultyName",>%
