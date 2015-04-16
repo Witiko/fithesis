@@ -1,4 +1,4 @@
-% \file{style/mu/sci.sty}
+% \file{style/mu/fithesis3-sci.sty}
 % This is the style file for the theses written at the Faculty of
 % Science at the Masaryk University in Brno. It has been
 % prepared in accordance with the formal requirements published at
@@ -6,7 +6,7 @@
 % \url{http://www.sci.muni.cz/NW/predpisy/od/OD-2014-05.pdf}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fithesis3/style/mu/sci}[2015/04/12]
+\ProvidesPackage{fithesis3/style/mu/fithesis3-sci}[2015/04/12]
 %    \end{macrocode}
 % The file loads the following packages:
 % \begin{itemize}
@@ -49,7 +49,6 @@
 % \end{itemize}
 %    \begin{macrocode}
 \def\thesis@blocks@bibEntry{%
-  \thesis@blocks@clear
   \begin{alwayssingle}
     \chapter*{\thesis@bibTitle}
     {% Calculate the width of the columns
@@ -107,8 +106,7 @@
       \textbf{\thesis@bib@keywords:}
         & \thesis@keywords \\
     \end{tabular}}
-  \end{alwayssingle}
-  \thesis@blocks@clear}
+  \end{alwayssingle}}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@bibEntryEn}
 % The |\thesis@blocks@bibEntryEn| private macro typesets a
@@ -143,9 +141,10 @@
 %    \begin{macrocode}
 \def\thesis@blocks@bibEntryEn{%
   \ifthesis@english\else
-    \thesis@blocks@clear
     \begin{alwayssingle}
-      \chapter*{\thesis@bibTitleEn}
+      % Start the new chapter without clearing the right page
+      {\def\cleardoublepage{}%
+      \chapter*{\thesis@bibTitleEn}}%
       {% Calculate the width of the columns
       \let\@A\relax\newlength{\@A}\settowidth{\@A}{{%
         \bf\thesis@bib@authorEn:}}
@@ -203,7 +202,6 @@
           & \thesis@keywordsEn \\
       \end{tabular}}
     \end{alwayssingle}
-    \thesis@blocks@clear
   \fi}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@frontMatter}
@@ -240,7 +238,6 @@
       \end{center}
     \end{alwayssingle}
     \ifthesis@twoside\@twosidetrue\fi % Re-enable twoside
-    \thesis@blocks@clear
   \fi}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@titlePage}
@@ -287,8 +284,12 @@
       \fi%
       \thesis@place\ \thesis@year}
   \end{alwayssingle}
-  \ifthesis@twoside\@twosidetrue\fi % Re-enable twoside
-  \thesis@blocks@clear}
+  \ifthesis@twoside\@twosidetrue\fi} % Re-enable twoside
+%    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@blocks@declaration}
+% The |\thesis@blocks@declaration| private macro typesets the
+% declaration text.
+% \begin{macrocode}
 \def\thesis@blocks@declaration{%
   \thesis@blocks@clear%
   \begin{alwayssingle}%

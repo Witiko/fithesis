@@ -1,5 +1,5 @@
 LOGS=base.log
-OUTPUT=base.sty
+OUTPUT=fithesis3-base.sty
 
 .PHONY: explode implode all
 all: explode

@@ -504,10 +504,11 @@
 % The \marg{\texttt{style}=filename} pair sets the filename of the
 % style file to be used to \textit{filename}. The \textit{filename}
 % is stored within the private |\thesis@style| macro, whose
-% implicit value is |\thesis@university/\thesis@faculty|. The style
-% file is loaded from the |\thesis@stylepath\thesis@style| path.
+% implicit value is |\thesis@university/fithesis3-\thesis@faculty|.
+% The style file is loaded from the
+% |\thesis@stylepath\thesis@style| path.
 %    \begin{macrocode}
-\def\thesis@style{\thesis@university/\thesis@faculty}
+\def\thesis@style{\thesis@university/fithesis3-\thesis@faculty}
 \define@key{thesis}{style}{%
   \def\thesis@style{#1}}
 %    \end{macrocode}
@@ -907,9 +908,9 @@
 %    \end{macrocode}
 % With the placeholder strings loaded from the locale files, we
 % can now inject metadata into the resulting PDF file. To this
-% end, the \textsf{hyperref} package is conditionally included.
-% Consequently, the following values are assigned to the PDF
-% headers:\begin{itemize}
+% end, the \textsf{hyperref} package is conditionally included with
+% the \texttt{unicode} option. Consequently, the following values
+% are assigned to the PDF headers:\begin{itemize}
 %   \item\texttt{Title} is set to either |\thesis@titleEn|, if
 %     defined, or to |\thesis@title|.
 %   \item\texttt{Author} is set to |\thesis@author|.
@@ -921,39 +922,40 @@
        \thesis@require{hyperref}%
       {\def\@titleEnPlaceholder{\thesis@placeholders@titleEn}
        \def\@keywordsEnPlaceholder{\thesis@placeholders@keywordsEn}
-       \hypersetup{%
-       pdftitle={\ifx\thesis@titleEn\@titleEnPlaceholder%
-         \thesis@title%
-       \else%
-         \thesis@titleEn%
-       \fi}, pdfauthor={\thesis@author},%
-       pdfkeywords={\ifx\thesis@keywordsEn\@keywordsEnPlaceholder%
-         \thesis@keywords%
-       \else%
-         \thesis@keywordsEn%
-       \fi}, pdfcreator={\thesis@version},%
+       \hypersetup{unicode,
+         pdftitle={\ifx\thesis@titleEn\@titleEnPlaceholder%
+           \thesis@title%
+         \else%
+           \thesis@titleEn%
+         \fi}, pdfauthor={\thesis@author},%
+         pdfkeywords={\ifx\thesis@keywordsEn\@keywordsEnPlaceholder%
+           \thesis@keywords%
+         \else%
+           \thesis@keywordsEn%
+         \fi}, pdfcreator={\thesis@version},%
      }}%
 %    \end{macrocode}
 % Consequently, the style files are loaded with the class
 % options passed onto them. If inheritance is enabled for
 % style files, then each of the following files is
 % loaded in sequence, provided they exist:\begin{enumerate}
-%   \item|\thesis@stylepath base.sty|
-%   \item|\thesis@stylepath\thesis@university/base.sty|
+%   \item|\thesis@stylepath fithesis3-base.sty|
+%   \item|\thesis@stylepath\thesis@university/fithesis3-base.sty|
 %   \item|\thesis@stylepath\thesis@style.sty|
 % \end{enumerate}If inheritance is disabled for style files,
 % then only the |\thesis@stylepath\thesis@|^^A
-% \discretionary{}{}{}|style.sty| file is loaded.
+% \discretionary{}{}{}|style.sty| file is loaded. The
+% \texttt{fithesis3-} prefix serves to prevent package clashes
+% with other similarly named package files within the \TeX\
+% directory structure.
 %    \begin{macrocode}
       \ifthesis@style@inheritance
-        \thesis@exists{\thesis@stylepath base.sty}{%
-          \RequirePackageWithOptions{\thesis@stylepath base}}%
-        \thesis@exists{\thesis@stylepath\thesis@university/%
-          base.sty}{\RequirePackageWithOptions{\thesis@stylepath%
-          \thesis@university/base}}%
+        \thesis@requireWithOptions{\thesis@stylepath%
+          fithesis3-base}
+        \thesis@requireWithOptions{\thesis@stylepath%
+          \thesis@university/fithesis3-base}
       \fi
-      \thesis@exists{\thesis@stylepath\thesis@style.sty}{%
-        \RequirePackageWithOptions{\thesis@stylepath\thesis@style}}%
+      \thesis@requireWithOptions{\thesis@stylepath\thesis@style}
 %    \end{macrocode}
 % If autolayout is enabled, the |\thesis@preamble| and
 % |\thesis@postamble| macros are scheduled for expansion at the
@@ -1004,6 +1006,14 @@
 %    \begin{macrocode}
 \def\thesis@require#1{%
   \@ifpackageloaded{#1}{}{\RequirePackage{#1}}}
+%    \end{macrocode}
+% The \DescribeMacro{\thesis@requireWithOptions}
+% |\thesis@requireWithOptions|\marg{package} expands to
+% |\RequirePackageWithOptions|\marg{package}, if the specified
+% \textit{package} exists. This serves to load style files.
+%    \begin{macrocode}
+\def\thesis@requireWithOptions#1{\thesis@exists{#1.sty}{%
+  \RequirePackageWithOptions{#1}}}
 %    \end{macrocode}
 % The \DescribeMacro{\thesis@bibgen}|\thesis@bibgen| macro
 % generates the contents of a \BibTeX\ file containing a

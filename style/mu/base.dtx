@@ -1,6 +1,6 @@
 % \iffalse
 %<*base>
-% \fi\file{style/mu/base.sty}
+% \fi\file{style/mu/fithesis3-base.sty}
 % This is the base style file for theses written at the Masaryk
 % University in Brno.
 % If inheritance is enabled for style files, then this file is
@@ -8,7 +8,7 @@
 % \texttt{style/base.tex}, regardless of the
 % value of the |\thesis@style| macro.
 %    \begin{macrocode}
-\ProvidesPackage{fithesis3/style/mu/base}[2015/04/12]
+\ProvidesPackage{fithesis3/style/mu/fithesis3-base}[2015/04/12]
 \NeedsTeXFormat{LaTeX2e}
 %    \end{macrocode}
 % The file recognizes the following options: \begin{itemize}
@@ -45,7 +45,8 @@
 %     isn't going to be included in the
 %     \DescribeMacro{\thesis@blocks@tables}|\thesis@blocks@tables|
 %     block, respectively.
-%   \item\texttt{lof}, \texttt{nolof} -- The |\thesis@blocks@cover|
+%   \item\texttt{cover}, \texttt{nocover} -- The
+%     \DescribeMacro{\thesis@blocks@cover}|\thesis@blocks@cover|
 %     is or isn't going to expand to the thesis cover.
 % \end{itemize}
 % The defaults are \texttt{12pt}, \texttt{oneside}, \texttt{final},
@@ -81,9 +82,10 @@
 %    \end{macrocode}
 % The file loads the following packages: \begin{itemize}
 %   \item\textsf{fontenc} -- The font encoding is set to Cork.
-%   \item\textsf{mathpazo} -- Changes the default roman font family
-%     to Adobe Palatino with real smallcaps, and the virtual
-%     \texttt{mathpazo} fonts will be used for math.
+%   \item\textsf{mathpazo} -- The virtual \texttt{mathpazo} fonts
+%     will be used for math.
+%   \item\textsf{tgpagella} -- Changes the default roman font family
+%     to \TeX\ Gyre Pagella.
 %   \item\textsf{cmap} -- Places an an explicit \texttt{ToUnicode}
 %     map in the resulting PDF file, allowing for extraction of
 %     the text of the document.
@@ -98,7 +100,8 @@
 %    \begin{macrocode}
 \RequirePackage[resetfonts]{cmap}
 \RequirePackage[T1]{fontenc}
-\RequirePackage[sc]{mathpazo}
+\RequirePackage{mathpazo}
+\RequirePackage{tgpagella}
 \thesis@require{graphicx}
 \thesis@require{pdfpages}
 \hypersetup{
@@ -160,7 +163,6 @@
       \end{center}
     \end{alwayssingle}
     \ifthesis@twoside\@twosidetrue\fi % Re-enable twoside
-    \thesis@blocks@clear
   \fi}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@tables}
@@ -190,8 +192,7 @@
     \par\vfill%
     \textbf{\thesis@advisorTitle:} \thesis@advisor%
     \par\vfil%
-  \end{alwayssingle}
-  \thesis@blocks@clear}
+  \end{alwayssingle}}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@thanks}
 % The |\thesis@blocks@thanks| private macro typesets the
@@ -206,7 +207,6 @@
       \thesis@thanks%
       \par\vfill%
     \end{alwayssingle}%
-    \thesis@blocks@clear
   \fi}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@abstract}
@@ -214,13 +214,11 @@
 % abstract.
 % \begin{macrocode}
 \def\thesis@blocks@abstract{%
-  \thesis@blocks@clear%
   \begin{alwayssingle}%
     \chapter*{\thesis@abstractTitle}%
     \thesis@abstract%
     \par\vfil\null%
-  \end{alwayssingle}%
-  \thesis@blocks@clear}
+  \end{alwayssingle}}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@abstractEn}
 % The |\thesis@blocks@abstractEn| private macro typesets the
@@ -229,13 +227,14 @@
 % \begin{macrocode}
 \def\thesis@blocks@abstractEn{%
   \ifthesis@english\else%
-    \thesis@blocks@clear%
+    \newpage%
     \begin{alwayssingle}%
+      % Start the new chapter without clearing the right page
+      {\def\cleardoublepage{}%
       \chapter*{\thesis@abstractTitleEn}%
-      \thesis@abstractEn%
+      \thesis@abstractEn}%
       \par\vfil\null%
     \end{alwayssingle}%
-    \thesis@blocks@clear%
   \fi}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@keywords}
@@ -243,13 +242,11 @@
 % keywords.
 % \begin{macrocode}
 \def\thesis@blocks@keywords{%
-  \thesis@blocks@clear%
   \begin{alwayssingle}%
     \chapter*{\thesis@keywordsTitle}%
     \thesis@keywords%
     \par\vfill%
-  \end{alwayssingle}%
-  \thesis@blocks@clear}
+  \end{alwayssingle}}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@keywordsEn}
 % The |\thesis@blocks@keywordsEn| private macro typesets the
@@ -258,13 +255,14 @@
 % \begin{macrocode}
 \def\thesis@blocks@keywordsEn{%
   \ifthesis@english\else%
-    \thesis@blocks@clear%
     \begin{alwayssingle}%
+      \newpage
+      % Start the new chapter without clearing the right page
+      {\def\cleardoublepage{}%
       \chapter*{\thesis@keywordsTitleEn}%
-      \thesis@keywords%
+      \thesis@keywordsEn}%
       \par\vfill%
     \end{alwayssingle}%
-    \thesis@blocks@clear%
   \fi}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@assignment}
@@ -309,16 +307,16 @@
 % The rest of the file comprises redefinitions of \LaTeX\ commands
 % and private \texttt{rapport3} class macros altering the layout of
 % the resulting document. Depending on the type size of 10, 11 or
-% 12 points, either the \texttt{fit10.clo}, \texttt{fit11.clo} or
-% \texttt{fit12.clo} file is loaded from the |\thesis@stylepath mu|
-% directory, respectively.
+% 12 points, either the \texttt{fithesis3-10.clo},
+% \texttt{fithesis3-11.clo} or \texttt{fithesis3-12.clo} file is
+% loaded from the |\thesis@stylepath mu| directory, respectively.
 %    \begin{macrocode}
 % Table of contents will contain sectioning commands up to
 % \subsubsection
 \setcounter{tocdepth}{4}
 
-% Load the `fit1*.clo` size option
-\input\thesis@stylepath mu/fit1\thesis@ptsize.clo\relax
+% Load the `fithesis3-1*.clo` size option
+\input\thesis@stylepath mu/fithesis3-1\thesis@ptsize.clo\relax
 
 \def\ps@thesisheadings{%
 \def\chaptermark##1{%
