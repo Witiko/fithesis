@@ -1,8 +1,6 @@
 % \file{locale/slovak.def}
 % This is the base file of the Slovak locale. It defines all the
-% private macros mandated by the locale file interface. To ensure
-% graceful death in case of any missing strings, the locale file
-% falls back to the Czech locale.
+% private macros mandated by the locale file interface. 
 % \begin{macro}{\thesis@gender@koncovka}
 % The locale file defines the |\thesis@gender@koncovka| macro,
 % which expands to the correct verb ending based on the value of
@@ -11,9 +9,6 @@
 %<*base>
 % \fi\begin{macrocode}
 \ProvidesFile{fithesis3/locale/slovak.def}[2015/04/08]
-
-% Symbolický odkaz na český preklad
-\input{\thesis@localepath czech.def}
 
 % Pomocná makrá
 \def\thesis@gender@koncovka{%
@@ -70,30 +65,24 @@
 %</base>
 % \fi\file{locale/mu/slovak.def}
 % This is the Slovak locale file specific to the Masaryk
-% University in Brno. It inherits the value of the
-% |\thesis@universityName| private macro from the respective
-% Czech locale file and defines the declaration text.
+% University in Brno. It replaces the |\thesis@universityName|
+% placeholder with the correct value.
 % \iffalse
 %<*mu>
 % \fi\begin{macrocode}
 \ProvidesFile{fithesis3/locale/mu/slovak.def}[2015/04/08]
-
-% Symbolický odkaz na český preklad
-\input{\thesis@localepath mu/czech.def}
+\def\thesis@universityName{Masarykova Univerzita}
 %    \end{macrocode}\iffalse
 %</mu>
 % \fi\file{locale/mu/law/slovak.def}
 % This is the Slovak locale file specific to the Faculty of Law at
-% the Masaryk University in Brno. It inherits the value of the
-% |\thesis@facultyName| private macro from the respective Czech
-% locale file.
+% the Masaryk University in Brno. It replaces the
+% |\thesis@facultyName| placeholder with the correct value.
 % \iffalse
 %<*mu/law>
 % \fi\begin{macrocode}
 \ProvidesFile{fithesis3/locale/mu/law/slovak.def}[2015/04/08]
-
-% Symbolický odkaz na český preklad
-\input{\thesis@localepath mu/law/czech.def}
+\def\thesis@facultyName{Právnická fakulta}
 %    \end{macrocode}\iffalse
 %</mu/law>
 % \fi\file{locale/mu/fsps/slovak.def}
@@ -144,11 +133,10 @@
 %</mu/med>
 % \fi\file{locale/mu/fi/slovak.def}
 % This is the Slovak locale file specific to the Faculty of
-% Informatics at the Masaryk University in Brno. It
-% inherits the value of the |\thesis@facultyName| private macro
-% from the respective Czech locale file.
-% It also updates the |\thesis@placeholders@assignment| and
-% |\thesis@declaration| private macros in accordance with the
+% Informatics at the Masaryk University in Brno.
+% It replaces the |\thesis@facultyName| placeholder with the
+% correct value and updates the |\thesis@placeholders@assignment|
+% and |\thesis@declaration| private macros in accordance with the
 % requirements of the faculty. The file also defines the
 % |\thesis@advisorSignature| macro required by the
 % |\thesis@titlePage| block defined within the
@@ -157,9 +145,7 @@
 %<*mu/fi>
 % \fi\begin{macrocode}
 \ProvidesFile{fithesis3/locale/mu/fi/slovak.def}[2015/04/12]
-
-% Symbolický odkaz na český preklad
-\input{\thesis@localepath mu/fi/czech.def}
+\def\thesis@facultyName{Fakulta informatiky}
 
 % Zástupné texty
 \def\thesis@assignment{Namiesto tejto stránky vložte kópiu
@@ -179,46 +165,39 @@
 %</mu/fi>
 % \fi\file{locale/mu/phil/slovak.def}
 % This is the Slovak locale file specific to the Faculty of
-% Arts at the Masaryk University in Brno. It inherits the value
-% of the |\thesis@facultyName| private macro from the respective
-% Czech locale file.
+% Arts at the Masaryk University in Brno.
+% It replaces the |\thesis@facultyName| placeholder with the
+% correct value.
 % \iffalse
 %<*mu/phil>
 % \fi\begin{macrocode}
 \ProvidesFile{fithesis3/locale/mu/phil/slovak.def}[2015/04/08]
-
-% Symbolický odkaz na český preklad
-\input{\thesis@localepath mu/phil/czech.def}
+\def\thesis@facultyName{Filozofická fakulta}
 %    \end{macrocode}\iffalse
 %</mu/phil>
 % \fi\file{locale/mu/ped/slovak.def}
 % This is the Slovak locale file specific to the Faculty of
-% Education at the Masaryk University in Brno. It inherits the
-% value of the |\thesis@facultyName| private macro from the
-% respective Czech locale file.
+% Education at the Masaryk University in Brno.
+% It replaces the |\thesis@facultyName| placeholder with the
+% correct value.
 % \iffalse
 %<*mu/ped>
 % \fi\begin{macrocode}
 \ProvidesFile{fithesis3/locale/mu/ped/slovak.def}[2015/04/10]
-
-% Symbolický odkaz na český preklad
-\input{\thesis@localepath mu/ped/czech.def}
+\def\thesis@facultyName{Pedagogická fakulta}
 %    \end{macrocode}\iffalse
 %</mu/ped>
 % \fi\file{locale/mu/sci/slovak.def}
 % This is the Slovak locale file specific to the Faculty of
 % Science at the Masaryk University in Brno.
 % It defines the private macros required by the
-% |\thesis@blocks@bibEntry| block
-% defined within the \texttt{style/mu/sci.sty} style file.
+% |\thesis@blocks@bibEntry| block defined within the
+% \texttt{style/mu/sci.sty} style file.
 % It also replaces the |\thesis@facultyName| and
 % |\thesis@placeholders@department| placeholders with the
-% correct value. The redefinitions of the |\thesis@abstractTitle|
-% and |\thesis@placeholders@abstract| macros are inherited from the
-% respective Czech locale file and the |\thesis@declaration| macro
-% is redefined in accordance with the formal requirements of the faculty. The
-% |\thesis@bib@academicYear| macro is likewise inherited from the
-% respective Czech locale file.
+% correct value and redefines the |\thesis@abstractTitle|,
+% |\thesis@placeholders@abstract| and |\thesis@declaration| macros
+% in accordance with the formal requirements of the faculty.
 % \iffalse
 %<*mu/sci>
 % \fi\begin{macrocode}
@@ -230,21 +209,25 @@
 % Zástupné texty
 \def\thesis@facultyName{Prírodovedecká fakulta}
 \def\thesis@placeholders@department{Názov ústavu}
+\def\thesis@placeholders@abstract{Text abstraktu}
+
+% Rôzne
+\def\thesis@abstractTitle{Abstrakt}
+\def\thesis@declaration{%
+  Prehlasujem, že som svoju \thesis@lower{typeName@akuzativ}
+  vypracoval\thesis@gender@koncovka\ samostatne s~využitím
+  informačných zdrojov, ktoré sú v~práci citované.}
 
 % Bibliografický záznam
+\def\thesis@bibTitle{Bibliografický záznam}
 \def\thesis@bib@author{Autor}
 \def\thesis@bib@title{Názov práce}
 \def\thesis@bib@programme{Študijný program}
 \def\thesis@bib@field{Študijný odbor}
 \def\thesis@bib@advisor{\thesis@advisorTitle}
+\def\thesis@bib@academicYear{Akademický rok}
 \def\thesis@bib@pages{Počet strán}
 \def\thesis@bib@keywords{\thesis@keywordsTitle}
-
-% Rôzne
-\def\thesis@declaration{%
-  Prehlasujem, že som svoju \thesis@lower{typeName@akuzativ}
-  vypracoval\thesis@gender@koncovka\ samostatne s~využitím
-  informačných zdrojov, ktoré sú v~práci citované.}
 %    \end{macrocode}\iffalse
 %</mu/sci>
 % \fi
