@@ -50,7 +50,7 @@
 %     is or isn't going to expand to the thesis cover.
 % \end{itemize}
 % The defaults are \texttt{12pt}, \texttt{oneside}, \texttt{final},
-% \texttt{monochrome}, \texttt{lof}, \texttt{lot} and
+% \texttt{monochrome}, \texttt{nolof}, \texttt{nolot} and
 % \texttt{nocover}.
 %    \begin{macrocode}
 \DeclareOption{10pt}{\def\thesis@ptsize{0}}
@@ -94,16 +94,19 @@
 %   \item\textsf{pdfpages} -- Adds support for the injection of PDF
 %     documents into the resulting document, namely the thesis
 %     assignment.
+%   \item\textsf{hyperref} -- Adds support for injecting metadata
+%     into the resulting PDF document.
 % \end{itemize}
 % In addition to that, the \textsf{hyperref} package is configured
 % to support both roman and arabic page numbering in one document.
 %    \begin{macrocode}
 \RequirePackage[resetfonts]{cmap}
 \RequirePackage[T1]{fontenc}
-\RequirePackage{mathpazo}
-\RequirePackage{tgpagella}
+\thesis@require{mathpazo}
+\thesis@require{tgpagella}
 \thesis@require{graphicx}
 \thesis@require{pdfpages}
+\thesis@require{hyperref}
 \hypersetup{
   plainpages=false,          % Multiple page numbering support
   pdfpagelabels              % Generate pdf page labels
@@ -135,8 +138,7 @@
     \cleardoublepage%
   \else%
     \newpage%
-  \fi
-}
+  \fi}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@cover}
 % The |\thesis@blocks@cover| private macro typesets the thesis
@@ -149,17 +151,18 @@
     \begin{alwayssingle}
       \thispagestyle{empty}
       \begin{center}
-      {\sc\thesis@universityName\\\thesis@facultyName}
+      {\sc\thesis@@{universityName}\\\thesis@@{facultyName}}
       \vskip 1.4em
       \includegraphics[width=40mm]{%
         \thesis@logopath\thesis@facultyLogo}\\[0.4in]
       \let\footnotesize\small
       \let\footnoterule\relax{}
-      {\thesis@titlePage@Huge\bf\thesis@TeXtitle\par\vfil}\vskip 0.8in
-      {\sc \thesis@typeName}\\[0.3in]
+      {\thesis@titlePage@Huge\bf\thesis@TeXtitle\par\vfil}%
+      \vskip 0.8in
+      {\sc \thesis@@{typeName}}\\[0.3in]
       {\thesis@titlePage@Large\bf\thesis@author}
       \par\vfill
-      {\thesis@titlePage@large\thesis@place, \thesis@semester}
+      {\thesis@titlePage@large\thesis@place, \thesis@@{semester}}
       \end{center}
     \end{alwayssingle}
     \ifthesis@twoside\@twosidetrue\fi % Re-enable twoside
@@ -175,8 +178,7 @@
   \tableofcontents%
   \thesis@blocks@lot%
   \thesis@blocks@lof%
-  \thesis@blocks@clear%
-}
+  \thesis@blocks@clear}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@declaration}
 % The |\thesis@blocks@declaration| private macro typesets the
@@ -185,12 +187,12 @@
 \def\thesis@blocks@declaration{%
   \thesis@blocks@clear%
   \begin{alwayssingle}%
-    \chapter*{\thesis@declarationTitle}%
-    \thesis@declaration%
+    \chapter*{\thesis@@{declarationTitle}}%
+    \thesis@@{declaration}%
     \vskip 2cm%
     \hfill\thesis@author%
     \par\vfill%
-    \textbf{\thesis@advisorTitle:} \thesis@advisor%
+    \textbf{\thesis@@{advisorTitle}:} \thesis@advisor%
     \par\vfil%
   \end{alwayssingle}}
 %    \end{macrocode}
@@ -203,7 +205,7 @@
   \ifx\thesis@thanks\undefined\else%
     \thesis@blocks@clear%
     \begin{alwayssingle}%
-      \chapter*{\thesis@thanksTitle}%
+      \chapter*{\thesis@@{thanksTitle}}%
       \thesis@thanks%
       \par\vfill%
     \end{alwayssingle}%
@@ -215,7 +217,7 @@
 % \begin{macrocode}
 \def\thesis@blocks@abstract{%
   \begin{alwayssingle}%
-    \chapter*{\thesis@abstractTitle}%
+    \chapter*{\thesis@@{abstractTitle}}%
     \thesis@abstract%
     \par\vfil\null%
   \end{alwayssingle}}
@@ -223,7 +225,8 @@
 % \end{macro}\begin{macro}{\thesis@blocks@abstractEn}
 % The |\thesis@blocks@abstractEn| private macro typesets the
 % abstract in English. If the current locale is English, the
-% macro produces no output.
+% macro produces no output. A style file that uses this block
+% needs to require the English locale.
 % \begin{macrocode}
 \def\thesis@blocks@abstractEn{%
   \ifthesis@english\else%
@@ -231,7 +234,7 @@
     \begin{alwayssingle}%
       % Start the new chapter without clearing the right page
       {\def\cleardoublepage{}%
-      \chapter*{\thesis@abstractTitleEn}%
+      \chapter*{\thesis@{english@abstractTitle}}%
       \thesis@abstractEn}%
       \par\vfil\null%
     \end{alwayssingle}%
@@ -243,15 +246,18 @@
 % \begin{macrocode}
 \def\thesis@blocks@keywords{%
   \begin{alwayssingle}%
-    \chapter*{\thesis@keywordsTitle}%
-    \thesis@keywords%
+      % Start the new chapter without clearing the right page
+      {\def\cleardoublepage{}%
+      \chapter*{\thesis@@{keywordsTitle}}%
+      \thesis@keywords}%
     \par\vfill%
   \end{alwayssingle}}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@keywordsEn}
 % The |\thesis@blocks@keywordsEn| private macro typesets the
 % keywords in English. If the current locale is English, the
-% macro produces no output.
+% macro produces no output. A style file that uses this block
+% needs to require the English locale.
 % \begin{macrocode}
 \def\thesis@blocks@keywordsEn{%
   \ifthesis@english\else%
@@ -259,7 +265,7 @@
       \newpage
       % Start the new chapter without clearing the right page
       {\def\cleardoublepage{}%
-      \chapter*{\thesis@keywordsTitleEn}%
+      \chapter*{\thesis@{english@keywordsTitle}}%
       \thesis@keywordsEn}%
       \par\vfill%
     \end{alwayssingle}%
@@ -279,7 +285,7 @@
       \begin{alwayssingle}%
         \thispagestyle{empty}
         \addtocounter{page}{-\ifthesis@twoside2\else1\fi}
-        \noindent\textit{\thesis@assignment}%
+        \noindent\textit{\thesis@@{assignment}}%
       \end{alwayssingle}%
     \else%
       {\edef\@pdfList{\thesis@assignmentFiles}%

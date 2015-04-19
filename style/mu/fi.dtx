@@ -24,8 +24,8 @@
   \begin{alwayssingle}
     \thispagestyle{empty}
     \begin{center}
-    {\thesis@titlePage@normalsize\sc\thesis@universityName\\%
-       \thesis@facultyName}
+    {\thesis@titlePage@normalsize\sc\thesis@@{universityName}\\%
+       \thesis@@{facultyName}}
     \vskip 1.4em
     \edef\thesis@logopath@color{\thesis@logopath\ifthesis@color color/\fi}
     \includegraphics[width=40mm]{%
@@ -33,26 +33,26 @@
     \let\footnotesize\small
     \let\footnoterule\relax{}
     {\thesis@titlePage@Huge\bf\thesis@TeXtitle\par\vfil}\vskip 0.8in
-    {\thesis@titlePage@normalsize\sc\thesis@typeName\\[0.3in]}
+    {\thesis@titlePage@normalsize\sc\thesis@@{typeName}\\[0.3in]}
     {\thesis@titlePage@Large\bf\thesis@author}
     % If this is a rigorous thesis, typeset the name of the
     % thesis advisor.
     \ifx\thesis@type\thesis@rigorous%
       {\thesis@titlePage@large\\[0.3in]
-        {\bf\thesis@advisorTitle:} \thesis@advisor}
+        {\bf\thesis@@{advisorTitle}:} \thesis@advisor}
     \fi%
     \par\vfill
-    {\thesis@titlePage@large\thesis@place, \thesis@semester
+    {\thesis@titlePage@large\thesis@place, \thesis@@{semester}
     % If this is a rigorous thesis, create space for the advisor's
     % signature
     \ifx\thesis@type\thesis@rigorous%
       \let\@A\relax\newlength{\@A}
-        \settowidth{\@A}{\thesis@advisorSignature}
+        \settowidth{\@A}{\thesis@@{advisorSignature}}
         \setlength{\@A}{\@A+1cm}
       \hfill\raisebox{-0.5em}{\parbox{\@A}{
         \centering
         \rule{\@A}{1pt}\\
-        \thesis@advisorSignature
+        \thesis@@{advisorSignature}
       }}
     \fi}
     \end{center}
@@ -73,9 +73,7 @@
     \thesis@blocks@declaration%
     \thesis@blocks@thanks%
     \thesis@blocks@abstract%
-    \thesis@blocks@abstractEn%
     \thesis@blocks@keywords%
-    \thesis@blocks@keywordsEn%
     \thesis@blocks@tables%
   \thesis@blocks@mainMatter%
 }
