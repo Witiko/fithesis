@@ -1,4 +1,4 @@
-.PHONY: all clean dist dist-clean explode implode install uninstall
+.PHONY: all clean dist dist-clean explode implode install uninstall test
 
 SUBMAKEFILES=logo/mu logo/mu/color locale style style/mu
 CLASSFILES=fithesis.cls fithesis2.cls fithesis3.cls
@@ -29,6 +29,10 @@ all:
 # This pseudo-target creates the class files and typesets
 # both the example file and the technical documentation
 explode: fithesis3.cls $(PDFFILES)
+
+# This pseudo-target performs the unit tests
+test:
+	cd test; make
 
 # This pseudo-target creates the distribution archives.
 dist: all $(TDSFILE) $(DISTFILE)
