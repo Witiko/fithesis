@@ -985,11 +985,11 @@
   \ClassWarning{fithesis3}{File #1 doesn't exist}}}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@require}
-% The \DescribeMacro{\thesis@require}|\thesis@require|%
-% \marg{package} expands to |\RequirePackage|\marg{package}, if
-% the specified \textit{package} has not yet been loaded. This
-% generally serves to prevents options clashes, when the options
-% with which the package had been loaded are of no consequence.
+% The |\thesis@require| \marg{package} expands to
+% |\RequirePackage|\marg{package}, if the specified
+% \textit{package} has not yet been loaded. This generally serves
+% to prevents options clashes, when the options with which the
+% package had been loaded are of no consequence.
 %    \begin{macrocode}
 \def\thesis@require#1{%
   \@ifpackageloaded{#1}{}{\RequirePackage{#1}}}
