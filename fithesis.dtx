@@ -162,9 +162,8 @@
 %
 % \section{Required classes and packages}
 % The class loads the \texttt{rapport3} base class and the
-% \textsf{xstring}, \textsf{keyval}, \textsf{newfile},
-% and \textsf{etoolbox} packages for
-% string parsing, comparisons and file output.
+% \textsf{xstring}, \textsf{keyval}% and \textsf{etoolbox} packages
+% for string parsing and comparisons.
 % The \texttt{hyperref} package is also conditionally loaded during
 % the expansion of the |\thesis@load| macro (see section
 % \ref{sec:thesis@load}). Other packages may be required by the
@@ -174,7 +173,6 @@
 \LoadClass[a4paper]{rapport3}
 \RequirePackage{xstring}
 \RequirePackage{keyval}
-\RequirePackage{newfile}
 \RequirePackage{etoolbox}
 %    \end{macrocode}
 % \section{Public API}
@@ -956,12 +954,7 @@
       \AtEndDocument{%
         % Define \thesis@pages for the next run
         \write\@auxout{\noexpand\gdef\noexpand%
-          \thesis@pages{\thepage}}
-        % Generate the BibTeX file
-        \newoutputstream{bib}%
-        \openoutputfile{\jobname.bib}{bib}%
-        \thesis@bibgen{bib}
-        \closeoutputstream{bib}}%
+          \thesis@pages{\thepage}}}
     \makeatother%
   \fi}
 %    \end{macrocode}
@@ -1029,65 +1022,7 @@
           \thesis@faculty/#1.def}% 
       \fi%
   \fi}
-%    \end{macrocode}
-% \end{macro}\begin{macro}{\thesis@bibgen}
-% The |\thesis@bibgen| macro generates the contents of a
-% \BibTeX\ file containing a bibliographical entry for the thesis.
-%    \begin{macrocode}
-% Temporarily swap the catcodes of {} and <>
-{\catcode`\<=1
-\catcode`\>=2
-\catcode`\{=12
-\catcode`\}=12
-\catcode`\_=13
-\gdef\thesis@bibgen#1<<%
-  % Temporarily disable the UTF-8 encoding
-  \def\UTFviii@two@octets##1##2<%
-    \string##1\string##2>%
-  \def\UTFviii@three@octets##1##2##3<%
-    \string##1\string##2\string##3>%
-  \def\UTFviii@four@octets##1##2##3##4<%
-    \string##1\string##2\string##3\string##4>%
-  % Helper macros
-  \def\add<\addtostream<#1>>%
-  \let\ea\expandafter%
-  %% Find the last space-separated word
-  \def\tail##1<\xtail##1 \relax>%
-  \def\xtail##1 ##2<%
-    \ifx\relax##2%
-      ##1%
-      \ea\@gobbletwo%
-    \fi%
-    \xtail##2>%
-  %% Pre-cooked parts of the output
-  \edef\thesis@author@toks<\thesis@author>
-  \def\surname<\ea\tail\ea<\thesis@author@toks>>%
-  \edef\entryType<@\ifx\thesis@type\thesis@masters%
-      MastersThesis%
-    \else\ifx\thesis@type\thesis@doctoral%
-      PhdThesis%
-    \else%
-      misc%
-    \fi\fi>%
-  % Generate the file
-  <%% Temporarily turn _s into spaces
-    \catcode`\_=13 \let_=\space
-    % Fill the output stream
-    \add<\entryType{\surname\thesis@year thesis,>%
-    \add<__AUTHOR_____=_"\thesis@author",>%
-    \add<__TITLE______=_"\thesis@title",>%
-    \add<__YEAR_______=_"\thesis@year",>%
-    \add<__MONTH______=_"\thesis@month",>%
-    \add<__TYPE_______=_"\thesis@@<typeName>",>%
-    \add<__SCHOOL_____=_"\thesis@@<universityName>,
-      \thesis@@<facultyName>",>%
-    \add<__SUPERVISOR_=_"\thesis@advisor",>%
-    \add<__PAGES______=_"\thepage">%
-    \add<}>
-  >>>%
->
-%    \end{macrocode}
-% \end{macro}
+%    \end{macrocode}\end{macro}
 % \subsection{String manipulation macros}
 % \begin{macro}{\thesis@}
 % The |\thesis@|\marg{name} macro expands to |\thesis@|
