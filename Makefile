@@ -31,7 +31,7 @@ all:
 explode: fithesis3.cls $(PDFFILES)
 
 # This pseudo-target performs the unit tests
-test:
+test: all
 	cd test; make
 
 # This pseudo-target creates the distribution archives.

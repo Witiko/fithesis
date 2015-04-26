@@ -174,12 +174,39 @@
 % This is the Czech locale file specific to the Faculty of
 % Arts at the Masaryk University in Brno.
 % It replaces the \texttt{facultyName} placeholder with the
-% correct value.
+% correct value. It also defines the \texttt{declaration} string
+% and redefines the \texttt{typeName} and
+% \texttt{typeName@akuzativ} strings in accordance with the
+% requirements of the faculty.
 % \iffalse
 %<*mu/phil>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis3/locale/mu/phil/czech.def}[2015/04/18]
+\ProvidesFile{fithesis3/locale/mu/phil/czech.def}[2015/04/26]
 \def\thesis@czech@facultyName{Filozofická fakulta}
+\def\thesis@czech@typeName{%
+  \ifx\thesis@type\thesis@bachelors%
+    Bakalářská diplomová práce%
+  \else\ifx\thesis@type\thesis@masters%
+    Magisterská diplomová práce%
+  \else\ifx\thesis@type\thesis@doctoral%
+    Disertační práce%
+  \else%
+    <<Neznámý typ práce (\thesis@type)>>%
+  \fi\fi\fi}
+\def\thesis@czech@typeName@akuzativ{%
+  \ifx\thesis@type\thesis@bachelors%
+    Diplomovou práci%
+  \else\ifx\thesis@type\thesis@masters%
+    Diplomovou práci%
+  \else\ifx\thesis@type\thesis@doctoral%
+    Disertační práci%
+  \else%
+    <<Neznámý typ práce (\thesis@type)>>%
+  \fi\fi\fi}
+\def\thesis@czech@declaration{%
+  Prohlašuji, že jsem \thesis@@lower{typeName@akuzativ}
+  vypracoval\thesis@czech@gender@koncovka\ samostatně~s využitím
+  uvedené literatury.}
 %    \end{macrocode}\iffalse
 %</mu/phil>
 % \fi\file{locale/mu/ped/czech.def}

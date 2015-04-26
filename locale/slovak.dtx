@@ -172,12 +172,40 @@
 % This is the Slovak locale file specific to the Faculty of
 % Arts at the Masaryk University in Brno.
 % It replaces the \texttt{facultyName} placeholder with the
-% correct value.
+% correct value. It also defines the \texttt{declaration} string
+% and redefines the \texttt{typeName} and
+% \texttt{typeName@akuzativ} strings in accordance with the
+% requirements of the faculty.
 % \iffalse
 %<*mu/phil>
 % \fi\begin{macrocode}
 \ProvidesFile{fithesis3/locale/mu/phil/slovak.def}[2015/04/18]
 \def\thesis@slovak@facultyName{Filozofická fakulta}
+\def\thesis@slovak@typeName{%
+  \ifx\thesis@type\thesis@bachelors%
+    Bakalárska diplomová práca%
+  \else\ifx\thesis@type\thesis@masters%
+    Magisterská diplomová práca%
+  \else\ifx\thesis@type\thesis@doctoral%
+    Dizertačná práca%
+  \else%
+    <<Neznámy typ práce (\thesis@type)>>%
+  \fi\fi\fi}
+\def\thesis@slovak@typeName@akuzativ{%
+  \ifx\thesis@type\thesis@bachelors%
+    Diplomovú prácu%
+  \else\ifx\thesis@type\thesis@masters%
+    Diplomovú prácu%
+  \else\ifx\thesis@type\thesis@doctoral%
+    Dizertačnú prácu%
+  \else%
+    <<Neznámý typ práce (\thesis@type)>>%
+  \fi\fi\fi}
+\def\thesis@slovak@declaration{%
+  Prehlašujem, že som predloženú \thesis@@lower{%
+  typeName@akuzativ} vypracoval\thesis@slovak@gender@koncovka\ 
+  samostatne na základe vlastných zistení a len s~použitím
+  uvedenej literatúry a prameňov.}
 %    \end{macrocode}\iffalse
 %</mu/phil>
 % \fi\file{locale/mu/ped/slovak.def}

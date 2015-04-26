@@ -1,0 +1,38 @@
+% \file{style/mu/fithesis3-phil.sty}
+% This is the style file for the theses written at the Faculty of
+% Arts at the Masaryk University in Brno. It has been prepared in
+% accordance with the formal requirements published at the website
+% of the faculty\footnote{See \url{https://is.muni.cz/auth/do/^^A
+% 1421/4581421/Vzor_bakalarske_prace.pdf}}.
+%    \begin{macrocode}
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{fithesis3/style/mu/fithesis3-phil}[2015/04/26]
+%    \end{macrocode}
+% The style file redefines the cover and title page headers to
+% include the department and the field name.
+%    \begin{macrocode}
+\def\thesis@blocks@cover@header{%
+  {\sc\thesis@titlePage@LARGE\thesis@@{universityName}\\%
+      \thesis@titlePage@Large\thesis@@{facultyName}\\[0.3em]%
+      \thesis@titlePage@large\thesis@department}\\[2em]}
+\def\thesis@blocks@titlePage@header{%
+  {\sc\thesis@titlePage@LARGE\thesis@@{universityName}\\%
+      \thesis@titlePage@Large\thesis@@{facultyName}\\[0.3em]%
+      \thesis@titlePage@large\thesis@department\\[0.2em]}
+     {\thesis@titlePage@large\thesis@field\\[2em]}}
+%    \end{macrocode}
+% The style file defines the autolayout preamble as the cover and
+% the title page followed by the declaration, acknowledgement
+% table of contents and list of tables and figures as a part of the
+% front matter. All blocks are defined in the
+% \texttt{style/mu/base.sty} file.
+%    \begin{macrocode}
+\def\thesis@preamble{%
+  \thesis@blocks@cover%
+  \thesis@blocks@titlePage%
+  \thesis@blocks@frontMatter%
+    \thesis@blocks@declaration%
+    \thesis@blocks@thanks%
+    \thesis@blocks@tables%
+  \thesis@blocks@mainMatter}
+%    \end{macrocode}

@@ -5,7 +5,7 @@
 % University in Brno.
 % If inheritance is enabled for style files, then this file is
 % always the second style file to be loaded right after
-% \texttt{style/base.tex}, regardless of the
+% \texttt{style/base.sty}, regardless of the
 % value of the |\thesis@style| macro.
 %    \begin{macrocode}
 \ProvidesPackage{fithesis3/style/mu/fithesis3-base}[2015/04/12]
@@ -73,8 +73,8 @@
 \DeclareOption{nolof}{\def\thesis@blocks@lof{}}
 \DeclareOption{lof}{\let\thesis@blocks@lof\listoffigures}
 \newif\ifthesis@cover
-\DeclareOption{nocover}{\thesis@covertrue}
-\DeclareOption{cover}{\thesis@coverfalse}
+\DeclareOption{nocover}{\thesis@coverfalse}
+\DeclareOption{cover}{\thesis@covertrue}
 
 % Options executed by default
 \ExecuteOptions{12pt,oneside,final,monochrome,lot,lof,nocover}
@@ -142,31 +142,88 @@
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@cover}
 % The |\thesis@blocks@cover| private macro typesets the thesis
-% cover.
+% cover. It is composed of three private macros:
+% \begin{itemize}
+%   \item\DescribeMacro{\thesis@blocks@cover@header}^^A
+%        |\thesis@blocks@cover@header| -- The header of the cover
+%        page
+%   \item\DescribeMacro{\thesis@blocks@cover@content}^^A
+%        |\thesis@blocks@cover@content| -- The content of the cover
+%        page
+%   \item\DescribeMacro{\thesis@blocks@cover@footer}^^A
+%        |\thesis@blocks@cover@footer| -- The footer of the cover
+%        page
+% \end{itemize}
+% This allows the subsequently loaded style files to only redefine
+% certain parts of the cover page.
 % \begin{macrocode}
 \def\thesis@blocks@cover{%
-  \thesis@blocks@clear
-  \ifthesis@cover\else
+  \ifthesis@cover%
+    \thesis@blocks@clear%
     \ifthesis@twoside\@twosidefalse\fi % Temporarily disable twoside
-    \begin{alwayssingle}
-      \thispagestyle{empty}
-      \begin{center}
-      {\sc\thesis@@{universityName}\\\thesis@@{facultyName}}
-      \vskip 1.4em
-      \includegraphics[width=40mm]{%
-        \thesis@logopath\thesis@facultyLogo}\\[0.4in]
-      \let\footnotesize\small
-      \let\footnoterule\relax{}
-      {\thesis@titlePage@Huge\bf\thesis@TeXtitle\par\vfil}%
-      \vskip 0.8in
-      {\sc \thesis@@{typeName}}\\[0.3in]
-      {\thesis@titlePage@Large\bf\thesis@author}
-      \par\vfill
-      {\thesis@titlePage@large\thesis@place, \thesis@@{semester}}
-      \end{center}
-    \end{alwayssingle}
+    \begin{alwayssingle}%
+      \thispagestyle{empty}%
+      \begin{center}%
+        \thesis@blocks@cover@header%
+        \includegraphics[width=40mm]{%
+          \thesis@logopath\thesis@facultyLogo}\\[0.4in]%
+        \let\footnotesize\small%
+        \let\footnoterule\relax{}%
+        \thesis@blocks@cover@content%
+        \par\vfill%
+        \thesis@blocks@cover@footer%
+      \end{center}%
+    \end{alwayssingle}%
     \ifthesis@twoside\@twosidetrue\fi % Re-enable twoside
   \fi}
+\def\thesis@blocks@cover@header{%
+  {\sc\thesis@@{universityName}\\\thesis@@{facultyName}}\\[1.4em]}
+\def\thesis@blocks@cover@content{%
+  {\thesis@titlePage@Huge\bf\thesis@TeXtitle\par\vfil}%
+  \vskip 0.8in%
+  {\sc \thesis@@{typeName}}\\[0.3in]%
+  {\thesis@titlePage@Large\bf\thesis@author}}
+\def\thesis@blocks@cover@footer{%
+  {\thesis@titlePage@large\thesis@place, \thesis@@{semester}}}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\thesis@blocks@titlePage}
+% The |\thesis@blocks@titlePage| private macro typesets the thesis
+% title page. It is composed of three private macros:
+% \begin{itemize}
+%   \item\DescribeMacro{\thesis@blocks@titlePage@header}^^A
+%        |\thesis@blocks@titlePage@header| -- The header of the
+%        cover page
+%   \item\DescribeMacro{\thesis@blocks@titlePage@content}^^A
+%        |\thesis@blocks@titlePage@content| -- The content of the
+%        cover page
+%   \item\DescribeMacro{\thesis@blocks@titlePage@footer}^^A
+%        |\thesis@blocks@titlePage@footer| -- The footer of the
+%        cover page
+% \end{itemize}
+% This allows the subsequently loaded style files to only redefine
+% certain parts of the title page.
+%    \begin{macrocode}
+\def\thesis@blocks@titlePage{%
+    \thesis@blocks@clear%
+    \begin{alwayssingle}%
+      \thispagestyle{empty}%
+      \begin{center}%
+        \thesis@blocks@titlePage@header%
+        {\edef\thesis@logopath@color{%
+          \thesis@logopath\ifthesis@color color/\fi}
+        \includegraphics[width=40mm]{%
+          \thesis@logopath@color\thesis@facultyLogo}\\[0.4in]}%
+        \let\footnotesize\small%
+        \let\footnoterule\relax{}%
+        \thesis@blocks@titlePage@content%
+        \par\vfill%
+        \thesis@blocks@titlePage@footer%
+      \end{center}%
+    \end{alwayssingle}}
+\let\thesis@blocks@titlePage@header=\thesis@blocks@cover@header
+\let\thesis@blocks@titlePage@content=\thesis@blocks@cover@content
+\let\thesis@blocks@titlePage@footer=\thesis@blocks@cover@footer
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@tables}
 % The |\thesis@blocks@tables| private macro typesets the table of
@@ -191,10 +248,8 @@
     \thesis@@{declaration}%
     \vskip 2cm%
     \hfill\thesis@author%
-    \par\vfill%
-    \textbf{\thesis@@{advisorTitle}:} \thesis@advisor%
-    \par\vfil%
-  \end{alwayssingle}}
+  \end{alwayssingle}
+  \thesis@blocks@clear}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@thanks}
 % The |\thesis@blocks@thanks| private macro typesets the
