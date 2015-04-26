@@ -68,11 +68,11 @@
 %<*class>
 \NeedsTeXFormat{LaTeX2e}
 % \fi
-\def\thesis@version{2015/04/12 v0.3.09 fithesis3 MU thesis class}
+\def\thesis@version{2015/04/26 v0.3.09 fithesis3 MU thesis class}
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-% \changes{v0.3.09}  {2015/04/08}{A complete refactoring of the class. The class
+% \changes{v0.3.09}  {2015/04/26}{A complete refactoring of the class. The class
 %   was decomposed into a base class, locale files and style files. The \TeX
 %   Gyre Pagella font has been replaced by Adobe Palatino provided by the
 %   \textsf{mathpazo} package. [VN]}
@@ -328,8 +328,8 @@
 %    \begin{macrocode}
 \def\thesis@parseAuthor#1{%
   \def\thesis@author{#1}%
-  \edef\thesis@author@head{\thesis@head#1 \relax}%
-  \edef\thesis@author@tail{\thesis@tail#1 \relax}}
+  \def\thesis@author@head{\thesis@head#1 \relax}%
+  \def\thesis@author@tail{\thesis@tail#1 \relax}}
 \def\thesis@author{\thesis@@{placeholders@author}}
 \def\thesis@author@head{\thesis@@{placeholders@author@firstName}}
 \def\thesis@author@tail{\thesis@@{placeholders@author@surname}}

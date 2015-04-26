@@ -72,12 +72,20 @@
 % \fi\file{locale/mu/slovak.def}
 % This is the Slovak locale file specific to the Masaryk
 % University in Brno. It replaces the \texttt{universityName}
-% placeholder with the correct value.
+% placeholder with the correct value and defines a placeholder
+% declaration text.
 % \iffalse
 %<*mu>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis3/locale/mu/slovak.def}[2015/04/18]
+\ProvidesFile{fithesis3/locale/mu/slovak.def}[2015/04/26]
+
+% Zástupné texty
 \def\thesis@slovak@universityName{Masarykova Univerzita}
+\def\thesis@slovak@declaration{%
+  Prehlašujem, že som predloženú \thesis@lower{%
+  slovak@typeName@akuzativ} vypracoval%
+  \thesis@slovak@gender@koncovka\ samostatne len s~použitím
+  uvedenej literatúry a prameňov.}
 %    \end{macrocode}\iffalse
 %</mu>
 % \fi\file{locale/mu/law/slovak.def}
@@ -145,7 +153,7 @@
 % and \texttt{declaration} strings in accordance with the
 % requirements of the faculty. The file also defines the
 % \texttt{advisorSignature} string required by the
-% |\thesis@titlePage| block defined within the
+% |\thesis@blocks@titlePage| block defined within the
 % \texttt{style/mu/fi.sty} style file.
 % \iffalse
 %<*mu/fi>
@@ -157,8 +165,6 @@
 \def\thesis@slovak@assignment{Namiesto tejto stránky vložte kópiu
   oficiálneho podpísaného zadania práce a prehlásenie autora
   školského diela.}
-
-% Rôzne
 \def\thesis@slovak@declaration{%
   Prehlasujem, že táto \thesis@lower{slovak@typeName} je mojím
   pôvodným autorským dielom, ktoré som vypracoval%
@@ -167,6 +173,8 @@
   používal\thesis@slovak@gender@koncovka\ alebo z~nich
   čerpal\thesis@slovak@gender@koncovka, v~práci riadne citujem
   s~uvedením úplného odkazu na príslušný zdroj.}
+
+% Rôzne
 \def\thesis@slovak@advisorSignature{Podpis vedúceho}
 %    \end{macrocode}\iffalse
 %</mu/fi>
@@ -181,8 +189,18 @@
 % \iffalse
 %<*mu/phil>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis3/locale/mu/phil/slovak.def}[2015/04/18]
+\ProvidesFile{fithesis3/locale/mu/phil/slovak.def}[2015/04/26]
+
+% Zástupné texty
 \def\thesis@slovak@facultyName{Filozofická fakulta}
+\def\thesis@slovak@declaration{%
+  Prehlašujem, že som predloženú \thesis@lower{%
+  slovak@typeName@akuzativ} vypracoval%
+  \thesis@slovak@gender@koncovka\ samostatne na
+  základe vlastných zistení a len s~použitím
+  uvedenej literatúry a prameňov.}
+
+% Rôzne
 \def\thesis@slovak@typeName{%
   \ifx\thesis@type\thesis@bachelors%
     Bakalárska diplomová práca%
@@ -203,23 +221,27 @@
   \else%
     <<Neznámý typ práce (\thesis@type)>>%
   \fi\fi\fi}
-\def\thesis@slovak@declaration{%
-  Prehlašujem, že som predloženú \thesis@@lower{%
-  typeName@akuzativ} vypracoval\thesis@slovak@gender@koncovka\ 
-  samostatne na základe vlastných zistení a len s~použitím
-  uvedenej literatúry a prameňov.}
 %    \end{macrocode}\iffalse
 %</mu/phil>
 % \fi\file{locale/mu/ped/slovak.def}
 % This is the Slovak locale file specific to the Faculty of
 % Education at the Masaryk University in Brno.
 % It replaces the \texttt{facultyName} placeholder with the
-% correct value.
+% correct value. The file also defines the
+% \texttt{bib@title} and \texttt{bib@pages} strings required by the
+% |\thesis@blocks@bibEntry| block defined within the
+% \texttt{style/mu/ped.sty} style file.
 % \iffalse
 %<*mu/ped>
 % \fi\begin{macrocode}
 \ProvidesFile{fithesis3/locale/mu/ped/slovak.def}[2015/04/18]
+
+% Zástupné texty
 \def\thesis@slovak@facultyName{Pedagogická fakulta}
+
+% Bibliografický zoznam
+\def\thesis@slovak@bib@title{Bibliografický záznam}
+\def\thesis@slovak@bib@pages{str}
 %    \end{macrocode}\iffalse
 %</mu/ped>
 % \fi\file{locale/mu/sci/slovak.def}

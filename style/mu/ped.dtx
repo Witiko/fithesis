@@ -1,0 +1,74 @@
+% \file{style/mu/fithesis3-ped.sty}
+% This is the style file for the theses written at the Faculty of
+% Education at the Masaryk University in Brno. It has been prepared
+% in accordance with the formal requirements published at the
+% website of the faculty\footnote{See \url{https://is.muni.cz/^^A
+% auth/do/1421/4581421/Vzor_bakalarske_prace.pdf}}.
+%    \begin{macrocode}
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{fithesis3/style/mu/fithesis3-phil}[2015/04/26]
+%    \end{macrocode}
+% In addition to the main locale, the file also requires the
+% \textsf{english} locale.
+%    \begin{macrocode}
+\thesis@requireLocale{english}
+%    \end{macrocode}
+% The style file redefines the title page header to include the
+% department name and the the title page content to include
+% advisor's name.
+%    \begin{macrocode}
+\def\thesis@blocks@titlePage@header{%
+  {\sc\thesis@titlePage@LARGE\thesis@@{universityName}\\%
+      \thesis@titlePage@Large\thesis@@{facultyName}\\[0.3em]%
+      \thesis@titlePage@large\thesis@department\\[2em]}}
+\def\thesis@blocks@titlePage@content{%
+    {\thesis@titlePage@Huge\bf\thesis@TeXtitle\par\vfil}\vskip 0.8in
+    {\thesis@titlePage@normalsize\sc\thesis@@{typeName}\\[0.3in]}
+    {\thesis@titlePage@Large\bf\thesis@author}
+    % Typeset the name of the thesis advisor.
+    {\thesis@titlePage@large\\[0.3in]
+      {\bf\thesis@@{advisorTitle}:} \thesis@advisor}}
+%    \end{macrocode}
+% \begin{macro}{\thesis@blocks@bibEntry}
+% The |\thesis@blocks@bibEntry| private macro typesets a
+% bibliographical entry. Along with the macros required by the
+% locale file interface, the locale files need to define the
+% following private macros:
+% \begin{itemize}
+%   \item|\thesis@|\emph{locale}|@bib@title| -- The title of the
+%     |\thesis@blocks@bib@title| block
+%   \item|\thesis@|\emph{locale}|@bib@pages| -- The abbreviation of
+%     pages used in the bibliographical entry.
+% \end{itemize}
+%    \begin{macrocode}
+\def\thesis@blocks@bibEntry{%
+  \chapter*{\thesis@@{bib@title}}
+  \noindent\thesis@upper{author@tail}, \thesis@author@head.
+  \emph{\thesis@title}. \thesis@place: \thesis@@{universityName},
+  \thesis@@{facultyName}, \thesis@department, \thesis@year.
+  \thesis@pages\ \thesis@@{bib@pages}.
+  \thesis@@{advisorTitle}: \thesis@advisor.
+}
+%    \end{macrocode}
+% \end{macro}
+% The style file defines the autolayout preamble as the cover and
+% the title page followed by the bibliographical entry, abstracts,
+% keywords, declaration, acknowledgement, table of contents and
+% list of tables and figures as a part of the front matter. All
+% blocks beside |\thesis@blocks@bibEntry| are defined in the
+% \texttt{style/mu/base.sty} file.
+%    \begin{macrocode}
+\def\thesis@preamble{%
+  \thesis@blocks@cover%
+  \thesis@blocks@titlePage%
+  \thesis@blocks@frontMatter%
+    \thesis@blocks@bibEntry%
+    \thesis@blocks@abstract%
+    \thesis@blocks@abstractEn%
+    \thesis@blocks@keywords%
+    \thesis@blocks@keywordsEn%
+    \thesis@blocks@declaration%
+    \thesis@blocks@thanks%
+    \thesis@blocks@tables%
+  \thesis@blocks@mainMatter}
+%    \end{macrocode}

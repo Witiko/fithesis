@@ -177,7 +177,8 @@
     \ifthesis@twoside\@twosidetrue\fi % Re-enable twoside
   \fi}
 \def\thesis@blocks@cover@header{%
-  {\sc\thesis@@{universityName}\\\thesis@@{facultyName}}\\[1.4em]}
+  {\sc\thesis@titlePage@LARGE\thesis@@{universityName}\\%
+      \thesis@titlePage@Large\thesis@@{facultyName}\\[2em]}}
 \def\thesis@blocks@cover@content{%
   {\thesis@titlePage@Huge\bf\thesis@TeXtitle\par\vfil}%
   \vskip 0.8in%

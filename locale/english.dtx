@@ -131,8 +131,8 @@
 % correct value and updates the \texttt{placeholders@assignment}
 % string in accordance with the requirements of the faculty.
 % The file also defines the \texttt{advisorSignature} string
-% required by the |\thesis@titlePage| block defined within the
-% \texttt{style/mu/fi.sty} style file.
+% required by the |\thesis@blocks@titlePage| block defined
+% within the \texttt{style/mu/fi.sty} style file.
 % \iffalse
 %<*mu/fi>
 % \fi\begin{macrocode}
@@ -165,8 +165,14 @@
 % \iffalse
 %<*mu/ped>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis3/locale/mu/ped/english.def}[2015/04/18]
+\ProvidesFile{fithesis3/locale/mu/ped/english.def}[2015/04/26]
+
+% Placeholders
 \def\thesis@english@facultyName{Faculty of Education}
+
+% Bibliographic entry
+\def\thesis@english@bib@title{Bibliographic record}
+\def\thesis@english@bib@pages{p}
 %    \end{macrocode}\iffalse
 %</mu/ped>
 % \fi\file{locale/mu/sci/english.def}
@@ -190,7 +196,7 @@
 \let\thesis@english@advisorTitleEn=\thesis@english@bib@advisor
 
 % Bibliographic entry
-\def\thesis@english@bibTitle{Bibliographic entry}
+\def\thesis@english@bib@title{Bibliographic entry}
 \def\thesis@english@bib@author{Author}
 \def\thesis@english@bib@title{Title of Thesis}
 \def\thesis@english@bib@programme{Degree Programme}
