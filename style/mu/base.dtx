@@ -176,9 +176,38 @@
     \end{alwayssingle}%
     \ifthesis@twoside\@twosidetrue\fi % Re-enable twoside
   \fi}
+%    \end{macrocode}
+% The output of the |\thesis@blocks@cover@header| private macro is
+% controlled by the following conditional expressions:
+% \begin{enumerate}
+%   \item|\ifthesis@blocks@cover@department@| -- This
+%        conditional expression determines, whether the department
+%        name is going to be included in the header of the cover.
+%        The default value of this conditional expression is false.
+%   \item|\ifthesis@blocks@cover@field@| -- This
+%        conditional expression determines, whether the field of
+%        study is going to be included in the header of the cover.
+%        The default value of this conditional expression is false.
+% \end{enumerate}
+% The sebsequently loaded style files can alter the value of these
+% expressions to alter the output of the
+% |\thesis@blocks@cover@header| private macro without altering its
+% definition.
+% \begin{macrocode}
+\newif\ifthesis@blocks@cover@department@
+\thesis@blocks@cover@department@false
+\newif\ifthesis@blocks@cover@field@
+\thesis@blocks@cover@field@false
+
 \def\thesis@blocks@cover@header{%
   {\sc\thesis@titlePage@LARGE\thesis@@{universityName}\\%
-      \thesis@titlePage@Large\thesis@@{facultyName}\\[2em]}}
+      \thesis@titlePage@Large\thesis@@{facultyName}\\%
+      \ifthesis@blocks@cover@department@%
+        \vskip 0.3em\thesis@titlePage@large\thesis@department%
+      \fi}
+  \ifthesis@blocks@cover@field@%
+    {\thesis@titlePage@large\vskip 0.2em\thesis@field}
+  \fi\vskip 2em}
 \def\thesis@blocks@cover@content{%
   {\thesis@titlePage@Huge\bf\thesis@TeXtitle\par\vfil}%
   \vskip 0.8in%
@@ -192,14 +221,11 @@
 % The |\thesis@blocks@titlePage| private macro typesets the thesis
 % title page. It is composed of three private macros:
 % \begin{itemize}
-%   \item\DescribeMacro{\thesis@blocks@titlePage@header}^^A
-%        |\thesis@blocks@titlePage@header| -- The header of the
+%   \item|\thesis@blocks@titlePage@header| -- The header of the
 %        cover page
-%   \item\DescribeMacro{\thesis@blocks@titlePage@content}^^A
-%        |\thesis@blocks@titlePage@content| -- The content of the
+%   \item|\thesis@blocks@titlePage@content| -- The content of the
 %        cover page
-%   \item\DescribeMacro{\thesis@blocks@titlePage@footer}^^A
-%        |\thesis@blocks@titlePage@footer| -- The footer of the
+%   \item|\thesis@blocks@titlePage@footer| -- The footer of the
 %        cover page
 % \end{itemize}
 % This allows the subsequently loaded style files to only redefine
@@ -222,7 +248,40 @@
         \thesis@blocks@titlePage@footer%
       \end{center}%
     \end{alwayssingle}}
-\let\thesis@blocks@titlePage@header=\thesis@blocks@cover@header
+%    \end{macrocode}
+% The output of the |\thesis@blocks@titlePage@header| private macro is
+% controlled by the following conditional expressions:
+% \begin{enumerate}
+%   \item|\ifthesis@blocks@titlePage@department@| -- This
+%        conditional expression determines, whether the department
+%        name is going to be included in the header of the title
+%        page. The default value of this conditional expression is
+%        false.
+%   \item|\ifthesis@blocks@titlePage@field@| -- This
+%        conditional expression determines, whether the field of
+%        study is going to be included in the header of the title
+%        page.
+%        The default value of this conditional expression is false.
+% \end{enumerate}
+% The sebsequently loaded style files can alter the value of these
+% expressions to alter the output of the
+% |\thesis@blocks@titlePage@header| private macro without altering
+% its definition.
+% \begin{macrocode}
+\newif\ifthesis@blocks@titlePage@department@
+\thesis@blocks@titlePage@department@false
+\newif\ifthesis@blocks@titlePage@field@
+\thesis@blocks@titlePage@field@false
+
+\def\thesis@blocks@titlePage@header{%
+  {\sc\thesis@titlePage@LARGE\thesis@@{universityName}\\%
+      \thesis@titlePage@Large\thesis@@{facultyName}\\%
+      \ifthesis@blocks@titlePage@department@%
+        \vskip 0.3em\thesis@titlePage@large\thesis@department\\%
+      \fi}
+  \ifthesis@blocks@titlePage@field@%
+    {\thesis@titlePage@large\vskip 0.2em\thesis@field}
+  \fi\vskip 2em}
 \let\thesis@blocks@titlePage@content=\thesis@blocks@cover@content
 \let\thesis@blocks@titlePage@footer=\thesis@blocks@cover@footer
 %    \end{macrocode}

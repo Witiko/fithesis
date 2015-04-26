@@ -3,7 +3,7 @@
 % Education at the Masaryk University in Brno. It has been prepared
 % in accordance with the formal requirements published at the
 % website of the faculty\footnote{See \url{https://is.muni.cz/^^A
-% auth/do/1421/4581421/Vzor_bakalarske_prace.pdf}}.
+% do/ped/VPAN/pokdek/Pokyn_dekana_c._1-2010__2_.pdf}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{fithesis3/style/mu/fithesis3-phil}[2015/04/26]
@@ -13,14 +13,11 @@
 %    \begin{macrocode}
 \thesis@requireLocale{english}
 %    \end{macrocode}
-% The style file redefines the title page header to include the
+% The style file configures the title page header to include the
 % department name and the the title page content to include
 % advisor's name.
 %    \begin{macrocode}
-\def\thesis@blocks@titlePage@header{%
-  {\sc\thesis@titlePage@LARGE\thesis@@{universityName}\\%
-      \thesis@titlePage@Large\thesis@@{facultyName}\\[0.3em]%
-      \thesis@titlePage@large\thesis@department\\[2em]}}
+\thesis@blocks@titlePage@department@true
 \def\thesis@blocks@titlePage@content{%
     {\thesis@titlePage@Huge\bf\thesis@TeXtitle\par\vfil}\vskip 0.8in
     {\thesis@titlePage@normalsize\sc\thesis@@{typeName}\\[0.3in]}
