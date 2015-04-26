@@ -121,6 +121,7 @@
 % of the front matter of the thesis.
 % \begin{macrocode}
 \def\thesis@blocks@frontMatter{%
+  \thesis@blocks@clear
   \pagestyle{plain}
   \parindent 1.5em
   \setcounter{page}{1}
@@ -180,6 +181,14 @@
 % The output of the |\thesis@blocks@cover@header| private macro is
 % controlled by the following conditional expressions:
 % \begin{enumerate}
+%   \item|\ifthesis@blocks@cover@university@| -- This
+%        conditional expression determines, whether the university
+%        name is going to be included in the header of the cover.
+%        The default value of this conditional expression is true.
+%   \item|\ifthesis@blocks@cover@faculty@| -- This
+%        conditional expression determines, whether the faculty
+%        name is going to be included in the header of the cover.
+%        The default value of this conditional expression is true.
 %   \item|\ifthesis@blocks@cover@department@| -- This
 %        conditional expression determines, whether the department
 %        name is going to be included in the header of the cover.
@@ -194,19 +203,26 @@
 % |\thesis@blocks@cover@header| private macro without altering its
 % definition.
 % \begin{macrocode}
+\newif\ifthesis@blocks@cover@university@
+\thesis@blocks@cover@university@true
+\newif\ifthesis@blocks@cover@faculty@
+\thesis@blocks@cover@faculty@true
 \newif\ifthesis@blocks@cover@department@
 \thesis@blocks@cover@department@false
 \newif\ifthesis@blocks@cover@field@
 \thesis@blocks@cover@field@false
 
 \def\thesis@blocks@cover@header{%
-  {\sc\thesis@titlePage@LARGE\thesis@@{universityName}\\%
-      \thesis@titlePage@Large\thesis@@{facultyName}\\%
-      \ifthesis@blocks@cover@department@%
-        \vskip 0.3em\thesis@titlePage@large\thesis@department%
+  {\sc\ifthesis@blocks@cover@university@%
+        \thesis@titlePage@LARGE\thesis@@{universityName}\\%
+   \fi\ifthesis@blocks@cover@faculty@%
+        \thesis@titlePage@Large\thesis@@{facultyName}\\%
+   \fi\ifthesis@blocks@cover@department@%
+        \thesis@titlePage@large\thesis@department\\%
       \fi}
   \ifthesis@blocks@cover@field@%
-    {\thesis@titlePage@large\vskip 0.2em\thesis@field}
+    {\thesis@titlePage@large\vskip 2em%
+      {\bf\thesis@@{fieldTitle}:} \thesis@field}%
   \fi\vskip 2em}
 \def\thesis@blocks@cover@content{%
   {\thesis@titlePage@Huge\bf\thesis@TeXtitle\par\vfil}%
@@ -252,6 +268,16 @@
 % The output of the |\thesis@blocks@titlePage@header| private macro is
 % controlled by the following conditional expressions:
 % \begin{enumerate}
+%   \item|\ifthesis@blocks@titlePage@university@| -- This
+%        conditional expression determines, whether the university
+%        name is going to be included in the header of the title
+%        page. The default value of this conditional expression is
+%        true.
+%   \item|\ifthesis@blocks@titlePage@faculty@| -- This
+%        conditional expression determines, whether the faculty of
+%        study is going to be included in the header of the title
+%        page.
+%        The default value of this conditional expression is true.
 %   \item|\ifthesis@blocks@titlePage@department@| -- This
 %        conditional expression determines, whether the department
 %        name is going to be included in the header of the title
@@ -268,19 +294,26 @@
 % |\thesis@blocks@titlePage@header| private macro without altering
 % its definition.
 % \begin{macrocode}
+\newif\ifthesis@blocks@titlePage@university@
+\thesis@blocks@titlePage@university@true
+\newif\ifthesis@blocks@titlePage@faculty@
+\thesis@blocks@titlePage@faculty@true
 \newif\ifthesis@blocks@titlePage@department@
 \thesis@blocks@titlePage@department@false
 \newif\ifthesis@blocks@titlePage@field@
 \thesis@blocks@titlePage@field@false
 
 \def\thesis@blocks@titlePage@header{%
-  {\sc\thesis@titlePage@LARGE\thesis@@{universityName}\\%
-      \thesis@titlePage@Large\thesis@@{facultyName}\\%
-      \ifthesis@blocks@titlePage@department@%
-        \vskip 0.3em\thesis@titlePage@large\thesis@department\\%
+  {\sc\ifthesis@blocks@titlePage@university@%
+        \thesis@titlePage@LARGE\thesis@@{universityName}\\%
+   \fi\ifthesis@blocks@titlePage@faculty@%
+        \thesis@titlePage@Large\thesis@@{facultyName}\\%
+   \fi\ifthesis@blocks@titlePage@department@%
+        \thesis@titlePage@large\thesis@department\\%
       \fi}
   \ifthesis@blocks@titlePage@field@%
-    {\thesis@titlePage@large\vskip 0.2em\thesis@field}
+    {\thesis@titlePage@large\vskip 2em%
+      {\bf\thesis@@{fieldTitle}:} \thesis@field}%
   \fi\vskip 2em}
 \let\thesis@blocks@titlePage@content=\thesis@blocks@cover@content
 \let\thesis@blocks@titlePage@footer=\thesis@blocks@cover@footer
@@ -320,9 +353,8 @@
   \ifx\thesis@thanks\undefined\else%
     \thesis@blocks@clear%
     \begin{alwayssingle}%
-      \chapter*{\thesis@@{thanksTitle}}%
+      \chapter*{\vspace*{\fill}\thesis@@{thanksTitle}}%
       \thesis@thanks%
-      \par\vfill%
     \end{alwayssingle}%
   \fi}
 %    \end{macrocode}
@@ -409,10 +441,6 @@
     \thesis@blocks@clear
   \fi}
 %    \end{macrocode}
-% The file defines several blocks to be used in the redefinitions
-% of the |\thesis@preamble| and |\thesis@postable| private macros
-% by the subsequently loaded style files.
-%
 % \end{macro}\begin{macro}{\thesis@blocks@mainMatter}
 % The |\thesis@blocks@mainMatter| private macro sets up the style
 % of the main matter of the thesis.

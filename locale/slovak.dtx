@@ -34,6 +34,7 @@
 \def\thesis@slovak@declaration{Text prehlásenie ...}
 
 % Rôzne
+\def\thesis@slovak@fieldTitle{Odbor}
 \def\thesis@slovak@advisorTitle{Vedúci práce}
 \def\thesis@slovak@abstractTitle{Zhrnutie}
 \def\thesis@slovak@keywordsTitle{Kľúčové slová}
@@ -91,12 +92,22 @@
 % \fi\file{locale/mu/law/slovak.def}
 % This is the Slovak locale file specific to the Faculty of Law at
 % the Masaryk University in Brno. It replaces the
-% \texttt{facultyName} placeholder with the correct value.
+% \texttt{facultyName} placeholder with the correct value and
+% replaces the \texttt{abstractTitle} and
+% \texttt{placeholders@abstract} strings in accordance with the
+% requirements of the faculty.
 % \iffalse
 %<*mu/law>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis3/locale/mu/law/slovak.def}[2015/04/18]
-\def\thesis@slovak@facultyName{Právnická fakulta}
+\ProvidesFile{fithesis3/locale/mu/law/slovak.def}[2015/04/26]
+
+% Rôzne
+\def\thesis@slovak@abstractTitle{Abstrakt}
+
+% Zástupné texty
+\def\thesis@slovak@placeholders@abstract{Text abstraktu}
+\def\thesis@slovak@facultyName{Právnická fakulta Masarykovej
+  univerzity}
 %    \end{macrocode}\iffalse
 %</mu/law>
 % \fi\file{locale/mu/fsps/slovak.def}
@@ -113,7 +124,8 @@
 % \fi\file{locale/mu/fss/slovak.def}
 % This is the Slovak locale file specific to the Faculty of Social
 % Studies at the Masaryk University in Brno. It replaces the
-% \texttt{facultyName} placeholder with the correct value.
+% \texttt{facultyName} and \texttt{placeholders@assignment}
+% strings with the correct value.
 % \iffalse
 %<*mu/fss>
 % \fi\begin{macrocode}
@@ -160,7 +172,7 @@
 % requirements of the faculty. The file also defines the
 % \texttt{advisorSignature} string required by the
 % |\thesis@blocks@titlePage| block defined within the
-% \texttt{style/mu/fi.sty} style file.
+% \texttt{style/mu/fithesis3-fi.sty} style file.
 % \iffalse
 %<*mu/fi>
 % \fi\begin{macrocode}
@@ -236,7 +248,7 @@
 % correct value. The file also defines the
 % \texttt{bib@title} and \texttt{bib@pages} strings required by the
 % |\thesis@blocks@bibEntry| block defined within the
-% \texttt{style/mu/ped.sty} style file.
+% \texttt{style/mu/fithesis3-ped.sty} style file.
 % \iffalse
 %<*mu/ped>
 % \fi\begin{macrocode}
