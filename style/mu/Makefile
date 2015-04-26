@@ -1,5 +1,5 @@
-LOGS=base.log fi.log sci.log phil.log
-OUTPUT=fithesis3-base.sty fithesis3-1[012].clo fithesis3-fi.sty fithesis3-sci.sty fithesis3-phil.sty
+LOGS=base.log fi.log sci.log phil.log ped.log
+OUTPUT=fithesis3-base.sty fithesis3-1[012].clo fithesis3-fi.sty fithesis3-sci.sty fithesis3-phil.sty fithesis3-ped.sty
 
 .PHONY: explode implode all
 all: explode

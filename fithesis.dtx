@@ -305,21 +305,38 @@
   \fi}
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{\thesis@author}\begin{macro}{\thesis@authorEn}
+% \begin{macro}{\thesis@author}
 % \subsubsection{The \texttt{author} key}
 % The \marg{\texttt{author}=name} pair sets the author's full
-% name to \textit{name}. The \textit{name} is stored within the
-% private |\thesis@author| and |\thesis@authorEn| macros, whose
-% implicit value is |\thesis@@{placeholders@author}| and
-% |\thesis@english@placeholders@author}|, respectively.
+% name to \textit{name}. The \textit{name} is parsed using the
+% \DescribeMacro{\thesis@parseAuthor} private macro and stored
+% within the following private macros:
+% \begin{itemize}
+%   \item\DescribeMacro{\thesis@author}|\thesis@author|
+%     -- The full name of the author. The default value of the
+%     macro is |\thesis@@{placeholders@author}|.
+%   \item\DescribeMacro{\thesis@author@head}|\thesis@author@head|
+%     -- The first space-delimited part of the name. This
+%     corresponds to the author's first name. The default value of
+%     the macro is |\thesis@@{placeholders@author@firstName}|.
+%   \item\DescribeMacro{\thesis@author@tail}|\thesis@author@tail|
+%     -- The full name without the first space-delimited part of
+%     the name. This corresponds to the author's surname. The
+%     default value of the macro is
+%     |\thesis@@{placeholders@author@surname}|.
+% \end{itemize}
 %    \begin{macrocode}
-\def\thesis@author{\thesis@@{placeholders@author}}
-\def\thesis@authorEn{\thesis@english@placeholders@author}
-\define@key{thesis}{author}{%
+\def\thesis@parseAuthor#1{%
   \def\thesis@author{#1}%
-  \def\thesis@authorEn{#1}}
+  \edef\thesis@author@head{\thesis@head#1 \relax}%
+  \edef\thesis@author@tail{\thesis@tail#1 \relax}}
+\def\thesis@author{\thesis@@{placeholders@author}}
+\def\thesis@author@head{\thesis@@{placeholders@author@firstName}}
+\def\thesis@author@tail{\thesis@@{placeholders@author@surname}}
+\define@key{thesis}{author}{%
+  \expandafter\thesis@parseAuthor{#1}}
 %    \end{macrocode}
-% \end{macro}\end{macro}
+% \end{macro}
 % \begin{macro}{\thesis@type}
 % \subsubsection{The \texttt{type} key}
 % The \marg{\texttt{type}=type} pair sets the type of the thesis
@@ -769,22 +786,17 @@
   \long\def\thesis@abstractEn{#1}}
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{\thesis@advisor}\begin{macro}{\thesis@advisorEn}
+% \begin{macro}{\thesis@advisor}
 % \subsubsection{The \texttt{advisor} key}
 % The \marg{\texttt{advisor}=name} pair sets the thesis advisor's
 % full name to \textit{name}. The \textit{name} is stored within
-% the private |\thesis@advisor| and |\thesis@advisorEn| macro,
-% whose implicit values are |\thesis@@{placeholders@advisor}| and
-% |\thesis@|\discretionary{}{}{}|english@placeholders@advisor|,
-% respectively.
+% the private |\thesis@advisor| macro, whose implicit value is
+% |\thesis@@{placeholders@advisor}|.
 %    \begin{macrocode}
 \def\thesis@advisor{\thesis@@{placeholders@advisor}}
-\def\thesis@advisorEn{\thesis@english@placeholders@advisor}
-\define@key{thesis}{advisor}{%
-  \def\thesis@advisor{#1}%
-  \def\thesis@advisorEn{#1}}
+\define@key{thesis}{advisor}{\def\thesis@advisor{#1}}
 %    \end{macrocode}
-% \end{macro}\end{macro}
+% \end{macro}
 % \begin{macro}{\thesis@thanks}
 % \subsubsection{The \texttt{thanks} key}
 % The \marg{\texttt{thanks}=text} pair sets the acknowledgement
@@ -1075,6 +1087,25 @@
 %    \begin{macrocode}
 \def\thesis@@lower#1{\thesis@lower{\thesis@locale @#1}}
 \def\thesis@@upper#1{\thesis@upper{\thesis@locale @#1}}
+%    \end{macrocode}
+% The \DescribeMacro{\thesis@head}|\thesis@head|
+% and \DescribeMacro{\thesis@tail}|\thesis@tail|
+% private macros are used for retrieving a head or a tail of
+% space-separated token sequences, which end with |\relax|.
+%    \begin{macrocode}
+\def\thesis@head#1 #2{%
+  \ifx\relax#2%
+    \expandafter\@gobbletwo%
+  \else%
+    #1
+  \fi%
+  \thesis@head#2}%
+\def\thesis@tail#1 #2{%
+  \ifx\relax#2%
+    #1%
+    \expandafter\@gobbletwo%
+  \fi%
+  \thesis@tail#2}%
 %    \end{macrocode}
 % \subsection{General purpose macros}
 % The \DescribeMacro{\thesis@pages}|\thesis@pages| macro is defined

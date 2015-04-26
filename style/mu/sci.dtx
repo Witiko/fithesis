@@ -157,6 +157,7 @@
 %    \begin{macrocode}
 \def\thesis@blocks@bibEntryEn{%
   \ifthesis@english\else
+    {\def\thesis@locale{english}
     \begin{alwayssingle}
       % Start the new chapter without clearing the right page
       {\def\cleardoublepage{}%
@@ -194,7 +195,7 @@
     \renewcommand{\arraystretch}{2}
     \begin{tabular}{@{}p{\@left}@{\hskip\@skip}p{\@right}@{}}
         \textbf{\thesis@english@bib@author:} & \vtop{%
-          \hbox{\strut\thesis@authorEn}%
+          \hbox{\strut\thesis@author}%
           \hbox{\strut\thesis@english@facultyName,
                 \thesis@english@universityName}%
           \hbox{\strut\thesis@departmentEn}} \\
@@ -208,7 +209,7 @@
         % thesis advisor.
         \ifx\thesis@type\thesis@rigorous\else%
           \textbf{\thesis@english@bib@advisor:}
-            & \thesis@advisorEn \\
+            & \thesis@advisor \\
         \fi
         \textbf{\thesis@english@bib@academicYear:}
           & \thesis@academicYear \\
@@ -218,7 +219,7 @@
           & \thesis@keywordsEn \\
       \end{tabular}}
     \end{alwayssingle}
-  \fi}
+  }\fi}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@frontMatter}
 % The |\thesis@blocks@frontMatter| private macro sets up the style
