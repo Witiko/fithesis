@@ -1,0 +1,45 @@
+% \file{style/mu/fithesis3-fss.sty}
+% This is the style file for the theses written at the Faculty of
+% Social Studies at the Masaryk University in Brno. Because of the
+% inexistence of faculty-wide formal requirements and
+% recommendations with each department defining their own with
+% varying degrees of
+% rigour\footnote{\url{http://psych.fss.muni.cz/node/351},
+% \url{http://medzur.fss.muni.cz/informace-pro-studenty/pravidla^^A
+% -pro-diplomky/soubory/Pravidla pro zaverecne prace na KMSZ - v^^A
+% er. 2-83.doc}, \url{http://soc.fss.muni.cz/?q=node/44}, \url{h^^A
+% ttp://polit.fss.muni.cz/informace-pro-studenty/pol/}, \url{htt^^A
+% p://humenv.fss.muni.cz/studium/bakalarske-studium/pravidla-pro^^A
+% -vypracovani-bakalarske-prace}}, this style is a mere skeleton,
+% which is unlikely to satisfy the exact requirements of
+% any department and will require modification by the user.
+%    \begin{macrocode}
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{fithesis3/style/mu/fithesis3-fss}[2015/04/26]
+%    \end{macrocode}
+% In addition to the main locale, the file also requires the
+% English locale.
+%    \begin{macrocode}
+\thesis@requireLocale{english}
+%    \end{macrocode}
+% The style file defines the autolayout preamble as the cover and
+% the title page followed by the abstracts, keywords, assignment,
+% declaration, acknowledgement, table of contents and
+% list of tables and figures as a part of the front matter. All
+% blocks beside |\thesis@blocks@bibEntry| are defined in the
+% \texttt{style/mu/base.sty} file.
+%    \begin{macrocode}
+\def\thesis@preamble{%
+  \thesis@blocks@cover%
+  \thesis@blocks@titlePage%
+  \thesis@blocks@frontMatter%
+    \thesis@blocks@abstract%
+    \thesis@blocks@abstractEn%
+    \thesis@blocks@keywords%
+    \thesis@blocks@keywordsEn%
+    \thesis@blocks@assignment%
+    \thesis@blocks@declaration%
+    \thesis@blocks@thanks%
+    \thesis@blocks@tables%
+  \thesis@blocks@mainMatter}
+%    \end{macrocode}
