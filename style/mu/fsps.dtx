@@ -1,0 +1,30 @@
+% \file{style/mu/fithesis3-fss.sty}
+% This is the style file for the theses written at the Faculty of
+% Sports Studies at the Masaryk University in Brno. It has been
+% prepared in accordance with the formal requirements published at
+% the website of the faculty\footnote{See \url{http://www.fsps.^^A
+% muni.cz/~korvas/pokyny_k_zaverecne_praci.doc}}.
+%    \begin{macrocode}
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{fithesis3/style/mu/fithesis3-fss}[2015/04/26]
+%    \end{macrocode}
+% The style file configures the title page header to include the
+% field name.
+%    \begin{macrocode}
+\thesis@blocks@titlePage@field@true
+%    \end{macrocode}
+% The style file defines the autolayout preamble as the cover and
+% the title page followed by the declaration, acknowledgement
+% table of contents and the optional list of tables and figures as
+% a part of the front matter. All blocks are defined in the
+% \texttt{style/mu/base.sty} file.
+%    \begin{macrocode}
+\def\thesis@preamble{%
+  \thesis@blocks@cover%
+  \thesis@blocks@titlePage%
+  \thesis@blocks@frontMatter%
+    \thesis@blocks@declaration%
+    \thesis@blocks@thanks%
+    \thesis@blocks@tables%
+  \thesis@blocks@mainMatter}
+%    \end{macrocode}

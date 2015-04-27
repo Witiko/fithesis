@@ -114,12 +114,20 @@
 % \fi\file{locale/mu/fsps/slovak.def}
 % This is the Slovak locale file specific to the Faculty of Sports
 % Studies at the Masaryk University in Brno. It replaces the
-% \texttt{facultyName} placeholder with the correct value.
+% \texttt{facultyName} placeholder with the correct value and the
+% \texttt{placeholders@field} and \texttt{fieldTitle} strings in
+% accordance with the common usage at the faculty.
 % \iffalse
 %<*mu/fsps>
 % \fi\begin{macrocode}
 \ProvidesFile{fithesis3/locale/mu/fsps/slovak.def}[2015/04/18]
+
+% Zástupné texty
+\def\thesis@slovak@placeholders@field{Názov špecializácie}
 \def\thesis@slovak@facultyName{Fakulta športových štúdií}
+
+% Rôzne
+\def\thesis@slovak@fieldTitle{Špecializácie}
 %    \end{macrocode}\iffalse
 %</mu/fsps>
 % \fi\file{locale/mu/fss/slovak.def}
@@ -158,7 +166,7 @@
 % It replaces the \texttt{facultyName} placeholder with the
 % correct value and redefines the \texttt{abstractTitle},
 % and \texttt{placeholders@abstract} strings in accordance
-% with strings customary at the faculty. The file also defines the
+% with the common usage at the faculty. The file also defines the
 % \texttt{bib@title} and \texttt{bib@pages} strings required by the
 % |\thesis@blocks@bibEntry| block defined within the
 % \texttt{style/mu/fithesis3-med.sty} style file.
