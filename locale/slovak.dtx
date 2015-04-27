@@ -156,12 +156,28 @@
 % This is the Slovak locale file specific to the Faculty of
 % Medicine at the Masaryk University in Brno.
 % It replaces the \texttt{facultyName} placeholder with the
-% correct value.
+% correct value and redefines the \texttt{abstractTitle},
+% and \texttt{placeholders@abstract} strings in accordance
+% with strings customary at the faculty. The file also defines the
+% \texttt{bib@title} and \texttt{bib@pages} strings required by the
+% |\thesis@blocks@bibEntry| block defined within the
+% \texttt{style/mu/fithesis3-med.sty} style file.
+
 % \iffalse
 %<*mu/med>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis3/locale/mu/med/slovak.def}[2015/04/18]
+\ProvidesFile{fithesis3/locale/mu/med/slovak.def}[2015/04/26]
+
+% Rôzne
+\def\thesis@slovak@abstractTitle{Anotácie}
+
+% Zástupné texty
+\def\thesis@slovak@placeholders@abstract{Text abstraktu}
 \def\thesis@slovak@facultyName{Lekárska fakulta}
+
+% Bibliografický zoznam
+\def\thesis@slovak@bib@title{Bibliografický záznam}
+\def\thesis@slovak@bib@pages{str}
 %    \end{macrocode}\iffalse
 %</mu/med>
 % \fi\file{locale/mu/fi/slovak.def}

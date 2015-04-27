@@ -238,13 +238,13 @@
         \thesis@titlePage@large\thesis@department\\%
       \fi}
   \ifthesis@blocks@cover@field@%
-    {\thesis@titlePage@large\vskip 2em%
+    {\thesis@titlePage@large\vskip 1em%
       {\bf\thesis@@{fieldTitle}:} \thesis@field}%
   \fi\vskip 2em}
 \def\thesis@blocks@cover@content{%
   {\thesis@titlePage@Huge\bf\thesis@TeXtitle\par\vfil}%
   \vskip 0.8in%
-  {\sc \thesis@@{typeName}}\\[0.3in]%
+  {\thesis@titlePage@large\sc\thesis@@{typeName}}\\[0.3in]%
   {\thesis@titlePage@Large\bf\thesis@author}}
 \def\thesis@blocks@cover@footer{%
   {\thesis@titlePage@large\thesis@place, \thesis@@{semester}}}
@@ -329,7 +329,7 @@
         \thesis@titlePage@large\thesis@department\\%
       \fi}
   \ifthesis@blocks@titlePage@field@%
-    {\thesis@titlePage@large\vskip 2em%
+    {\thesis@titlePage@large\vskip 1em%
       {\bf\thesis@@{fieldTitle}:} \thesis@field}%
   \fi\vskip 2em}
 \let\thesis@blocks@titlePage@content=\thesis@blocks@cover@content
@@ -385,7 +385,7 @@
     \thesis@blocks@clearRight
     {\def\cleardoublepage{}
     \chapter*{\thesis@@{abstractTitle}}}%
-    \thesis@abstract%
+    \noindent\thesis@abstract%
     \par\vfil\null%
   \end{alwayssingle}}
 %    \end{macrocode}
@@ -418,7 +418,7 @@
     \thesis@blocks@clearRight
       {\def\cleardoublepage{}%
       \chapter*{\thesis@@{keywordsTitle}}%
-      \thesis@keywords}%
+      \noindent\thesis@keywords}%
     \par\vfill%
   \end{alwayssingle}}
 %    \end{macrocode}

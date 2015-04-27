@@ -126,12 +126,26 @@
 % This is the English locale file specific to the Faculty of
 % Medicine at the Masaryk University in Brno.
 % It replaces the \texttt{facultyName} placeholder with the
-% correct value.
+% correct value and redefines the \texttt{abstractTitle} string
+% in accordance with strings customary at the faculty.
+% The file also defines the \texttt{bib@title} and
+% \texttt{bib@pages} strings required by the
+% |\thesis@blocks@bibEntry| block defined within the
+% \texttt{style/mu/fithesis3-med.sty} style file.
 % \iffalse
 %<*mu/med>
 % \fi\begin{macrocode}
 \ProvidesFile{fithesis3/locale/mu/med/english.def}[2015/04/18]
+
+% Miscellaneous
+\def\thesis@english@abstractTitle{Annotation}
+
+% Placeholders
 \def\thesis@english@facultyName{Faculty of Medicine}
+
+% Bibliographic entry
+\def\thesis@english@bib@title{Bibliographic record}
+\def\thesis@english@bib@pages{p}
 %    \end{macrocode}\iffalse
 %</mu/med>
 % \fi\file{locale/mu/fi/english.def}
@@ -175,7 +189,10 @@
 % This is the Slovak locale file specific to the Faculty of
 % Education at the Masaryk University in Brno.
 % It replaces the \texttt{facultyName} placeholder with the
-% correct value.
+% correct value. The file also defines the
+% \texttt{bib@title} and \texttt{bib@pages} strings required by the
+% |\thesis@blocks@bibEntry| block defined within the
+% \texttt{style/mu/fithesis3-ped.sty} style file.
 % \iffalse
 %<*mu/ped>
 % \fi\begin{macrocode}
