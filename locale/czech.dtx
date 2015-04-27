@@ -38,6 +38,7 @@
 % Různé
 \def\thesis@czech@fieldTitle{Obor}
 \def\thesis@czech@advisorTitle{Vedoucí práce}
+\def\thesis@czech@authorTitle{Autor}
 \def\thesis@czech@abstractTitle{Shrnutí}
 \def\thesis@czech@keywordsTitle{Klíčová slova}
 \def\thesis@czech@thanksTitle{Poděkování}
@@ -293,14 +294,14 @@
 
 % Bibliografický záznam
 \def\thesis@czech@bib@title{Bibliografický záznam}
-\def\thesis@czech@bib@author{Autor}
-\def\thesis@czech@bib@title{Název práce}
+\let\thesis@czech@bib@author\thesis@czech@authorTitle
+\def\thesis@czech@bib@thesisTitle{Název práce}
 \def\thesis@czech@bib@programme{Studijní program}
-\def\thesis@czech@bib@field{Studijní obor}
-\def\thesis@czech@bib@advisor{\thesis@czech@advisorTitle}
+\let\thesis@czech@bib@field\thesis@czech@fieldTitle
+\let\thesis@czech@bib@advisor\thesis@czech@advisorTitle
 \def\thesis@czech@bib@academicYear{Akademický rok}
 \def\thesis@czech@bib@pages{Počet stran}
-\def\thesis@czech@bib@keywords{\thesis@czech@keywordsTitle}
+\let\thesis@czech@bib@keywords\thesis@czech@keywordsTitle
 %    \end{macrocode}\iffalse
 %</mu/sci>
 % \fi

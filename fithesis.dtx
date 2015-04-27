@@ -271,6 +271,19 @@
   \def\thesis@stylepath{\thesis@subdir{#1}}}
 %    \end{macrocode}
 % \end{macro}
+% \begin{macro}{\thesis@declaration}
+% \subsubsection{The \texttt{declaration} key}
+% The \marg{\texttt{declaration}=text} pair sets the
+% declaration \textit{text} to be included into the document.
+% \cmd{/thesis@basepath} followed by \textit{path}. The
+% \textit{text} is stored within the private |\thesis@declaration|
+% macro, whose implicit value is |\thesis@@{declaration}|.
+%    \begin{macrocode}
+\def\thesis@declaration{\thesis@@{declaration}}
+\long\def\KV@thesis@declaration#1{%
+  \long\def\thesis@declaration{#1}}
+%    \end{macrocode}
+% \end{macro}
 % \begin{macro}{\thesis@localepath}
 % \subsubsection{The \texttt{localepath} key}
 % The \marg{\texttt{localepath}=path} pair sets the \textit{path}
@@ -866,6 +879,7 @@
 %   \item\texttt{abstract}
 %   \item\texttt{abstractEn}
 %   \item\texttt{thanks}
+%   \item\texttt{declaration}
 % \end{itemize}
 %    \begin{macrocode}
 \long\def\thesislong#1#2{%
@@ -1195,6 +1209,8 @@
 %     the field of study entry
 %   \item|\thesis@|\textit{locale}|@advisorTitle| -- The title of
 %     the advisor
+%   \item|\thesis@|\textit{locale}|@authorTitle| -- The title of
+%     the author
 %   \item|\thesis@|\textit{locale}|@abstractTitle| -- The title of
 %     the abstract section
 %   \item|\thesis@|\textit{locale}|@keywordsTitle| -- The title of
@@ -1273,3 +1289,6 @@
 % \input{style/mu/fss.dtx}
 % \subsubsection{The style files of the Faculty of Law}
 % \input{style/mu/law.dtx}
+% \subsubsection{The style files of the Faculty of Economics and
+%   Administration}
+% \input{style/mu/econ.dtx}

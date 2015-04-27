@@ -28,6 +28,7 @@
 % Miscellaneous
 \def\thesis@english@fieldTitle{Field of study}
 \def\thesis@english@advisorTitle{Advisor}
+\def\thesis@english@authorTitle{Author}
 \def\thesis@english@abstractTitle{Abstract}
 \def\thesis@english@keywordsTitle{Keywords}
 \def\thesis@english@thanksTitle{Acknowledgement}
@@ -210,10 +211,10 @@
 
 % Bibliographic entry
 \def\thesis@english@bib@title{Bibliographic entry}
-\def\thesis@english@bib@author{Author}
-\def\thesis@english@bib@title{Title of Thesis}
+\let\thesis@english@bib@author\thesis@english@authorTitle
+\def\thesis@english@bib@thesisTitle{Title of Thesis}
 \def\thesis@english@bib@programme{Degree Programme}
-\def\thesis@english@bib@field{Field of Study}
+\let\thesis@english@bib@field\thesis@english@fieldTitle
 \def\thesis@english@bib@advisor{Supervisor}
 \def\thesis@english@bib@academicYear{Academic Year}
 \def\thesis@english@bib@pages{Number of Pages}

@@ -1,0 +1,139 @@
+% \file{style/mu/fithesis3-econ.sty}
+% This is the style file for the theses written at the Faculty of
+% Economics and Administration at the Masaryk University in Brno.
+% It has been prepared in accordance with the formal requirements
+% published at the website of the faculty\footnote{See \url{ht^^A
+% tps://is.muni.cz/auth/do/econ/predpisy/smernice/prehled/4593^^A
+% 1363/Smernice2014-9.pdf}}.
+%    \begin{macrocode}
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{fithesis3/style/mu/fithesis3-econ}[2015/04/26]
+%    \end{macrocode}
+% In addition to the main locale, the file also requires the
+% English locale.
+%    \begin{macrocode}
+\thesis@requireLocale{english}
+%    \end{macrocode}
+% The file loads the \textsf{geometry} package to set the type
+% area according to the formal requirements of the faculty. This
+% leads to overfull lines and is against the good conscience of the
+% author of the style.
+%    \begin{macrocode}
+\thesis@require{geometry}
+\geometry{top=25mm,bottom=20mm,left=25mm,right=25mm,includeheadfoot}
+%    \end{macrocode}
+% \begin{macro}{\thesis@blocks@cover}
+% The |\thesis@blocks@cover| private macro typesets the thesis
+% cover.
+%    \begin{macrocode}
+\def\thesis@blocks@cover{%
+  \ifthesis@cover
+    \thesis@blocks@clear
+    \begin{alwayssingle}
+      \thispagestyle{empty}
+      \begin{center}
+      {\sc\thesis@titlePage@LARGE\thesis@@{universityName}\\%
+          \thesis@titlePage@Large\thesis@@{facultyName}\\}
+      \vfill
+      {\bf\thesis@titlePage@Huge\thesis@@{typeName}}
+      \vfill
+      {\thesis@titlePage@large\thesis@place
+       \ \thesis@year\hfill\thesis@author}
+      \end{center}
+    \end{alwayssingle}
+  \fi}
+%    \end{macrocode}
+% \end{macro}
+% The style file configures the title page header to include the
+% name of the field of study and redefines the title page content
+% to include the author and advisor name and the title page footer
+% to only include year and place as per the requirements of the
+% faculty.
+%    \begin{macrocode}
+\thesis@blocks@titlePage@field@true
+\def\thesis@blocks@titlePage@content{%
+    {\thesis@titlePage@Huge\bf\thesis@upper{TeXtitle}\\[0.1in]%
+                              \thesis@TeXtitleEn\\[0.3in]}%
+    {\thesis@titlePage@normalsize{\sc\thesis@@{typeName}}\\}
+    % Typeset the thesis author and advisor
+    {\thesis@titlePage@large\vfill\begin{tabular}{l@{\hskip 0.5in}l}
+      {\bf\thesis@@{advisorTitle}:} & {\bf\thesis@@{authorTitle}:}\\
+      \thesis@advisor & \thesis@author
+    \end{tabular}}}
+\def\thesis@blocks@titlePage@footer{%
+  {\thesis@titlePage@large\thesis@place, \thesis@year}}
+%    \end{macrocode}
+% \begin{macro}{\thesis@blocks@frontMatter}
+% The |\thesis@blocks@frontMatter| private macro sets up the style
+% of the front matter of the thesis. The page numbering is arabic
+% as per the formal requirements and it is hidden. In case of
+% double-sided typesetting, the geometry is altered according to
+% the requirements of the faculty.
+% \begin{macrocode}
+\def\thesis@blocks@frontMatter{%
+  \thesis@blocks@clear
+  % In case of double-sided typesetting, change the geometry
+  \ifthesis@twoside
+    \geometry{top=25mm,bottom=20mm,left=35mm,
+      right=15mm, includeheadfoot}
+  \fi\pagestyle{empty}
+  \parindent 1.5em
+  \setcounter{page}{1}
+  \pagenumbering{arabic}}
+%    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@blocks@mainMatter}
+% The |\thesis@blocks@mainMatter| private macro sets up the style
+% of the main matter of the thesis. The page numbering doesn't
+% reset at the beginning of the main thesis as per the formal
+% requirements.
+% \begin{macrocode}
+\def\thesis@blocks@mainMatter{%
+  \thesis@blocks@clear
+  \pagestyle{thesisheadings}
+  \parindent 1.5em\relax}
+%    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@blocks@toc}
+% The |\thesis@blocks@toc| private macro typesets the table of
+% contents.
+% \begin{macrocode}
+\def\thesis@blocks@toc{%
+  \thesis@blocks@clear%
+  \tableofcontents}
+% \end{macro}\begin{macro}{\thesis@blocks@tables}
+% The |\thesis@blocks@tables| private macro optionally typesets the
+% |\listoftables| and |\listoffigures|.
+% \begin{macrocode}
+\def\thesis@blocks@tables{%
+  \thesis@blocks@clear%
+  \thesis@blocks@lot%
+  \thesis@blocks@lof}
+%    \end{macrocode}
+% \end{macro}
+% The style file defines the autolayout preamble as the cover and
+% the title page followed by the abstracts, keywords, declaration,
+% acknowledgement and table of contents. All blocks are defined in
+% the \texttt{style/mu/base.sty} file, although some are redefined
+% in this file.
+%    \begin{macrocode}
+\def\thesis@preamble{%
+  \thesis@blocks@cover%
+  \thesis@blocks@frontMatter%
+    \thesis@blocks@titlePage%
+    \thesis@blocks@assignment%
+    \thesis@blocks@abstract%
+    \thesis@blocks@abstractEn%
+    \thesis@blocks@keywords%
+    \thesis@blocks@keywordsEn%
+    \thesis@blocks@declaration%
+    \thesis@blocks@thanks%
+    \thesis@blocks@toc%
+  \thesis@blocks@mainMatter}
+%    \end{macrocode}
+% The style file defines the autolayout postamble as the list of
+% tables and the list of figures. All blocks are defined in the
+% \texttt{style/mu/base.sty} file, although some are redefined in
+% this file.
+%    \begin{macrocode}
+\def\thesis@postamble{%
+  \thesis@blocks@tables}
+%    \end{macrocode}

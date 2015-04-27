@@ -66,7 +66,7 @@
     \let\@A\relax\newlength{\@A}\settowidth{\@A}{{%
       \bf\thesis@czech@bib@author:}}
     \let\@B\relax\newlength{\@B}\settowidth{\@B}{{%
-      \bf\thesis@czech@bib@title:}}
+      \bf\thesis@czech@bib@thesisTitle:}}
     \let\@C\relax\newlength{\@C}\settowidth{\@C}{{%
       \bf\thesis@czech@bib@programme:}}
     \let\@D\relax\newlength{\@D}\settowidth{\@D}{{%
@@ -90,15 +90,15 @@
       max(\@A,\@B,\@C,\@D,\@E,\@F,\@G,\@H)}
     \let\@right\relax\newlength{\@right}\setlength{\@right}{%
       \textwidth-\@left-\@skip}
-    
     % Typeset the table
     \renewcommand{\arraystretch}{2}
     \begin{tabular}{@{}p{\@left}@{\hskip\@skip}p{\@right}@{}}
       \textbf{\thesis@czech@bib@author:} & \vtop{%
         \hbox{\strut\thesis@author}%
-        \hbox{\strut\thesis@czech@facultyName, \thesis@czech@universityName}%
+        \hbox{\strut\thesis@czech@facultyName,
+                    \thesis@czech@universityName}%
         \hbox{\strut\thesis@department}} \\
-      \textbf{\thesis@czech@bib@title:}
+      \textbf{\thesis@czech@bib@thesisTitle:}
         & \thesis@title \\
       \textbf{\thesis@czech@bib@programme:}
         & \thesis@programme \\
@@ -166,7 +166,7 @@
       \let\@A\relax\newlength{\@A}\settowidth{\@A}{{%
         \bf\thesis@english@bib@author:}}
       \let\@B\relax\newlength{\@B}\settowidth{\@B}{{%
-        \bf\thesis@english@bib@title:}}
+        \bf\thesis@english@bib@thesisTitle:}}
       \let\@C\relax\newlength{\@C}\settowidth{\@C}{{%
         \bf\thesis@english@bib@programme:}}
       \let\@D\relax\newlength{\@D}\settowidth{\@D}{{%
@@ -190,7 +190,6 @@
         max(\@A,\@B,\@C,\@D,\@E,\@F,\@G,\@H)}
       \let\@right\relax\newlength{\@right}\setlength{\@right}{%
         \textwidth-\@left-\@skip}
-
     % Typeset the table
     \renewcommand{\arraystretch}{2}
     \begin{tabular}{@{}p{\@left}@{\hskip\@skip}p{\@right}@{}}
@@ -199,7 +198,7 @@
           \hbox{\strut\thesis@english@facultyName,
                 \thesis@english@universityName}%
           \hbox{\strut\thesis@departmentEn}} \\
-        \textbf{\thesis@english@bib@title:}
+        \textbf{\thesis@english@bib@thesisTitle:}
           & \thesis@titleEn \\
         \textbf{\thesis@english@bib@programme:}
           & \thesis@programmeEn \\
