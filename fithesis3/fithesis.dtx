@@ -351,6 +351,17 @@
   \expandafter\thesis@parseAuthor{#1}}
 %    \end{macrocode}
 % \end{macro}
+% \begin{macro}{\thesis@id}
+% \subsubsection{The \texttt{id} key}
+% The \marg{\texttt{id}=identifier} pair sets the identifier
+% of the thesis author to \textit{identifier}. This usually
+% corresponds to a unique identifier of the author within the
+% information system of the given university.
+%    \begin{macrocode}
+\define@key{thesis}{id}{%
+  \def\thesis@id{#1}}
+%    \end{macrocode}
+% \end{macro}
 % \begin{macro}{\thesis@type}
 % \subsubsection{The \texttt{type} key}
 % The \marg{\texttt{type}=type} pair sets the type of the thesis
