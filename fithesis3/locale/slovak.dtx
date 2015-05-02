@@ -1,6 +1,6 @@
 % \file{locale/slovak.def}
 % This is the base file of the Slovak locale. It defines all the
-% private macros mandated by the locale file interface. 
+% private macros mandated by the locale file interface.
 % \begin{macro}{\thesis@slovak@gender@koncovka}
 % The locale file defines the |\thesis@slovak@gender@koncovka|
 % macro, which expands to the correct verb ending based on the
@@ -29,6 +29,7 @@
 \def\thesis@slovak@placeholders@programme{Názov študijného
   programu}
 \def\thesis@slovak@placeholders@field{Název študijného odboru}
+\def\thesis@slovak@placeholders@id{Identifikátor}
 \def\thesis@slovak@assignment{Namiesto tejto stránky vložte kópiu
   oficiálneho podpísaného zadania práce.}
 \def\thesis@slovak@declaration{Text prehlásenie ...}
@@ -41,6 +42,7 @@
 \def\thesis@slovak@keywordsTitle{Kľúčové slová}
 \def\thesis@slovak@thanksTitle{Poďakovanie}
 \def\thesis@slovak@declarationTitle{Prehlásenie}
+\def\thesis@slovak@idTitle{ID}
 \def\thesis@slovak@winter{Jar}
 \def\thesis@slovak@summer{Jeseň}
 \def\thesis@slovak@semester{%
@@ -74,8 +76,9 @@
 % \fi\file{locale/mu/slovak.def}
 % This is the Slovak locale file specific to the Masaryk
 % University in Brno. It replaces the \texttt{universityName}
-% placeholder with the correct value and defines a placeholder
-% declaration text.
+% placeholder with the correct value and defines the
+% \texttt{declaration}, \texttt{placeholders@id} and
+% \texttt{idTitle} strings.
 % \iffalse
 %<*mu>
 % \fi\begin{macrocode}
@@ -88,6 +91,10 @@
   slovak@typeName@akuzativ} vypracoval%
   \thesis@slovak@gender@koncovka\ samostatne len s~použitím
   uvedenej literatúry a prameňov.}
+\def\thesis@slovak@placeholders@id{UČO}
+
+% Rôzne
+\def\thesis@slovak@idTitle{UČO}
 %    \end{macrocode}\iffalse
 %</mu>
 % \fi\file{locale/mu/law/slovak.def}

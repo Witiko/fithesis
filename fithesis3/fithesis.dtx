@@ -356,9 +356,11 @@
 % The \marg{\texttt{id}=identifier} pair sets the identifier
 % of the thesis author to \textit{identifier}. This usually
 % corresponds to a unique identifier of the author within the
-% information system of the given university.
+% information system of the given university. The default value of
+% the macro is |\thesis@@{placeholders@id}|.
 %    \begin{macrocode}
-\define@key{thesis}{id}{%
+\def\thesis@id{\thesis@@{placeholders@id}}
+  \define@key{thesis}{id}{%
   \def\thesis@id{#1}}
 %    \end{macrocode}
 % \end{macro}

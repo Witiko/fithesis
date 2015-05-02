@@ -1,7 +1,6 @@
 % \file{locale/english.def}
 % This is the base file of the English locale. It defines all the
-% private macros mandated by the locale file interface. 
-%
+% private macros mandated by the locale file interface.
 % \iffalse
 %<*base>
 % \fi\begin{macrocode}
@@ -21,6 +20,7 @@
 \def\thesis@english@placeholders@department{Department name}
 \def\thesis@english@placeholders@programme{Study programme name}
 \def\thesis@english@placeholders@field{The field of study}
+\def\thesis@english@placeholders@id{Identifier}
 \def\thesis@english@assignment{Replace this page with a copy
   of the official signed thesis assignment.}
 \def\thesis@english@declaration{Declaration text ...}
@@ -33,6 +33,7 @@
 \def\thesis@english@keywordsTitle{Keywords}
 \def\thesis@english@thanksTitle{Acknowledgement}
 \def\thesis@english@declarationTitle{Declaration}
+\def\thesis@english@idTitle{ID}
 \def\thesis@english@winter{Spring}
 \def\thesis@english@summer{Fall}
 \def\thesis@english@semester{%
@@ -55,17 +56,22 @@
 % This is the English locale file specific to the Masaryk
 % University in Brno. It replaces the \texttt{universityName}
 % placeholder with the correct value and defines the
-% \texttt{declarationEn} string.
+% \texttt{declaration}, \texttt{placeholders@id} and
+% \texttt{idTitle} strings.
 % \iffalse
 %<*mu>
 % \fi\begin{macrocode}
 \ProvidesFile{fithesis3/locale/mu/english.def}[2015/04/18]
 \def\thesis@english@universityName{Masaryk University}
 \def\thesis@english@declaration{%
-  Hereby I declare that this paper is my original authorial work, 
+  Hereby I declare that this paper is my original authorial work,
   which I have worked out by my own. All sources, references and
   literature used or excerpted during elaboration of this work are
   properly cited and listed in complete reference to the due source.}
+\def\thesis@english@placeholders@id{UČO}
+
+% Miscellaneous
+\def\thesis@english@idTitle{UČO}
 %    \end{macrocode}\iffalse
 %</mu>
 % \fi\file{locale/mu/law/english.def}
