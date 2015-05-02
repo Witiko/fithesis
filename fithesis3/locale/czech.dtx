@@ -17,21 +17,8 @@
   \ifthesis@woman a\fi}
 
 % Zástupné texty
-\def\thesis@czech@placeholders@title{Název práce}
-\def\thesis@czech@placeholders@keywords{klíčové slovo 1,
-  klíčové slovo 2, ...}
-\def\thesis@czech@placeholders@abstract{Text shrnutí}
-\def\thesis@czech@placeholders@author{Jméno autora}
-\def\thesis@czech@placeholders@author@firstName{Jméno}
-\def\thesis@czech@placeholders@author@surname{Příjmení}
 \def\thesis@czech@universityName{Název univerzity}
 \def\thesis@czech@facultyName{Název fakulty}
-\def\thesis@czech@placeholders@advisor{Jméno vedoucího}
-\def\thesis@czech@placeholders@department{Název katedry}
-\def\thesis@czech@placeholders@programme{Název studijního
-  programu}
-\def\thesis@czech@placeholders@field{Název studijního oboru}
-\def\thesis@czech@placeholders@id{Identifikátor}
 \def\thesis@czech@assignment{Místo tohoto listu vložte kopii
   oficiálního podepsaného zadání práce.}
 \def\thesis@czech@declaration{Text prohlášení ...}
@@ -79,8 +66,7 @@
 % This is the Czech locale file specific to the Masaryk
 % University in Brno. It replaces the \texttt{universityName}
 % placeholder with the correct value and defines the
-% \texttt{declaration}, \texttt{placeholders@id} and
-% \texttt{idTitle} strings.
+% \texttt{declaration} and \texttt{idTitle} strings.
 % \iffalse
 %<*mu>
 % \fi\begin{macrocode}
@@ -93,7 +79,6 @@
   \thesis@czech@gender@koncovka\ samostatně a
   použil\thesis@czech@gender@koncovka\ jen prameny
   uvedené~v seznamu literatury.}
-\def\thesis@czech@placeholders@id{UČO}
 
 % Různé
 \def\thesis@czech@idTitle{UČO}
@@ -103,8 +88,8 @@
 % This is the Czech locale file specific to the Faculty of Law at
 % University in Brno. It replaces the \texttt{facultyName}
 % placeholder with the correct value and replaces the
-% \texttt{abstractTitle} and \texttt{placeholders@abstract}
-% strings in accordance with the requirements of the faculty.
+% \texttt{abstractTitle} string in accordance with the
+% requirements of the faculty.
 % \iffalse
 %<*mu/law>
 % \fi\begin{macrocode}
@@ -114,7 +99,6 @@
 \def\thesis@czech@abstractTitle{Abstrakt}
 
 % Zástupné texty
-\def\thesis@czech@placeholders@abstract{Text abstraktu}
 \def\thesis@czech@facultyName{Právnická fakulta Masarykovy
   univerzity}
 %    \end{macrocode}\iffalse
@@ -123,15 +107,14 @@
 % This is the Czech locale file specific to the Faculty of Sports
 % Studies at the Masaryk University in Brno. It replaces the
 % \texttt{facultyName} placeholder with the correct value and the
-% \texttt{placeholders@field} and \texttt{fieldTitle} strings in
-% accordance with the common usage at the faculty.
+% \texttt{fieldTitle} string in accordance with the common usage
+% at the faculty.
 % \iffalse
 %<*mu/fsps>
 % \fi\begin{macrocode}
 \ProvidesFile{fithesis3/locale/mu/fsps/czech.def}[2015/04/27]
 
 % Zástupné texty
-\def\thesis@czech@placeholders@field{Název specializace}
 \def\thesis@czech@facultyName{Fakulta sportovních studií}
 
 % Různé
@@ -141,8 +124,7 @@
 % \fi\file{locale/mu/fss/czech.def}
 % This is the Czech locale file specific to the Faculty of Social
 % Studies at the Masaryk University in Brno. It replaces the
-% \texttt{facultyName} and \texttt{placeholders@assignment}
-% strings with the correct value.
+% \texttt{facultyName} string with the correct value.
 % \iffalse
 %<*mu/fss>
 % \fi\begin{macrocode}
@@ -150,7 +132,7 @@
 
 % Zástupné texty
 \def\thesis@czech@facultyName{Fakulta sociálních studií}
-\def\thesis@czech@placeholders@assignment{Místo tohoto listu
+\def\thesis@czech@assignment{Místo tohoto listu
   vložte kopie oficiálního podepsaného zadání práce nebo
   prohlášení autora školního díla nebo obojí~v závislosti na
   požadavcích příslušné katedry.}
@@ -173,12 +155,11 @@
 % This is the Czech locale file specific to the Faculty of
 % Medicine at the Masaryk University in Brno.
 % It replaces the \texttt{facultyName} placeholder with the
-% correct value and redefines the \texttt{abstractTitle},
-% and \texttt{placeholders@abstract} strings in accordance with
-% the common usage at the faculty. The file also defines the
-% \texttt{bib@title} and \texttt{bib@pages} strings required by the
-% |\thesis@blocks@bibEntry| block defined within the
-% \texttt{style/mu/fithesis3-med.sty} style file.
+% correct value and redefines the \texttt{abstractTitle} string in
+% accordance with the common usage at the faculty. The file also
+% defines the \texttt{bib@title} and \texttt{bib@pages} strings
+% required by the |\thesis@blocks@bibEntry| block defined within
+% the \texttt{style/mu/fithesis3-med.sty} style file.
 % \iffalse
 %<*mu/med>
 % \fi\begin{macrocode}
@@ -188,7 +169,6 @@
 \def\thesis@czech@abstractTitle{Anotace}
 
 % Zástupné texty
-\def\thesis@czech@placeholders@abstract{Text abstraktu}
 \def\thesis@czech@facultyName{Lékařská fakulta}
 
 % Bibliografický záznam
@@ -200,10 +180,9 @@
 % This is the Czech locale file specific to the Faculty of
 % Informatics at the Masaryk University in Brno.
 % It replaces the \texttt{facultyName} placeholder with the
-% correct value and updates the \texttt{placeholders@assignment}
-% and \texttt{declaration} strings in accordance with the
-% requirements of the faculty. The file also defines the
-% \texttt{advisorSignature} string required by the
+% correct value and updates the \texttt{declaration} string in
+% accordance with the requirements of the faculty. The file also
+% defines the \texttt{advisorSignature} string required by the
 % |\thesis@blocks@titlePage| block defined within the
 % \texttt{style/mu/fithesis3-fi.sty} style file.
 % \iffalse
@@ -213,7 +192,7 @@
 
 % Zástupné texty
 \def\thesis@czech@facultyName{Fakulta informatiky}
-\def\thesis@czech@placeholders@assignment{Místo tohoto listu
+\def\thesis@czech@assignment{Místo tohoto listu
   vložte kopie oficiálního podepsaného zadání práce a
   prohlášení autora školního díla.}
 \def\thesis@czech@declaration{%
@@ -299,11 +278,10 @@
 % It defines the private macros required by the
 % |\thesis@blocks@bibEntry| block defined within the
 % \texttt{style/mu/fithesis3-sci.sty} style file.
-% It also replaces the \texttt{facultyName} and
-% \texttt{placeholders@department} placeholders with the
-% correct value and redefines the \texttt{abstractTitle},
-% \texttt{placeholders@abstract} and \texttt{declaration} strings
-% in accordance with the formal requirements of the faculty.
+% It also replaces the \texttt{facultyName} placeholder with the
+% correct value and redefines the \texttt{abstractTitle} and
+% \texttt{declaration} strings in accordance with the formal
+% requirements of the faculty.
 % \iffalse
 %<*mu/sci>
 % \fi\begin{macrocode}
@@ -311,8 +289,6 @@
 
 % Zástupné texty
 \def\thesis@czech@facultyName{Přírodovědecká fakulta}
-\def\thesis@czech@placeholders@department{Název ústavu}
-\def\thesis@czech@placeholders@abstract{Text abstraktu}
 
 % Ostatní
 \def\thesis@czech@abstractTitle{Abstrakt}

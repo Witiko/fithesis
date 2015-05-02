@@ -7,20 +7,8 @@
 \ProvidesFile{fithesis3/locale/english.def}[2015/04/18]
 
 % Placeholders
-\def\thesis@english@placeholders@title{Thesis Title}
-\def\thesis@english@placeholders@keywords{keyword1, keyword2, ...}
-\def\thesis@english@placeholders@abstract{Abstract text}
-\def\thesis@english@placeholders@author{Author's name}
-\def\thesis@english@placeholders@author@firstName{Name}
-\def\thesis@english@placeholders@author@surname{Surname}
-\def\thesis@english@placeholders@universityName{University name}
+\def\thesis@english@universityName{University name}
 \def\thesis@english@facultyName{Faculty name}
-\def\thesis@english@placeholders@advisor{%
-  \thesis@english@advisorTitle's name}
-\def\thesis@english@placeholders@department{Department name}
-\def\thesis@english@placeholders@programme{Study programme name}
-\def\thesis@english@placeholders@field{The field of study}
-\def\thesis@english@placeholders@id{Identifier}
 \def\thesis@english@assignment{Replace this page with a copy
   of the official signed thesis assignment.}
 \def\thesis@english@declaration{Declaration text ...}
@@ -56,8 +44,7 @@
 % This is the English locale file specific to the Masaryk
 % University in Brno. It replaces the \texttt{universityName}
 % placeholder with the correct value and defines the
-% \texttt{declaration}, \texttt{placeholders@id} and
-% \texttt{idTitle} strings.
+% \texttt{declaration} and \texttt{idTitle} strings.
 % \iffalse
 %<*mu>
 % \fi\begin{macrocode}
@@ -68,7 +55,6 @@
   which I have worked out by my own. All sources, references and
   literature used or excerpted during elaboration of this work are
   properly cited and listed in complete reference to the due source.}
-\def\thesis@english@placeholders@id{UČO}
 
 % Miscellaneous
 \def\thesis@english@idTitle{UČO}
@@ -96,7 +82,6 @@
 \ProvidesFile{fithesis3/locale/mu/fsps/english.def}[2015/04/18]
 
 % Placeholders
-\def\thesis@english@placeholders@field{The specialization name}
 \def\thesis@english@facultyName{Faculty of Sports Studies}
 
 % Miscellaneous
@@ -106,8 +91,7 @@
 % \fi\file{locale/mu/fss/english.def}
 % This is the English locale file specific to the Faculty of Social
 % Studies at the Masaryk University in Brno. It replaces the
-% \texttt{facultyName} and \texttt{placeholders@assignment}
-% strings with the correct value.
+% \texttt{facultyName} string with the correct value.
 % \iffalse
 %<*mu/fss>
 % \fi\begin{macrocode}
@@ -164,8 +148,8 @@
 % This is the English locale file specific to the Faculty of
 % Informatics at the Masaryk University in Brno.
 % It replaces the \texttt{facultyName} placeholder with the
-% correct value and updates the \texttt{placeholders@assignment}
-% string in accordance with the requirements of the faculty.
+% correct value and updates the string in accordance with the
+% requirements of the faculty.
 % The file also defines the \texttt{advisorSignature} string
 % required by the |\thesis@blocks@titlePage| block defined
 % within the \texttt{style/mu/fithesis3-fi.sty} style file.

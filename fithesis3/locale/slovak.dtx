@@ -15,21 +15,8 @@
   \ifthesis@woman a\fi}
 
 % Zástupné texty
-\def\thesis@slovak@placeholders@title{Názov práce}
-\def\thesis@slovak@placeholders@keywords{kľúčové slovo 1,
-  kľúčové slovo 2, ...}
-\def\thesis@slovak@placeholders@abstract{Text zhrnutie}
-\def\thesis@slovak@placeholders@author{Meno autora}
-\def\thesis@slovak@placeholders@author@firstName{Meno}
-\def\thesis@slovak@placeholders@author@surname{Priezvisko}
 \def\thesis@slovak@universityName{Názov univerzity}
 \def\thesis@slovak@facultyName{Názov fakulty}
-\def\thesis@slovak@placeholders@advisor{Meno vedúceho}
-\def\thesis@slovak@placeholders@department{Názov katedry}
-\def\thesis@slovak@placeholders@programme{Názov študijného
-  programu}
-\def\thesis@slovak@placeholders@field{Název študijného odboru}
-\def\thesis@slovak@placeholders@id{Identifikátor}
 \def\thesis@slovak@assignment{Namiesto tejto stránky vložte kópiu
   oficiálneho podpísaného zadania práce.}
 \def\thesis@slovak@declaration{Text prehlásenie ...}
@@ -77,8 +64,7 @@
 % This is the Slovak locale file specific to the Masaryk
 % University in Brno. It replaces the \texttt{universityName}
 % placeholder with the correct value and defines the
-% \texttt{declaration}, \texttt{placeholders@id} and
-% \texttt{idTitle} strings.
+% \texttt{declaration} and \texttt{idTitle} strings.
 % \iffalse
 %<*mu>
 % \fi\begin{macrocode}
@@ -91,7 +77,6 @@
   slovak@typeName@akuzativ} vypracoval%
   \thesis@slovak@gender@koncovka\ samostatne len s~použitím
   uvedenej literatúry a prameňov.}
-\def\thesis@slovak@placeholders@id{UČO}
 
 % Rôzne
 \def\thesis@slovak@idTitle{UČO}
@@ -101,9 +86,8 @@
 % This is the Slovak locale file specific to the Faculty of Law at
 % the Masaryk University in Brno. It replaces the
 % \texttt{facultyName} placeholder with the correct value and
-% replaces the \texttt{abstractTitle} and
-% \texttt{placeholders@abstract} strings in accordance with the
-% requirements of the faculty.
+% replaces the \texttt{abstractTitle} string in accordance with
+% the requirements of the faculty.
 % \iffalse
 %<*mu/law>
 % \fi\begin{macrocode}
@@ -113,7 +97,6 @@
 \def\thesis@slovak@abstractTitle{Abstrakt}
 
 % Zástupné texty
-\def\thesis@slovak@placeholders@abstract{Text abstraktu}
 \def\thesis@slovak@facultyName{Právnická fakulta Masarykovej
   univerzity}
 %    \end{macrocode}\iffalse
@@ -122,15 +105,14 @@
 % This is the Slovak locale file specific to the Faculty of Sports
 % Studies at the Masaryk University in Brno. It replaces the
 % \texttt{facultyName} placeholder with the correct value and the
-% \texttt{placeholders@field} and \texttt{fieldTitle} strings in
-% accordance with the common usage at the faculty.
+% \texttt{fieldTitle} string in accordance with the common usage
+% at the faculty.
 % \iffalse
 %<*mu/fsps>
 % \fi\begin{macrocode}
 \ProvidesFile{fithesis3/locale/mu/fsps/slovak.def}[2015/04/18]
 
 % Zástupné texty
-\def\thesis@slovak@placeholders@field{Názov špecializácie}
 \def\thesis@slovak@facultyName{Fakulta športových štúdií}
 
 % Rôzne
@@ -140,8 +122,7 @@
 % \fi\file{locale/mu/fss/slovak.def}
 % This is the Slovak locale file specific to the Faculty of Social
 % Studies at the Masaryk University in Brno. It replaces the
-% \texttt{facultyName} and \texttt{placeholders@assignment}
-% strings with the correct value.
+% \texttt{facultyName} string with the correct value.
 % \iffalse
 %<*mu/fss>
 % \fi\begin{macrocode}
@@ -171,10 +152,10 @@
 % This is the Slovak locale file specific to the Faculty of
 % Medicine at the Masaryk University in Brno.
 % It replaces the \texttt{facultyName} placeholder with the
-% correct value and redefines the \texttt{abstractTitle},
-% and \texttt{placeholders@abstract} strings in accordance
-% with the common usage at the faculty. The file also defines the
-% \texttt{bib@title} and \texttt{bib@pages} strings required by the
+% correct value and redefines the \texttt{abstractTitle}
+% string in accordance with the common usage at the faculty.
+% The file also defines the \texttt{bib@title} and
+% \texttt{bib@pages} strings required by the
 % |\thesis@blocks@bibEntry| block defined within the
 % \texttt{style/mu/fithesis3-med.sty} style file.
 
@@ -187,7 +168,6 @@
 \def\thesis@slovak@abstractTitle{Anotácie}
 
 % Zástupné texty
-\def\thesis@slovak@placeholders@abstract{Text abstraktu}
 \def\thesis@slovak@facultyName{Lekárska fakulta}
 
 % Bibliografický zoznam
@@ -199,9 +179,9 @@
 % This is the Slovak locale file specific to the Faculty of
 % Informatics at the Masaryk University in Brno.
 % It replaces the \texttt{facultyName} placeholder with the
-% correct value and updates the \texttt{placeholders@assignment}
-% and \texttt{declaration} strings in accordance with the
-% requirements of the faculty. The file also defines the
+% correct value and updates the \texttt{declaration} string
+% in accordance with the requirements of the faculty.
+% The file also defines the
 % \texttt{advisorSignature} string required by the
 % |\thesis@blocks@titlePage| block defined within the
 % \texttt{style/mu/fithesis3-fi.sty} style file.

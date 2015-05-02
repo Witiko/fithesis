@@ -179,31 +179,6 @@
 % \section{Public API}
 % \label{sec:public-api}
 % \subsection{Options}
-% The class recognizes the \texttt{hints} option, which replaces
-% the placeholder text of undefined metadata fields with the names
-% of the corresponding |\thesissetup| keys. The hints are
-% disabled by default.
-%    \begin{macrocode}
-\newif\ifthesis@hints@\thesis@hints@false
-\DeclareOption{hints}{\thesis@hints@true}
-\ProcessOptions
-%    \end{macrocode}
-% \begin{macro}{\thesis@def}
-% The |\thesis@def|\oarg{key}\marg{name}\marg{value} private macro
-% then defines the private |\thesis@|\textit{name} macro to expand
-% to \textit{value}, when hints are disabled, and to either
-% <<\textit{key}>>, if specified, or to <<\textit{name}>>, when
-% hints are enabled.
-%    \begin{macrocode}
-\newcommand{\thesis@def}[3][]{%
-  \expandafter\def\csname thesis@#2\endcsname{%
-  \ifthesis@hints@%
-    <<\ifx\@empty#1\@empty#2\else#1\fi>>%
-  \else%
-    #3%
-  \fi}}
-%    \end{macrocode}
-% \end{macro}
 % Any \oarg{options} passed to the class will be handed down to the
 % loaded style files. The supported options are therefore documented
 % in the subsection of section \ref{sec:style-files} dedicated to
@@ -296,6 +271,18 @@
   \def\thesis@stylepath{\thesis@subdir{#1}}}
 %    \end{macrocode}
 % \end{macro}
+% \begin{macro}{\thesis@def}
+% The |\thesis@def|\oarg{key}\marg{name} private macro defines
+% the private |\thesis@|\textit{name} macro to expand
+% to either <<\textit{key}>>, if specified, or to
+% <<\textit{name}>>. The macro serves to provide the placeholder
+% string for user-defined macros with no default value.
+%    \begin{macrocode}
+\newcommand{\thesis@def}[2][]{%
+  \expandafter\def\csname thesis@#2\endcsname{%
+    <<\ifx\@empty#1\@empty#2\else#1\fi>>}}
+%    \end{macrocode}
+% \end{macro}
 % \begin{macro}{\thesis@declaration}
 % \subsubsection{The \texttt{declaration} key}
 % The \marg{\texttt{declaration}=text} pair sets the
@@ -304,7 +291,7 @@
 % \textit{text} is stored within the private |\thesis@declaration|
 % macro, whose implicit value is |\thesis@@{declaration}|.
 %    \begin{macrocode}
-\thesis@def{declaration}{\thesis@@{declaration}}
+\def\thesis@declaration{\thesis@@{declaration}}
 \long\def\KV@thesis@declaration#1{%
   \long\def\thesis@declaration{#1}}
 %    \end{macrocode}
@@ -352,30 +339,25 @@
 % within the following private macros:
 % \begin{itemize}
 %   \item\DescribeMacro{\thesis@author}|\thesis@author|
-%     -- The full name of the author. The default value of the
-%     macro is |\thesis@@{placeholders@author}|.
+%     -- The full name of the author.
 %   \item\DescribeMacro{\thesis@author@head}|\thesis@author@head|
 %     -- The first space-delimited part of the name. This
-%     corresponds to the author's first name. The default value of
-%     the macro is |\thesis@@{placeholders@author@firstName}|.
+%     corresponds to the author's first name.
 %   \item\DescribeMacro{\thesis@author@tail}|\thesis@author@tail|
 %     -- The full name without the first space-delimited part of
-%     the name. This corresponds to the author's surname. The
-%     default value of the macro is
-%     |\thesis@@{placeholders@author@surname}|.
+%     the name. This corresponds to the author's surname.
 % \end{itemize}
 %    \begin{macrocode}
 \def\thesis@parseAuthor#1{%
   \def\thesis@author{#1}%
-  \def\thesis@author@head{\thesis@head#1 \relax}%
+  \def\thesis@author@head{\expandafter\expandafter\expandafter%
+    \@gobble\thesis@head#1 \relax}%
   \def\thesis@author@tail{\thesis@tail#1 \relax}}
-\thesis@def{author}{\thesis@@{placeholders@author}}
-\thesis@def[author]{author@head}{%
-  \thesis@@{placeholders@author@firstName}}
-\thesis@def[author]{author@tail}{%
-  \thesis@@{placeholders@author@surname}}
+\thesis@def{author}%
+\thesis@def[author]{author@head}%
+\thesis@def[author]{author@tail}%
 \define@key{thesis}{author}{%
-  \expandafter\thesis@parseAuthor{#1}}
+  \thesis@parseAuthor{#1}}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\thesis@id}
@@ -383,11 +365,10 @@
 % The \marg{\texttt{id}=identifier} pair sets the identifier
 % of the thesis author to \textit{identifier}. This usually
 % corresponds to a unique identifier of the author within the
-% information system of the given university. The default value of
-% the macro is |\thesis@@{placeholders@id}|.
+% information system of the given university.
 %    \begin{macrocode}
-\thesis@def{id}{\thesis@@{placeholders@id}}
-  \define@key{thesis}{id}{%
+\thesis@def{id}
+\define@key{thesis}{id}{%
   \def\thesis@id{#1}}
 %    \end{macrocode}
 % \end{macro}
@@ -469,10 +450,9 @@
 % The \marg{\texttt{department}=name} pair sets the name of the
 % department, at which the thesis is being written, to
 % \textit{name}. The \textit{name} is stored within the private
-% |\thesis@department| macro, whose implicit value is
-% |\thesis@@{placeholders@department}|.
+% |\thesis@department| macro.
 %    \begin{macrocode}
-\thesis@def{department}{\thesis@@{placeholders@department}}
+\thesis@def{department}
 \define@key{thesis}{department}{%
   \def\thesis@department{#1}}
 %    \end{macrocode}
@@ -482,10 +462,9 @@
 % The \marg{\texttt{departmentEn}=name} pair sets the English
 % name of the department, at which the thesis is being written, to
 % \textit{name}. The \textit{name} is stored within the private
-% |\thesis@departmentEn| macro, whose implicit value is
-% |\thesis@@{placeholders@english@department}|.
+% |\thesis@departmentEn| macro.
 %    \begin{macrocode}
-\thesis@def{departmentEn}{\thesis@english@placeholders@department}
+\thesis@def{departmentEn}
 \define@key{thesis}{departmentEn}{%
   \def\thesis@departmentEn{#1}}
 %    \end{macrocode}
@@ -494,10 +473,9 @@
 % \subsubsection{The \texttt{programme} key}
 % The \marg{\texttt{programme}=name} pair sets the name of the
 % author's study programme to \textit{name}. The \textit{name}
-% is stored within the private |\thesis@programme| macro, whose
-% implicit value is |\thesis@@{placeholders@programme}|.
+% is stored within the private |\thesis@programme| macro.
 %    \begin{macrocode}
-\thesis@def{programme}{\thesis@@{placeholders@programme}}
+\thesis@def{programme}
 \define@key{thesis}{programme}{%
   \def\thesis@programme{#1}}
 %    \end{macrocode}
@@ -507,10 +485,9 @@
 % The \marg{\texttt{programmeEn}=name} pair sets the English name
 % of the author's study programme to \textit{name}. The
 % \textit{name} is stored within the private |\thesis@programmeEn|
-% macro, whose implicit value is
-% |\thesis@@{placeholders@english@programme}|.
+% macro.
 %    \begin{macrocode}
-\thesis@def{programmeEn}{\thesis@english@placeholders@programme}
+\thesis@def{programmeEn}
 \define@key{thesis}{programmeEn}{%
   \def\thesis@programmeEn{#1}}
 %    \end{macrocode}
@@ -519,10 +496,9 @@
 % \subsubsection{The \texttt{field} key}
 % The \marg{\texttt{field}=name} pair sets the name of the
 % author's field of stufy to \textit{name}. The \textit{name}
-% is stored within the private |\thesis@field| macro, whose
-% implicit value is |\thesis@@{placeholders@field}|.
+% is stored within the private |\thesis@field| macro.
 %    \begin{macrocode}
-\thesis@def{field}{\thesis@@{placeholders@field}}
+\thesis@def{field}
 \define@key{thesis}{field}{%
   \def\thesis@field{#1}}
 %    \end{macrocode}
@@ -531,10 +507,9 @@
 % \subsubsection{The \texttt{fieldEn} key}
 % The \marg{\texttt{fieldEn}=name} pair sets the English name of
 % the author's field of stufy to \textit{name}. The \textit{name}
-% is stored within the private |\thesis@fieldEn| macro, whose
-% implicit value is |\thesis@english@placeholders@field|.
+% is stored within the private |\thesis@fieldEn| macro.
 %    \begin{macrocode}
-\thesis@def{fieldEn}{\thesis@english@placeholders@field}
+\thesis@def{fieldEn}
 \define@key{thesis}{fieldEn}{%
   \def\thesis@fieldEn{#1}}
 %    \end{macrocode}
@@ -717,17 +692,8 @@
   \fi%
   \global\edef\thesis@academicYear{\@yearA/\@yearB}}}
 
-\ifthesis@hints@%
-  \thesis@def[date]{date}{}%
-  \thesis@def[date]{year}{}%
-  \thesis@def[date]{month}{}%
-  \thesis@def[date]{day}{}%
-  \thesis@def[date]{academicYear}{}%
-  \def\thesis@season{winter}%
-\else%
-  \edef\thesis@date{\the\year/\the\month/\the\day}%
-  \expandafter\thesis@parseDate\thesis@date|%
-\fi%
+\edef\thesis@date{\the\year/\the\month/\the\day}%
+\expandafter\thesis@parseDate\thesis@date|%
 
 \define@key{thesis}{date}{{%
   \edef\@date{#1}%
@@ -740,7 +706,7 @@
 % The \textit{place} is stored within the private |\thesis@place|
 % macro, whose implicit value is \texttt{Brno}.
 %    \begin{macrocode}
-\thesis@def{place}{Brno}
+\def\thesis@place{Brno}
 \define@key{thesis}{place}{%
   \def\thesis@place{#1}}
 %    \end{macrocode}
@@ -749,10 +715,9 @@
 % \subsubsection{The \texttt{title} key}
 % The \marg{\texttt{title}=title} pair sets the title of the
 % thesis to \textit{title}. The \textit{title} is stored within the
-% private |\thesis@title| macro, whose implicit value is
-% |\thesis@@{placeholders@|\discretionary{}{}{}|title}|.
+% private |\thesis@title| macro.
 %    \begin{macrocode}
-\thesis@def{title}{\thesis@@{placeholders@title}}
+\thesis@def{title}
 \define@key{thesis}{title}{%
   \def\thesis@title{#1}}
 %    \end{macrocode}
@@ -777,10 +742,9 @@
 % \subsubsection{The \texttt{titleEn} key}
 % The \marg{\texttt{titleEn}=title} pair sets the English title of
 % the thesis to \textit{title}. The \textit{title} is stored within
-% the private |\thesis@titleEn| macro, whose implicit value is
-% |\thesis@english@placeholders@|\discretionary{}{}{}|title|.
+% the private |\thesis@titleEn| macro.
 %    \begin{macrocode}
-\thesis@def{titleEn}{\thesis@english@placeholders@title}
+\thesis@def{titleEn}
 \define@key{thesis}{titleEn}{%
   \def\thesis@titleEn{#1}}
 %    \end{macrocode}
@@ -803,10 +767,9 @@
 % \subsubsection{The \texttt{keywords} key}
 % The \marg{\texttt{keywords}=list} pair sets the keywords of the
 % thesis to the comma-delimited \textit{list}. The \textit{list}
-% is stored within the private |\thesis@keywords| macro, whose
-% implicit value is |\thesis@@{placeholders@keywords}|.
+% is stored within the private |\thesis@keywords| macro.
 %    \begin{macrocode}
-\thesis@def{keywords}{\thesis@@{placeholders@keywords}}
+\thesis@def{keywords}
 \define@key{thesis}{keywords}{%
   \def\thesis@keywords{#1}}
 %    \end{macrocode}
@@ -816,10 +779,9 @@
 % The \marg{\texttt{keywordsEn}=list} pair sets the English
 % keywords of the thesis to the comma-delimited \textit{list}. The
 % \textit{list} is stored within the private |\thesis@keywordsEn|
-% macro, whose implicit value is
-% |\thesis@english@placeholders@keywords|.
+% macro.
 %    \begin{macrocode}
-\thesis@def{keywordsEn}{\thesis@english@placeholders@keywords}
+\thesis@def{keywordsEn}
 \define@key{thesis}{keywordsEn}{%
   \def\thesis@keywordsEn{#1}}
 %    \end{macrocode}
@@ -828,10 +790,9 @@
 % \subsubsection{The \texttt{abstract} key}
 % The \marg{\texttt{abstract}=text} pair sets the abstract of the
 % thesis to \textit{text}. The \textit{text} is stored within the
-% private |\thesis@abstract| macro, whose implicit value is
-% |\thesis@@{placeholders@abstract}|.
+% private |\thesis@abstract| macro.
 %    \begin{macrocode}
-\thesis@def{abstract}{\thesis@@{placeholders@abstract}}
+\thesis@def{abstract}
 \long\def\KV@thesis@abstract#1{%
   \long\def\thesis@abstract{#1}}
 %    \end{macrocode}
@@ -840,11 +801,9 @@
 % \subsubsection{The \texttt{abstractEn} key}
 % The \marg{\texttt{abstractEn}=text} pair sets the English
 % abstract of the thesis to \textit{text}. The \textit{text}
-% is stored within the private |\thesis@abstractEn| macro,
-% whose implicit value is
-% |\thesis@english@placeholders@abstract|.
+% is stored within the private |\thesis@abstractEn| macro.
 %    \begin{macrocode}
-\thesis@def{abstractEn}{\thesis@english@placeholders@abstract}
+\thesis@def{abstractEn}
 \long\def\KV@thesis@abstractEn#1{%
   \long\def\thesis@abstractEn{#1}}
 %    \end{macrocode}
@@ -853,10 +812,9 @@
 % \subsubsection{The \texttt{advisor} key}
 % The \marg{\texttt{advisor}=name} pair sets the thesis advisor's
 % full name to \textit{name}. The \textit{name} is stored within
-% the private |\thesis@advisor| macro, whose implicit value is
-% |\thesis@@{placeholders@advisor}|.
+% the private |\thesis@advisor| macro.
 %    \begin{macrocode}
-\thesis@def{advisor}{\thesis@@{placeholders@advisor}}
+\thesis@def{advisor}
 \define@key{thesis}{advisor}{\def\thesis@advisor{#1}}
 %    \end{macrocode}
 % \end{macro}
@@ -864,8 +822,7 @@
 % \subsubsection{The \texttt{thanks} key}
 % The \marg{\texttt{thanks}=text} pair sets the acknowledgement
 % text to \textit{text}. The \textit{text} is stored within
-% the private |\thesis@thanks| macro, whose implicit value is
-% |\undefined|.
+% the private |\thesis@thanks| macro.
 %    \begin{macrocode}
 \long\def\KV@thesis@thanks#1{%
   \long\def\thesis@thanks{#1}}
@@ -877,11 +834,10 @@
 % list of paths (and optional page spec specifiers, see the
 % \textsf{pdfpages} package |\includepdfmerge| command
 % documentation) to the pdf files containing the thesis assignment
-% to \textit{list}. The \textit{list} is stored within the private
-% |\thesis@assignmentFiles| macro, whose implicit value is
-% |\undefined|. When defined, the PDF files are injected into the
-% resulting document instead of the placeholder
-% |\thesis@assignment| string.
+% to \textit{list}. The \textit{list} is stored within the
+% |\thesis@assignmentFiles| private macro. When defined, the PDF
+% files are injected into the resulting document instead of the
+% placeholder |\thesis@@{assignment}| string.
 %    \begin{macrocode}
 \define@key{thesis}{assignment}{%
   \def\thesis@assignmentFiles{#1}}
@@ -1151,7 +1107,7 @@
   \ifx\relax#2%
     \expandafter\@gobbletwo%
   \else%
-    #1%
+    \ #1%
   \fi%
   \thesis@head#2}%
 \def\thesis@tail#1 #2{%
@@ -1222,26 +1178,12 @@
 % (see section \ref{sec:thesis@load}) needs to define the following
 % private macros:
 % \begin{itemize}
-%   \item|\thesis@|\textit{locale}|@placeholders@title| -- The
-%     placeholder title of the thesis
-%   \item|\thesis@|\textit{locale}|@placeholders@keywords| -- The
-%     placeholder keywords of the thesis
-%   \item|\thesis@|\textit{locale}|@placeholders@abstract| -- The
-%     placeholder abstract of the thesis 
-%   \item|\thesis@|\textit{locale}|@placeholders@author| -- The
-%     placeholder name of the thesis author
 %   \item|\thesis@|\textit{locale}|@universityName| -- The name of
 %     the university
 %   \item|\thesis@|\textit{locale}|@facultyName| -- The name of the
 %     faculty
-%   \item|\thesis@|\textit{locale}|@placeholders@advisor| -- The
-%     placeholder name of the advisor
-%   \item|\thesis@|\textit{locale}|@placeholders@department| -- The
-%     placeholder department name
-%   \item|\thesis@|\textit{locale}|@placeholders@programme| -- The
-%     placeholder programme name
-%   \item|\thesis@|\textit{locale}|@placeholders@thanks| -- The
-%     placeholder acknowledgement text
+%   \item|\thesis@|\textit{locale}|@assignment| -- Instructions to
+%     replace the current page with the official thesis assignment
 %   \item|\thesis@|\textit{locale}|@declaration| -- The declaration
 %     text
 %   \item|\thesis@|\textit{locale}|@fieldTitle| -- The title of
@@ -1258,16 +1200,16 @@
 %     the acknowledgement section
 %   \item|\thesis@|\textit{locale}|@declarationTitle| -- The title
 %     of the declaration section
-%   \item|\thesis@|\textit{locale}|@typeName| -- The name of the
-%     thesis type
-%   \item|\thesis@|\textit{locale}|@assignment| -- Instructions to
-%     replace the current page with the official thesis assignment
+%   \item|\thesis@|\textit{locale}|@idTitle| -- The title of the
+%     thesis author's identifier field
 %   \item|\thesis@|\textit{locale}|@winter| -- The name of the
 %     winter semester
 %   \item|\thesis@|\textit{locale}|@summer| -- The name of the
 %     summer semester
 %   \item|\thesis@|\textit{locale}|@semester| -- The full name of
 %     the current semester
+%   \item|\thesis@|\textit{locale}|@typeName| -- The name of the
+%     thesis type
 % \end{itemize}
 %
 % \def\file#1{\paragraph{The \texttt{#1} file}}
