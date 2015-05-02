@@ -179,10 +179,35 @@
 % \section{Public API}
 % \label{sec:public-api}
 % \subsection{Options}
+% The class recognizes the \texttt{hints} option, which replaces
+% the placeholder text of undefined metadata fields with the names
+% of the corresponding |\thesissetup| keys. The hints are
+% disabled by default.
+%    \begin{macrocode}
+\newif\ifthesis@hints@\thesis@hints@false
+\DeclareOption{hints}{\thesis@hints@true}
+\ProcessOptions
+%    \end{macrocode}
+% \begin{macro}{\thesis@def}
+% The |\thesis@def|\oarg{key}\marg{name}\marg{value} private macro
+% then defines the private |\thesis@|\textit{name} macro to expand
+% to \textit{value}, when hints are disabled, and to either
+% <<\textit{key}>>, if specified, or to <<\textit{name}>>, when
+% hints are enabled.
+%    \begin{macrocode}
+\newcommand{\thesis@def}[3][]{%
+  \expandafter\def\csname thesis@#2\endcsname{%
+  \ifthesis@hints@%
+    <<\ifx\@empty#1\@empty#2\else#1\fi>>%
+  \else%
+    #3%
+  \fi}}
+%    \end{macrocode}
+% \end{macro}
 % Any \oarg{options} passed to the class will be handed down to the
-% loaded style file. The supported options are therefore documented
+% loaded style files. The supported options are therefore documented
 % in the subsection of section \ref{sec:style-files} dedicated to
-% the respective style file.
+% the respective style files.
 %
 % \subsection{The \cs{thesissetup} macro}
 % \begin{macro}{\thesissetup}
@@ -266,7 +291,7 @@
 % whose implicit value is |\thesis@basepath style/|. By default,
 % this expands to \texttt{fithesis3/style/}.
 %    \begin{macrocode}
-\def\thesis@stylepath{\thesis@basepath  style/}
+\def\thesis@stylepath{\thesis@basepath style/}
 \define@key{thesis}{stylepath}{%
   \def\thesis@stylepath{\thesis@subdir{#1}}}
 %    \end{macrocode}
@@ -279,7 +304,7 @@
 % \textit{text} is stored within the private |\thesis@declaration|
 % macro, whose implicit value is |\thesis@@{declaration}|.
 %    \begin{macrocode}
-\def\thesis@declaration{\thesis@@{declaration}}
+\thesis@def{declaration}{\thesis@@{declaration}}
 \long\def\KV@thesis@declaration#1{%
   \long\def\thesis@declaration{#1}}
 %    \end{macrocode}
@@ -344,9 +369,11 @@
   \def\thesis@author{#1}%
   \def\thesis@author@head{\thesis@head#1 \relax}%
   \def\thesis@author@tail{\thesis@tail#1 \relax}}
-\def\thesis@author{\thesis@@{placeholders@author}}
-\def\thesis@author@head{\thesis@@{placeholders@author@firstName}}
-\def\thesis@author@tail{\thesis@@{placeholders@author@surname}}
+\thesis@def{author}{\thesis@@{placeholders@author}}
+\thesis@def[author]{author@head}{%
+  \thesis@@{placeholders@author@firstName}}
+\thesis@def[author]{author@tail}{%
+  \thesis@@{placeholders@author@surname}}
 \define@key{thesis}{author}{%
   \expandafter\thesis@parseAuthor{#1}}
 %    \end{macrocode}
@@ -359,7 +386,7 @@
 % information system of the given university. The default value of
 % the macro is |\thesis@@{placeholders@id}|.
 %    \begin{macrocode}
-\def\thesis@id{\thesis@@{placeholders@id}}
+\thesis@def{id}{\thesis@@{placeholders@id}}
   \define@key{thesis}{id}{%
   \def\thesis@id{#1}}
 %    \end{macrocode}
@@ -445,7 +472,7 @@
 % |\thesis@department| macro, whose implicit value is
 % |\thesis@@{placeholders@department}|.
 %    \begin{macrocode}
-\def\thesis@department{\thesis@@{placeholders@department}}
+\thesis@def{department}{\thesis@@{placeholders@department}}
 \define@key{thesis}{department}{%
   \def\thesis@department{#1}}
 %    \end{macrocode}
@@ -458,7 +485,7 @@
 % |\thesis@departmentEn| macro, whose implicit value is
 % |\thesis@@{placeholders@english@department}|.
 %    \begin{macrocode}
-\def\thesis@departmentEn{\thesis@english@placeholders@department}
+\thesis@def{departmentEn}{\thesis@english@placeholders@department}
 \define@key{thesis}{departmentEn}{%
   \def\thesis@departmentEn{#1}}
 %    \end{macrocode}
@@ -470,7 +497,7 @@
 % is stored within the private |\thesis@programme| macro, whose
 % implicit value is |\thesis@@{placeholders@programme}|.
 %    \begin{macrocode}
-\def\thesis@programme{\thesis@@{placeholders@programme}}
+\thesis@def{programme}{\thesis@@{placeholders@programme}}
 \define@key{thesis}{programme}{%
   \def\thesis@programme{#1}}
 %    \end{macrocode}
@@ -483,7 +510,7 @@
 % macro, whose implicit value is
 % |\thesis@@{placeholders@english@programme}|.
 %    \begin{macrocode}
-\def\thesis@programmeEn{\thesis@english@placeholders@programme}
+\thesis@def{programmeEn}{\thesis@english@placeholders@programme}
 \define@key{thesis}{programmeEn}{%
   \def\thesis@programmeEn{#1}}
 %    \end{macrocode}
@@ -495,7 +522,7 @@
 % is stored within the private |\thesis@field| macro, whose
 % implicit value is |\thesis@@{placeholders@field}|.
 %    \begin{macrocode}
-\def\thesis@field{\thesis@@{placeholders@field}}
+\thesis@def{field}{\thesis@@{placeholders@field}}
 \define@key{thesis}{field}{%
   \def\thesis@field{#1}}
 %    \end{macrocode}
@@ -507,7 +534,7 @@
 % is stored within the private |\thesis@fieldEn| macro, whose
 % implicit value is |\thesis@english@placeholders@field|.
 %    \begin{macrocode}
-\def\thesis@fieldEn{\thesis@english@placeholders@field}
+\thesis@def{fieldEn}{\thesis@english@placeholders@field}
 \define@key{thesis}{fieldEn}{%
   \def\thesis@fieldEn{#1}}
 %    \end{macrocode}
@@ -683,15 +710,24 @@
     \gdef\thesis@season{winter}%
     \advance\@year-1\edef\@yearA{\the\@year}%
     \advance\@year 1\edef\@yearB{\the\@year}%
-  \else
+  \else%
     \gdef\thesis@season{summer}%
                     \edef\@yearA{\the\@year}%
     \advance\@year 1\edef\@yearB{\the\@year}%
-  \fi
+  \fi%
   \global\edef\thesis@academicYear{\@yearA/\@yearB}}}
 
-\edef\thesis@date{\the\year/\the\month/\the\day}
-\expandafter\thesis@parseDate\thesis@date|
+\ifthesis@hints@%
+  \thesis@def[date]{date}{}%
+  \thesis@def[date]{year}{}%
+  \thesis@def[date]{month}{}%
+  \thesis@def[date]{day}{}%
+  \thesis@def[date]{academicYear}{}%
+  \def\thesis@season{winter}%
+\else%
+  \edef\thesis@date{\the\year/\the\month/\the\day}%
+  \expandafter\thesis@parseDate\thesis@date|%
+\fi%
 
 \define@key{thesis}{date}{{%
   \edef\@date{#1}%
@@ -704,7 +740,7 @@
 % The \textit{place} is stored within the private |\thesis@place|
 % macro, whose implicit value is \texttt{Brno}.
 %    \begin{macrocode}
-\def\thesis@place{Brno}
+\thesis@def{place}{Brno}
 \define@key{thesis}{place}{%
   \def\thesis@place{#1}}
 %    \end{macrocode}
@@ -716,7 +752,7 @@
 % private |\thesis@title| macro, whose implicit value is
 % |\thesis@@{placeholders@|\discretionary{}{}{}|title}|.
 %    \begin{macrocode}
-\def\thesis@title{\thesis@@{placeholders@title}}
+\thesis@def{title}{\thesis@@{placeholders@title}}
 \define@key{thesis}{title}{%
   \def\thesis@title{#1}}
 %    \end{macrocode}
@@ -744,7 +780,7 @@
 % the private |\thesis@titleEn| macro, whose implicit value is
 % |\thesis@english@placeholders@|\discretionary{}{}{}|title|.
 %    \begin{macrocode}
-\def\thesis@titleEn{\thesis@english@placeholders@title}
+\thesis@def{titleEn}{\thesis@english@placeholders@title}
 \define@key{thesis}{titleEn}{%
   \def\thesis@titleEn{#1}}
 %    \end{macrocode}
@@ -770,7 +806,7 @@
 % is stored within the private |\thesis@keywords| macro, whose
 % implicit value is |\thesis@@{placeholders@keywords}|.
 %    \begin{macrocode}
-\def\thesis@keywords{\thesis@@{placeholders@keywords}}
+\thesis@def{keywords}{\thesis@@{placeholders@keywords}}
 \define@key{thesis}{keywords}{%
   \def\thesis@keywords{#1}}
 %    \end{macrocode}
@@ -783,7 +819,7 @@
 % macro, whose implicit value is
 % |\thesis@english@placeholders@keywords|.
 %    \begin{macrocode}
-\def\thesis@keywordsEn{\thesis@english@placeholders@keywords}
+\thesis@def{keywordsEn}{\thesis@english@placeholders@keywords}
 \define@key{thesis}{keywordsEn}{%
   \def\thesis@keywordsEn{#1}}
 %    \end{macrocode}
@@ -795,7 +831,7 @@
 % private |\thesis@abstract| macro, whose implicit value is
 % |\thesis@@{placeholders@abstract}|.
 %    \begin{macrocode}
-\def\thesis@abstract{\thesis@@{placeholders@abstract}}
+\thesis@def{abstract}{\thesis@@{placeholders@abstract}}
 \long\def\KV@thesis@abstract#1{%
   \long\def\thesis@abstract{#1}}
 %    \end{macrocode}
@@ -808,7 +844,7 @@
 % whose implicit value is
 % |\thesis@english@placeholders@abstract|.
 %    \begin{macrocode}
-\def\thesis@abstractEn{\thesis@english@placeholders@abstract}
+\thesis@def{abstractEn}{\thesis@english@placeholders@abstract}
 \long\def\KV@thesis@abstractEn#1{%
   \long\def\thesis@abstractEn{#1}}
 %    \end{macrocode}
@@ -820,7 +856,7 @@
 % the private |\thesis@advisor| macro, whose implicit value is
 % |\thesis@@{placeholders@advisor}|.
 %    \begin{macrocode}
-\def\thesis@advisor{\thesis@@{placeholders@advisor}}
+\thesis@def{advisor}{\thesis@@{placeholders@advisor}}
 \define@key{thesis}{advisor}{\def\thesis@advisor{#1}}
 %    \end{macrocode}
 % \end{macro}
@@ -950,28 +986,18 @@
 % end, the \textsf{hyperref} package is conditionally included with
 % the \texttt{unicode} option. Consequently, the following values
 % are assigned to the PDF headers:\begin{itemize}
-%   \item\texttt{Title} is set to either |\thesis@titleEn|, if
-%     defined, or to |\thesis@title|.
+%   \item\texttt{Title} is set to |\thesis@title|.
 %   \item\texttt{Author} is set to |\thesis@author|.
-%   \item\texttt{Keywords} is set to either |\thesis@keywordsEn|,
-%     if defined, or to |\thesis@keywords|.
+%   \item\texttt{Keywords} is set to |\thesis@keywords|.
 %   \item\texttt{Creator} is set to \texttt{\thesis@version}.
 % \end{itemize}
 %    \begin{macrocode}
        \thesis@require{hyperref}%
-      {\def\@titleEnPlaceholder{\thesis@english@placeholders@title}
-       \def\@keywordsEnPlaceholder{\thesis@english@placeholders@keywords}
-       \hypersetup{unicode,
-         pdftitle={\ifx\thesis@titleEn\@titleEnPlaceholder%
-           \thesis@title%
-         \else%
-           \thesis@titleEn%
-         \fi}, pdfauthor={\thesis@author},%
-         pdfkeywords={\ifx\thesis@keywordsEn\@keywordsEnPlaceholder%
-           \thesis@keywords%
-         \else%
-           \thesis@keywordsEn%
-         \fi}, pdfcreator={\thesis@version},%
+      {\hypersetup{unicode,
+         pdftitle={\thesis@title},%
+         pdfauthor={\thesis@author},%
+         pdfkeywords={\thesis@keywords},%
+         pdfcreator={\thesis@version},%
      }}%
 %    \end{macrocode}
 % If autolayout is enabled, the |\thesis@preamble| and
