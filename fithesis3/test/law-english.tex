@@ -1,9 +1,15 @@
 \documentclass[monochrome]{../fithesis3}
-\usepackage[english]{babel}
+\usepackage{ifxetex}
+\ifxetex
+  \usepackage{polyglossia}
+  \setmainlanguage{english}
+\else
+  \usepackage[utf8]{inputenc}
+  \usepackage[english]{babel}
+\fi
 \thesissetup{
   basepath=..,
-  faculty=law
-}
+  faculty=law}
 \begin{document}
   foo bar
 \end{document}

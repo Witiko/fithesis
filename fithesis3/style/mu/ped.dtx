@@ -8,16 +8,12 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{fithesis3/style/mu/fithesis3-ped}[2015/04/26]
 %    \end{macrocode}
-% The file redefines the colors used within the |thesis@tabular|
-% and |thesis@tabularx| environments and with the hyperlinks.
+% The file defines the color used with the hyperlinks.
 %    \begin{macrocode}
 \definecolor{thesis@color@faculty}{HTML}{FFA02F}
 \definecolor{thesis@color@facultylight}{HTML}{FFDEB7}
 \definecolor{thesis@color@facultyxlight}{HTML}{FFF1E0}
-\thesis@color@setup{%
-  links=thesis@color@faculty,%
-  tableOdd=thesis@color@facultyxlight,%
-  tableEven=thesis@color@facultylight}
+\thesis@color@setup{links=thesis@color@faculty}
 %    \end{macrocode}
 % In addition to the main locale, the file also requires the
 % English locale.

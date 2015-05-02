@@ -1,9 +1,15 @@
 \documentclass[monochrome]{../fithesis3}
-\usepackage[slovak]{babel}
+\usepackage{ifxetex}
+\ifxetex
+  \usepackage{polyglossia}
+  \setmainlanguage{slovak}
+\else
+  \usepackage[utf8]{inputenc}
+  \usepackage[slovak]{babel}
+\fi
 \thesissetup{
   basepath=..,
-  faculty=fsps
-}
+  faculty=fsps}
 \begin{document}
   foo bar
 \end{document}

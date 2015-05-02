@@ -86,15 +86,27 @@
 \ProcessOptions
 %    \end{macrocode}
 % The file loads the following packages: \begin{itemize}
-%   \item\textsf{fontenc} -- The font encoding is set to Cork.
+%   \item\textsf{xcolor} -- Adds support for color manipulation.
+%   \item\textsf{ifxetex} -- Used to detect the \Hologo{XeTeX}
+%     engine.
 %   \item\textsf{mathpazo} -- The virtual \texttt{mathpazo} fonts
-%     will be used for math.
-%   \item\textsf{colorx} -- Adds support for color manipulation.
+%     will be used for math. This package does not get loaded in
+%     \Hologo{XeTeX}.
 %   \item\textsf{tgpagella} -- Changes the default roman font family
-%     to \TeX\ Gyre Pagella.
+%     to \TeX\ Gyre Pagella. This package does not get loaded in
+%     \Hologo{XeTeX}.
 %   \item\textsf{cmap} -- Places an an explicit \texttt{ToUnicode}
 %     map in the resulting PDF file, allowing for extraction of
-%     the text of the document.
+%     the text of the document. This package does not get loaded
+%     under \Hologo{XeTeX}.
+%   \item\textsf{fontenc} -- The font encoding is set to Cork. This
+%     package does not get loaded under \Hologo{XeTeX}.
+%   \item\textsf{fontspec} -- Allows the selection of
+%     system-installed fonts. This package only gets loaded under
+%     \Hologo{XeTeX}.
+%   \item\textsf{fontspec} -- Allows the selection of
+%     system-installed mathematical fonts. This package only gets
+%     loaded under \Hologo{XeTeX}.
 %   \item\textsf{graphix} -- Adds support for the inclusion of
 %     graphics files.
 %   \item\textsf{pdfpages} -- Adds support for the injection of PDF
@@ -108,13 +120,23 @@
 % In addition to that, the \textsf{hyperref} package is configured
 % to support both roman and arabic page numbering in one document
 % and to decorate hyperlinks with an underline instead of a
-% rectangular box.
+% rectangular box. Under \Hologo{XeTeX}, the \textsf{TeX Gyre
+% Pagella} and \textsf{TeX Gyre Pagella Math} are selected as the
+% main text and math fonts.
 %    \begin{macrocode}
-\RequirePackage[resetfonts]{cmap}
-\RequirePackage[T1]{fontenc}
 \RequirePackage[usenames,dvipsnames,svgnames,table]{xcolor}
-\thesis@require{mathpazo}
-\thesis@require{tgpagella}
+\thesis@require{ifxetex}
+\ifxetex
+  \thesis@require{fontspec}
+  \thesis@require{unicode-math}
+  \setmainfont[Ligatures=TeX]{TeX Gyre Pagella}
+  \setmathfont[math-style=ISO,bold-style=ISO,vargreek-shape=TeX]{TG Pagella Math}
+\else
+  \thesis@require{mathpazo}
+  \thesis@require{tgpagella}
+  \RequirePackage[resetfonts]{cmap}
+  \RequirePackage[T1]{fontenc}
+\fi
 \thesis@require{graphicx}
 \thesis@require{pdfpages}
 \thesis@require{hyperref}
@@ -125,26 +147,6 @@
   pdfpagelabels              % Generate pdf page labels
 }
 %    \end{macrocode}
-% \begin{macro}{\thesis@tabular}\begin{macro}{\thesis@endtabular}
-% \begin{macro}{\thesis@tabularx}\begin{macro}{\thesis@endtabularx}
-% The file defines the |thesis@tabular| and |thesis@tabularx|
-% environments, which can be used to typeset the |tabular| and
-% |tabularx| tables decorated with the colors specified within the
-% |\thesis@color@tableOdd| and |\thesis@color@tableEven| private
-% macros, if the \texttt{color} option is specified. In order to
-% use the |thesis@tabularx| environment, the user must manually
-% include the \textsf{tabularx} package.
-%    \begin{macrocode}
-\newenvironment{thesis@tabular}{%
-  \ifthesis@color@%
-    \rowcolors{1}{\thesis@color@tableOdd}{\thesis@color@tableEven}%
-  \fi\tabular}{\endtabular}
-\newenvironment{thesis@tabularx}{%
-  \ifthesis@color@%
-    \rowcolors{1}{\thesis@color@tableOdd}{\thesis@color@tableEven}%
-  \fi\tabularx}{\endtabularx}
-%    \end{macrocode}
-% \end{macro}\end{macro}\end{macro}\end{macro}
 % \begin{macro}{\thesis@color@setup}
 % The file defines the |\thesis@color@setup|\marg{colors} command,
 % where \textit{colors} is a comma-delimited list of key-value
@@ -162,28 +164,10 @@
 %   \item\marg{\texttt{links}=color} -- Sets the color of hyperref
 %     links to \textit{color}. The default color is specified by
 %     the \textsf{hyperref} package.
-%   \item\marg{\texttt{tableOdd}=color} -- Sets the color of the
-%     odd table rows within the \texttt{thesis@tabular} and
-%     \texttt{thesis@tabularx} environments to \textit{color}. The
-%     \textit{color} is stored within the
-%     \DescribeMacro{\thesis@color@tableOdd}%
-%     |\thesis@color@tableOdd| private macro.
-%   \item\marg{\texttt{tableEven}=color} -- Sets the color of the
-%     even table rows within the \texttt{thesis@tabular} and
-%     \texttt{thesis@tabularx} environments to \textit{color}. The
-%     \textit{color} is stored within the
-%     \DescribeMacro{\thesis@color@tableEven}%
-%     |\thesis@color@tableEven| private macro.
 % \end{enumerate}
 %    \begin{macrocode}
 \define@key{thesis@color}{links}{%
   \hypersetup{linkbordercolor=#1}}
-\def\thesis@color@tableOdd{white}
-\define@key{thesis@color}{tableOdd}{%
-  \def\thesis@color@tableOdd{#1}}
-\def\thesis@color@tableEven{white}
-\define@key{thesis@color}{tableEven}{%
-  \def\thesis@color@tableEven{#1}}
 %    \end{macrocode}
 % The file defines several blocks to be used in the redefinitions
 % of the |\thesis@preamble| and |\thesis@postable| private macros

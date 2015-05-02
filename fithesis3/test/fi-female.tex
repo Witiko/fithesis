@@ -1,9 +1,12 @@
 \documentclass[monochrome]{../fithesis3}
+\usepackage{ifxetex}
+\ifxetex\else
+  \usepackage[utf8]{inputenc}
+\fi
 \thesissetup{
   basepath=..,
   faculty=fi,
-  gender=f
-}
+  gender=f}
 \begin{document}
   foo bar
 \end{document}

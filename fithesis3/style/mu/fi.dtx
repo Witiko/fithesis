@@ -8,16 +8,12 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{fithesis3/style/mu/fithesis3-fi}[2015/05/02]
 %    \end{macrocode}
-% The file redefines the colors used within the |thesis@tabular|
-% and |thesis@tabularx| environments and with the hyperlinks.
+% The file defines the color used with the hyperlinks.
 %    \begin{macrocode}
 \definecolor{thesis@color@faculty}{HTML}{FFD451}
 \definecolor{thesis@color@facultylight}{HTML}{FFECB3}
 \definecolor{thesis@color@facultyxlight}{HTML}{FFF9E5}
-\thesis@color@setup{%
-  links=thesis@color@faculty,%
-  tableOdd=thesis@color@facultyxlight,%
-  tableEven=thesis@color@facultylight}
+\thesis@color@setup{links=thesis@color@faculty}
 %    \end{macrocode}
 % \begin{macro}{\thesis@blocks@titlePage}
 % The style file redefines the cover and title page footers to

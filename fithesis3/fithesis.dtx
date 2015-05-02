@@ -33,6 +33,7 @@
 \usepackage{tgpagella}
 \usepackage{tabularx}
 \usepackage{hologo}
+\usepackage{booktabs}
 \usepackage[scaled=0.86]{berasans}
 \usepackage[scaled=1.03]{inconsolata}
 \usepackage[resetfonts]{cmap}
@@ -381,12 +382,12 @@
 % \subsubsection{The \texttt{type} key}
 % The \marg{\texttt{type}=type} pair sets the type of the thesis
 % to \textit{type}. The following types of theses are recognized:
-% \begin{center}\begin{tabular}{lc}\hline
-%   The thesis type & The value of \textit{type} \\\hline
+% \begin{center}\begin{tabular}{lc}\toprule
+%   The thesis type & The value of \textit{type} \\\midrule
 %   Bachelor's thesis & \texttt{bc} \\
 %   Master's thesis & \texttt{mgr} \\
 %   Doctoral thesis & \texttt{d} \\
-%   Rigorous thesis & \texttt{r} \\\hline
+%   Rigorous thesis & \texttt{r} \\\bottomrule
 % \end{tabular}\end{center}
 % The \textit{type} is stored within the private |\thesis@type|
 % macro, whose implicit value is |b|. For the ease of testing of
@@ -430,8 +431,8 @@
 % The \marg{\texttt{faculty}=domain} pair sets the faculty, at
 % which the thesis is being written, to \textit{domain}. The
 % following \textit{domain} names are recognized:
-% \begin{center}\begin{tabularx}{\textwidth}{Xc}\hline
-%   The Faculty & The \textit{domain} name \\\hline
+% \begin{center}\begin{tabularx}{\textwidth}{Xc}\toprule
+%   The Faculty & The \textit{domain} name \\\midrule
 %   The Faculty of Informatics & \texttt{fi} \\
 %   The Faculty of Science & \texttt{sci} \\
 %   The Faculty of Law & \texttt{law} \\
@@ -440,7 +441,7 @@
 %   The Faculty of Medicine & \texttt{med} \\
 %   The Faculty of Education & \texttt{ped} \\
 %   The Faculty of Arts & \texttt{phil} \\
-%   The Faculty of Sports Studies & \texttt{fsps} \\\hline
+%   The Faculty of Sports Studies & \texttt{fsps} \\\bottomrule
 % \end{tabularx}\end{center}
 % The \textit{domain} name is stored within the private
 % |\thesis@faculty| macro, whose implicit value is \texttt{fi}.
@@ -588,10 +589,11 @@
 % The \marg{\texttt{locale}=filename} pair sets the filename of the
 % locale file(s) to be used to \textit{filename}. The
 % \textit{filename} is stored within the private |\thesis@locale|
-% macro, whose implicit value is the main language of the
-% \textsf{babel} package or \texttt{czech}, when undefined. If the
-% inheritance is disabled for locale files, the locale file is
-% loaded from the |\thesis@localepath\thesis@locale| path.
+% macro, whose implicit value is the main language of either the
+% \textsf{babel} or the \textsf{polyglossia} package, or
+% \texttt{czech}, when undefined. If the inheritance is disabled
+% for locale files, the locale file is loaded from the
+% |\thesis@localepath\thesis@locale| path.
 %    \begin{macrocode}
 \def\thesis@locale{%
   % Babel detection

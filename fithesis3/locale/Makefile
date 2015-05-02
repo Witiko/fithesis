@@ -10,7 +10,7 @@ all:
 explode: $(LOGS)
 
 %.log: %.ins %.dtx
-	tex $<
+	xetex $<
 
 implode:
 	rm -f $(OUTPUT) $(LOGS)

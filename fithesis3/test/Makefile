@@ -4,6 +4,8 @@ all: clear
 		ln -s "$$file" current.tex && \
 		pdflatex current && \
 		pdflatex current && \
+		xelatex current && \
+		xelatex current && \
 		rm current.*; \
 	done
 
