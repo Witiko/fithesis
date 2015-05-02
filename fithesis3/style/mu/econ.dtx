@@ -9,6 +9,17 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{fithesis3/style/mu/fithesis3-econ}[2015/04/26]
 %    \end{macrocode}
+% The file redefines the colors used within the |thesis@tabular|
+% and |thesis@tabularx| environments and with the hyperlinks.
+%    \begin{macrocode}
+\definecolor{thesis@color@faculty}{HTML}{7C211E}
+\definecolor{thesis@color@facultylight}{HTML}{DAC1BF}
+\definecolor{thesis@color@facultyxlight}{HTML}{EFE4E3}
+\thesis@color@setup{%
+  links=thesis@color@faculty,%
+  tableOdd=thesis@color@facultyxlight,%
+  tableEven=thesis@color@facultylight}
+%    \end{macrocode}
 % In addition to the main locale, the file also requires the
 % English locale.
 %    \begin{macrocode}
@@ -34,7 +45,7 @@
 % cover.
 %    \begin{macrocode}
 \def\thesis@blocks@cover{%
-  \ifthesis@cover
+  \ifthesis@cover@
     \thesis@blocks@clear
     \begin{alwayssingle}
       \thispagestyle{empty}
@@ -93,7 +104,7 @@
 \def\thesis@blocks@frontMatter{%
   \thesis@blocks@clear
   % In case of double-sided typesetting, change the geometry
-  \ifthesis@twoside
+  \ifthesis@twoside@
     \geometry{top=25mm,bottom=20mm,left=35mm,
       right=15mm, includeheadfoot}
   \fi\pagestyle{empty}

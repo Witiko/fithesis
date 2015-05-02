@@ -6,7 +6,18 @@
 % \url{http://www.sci.muni.cz/NW/predpisy/od/OD-2014-05.pdf}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fithesis3/style/mu/fithesis3-sci}[2015/04/12]
+\ProvidesPackage{fithesis3/style/mu/fithesis3-sci}[2015/05/02]
+%    \end{macrocode}
+% The file redefines the colors used within the |thesis@tabular|
+% and |thesis@tabularx| environments and with the hyperlinks.
+%    \begin{macrocode}
+\definecolor{thesis@color@faculty}{HTML}{00AF3F}
+\definecolor{thesis@color@facultylight}{HTML}{B8E8C9}
+\definecolor{thesis@color@facultyxlight}{HTML}{E0F5E8}
+\thesis@color@setup{%
+  links=thesis@color@faculty,%
+  tableOdd=thesis@color@facultyxlight,%
+  tableEven=thesis@color@facultylight}
 %    \end{macrocode}
 % In addition to the main locale, the file also requires the
 % Czech and English locales.
@@ -93,11 +104,13 @@
     % Typeset the table
     \renewcommand{\arraystretch}{2}
     \begin{tabular}{@{}p{\@left}@{\hskip\@skip}p{\@right}@{}}
-      \textbf{\thesis@czech@bib@author:} & \vtop{%
-        \hbox{\strut\thesis@author}%
-        \hbox{\strut\thesis@czech@facultyName,
-                    \thesis@czech@universityName}%
-        \hbox{\strut\thesis@department}} \\
+      \textbf{\thesis@czech@bib@author:} &
+        \noindent\parbox[t]{\@right}{
+          \thesis@author\\
+          \thesis@czech@facultyName,
+          \thesis@czech@universityName\\
+          \thesis@department
+        }\\
       \textbf{\thesis@czech@bib@thesisTitle:}
         & \thesis@title \\
       \textbf{\thesis@czech@bib@programme:}
@@ -193,11 +206,13 @@
     % Typeset the table
     \renewcommand{\arraystretch}{2}
     \begin{tabular}{@{}p{\@left}@{\hskip\@skip}p{\@right}@{}}
-        \textbf{\thesis@english@bib@author:} & \vtop{%
-          \hbox{\strut\thesis@author}%
-          \hbox{\strut\thesis@english@facultyName,
-                \thesis@english@universityName}%
-          \hbox{\strut\thesis@departmentEn}} \\
+        \textbf{\thesis@english@bib@author:} &
+          \noindent\parbox[t]{\@right}{
+            \thesis@author\\
+            \thesis@english@facultyName,
+            \thesis@english@universityName\\
+            \thesis@departmentEn
+          }\\
         \textbf{\thesis@english@bib@thesisTitle:}
           & \thesis@titleEn \\
         \textbf{\thesis@english@bib@programme:}
@@ -237,9 +252,9 @@
 % cover.
 % \begin{macrocode}
 \def\thesis@blocks@cover{%
-  \ifthesis@cover
+  \ifthesis@cover@
     \thesis@blocks@clear
-    \ifthesis@twoside\@twosidefalse\fi % Temporarily disable twoside
+    \ifthesis@twoside@\@twosidefalse\fi % Temporarily disable twoside
     \begin{alwayssingle}
       \thispagestyle{empty}
       \begin{center}
@@ -253,7 +268,7 @@
        \ \thesis@year\hfill\thesis@author}
       \end{center}
     \end{alwayssingle}
-    \ifthesis@twoside\@twosidetrue\fi % Re-enable twoside
+    \ifthesis@twoside@\@twosidetrue\fi % Re-enable twoside
   \fi}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@titlePage}
@@ -261,9 +276,9 @@
 % title page.
 % \begin{macrocode}
 \def\thesis@blocks@titlePage{{%
-  \edef\thesis@logopath@color{\thesis@logopath\ifthesis@color color/\fi}
+  \edef\thesis@logopath@color{\thesis@logopath\ifthesis@color@ color/\fi}
   \thesis@blocks@clear
-  \ifthesis@twoside\@twosidefalse\fi % Temporarily disable twoside
+  \ifthesis@twoside@\@twosidefalse\fi % Temporarily disable twoside
   \begin{alwayssingle}
     \thispagestyle{empty}
     % The top of the page
@@ -300,7 +315,7 @@
       \fi%
       \thesis@place\ \thesis@year}
   \end{alwayssingle}
-  \ifthesis@twoside\@twosidetrue\fi}} % Re-enable twoside
+  \ifthesis@twoside@\@twosidetrue\fi}} % Re-enable twoside
 %    \end{macrocode}
 % \end{macro}
 % The style file defines the autolayout preamble as the cover and

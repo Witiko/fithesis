@@ -23,7 +23,7 @@
 %     prior the beginning of the next chapter to ensure that it
 %     starts on an left-hand (even-numbered) page.
 %
-%     The \DescribeMacro{\ifthesis@twoside}|\ifthesis@twoside|
+%     The \DescribeMacro{\ifthesis@twoside@}|\ifthesis@twoside@|
 %     conditional is set to \textit{false} or \textit{true},
 %     respectively. This value can be tested in the subsequently
 %     loaded style files.
@@ -33,7 +33,7 @@
 %   \item\texttt{draft}, \texttt{final} -- Overful lines are or
 %     aren't marked within the document, respectively.
 %   \item\texttt{monochrome}, \texttt{color} -- The
-%     \DescribeMacro{\ifthesis@color}|\ifthesis@color| conditional
+%     \DescribeMacro{\ifthesis@color@}|\ifthesis@color@| conditional
 %     is set to \textit{false} or \textit{true}, respectively.
 %     This value can be tested in the subsequently loaded style
 %     files.
@@ -48,6 +48,11 @@
 %   \item\texttt{cover}, \texttt{nocover} -- The
 %     \DescribeMacro{\thesis@blocks@cover}|\thesis@blocks@cover|
 %     is or isn't going to expand to the thesis cover.
+%
+%     The \DescribeMacro{\ifthesis@cover@}|\ifthesis@cover@|
+%     conditional is set to \textit{false} or \textit{true},
+%     respectively. This value can be tested in the subsequently
+%     loaded style files.
 % \end{itemize}
 % The defaults are \texttt{12pt}, \texttt{twoside}, \texttt{final},
 % \texttt{monochrome}, \texttt{nolof}, \texttt{nolot} and
@@ -56,25 +61,25 @@
 \DeclareOption{10pt}{\def\thesis@ptsize{0}}
 \DeclareOption{11pt}{\def\thesis@ptsize{1}}
 \DeclareOption{12pt}{\def\thesis@ptsize{2}}
-\newif\ifthesis@twoside
+\newif\ifthesis@twoside@
 \DeclareOption{oneside}{%
-  \thesis@twosidefalse\@twosidefalse\@mparswitchfalse}
+  \thesis@twoside@false\@twosidefalse\@mparswitchfalse}
 \DeclareOption{twoside}{%
-  \thesis@twosidetrue \@twosidetrue \@mparswitchtrue}
+  \thesis@twoside@true \@twosidetrue \@mparswitchtrue}
 \DeclareOption{onecolumn}{\@twocolumnfalse}
 \DeclareOption{twocolumn}{\@twocolumntrue}
 \DeclareOption{draft}{\setlength\overfullrule{5pt}}
 \DeclareOption{final}{\setlength\overfullrule{0pt}}
-\newif\ifthesis@color\thesis@colorfalse
-\DeclareOption{monochrome}{\thesis@colorfalse}
-\DeclareOption{color}{\thesis@colortrue}
+\newif\ifthesis@color@
+\DeclareOption{monochrome}{\thesis@color@false}
+\DeclareOption{color}{\thesis@color@true}
 \DeclareOption{nolot}{\def\thesis@blocks@lot{}}
 \DeclareOption{lot}{\let\thesis@blocks@lot\listoftables}
 \DeclareOption{nolof}{\def\thesis@blocks@lof{}}
 \DeclareOption{lof}{\let\thesis@blocks@lof\listoffigures}
-\newif\ifthesis@cover
-\DeclareOption{nocover}{\thesis@coverfalse}
-\DeclareOption{cover}{\thesis@covertrue}
+\newif\ifthesis@cover@
+\DeclareOption{nocover}{\thesis@cover@false}
+\DeclareOption{cover}{\thesis@cover@true}
 
 % Options executed by default
 \ExecuteOptions{12pt,twoside,final,monochrome,lot,lof,nocover}
@@ -84,6 +89,7 @@
 %   \item\textsf{fontenc} -- The font encoding is set to Cork.
 %   \item\textsf{mathpazo} -- The virtual \texttt{mathpazo} fonts
 %     will be used for math.
+%   \item\textsf{colorx} -- Adds support for color manipulation.
 %   \item\textsf{tgpagella} -- Changes the default roman font family
 %     to \TeX\ Gyre Pagella.
 %   \item\textsf{cmap} -- Places an an explicit \texttt{ToUnicode}
@@ -96,21 +102,88 @@
 %     assignment.
 %   \item\textsf{hyperref} -- Adds support for injecting metadata
 %     into the resulting PDF document.
+%   \item\textsf{keyval} -- Adds support for parsing
+%     comma-delimited lists of key-value pairs.
 % \end{itemize}
 % In addition to that, the \textsf{hyperref} package is configured
-% to support both roman and arabic page numbering in one document.
+% to support both roman and arabic page numbering in one document
+% and to decorate hyperlinks with an underline instead of a
+% rectangular box.
 %    \begin{macrocode}
 \RequirePackage[resetfonts]{cmap}
 \RequirePackage[T1]{fontenc}
+\RequirePackage[usenames,dvipsnames,svgnames,table]{xcolor}
 \thesis@require{mathpazo}
 \thesis@require{tgpagella}
 \thesis@require{graphicx}
 \thesis@require{pdfpages}
 \thesis@require{hyperref}
+\thesis@require{keyval}
 \hypersetup{
+  pdfborderstyle={/S/U/W 1}, % Less obtrusive borders
   plainpages=false,          % Multiple page numbering support
   pdfpagelabels              % Generate pdf page labels
 }
+%    \end{macrocode}
+% \begin{macro}{\thesis@tabular}\begin{macro}{\thesis@endtabular}
+% \begin{macro}{\thesis@tabularx}\begin{macro}{\thesis@endtabularx}
+% The file defines the |thesis@tabular| and |thesis@tabularx|
+% environments, which can be used to typeset the |tabular| and
+% |tabularx| tables decorated with the colors specified within the
+% |\thesis@color@tableOdd| and |\thesis@color@tableEven| private
+% macros, if the \texttt{color} option is specified. In order to
+% use the |thesis@tabularx| environment, the user must manually
+% include the \textsf{tabularx} package.
+%    \begin{macrocode}
+\newenvironment{thesis@tabular}{%
+  \ifthesis@color@%
+    \rowcolors{1}{\thesis@color@tableOdd}{\thesis@color@tableEven}%
+  \fi\tabular}{\endtabular}
+\newenvironment{thesis@tabularx}{%
+  \ifthesis@color@%
+    \rowcolors{1}{\thesis@color@tableOdd}{\thesis@color@tableEven}%
+  \fi\tabularx}{\endtabularx}
+%    \end{macrocode}
+% \end{macro}\end{macro}\end{macro}\end{macro}
+% \begin{macro}{\thesis@color@setup}
+% The file defines the |\thesis@color@setup|\marg{colors} command,
+% where \textit{colors} is a comma-delimited list of key-value
+% pairs as defined by the \textsf{keyval} package. The command can
+% be invoked either by the subsequently loaded style files or by
+% the user to define which colors will be used, when the
+% \texttt{color} option is specified.
+%    \begin{macrocode}
+\def\thesis@color@setup#1{%
+  \setkeys{thesis@color}{#1}}
+%    \end{macrocode}
+% \end{macro}
+% The following key-value pairs are supported:
+% \begin{enumerate}
+%   \item\marg{\texttt{links}=color} -- Sets the color of hyperref
+%     links to \textit{color}. The default color is specified by
+%     the \textsf{hyperref} package.
+%   \item\marg{\texttt{tableOdd}=color} -- Sets the color of the
+%     odd table rows within the \texttt{thesis@tabular} and
+%     \texttt{thesis@tabularx} environments to \textit{color}. The
+%     \textit{color} is stored within the
+%     \DescribeMacro{\thesis@color@tableOdd}%
+%     |\thesis@color@tableOdd| private macro.
+%   \item\marg{\texttt{tableEven}=color} -- Sets the color of the
+%     even table rows within the \texttt{thesis@tabular} and
+%     \texttt{thesis@tabularx} environments to \textit{color}. The
+%     \textit{color} is stored within the
+%     \DescribeMacro{\thesis@color@tableEven}%
+%     |\thesis@color@tableEven| private macro.
+% \end{enumerate}
+%    \begin{macrocode}
+\define@key{thesis@color}{links}{%
+  \hypersetup{linkbordercolor=#1}}
+\def\thesis@color@tableOdd{white}
+\define@key{thesis@color}{tableOdd}{%
+  \def\thesis@color@tableOdd{#1}}
+\def\thesis@color@tableEven{white}
+\define@key{thesis@color}{tableEven}{%
+  \def\thesis@color@tableEven{#1}}
 %    \end{macrocode}
 % The file defines several blocks to be used in the redefinitions
 % of the |\thesis@preamble| and |\thesis@postable| private macros
@@ -133,7 +206,7 @@
 % double-sided typesetting is enabled.
 % \begin{macrocode}
 \def\thesis@blocks@clear{%
-  \ifthesis@twoside%
+  \ifthesis@twoside@%
     \clearpage%
     \thispagestyle{empty}%
     \cleardoublepage%
@@ -147,7 +220,7 @@
 % double-sided typesetting is enabled.
 % \begin{macrocode}
 \def\thesis@blocks@clearRight{%
-  \ifthesis@twoside%
+  \ifthesis@twoside@%
     \clearpage%
     \ifodd\value{page}%
       \thispagestyle{empty}%
@@ -176,9 +249,9 @@
 % certain parts of the cover page.
 % \begin{macrocode}
 \def\thesis@blocks@cover{%
-  \ifthesis@cover%
+  \ifthesis@cover@%
     \thesis@blocks@clear%
-    \ifthesis@twoside\@twosidefalse\fi % Temporarily disable twoside
+    \ifthesis@twoside@\@twosidefalse\fi % Temporarily disable twoside
     \begin{alwayssingle}%
       \thispagestyle{empty}%
       \begin{center}%
@@ -192,7 +265,7 @@
         \thesis@blocks@cover@footer%
       \end{center}%
     \end{alwayssingle}%
-    \ifthesis@twoside\@twosidetrue\fi % Re-enable twoside
+    \ifthesis@twoside@\@twosidetrue\fi % Re-enable twoside
   \fi}
 %    \end{macrocode}
 % The output of the |\thesis@blocks@cover@header| private macro is
@@ -271,7 +344,7 @@
       \begin{center}%
         \thesis@blocks@titlePage@header%
         {\edef\thesis@logopath@color{%
-          \thesis@logopath\ifthesis@color color/\fi}
+          \thesis@logopath\ifthesis@color@ color/\fi}
         \includegraphics[width=40mm]{%
           \thesis@logopath@color\thesis@facultyLogo}\\[0.4in]}%
         \let\footnotesize\small%
@@ -453,7 +526,7 @@
     \ifx\thesis@assignmentFiles\undefined%
       \begin{alwayssingle}%
         \thispagestyle{empty}
-        \addtocounter{page}{-\ifthesis@twoside2\else1\fi}
+        \addtocounter{page}{-\ifthesis@twoside@2\else1\fi}
         \noindent\textit{\thesis@@{assignment}}%
       \end{alwayssingle}%
     \else%
