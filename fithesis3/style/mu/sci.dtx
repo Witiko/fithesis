@@ -282,16 +282,14 @@
       \begin{minipage}{30mm}
         \includegraphics[width=30mm]{%
           \thesis@logopath@color\thesis@universityLogo}
-      \end{minipage}
-      \begin{minipage}{89mm}
+      \end{minipage}\begin{minipage}{89mm}
         \begin{center}
           {\sc\thesis@titlePage@LARGE\thesis@czech@universityName\\%
               \thesis@titlePage@Large\thesis@czech@facultyName\\[0.3em]%
-              \thesis@titlePage@large\thesis@department}
+              \thesis@titlePage@normalsize\thesis@department}
           \rule{\textwidth}{2pt}\vspace*{2mm}
         \end{center}
-      \end{minipage}
-      \begin{minipage}{30mm}
+      \end{minipage}\begin{minipage}{30mm}
         \includegraphics[width=30mm]{%
           \thesis@logopath@color\thesis@facultyLogo}
       \end{minipage}
@@ -303,7 +301,7 @@
     {\bf\thesis@titlePage@LARGE\thesis@author}\\
     \vfill\noindent
     % The bottom of the page
-    {\bf\thesis@titlePage@large%
+    {\bf\thesis@titlePage@normalsize%
       % Unless this is a rigorous thesis, typeset the name of the
       % thesis advisor.
       \ifx\thesis@type\thesis@rigorous\else%
@@ -328,10 +326,11 @@
   \thesis@blocks@cover%
   \thesis@blocks@frontMatter%
     \thesis@blocks@titlePage%
-    \thesis@blocks@bibEntry%
-    \thesis@blocks@bibEntryEn%
-    \thesis@blocks@abstract%
-    \thesis@blocks@abstractEn%
+    \thesis@blocks@clearRight%
+      \thesis@blocks@bibEntry%
+      \thesis@blocks@bibEntryEn%
+      \thesis@blocks@abstract%
+      \thesis@blocks@abstractEn%
     \thesis@blocks@assignment%
     \thesis@blocks@thanks%
     \thesis@blocks@declaration%

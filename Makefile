@@ -1,6 +1,6 @@
 .PHONY: all clear
 all:
-	cd fithesis3 && make
+	make -C fithesis3
 	make pdflatex.pdf xelatex.pdf clear
 
 # This target typesets the pdfLaTeX example.

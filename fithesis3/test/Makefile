@@ -1,5 +1,5 @@
-.PHONY: all clear
-all: clear
+.PHONY: all clean
+all: clean
 	for file in *.tex; do \
 		ln -s "$$file" current.tex && \
 		pdflatex current && \
@@ -9,5 +9,5 @@ all: clear
 		rm current.*; \
 	done
 
-clear:
+clean:
 		rm -f current.*

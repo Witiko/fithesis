@@ -95,6 +95,9 @@
 %   \item\textsf{tgpagella} -- Changes the default roman font family
 %     to \TeX\ Gyre Pagella. This package does not get loaded in
 %     \Hologo{XeTeX}.
+%   \item\textsf{lmodern} -- Changes the default sans-serif and
+%     monotype font faces to Latin Modern instead of the default
+%     Computer Modern font family.
 %   \item\textsf{cmap} -- Places an an explicit \texttt{ToUnicode}
 %     map in the resulting PDF file, allowing for extraction of
 %     the text of the document. This package does not get loaded
@@ -104,7 +107,7 @@
 %   \item\textsf{fontspec} -- Allows the selection of
 %     system-installed fonts. This package only gets loaded under
 %     \Hologo{XeTeX}.
-%   \item\textsf{fontspec} -- Allows the selection of
+%   \item\textsf{unicode-math} -- Allows the selection of
 %     system-installed mathematical fonts. This package only gets
 %     loaded under \Hologo{XeTeX}.
 %   \item\textsf{graphix} -- Adds support for the inclusion of
@@ -124,7 +127,7 @@
 % Pagella} and \textsf{TeX Gyre Pagella Math} are selected as the
 % main text and math fonts.
 %    \begin{macrocode}
-\RequirePackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\thesis@require{xcolor}
 \thesis@require{ifxetex}
 \ifxetex
   \thesis@require{fontspec}
@@ -132,6 +135,7 @@
   \setmainfont[Ligatures=TeX]{TeX Gyre Pagella}
   \setmathfont[math-style=ISO,bold-style=ISO,vargreek-shape=TeX]{TG Pagella Math}
 \else
+  \thesis@require{lmodern}
   \thesis@require{mathpazo}
   \thesis@require{tgpagella}
   \RequirePackage[resetfonts]{cmap}
@@ -414,8 +418,7 @@
     \thesis@declaration%
     \vskip 2cm%
     \hfill\thesis@author%
-  \end{alwayssingle}
-  \thesis@blocks@clear}
+  \end{alwayssingle}}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@thanks}
 % The |\thesis@blocks@thanks| private macro typesets the
@@ -437,9 +440,7 @@
 % \begin{macrocode}
 \def\thesis@blocks@abstract{%
   \begin{alwayssingle}%
-    % Typeset the abstract on the right-hand side, if at all
-    % possible
-    \thesis@blocks@clearRight
+    % Start the new chapter without clearing the right page
     {\def\cleardoublepage{}
     \chapter*{\thesis@@{abstractTitle}}}%
     \noindent\thesis@abstract%
@@ -454,7 +455,6 @@
 % \begin{macrocode}
 \def\thesis@blocks@abstractEn{%
   \ifthesis@english\else%
-    \newpage%
     \begin{alwayssingle}%
       % Start the new chapter without clearing the right page
       {\def\cleardoublepage{}%
@@ -470,13 +470,11 @@
 % \begin{macrocode}
 \def\thesis@blocks@keywords{%
   \begin{alwayssingle}%
-    % Typeset the keywords on the right-hand side, if at all
-    % possible
-    \thesis@blocks@clearRight
-      {\def\cleardoublepage{}%
-      \chapter*{\thesis@@{keywordsTitle}}%
-      \noindent\thesis@keywords}%
-    \par\vfill%
+    % Start the new chapter without clearing the right page
+    {\def\cleardoublepage{}%
+    \chapter*{\thesis@@{keywordsTitle}}%
+    \noindent\thesis@keywords}%
+    \par\vfil\null%
   \end{alwayssingle}}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@keywordsEn}
@@ -488,12 +486,11 @@
 \def\thesis@blocks@keywordsEn{%
   \ifthesis@english\else%
     \begin{alwayssingle}%
-      \newpage
       % Start the new chapter without clearing the right page
       {\def\cleardoublepage{}%
       \chapter*{\thesis@{english@keywordsTitle}}%
       \thesis@keywordsEn}%
-      \par\vfill%
+      \par\vfil\null%
     \end{alwayssingle}%
   \fi}
 %    \end{macrocode}
@@ -514,10 +511,11 @@
         \noindent\textit{\thesis@@{assignment}}%
       \end{alwayssingle}%
     \else%
-      {\edef\@pdfList{\thesis@assignmentFiles}%
-      \expandafter\includepdfmerge\expandafter{\@pdfList}}%
-    \fi%
-    \thesis@blocks@clear
+      {\def\@empty{}\edef\@pdfList{\thesis@assignmentFiles}%
+      \if\@pdfList\@empty\else%
+        \expandafter\includepdfmerge\expandafter{\@pdfList}%
+      \fi}%
+    \fi\thesis@blocks@clear
   \fi}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@mainMatter}

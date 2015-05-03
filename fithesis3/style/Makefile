@@ -3,7 +3,6 @@ OUTPUT=fithesis3-base.sty
 
 .PHONY: explode implode all
 all: explode
-
 explode: $(LOGS)
 
 %.log: %.ins %.dtx

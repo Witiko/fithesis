@@ -67,9 +67,10 @@
 %    \begin{macrocode}
 \thesis@blocks@titlePage@field@true
 \def\thesis@blocks@titlePage@content{%
-  {\thesis@titlePage@Huge\bf\thesis@upper{TeXtitle}\\[0.1in]%
-                            \thesis@TeXtitleEn\\[0.3in]}%
-  {\thesis@titlePage@large{\sc\thesis@@{typeName}}\\}}
+  {\thesis@titlePage@Huge\bf\thesis@TeXtitle}
+  \ifthesis@english\else
+    {\\[0.1in]\thesis@titlePage@Large\bf\thesis@TeXtitleEn}
+  \fi {\\[0.3in]\thesis@titlePage@large\sc\thesis@@{typeName}\\}}
 \def\thesis@blocks@titlePage@footer{%
   {\thesis@titlePage@large
     {% Calculate the width of the thesis author and advisor boxes
@@ -101,7 +102,7 @@
   \thesis@blocks@clear
   % In case of double-sided typesetting, change the geometry
   \ifthesis@twoside@
-    \geometry{top=25mm,bottom=20mm,left=35mm,
+    \newgeometry{top=25mm,bottom=20mm,left=35mm,
       right=15mm, includeheadfoot}
   \fi\pagestyle{empty}
   \parindent 1.5em
@@ -147,10 +148,11 @@
   \thesis@blocks@frontMatter%
     \thesis@blocks@titlePage%
     \thesis@blocks@assignment%
-    \thesis@blocks@abstract%
-    \thesis@blocks@abstractEn%
-    \thesis@blocks@keywords%
-    \thesis@blocks@keywordsEn%
+    \thesis@blocks@clearRight%
+      \thesis@blocks@abstract%
+      \thesis@blocks@abstractEn%
+      \thesis@blocks@keywords%
+      \thesis@blocks@keywordsEn%
     \thesis@blocks@declaration%
     \thesis@blocks@thanks%
     \thesis@blocks@toc%

@@ -1,49 +1,62 @@
-.PHONY: all clean dist dist-clean explode implode install uninstall test
+SUBMAKES_REQUIRED=logo/mu logo/mu/color locale style style/mu
+SUBMAKES_MISCELLANEOUS=guide/mu
+SUBMAKES=$(SUBMAKES_REQUIRED) $(SUBMAKES_MISCELLANEOUS)
+.PHONY: all complete clean dist dist-implode implode install uninstall test $(SUBMAKES_REQUIRED)
 
-SUBMAKEFILES=logo/mu logo/mu/color locale style style/mu
 CLASSFILES=fithesis.cls fithesis2.cls fithesis3.cls
 STYLEFILES=style/*.sty style/*/*.sty style/*/*.clo
 LOGOFILES=logo/*/*.eps logo/*/color/*.eps logo/*/*.pdf logo/*/color/*.pdf
 LOCALEFILES=locale/*.def locale/*/*.def locale/*/*/*.def
 DTXFILES=*.dtx locale/*.dtx style/*.dtx style/*/*.dtx
 INSFILES=*.ins locale/*.ins style/*.ins style/*/*.ins
-MAKEFILES=Makefile */Makefile */*/Makefile */*/*/Makefile ../Makefile
+MAKES=../Makefile Makefile */Makefile */*/Makefile */*/*/Makefile
 READMES=../README
-MISCELLANEOUS=$(READMES) ../example.tex
+MISCELLANEOUS=$(READMES) ../*.tex guide/*/*.tex guide/*/*/*.tex guide/*/*.bib
 RESOURCES=$(STYLEFILES) $(LOGOFILES) $(LOCALEFILES)
 SOURCEFILES=$(DTXFILES) $(INSFILES) docstrip.cfg
 AUXFILES=fithesis.aux fithesis.log fithesis.toc fithesis.ind fithesis.idx fithesis.out fithesis.ilg fithesis.gls fithesis.glo fithesis.hd
 MANUAL=fithesis.pdf
 PDFSOURCES=fithesis.dtx
-PDFFILES=$(MANUAL)
+GUIDES=guide/mu/econ.pdf guide/mu/fi.pdf guide/mu/fsps.pdf guide/mu/fss.pdf guide/mu/law.pdf guide/mu/med.pdf guide/mu/ped.pdf guide/mu/phil.pdf guide/mu/sci.pdf
+PDFFILES=$(MANUAL) $(GUIDES)
 TDSFILE=fithesis3.tds.zip
+CTANFILE=fithesis3.ctan.zip
 DISTFILE=fithesis3.zip
+DISTFILES=$(TDSFILE) $(CTANFILE) $(DISTFILE)
 LATEXFILES=$(CLASSFILES) $(RESOURCES)
 TEXLIVEDIR=$(shell kpsewhich -var-value TEXMFLOCAL)
 
-# This pseudo-target creates the class files, typesets the
-# technical documentation, makes the style and locale files
-# and removes any auxiliary files.
-all:
-	for dir in $(SUBMAKEFILES); do make all -C "$$dir"; done
-	make explode clean
+# This pseudo-target expands all the docstrip
+# files, converts the logos and creates the
+# class files.
+all: $(SUBMAKES_REQUIRED)
+	make $(CLASSFILES)
 
-# This pseudo-target creates the class files and typesets
-# the technical documentation.
-explode: fithesis3.cls $(PDFFILES)
+# This pseudo-target creates the class files
+# and typesets the technical documentation and
+# the guides.
+complete: all
+	make $(PDFFILES) clean
+
+# This pseudo-target calls a submakefile
+$(SUBMAKES_REQUIRED):
+	make -C $@ all
 
 # This pseudo-target performs the unit tests
 test: all
-	cd test; make
+	make -C test
 
 # This pseudo-target creates the distribution archive.
-dist: all
+dist: complete
 	make $(TDSFILE) $(DISTFILE)
-	rm $(TDSFILE)
 
 # This target creates the class files.
-fithesis3.cls: fithesis.ins fithesis.dtx
+$(CLASSFILES): fithesis.ins fithesis.dtx
 	tex $<
+
+# This target typesets the guide.
+$(GUIDES): $(CLASSFILES) $(RESOURCES)
+	make -BC $(dir $@)
 
 # This target typesets the technical documentation.
 fithesis.pdf: $(DTXFILES)
@@ -57,16 +70,19 @@ fithesis.pdf: $(DTXFILES)
 $(TDSFILE): $(LATEXFILES) $(SOURCEFILES) $(PDFFILES) $(PDFSOURCES)
 	DIR=`mktemp -d` && \
 	make install to="$$DIR" nohash=true && \
-  (cd "$$DIR" && zip -r -v -nw $@ *) && \
+	(cd "$$DIR" && zip -r -v -nw $@ *) && \
 	mv "$$DIR"/$@ $@ && rm -rf "$$DIR"
 
 # This target generates a distribution file
-$(DISTFILE): $(LATEXFILES) $(SOURCEFILES) $(MAKEFILES) $(PDFFILES) $(PDFSOURCES) $(MISCELLANEOUS)
+$(DISTFILE): $(LATEXFILES) $(SOURCEFILES) $(MAKES) $(PDFFILES) $(PDFSOURCES) $(MISCELLANEOUS)
 	DIR=`mktemp -d` && mkdir --parents "$$DIR/fithesis3/fithesis3" && \
 	cp --verbose $(TDSFILE) "$$DIR" && \
+	cp --verbose $(TDSFILE) "$$DIR"/fithesis3/fithesis3 && \
 	cp --parents --verbose $^ "$$DIR/fithesis3/fithesis3" && \
-  (cd "$$DIR" && zip -r -v -nw $@ *) && \
-	mv "$$DIR"/$@ $@ && rm -rf "$$DIR"
+	(cd "$$DIR" && zip -r -v -nw $(CTANFILE) *) && \
+	(cd "$$DIR"/fithesis3 && zip -r -v -nw $(DISTFILE) *) && \
+	mv "$$DIR"/$(CTANFILE) . && \
+	mv "$$DIR"/fithesis3/$(DISTFILE) . && rm -rf "$$DIR"
 
 # This pseudo-target installs the class files and
 # the technical documentation into the TeX directory
@@ -75,8 +91,8 @@ $(DISTFILE): $(LATEXFILES) $(SOURCEFILES) $(MAKEFILES) $(PDFFILES) $(PDFSOURCES)
 # to forgo the reindexing of the package database.
 install:
 	@if [ -z "$(to)" ]; then \
-	  printf "Usage: make install to=DIRECTORY\nDetected TeXLive directory: %s\n" $(TEXLIVEDIR); \
-	  exit 1; \
+		printf "Usage: make install to=DIRECTORY\nDetected TeXLive directory: %s\n" $(TEXLIVEDIR); \
+		exit 1; \
 	fi
 	
 	# Class, locale, style and logo files
@@ -90,7 +106,7 @@ install:
 	# Documentation
 	mkdir --parents "$(to)/doc/latex/fithesis3"
 	cp $(MANUAL) "$(to)/doc/latex/fithesis3/manual.pdf"
-
+	
 	# Rebuild the hash
 	[ "$(nohash)" = "true" ] || texhash
 
@@ -101,8 +117,8 @@ install:
 # to forgo the reindexing of the package database.
 uninstall:
 	@if [ -z "$(from)" ]; then \
-	  printf "Usage: make uninstall from=DIRECTORY\nDetected TeXLive directory: %s\n" $(TEXLIVEDIR); \
-	  exit 1; \
+		printf "Usage: make uninstall from=DIRECTORY\nDetected TeXLive directory: %s\n" $(TEXLIVEDIR); \
+		exit 1; \
 	fi
 	
 	# Class, locale, style and logo files
@@ -114,7 +130,7 @@ uninstall:
 	# Documentation
 	rm "$(from)/doc/latex/fithesis3/manual.pdf"
 	rmdir "$(from)/doc/latex/fithesis3/"
-
+	
 	# Rebuild the hash
 	[ "$(nohash)" = "true" ] || texhash
 
@@ -123,10 +139,10 @@ clean:
 	rm -f $(AUXFILES)
 
 # This pseudo-target removes the distribution archives.
-dist-clean:
-	rm -f $(DISTFILE)
+dist-implode:
+	rm -f $(DISTFILES)
 
 # This pseudo-target removes any makeable files.
-implode: clean dist-clean
+implode: clean dist-implode
 	rm -f $(PDFFILES) $(CLASSFILES)
-	for dir in $(SUBMAKEFILES); do make implode -C "$$dir"; done
+	for dir in $(SUBMAKES); do make implode -C "$$dir"; done

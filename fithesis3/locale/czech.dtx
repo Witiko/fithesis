@@ -86,10 +86,12 @@
 %</mu>
 % \fi\file{locale/mu/law/czech.def}
 % This is the Czech locale file specific to the Faculty of Law at
-% University in Brno. It replaces the \texttt{facultyName}
-% placeholder with the correct value and replaces the
-% \texttt{abstractTitle} string in accordance with the
-% requirements of the faculty.
+% the Masaryk University in Brno. It replaces the
+% \texttt{facultyName} placeholder with the correct value, defines
+% the \texttt{facultyLongName} required by the
+% |\thesis@blocks@cover| and the |\thesis@blocks@titlePage| blocks
+% and replaces the \texttt{abstractTitle} string in accordance
+% with the requirements of the faculty.
 % \iffalse
 %<*mu/law>
 % \fi\begin{macrocode}
@@ -99,7 +101,8 @@
 \def\thesis@czech@abstractTitle{Abstrakt}
 
 % Zástupné texty
-\def\thesis@czech@facultyName{Právnická fakulta Masarykovy
+\def\thesis@czech@facultyName{Právnická fakulta}
+\def\thesis@czech@facultyLongName{Právnická fakulta Masarykovy
   univerzity}
 %    \end{macrocode}\iffalse
 %</mu/law>

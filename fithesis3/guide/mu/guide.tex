@@ -1,0 +1,363 @@
+\documentclass[color,cover,twoside,nolot]{../../fithesis3}
+\usepackage[english]{babel}
+\usepackage{hologo}
+\usepackage{fancyvrb}
+\usepackage{minted}
+\usepackage[
+  backend=biber,
+  style=numeric,
+  citestyle=numeric-comp,
+  sorting=none
+]{biblatex}
+\addbibresource{guide.bib}
+\makeatletter
+% The following macro typesets the meaning of another macro
+\def\macromeaning#1{%
+  \makeatletter%
+    \let\ea\expandafter%
+    \ea\let\ea\thguide@macro\csname#1\endcsname%
+    \ea\def\ea\thguide@meaning\ea{\meaning\thguide@macro}%
+    \def\thguide@parse##1 ##2{%
+      ##1\ifx##2\relax\ea\@gobbletwo\else\\\fi\thguide@parse##2}%
+    \begin{verse}%
+      \ea\ifx\@empty\thguide@macro\@empty%
+        $\langle$\emph{empty}$\rangle$
+      \else%
+        \tt\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea%
+        \ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\thguide@parse\ea%
+        \ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\@gobbletwo\ea%
+        \ea\ea\ea\ea\ea\ea\@gobbletwo\ea\ea\ea\@gobbletwo\ea%
+        \@gobbletwo\thguide@meaning \relax%
+      \fi%
+    \end{verse}
+  \makeatother}
+\thesissetup{
+  title=A fithesis3 user guide for the \thesis@english@facultyName,
+  TeXtitle=A \textit{fithesis3} user guide\medskip\\\Large for the
+    \thesis@english@facultyName,
+  department=Department of Computer Graphics and Design,
+  programme=Applied Informatics,
+  field=Typesetting,
+  titleEn=\thesis@title,
+  departmentEn=\thesis@department,
+  programmeEn=\thesis@programme,
+  fieldEn=\thesis@field,
+  author=Vít Novotný,
+  advisor={doc. RNDr. Petr Sojka, Ph.D.},
+  assignment={},
+  keywords={thesis, typesetting, LaTeX},
+  abstract=This user guide describes the installation process of
+    the \textsf{fithesis3} document class and documents selected
+    parts of the public API of the \textsf{fithesis3} document
+    class that bear relevance to the style of the
+    \thesis@english@facultyName.,
+  keywordsEn=\thesis@keywords,
+  abstractEn=\thesis@abstract,
+  faculty=?,
+  basepath=../..,
+  autoLayout=false}
+\makeatother
+\begin{document}
+  \makeatletter\thesis@preamble\makeatother
+  \chapter{Introduction}
+  \textsf{fithesis3} is a \LaTeX{} document class, which
+  aims to streamline the typesetting of mandatory parts of theses
+  and dissertations so that the author can focus on the content
+  alone. Unlike its predecessors, \textsf{fithesis3} aims to
+  provide modular enough design to enable its usage across the
+  faculties of the \makeatletter\thesis@english@universityName%
+  \makeatother. To this end, the class comprises:
+  \begin{itemize}
+    \item\emph{style files}, which are unique for each faculty and
+      which encapsulate the look and the arrangement of the final
+      documents
+    \item\emph{locale files}, which define the strings for the
+      given locale
+    \item\emph{base class}, which serves as a bridge between style
+      files, locale files and the input document
+  \end{itemize}
+  The overarching desing and the interactions between the style
+  files, locale files and the base class are documented in the
+  technical documentation of the class \cite{novotny15}
+  distributed along with the package. This
+  guide, on the other hand, only aims to document the selected
+  parts of the public API of the \textsf{fithesis3} class
+  that bear relevance to the style file of the
+  \makeatletter\thesis@english@facultyName\makeatother. Note that
+  this guide is typeset using the said style file.
+
+  \section{Required packages and fonts}
+  To be able to use the \textsf{fithesis3} class with the style of
+  the Faculty of Informatics, your \TeX{} installation needs to
+  include the \textsf{rapport3} class\footnote{See
+  \url{https://www.ctan.org/pkg/ntgclass}} and the following
+  packages: \begin{itemize}
+    \item\textsf{xcolor}, \textsf{ifxetex}, \textsf{graphix},
+      \textsf{pdfpages}, \textsf{hyperref}, \textsf{keyval}
+    \item\textsf{fontspec}, \textsf{unicode-math} -- only when
+      typesetting with \Hologo{XeTeX}
+    \item\textsf{mathpazo}, \textsf{tgpagella}, \textsf{lmodern},
+       \textsf{cmap}, \textsf{fontenc} -- only when typesetting
+       with \TeX{} or \hologo{pdfTeX}
+  \end{itemize}
+  The \TeX{} Gyre Pagella\footnote{See
+  \url{https://www.ctan.org/pkg/tex-gyre-pagella}} and
+  \TeX{} Gyre Pagella Math\footnote{See
+  \url{https://www.ctan.org/pkg/tex-gyre-math-pagella}} OpenType
+  fonts are also required, when typesetting with \Hologo{XeTeX}.
+  All these are likely to be a part of any reasonably modern \TeX{}
+  distribution.
+
+  \section{Installation}
+  This section covers the installation of the \textsf{fithesis3}
+  class. Please note that the installation of the class is fully
+  optional. You can typeset your thesis by either directly editing
+  either the \path{pdflatex.tex} or the \path{xelatex.tex} example
+  files distributed along with the package or by pointing your source document to the class as follows:
+  \begin{minted}{latex}
+    \documentclass{path/fithesis3}
+    \thesissetup{basepath=path}
+    % The rest of the document
+  \end{minted}
+  where \texttt{path} corresponds to the path of the directory
+  containing the \path{fithesis3.cls} file.
+
+  When installing, first make sure that the \textsf{fithesis3} class
+  is not a part of
+  your \TeX{} distribution already. This can be easily verified by
+  creating the minimal document described in the next section and
+  typesetting it using either the \Hologo{XeTeX} or
+  the \hologo{pdfTeX} engine, respectively. In case
+  \textsf{fithesis3} is not a part of your \TeX{}
+  distribution, the typesetting will prematurely terminate with the
+  following error: \begin{Verbatim}[frame=single]
+! LaTeX Error: File `fithesis3/fithesis3.cls' not found.
+  \end{Verbatim}
+  If the \textsf{fithesis3} class is not a part of
+  your distribution, you can proceed to the installation.
+  This can be achieved by extracting the \path{fithesis3.tds.zip}
+  archive distributed along with the package into into one of
+  the \TeX{} directory structure trees within your \TeX{}
+  distribution. If you are using \TeX{}Live\footnote{See
+  \url{https://www.tug.org/texlive/doc.html}, chapter 2.3},
+  this can be achieved by creating a \texttt{texmf}
+  directory within your user home directory and by extracting the
+  \path{fithesis3.tds.zip} archive into it. For \Hologo{MiKTeX},
+  see the online documentation\footnote{See
+  \url{http://docs.miktex.org/manual/localadditions.html}}.
+
+  \section{A minimal document}
+  Before using the \textsf{fithesis3} class, you should be familiar
+  with the \LaTeX{} typesetting system. A good way to get started
+  is to read one of the introductory texts in English
+  \cite{veryshortlatex,shortlatex,longlatex,latex} or in Czech
+  \cite{rybicka03,satrapa11}.
+  We will start by creating a plain text document named
+  \path{helloworld.tex} in the UTF-8 encoding with the following
+  content:
+  \begin{minted}{latex}
+    \documentclass{fithesis3}
+    \thesissetup{faculty=?}
+    \begin{document}
+      Hello world!
+    \end{document}
+  \end{minted}
+  Now typeset the document using either the \hologo{pdfLaTeX} or
+  the \Hologo{XeLaTeX} engine. If everything is set up correctly,
+  you should end up with a document containing all the mandatory
+  parts of a thesis and one page at the end containing a
+  \texttt{Hello world!} line. You should notice that the document
+  is implicitly typeset in English and that it contains lots of
+  placeholder stringss for missing metadata (see Figure
+  \ref{fig:example01}). In the next chapter, we are going to
+  address that.
+  \begin{figure}[!bt]
+    \centering\makeatletter
+    \fbox{\includegraphics[clip,trim=0cm 14.8cm 0cm 4.2cm,%
+      width=0.975\textwidth]{examples/\thesis@faculty-01.pdf}}
+    \makeatother
+    \caption{The placeholder strings in the minimal document}
+    \label{fig:example01}
+  \end{figure}
+
+  \chapter{Configuring the class}
+  In this chapter, we will configure the class to use the correct
+  locale, to insert the correct metadata into the output document
+  and to be laid out in a meaningful way.
+
+  \section{Setting the locale}
+  First, we are going to set the locale of the document class. This
+  locale affects the locale of the mandatory parts of thesis. To
+  see what locales are available, list the contents of the
+  \path{fithesis3/locale/} directory. It should contain several
+  \textit{locale}\texttt{.dtx} files. Each of these
+  \textit{locale}s can be used by the class. To load a
+  \textit{locale}, insert \texttt{\string\thesis\-setup\{locale=}%
+  \textit{locale}\texttt{\}} into the preamble of the document.
+
+  If you use the \textsf{babel} or the \textsf{polyglossia} package
+  to load the hyphenation patterns for your locale, you don't need
+  to set the locale at all, \textsf{fithesis3} will use the main
+  language of \textsf{babel} or \textsf{polyglossia}.
+  \begin{minted}{latex}
+    \documentclass{fithesis3}
+    \thesissetup{faculty=?}
+    % Using the babel package:
+    \usepackage[czech]{babel}
+    \begin{document}
+      The mandatory parts of the thesis
+      are going to be typeset in Czech.
+    \end{document}
+
+    \documentclass{fithesis3}
+    \thesissetup{faculty=?}
+    % Using the polyglossia package:
+    \usepackage{polyglossia}
+    \setmainlanguage{czech}
+    \begin{document}
+      The mandatory parts of the thesis
+      are going to be typeset in Czech.
+    \end{document}
+  \end{minted}
+  The \textsf{babel} package can be used with Latin scripts, while
+  the \textsf{polyglossia} package supports non-Latin scripts as
+  well and is intended as a replacement of \textsf{babel} for
+  \Hologo{XeLaTeX}. You are advised to use one of them, depending
+  on your requirements.
+
+  \section{Inserting metadata}
+  Next, we are going to insert some metadata into the document. The
+  metadata can be inserted into the thesis using the
+  \texttt{\string\thesis\-setup} command. This command accepts
+  a comma-delimited \textit{key}\texttt{=}\textit{value} list.
+  The placeholder strings in our minimal document map directly
+  into the
+  \textit{key}s, so to change the \emph{<<author>>} placeholder
+  into \emph{Jane Doe}, simply insert the
+  \texttt{\string\thesis\-setup\{author=Jane Doe\}} command into the
+  preamble of your document.
+
+  Note, however, that some keys can not be deduced directly from
+  the output
+  document. For example the \texttt{thanks} key is not visible,
+  since the acknowledgement is not a mandatory
+  part of the thesis and therefore it only gets inserted into
+  the document, when the \texttt{thanks} key is defined. Some other
+  \textit{key}s, like the \texttt{abstract} key, can also span
+  multiple paragraphs, in which case they need to be set using the
+  \texttt{\string\thesis\-long}\textit{key}%
+  \texttt{\}\-\{}\textit{value}\texttt{\}}
+  command as follows:
+  \begin{minted}{latex}
+    \documentclass{fithesis3}
+    \thesissetup{
+      faculty=?,
+      author=Jane Doe}
+    \thesislong{abstract}{
+      In this document, I am going to
+      explore the craft of creating
+      abstracts \ldots
+        
+      \ldots spanning multiple paragraphs.}
+    \begin{document}
+      Hello world!
+    \end{document}
+  \end{minted}
+  If the \textit{value} of a \textit{key} contains a comma, the
+  \texttt{\string\thesis\-setup\{}\textit{key}\texttt{=}%
+  \textit{value}\texttt{\}} command would erroneously interpret it
+  as a delimiter. To prevent this from happening, enclose the
+  \textit{value} in curly braces as follows:
+  \begin{minted}{latex}
+    \documentclass{fithesis3}
+    \thesissetup{
+      faculty=?,
+      author=Jane Doe,
+      advisor={RNDr. John Doe, Ph.D.},
+      keywords={keyword1, keyword2}}
+    \begin{document}
+      Hello world!
+    \end{document}
+  \end{minted}
+  The complete list of \textit{key}s and their effects can
+  be found in the technical documentation of the
+  class \cite[chapter \emph{Public API}]{novotny15} distributed
+  along with the package.
+
+  \section{Controlling the layout}
+  The layout of the resulting document can be affected by the
+  \textit{options} passed to the class using the
+  \texttt{\string\documentclass[}\textit{options}\texttt{]\{fithes%
+  is3\}} syntax. The complete list of options for the style files
+  of the \makeatletter\thesis@english@universityName
+  \makeatother\ can be found in the technical documentation of the
+  class \cite[chapter \emph{Style files}]{novotny15}
+  distributed along with the package.
+
+  If you are unsatisfied with the arrangement of the mandatory
+  parts of the thesis, you can disable it using the
+  \texttt{\string\thesis\-setup\{autoLayout\}} command:
+  \begin{minted}{latex}
+    \documentclass{fithesis3}
+    \thesissetup{faculty=?,autoLayout=false}
+    \begin{document}
+      A document which, except for this line,
+      is completely empty.
+    \end{document}
+  \end{minted}
+  This results in a document, which is completely devoid of any
+  mandatory parts of the thesis (see Figure \ref{fig:example02}).
+  You can now manually insert the preamble and the postamble of the
+  document as follows:
+  \begin{minted}{latex}
+    \documentclass{fithesis3}
+    \thesissetup{
+      faculty=?,
+      autoLayout=false}
+    \begin{document}
+      \makeatletter\thesis@preamble\makeatother
+      A document which once again contains all
+      the mandatory parts of a thesis.
+      \makeatletter\thesis@postamble\makeatother
+    \end{document}
+  \end{minted}
+  \begin{figure}[!bt]
+    \centering\makeatletter
+    \fbox{\includegraphics[clip,trim=2cm 24.5cm 2cm 4.5cm,%
+      width=0.975\textwidth]{examples/02.pdf}}
+    \makeatother
+    \caption{A document with disabled \texttt{autoLayout}}
+    \label{fig:example02}
+  \end{figure}
+  This alone would be a useless excercise, as we're now back to the
+  original document. However, instead of inserting the
+  \texttt{\string\thesis\-@preamble} and the
+  \texttt{\string\thesis\-@postamble} commands into the document, we
+  can insert only certain blocks to which these commands expand.
+  \texttt{\string\thesis\-@preamble} expands to the
+  following commands: \macromeaning{thesis@preamble} and
+  \texttt{\string\thesis\-@postamble} 
+  expands to the following commands: \macromeaning{thesis@postamble}
+  To create a document, which only contains the thesis cover prior
+  to the text, we would use the following:
+  \begin{minted}{latex}
+    \documentclass{fithesis3}
+    \thesissetup{
+      faculty=?,
+      autoLayout=false}
+    \begin{document}
+      \makeatletter
+        \thesis@blocks@cover
+        \thesis@blocks@mainMatter
+      \makeatother
+      A document which contains only the cover.
+    \end{document}
+  \end{minted}
+  The available blocks are documented in the technical
+  documentation of the class \cite[chapter
+  \emph{Style files}]{novotny15} distributed along with the
+  package.
+
+  \makeatletter\thesis@postamble\makeatother
+  \printbibliography[heading=bibintoc]
+\end{document}

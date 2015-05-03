@@ -63,13 +63,16 @@
 % \fi\file{locale/mu/law/english.def}
 % This is the English locale file specific to the Faculty of Law at
 % the Masaryk University in Brno. It replaces the
-% \texttt{facultyName} placeholder with the correct value.
+% \texttt{facultyName} placeholder with the correct value and
+% defines the \texttt{facultyLongName} required by the
+% |\thesis@blocks@cover| and the |\thesis@blocks@titlePage| blocks.
 % \iffalse
 %<*mu/law>
 % \fi\begin{macrocode}
 \ProvidesFile{fithesis3/locale/mu/law/english.def}[2015/04/18]
-\def\thesis@english@facultyName{The Faculty of Law of the Masaryk
-  University}
+\def\thesis@english@facultyName{The Faculty of Law}
+\def\thesis@english@facultyLongName{The Faculty of Law of the
+  Masaryk University}
 %    \end{macrocode}\iffalse
 %</mu/law>
 % \fi\file{locale/mu/fsps/english.def}

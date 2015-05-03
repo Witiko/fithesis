@@ -85,9 +85,11 @@
 % \fi\file{locale/mu/law/slovak.def}
 % This is the Slovak locale file specific to the Faculty of Law at
 % the Masaryk University in Brno. It replaces the
-% \texttt{facultyName} placeholder with the correct value and
-% replaces the \texttt{abstractTitle} string in accordance with
-% the requirements of the faculty.
+% \texttt{facultyName} placeholder with the correct value, defines
+% the \texttt{facultyLongName} required by the
+% |\thesis@blocks@cover| and the |\thesis@blocks@titlePage| blocks
+% and replaces the \texttt{abstractTitle} string in accordance
+% with the requirements of the faculty.
 % \iffalse
 %<*mu/law>
 % \fi\begin{macrocode}
@@ -97,7 +99,8 @@
 \def\thesis@slovak@abstractTitle{Abstrakt}
 
 % Zástupné texty
-\def\thesis@slovak@facultyName{Právnická fakulta Masarykovej
+\def\thesis@slovak@facultyName{Právnická fakulta}
+\def\thesis@slovak@facultyLongName{Právnická fakulta Masarykovej
   univerzity}
 %    \end{macrocode}\iffalse
 %</mu/law>

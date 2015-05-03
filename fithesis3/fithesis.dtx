@@ -169,7 +169,18 @@
 %
 % \section{Required classes and packages}
 % The class loads the \texttt{rapport3} base class and the
-% \textsf{xstring}, \textsf{keyval}% and \textsf{etoolbox} packages
+% following packages: \begin{itemize}
+%   \item\textsf{keyval} -- Adds support for parsing
+%     comma-delimited lists of key-value pairs.
+%   \item\textsf{etoolbox} -- Adds support for expanding
+%     code after the preamble.
+%   \item\textsf{ifxetex} -- Used to detect the \Hologo{XeTeX}
+%     engine.
+%   \item\textsf{inputenc} -- Used to enable the input utf-8
+%     encoding. This package does not get loaded under
+%     \Hologo{XeTeX}.
+% \end{itemize}
+% , % and  packages
 % for string parsing and comparisons.
 % The \texttt{hyperref} package is also conditionally loaded during
 % the expansion of the |\thesis@load| macro (see section
@@ -181,6 +192,10 @@
 \RequirePackage{xstring}
 \RequirePackage{keyval}
 \RequirePackage{etoolbox}
+\RequirePackage{ifxetex}
+\ifxetex\else
+  \RequirePackage[utf8]{inputenc}
+\fi
 %    \end{macrocode}
 % \section{Public API}
 % \label{sec:public-api}
@@ -238,7 +253,7 @@
 %    \begin{macrocode}
 \def\thesis@logopath{\thesis@basepath logo/\thesis@university/}
 \define@key{thesis}{logopath}{%
-  \def\thesis@logopath{\thesis@subdir{#1}}}
+  \def\thesis@logopath{\thesis@subdir#1\relax}}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\thesis@subdir}
@@ -247,16 +262,14 @@
 % token of |#1| isn't a slash character (|/|), or to |#1|
 % otherwise.
 %    \begin{macrocode}
-\def\thesis@subdir#1{%
+\def\thesis@subdir#1#2\relax{%
   \ifx\@empty#1\@empty%
     \thesis@basepath%
   \else%
-    \def\@slash{/}%
-    \StrLeft{#1}{1}[\@fst]%
-    \ifx\@fst\@slash%
-      #1/%
+    \if#1/%
+      #1#2/%
     \else%
-      \thesis@basepath#1/%
+      \thesis@basepath#1#2/%
     \fi%
   \fi}
 %    \end{macrocode}
@@ -274,7 +287,23 @@
 %    \begin{macrocode}
 \def\thesis@stylepath{\thesis@basepath style/}
 \define@key{thesis}{stylepath}{%
-  \def\thesis@stylepath{\thesis@subdir{#1}}}
+  \def\thesis@stylepath{\thesis@subdir#1\relax}}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\thesis@localepath}
+% \subsubsection{The \texttt{localepath} key}
+% The \marg{\texttt{localepath}=path} pair sets the \textit{path}
+% containing the locale files. If the \textit{path} doesn't begin
+% with a slash (\texttt{/}), it is normalized to
+% \cmd{/thesis@basepath} followed by \textit{path}. The
+% normalized \textit{path} is stored within the private
+% |\thesis@localepath| macro,
+% whose implicit value is |\thesis@basepath| followed by |locale/|.
+% By default, this expands to \texttt{fithesis3/locale/}.
+%    \begin{macrocode}
+\def\thesis@localepath{\thesis@basepath locale/}
+\define@key{thesis}{localepath}{%
+  \def\thesis@localepath{\thesis@subdir#1\relax}}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\thesis@def}
@@ -300,22 +329,6 @@
 \def\thesis@declaration{\thesis@@{declaration}}
 \long\def\KV@thesis@declaration#1{%
   \long\def\thesis@declaration{#1}}
-%    \end{macrocode}
-% \end{macro}
-% \begin{macro}{\thesis@localepath}
-% \subsubsection{The \texttt{localepath} key}
-% The \marg{\texttt{localepath}=path} pair sets the \textit{path}
-% containing the locale files. If the \textit{path} doesn't begin
-% with a slash (\texttt{/}), it is normalized to
-% \cmd{/thesis@basepath} followed by \textit{path}. The
-% normalized \textit{path} is stored within the private
-% |\thesis@localepath| macro,
-% whose implicit value is |\thesis@basepath| followed by |locale/|.
-% By default, this expands to \texttt{fithesis3/locale/}.
-%    \begin{macrocode}
-\def\thesis@localepath{\thesis@basepath locale/}
-\define@key{thesis}{localepath}{%
-  \def\thesis@localepath{\thesis@subdir{#1}}}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\ifthesis@woman}
@@ -591,14 +604,14 @@
 % \textit{filename} is stored within the private |\thesis@locale|
 % macro, whose implicit value is the main language of either the
 % \textsf{babel} or the \textsf{polyglossia} package, or
-% \texttt{czech}, when undefined. If the inheritance is disabled
+% \texttt{english}, when undefined. If the inheritance is disabled
 % for locale files, the locale file is loaded from the
 % |\thesis@localepath\thesis@locale| path.
 %    \begin{macrocode}
 \def\thesis@locale{%
   % Babel detection
   \ifx\languagename\undefined%
-  czech\else\languagename\fi}
+  english\else\languagename\fi}
 \define@key{thesis}{locale}{%
   \def\thesis@locale{#1}}
 %    \end{macrocode}
@@ -611,16 +624,18 @@
 % \ldots |\fi| conditional is made available for testing, whether
 % or not the current locale is English.
 %    \begin{macrocode}
-\def\ifthesis@english{{
-  \let\ea\expandafter%
-  \ea\def\ea\@english\ea{\string\english}%
-  \ea\ea\ea\def\ea\ea\ea\@locale\ea\ea\ea{\ea\string\csname%
-    \thesis@locale\endcsname}%
-  \ea\csname\ea i\ea f\ifx\@locale\@english%
+\def\ifthesis@english{
+  \expandafter\def\expandafter\@english\expandafter{\string%
+  \english}%
+  \expandafter\expandafter\expandafter\def\expandafter%
+  \expandafter\expandafter\@locale\expandafter\expandafter%
+  \expandafter{\expandafter\string\csname\thesis@locale\endcsname}%
+  \expandafter\csname\expandafter i\expandafter f\ifx\@locale%
+  \@english%
     true%
   \else%
     false%
-  \fi\endcsname}}
+  \fi\endcsname}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\thesis@locale@inheritance}
