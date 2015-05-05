@@ -1,4 +1,4 @@
-\documentclass[color,cover,twoside,nolot]{../../fithesis3}
+\documentclass[color,table,cover,twoside,lot,lof]{../../fithesis3}
 \usepackage[english]{babel}
 \usepackage{hologo}
 \usepackage{fancyvrb}
@@ -114,7 +114,8 @@
   class. Please note that the installation of the class is fully
   optional. You can typeset your thesis by either directly editing
   either the \path{pdflatex.tex} or the \path{xelatex.tex} example
-  files distributed along with the package or by pointing your source document to the class as follows:
+  files distributed along with the package or by pointing your
+  source document to the class as follows:
   \begin{minted}{latex}
     \documentclass{path/fithesis3}
     \thesissetup{basepath=path}
@@ -293,7 +294,50 @@
   of the \makeatletter\thesis@english@universityName
   \makeatother\ can be found in the technical documentation of the
   class \cite[chapter \emph{Style files}]{novotny15}
-  distributed along with the package.
+  distributed along with the package. Some of the more important
+  options are listed in Table \ref{tab:options} for your
+  convenience.
+  
+  \begin{table}[bt]
+    \begin{tabularx}{\textwidth}{lX}
+      \toprule
+        \emph{Name} & \emph{Description} \\
+      \midrule
+        \texttt{oneside} & Enables one-sided typesetting. This
+        is generally discouraged. Use only if you don't
+        have access to a double-sided printer, or if one-sided
+        typesetting is a formal requirement. \\
+        \texttt{twoside} & Enables double-sided typesetting.
+        Double-sided typesetting consumes less paper, is generally
+        regarded as more visually pleasing and is enabled by default.
+        Use at least 120 grams per square meter paper to prevent
+        show-through. \\
+        \texttt{color} & Enables colors. A colorful version of the
+        document is more visually pleasing, but shouldn't be used
+        in a printed version, if you don't have access to a color
+        printer. Unless you have a compelling reason not to, always use
+        this option in the e-version. \\
+        \texttt{monochrome} & Disables colors. Disabling colors is
+        generally discouraged, unless you don't have access to a
+        color printer. \\
+        \texttt{cover} & Typesets the cover of the thesis. Should
+        be generally used in the e-version. \\
+        \texttt{nocover} & Forbids the typesetting of the thesis
+        cover. Use, if you're typesetting the printed version and
+        have no desire to have a cover made for your thesis. This
+        option is the default. \\
+        \texttt{table} & Redefines the \texttt{tabular} and
+        \texttt{tabularx} environments to use alternating colors
+        for odd and even rows like this table does. \\
+        \texttt{oldtable} & Instructs the style not to redefine the
+        \texttt{tabular} and \texttt{tabularx} environments. This
+        option is the default. \\
+      \bottomrule
+    \end{tabularx}
+    \caption{A non-exhaustive list of basic options accepted by the
+      styles of the Masaryk University}
+    \label{tab:options}
+  \end{table}
 
   If you are unsatisfied with the arrangement of the mandatory
   parts of the thesis, you can disable it using the
