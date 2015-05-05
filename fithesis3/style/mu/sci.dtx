@@ -10,10 +10,11 @@
 %    \end{macrocode}
 % The file defines the color used with the hyperlinks.
 %    \begin{macrocode}
-\definecolor{thesis@color@faculty}{HTML}{00AF3F}
-\definecolor{thesis@color@facultylight}{HTML}{B8E8C9}
-\definecolor{thesis@color@facultyxlight}{HTML}{E0F5E8}
-\thesis@color@setup{links=thesis@color@faculty}
+\thesis@color@setup{
+  links={HTML}{00AF3F},
+  tableEmph={HTML}{00AF3F},
+  tableOdd={HTML}{E0F5E8},
+  tableEven={HTML}{B8E8C9}}
 %    \end{macrocode}
 % In addition to the main locale, the file also requires the
 % Czech and English locales.
@@ -269,7 +270,10 @@
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@titlePage}
 % The |\thesis@blocks@titlePage| private macro typesets the thesis
-% title page.
+% title page. Depending on the value of the |\ifthesis@color@|
+% conditional, the faculty logo is loaded from either
+% |\thesis@logopath|, if \texttt{false}, or from
+% |\thesis@logopath color/|, if \texttt{true}.
 % \begin{macrocode}
 \def\thesis@blocks@titlePage{{%
   \edef\thesis@logopath@color{\thesis@logopath\ifthesis@color@ color/\fi}

@@ -24,7 +24,7 @@
 %     starts on an left-hand (even-numbered) page.
 %
 %     The \DescribeMacro{\ifthesis@twoside@}|\ifthesis@twoside@|
-%     conditional is set to \textit{false} or \textit{true},
+%     conditional is set to \texttt{false} or \texttt{true},
 %     respectively. This value can be tested in the subsequently
 %     loaded style files.
 %   \item\texttt{onecolumn}, \texttt{twocolumn} -- The document
@@ -32,11 +32,32 @@
 %     respectively.
 %   \item\texttt{draft}, \texttt{final} -- Overful lines are or
 %     aren't marked within the document, respectively.
-%   \item\texttt{monochrome}, \texttt{color} -- The
+%   \item\texttt{monochrome}, \texttt{color} -- Certain
+%     typographical elements are going to be typeset in color. The
 %     \DescribeMacro{\ifthesis@color@}|\ifthesis@color@| conditional
-%     is set to \textit{false} or \textit{true}, respectively.
+%     is set to \texttt{false} or \texttt{true}, respectively.
 %     This value can be tested in the subsequently loaded style
 %     files.
+%   \item\texttt{oldtable}, \texttt{table} -- If the
+%     |\ifthesis@color@| conditional is \texttt{true}, then the
+%     definition of the \texttt{tabular} and \texttt{tabularx}
+%     commands aren't or are going to be altered, respectively,
+%     to better match the style. The \DescribeMacro%
+%     {\ifthesis@newtable@}|\ifthesis@newtable@| conditional
+%     is set to \texttt{false} or \texttt{true}, respectively.
+%
+%     The choice of the name is deliberate -- the redefinition of
+%     the table environments depends on the \textsf{xcolor}
+%     package, which needs to be loaded with the \texttt{table}
+%     option. Since so many other packages depend on the
+%     \textsf{xcolor} package and this style file is leaded at the
+%     very end of the preamble, there would either be a great
+%     chance of an option clash, or the option would have to be
+%     passed to the \textsf{xcolor} package from the body of the
+%     \textsf{fithesis3} class thus breaking the encapsulation.
+%     Naming the option \texttt{option} forces the option to be
+%     processed by the \textsf{xcolor} package as well and it is
+%     therefore an elegant solution to the problem at hand.
 %   \item\texttt{lot}, \texttt{nolot} -- |\listoftables| is or
 %     isn't going to be included in the
 %     \DescribeMacro{\thesis@blocks@tables}|\thesis@blocks@tables|
@@ -50,13 +71,13 @@
 %     is or isn't going to expand to the thesis cover.
 %
 %     The \DescribeMacro{\ifthesis@cover@}|\ifthesis@cover@|
-%     conditional is set to \textit{false} or \textit{true},
+%     conditional is set to \texttt{false} or \texttt{true},
 %     respectively. This value can be tested in the subsequently
 %     loaded style files.
 % \end{itemize}
 % The defaults are \texttt{12pt}, \texttt{twoside}, \texttt{final},
-% \texttt{monochrome}, \texttt{nolof}, \texttt{nolot} and
-% \texttt{nocover}.
+% \texttt{monochrome}, \texttt{oldtable}, \texttt{nolof},
+% \texttt{nolot} and \texttt{nocover}.
 %    \begin{macrocode}
 \DeclareOption{10pt}{\def\thesis@ptsize{0}}
 \DeclareOption{11pt}{\def\thesis@ptsize{1}}
@@ -73,6 +94,9 @@
 \newif\ifthesis@color@
 \DeclareOption{monochrome}{\thesis@color@false}
 \DeclareOption{color}{\thesis@color@true}
+\newif\ifthesis@newtable@
+\DeclareOption{table}{\thesis@newtable@true}
+\DeclareOption{oldtable}{\thesis@newtable@false}
 \DeclareOption{nolot}{\def\thesis@blocks@lot{}}
 \DeclareOption{lot}{\let\thesis@blocks@lot\listoftables}
 \DeclareOption{nolof}{\def\thesis@blocks@lof{}}
@@ -82,34 +106,14 @@
 \DeclareOption{cover}{\thesis@cover@true}
 
 % Options executed by default
-\ExecuteOptions{12pt,twoside,final,monochrome,lot,lof,nocover}
+\ExecuteOptions{12pt,twoside,final,monochrome,oldtable,lot,lof,
+  nocover}
 \ProcessOptions
 %    \end{macrocode}
 % The file loads the following packages: \begin{itemize}
 %   \item\textsf{xcolor} -- Adds support for color manipulation.
 %   \item\textsf{ifxetex} -- Used to detect the \Hologo{XeTeX}
 %     engine.
-%   \item\textsf{mathpazo} -- The virtual \texttt{mathpazo} fonts
-%     will be used for math. This package does not get loaded in
-%     \Hologo{XeTeX}.
-%   \item\textsf{tgpagella} -- Changes the default roman font family
-%     to \TeX\ Gyre Pagella. This package does not get loaded in
-%     \Hologo{XeTeX}.
-%   \item\textsf{lmodern} -- Changes the default sans-serif and
-%     monotype font faces to Latin Modern instead of the default
-%     Computer Modern font family.
-%   \item\textsf{cmap} -- Places an an explicit \texttt{ToUnicode}
-%     map in the resulting PDF file, allowing for extraction of
-%     the text of the document. This package does not get loaded
-%     under \Hologo{XeTeX}.
-%   \item\textsf{fontenc} -- The font encoding is set to Cork. This
-%     package does not get loaded under \Hologo{XeTeX}.
-%   \item\textsf{fontspec} -- Allows the selection of
-%     system-installed fonts. This package only gets loaded under
-%     \Hologo{XeTeX}.
-%   \item\textsf{unicode-math} -- Allows the selection of
-%     system-installed mathematical fonts. This package only gets
-%     loaded under \Hologo{XeTeX}.
 %   \item\textsf{graphix} -- Adds support for the inclusion of
 %     graphics files.
 %   \item\textsf{pdfpages} -- Adds support for the injection of PDF
@@ -120,20 +124,49 @@
 %   \item\textsf{keyval} -- Adds support for parsing
 %     comma-delimited lists of key-value pairs.
 % \end{itemize}
-% In addition to that, the \textsf{hyperref} package is configured
-% to support both roman and arabic page numbering in one document
-% and to decorate hyperlinks with an underline instead of a
-% rectangular box. Under \Hologo{XeTeX}, the \textsf{TeX Gyre
-% Pagella} and \textsf{TeX Gyre Pagella Math} are selected as the
-% main text and math fonts.
 %    \begin{macrocode}
 \thesis@require{xcolor}
+\thesis@require{graphicx}
+\thesis@require{pdfpages}
+\thesis@require{keyval}
 \thesis@require{ifxetex}
+%    \end{macrocode}
+% The following packages get only loaded, when the document is
+% being typeset using the \Hologo{XeTeX} engine: \begin{itemize}
+%   \item\textsf{fontspec} -- Allows the selection of
+%     system-installed fonts. This package only gets loaded under
+%     \Hologo{XeTeX}.
+%   \item\textsf{unicode-math} -- Allows the selection of
+%     system-installed mathematical fonts. This package only gets
+%     loaded under \Hologo{XeTeX}.
+% \end{itemize}
+% Under \Hologo{XeTeX}, the \textsf{TeX Gyre Pagella} and
+% \textsf{TeX Gyre Pagella Math} are also selected as the main text
+% and math fonts.
+%    \begin{macrocode}
 \ifxetex
   \thesis@require{fontspec}
   \thesis@require{unicode-math}
   \setmainfont[Ligatures=TeX]{TeX Gyre Pagella}
-  \setmathfont[math-style=ISO,bold-style=ISO,vargreek-shape=TeX]{TG Pagella Math}
+  \setmathfont[math-style=ISO,bold-style=ISO,vargreek-shape=TeX]%
+    {TG Pagella Math}
+%    \end{macrocode}
+% The following packages get only loaded, when the document is
+% not being typeset using the \Hologo{XeTeX} engine:
+% \begin{itemize}
+%   \item\textsf{mathpazo} -- The virtual \texttt{mathpazo} fonts
+%     will be used for math.
+%   \item\textsf{tgpagella} -- Changes the default roman font
+%     family to \TeX\ Gyre Pagella.
+%   \item\textsf{lmodern} -- Changes the default sans-serif and
+%     monotype font faces to Latin Modern instead of the default
+%     Computer Modern font family.
+%   \item\textsf{cmap} -- Places an an explicit \texttt{ToUnicode}
+%     map in the resulting PDF file, allowing for extraction of
+%     the text of the document.
+%   \item\textsf{fontenc} -- The font encoding is set to Cork.
+% \end{itemize}
+%    \begin{macrocode}
 \else
   \thesis@require{lmodern}
   \thesis@require{mathpazo}
@@ -141,10 +174,47 @@
   \RequirePackage[resetfonts]{cmap}
   \RequirePackage[T1]{fontenc}
 \fi
-\thesis@require{graphicx}
-\thesis@require{pdfpages}
+%    \end{macrocode}
+% If the |\thesis@newtable@| and |\thesis@color@| conditionals are
+% \texttt{true}, then the following package gets loaded:
+% \begin{itemize}
+%   \item\textsf{tabularx} -- Provides the \texttt{tabularx}
+%     environment, which enables the typesetting of tables with
+%     variable-width columns.
+% \end{itemize}
+% Subsequently, the \texttt{tabular} and \texttt{tabularx}
+% environments are redefined to better match the style.
+%    \begin{macrocode}
+\ifthesis@newtable@\ifthesis@color@
+  \thesis@require{tabularx}
+  \thesis@require{booktabs}
+  % The redefinition of `tabular`
+  \let\thesis@newtable@old\tabular
+  \let\thesis@newtable@endold\endtabular
+  \renewenvironment{tabular}%
+    {\rowcolors{1}{thesis@color@tableOdd}%
+                  {thesis@color@tableEven}%
+     \thesis@newtable@old}%
+    {\thesis@newtable@endold}
+  % The redefinition of `tabularx`
+  \let\thesis@newtable@oldx\tabularx
+  \let\thesis@newtable@endoldx\endtabularx
+  \renewenvironment{tabularx}%
+    {\rowcolors{1}{thesis@color@tableOdd}%
+                  {thesis@color@tableEven}%
+     \thesis@newtable@oldx}%
+    {\thesis@newtable@endoldx}
+  % Adjust the measurements
+  \setlength{\aboverulesep}{0pt}
+  \setlength{\belowrulesep}{0pt}
+  \setlength{\extrarowheight}{.75ex}
+\fi\fi
+%    \end{macrocode}
+% The \textsf{hyperref} package is configured to support both roman
+% and arabic page numbering in one document and to decorate
+% hyperlinks with an underline instead of a rectangular box.
+%    \begin{macrocode}
 \thesis@require{hyperref}
-\thesis@require{keyval}
 \hypersetup{
   pdfborderstyle={/S/U/W 1}, % Less obtrusive borders
   plainpages=false,          % Multiple page numbering support
@@ -166,12 +236,31 @@
 % The following key-value pairs are supported:
 % \begin{enumerate}
 %   \item\marg{\texttt{links}=color} -- Sets the color of hyperref
-%     links to \textit{color}. The default color is specified by
-%     the \textsf{hyperref} package.
+%     links to \textit{color} and stores it under the name
+%     \texttt{thesis@color@links}. The default color of links is
+%     specified by the \textsf{hyperref} package.
+%   \item\marg{\texttt{tableOdd}=color} -- Stores the color of the
+%     odd rows of the redefined \texttt{tabular} and
+%     \texttt{tabularx} environments under the name
+%     \texttt{thesis@color@tableOdd}.
+%   \item\marg{\texttt{tableEven}=color} -- Stores the color of the
+%     even rows of the redefined \texttt{tabular} and
+%     \texttt{tabularx} environments under the name
+%     \texttt{thesis@color@tableEven}.
+%   \item\marg{\texttt{tableEven}=color} -- Stores the color of an
+%     emphasized cell in the table for usage by the user under the
+%     name \texttt{thesis@color@tableEven}.
 % \end{enumerate}
 %    \begin{macrocode}
 \define@key{thesis@color}{links}{%
-  \hypersetup{linkbordercolor=#1}}
+  \definecolor{thesis@color@links}#1
+  \hypersetup{linkbordercolor=thesis@color@links}}
+\define@key{thesis@color}{tableOdd}{%
+  \definecolor{thesis@color@tableOdd}#1}
+\define@key{thesis@color}{tableEven}{%
+  \definecolor{thesis@color@tableEven}#1}
+\define@key{thesis@color}{tableEmph}{%
+  \definecolor{thesis@color@tableEmph}#1}
 %    \end{macrocode}
 % The file defines several blocks to be used in the redefinitions
 % of the |\thesis@preamble| and |\thesis@postable| private macros
@@ -323,7 +412,10 @@
 %        cover page
 % \end{itemize}
 % This allows the subsequently loaded style files to only redefine
-% certain parts of the title page.
+% certain parts of the title page. Depending on the value of the
+% |\ifthesis@color@| conditional, the faculty logo is loaded from
+% either |\thesis@logopath|, if \texttt{false}, or from
+% |\thesis@logopath color/|, if \texttt{true}.
 %    \begin{macrocode}
 \def\thesis@blocks@titlePage{%
     \thesis@blocks@clear%

@@ -10,10 +10,11 @@
 %    \end{macrocode}
 % The file defines the color used with the hyperlinks.
 %    \begin{macrocode}
-\definecolor{thesis@color@faculty}{HTML}{FFD451}
-\definecolor{thesis@color@facultylight}{HTML}{FFECB3}
-\definecolor{thesis@color@facultyxlight}{HTML}{FFF9E5}
-\thesis@color@setup{links=thesis@color@faculty}
+\thesis@color@setup{
+  links={HTML}{FFD451},
+  tableEmph={HTML}{FFD451},
+  tableOdd={HTML}{FFF9E5},
+  tableEven={HTML}{FFECB3}}
 %    \end{macrocode}
 % \begin{macro}{\thesis@blocks@titlePage}
 % The style file redefines the cover and title page footers to
