@@ -87,19 +87,30 @@
   \makeatletter\thesis@english@facultyName\makeatother. Note that
   this guide is typeset using the said style file.
 
-  \section{Required packages and fonts}
-  To be able to use the \textsf{fithesis3} class with the style of
-  the Faculty of Informatics, your \TeX{} installation needs to
-  include the \textsf{rapport3} class\footnote{See
+  \section{Required packages and fonts}\label{sec:req-packages}
+  In order to be able to use the \textsf{fithesis3} class, your
+  \TeX{} installation needs to include the \textsf{rapport3}
+  class\footnote{See
   \url{https://www.ctan.org/pkg/ntgclass}} and the following
-  packages: \begin{itemize}
-    \item\textsf{xcolor}, \textsf{ifxetex}, \textsf{graphix},
-      \textsf{pdfpages}, \textsf{hyperref}, \textsf{keyval}
+  packages:\begin{itemize}
+    \item\textsf{keyval}, \textsf{etoolbox}, \textsf{ifxetex}
+    \item\textsf{inputenc} -- only when typesetting with \TeX{} or
+      \hologo{pdfTeX}
+  \end{itemize} In order to be able to use the \textsf{fithesis3}
+  class with the style files of the
+  \makeatletter\thesis@english@facultyName% \makeatother, your
+  \TeX{} installation needs to also include the following
+  packages:\begin{itemize}
+    \item\textsf{xcolor}, \textsf{graphix}, \textsf{pdfpages},
+      \textsf{hyperref}, \textsf{keyval}
     \item\textsf{fontspec}, \textsf{unicode-math} -- only when
       typesetting with \Hologo{XeTeX}
     \item\textsf{mathpazo}, \textsf{tgpagella}, \textsf{lmodern},
        \textsf{cmap}, \textsf{fontenc} -- only when typesetting
        with \TeX{} or \hologo{pdfTeX}
+    \item\textsf{tabularx}, \textsf{booktabs} -- only when the
+      \texttt{table} option is specified (see Section
+      \ref{sec:options})
   \end{itemize}
   The \TeX{} Gyre Pagella\footnote{See
   \url{https://www.ctan.org/pkg/tex-gyre-pagella}} and
@@ -141,7 +152,7 @@
   archive distributed along with the package into into one of
   the \TeX{} directory structure trees within your \TeX{}
   distribution. If you are using \TeX{}Live\footnote{See
-  \url{https://www.tug.org/texlive/doc.html}, chapter 2.3},
+  \url{https://www.tug.org/texlive/doc.html}, Chapter 2.3},
   this can be achieved by creating a \texttt{texmf}
   directory within your user home directory and by extracting the
   \path{fithesis3.tds.zip} archive into it. For \Hologo{MiKTeX},
@@ -286,17 +297,16 @@
   class \cite[chapter \emph{Public API}]{novotny15} distributed
   along with the package.
 
-  \section{Controlling the layout}
-  The layout of the resulting document can be affected by the
-  \textit{options} passed to the class using the
+  \section{Style options}\label{sec:options}
+  The look of the resulting document can be affected by
+  \textit{options} passed to the style file using the
   \texttt{\string\documentclass[}\textit{options}\texttt{]\{fithes%
   is3\}} syntax. The complete list of options for the style files
-  of the \makeatletter\thesis@english@universityName
-  \makeatother\ can be found in the technical documentation of the
-  class \cite[chapter \emph{Style files}]{novotny15}
-  distributed along with the package. Some of the more important
-  options are listed in Table \ref{tab:options} for your
-  convenience.
+  of the \makeatletter\thesis@english@universityName\makeatother\
+  can be found in the technical documentation of the class
+  \cite[chapter \emph{Style files}]{novotny15} distributed along
+  with the package. Some of the more important options are listed
+  in Table \ref{tab:options} for your convenience.
   
   \begin{table}[bt]
     \begin{tabularx}{\textwidth}{lX}
@@ -339,9 +349,65 @@
     \label{tab:options}
   \end{table}
 
+  \chapter{Advanced usage}
+  This chapter is dedicated to more advanced \LaTeX\ users, who
+  wish to customize the class to better suit their needs.
+
+  \section{Throubleshooting option clashes}
+  When a package is required twice, each time with different
+  options, an option clash error occurs: \begin{Verbatim}%
+  [frame=single]
+! LaTeX Error: Option clash for package hyperref
+  \end{Verbatim}
+  If you need to pass \textit{options} to a \textit{package}
+  required by the \textsf{fithesis3} class, as specified in
+  Section \ref{sec:req-packages}, prepend the
+  \texttt{\string\Pass\-Options\-To\-Package\discretionary{}{}{}%
+  \{}\textit{options}\texttt{\}\discretionary{}{}{}%
+  \{}\textit{package}\texttt{\}} command before the
+  \texttt{\string\documentclass\{\ldots\}} statement.
+
+  If you need to pass \textit{options} to a \textit{package}
+  required by the style files of the \makeatletter%
+  \thesis@english@universityName\makeatother, you should, in most
+  cases, be able to just
+  \texttt{\string\use\-package\discretionary{}{}{}[}%
+  \textit{options}\texttt{]\discretionary{}{}{}\{}%
+  \textit{package}\texttt{\}} within the preamble. That is because
+  even though style files are loaded at the very end of the
+  preamble \cite[chapter \emph{Main routine}]{novotny15}, they load
+  most of the packages \emph{lazily}.  This means that the package
+  is only loaded, if it hasn't already been loaded by the user.
+  This has the advantage of avoiding option clashes.
+  
+  Some packages, however, need to be loaded with a specific set of
+  options in which case the lazy loading is not applicable and an
+  option clash may occur. In this case, you may not load the
+  package within the preamble and you can only alter the package
+  configuration after it has been loaded, if that's in any way
+  supported by the given package. You can do this by either
+  appending the package-specific code after the preamble, or by
+  loading the style files prematurely using the
+  \texttt{\string\thesis@load} command, if the package-specific
+  code needs to be included into the preamble:\begin{minted}{latex}
+    \documentclass{fithesis3}
+    % Preamble
+    \begin{document}
+      % The package-specific code goes here
+    \end{document}
+
+    \documentclass{fithesis3}
+    % Preamble
+    \makeatletter\thesis@load\makeatother
+    % The package-specific code goes here
+    \begin{document}
+    \end{document}
+  \end{minted}
+  
+  \section{Changing the layout}
   If you are unsatisfied with the arrangement of the mandatory
   parts of the thesis, you can disable it using the
-  \texttt{\string\thesis\-setup\{autoLayout\}} command:
+  \texttt{autoLayout} metadata key:
   \begin{minted}{latex}
     \documentclass{fithesis3}
     \thesissetup{faculty=?,autoLayout=false}
