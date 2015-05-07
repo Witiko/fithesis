@@ -347,47 +347,35 @@
   [frame=single]
 ! LaTeX Error: Option clash for package hyperref
   \end{Verbatim}
-  If you need to pass \textit{options} to a \textit{package}
+  If you need to load a \textit{package} with a specific set of
+  \textit{options} and the \textit{package} happens to be
   required by the \textsf{fithesis3} class, as specified in
   Section \ref{sec:req-packages}, prepend the
   \texttt{\string\Pass\-Options\-To\-Package\discretionary{}{}{}%
   \{}\textit{options}\texttt{\}\discretionary{}{}{}%
   \{}\textit{package}\texttt{\}} command before the
-  \texttt{\string\documentclass\{\ldots\}} statement.
+  \texttt{\string\documentclass\{\ldots\}} statement. If you need
+  to configure the \textit{package}, you can do that anywhere
+  within the document preamble.
 
-  If you need to pass \textit{options} to a \textit{package}
+  If you need to load a \textit{package} with a specific set of
+  \textit{options} and the \textit{package} happens to be
   required by the style files of the \makeatletter%
-  \thesis@english@universityName\makeatother, you should, in most
-  cases, be able to just
-  \texttt{\string\use\-package\discretionary{}{}{}[}%
-  \textit{options}\texttt{]\discretionary{}{}{}\{}%
-  \textit{package}\texttt{\}} within the preamble. That is because
-  even though style files are loaded at the very end of the
-  preamble \cite[chapter \emph{Main routine}]{novotny15}, they load
-  most of the packages \emph{lazily}.  This means that the package
-  is only loaded, if it hasn't already been loaded by the user.
-  This has the advantage of avoiding option clashes.
-  
-  Some packages, however, need to be loaded with a specific set of
-  options in which case the lazy loading is not applicable and an
-  option clash may occur. In this case, you may not load the
-  package within the preamble and you can only alter the package
-  configuration after it has been loaded, if that's in any way
-  supported by the given package. You can do this by either
-  appending the package-specific code after the preamble, or by
-  loading the style files prematurely using the
-  \texttt{\string\thesis@load} command, if the package-specific
-  code needs to be included into the preamble:\begin{minted}{latex}
-    \documentclass{fithesis3}
-    % Preamble
-    \begin{document}
-      % The package-specific code goes here
-    \end{document}
-
+  \thesis@english@universityName\makeatother, as specified in
+  Section \ref{sec:req-packages}, insert the
+  \texttt{\string\Pass\-Options\-To\-Package\discretionary{}{}{}%
+  \{}\textit{options}\texttt{\}\discretionary{}{}{}%
+  \{}\textit{package}\texttt{\}} command anywhere within the
+  document preamble. If you need to configure the \textit{package},
+  you can do that anywhere after the document preamble. If you need
+  to configure the \textit{package} within the preamble, you can
+  load the style files prematurely using the
+  \texttt{\string\thesis@load} command as follows:
+  \begin{minted}{latex}
     \documentclass{fithesis3}
     % Preamble
     \makeatletter\thesis@load\makeatother
-    % The package-specific code goes here
+    % The package configuration goes here
     \begin{document}
     \end{document}
   \end{minted}
