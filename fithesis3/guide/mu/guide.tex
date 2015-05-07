@@ -3,6 +3,7 @@
 \usepackage{hologo}
 \usepackage{fancyvrb}
 \usepackage{minted}
+\usepackage{ltxcmds}
 \usepackage[
   backend=biber,
   style=numeric,
@@ -11,26 +12,6 @@
 ]{biblatex}
 \addbibresource{guide.bib}
 \makeatletter
-% The following macro typesets the meaning of another macro
-\def\macromeaning#1{%
-  \makeatletter%
-    \let\ea\expandafter%
-    \ea\let\ea\thguide@macro\csname#1\endcsname%
-    \ea\def\ea\thguide@meaning\ea{\meaning\thguide@macro}%
-    \def\thguide@parse##1 ##2{%
-      ##1\ifx##2\relax\ea\@gobbletwo\else\\\fi\thguide@parse##2}%
-    \begin{verse}%
-      \ea\ifx\@empty\thguide@macro\@empty%
-        $\langle$\emph{empty}$\rangle$
-      \else%
-        \tt\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea%
-        \ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\thguide@parse\ea%
-        \ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\@gobbletwo\ea%
-        \ea\ea\ea\ea\ea\ea\@gobbletwo\ea\ea\ea\@gobbletwo\ea%
-        \@gobbletwo\thguide@meaning \relax%
-      \fi%
-    \end{verse}
-  \makeatother}
 \thesissetup{
   title=A fithesis3 user guide for the \thesis@english@facultyName,
   TeXtitle=A \textit{fithesis3} user guide\medskip\\\Large for the
@@ -102,7 +83,14 @@
   \TeX{} installation needs to also include the following
   packages:\begin{itemize}
     \item\textsf{xcolor}, \textsf{graphix}, \textsf{pdfpages},
-      \textsf{hyperref}, \textsf{keyval}
+      \textsf{hyperref}, \textsf{keyval}%
+      {\makeatletter % Typeset additional loaded packages
+      \def\thguide@prnpkg#1{\ltx@ifpackageloaded%
+        {#1}{, \textsf{#1}}{}}%
+      \thguide@prnpkg{tikz}%
+      \thguide@prnpkg{changepage}%
+      \thguide@prnpkg{setspace}%
+      \thguide@prnpkg{geometry}}
     \item\textsf{fontspec}, \textsf{unicode-math} -- only when
       typesetting with \Hologo{XeTeX}
     \item\textsf{mathpazo}, \textsf{tgpagella}, \textsf{lmodern},
@@ -446,9 +434,31 @@
   \texttt{\string\thesis\-@postamble} commands into the document, we
   can insert only certain blocks to which these commands expand.
   \texttt{\string\thesis\-@preamble} expands to the
-  following commands: \macromeaning{thesis@preamble} and
+  following commands:
+  {% The following macro typesets the meaning of another macro
+  \makeatletter
+  \def\thguide@macromeaning#1{%
+      \let\ea\expandafter%
+      \ea\let\ea\thguide@macro\csname#1\endcsname%
+      \ea\def\ea\thguide@meaning\ea{\meaning\thguide@macro}%
+      \def\thguide@parse##1 ##2{%
+        ##1\ifx##2\relax\ea\@gobbletwo\else\\\fi\thguide@parse##2}%
+      \begin{verse}%
+        \ea\ifx\@empty\thguide@macro\@empty%
+          $\langle$\emph{empty}$\rangle$
+        \else%
+          \tt\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea%
+          \ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\thguide@parse\ea%
+          \ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\@gobbletwo\ea%
+          \ea\ea\ea\ea\ea\ea\@gobbletwo\ea\ea\ea\@gobbletwo\ea%
+          \@gobbletwo\thguide@meaning \relax%
+        \fi%
+      \end{verse}}
+  \thguide@macromeaning{thesis@preamble} and
   \texttt{\string\thesis\-@postamble} 
-  expands to the following commands: \macromeaning{thesis@postamble}
+  expands to the following commands:
+  \thguide@macromeaning{thesis@postamble}
+  \makeatother}
   To create a document, which only contains the thesis cover prior
   to the text, we would use the following:
   \begin{minted}{latex}
