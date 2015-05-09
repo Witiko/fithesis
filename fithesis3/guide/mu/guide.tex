@@ -74,7 +74,8 @@
   class\footnote{See
   \url{https://www.ctan.org/pkg/ntgclass}} and the following
   packages:\begin{itemize}
-    \item\textsf{keyval}, \textsf{etoolbox}, \textsf{ifxetex}
+    \item\textsf{keyval}, \textsf{etoolbox}, \textsf{ifxetex},
+      \textsf{ifluatex}
     \item\textsf{inputenc} -- only when typesetting with \TeX{} or
       \hologo{pdfTeX}
   \end{itemize} In order to be able to use the \textsf{fithesis3}
@@ -92,7 +93,7 @@
       \thguide@prnpkg{setspace}%
       \thguide@prnpkg{geometry}}
     \item\textsf{fontspec}, \textsf{unicode-math} -- only when
-      typesetting with \Hologo{XeTeX}
+      typesetting with \Hologo{XeTeX} or \Hologo{LuaTeX}
     \item\textsf{mathpazo}, \textsf{tgpagella}, \textsf{lmodern},
        \textsf{cmap}, \textsf{fontenc} -- only when typesetting
        with \TeX{} or \hologo{pdfTeX}
@@ -104,9 +105,9 @@
   \url{https://www.ctan.org/pkg/tex-gyre-pagella}} and
   \TeX{} Gyre Pagella Math\footnote{See
   \url{https://www.ctan.org/pkg/tex-gyre-math-pagella}} OpenType
-  fonts are also required, when typesetting with \Hologo{XeTeX}.
-  All these are likely to be a part of any reasonably modern \TeX{}
-  distribution.
+  fonts are also required, when typesetting with \Hologo{XeTeX} or
+  \Hologo{LuaTeX}. All these are likely to be a part of any
+  reasonably modern \TeX{} distribution.
 
   \section{Installation}
   This section covers the installation of the \textsf{fithesis3}
@@ -127,7 +128,7 @@
   is not a part of
   your \TeX{} distribution already. This can be easily verified by
   creating the minimal document described in the next section and
-  typesetting it using either the \Hologo{XeTeX} or
+  typesetting it using either the \Hologo{XeTeX}, \Hologo{LuaTeX} or
   the \hologo{pdfTeX} engine, respectively. In case
   \textsf{fithesis3} is not a part of your \TeX{}
   distribution, the typesetting will prematurely terminate with the
@@ -163,14 +164,14 @@
       Hello world!
     \end{document}
   \end{minted}
-  Now typeset the document using either the \hologo{pdfLaTeX} or
-  the \Hologo{XeLaTeX} engine. If everything is set up correctly,
-  you should end up with a document containing all the mandatory
-  parts of a thesis and one page at the end containing a
-  \texttt{Hello world!} line. You should notice that the document
-  is implicitly typeset in English and that it contains lots of
-  placeholder stringss for missing metadata (see Figure
-  \ref{fig:example01}). In the next chapter, we are going to
+  Now typeset the document using either the \hologo{pdfTeX} or the
+  \Hologo{XeTeX} engine with the \LaTeX{} format. If everything is
+  set up correctly, you should end up with a document containing
+  all the mandatory parts of a thesis and one page at the end
+  containing a \texttt{Hello world!} line. You should notice that
+  the document is implicitly typeset in English and that it
+  contains lots of placeholder stringss for missing metadata (see
+  Figure \ref{fig:example01}). In the next chapter, we are going to
   address that.
   \begin{figure}[!bt]
     \centering\makeatletter
@@ -220,11 +221,13 @@
       are going to be typeset in Czech.
     \end{document}
   \end{minted}
-  The \textsf{babel} package can be used with Latin scripts, while
-  the \textsf{polyglossia} package supports non-Latin scripts as
-  well and is intended as a replacement of \textsf{babel} for
-  \Hologo{XeLaTeX}. You are advised to use one of them, depending
-  on your requirements.
+  At the time of writing this text, \textsf{polyglossia} can only
+  be used with \Hologo{XeTeX}, whereas \textsf{babel} can be used
+  with \hologo{pdfTeX}, \Hologo{XeTeX} and \Hologo{LuaTeX}. On the
+  ther hand, the \textsf{babel} package can only be used with Latin
+  scripts, while the \textsf{polyglossia} package supports
+  non-Latin scripts as well. You are advised to use one of them,
+  depending on your choice of \TeX{} engine and requirements.
 
   \section{Inserting metadata}
   Next, we are going to insert some metadata into the document. The
@@ -379,6 +382,9 @@
     \begin{document}
     \end{document}
   \end{minted}
+
+  This technique can also be used to override the default font,
+  which would be otherwise bothersome.
   
   \section{Changing the layout}
   If you are unsatisfied with the arrangement of the mandatory

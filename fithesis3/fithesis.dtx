@@ -72,7 +72,7 @@
 %<*class>
 \NeedsTeXFormat{LaTeX2e}
 % \fi
-\def\thesis@version{2015/04/26 v0.3.10 fithesis3 MU thesis class}
+\def\thesis@version{2015/05/09 v0.3.10 fithesis3 MU thesis class}
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -185,11 +185,12 @@
 %     code after the preamble.
 %   \item\textsf{ifxetex} -- Used to detect the \Hologo{XeTeX}
 %     engine.
+%   \item\textsf{ifluatex} -- Used to detect the \Hologo{LuaTeX}
+%     engine.
 %   \item\textsf{inputenc} -- Used to enable the input utf-8
 %     encoding. This package does not get loaded under
-%     \Hologo{XeTeX}.
+%     \Hologo{XeTeX} and \Hologo{LuaTeX}.
 % \end{itemize}
-% for string parsing and comparisons.
 % The \texttt{hyperref} package is also conditionally loaded during
 % the expansion of the |\thesis@load| macro (see section
 % \ref{sec:thesis@load}). Other packages may be required by the
@@ -200,9 +201,10 @@
 \RequirePackage{keyval}
 \RequirePackage{etoolbox}
 \RequirePackage{ifxetex}
-\ifxetex\else
+\RequirePackage{ifluatex}
+\ifxetex\else\ifluatex\else
   \RequirePackage[utf8]{inputenc}
-\fi
+\fi\fi
 %    \end{macrocode}
 % \section{Public API}
 % \label{sec:public-api}

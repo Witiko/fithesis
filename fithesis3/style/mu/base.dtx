@@ -114,6 +114,8 @@
 %   \item\textsf{xcolor} -- Adds support for color manipulation.
 %   \item\textsf{ifxetex} -- Used to detect the \Hologo{XeTeX}
 %     engine.
+%   \item\textsf{ifluatex} -- Used to detect the \Hologo{LuaTeX}
+%     engine.
 %   \item\textsf{graphix} -- Adds support for the inclusion of
 %     graphics files.
 %   \item\textsf{pdfpages} -- Adds support for the injection of PDF
@@ -130,21 +132,38 @@
 \thesis@require{pdfpages}
 \thesis@require{keyval}
 \thesis@require{ifxetex}
+\thesis@require{ifluatex}
+%    \end{macrocode}
+% Using the |\ifxetex| and |\ifluatex| conditionals, a compound
+% \DescribeMacro{\thesis@ifxeluatex}|\thesis@ifxeluatex|
+% conditional was constructed. This conditional can be used by
+% subsequently loaded style files to test for either the
+% \Hologo{XeTeX} or \Hologo{LuaTeX} engline being used.
+%    \begin{macrocode}
+\def\thesis@ifxeluatex{{%
+  \let\x\expandafter\let\f\csname\let\t\endcsname
+  \ifxetex\x\f\x i\x f\x t\x r\x u\x e\x\t
+  \else
+    \ifluatex\x\x\x\f\x\x\x i\x\x\x f\x\x\x t\x\x\x r%
+             \x\x\x u\x\x\x e\x\x\x\t
+    \else    \x\x\x\f\x\x\x i\x\x\x f\x\x\x f\x\x\x a%
+             \x\x\x l\x\x\x s\x\x\x e\x\x\x\t
+    \fi
+  \fi}}
 %    \end{macrocode}
 % The following packages get only loaded, when the document is
-% being typeset using the \Hologo{XeTeX} engine: \begin{itemize}
+% being typeset using the \Hologo{XeTeX} or \Hologo{LuaTeX}
+% engine: \begin{itemize}
 %   \item\textsf{fontspec} -- Allows the selection of
-%     system-installed fonts. This package only gets loaded under
-%     \Hologo{XeTeX}.
+%     system-installed fonts.
 %   \item\textsf{unicode-math} -- Allows the selection of
-%     system-installed mathematical fonts. This package only gets
-%     loaded under \Hologo{XeTeX}.
+%     system-installed mathematical fonts.
 % \end{itemize}
 % Under \Hologo{XeTeX}, the \textsf{TeX Gyre Pagella} and
 % \textsf{TeX Gyre Pagella Math} are also selected as the main text
 % and math fonts.
 %    \begin{macrocode}
-\ifxetex
+\thesis@ifxeluatex
   \thesis@require{fontspec}
   \thesis@require{unicode-math}
   \setmainfont[Ligatures=TeX]{TeX Gyre Pagella}
