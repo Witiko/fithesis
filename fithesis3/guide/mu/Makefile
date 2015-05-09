@@ -13,6 +13,7 @@ $(PDFFILES): $(TEMPLATE) $(BIB)
 	pdflatex -shell-escape $(basename $@).tex
 	biber $(basename $@)
 	pdflatex -shell-escape $(basename $@).tex
+	pdflatex -shell-escape $(basename $@).tex
 
 # This target removes any auxiliary files.
 clean:
