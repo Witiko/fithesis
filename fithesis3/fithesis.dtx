@@ -805,6 +805,19 @@
   \def\thesis@keywords{#1}}
 %    \end{macrocode}
 % \end{macro}
+% \begin{macro}{\thesis@TeXkeywords}
+% \subsubsection{The \texttt{TeXkeywords} key}
+% The \marg{\texttt{TeXkeywords}=list} pair sets the \TeX\ keywords
+% of the thesis to the comma-delimited \textit{list}. The
+% \textit{list} is used, when typesetting the keywords, whereas
+% |\thesis@keywords| is a plain text. The \textit{list} is stored
+% within the private |\thesis@TeXkeywords| macro.
+%    \begin{macrocode}
+\def\thesis@TeXkeywords{\thesis@keywords}
+\define@key{thesis}{TeXkeywords}{%
+  \def\thesis@TeXkeywords{#1}}
+%    \end{macrocode}
+% \end{macro}
 % \begin{macro}{\thesis@keywordsEn}
 % \subsubsection{The \texttt{keywordsEn} key}
 % The \marg{\texttt{keywordsEn}=list} pair sets the English
@@ -815,6 +828,19 @@
 \thesis@def{keywordsEn}
 \define@key{thesis}{keywordsEn}{%
   \def\thesis@keywordsEn{#1}}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\thesis@TeXkeywordsEn}
+% \subsubsection{The \texttt{TeXkeywordsEn} key}
+% The \marg{\texttt{TeXkeywordsEn}=list} pair sets the English
+% \TeX\ keywords of the thesis to the comma-delimited \textit{list}.
+% The \textit{list} is used, when typesetting the keywords, whereas
+% |\thesis@keywordsEn| is a plain text. The \textit{list} is stored
+% within the private |\thesis@TeXkeywordsEn| macro.
+%    \begin{macrocode}
+\def\thesis@TeXkeywordsEn{\thesis@keywordsEn}
+\define@key{thesis}{TeXkeywordsEn}{%
+  \def\thesis@TeXkeywordsEn{#1}}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\thesis@abstract}
