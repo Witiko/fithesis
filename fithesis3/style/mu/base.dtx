@@ -24,7 +24,7 @@
 %     starts on an left-hand (even-numbered) page.
 %
 %     The \DescribeMacro{\ifthesis@twoside@}|\ifthesis@twoside@|
-%     conditional is set to \texttt{false} or \texttt{true},
+%     conditional is set to either \texttt{false} or \texttt{true},
 %     respectively. This value can be tested in the subsequently
 %     loaded style files.
 %   \item\texttt{onecolumn}, \texttt{twocolumn} -- The document
@@ -32,32 +32,45 @@
 %     respectively.
 %   \item\texttt{draft}, \texttt{final} -- Overful lines are or
 %     aren't marked within the document, respectively.
-%   \item\texttt{monochrome}, \texttt{color} -- Certain
-%     typographical elements are going to be typeset in color. The
-%     \DescribeMacro{\ifthesis@color@}|\ifthesis@color@| conditional
-%     is set to \texttt{false} or \texttt{true}, respectively.
-%     This value can be tested in the subsequently loaded style
-%     files.
-%   \item\texttt{oldtable}, \texttt{table} -- If the
+%   \item\texttt{palatino}, \texttt{nopalatino} -- The default
+%     roman and math font family is going to be either set to
+%     Palatino or left untouched, respectively. The
+%     \DescribeMacro{\ifthesis@palatino@}|\ifthesis@palatino@|
+%     conditional is set to either \texttt{true} or \texttt{false},
+%     respectively.  This value can be tested in the subsequently
+%     loaded style files.
+%
+%     The Palatino font is a part of the visual identity of the
+%     Faculty of Invormatics, at which the document class was
+%     created.
+%   \item\texttt{color}, \texttt{monochrome} -- Certain
+%     typographical elements either are or aren't going to be
+%     typeset in color, respectively. The
+%     \DescribeMacro{\ifthesis@color@}|\ifthesis@color@|
+%     conditional is set to either \texttt{true} or \texttt{false},
+%     respectively.  This value can be tested in the subsequently
+%     loaded style files.
+%   \item\texttt{table}, \texttt{oldtable} -- If the
 %     |\ifthesis@color@| conditional is \texttt{true}, then the
 %     definition of the \texttt{tabular} and \texttt{tabularx}
-%     commands aren't or are going to be altered, respectively,
-%     to better match the style. The \DescribeMacro%
-%     {\ifthesis@newtable@}|\ifthesis@newtable@| conditional
-%     is set to \texttt{false} or \texttt{true}, respectively.
+%     commands either are or aren't going to be altered to better
+%     match the style, respectively. The \DescribeMacro%
+%     {\ifthesis@newtable@}|\ifthesis@newtable@| conditional is set
+%     to either \texttt{true} or \texttt{false}, respectively.
 %
 %     The choice of the name is deliberate -- the redefinition of
 %     the table environments depends on the \textsf{xcolor}
 %     package, which needs to be loaded with the \texttt{table}
 %     option. Since so many other packages depend on the
-%     \textsf{xcolor} package and this style file is leaded at the
+%     \textsf{xcolor} package and this style file is loaded at the
 %     very end of the preamble, there would either be a great
 %     chance of an option clash, or the option would have to be
-%     passed to the \textsf{xcolor} package from the body of the
-%     \textsf{fithesis3} class thus breaking the encapsulation.
-%     Naming the option \texttt{option} forces the option to be
-%     processed by the \textsf{xcolor} package as well and it is
-%     therefore an elegant solution to the problem at hand.
+%     passed to the \textsf{xcolor} package before the preamble
+%     from the body of the \textsf{fithesis3} class thus breaking
+%     the encapsulation. Naming the option \texttt{table} forces
+%     the option to be processed by the \textsf{xcolor} package as
+%     well and it is therefore an elegant solution to the problem
+%     at hand.
 %   \item\texttt{lot}, \texttt{nolot} -- |\listoftables| is or
 %     isn't going to be included in the
 %     \DescribeMacro{\thesis@blocks@tables}|\thesis@blocks@tables|
@@ -75,9 +88,6 @@
 %     respectively. This value can be tested in the subsequently
 %     loaded style files.
 % \end{itemize}
-% The defaults are \texttt{12pt}, \texttt{twoside}, \texttt{final},
-% \texttt{monochrome}, \texttt{oldtable}, \texttt{nolof},
-% \texttt{nolot} and \texttt{nocover}.
 %    \begin{macrocode}
 \DeclareOption{10pt}{\def\thesis@ptsize{0}}
 \DeclareOption{11pt}{\def\thesis@ptsize{1}}
@@ -94,6 +104,9 @@
 \newif\ifthesis@color@
 \DeclareOption{monochrome}{\thesis@color@false}
 \DeclareOption{color}{\thesis@color@true}
+\newif\ifthesis@palatino@
+\DeclareOption{palatino}{\thesis@palatino@true}
+\DeclareOption{nopalatino}{\thesis@palatino@false}
 \newif\ifthesis@newtable@
 \DeclareOption{table}{\thesis@newtable@true}
 \DeclareOption{oldtable}{\thesis@newtable@false}
@@ -104,10 +117,11 @@
 \newif\ifthesis@cover@
 \DeclareOption{nocover}{\thesis@cover@false}
 \DeclareOption{cover}{\thesis@cover@true}
-
-% Options executed by default
-\ExecuteOptions{12pt,twoside,final,monochrome,oldtable,lot,lof,
-  nocover}
+%    \end{macrocode}
+% These are the default options:
+%    \begin{macrocode}
+\ExecuteOptions{12pt,twoside,final,monochrome,palatino,
+  oldtable,lot,lof,nocover}
 \ProcessOptions
 %    \end{macrocode}
 % The file loads the following packages: \begin{itemize}
@@ -135,13 +149,13 @@
 \thesis@require{ifluatex}
 %    \end{macrocode}
 % Using the |\ifxetex| and |\ifluatex| conditionals, a compound
-% \DescribeMacro{\thesis@ifxeluatex}|\thesis@ifxeluatex|
+% \DescribeMacro{\ifthesis@xeluatex}|\ifthesis@xeluatex|
 % conditional was constructed. This conditional can be used by
-% subsequently loaded style files to test for either the
-% \Hologo{XeTeX} or \Hologo{LuaTeX} engline being used.
+% subsequently loaded style files to test,whether either the
+% \Hologo{XeTeX} or the \Hologo{LuaTeX} engine is being used.
 %    \begin{macrocode}
 {\let\x\expandafter
-\x\global\x\let\x\thesis@ifxeluatex\csname if%
+\x\global\x\let\x\ifthesis@xeluatex\csname if%
   \ifxetex true\else
     \ifluatex\x\x\x t\x\x\x r\x\x\x u\x\x\x e%
     \else   f\x\x\x a\x\x\x l\x\x\x s\x\x\x e%
@@ -160,35 +174,44 @@
 % \textsf{TeX Gyre Pagella Math} are also selected as the main text
 % and math fonts.
 %    \begin{macrocode}
-\thesis@ifxeluatex
-  \thesis@require{fontspec}
-  \thesis@require{unicode-math}
-  \setmainfont[Ligatures=TeX]{TeX Gyre Pagella}
-  \setmathfont[math-style=ISO,bold-style=ISO,vargreek-shape=TeX]%
-    {TG Pagella Math}
+\ifthesis@xeluatex
+  \ifthesis@palatino@
+    \thesis@require{fontspec}
+    \thesis@require{unicode-math}
+    \setmainfont[Ligatures=TeX]{TeX Gyre Pagella}
+    \setmathfont[math-style=ISO,bold-style=ISO,vargreek-shape=TeX]%
+      {TG Pagella Math}
+  \fi
 %    \end{macrocode}
 % The following packages get only loaded, when the document is
 % not being typeset using the \Hologo{XeTeX} engine:
 % \begin{itemize}
 %   \item\textsf{mathpazo} -- The virtual \texttt{mathpazo} fonts
-%     will be used for math.
+%     will be used for math. Only loaded, if the
+%     |\ifthesis@palatino@| conditional is \texttt{true}.
 %   \item\textsf{tgpagella} -- Changes the default roman font
-%     family to \TeX\ Gyre Pagella.
+%     family to \TeX\ Gyre Pagella. Only loaded, if the
+%     |\ifthesis@palatino@| conditional is \texttt{true}.
 %   \item\textsf{lmodern} -- Changes the default sans-serif and
 %     monotype font faces to Latin Modern instead of the default
-%     Computer Modern font family.
+%     Computer Modern font family. Only loaded, if the
+%     |\ifthesis@palatino@| conditional is \texttt{true}.
+%   \item\textsf{fontenc} -- The font encoding is set to Cork.
+%     Only loaded, if the |\ifthesis@palatino@| conditional
+%     is \texttt{true}.
 %   \item\textsf{cmap} -- Places an an explicit \texttt{ToUnicode}
 %     map in the resulting PDF file, allowing for extraction of
 %     the text of the document.
-%   \item\textsf{fontenc} -- The font encoding is set to Cork.
 % \end{itemize}
 %    \begin{macrocode}
 \else
-  \thesis@require{lmodern}
-  \thesis@require{mathpazo}
-  \thesis@require{tgpagella}
+  \ifthesis@palatino@
+    \thesis@require{lmodern}
+    \thesis@require{mathpazo}
+    \thesis@require{tgpagella}
+    \RequirePackage[T1]{fontenc}
+  \fi
   \RequirePackage[resetfonts]{cmap}
-  \RequirePackage[T1]{fontenc}
 \fi
 %    \end{macrocode}
 % If the |\thesis@newtable@| and |\thesis@color@| conditionals are
