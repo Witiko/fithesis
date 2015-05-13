@@ -1211,26 +1211,6 @@
 %    \begin{macrocode}
 \ifx\thesis@pages\undefined\def\thesis@pages{??}\fi
 %    \end{macrocode}
-% \begin{macro}{\thesis@includegraphics}
-% The |\thesis@includegraphics|\oarg{options}\marg{path} macro has
-% the same syntax and semantics as the \LaTeX\ |\includegraphics|
-% command, but unlike |\includegraphics|, it expands UTF-8 paths
-% without them being mangled by the \textsf{inputenc} package.
-%    \begin{macrocode}
-\newcommand{\thesis@includegraphics}[2][]{{%
-  % Temporarily disable UTF-8 mangling
-  \def\UTFviii@two@octets##1##2{%
-    \string##1\string##2}%
-  \def\UTFviii@three@octets##1##2##3{%
-    \string##1\string##2\string##3}%
-  \def\UTFviii@four@octets##1##2##3##4{%
-    \string##1\string##2\string##3\string##4}%
-  % Expand the path
-  \edef\@argument{#2}%
-  % Include the graphics
-  \includegraphics[#1]{\@argument}}}
-%    \end{macrocode}
-% \end{macro}
 % \iffalse
 %</class>
 % ^^A Old fithesis classes

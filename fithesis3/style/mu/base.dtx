@@ -352,12 +352,12 @@
 % \end{macro}\begin{macro}{\thesis@blocks@facultyLogo@monochrome}
 % The |\thesis@blocks@facultyLogo@monochrome|\oarg{options} private
 % macro typesets the |\thesis@logopath\thesis@facultyLogo| logo
-% with the given \textit{options} passed to
-% |\thesis@includegraphics|.
+% with the given \textit{options} passed to |\includegraphics|.
 % \begin{macrocode}
 \newcommand{\thesis@blocks@facultyLogo@monochrome}[1]%
-  [width=40mm]{\thesis@includegraphics[#1]{%
-    \thesis@logopath\thesis@facultyLogo}}
+  [width=40mm]{{%
+    \edef\@path{\thesis@logopath\thesis@facultyLogo}%
+    \includegraphics[#1]{\@path}}}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@facultyLogo@color}
 % The |\thesis@blocks@facultyLogo@color|\oarg{options} private
@@ -366,22 +366,24 @@
 % is \texttt{false} or the
 % |\thesis@logopath color/\thesis@facultyLogo| logo
 % otherwise with the given \textit{options} passed to
-% |\thesis@includegraphics|.
+% |\includegraphics|.
 % \begin{macrocode}
-\newcommand{\thesis@blocks@facultyLogo@color}[1][width=40mm]{
-  \thesis@includegraphics[#1]{%
-    \thesis@logopath\ifthesis@color@ color/\fi\thesis@facultyLogo}}
+\newcommand{\thesis@blocks@facultyLogo@color}[1]%
+  [width=40mm]{{%
+    \edef\@path{\thesis@logopath\ifthesis@color@%
+      color/\fi\thesis@facultyLogo}%
+    \includegraphics[#1]{\@path}}}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@universityLogo@monochrome}
 % The |\thesis@blocks@universityLogo@monochrome|\oarg{options}
 % private macro typesets the
 % |\thesis@logopath\thesis@universityLogo| logo
-% with the given \textit{options} passed to
-% |\thesis@includegraphics|.
+% with the given \textit{options} passed to |\includegraphics|.
 % \begin{macrocode}
 \newcommand{\thesis@blocks@universityLogo@monochrome}[1]%
-  [width=40mm]{\thesis@includegraphics[#1]{%
-    \thesis@logopath\thesis@universityLogo}}
+  [width=40mm]{{%
+    \edef\@path{\thesis@logopath\thesis@universityLogo}%
+    \includegraphics[#1]{\@path}}}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@universityLogo@color}
 % The |\thesis@blocks@universityLogo@color|\oarg{options} private
@@ -389,13 +391,13 @@
 % logo, if the |\ifthesis|\discretionary{}{}{}|@color@| conditional
 % is \texttt{false} or the
 % |\thesis@logopath color/\thesis@universityLogo| logo otherwise
-% with the given \textit{options} passed to
-% |\thesis@includegraphics|.
+% with the given \textit{options} passed to |\includegraphics|.
 % \begin{macrocode}
-\newcommand{\thesis@blocks@universityLogo@color}[1][width=40mm]{
-  \thesis@includegraphics[#1]{%
-    \thesis@logopath\ifthesis@color@ color/\fi%
-    \thesis@universityLogo}}
+\newcommand{\thesis@blocks@universityLogo@color}[1]%
+  [width=40mm]{{%
+    \edef\@path{\thesis@logopath\ifthesis@color@%
+      color/\fi\thesis@universityLogo}%
+    \includegraphics[#1]{\@path}}}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@cover}
 % The |\thesis@blocks@cover| private macro typesets the thesis

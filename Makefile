@@ -1,7 +1,7 @@
-.PHONY: all clear
+.PHONY: all clean
 all:
 	make -C fithesis3
-	make pdflatex.pdf xelatex.pdf lualatex.pdf clear
+	make pdflatex.pdf xelatex.pdf lualatex.pdf clean
 
 # This target typesets the pdfLaTeX example.
 pdflatex.pdf: pdflatex.tex
@@ -19,10 +19,10 @@ lualatex.pdf: lualatex.tex
 	lualatex $<
 
 # This target removes any auxiliary files.
-clear:
+clean:
 	rm -f *.aux *.log *.out *.toc *.lot *.lof
 
 # This target removes any auxiliary files
 # and the output PDF file.
-implode: clear
+implode: clean
 	rm -f pdflatex.pdf xelatex.pdf lualatex.pdf
