@@ -41,7 +41,7 @@
 %     loaded style files.
 %
 %     The Palatino font is a part of the visual identity of the
-%     Faculty of Invormatics, at which the document class was
+%     Faculty of Informatics, at which the document class was
 %     created.
 %   \item\texttt{color}, \texttt{monochrome} -- Certain
 %     typographical elements either are or aren't going to be
@@ -184,34 +184,30 @@
   \fi
 %    \end{macrocode}
 % The following packages get only loaded, when the document is
-% not being typeset using the \Hologo{XeTeX} engine:
+% not being typeset using the \Hologo{XeTeX} engine and the
+% |\ifthesis@palatino@| conditional is \texttt{true}:
 % \begin{itemize}
-%   \item\textsf{mathpazo} -- The virtual \texttt{mathpazo} fonts
-%     will be used for math. Only loaded, if the
-%     |\ifthesis@palatino@| conditional is \texttt{true}.
-%   \item\textsf{tgpagella} -- Changes the default roman font
-%     family to \TeX\ Gyre Pagella. Only loaded, if the
-%     |\ifthesis@palatino@| conditional is \texttt{true}.
-%   \item\textsf{lmodern} -- Changes the default sans-serif and
-%     monotype font faces to Latin Modern instead of the default
-%     Computer Modern font family. Only loaded, if the
-%     |\ifthesis@palatino@| conditional is \texttt{true}.
-%   \item\textsf{fontenc} -- The font encoding is set to Cork.
-%     Only loaded, if the |\ifthesis@palatino@| conditional
-%     is \texttt{true}.
 %   \item\textsf{cmap} -- Places an an explicit \texttt{ToUnicode}
 %     map in the resulting PDF file, allowing for extraction of
 %     the text of the document.
+%   \item\textsf{mathpazo} -- The virtual \texttt{mathpazo} fonts
+%     will be used for math.
+%   \item\textsf{tgpagella} -- Changes the default roman font
+%     family to \TeX\ Gyre Pagella.
+%   \item\textsf{lmodern} -- Changes the default sans-serif and
+%     monotype font faces to Latin Modern instead of the default
+%     Computer Modern font family.
+%   \item\textsf{fontenc} -- The font encoding is set to Cork.
 % \end{itemize}
 %    \begin{macrocode}
 \else
   \ifthesis@palatino@
+    \RequirePackage[resetfonts]{cmap}
     \thesis@require{lmodern}
     \thesis@require{mathpazo}
     \thesis@require{tgpagella}
     \RequirePackage[T1]{fontenc}
   \fi
-  \RequirePackage[resetfonts]{cmap}
 \fi
 %    \end{macrocode}
 % If the |\thesis@newtable@| and |\thesis@color@| conditionals are
@@ -222,27 +218,33 @@
 %     variable-width columns.
 % \end{itemize}
 % Subsequently, the \texttt{tabular} and \texttt{tabularx}
-% environments are redefined to better match the style.
+% environments are redefined to better match the style of the given
+% faculty.
+% 
+% The |\thesis@newtable@old| and |\endthesis@newtable@old| macros
+% containing the original definition of the |tabular| environment
+% are always defined and are available for subsequently loaded
+% styles in case the typesetting of unaltered tables is required.
 %    \begin{macrocode}
+\let\thesis@newtable@old\tabular
+\let\endthesis@newtable@old\endtabular
 \ifthesis@newtable@\ifthesis@color@
   \thesis@require{tabularx}
   \thesis@require{booktabs}
   % The redefinition of `tabular`
-  \let\thesis@newtable@old\tabular
-  \let\thesis@newtable@endold\endtabular
   \renewenvironment{tabular}%
     {\rowcolors{1}{thesis@color@tableOdd}%
                   {thesis@color@tableEven}%
      \thesis@newtable@old}%
-    {\thesis@newtable@endold}
+    {\endthesis@newtable@old}
   % The redefinition of `tabularx`
   \let\thesis@newtable@oldx\tabularx
-  \let\thesis@newtable@endoldx\endtabularx
+  \let\endthesis@newtable@oldx\endtabularx
   \renewenvironment{tabularx}%
     {\rowcolors{1}{thesis@color@tableOdd}%
                   {thesis@color@tableEven}%
      \thesis@newtable@oldx}%
-    {\thesis@newtable@endoldx}
+    {\endthesis@newtable@oldx}
   % Adjust the measurements
   \setlength{\aboverulesep}{0pt}
   \setlength{\belowrulesep}{0pt}
@@ -347,6 +349,54 @@
     \newpage%
   \fi}
 %    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@blocks@facultyLogo@monochrome}
+% The |\thesis@blocks@facultyLogo@monochrome|\oarg{options} private
+% macro typesets the |\thesis@logopath\thesis@facultyLogo| logo
+% with the given \textit{options} passed to
+% |\thesis@includegraphics|.
+% \begin{macrocode}
+\newcommand{\thesis@blocks@facultyLogo@monochrome}[1]%
+  [width=40mm]{\thesis@includegraphics[#1]{%
+    \thesis@logopath\thesis@facultyLogo}}
+%    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@blocks@facultyLogo@color}
+% The |\thesis@blocks@facultyLogo@color|\oarg{options} private
+% macro typesets either the |\thesis@logopath\thesis@facultyLogo|
+% logo, if the |\ifthesis|\discretionary{}{}{}|@color@| conditional
+% is \texttt{false} or the
+% |\thesis@logopath color/\thesis@facultyLogo| logo
+% otherwise with the given \textit{options} passed to
+% |\thesis@includegraphics|.
+% \begin{macrocode}
+\newcommand{\thesis@blocks@facultyLogo@color}[1][width=40mm]{
+  \thesis@includegraphics[#1]{%
+    \thesis@logopath\ifthesis@color@ color/\fi\thesis@facultyLogo}}
+%    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@blocks@universityLogo@monochrome}
+% The |\thesis@blocks@universityLogo@monochrome|\oarg{options}
+% private macro typesets the
+% |\thesis@logopath\thesis@universityLogo| logo
+% with the given \textit{options} passed to
+% |\thesis@includegraphics|.
+% \begin{macrocode}
+\newcommand{\thesis@blocks@universityLogo@monochrome}[1]%
+  [width=40mm]{\thesis@includegraphics[#1]{%
+    \thesis@logopath\thesis@universityLogo}}
+%    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@blocks@universityLogo@color}
+% The |\thesis@blocks@universityLogo@color|\oarg{options} private
+% macro typesets either the |\thesis@logopath\thesis@universityLogo|
+% logo, if the |\ifthesis|\discretionary{}{}{}|@color@| conditional
+% is \texttt{false} or the
+% |\thesis@logopath color/\thesis@universityLogo| logo otherwise
+% with the given \textit{options} passed to
+% |\thesis@includegraphics|.
+% \begin{macrocode}
+\newcommand{\thesis@blocks@universityLogo@color}[1][width=40mm]{
+  \thesis@includegraphics[#1]{%
+    \thesis@logopath\ifthesis@color@ color/\fi%
+    \thesis@universityLogo}}
+%    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@cover}
 % The |\thesis@blocks@cover| private macro typesets the thesis
 % cover. It is composed of three private macros:
@@ -372,8 +422,7 @@
       \thispagestyle{empty}%
       \begin{center}%
         \thesis@blocks@cover@header%
-        \includegraphics[width=40mm]{%
-          \thesis@logopath\thesis@facultyLogo}\\[0.4in]%
+        \thesis@blocks@facultyLogo@monochrome\\[0.4in]%
         \let\footnotesize\small%
         \let\footnoterule\relax{}%
         \thesis@blocks@cover@content%
@@ -462,10 +511,7 @@
       \thispagestyle{empty}%
       \begin{center}%
         \thesis@blocks@titlePage@header%
-        {\edef\thesis@logopath@color{%
-          \thesis@logopath\ifthesis@color@ color/\fi}
-        \includegraphics[width=40mm]{%
-          \thesis@logopath@color\thesis@facultyLogo}\\[0.4in]}%
+        \thesis@blocks@facultyLogo@color\\[0.4in]%
         \let\footnotesize\small%
         \let\footnoterule\relax{}%
         \thesis@blocks@titlePage@content%

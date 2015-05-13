@@ -100,7 +100,8 @@
       \textwidth-\@left-\@skip}
     % Typeset the table
     \renewcommand{\arraystretch}{2}
-    \begin{tabular}{@{}p{\@left}@{\hskip\@skip}p{\@right}@{}}
+    \begin{thesis@newtable@old}%
+      {@{}p{\@left}@{\hskip\@skip}p{\@right}@{}}
       \textbf{\thesis@czech@bib@author:} &
         \noindent\parbox[t]{\@right}{
           \thesis@author\\
@@ -126,7 +127,7 @@
         & \thesis@pages \\
       \textbf{\thesis@czech@bib@keywords:}
         & \thesis@TeXkeywords \\
-    \end{tabular}}
+    \end{thesis@newtable@old}}
   \end{alwayssingle}}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@bibEntryEn}
@@ -202,7 +203,8 @@
         \textwidth-\@left-\@skip}
     % Typeset the table
     \renewcommand{\arraystretch}{2}
-    \begin{tabular}{@{}p{\@left}@{\hskip\@skip}p{\@right}@{}}
+    \begin{thesis@newtable@old}%
+      {@{}p{\@left}@{\hskip\@skip}p{\@right}@{}}
         \textbf{\thesis@english@bib@author:} &
           \noindent\parbox[t]{\@right}{
             \thesis@author\\
@@ -228,7 +230,7 @@
           & \thesis@pages \\
         \textbf{\thesis@english@bib@keywords:}
           & \thesis@TeXkeywordsEn \\
-      \end{tabular}}
+      \end{thesis@newtable@old}}
     \end{alwayssingle}
   }\fi}
 %    \end{macrocode}
@@ -284,8 +286,7 @@
     % The top of the page
     \begin{adjustwidth}{-12mm}{}
       \begin{minipage}{30mm}
-        \includegraphics[width=30mm]{%
-          \thesis@logopath@color\thesis@universityLogo}
+        \thesis@blocks@universityLogo@color[width=30mm]
       \end{minipage}\begin{minipage}{89mm}
         \begin{center}
           {\sc\thesis@titlePage@LARGE\thesis@czech@universityName\\%
@@ -294,8 +295,7 @@
           \rule{\textwidth}{2pt}\vspace*{2mm}
         \end{center}
       \end{minipage}\begin{minipage}{30mm}
-        \includegraphics[width=30mm]{%
-          \thesis@logopath@color\thesis@facultyLogo}
+        \thesis@blocks@facultyLogo@color[width=30mm]
       \end{minipage}
     \end{adjustwidth}
     % The middle of the page

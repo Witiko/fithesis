@@ -165,13 +165,13 @@
 % \maketitle
 %
 % \begin{abstract}
-% \noindent This document describes the design and implementation
+% \noindent This document details the design and the implementation
 % of the \textsf{fithesis3} document class. It contains technical
 % information for anyone who wishes to extend the class with their
-% locale files or style files. Users who only wish to use the class
-% are advised to consult the guides within the |guide/| directory,
-% which only document the parts of the public API that are relevant
-% to the given style files.
+% locale or style files. Users who only wish to use the class are
+% advised to consult the guides distributed along with the class,
+% which only document the parts of the public API relevant to the
+% given style files.
 % \end{abstract}
 %
 % \tableofcontents
@@ -182,19 +182,19 @@
 %   \item\textsf{keyval} -- Adds support for parsing
 %     comma-delimited lists of key-value pairs.
 %   \item\textsf{etoolbox} -- Adds support for expanding
-%     code after the preamble.
+%     code after the preamble using the |\AtPreamble| hook.
 %   \item\textsf{ifxetex} -- Used to detect the \Hologo{XeTeX}
 %     engine.
 %   \item\textsf{ifluatex} -- Used to detect the \Hologo{LuaTeX}
 %     engine.
-%   \item\textsf{inputenc} -- Used to enable the input utf-8
+%   \item\textsf{inputenc} -- Used to enable the input UTF-8
 %     encoding. This package does not get loaded under
-%     \Hologo{XeTeX} and \Hologo{LuaTeX}.
+%     the \Hologo{XeTeX} and \Hologo{LuaTeX} engines.
 % \end{itemize}
 % The \texttt{hyperref} package is also conditionally loaded during
-% the expansion of the |\thesis@load| macro (see section
+% the expansion of the |\thesis@load| macro (see Section
 % \ref{sec:thesis@load}). Other packages may be required by the
-% style files (see section \ref{sec:style-files}) you are using.
+% style files (see Section \ref{sec:style-files}) you are using.
 %    \begin{macrocode}
 \ProvidesClass{fithesis3}[\thesis@version]
 \LoadClass[a4paper]{rapport3}
@@ -211,7 +211,7 @@
 % \subsection{Options}
 % Any \oarg{options} passed to the class will be handed down to the
 % loaded style files. The supported options are therefore documented
-% in the subsection of section \ref{sec:style-files} dedicated to
+% in the subsections of Section \ref{sec:style-files} dedicated to
 % the respective style files.
 %
 % \subsection{The \cs{thesissetup} macro}
@@ -222,10 +222,11 @@
 % macro needs to be included prior to the beginning of a \LaTeX\ 
 % document. When used, the \textit{keyvals} are processed.
 %
-% Note that the values specified to the |\thesissetup| public macro
+% Note that the values passed to the |\thesissetup| public macro
 % may only contain one paragraph of text. If you wish to set
 % multiple paragraphs of text as the value, you need to use
-% the |\thesislong| public macro.
+% the |\thesislong| public macro (see Section
+% \ref{sec:thesislong}).
 %    \begin{macrocode}
 \def\thesissetup#1{%
   \setkeys{thesis}{#1}}
@@ -234,7 +235,7 @@
 % \begin{macro}{\thesis@basepath}
 % The \marg{\texttt{basepath}=path} pair sets the \textit{path}
 % containing the class files. The \textit{path} is prepended to
-% each other path (|\thesis@logopath|, |\thesis@stylepath| and
+% every other path (|\thesis@logopath|, |\thesis@stylepath| and
 % |\thesis@localepath|) used by the class. If non-empty, the
 % \textit{path} gets normalized to \textit{path/}. The normalized
 % \textit{path} is stored within the private |\thesis@basepath| macro,
@@ -242,7 +243,7 @@
 %    \begin{macrocode}
 \def\thesis@basepath{fithesis3/}
 \define@key{thesis}{basepath}{%
-  \ifx\@empty#1\@empty%
+  \ifx\thesis@empty#1\thesis@empty%
     \def\thesis@basepath{}%
   \else%
     \def\thesis@basepath{#1/}%
@@ -253,32 +254,62 @@
 % \subsubsection{The \texttt{logopath} key}
 % The \marg{\texttt{logopath}=path} pair sets the \textit{path}
 % containing the logo files, which is used by the style files
-% loading the logo. If the \textit{path} doesn't begin with a
-% The \textit{path} is normalized via the private |\thesis@subdir|
-% macro and stored within the private |\thesis@logopath| macro,
-% whose implicit value is
-% |\thesis@basepath| followed by |logo/\thesis@university/|.
-% By default, this expands to \texttt{fithesis3/logo/mu/}.
+% loading the logo. The \textit{path} is normalized using the
+% private |\thesis@subdir| macro and stored within the private
+% |\thesis@logopath| macro, whose implicit value is
+% |\thesis@basepath| followed by |logo/\thesis@university/|. By
+% default, this expands to \texttt{fithesis3/logo/mu/}.
 %    \begin{macrocode}
 \def\thesis@logopath{\thesis@basepath logo/\thesis@university/}
 \define@key{thesis}{logopath}{%
-  \def\thesis@logopath{\thesis@subdir#1\relax}}
+  \def\thesis@logopath{\thesis@subdir#1%
+    \empty\empty\empty\empty}}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\thesis@subdir}
-% The |\thesis@subdir| private macro expands to the concatenation
-% of the |\thesis@basepath| private macro with |#1|, if the first
-% token of |#1| isn't a slash character (|/|), or to |#1|
-% otherwise.
+% The |\thesis@subdir| private macro returns |/| unchanged, coerces
+% |.|, |..|, |/|\textit{path}, |./|\textit{path} and
+% |../|\textit{path} to |./|, |../|, |/|\textit{path}|/|,
+% |./|\textit{path}|/| and |../|\textit{path}|/|, respectively, and
+% coerces any other \textit{path} into |\thesis@basepath|
+% \textit{path}|/|.
 %    \begin{macrocode}
-\def\thesis@subdir#1#2\relax{%
-  \ifx\@empty#1\@empty%
-    \thesis@basepath%
-  \else%
+\def\thesis@subdir#1#2#3#4\empty{%
+  \ifx#1\empty%           <empty> -> <basepath>
+    \thesis@basepath
+  \else
     \if#1/%
-      #1#2/%
+      \ifx#2\empty%             / -> /
+        /%
+      \else%              /<path> -> /<path>/
+        #1#2#3#4/%
+      \fi
     \else%
-      \thesis@basepath#1#2/%
+      \if#1.%
+        \ifx#2\empty%           . -> ./
+          ./%
+        \else
+          \if#2.%
+            \ifx#3\empty%      .. -> ../
+              ../%
+            \else
+              \if#3/%   ../<path> -> ../<path>/
+                ../#4/%
+              \else
+                \thesis@basepath#1#2#3#4/%
+              \fi
+            \fi
+          \else
+            \if#2/%      ./<path> -> ./<path>/
+              ./#3#4/%
+            \else
+              \thesis@basepath#1#2#3#4/%
+            \fi
+          \fi
+        \fi
+      \else
+        \thesis@basepath#1#2#3#4/%
+      \fi
     \fi%
   \fi}
 %    \end{macrocode}
@@ -286,33 +317,31 @@
 % \begin{macro}{\thesis@stylepath}
 % \subsubsection{The \texttt{stylepath} key}
 % The \marg{\texttt{stylepath}=path} pair sets the \textit{path}
-% containing the style files. If the \textit{path} doesn't begin
-% with a slash (\texttt{/}), it is normalized to
-% \cmd{/thesis@basepath} followed by \textit{path}. The
-% normalized \textit{path} is stored within the private
-% |\thesis@stylepath| macro,
-% whose implicit value is |\thesis@basepath style/|. By default,
-% this expands to \texttt{fithesis3/style/}.
+% containing the style files. The \textit{path} is normalized using
+% the private |\thesis@subdir| macro and stored within the private
+% |\thesis@stylepath| macro, whose implicit value is
+% |\thesis@basepath style/|. By default, this expands to
+% \texttt{fithesis3/style/}.
 %    \begin{macrocode}
 \def\thesis@stylepath{\thesis@basepath style/}
 \define@key{thesis}{stylepath}{%
-  \def\thesis@stylepath{\thesis@subdir#1\relax}}
+  \def\thesis@stylepath{\thesis@subdir#1%
+    \empty\empty\empty\empty}}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\thesis@localepath}
 % \subsubsection{The \texttt{localepath} key}
 % The \marg{\texttt{localepath}=path} pair sets the \textit{path}
-% containing the locale files. If the \textit{path} doesn't begin
-% with a slash (\texttt{/}), it is normalized to
-% \cmd{/thesis@basepath} followed by \textit{path}. The
-% normalized \textit{path} is stored within the private
-% |\thesis@localepath| macro,
-% whose implicit value is |\thesis@basepath| followed by |locale/|.
-% By default, this expands to \texttt{fithesis3/locale/}.
+% containing the locale files. The \textit{path} is normalized
+% using the private |\thesis@subdir| macro and stored within the
+% private |\thesis@localepath| macro, whose implicit value is
+% |\thesis@basepath| followed by |locale/|.  By default, this
+% expands to \texttt{fithesis3/locale/}.
 %    \begin{macrocode}
 \def\thesis@localepath{\thesis@basepath locale/}
 \define@key{thesis}{localepath}{%
-  \def\thesis@localepath{\thesis@subdir#1\relax}}
+  \def\thesis@localepath{\thesis@subdir#1%
+    \empty\empty\empty\empty}}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\thesis@def}
@@ -324,7 +353,7 @@
 %    \begin{macrocode}
 \newcommand{\thesis@def}[2][]{%
   \expandafter\def\csname thesis@#2\endcsname{%
-    <<\ifx\@empty#1\@empty#2\else#1\fi>>}}
+    <<\ifx\thesis@empty#1\thesis@empty#2\else#1\fi>>}}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\thesis@declaration}
@@ -930,7 +959,7 @@
 \def\thesis@preamble{}
 \def\thesis@postamble{}
 %    \end{macrocode}
-% \subsection{The \cs{thesislong} macro}
+% \subsection{The \cs{thesislong} macro}\label{sec:thesislong}
 % \begin{macro}{\thesislong}
 % The public macro |\thesislong|\marg{key}\marg{value},
 % where \textit{value} may contain multiple paragraphs of text, can
@@ -1177,11 +1206,31 @@
 % \subsection{General purpose macros}
 % The \DescribeMacro{\thesis@pages}|\thesis@pages| macro is defined
 % at the beginning of the second \LaTeX\ run as a part of the main
-% routine (see section \ref{sec:thesis@load}). During the first
+% routine (see Section \ref{sec:thesis@load}). During the first
 % run, the macro expands to \texttt{??}.
 %    \begin{macrocode}
 \ifx\thesis@pages\undefined\def\thesis@pages{??}\fi
 %    \end{macrocode}
+% \begin{macro}{\thesis@includegraphics}
+% The |\thesis@includegraphics|\oarg{options}\marg{path} macro has
+% the same syntax and semantics as the \LaTeX\ |\includegraphics|
+% command, but unlike |\includegraphics|, it expands UTF-8 paths
+% without them being mangled by the \textsf{inputenc} package.
+%    \begin{macrocode}
+\newcommand{\thesis@includegraphics}[2][]{{%
+  % Temporarily disable UTF-8 mangling
+  \def\UTFviii@two@octets##1##2{%
+    \string##1\string##2}%
+  \def\UTFviii@three@octets##1##2##3{%
+    \string##1\string##2\string##3}%
+  \def\UTFviii@four@octets##1##2##3##4{%
+    \string##1\string##2\string##3\string##4}%
+  % Expand the path
+  \edef\@argument{#2}%
+  % Include the graphics
+  \includegraphics[#1]{\@argument}}}
+%    \end{macrocode}
+% \end{macro}
 % \iffalse
 %</class>
 % ^^A Old fithesis classes
@@ -1216,7 +1265,7 @@
 % \label{sec:locale-files}
 % Locale files contain macro definitions for various locales. They
 % live in the \texttt{locale/} subtree and they are loaded during
-% the main routine (see section \ref{sec:thesis@load}).
+% the main routine (see Section \ref{sec:thesis@load}).
 %
 % When creating a new locale file, it is advisable to create one
 % self-contained \texttt{dtx} file, which is then partitioned into
@@ -1232,7 +1281,7 @@
 % The union of locale files named \textit{locale}\texttt{.def},
 % where \textit{locale} is the result of the expansion of
 % |\thesis@locale|, loaded via main routine's inheritance scheme
-% (see section \ref{sec:thesis@load}) needs to define the following
+% (see Section \ref{sec:thesis@load}) needs to define the following
 % private macros:
 % \begin{itemize}
 %   \item|\thesis@|\textit{locale}|@universityName| -- The name of
@@ -1281,7 +1330,7 @@
 % \label{sec:style-files}
 % Style files define the structure and the look of the resulting
 % document. They live in the \texttt{style/} subtree and they are
-% loaded during the main routine (see section
+% loaded during the main routine (see Section
 % \ref{sec:thesis@load}).
 %
 % When creating a new style file, it is advisable to create one
@@ -1296,7 +1345,7 @@
 %
 % \subsubsection{Interface}
 % The union of style files loaded via main routine's inheritance
-% scheme (see section \ref{sec:thesis@load}) should define at least
+% scheme (see Section \ref{sec:thesis@load}) should define at least
 % one of the following private macros:
 % \begin{itemize}
 %   \item\DescribeMacro{\thesis@preamble}
