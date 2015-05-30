@@ -4,6 +4,7 @@
 \usepackage{fancyvrb}
 \usepackage{minted}
 \usepackage{ltxcmds}
+\usepackage[defaultlines=2,all]{nowidow}
 \usepackage[
   backend=biber,
   style=numeric,
@@ -84,7 +85,7 @@
   packages:\begin{itemize}
     \item\textsf{xcolor}, \textsf{graphix}, \textsf{pdfpages},
       \textsf{hyperref}, \textsf{keyval}%
-      {\makeatletter % Typeset additional loaded packages
+      {\makeatletter % The following macro typesets loaded packages
       \def\thguide@prnpkg#1{\ltx@ifpackageloaded%
         {#1}{, \textsf{#1}}{}}%
       \thguide@prnpkg{tikz}%
@@ -473,5 +474,6 @@
   package.
 
   \makeatletter\thesis@postamble\makeatother
+  \tolerance=300\emergencystretch=1em
   \printbibliography[heading=bibintoc]
 \end{document}
