@@ -30,6 +30,17 @@
 %    \begin{macrocode}
 \thesis@requireLocale{english}
 %    \end{macrocode}
+% \begin{macro}{\thesis@blocks@frontMatter}
+% The |\thesis@blocks@frontMatter| private macro sets up the style
+% of the front matter of the thesis.
+% \begin{macrocode}
+\def\thesis@blocks@frontMatter{%
+  \pagestyle{plain}
+  \parindent 1.5em
+  \setcounter{page}{1}
+  \pagenumbering{roman}}
+%    \end{macrocode}
+% \end{macro}
 % The style file defines the autolayout preamble as the cover and
 % the title page followed by the abstracts, keywords, assignment,
 % declaration, acknowledgement, table of contents and
