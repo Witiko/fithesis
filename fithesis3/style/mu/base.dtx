@@ -682,8 +682,8 @@
 % \begin{macrocode}
 \def\thesis@blocks@assignment{%
   \ifx\thesis@type\thesis@rigorous\else%
-    \thesis@blocks@clear%
     \ifx\thesis@assignmentFiles\undefined%
+      \thesis@blocks@clear%
       \begin{alwayssingle}%
         \thispagestyle{empty}
         \addtocounter{page}{-\ifthesis@twoside@2\else1\fi}
@@ -692,9 +692,10 @@
     \else%
       {\def\@empty{}\edef\@pdfList{\thesis@assignmentFiles}%
       \if\@pdfList\@empty\else%
+        \thesis@blocks@clear%
         \expandafter\includepdfmerge\expandafter{\@pdfList}%
       \fi}%
-    \fi\thesis@blocks@clear
+    \fi
   \fi}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@mainMatter}
