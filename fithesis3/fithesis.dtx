@@ -72,10 +72,26 @@
 %<*class>
 \NeedsTeXFormat{LaTeX2e}
 % \fi
-\def\thesis@version{2015/05/24 v0.3.12 fithesis3 MU thesis class}
+\def\thesis@version{2015/05/30 v0.3.13 fithesis3 MU thesis class}
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
+% \changes{v0.3.13}  {2015/05/30}{Fixed an inconsistency in the
+%   example code. Removed an extraneous \cs{thesis@blocks@clear}
+%   block withing the definition of \cs{thesis@blocks@frontMatter}
+%   in the fss style file. Added comments, fixed clubs and widows
+%   and removed text overflows within the user guides. Adjusted the
+%   colors of various style files. Removed the trailing dot in the
+%   bibliographic identification within the med and ped style
+%   files. Fixed a typo within the technical documentation. Fixed
+%   the twoside alignment of the \cs{thesis@blocks@bibEntry} and
+%   the \cs{thesis@blocks@bibEntryEn} blocks within the sci style
+%   file.  The \cs{thesis@blocks@assignment} block no longer clears
+%   a page when nothing is inserted. It is also no longer
+%   hard-coded to be hidden for rigorous theses. Instead, the
+%   \cs{ifthesis@blocks@assignment} conditional can be set either
+%   by the subsequently loaded style files or by the user. So far,
+%   only the fi and sci style files set the conditional.}
 % \changes{v0.3.12}  {2015/05/24}{The subsections and
 %   subsubsections now use the correct \texttt{tocdepth}.}
 % \changes{v0.3.11}  {2015/05/15}{Added hyphenation into the
