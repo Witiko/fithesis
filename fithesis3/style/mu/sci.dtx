@@ -69,8 +69,10 @@
 %    \begin{macrocode}
 \def\thesis@blocks@bibEntry{%
   \begin{alwayssingle}
-    \chapter*{\thesis@czech@bib@title}
-    {% Calculate the width of the columns
+    {% Start the new chapter without clearing the right page
+    {\def\cleardoublepage{}%
+    \chapter*{\thesis@czech@bib@title}}%
+    % Calculate the width of the columns
     \let\@A\relax\newlength{\@A}\settowidth{\@A}{{%
       \bf\thesis@czech@bib@author:}}
     \let\@B\relax\newlength{\@B}\settowidth{\@B}{{%
@@ -100,7 +102,7 @@
       \textwidth-\@left-\@skip}
     % Typeset the table
     \renewcommand{\arraystretch}{2}
-    \begin{thesis@newtable@old}%
+    \noindent\begin{thesis@newtable@old}%
       {@{}p{\@left}@{\hskip\@skip}p{\@right}@{}}
       \textbf{\thesis@czech@bib@author:} &
         \noindent\parbox[t]{\@right}{
@@ -164,46 +166,44 @@
 %     |\thesis@english@bib@keywords| -- The label of the keywords
 %     entry
 % \end{itemize}
-% If the current locale is English, the macro produces no output.
 %    \begin{macrocode}
 \def\thesis@blocks@bibEntryEn{%
-  \ifthesis@english\else
-    {\def\thesis@locale{english}
-    \begin{alwayssingle}
-      % Start the new chapter without clearing the right page
-      {\def\cleardoublepage{}%
-      \chapter*{\thesis@english@bib@title}}%
-      {% Calculate the width of the columns
-      \let\@A\relax\newlength{\@A}\settowidth{\@A}{{%
-        \bf\thesis@english@bib@author:}}
-      \let\@B\relax\newlength{\@B}\settowidth{\@B}{{%
-        \bf\thesis@english@bib@thesisTitle:}}
-      \let\@C\relax\newlength{\@C}\settowidth{\@C}{{%
-        \bf\thesis@english@bib@programme:}}
-      \let\@D\relax\newlength{\@D}\settowidth{\@D}{{%
-        \bf\thesis@english@bib@field:}}
-      % Unless this is a rigorous thesis, we will be typesetting
-      % the name of the thesis advisor.
-      \let\@E\relax\newlength{\@E}
-        \ifx\thesis@type\thesis@rigorous%
-          \setlength{\@E}{0pt}%
-        \else%
-          \settowidth{\@E}{{\bf\thesis@english@bib@advisor:}}
-        \fi%
-      \let\@F\relax\newlength{\@F}\settowidth{\@F}{{%
-        \bf\thesis@english@bib@academicYear:}}
-      \let\@G\relax\newlength{\@G}\settowidth{\@G}{{%
-        \bf\thesis@english@bib@pages:}}
-      \let\@H\relax\newlength{\@H}\settowidth{\@H}{{%
-        \bf\thesis@english@bib@keywords:}}
-      \let\@skip\relax\newlength{\@skip}\setlength{\@skip}{16pt}
-      \let\@left\relax\newlength{\@left}\pgfmathsetlength{\@left}{%
-        max(\@A,\@B,\@C,\@D,\@E,\@F,\@G,\@H)}
-      \let\@right\relax\newlength{\@right}\setlength{\@right}{%
-        \textwidth-\@left-\@skip}
+  {\def\thesis@locale{english}
+  \begin{alwayssingle}
+    % Start the new chapter without clearing the right page
+    {\def\cleardoublepage{}%
+    \chapter*{\thesis@english@bib@title}}%
+    {% Calculate the width of the columns
+    \let\@A\relax\newlength{\@A}\settowidth{\@A}{{%
+      \bf\thesis@english@bib@author:}}
+    \let\@B\relax\newlength{\@B}\settowidth{\@B}{{%
+      \bf\thesis@english@bib@thesisTitle:}}
+    \let\@C\relax\newlength{\@C}\settowidth{\@C}{{%
+      \bf\thesis@english@bib@programme:}}
+    \let\@D\relax\newlength{\@D}\settowidth{\@D}{{%
+      \bf\thesis@english@bib@field:}}
+    % Unless this is a rigorous thesis, we will be typesetting
+    % the name of the thesis advisor.
+    \let\@E\relax\newlength{\@E}
+      \ifx\thesis@type\thesis@rigorous%
+        \setlength{\@E}{0pt}%
+      \else%
+        \settowidth{\@E}{{\bf\thesis@english@bib@advisor:}}
+      \fi%
+    \let\@F\relax\newlength{\@F}\settowidth{\@F}{{%
+      \bf\thesis@english@bib@academicYear:}}
+    \let\@G\relax\newlength{\@G}\settowidth{\@G}{{%
+      \bf\thesis@english@bib@pages:}}
+    \let\@H\relax\newlength{\@H}\settowidth{\@H}{{%
+      \bf\thesis@english@bib@keywords:}}
+    \let\@skip\relax\newlength{\@skip}\setlength{\@skip}{16pt}
+    \let\@left\relax\newlength{\@left}\pgfmathsetlength{\@left}{%
+      max(\@A,\@B,\@C,\@D,\@E,\@F,\@G,\@H)}
+    \let\@right\relax\newlength{\@right}\setlength{\@right}{%
+      \textwidth-\@left-\@skip}
     % Typeset the table
     \renewcommand{\arraystretch}{2}
-    \begin{thesis@newtable@old}%
+    \noindent\begin{thesis@newtable@old}%
       {@{}p{\@left}@{\hskip\@skip}p{\@right}@{}}
         \textbf{\thesis@english@bib@author:} &
           \noindent\parbox[t]{\@right}{
@@ -232,7 +232,7 @@
           & \thesis@TeXkeywordsEn \\
       \end{thesis@newtable@old}}
     \end{alwayssingle}
-  }\fi}
+  }}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@frontMatter}
 % The |\thesis@blocks@frontMatter| private macro sets up the style
