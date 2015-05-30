@@ -32,6 +32,15 @@
 \thesis@require{tikz}
 \thesis@require{changepage}
 %    \end{macrocode}
+% In case of rigorous and doctoral theses, the style file hides the
+% thesis assignment in accordance with the formal requirements of
+% the faculty.
+% \begin{macrocode}
+\ifx\thesis@type\thesis@bachelors\else
+\ifx\thesis@type\thesis@masters\else
+  \thesis@blocks@assignment@false
+\fi\fi
+%    \end{macrocode}
 % \begin{macro}{\thesis@blocks@bibEntry}
 % The |\thesis@blocks@bibEntry| private macro typesets a
 % bibliographical entry. Along with the macros required by the

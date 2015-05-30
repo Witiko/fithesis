@@ -436,27 +436,27 @@
   \fi}
 %    \end{macrocode}
 % The output of the |\thesis@blocks@cover@header| private macro is
-% controlled by the following conditional expressions:
+% controlled by the following conditionals:
 % \begin{enumerate}
 %   \item|\ifthesis@blocks@cover@university@| -- This
 %        conditional expression determines, whether the university
 %        name is going to be included in the header of the cover.
-%        The default value of this conditional expression is true.
+%        The default value of this conditional is \texttt{true}.
 %   \item|\ifthesis@blocks@cover@faculty@| -- This
 %        conditional expression determines, whether the faculty
 %        name is going to be included in the header of the cover.
-%        The default value of this conditional expression is true.
+%        The default value of this conditional is \texttt{true}.
 %   \item|\ifthesis@blocks@cover@department@| -- This
 %        conditional expression determines, whether the department
 %        name is going to be included in the header of the cover.
-%        The default value of this conditional expression is false.
+%        The default value of this conditional is \texttt{false}.
 %   \item|\ifthesis@blocks@cover@field@| -- This
 %        conditional expression determines, whether the field of
 %        study is going to be included in the header of the cover.
-%        The default value of this conditional expression is false.
+%        The default value of this conditional is \texttt{false}.
 % \end{enumerate}
 % The sebsequently loaded style files can alter the value of these
-% expressions to alter the output of the
+% conditionals to alter the output of the
 % |\thesis@blocks@cover@header| private macro without altering its
 % definition.
 % \begin{macrocode}
@@ -523,31 +523,31 @@
     \end{alwayssingle}}
 %    \end{macrocode}
 % The output of the |\thesis@blocks@titlePage@header| private macro is
-% controlled by the following conditional expressions:
+% controlled by the following conditionals:
 % \begin{enumerate}
 %   \item|\ifthesis@blocks@titlePage@university@| -- This
 %        conditional expression determines, whether the university
 %        name is going to be included in the header of the title
-%        page. The default value of this conditional expression is
-%        true.
+%        page. The default value of this conditional is
+%        \texttt{true}.
 %   \item|\ifthesis@blocks@titlePage@faculty@| -- This
 %        conditional expression determines, whether the faculty of
 %        study is going to be included in the header of the title
-%        page.
-%        The default value of this conditional expression is true.
+%        page. The default value of this conditional is
+%        \texttt{true}.
 %   \item|\ifthesis@blocks@titlePage@department@| -- This
 %        conditional expression determines, whether the department
 %        name is going to be included in the header of the title
-%        page. The default value of this conditional expression is
-%        false.
+%        page. The default value of this conditional is
+%        \texttt{false}.
 %   \item|\ifthesis@blocks@titlePage@field@| -- This
 %        conditional expression determines, whether the field of
 %        study is going to be included in the header of the title
-%        page.
-%        The default value of this conditional expression is false.
+%        page. The default value of this conditional is
+%        \texttt{false}.
 % \end{enumerate}
 % The sebsequently loaded style files can alter the value of these
-% expressions to alter the output of the
+% conditionals to alter the output of the
 % |\thesis@blocks@titlePage@header| private macro without altering
 % its definition.
 % \begin{macrocode}
@@ -674,15 +674,32 @@
   \fi}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@assignment}
-% The |\thesis@blocks@assignment| private macro either typesets a
-% blank page to be replaced with the official thesis assignment or
-% injects the file located at the |\thesis@assignmentPDF| path, if
-% defined. In case of a rigorous thesis, the macro expands to an
-% empty token string.
+% The |\thesis@blocks@assignment| private macro either:
+% \begin{itemize}
+%   \item Expands to an empty token list, when the first
+%     expansion of |\thesis@assignmentPDF| yields an empty token
+%     list or when the |\ifthesis@blocks@assignment@| conditional
+%     is \texttt{false}.
+%   \item Typesets a placeholder page to be replaced with the
+%     official thesis assignment, when |\thesis@assignmentPDF|
+%     is undefined and the |\ifthesis@blocks|\discretionary{}{}^^A
+%     {}|@assignment@| conditional is \texttt{true}.
+%   \item Injects the PDF file(s) specified within the
+%     |\thesis@assignmentPDF| macro, when |\thesis@assignmentPDF|
+%     is defined, its first expansion yields a non-empty token list
+%     and the |\ifthesis@blocks@assignment@| conditional is
+%     \texttt{true}.
+% \end{itemize}
+% The default value of the \DescribeMacro{\ifthesis@blocks@assig^^A
+% nment@}|\ifthesis@blocks@assignment@| conditional is
+% \texttt{true}.
 % \begin{macrocode}
+\newif\ifthesis@blocks@assignment@
+\thesis@blocks@assignment@true
 \def\thesis@blocks@assignment{%
-  \ifx\thesis@type\thesis@rigorous\else%
+  \ifthesis@blocks@assignment@%
     \ifx\thesis@assignmentFiles\undefined%
+      % Typeset a placeholder page.
       \thesis@blocks@clear%
       \begin{alwayssingle}%
         \thispagestyle{empty}
@@ -690,12 +707,13 @@
         \noindent\textit{\thesis@@{assignment}}%
       \end{alwayssingle}%
     \else%
-      {\def\@empty{}\edef\@pdfList{\thesis@assignmentFiles}%
-      \if\@pdfList\@empty\else%
+      {\edef\@pdfList{\thesis@assignmentFiles}%
+      \if\@pdfList\empty\else%
+        % Inject the specified PDF documents.
         \thesis@blocks@clear%
         \expandafter\includepdfmerge\expandafter{\@pdfList}%
       \fi}%
-    \fi
+    \fi%
   \fi}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@mainMatter}
@@ -715,7 +733,7 @@
 % the resulting document. Depending on the type size of 10, 11 or
 % 12 points, either the \texttt{fithesis3-10.clo},
 % \texttt{fithesis3-11.clo} or \texttt{fithesis3-12.clo} file is
-% loaded from the |\thesis@stylepath mu| directory, respectively.
+% loaded from the |\thesis@stylepath| |mu| directory, respectively.
 %    \begin{macrocode}
 % Table of contents will contain sectioning commands up to
 % \subsubsection

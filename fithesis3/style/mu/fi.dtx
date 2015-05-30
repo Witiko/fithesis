@@ -16,6 +16,15 @@
   tableOdd={HTML}{FFF9E5},
   tableEven={HTML}{FFECB3}}
 %    \end{macrocode}
+% In case of rigorous and doctoral theses, the style file hides the
+% thesis assignment in accordance with the formal requirements of
+% the faculty.
+% \begin{macrocode}
+\ifx\thesis@type\thesis@bachelors\else
+\ifx\thesis@type\thesis@masters\else
+  \thesis@blocks@assignment@false
+\fi\fi
+%    \end{macrocode}
 % \begin{macro}{\thesis@blocks@titlePage}
 % The style file redefines the cover and title page footers to
 % include the thesis advisor's name and signature in case of a
