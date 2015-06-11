@@ -258,9 +258,9 @@
 \def\thesissetup#1{%
   \setkeys{thesis}{#1}}
 %    \end{macrocode}
-% \subsubsection{The \texttt{basepath} key}
+% \subsubsection{The \texttt{basePath} key}
 % \begin{macro}{\thesis@basepath}
-% The \marg{\texttt{basepath}=path} pair sets the \textit{path}
+% The \marg{\texttt{basePath}=path} pair sets the \textit{path}
 % containing the class files. The \textit{path} is prepended to
 % every other path (|\thesis@logopath|, |\thesis@stylepath| and
 % |\thesis@localepath|) used by the class. If non-empty, the
@@ -269,7 +269,7 @@
 % whose implicit value is |fithesis3/|.
 %    \begin{macrocode}
 \def\thesis@basepath{fithesis3/}
-\define@key{thesis}{basepath}{%
+\define@key{thesis}{basePath}{%
   \ifx\thesis@empty#1\thesis@empty%
     \def\thesis@basepath{}%
   \else%
@@ -278,8 +278,8 @@
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\thesis@logopath}
-% \subsubsection{The \texttt{logopath} key}
-% The \marg{\texttt{logopath}=path} pair sets the \textit{path}
+% \subsubsection{The \texttt{logoPath} key}
+% The \marg{\texttt{logoPath}=path} pair sets the \textit{path}
 % containing the logo files, which is used by the style files
 % loading the logo. The \textit{path} is normalized using the
 % private |\thesis@subdir| macro and stored within the private
@@ -288,8 +288,38 @@
 % default, this expands to \texttt{fithesis3/logo/mu/}.
 %    \begin{macrocode}
 \def\thesis@logopath{\thesis@basepath logo/\thesis@university/}
-\define@key{thesis}{logopath}{%
+\define@key{thesis}{logoPath}{%
   \def\thesis@logopath{\thesis@subdir#1%
+    \empty\empty\empty\empty}}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\thesis@stylepath}
+% \subsubsection{The \texttt{stylePath} key}
+% The \marg{\texttt{stylePath}=path} pair sets the \textit{path}
+% containing the style files. The \textit{path} is normalized using
+% the private |\thesis@subdir| macro and stored within the private
+% |\thesis@stylepath| macro, whose implicit value is
+% |\thesis@basepath style/|. By default, this expands to
+% \texttt{fithesis3/style/}.
+%    \begin{macrocode}
+\def\thesis@stylepath{\thesis@basepath style/}
+\define@key{thesis}{stylePath}{%
+  \def\thesis@stylepath{\thesis@subdir#1%
+    \empty\empty\empty\empty}}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\thesis@localepath}
+% \subsubsection{The \texttt{localePath} key}
+% The \marg{\texttt{localePath}=path} pair sets the \textit{path}
+% containing the locale files. The \textit{path} is normalized
+% using the private |\thesis@subdir| macro and stored within the
+% private |\thesis@localepath| macro, whose implicit value is
+% |\thesis@basepath| followed by |locale/|.  By default, this
+% expands to \texttt{fithesis3/locale/}.
+%    \begin{macrocode}
+\def\thesis@localepath{\thesis@basepath locale/}
+\define@key{thesis}{localePath}{%
+  \def\thesis@localepath{\thesis@subdir#1%
     \empty\empty\empty\empty}}
 %    \end{macrocode}
 % \end{macro}
@@ -339,36 +369,6 @@
       \fi
     \fi%
   \fi}
-%    \end{macrocode}
-% \end{macro}
-% \begin{macro}{\thesis@stylepath}
-% \subsubsection{The \texttt{stylepath} key}
-% The \marg{\texttt{stylepath}=path} pair sets the \textit{path}
-% containing the style files. The \textit{path} is normalized using
-% the private |\thesis@subdir| macro and stored within the private
-% |\thesis@stylepath| macro, whose implicit value is
-% |\thesis@basepath style/|. By default, this expands to
-% \texttt{fithesis3/style/}.
-%    \begin{macrocode}
-\def\thesis@stylepath{\thesis@basepath style/}
-\define@key{thesis}{stylepath}{%
-  \def\thesis@stylepath{\thesis@subdir#1%
-    \empty\empty\empty\empty}}
-%    \end{macrocode}
-% \end{macro}
-% \begin{macro}{\thesis@localepath}
-% \subsubsection{The \texttt{localepath} key}
-% The \marg{\texttt{localepath}=path} pair sets the \textit{path}
-% containing the locale files. The \textit{path} is normalized
-% using the private |\thesis@subdir| macro and stored within the
-% private |\thesis@localepath| macro, whose implicit value is
-% |\thesis@basepath| followed by |locale/|.  By default, this
-% expands to \texttt{fithesis3/locale/}.
-%    \begin{macrocode}
-\def\thesis@localepath{\thesis@basepath locale/}
-\define@key{thesis}{localepath}{%
-  \def\thesis@localepath{\thesis@subdir#1%
-    \empty\empty\empty\empty}}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\thesis@def}
