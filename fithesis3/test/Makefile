@@ -9,4 +9,4 @@ all: clean
 	done
 
 clean:
-		rm -f current.*
+		rm -f current.* texput.log
