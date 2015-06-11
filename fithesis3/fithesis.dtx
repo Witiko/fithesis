@@ -1026,29 +1026,16 @@
 % First, the main locale file is loaded using the
 % |\thesis@requireLocale| macro.
 %    \begin{macrocode}
-      % Load the main locale file
-      \thesis@requireLocale{\thesis@locale}
+      \ifx\thesis@locale\empty\else
+        \thesis@requireLocale{\thesis@locale}
+      \fi
 %    \end{macrocode}
 % Consequently, the style files are loaded with the class options
-% passed onto them. If inheritance is enabled for style files, then
-% each of the following files is loaded in sequence, if they exist:
-% \begin{enumerate}
-%   \item|\thesis@stylepath fithesis3-base.sty|
-%   \item|\thesis@stylepath\thesis@university/fithesis3-base.sty|
-%   \item|\thesis@stylepath\thesis@style.sty|
-% \end{enumerate}If inheritance is disabled for style files,
-% then only the |\thesis@stylepath\thesis@|^^A
-% \discretionary{}{}{}|style.sty| file is loaded. The
-% \texttt{fithesis3-} prefix serves to prevent package clashes
-% with other similarly named package files within the \TeX\
-% directory structure.
+% passed onto them.
 %    \begin{macrocode}
-      \ifthesis@style@inheritance
-        \thesis@requireStyle{\thesis@stylepath fithesis3-base}
-        \thesis@requireStyle{\thesis@stylepath\thesis@university%
-          /fithesis3-base}
+      \ifx\thesis@style\empty\else
+        \thesis@requireStyle{\thesis@style}
       \fi
-      \thesis@requireStyle{\thesis@stylepath\thesis@style}
 %    \end{macrocode}
 % With the placeholder strings loaded from the locale files, we
 % can now inject metadata into the resulting PDF file. To this
@@ -1115,36 +1102,55 @@
 % \end{macro}\begin{macro}{\thesis@require}
 % The |\thesis@require| \marg{package} expands to
 % |\RequirePackage|\marg{package}, if the specified
-% \textit{package} has not yet been loaded. This generally serves
-% to prevents options clashes, when the options with which the
-% package had been loaded are of no consequence.
+% \textit{package} has not yet been loaded.
 %    \begin{macrocode}
 \def\thesis@require#1{%
   \@ifpackageloaded{#1}{}{\RequirePackage{#1}}}
 %    \end{macrocode}
-% \end{macro}\begin{macro}{\thesis@requireStyle}
-% The |\thesis@requireStyle|\marg{package} expands to
+% \end{macro}\begin{macro}{\thesis@requireWithOptions}
+% The |\thesis@requireWithOptions|\marg{package} expands to
 % |\RequirePackageWithOptions|\marg{package}, if the specified
-% \textit{package} exists and has not yet been loaded. This
-% generally serves to load style files.
+% \textit{package} exists and has not yet been loaded.
 %    \begin{macrocode}
-\def\thesis@requireStyle#1{\thesis@exists{#1.sty}{%
+\def\thesis@requireWithOptions#1{\thesis@exists{#1.sty}{%
   \@ifpackageloaded{#1}{}{\RequirePackageWithOptions{#1}}}}
 %    \end{macrocode}
-% \end{macro}\begin{macro}{\thesis@requireLocale}
-% The |\thesis@requireLocale|\marg{locale} private macro loads
-% locale files of the specified \textit{locale}, if they haven't
-% been loaded before. If inheritance is enabled for locale files,
-% then the following directories are used:
+% \end{macro}\begin{macro}{\thesis@requireStyle}
+% If inheritance is enabled for style files, then the
+% |\thesis@requireStyle|\marg{style} private macro sequentially
+% loads each of the following files, provided they exist:
 % \begin{enumerate}
-%   \item|\thesis@localepath|
-%   \item|\thesis@localepath\thesis@university/|
-%   \item|\thesis@localepath\thesis@university/\thesis@faculty/|
-% \end{enumerate}If inheritance is disabled for locale files,
-% then only the |\thesis@localepath| directory is used. The macro
-% can be used within both locale and style files, although the
-% usage within locale files is strongly discouraged to prevent
-% circular dependencies.
+%   \item|\thesis@stylepath fithesis3-base.sty|
+%   \item|\thesis@stylepath\thesis@university/fithesis3-base.sty|
+%   \item|\thesis@stylepath| \textit{style}|.sty|
+% \end{enumerate}If inheritance is disabled for style files,
+% then only the |\thesis@stylepath| \textit{style}|.sty| file is
+% loaded. The \texttt{fithesis3-} prefix serves to prevent package
+% clashes with other similarly named package files within the \TeX\
+% directory structure.
+%    \begin{macrocode}
+\def\thesis@requireStyle#1{%
+  \ifthesis@style@inheritance%
+    \thesis@requireWithOptions{\thesis@stylepath fithesis3-base}%
+    \thesis@requireWithOptions{\thesis@stylepath\thesis@university%
+      /fithesis3-base}
+  \fi%
+  \thesis@requireWithOptions{\thesis@stylepath#1}}
+%    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@requireLocale}
+% If inheritance is enabled for style files, then the
+% |\thesis@requireStyle|\marg{locale} private macro sequentially
+% loads each of the following locale files, provided they exist:
+% \begin{enumerate}
+%   \item|\thesis@localepath| \textit{locale}|.def|
+%   \item|\thesis@localepath\thesis@university/|^^A
+%     \textit{locale}|.def|
+%   \item|\thesis@localepath\thesis@university/\thesis@faculty/|^^A
+%     \textit{locale}|.def|
+% \end{enumerate} If inheritance is disabled for locale files, then
+% only the first listed file is used. The macro can be used within
+% both locale and style files, although the usage within locale
+% files is strongly discouraged to prevent circular dependencies.
 %    \begin{macrocode}
 \def\thesis@requireLocale#1{%
   % Prevent redundant entries
