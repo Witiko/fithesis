@@ -948,9 +948,15 @@
 % \textsf{pdfpages} package |\includepdfmerge| command
 % documentation) to the pdf files containing the thesis assignment
 % to \textit{list}. The \textit{list} is stored within the
-% |\thesis@assignmentFiles| private macro. When defined, the PDF
-% files are injected into the resulting document instead of the
-% placeholder |\thesis@@{assignment}| string.
+% |\thesis@assignmentFiles| private macro.
+%
+% Be aware that the files will be injected into the document
+% \emph{exactly} as specified. Specifically in case of a
+% double-sided document, you should consider manually adding
+% blank pages in between separate parts of the assignment to ensure
+% that they will be typeset starting on an odd page, as described
+% within the \textsf{pdfpages} package |\includepdfmerge| command
+% documentation.
 %    \begin{macrocode}
 \define@key{thesis}{assignment}{%
   \def\thesis@assignmentFiles{#1}}
