@@ -72,10 +72,20 @@
 %<*class>
 \NeedsTeXFormat{LaTeX2e}
 % \fi
-\def\thesis@version{2015/06/07 v0.3.14 fithesis3 MU thesis class}
+\def\thesis@version{2015/06/14 v0.3.15 fithesis3 MU thesis class}
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
+% \changes{v0.3.15}  {2015/06/14}{Renamed \cs{thesis@requireStyle}
+%   to \cs{thesis@requireWithOptions} and moved the style loader
+%   from the \cs{thesis@load} routine to a new
+%   \cs{thesis@requireStyle} macro to make the semantics of
+%   \cs{thesis@requireLocale} and \cs{thesis@requireStyle} more
+%   similar. Changed the \texttt{basepath}, \texttt{logopath},
+%   \texttt{localepath} and \texttt{stylepath} keys to match the
+%   lower camelcasing of the rest of the keys. Added further
+%   description regarding the use of the \texttt{assignment} key.
+%   [VN]}
 % \changes{v0.3.14}  {2015/06/07}{Updated the documentation. [VN]}
 % \changes{v0.3.13}  {2015/05/30}{Fixed an inconsistency in the
 %   example code. Removed an extraneous \cs{thesis@blocks@clear}
