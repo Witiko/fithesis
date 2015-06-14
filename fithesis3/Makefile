@@ -9,6 +9,7 @@ LOGOFILES=logo/*/*.eps logo/*/color/*.eps logo/*/*.pdf logo/*/color/*.pdf
 LOCALEFILES=locale/*.def locale/*/*.def locale/*/*/*.def
 DTXFILES=*.dtx locale/*.dtx style/*.dtx style/*/*.dtx
 INSFILES=*.ins locale/*.ins style/*.ins style/*/*.ins
+TESTFILES=test/*.tex
 MAKES=../Makefile Makefile */Makefile */*/Makefile */*/*/Makefile
 READMES=../README
 MISCELLANEOUS=$(READMES) ../*.tex guide/*/*.tex guide/*/*/*.tex guide/*/*.bib
@@ -74,7 +75,7 @@ $(TDSFILE): $(LATEXFILES) $(SOURCEFILES) $(PDFFILES) $(PDFSOURCES)
 	mv "$$DIR"/$@ $@ && rm -rf "$$DIR"
 
 # This target generates a distribution file
-$(DISTFILE): $(LATEXFILES) $(SOURCEFILES) $(MAKES) $(PDFFILES) $(PDFSOURCES) $(MISCELLANEOUS)
+$(DISTFILE): $(LATEXFILES) $(SOURCEFILES) $(MAKES) $(TESTFILES) $(PDFFILES) $(PDFSOURCES) $(MISCELLANEOUS)
 	DIR=`mktemp -d` && mkdir --parents "$$DIR/fithesis3/fithesis3" && \
 	cp --verbose $(TDSFILE) "$$DIR" && \
 	cp --verbose $(TDSFILE) "$$DIR"/fithesis3/fithesis3 && \
@@ -105,7 +106,8 @@ install:
 	
 	# Documentation
 	mkdir --parents "$(to)/doc/latex/fithesis3"
-	cp $(MANUAL) "$(to)/doc/latex/fithesis3/manual.pdf"
+	cp --verbose $(MANUAL) "$(to)/doc/latex/fithesis3/manual.pdf"
+	cp --parents --verbose $(GUIDES) "$(to)/doc/latex/fithesis3"
 	
 	# Rebuild the hash
 	[ "$(nohash)" = "true" ] || texhash
@@ -128,8 +130,7 @@ uninstall:
 	rm -rf "$(from)/source/latex/fithesis3"
 	
 	# Documentation
-	rm "$(from)/doc/latex/fithesis3/manual.pdf"
-	rmdir "$(from)/doc/latex/fithesis3/"
+	rm -rf "$(from)/doc/latex/fithesis3"
 	
 	# Rebuild the hash
 	[ "$(nohash)" = "true" ] || texhash
