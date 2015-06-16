@@ -707,16 +707,23 @@
       % Typeset a placeholder page.
       \thesis@blocks@clear%
       \begin{alwayssingle}%
-        \thispagestyle{empty}
-        \addtocounter{page}{-\ifthesis@twoside@2\else1\fi}
+        \thispagestyle{empty}%
+        \addtocounter{page}{-\ifthesis@twoside@2\else1\fi}%
         \noindent\textit{\thesis@@{assignment}}%
       \end{alwayssingle}%
     \else%
       {\edef\@pdfList{\thesis@assignmentFiles}%
-      \if\@pdfList\empty\else%
+      \ifx\@pdfList\empty\else
+        \let\ea\expandafter
         % Inject the specified PDF documents.
-        \thesis@blocks@clear%
-        \expandafter\includepdfmerge\expandafter{\@pdfList}%
+        \def\@inject##1,{\thesis@blocks@clear
+          \def\@args{##1}\def\@relax{\relax}%
+          \ifx\@args\@relax\else%
+            % Trim leading spaces.
+            \edef\@trimmed{\romannumeral-`\.##1}%
+            \includepdf[pages=-]\@trimmed
+            \ea\@inject\fi}%
+        \ea\@inject\@pdfList,\relax,%
       \fi}%
     \fi%
   \fi}
