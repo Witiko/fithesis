@@ -262,6 +262,11 @@
   pdfpagelabels              % Generate pdf page labels
 }
 %    \end{macrocode}
+% Clubs and widows are set to be infinitely bad.
+%    \begin{macrocode}
+\widowpenalty 10000
+\clubpenalty  10000
+%    \end{macrocode}
 % \begin{macro}{\thesis@color@setup}
 % The file defines the |\thesis@color@setup|\marg{colors} command,
 % where \textit{colors} is a comma-delimited list of key-value
