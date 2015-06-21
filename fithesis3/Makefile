@@ -5,14 +5,17 @@ SUBMAKES=$(SUBMAKES_REQUIRED) $(SUBMAKES_MISCELLANEOUS)
 
 CLASSFILES=fithesis.cls fithesis2.cls fithesis3.cls
 STYLEFILES=style/*.sty style/*/*.sty style/*/*.clo
-LOGOFILES=logo/*/*.eps logo/*/color/*.eps logo/*/*.pdf logo/*/color/*.pdf
+LOGOSOURCEFILES=logo/*/*.eps logo/*/color/*.eps
+LOGOPDFFILES=logo/*/*.pdf logo/*/color/*.pdf
+LOGOFILES=$(LOGOSOURCEFILES) $(LOGOPDFFILES)
 LOCALEFILES=locale/*.def locale/*/*.def locale/*/*/*.def
 DTXFILES=*.dtx locale/*.dtx style/*.dtx style/*/*.dtx
 INSFILES=*.ins locale/*.ins style/*.ins style/*/*.ins
 TESTFILES=test/*.tex
-MAKES=../Makefile Makefile */Makefile */*/Makefile */*/*/Makefile
-READMES=../README
-MISCELLANEOUS=$(READMES) ../*.tex guide/*/*.tex guide/*/*/*.tex guide/*/*.bib
+MAKES=Makefile */Makefile */*/Makefile */*/*/Makefile
+READMES=README
+EXAMPLES=../*.tex ../Makefile
+MISCELLANEOUS=$(READMES) guide/*/*.tex guide/*/*/*.tex guide/*/*.bib
 RESOURCES=$(STYLEFILES) $(LOGOFILES) $(LOCALEFILES)
 SOURCEFILES=$(DTXFILES) $(INSFILES) docstrip.cfg
 AUXFILES=fithesis.aux fithesis.log fithesis.toc fithesis.ind fithesis.idx fithesis.out fithesis.ilg fithesis.gls fithesis.glo fithesis.hd
@@ -49,7 +52,7 @@ test: all
 
 # This pseudo-target creates the distribution archive.
 dist: complete
-	make $(TDSFILE) $(DISTFILE)
+	make $(TDSFILE) $(DISTFILE) $(CTANFILE)
 
 # This target creates the class files.
 $(CLASSFILES): fithesis.ins fithesis.dtx
@@ -75,15 +78,20 @@ $(TDSFILE): $(LATEXFILES) $(SOURCEFILES) $(PDFFILES) $(PDFSOURCES)
 	mv "$$DIR"/$@ $@ && rm -rf "$$DIR"
 
 # This target generates a distribution file
-$(DISTFILE): $(LATEXFILES) $(SOURCEFILES) $(MAKES) $(TESTFILES) $(PDFFILES) $(PDFSOURCES) $(MISCELLANEOUS)
-	DIR=`mktemp -d` && mkdir --parents "$$DIR/fithesis3/fithesis3" && \
+$(DISTFILE): $(LATEXFILES) $(SOURCEFILES) $(MAKES) $(TESTFILES) $(PDFFILES) $(PDFSOURCES) $(MISCELLANEOUS) $(EXAMPLES)
+	DIR=`mktemp -d` && mkdir --parents "$$DIR/fithesis3" && \
+	cp --verbose $(TDSFILE) "$$DIR"/fithesis3 && \
+	cp --parents --verbose $^ "$$DIR/fithesis3" && \
+	(cd "$$DIR" && zip -r -v -nw $@ *) && \
+	mv "$$DIR"/$@ . && rm -rf "$$DIR"
+
+# This target generates a CTAN distribution file
+$(CTANFILE): $(SOURCEFILES) $(MAKES) $(TESTFILES) $(MISCELLANEOUS) $(LOGOSOURCEFILES) $(PDFFILES)
+	DIR=`mktemp -d` && mkdir --parents "$$DIR/fithesis3" && \
 	cp --verbose $(TDSFILE) "$$DIR" && \
-	cp --verbose $(TDSFILE) "$$DIR"/fithesis3/fithesis3 && \
-	cp --parents --verbose $^ "$$DIR/fithesis3/fithesis3" && \
-	(cd "$$DIR" && zip -r -v -nw $(CTANFILE) *) && \
-	(cd "$$DIR"/fithesis3 && zip -r -v -nw $(DISTFILE) *) && \
-	mv "$$DIR"/$(CTANFILE) . && \
-	mv "$$DIR"/fithesis3/$(DISTFILE) . && rm -rf "$$DIR"
+	cp --parents --verbose $^ "$$DIR/fithesis3" && \
+	(cd "$$DIR" && zip -r -v -nw $@ *) && \
+	mv "$$DIR"/$@ . && rm -rf "$$DIR"
 
 # This pseudo-target installs the class files and
 # the technical documentation into the TeX directory
