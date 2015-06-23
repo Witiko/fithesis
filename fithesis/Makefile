@@ -10,14 +10,20 @@ EPSLOGOS=logo/*/*.eps logo/*/color/*.eps
 PDFLOGOS=logo/*/*.pdf logo/*/color/*.pdf
 LOGOS=$(EPSLOGOS) $(PDFLOGOS)
 LOCALES=locale/*.def locale/*/*.def locale/*/*/*.def
-DTXFILES=*.dtx locale/*.dtx style/*.dtx style/*/*.dtx
-INSFILES=*.ins locale/*.ins style/*.ins style/*/*.ins
+DTXFILES=*.dtx locale/czech.dtx locale/english.dtx \
+	locale/slovak.dtx style/*.dtx style/*/*.dtx
+INSFILES=*.ins locale/czech.ins locale/english.ins \
+	locale/slovak.ins style/*.ins style/*/*.ins
 TESTS=test/*.tex
 MAKES=Makefile */Makefile */*/Makefile */*/*/Makefile
-READMES=README
-EXAMPLES=../*.tex ../Makefile
-MISCELLANEOUS=$(READMES) guide/*/*.tex guide/*/*/*.tex \
-	guide/*/*.bib
+USEREXAMPLES=../*.tex ../Makefile ../DESCRIPTION
+DEVEXAMPLES=guide/EXAMPLE/DESCRIPTION guide/mu/DESCRIPTION \
+	guide/DESCRIPTION locale/DESCRIPTION locale/EXAMPLE.dtx \
+	locale/EXAMPLE.ins logo/EXAMPLE/DESCRIPTION logo/mu/DESCRIPTION \
+	logo/DESCRIPTION style/EXAMPLE/DESCRIPTION style/mu/DESCRIPTION \
+	style/DESCRIPTION test/DESCRIPTION
+EXAMPLES=$(USEREXAMPLES) $(DEVEXAMPLES)
+MISCELLANEOUS=guide/*/*.tex guide/*/*/*.tex guide/*/*.bib
 RESOURCES=$(STYLEFILES) $(LOGOS) $(LOCALES)
 SOURCES=$(DTXFILES) $(INSFILES) docstrip.cfg
 AUXFILES=fithesis.aux fithesis.log fithesis.toc fithesis.ind \
@@ -29,6 +35,7 @@ GUIDES=guide/mu/econ.pdf guide/mu/fi.pdf guide/mu/fsps.pdf \
 	guide/mu/fss.pdf guide/mu/law.pdf guide/mu/med.pdf \
 	guide/mu/ped.pdf guide/mu/phil.pdf guide/mu/sci.pdf
 PDFS=$(MANUAL) $(GUIDES)
+DOCS=$(PDFS) README
 TDSARCHIVE=fithesis.tds.zip
 CTANARCHIVE=fithesis.ctan.zip
 DISTARCHIVE=fithesis.zip
@@ -84,7 +91,7 @@ $(TDSARCHIVE):
 
 # This target generates a distribution file
 $(DISTARCHIVE): $(SOURCES) $(LATEXFILES) $(MAKES) $(TESTS) \
-	$(PDFS) $(PDFSOURCES) $(MISCELLANEOUS) $(EXAMPLES)
+	$(DOCS) $(PDFSOURCES) $(MISCELLANEOUS) $(EXAMPLES)
 	DIR=`mktemp -d` && mkdir --parents "$$DIR/fithesis" && \
 	cp --verbose $(TDSARCHIVE) "$$DIR"/fithesis && \
 	cp --parents --verbose $^ "$$DIR/fithesis" && \
@@ -93,7 +100,7 @@ $(DISTARCHIVE): $(SOURCES) $(LATEXFILES) $(MAKES) $(TESTS) \
 
 # This target generates a CTAN distribution file
 $(CTANARCHIVE): $(SOURCES) $(MAKES) $(TESTS) \
-	$(MISCELLANEOUS) $(EPSLOGOS) $(PDFS)
+	$(MISCELLANEOUS) $(EPSLOGOS) $(DOCS) $(DEVEXAMPLES)
 	DIR=`mktemp -d` && mkdir --parents "$$DIR/fithesis" && \
 	cp --verbose $(TDSARCHIVE) "$$DIR" && \
 	cp --parents --verbose $^ "$$DIR/fithesis" && \
@@ -122,8 +129,7 @@ install:
 	
 	# Documentation
 	mkdir --parents "$(to)/doc/latex/fithesis"
-	cp --verbose $(MANUAL) "$(to)/doc/latex/fithesis/manual.pdf"
-	cp --parents --verbose $(GUIDES) "$(to)/doc/latex/fithesis"
+	cp --parents --verbose $(DOCS) "$(to)/doc/latex/fithesis"
 	
 	# Rebuild the hash
 	[ "$(nohash)" = "true" ] || texhash

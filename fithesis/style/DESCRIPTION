@@ -1,0 +1,5 @@
+This directory contains the base style file, which is always
+loaded unless inheritance is disabled for style files.
+
+It can also contain subdirectories with the style files of
+various universities.
