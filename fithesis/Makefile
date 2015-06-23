@@ -36,6 +36,8 @@ GUIDES=guide/mu/econ.pdf guide/mu/fi.pdf guide/mu/fsps.pdf \
 	guide/mu/ped.pdf guide/mu/phil.pdf guide/mu/sci.pdf
 PDFS=$(MANUAL) $(GUIDES)
 DOCS=$(PDFS) README
+VERSION=VERSION.tex
+MAKEABLES=$(PDFS) $(CLASSFILES) $(VERSION)
 TDSARCHIVE=fithesis.tds.zip
 CTANARCHIVE=fithesis.ctan.zip
 DISTARCHIVE=fithesis.zip
@@ -91,7 +93,7 @@ $(TDSARCHIVE):
 
 # This target generates a distribution file
 $(DISTARCHIVE): $(SOURCES) $(LATEXFILES) $(MAKES) $(TESTS) \
-	$(DOCS) $(PDFSOURCES) $(MISCELLANEOUS) $(EXAMPLES)
+	$(DOCS) $(PDFSOURCES) $(MISCELLANEOUS) $(EXAMPLES) $(VERSION)
 	DIR=`mktemp -d` && mkdir --parents "$$DIR/fithesis" && \
 	cp --verbose $(TDSARCHIVE) "$$DIR"/fithesis && \
 	cp --parents --verbose $^ "$$DIR/fithesis" && \
@@ -100,7 +102,7 @@ $(DISTARCHIVE): $(SOURCES) $(LATEXFILES) $(MAKES) $(TESTS) \
 
 # This target generates a CTAN distribution file
 $(CTANARCHIVE): $(SOURCES) $(MAKES) $(TESTS) \
-	$(MISCELLANEOUS) $(EPSLOGOS) $(DOCS) $(DEVEXAMPLES)
+	$(MISCELLANEOUS) $(EPSLOGOS) $(DOCS) $(DEVEXAMPLES) $(VERSION)
 	DIR=`mktemp -d` && mkdir --parents "$$DIR/fithesis" && \
 	cp --verbose $(TDSARCHIVE) "$$DIR" && \
 	cp --parents --verbose $^ "$$DIR/fithesis" && \
@@ -168,5 +170,5 @@ dist-implode:
 
 # This pseudo-target removes any makeable files.
 implode: clean dist-implode
-	rm -f $(PDFS) $(CLASSFILES)
+	rm -f $(MAKEABLES)
 	for dir in $(SUBMAKES); do make implode -C "$$dir"; done
