@@ -1,0 +1,1403 @@
+% \iffalse meta-comment
+% fithesis.dtx
+% Copyright 1998--2015 Daniel Marek (DM), Jan Pavlovič (JP),
+% Vít Novotný (VN), Petr Sojka (PS)
+% http://www.fi.muni.cz/tech/unix/tex/fithesis.xhtml
+% Faculty of Informatics, Masaryk University
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status `maintained'.
+% 
+% The Current Maintainer of this work is Vít Novotný.
+% Send bug reports, requests for additions and questions
+% to the fithesis discussion forum at
+% <http://is.muni.cz/auth/df/fithesis-sazba/>.
+%
+% This work consists of the files fithesis.dtx and fithesis.ins
+% and the derived files fithesis3.cls, fithesis2.cls, fithesis.cls.
+%
+%    \begin{macrocode}
+%<*driver>
+
+\documentclass{ltxdoc}
+\usepackage[utf8]{inputenc} % this file uses UTF-8
+\usepackage[english]{babel}
+\usepackage{tgpagella}
+\usepackage{tabularx}
+\usepackage{hologo}
+\usepackage{booktabs}
+\usepackage[scaled=0.86]{berasans}
+\usepackage[scaled=1.03]{inconsolata}
+\usepackage[resetfonts]{cmap}
+\usepackage[T1]{fontenc} % use 8bit fonts
+\emergencystretch 2dd
+\usepackage{hypdoc}
+
+% Making paragraphs numbered
+\makeatletter
+\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
+            {-2.5ex\@plus -1ex \@minus -.25ex}%
+            {1.25ex \@plus .25ex}%
+            {\normalfont\normalsize\bfseries}}
+\makeatother
+\setcounter{secnumdepth}{4} % how many sectioning levels to assign
+\setcounter{tocdepth}{4}    % how many sectioning levels to show
+
+% ltxdoc class options
+\CodelineIndex
+\MakeShortVerb{|}
+\EnableCrossrefs
+\DoNotIndex{}
+\makeatletter
+\c@IndexColumns=2
+\makeatother
+
+\begin{document}
+  \RecordChanges
+  \DocInput{fithesis.dtx}
+  \PrintIndex
+  \PrintChanges
+\end{document}
+
+%</driver>
+%    \end{macrocode}
+%<*class>
+\NeedsTeXFormat{LaTeX2e}
+% \fi
+\def\thesis@version{2015/06/21 v0.3.16 fithesis3 MU thesis class}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% \changes{v0.3.16}  {2015/06/21}{Clubs and widows are now set to
+%   be infinitely bad. The \texttt{assignment} key has weaker, but
+%   more robust semantics now.}
+% \changes{v0.3.15}  {2015/06/14}{Renamed \cs{thesis@requireStyle}
+%   to \cs{thesis@requireWithOptions} and moved the style loader
+%   from the \cs{thesis@load} routine to a new
+%   \cs{thesis@requireStyle} macro to make the semantics of
+%   \cs{thesis@requireLocale} and \cs{thesis@requireStyle} more
+%   similar. Changed the \texttt{basepath}, \texttt{logopath},
+%   \texttt{localepath} and \texttt{stylepath} keys to match the
+%   lower camelcasing of the rest of the keys. Added further
+%   description regarding the use of the \texttt{assignment} key.
+%   [VN]}
+% \changes{v0.3.14}  {2015/06/07}{Updated the documentation. [VN]}
+% \changes{v0.3.13}  {2015/05/30}{Fixed an inconsistency in the
+%   example code. Removed an extraneous \cs{thesis@blocks@clear}
+%   block withing the definition of \cs{thesis@blocks@frontMatter}
+%   in the fss style file. Added comments, fixed clubs and widows
+%   and removed text overflows within the user guides. Adjusted the
+%   colors of various style files. Removed the trailing dot in the
+%   bibliographic identification within the med and ped style
+%   files. Fixed a typo within the technical documentation. Fixed
+%   the twoside alignment of the \cs{thesis@blocks@bibEntry} and
+%   the \cs{thesis@blocks@bibEntryEn} blocks within the sci style
+%   file.  The \cs{thesis@blocks@assignment} block no longer clears
+%   a page when nothing is inserted. It is also no longer
+%   hard-coded to be hidden for rigorous theses. Instead, the
+%   \cs{ifthesis@blocks@assignment} conditional can be set either
+%   by the subsequently loaded style files or by the user. So far,
+%   only the fi and sci style files set the conditional. [VN]}
+% \changes{v0.3.12}  {2015/05/24}{The subsections and
+%   subsubsections now use the correct \texttt{tocdepth}. [VN]}
+% \changes{v0.3.11}  {2015/05/15}{Added hyphenation into the
+%   technical documentation. Fixed an unterminated group. Polished
+%   the text of the guide. Added the \texttt{palatino} and
+%   \texttt{nopalatino} options. Stylistic changes to the text of
+%   the technical documentation. \cs{thesis@subdir} is now robust
+%   against relative paths. Accounted for French spacing in the
+%   guide. Fixed the \texttt{thesis@english@facultyName} string.
+%   Documentation refinements. [VN]}
+% \changes{v0.3.10}  {2015/05/09}{Fixed a typo in the technical
+%   documentation. Updated the \emph{Advanced usage} chapter of the
+%   user guide. The required packaged listed in Section 2.2 of the
+%   user guide are now always correct. Adjusted the footer spacing
+%   in the styles of econ and fi. Added \emph{Advanced usage}
+%   chapter to the user guide. Added the description of basic
+%   options into the user guide. Added the \texttt{table} and
+%   \texttt{oldtable} options. Added the \texttt{type} field to the
+%   guide for completeness. [VN]}
+% \changes{v0.3.09}  {2015/04/26}{A complete refactoring of the class. The class
+%   was decomposed into a base class, locale files and style files. [VN]}
+% \changes{v0.3.08}  {2015/03/04}{Fixed a non-terminated \cs{if} condition.
+%   [VN] (backport of v0.2.18)\\Fixed mostly documentation errors reported
+%   at the new fithesis discussion forum (-ti, eco$\rightarrow$econ, implicit
+%   twocolumn, example extended (font setup), etc.). [PS] (backport of v0.2.17)}
+% \changes{v0.3.07}  {2015/02/03}{Replaced the \cs{thesiswoman} command with
+%   \cs{thesisgender}. [VN]}
+% \changes{v0.3.06}  {2015/01/26}{Added the colorx package and the base colors
+%   for each faculty. If the color option is specified, the tabular environment
+%   gets redefined and uses the faculty colors to color alternating table rows
+%   to improve readability. The hyperref links in the e-version are now likewise
+%   colored according to the chosen faculty, in this case regardless of the
+%   presence of the color option. Dropped the support for typesetting theses
+%   outside MU. [VN]}
+% \changes{v0.3.05}  {2015/01/21}{Added support for change typesetting.
+%   Restructured the code to make it more amenable to literal programming.
+%   Added support for \cs{CodelineIndex} typesetting. Added information about
+%   the usage of \textsf{fithesis1} and \textsf{fithesis2} on the FI unix
+%   machines. (backport of v0.2.16) [VN]\\Minor changes throughout the text,
+%   added a link to the the fithesis forums [PS] (backport of v0.2.15@r14:15)}
+% \changes{v0.3.04}  {2015/01/14}{Import the url package to allow for the use of
+%   \cs{url} within the documentation. (backport of v0.2.15@r13) [VN]}
+% \changes{v0.3.03}  {2015/01/14}{Small fixes (added \cs{relax} at
+%   \cs{MainMatter}), generating both fithesis.cls (obsolete, loading
+%   \texttt{fithesis2.cls}) and \texttt{fithesis2.cls}, minor doc edits,
+%   version numbering of \texttt{.clo} fixed, switch to utf8 and ensuring that
+%   \texttt{.dtx} compiles. Documentation adjusted to the status quo, added
+%   link to discussion forum (backport of v0.2.14) [PS]}
+% \changes{v0.3.02}  {2015/01/13}{pdf metadata stamping added for
+%   \cs{thesistitle} and \cs{thesisstudent} [VN]}
+% \changes{v0.3.01}  {2015/01/09}{documentation now uses babel and cmap
+%   packages. the entire file was transcoded into utf8, \cs{thesiscolor} was
+%   replaced by color class option, added pdf metadata stamping support [VN]}
+% \changes{v0.3.00}  {2015/01/01}{fi logo is no longer special-cased (added eps
+%   and pdf), \cs{thesislogopath} added to set the logo directory path,
+%   \cs{thesiscolor} added to enable colorful typo elements [VN]}
+% \changes{v0.2.12a}{2008--2011}{fork fithesis2 by Mr. Filipčík and Janoušek;
+%   cf. \protect\url{http://github.com/liskin/fithesis}}
+% \changes{v0.2.12} {2008/07/27}{Licence change to the LPPL [JP]}
+% \changes{v0.2.11} {2008/01/07}{fix missing \texttt{fi-logo.mf} [JP,PS]}
+% \changes{v0.2.10} {2006/05/12}{fix EN name of Acknowledgement [JP]}
+% \changes{v0.2.09}  {2006/05/08}{add EN version of University name [JP]}
+% \changes{v0.2.08}  {2006/01/20}{add change of University name [JP]}
+% \changes{v0.2.07}  {2005/05/10}{escape all Czech letters [JP]
+%   babel is used instead of stupid package czech [JP]
+%   \cs{MainMatter} should be placed after \cs{tablesofcontents} [PS]}
+% \changes{v0.2.06}  {2004/12/22}{fix : behind Advisor [JP]}
+% \changes{v0.2.05}  {2004/05/13}{add English abstract [JP]}
+% \changes{v0.2.04}  {2004/05/13}{fix SK declaration [Peter Cerensky, JP]}
+% \changes{v0.2.03}  {2004/05/13}{fix title spacing [PS, JP]}
+% \changes{v0.2.02}  {2004/05/12}{fix encoding bug [JP]}
+% \changes{v0.2.01}  {2004/05/11}{add subsubsection to toc [JP]}
+% \changes{v0.2.00}  {2004/05/03}{add sk lang [JP, Peter Cerensky]
+%   set default cls class to \textsf{rapport3} [JP]}
+% \changes{v0.1g}   {2004/04/01}{change of default size (12pt$\rightarrow$11pt) [JP]}
+% \changes{v0.1f}   {2004/01/24}{add documentation for hyperref [JP]}
+% \changes{v0.1e}   {2004/01/07}{add Brno to MU title [JP]}
+% \changes{v0.1d}   {2003/03/24}{removed def schapter from fit1*.clo [JP]}
+% \changes{v0.1c}   {2003/02/21}{default values of \cs{facultyname} and
+%   \\\cs{@thesissubtitle} set for backward compatibility) [PS]}
+% \changes{v0.1b}   {2003/02/14}{change of default size (11pt$\rightarrow$12pt) [JP]}
+% \changes{v0.1a}   {2003/02/12}{minor documentation changes (CZ only,
+%   sorry) [PS]}
+% \changes{v0.1}    {2003/02/11}{new release, documentation editing (CZ only,
+%   sorry) [PS]}
+% \changes{v0.0a}   {2002}{changes by Jan Pavlovič to allow fithesis being
+%   backend of docbook based system for thesis writing}
+% \changes{v0.0}    {1998}{bachelor project of Daniel Marek under
+%   supervision of Petr Sojka}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% \title{The \textsf{fithesis3} class for the typesetting of theses written
+%   at the Masaryk University in Brno}
+% \author{Daniel Marek, Jan Pavlovič, Vít Novotný, Petr Sojka}
+% \date{\today}
+% \maketitle
+%
+% \begin{abstract}
+% \noindent This document details the design and the implementation
+% of the \textsf{fithesis3} document class. It contains technical
+% information for anyone who wishes to extend the class with their
+% locale or style files. Users who only wish to use the class are
+% advised to consult the guides distributed along with the class,
+% which only document the parts of the public API relevant to the
+% given style files.
+% \end{abstract}
+%
+% \tableofcontents
+%
+% \section{Required classes and packages}
+% The class loads the \texttt{rapport3} base class and the
+% following packages: \begin{itemize}
+%   \item\textsf{keyval} -- Adds support for parsing
+%     comma-delimited lists of key-value pairs.
+%   \item\textsf{etoolbox} -- Adds support for expanding
+%     code after the preamble using the |\AtPreamble| hook.
+%   \item\textsf{ifxetex} -- Used to detect the \Hologo{XeTeX}
+%     engine.
+%   \item\textsf{ifluatex} -- Used to detect the \Hologo{LuaTeX}
+%     engine.
+%   \item\textsf{inputenc} -- Used to enable the input UTF-8
+%     encoding. This package does not get loaded under
+%     the \Hologo{XeTeX} and \Hologo{LuaTeX} engines.
+% \end{itemize}
+% The \texttt{hyperref} package is also conditionally loaded during
+% the expansion of the |\thesis@load| macro (see Section
+% \ref{sec:thesis@load}). Other packages may be required by the
+% style files (see Section \ref{sec:style-files}) you are using.
+%    \begin{macrocode}
+\ProvidesClass{fithesis3}[\thesis@version]
+\LoadClass[a4paper]{rapport3}
+\RequirePackage{keyval}
+\RequirePackage{etoolbox}
+\RequirePackage{ifxetex}
+\RequirePackage{ifluatex}
+\ifxetex\else\ifluatex\else
+  \RequirePackage[utf8]{inputenc}
+\fi\fi
+%    \end{macrocode}
+% \section{Public API}
+% \label{sec:public-api}
+% \subsection{Options}
+% Any \oarg{options} passed to the class will be handed down to the
+% loaded style files. The supported options are therefore documented
+% in the subsections of Section \ref{sec:style-files} dedicated to
+% the respective style files.
+%
+% \subsection{The \cs{thesissetup} macro}
+% \begin{macro}{\thesissetup}
+% The main public macro is the |\thesissetup|\marg{keyvals}
+% command, where \textit{keyvals} is a comma-delimited list of
+% key-value pairs as defined by the \textsf{keyval} package. This
+% macro needs to be included prior to the beginning of a \LaTeX\ 
+% document. When used, the \textit{keyvals} are processed.
+%
+% Note that the values passed to the |\thesissetup| public macro
+% may only contain one paragraph of text. If you wish to set
+% multiple paragraphs of text as the value, you need to use
+% the |\thesislong| public macro (see Section
+% \ref{sec:thesislong}).
+%    \begin{macrocode}
+\def\thesissetup#1{%
+  \setkeys{thesis}{#1}}
+%    \end{macrocode}
+% \subsubsection{The \texttt{basePath} key}
+% \begin{macro}{\thesis@basepath}
+% The \marg{\texttt{basePath}=path} pair sets the \textit{path}
+% containing the class files. The \textit{path} is prepended to
+% every other path (|\thesis@logopath|, |\thesis@stylepath| and
+% |\thesis@localepath|) used by the class. If non-empty, the
+% \textit{path} gets normalized to \textit{path/}. The normalized
+% \textit{path} is stored within the private |\thesis@basepath| macro,
+% whose implicit value is |fithesis/|.
+%    \begin{macrocode}
+\def\thesis@basepath{fithesis/}
+\define@key{thesis}{basePath}{%
+  \ifx\thesis@empty#1\thesis@empty%
+    \def\thesis@basepath{}%
+  \else%
+    \def\thesis@basepath{#1/}%
+  \fi}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\thesis@logopath}
+% \subsubsection{The \texttt{logoPath} key}
+% The \marg{\texttt{logoPath}=path} pair sets the \textit{path}
+% containing the logo files, which is used by the style files
+% loading the logo. The \textit{path} is normalized using the
+% private |\thesis@subdir| macro and stored within the private
+% |\thesis@logopath| macro, whose implicit value is
+% |\thesis@basepath| followed by |logo/\thesis@university/|. By
+% default, this expands to \texttt{fithesis3/logo/mu/}.
+%    \begin{macrocode}
+\def\thesis@logopath{\thesis@basepath logo/\thesis@university/}
+\define@key{thesis}{logoPath}{%
+  \def\thesis@logopath{\thesis@subdir#1%
+    \empty\empty\empty\empty}}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\thesis@stylepath}
+% \subsubsection{The \texttt{stylePath} key}
+% The \marg{\texttt{stylePath}=path} pair sets the \textit{path}
+% containing the style files. The \textit{path} is normalized using
+% the private |\thesis@subdir| macro and stored within the private
+% |\thesis@stylepath| macro, whose implicit value is
+% |\thesis@basepath style/|. By default, this expands to
+% \texttt{fithesis3/style/}.
+%    \begin{macrocode}
+\def\thesis@stylepath{\thesis@basepath style/}
+\define@key{thesis}{stylePath}{%
+  \def\thesis@stylepath{\thesis@subdir#1%
+    \empty\empty\empty\empty}}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\thesis@localepath}
+% \subsubsection{The \texttt{localePath} key}
+% The \marg{\texttt{localePath}=path} pair sets the \textit{path}
+% containing the locale files. The \textit{path} is normalized
+% using the private |\thesis@subdir| macro and stored within the
+% private |\thesis@localepath| macro, whose implicit value is
+% |\thesis@basepath| followed by |locale/|.  By default, this
+% expands to \texttt{fithesis3/locale/}.
+%    \begin{macrocode}
+\def\thesis@localepath{\thesis@basepath locale/}
+\define@key{thesis}{localePath}{%
+  \def\thesis@localepath{\thesis@subdir#1%
+    \empty\empty\empty\empty}}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\thesis@subdir}
+% The |\thesis@subdir| private macro returns |/| unchanged, coerces
+% |.|, |..|, |/|\textit{path}, |./|\textit{path} and
+% |../|\textit{path} to |./|, |../|, |/|\textit{path}|/|,
+% |./|\textit{path}|/| and |../|\textit{path}|/|, respectively, and
+% coerces any other \textit{path} into |\thesis@basepath|
+% \textit{path}|/|.
+%    \begin{macrocode}
+\def\thesis@subdir#1#2#3#4\empty{%
+  \ifx#1\empty%           <empty> -> <basepath>
+    \thesis@basepath
+  \else
+    \if#1/%
+      \ifx#2\empty%             / -> /
+        /%
+      \else%              /<path> -> /<path>/
+        #1#2#3#4/%
+      \fi
+    \else%
+      \if#1.%
+        \ifx#2\empty%           . -> ./
+          ./%
+        \else
+          \if#2.%
+            \ifx#3\empty%      .. -> ../
+              ../%
+            \else
+              \if#3/%   ../<path> -> ../<path>/
+                ../#4/%
+              \else
+                \thesis@basepath#1#2#3#4/%
+              \fi
+            \fi
+          \else
+            \if#2/%      ./<path> -> ./<path>/
+              ./#3#4/%
+            \else
+              \thesis@basepath#1#2#3#4/%
+            \fi
+          \fi
+        \fi
+      \else
+        \thesis@basepath#1#2#3#4/%
+      \fi
+    \fi%
+  \fi}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\thesis@def}
+% The |\thesis@def|\oarg{key}\marg{name} private macro defines
+% the private |\thesis@|\textit{name} macro to expand
+% to either <<\textit{key}>>, if specified, or to
+% <<\textit{name}>>. The macro serves to provide the placeholder
+% string for user-defined macros with no default value.
+%    \begin{macrocode}
+\newcommand{\thesis@def}[2][]{%
+  \expandafter\def\csname thesis@#2\endcsname{%
+    <<\ifx\thesis@empty#1\thesis@empty#2\else#1\fi>>}}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\thesis@declaration}
+% \subsubsection{The \texttt{declaration} key}
+% The \marg{\texttt{declaration}=text} pair sets the
+% declaration \textit{text} to be included into the document.
+% \cmd{/thesis@basepath} followed by \textit{path}. The
+% \textit{text} is stored within the private |\thesis@declaration|
+% macro, whose implicit value is |\thesis@@{declaration}|.
+%    \begin{macrocode}
+\def\thesis@declaration{\thesis@@{declaration}}
+\long\def\KV@thesis@declaration#1{%
+  \long\def\thesis@declaration{#1}}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\ifthesis@woman}
+% \subsubsection{The \texttt{gender} key}
+% The \marg{\texttt{gender}=char} pair sets the author's gender to
+% either a male, if \textit{char} is the character \texttt{m}, or
+% to a female. The gender can be tested using the
+% |\ifthesis@woman| \ldots |\else| \ldots |\fi| conditional. The
+% implicit gender is male.
+%    \begin{macrocode}
+\newif\ifthesis@woman\thesis@womanfalse
+\define@key{thesis}{gender}{%
+  \def\thesis@male{m}%
+  \def\thesis@arg{#1}%
+  \ifx\thesis@male\thesis@arg%
+    \thesis@womanfalse%
+  \else%
+    \thesis@womantrue%
+  \fi}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\thesis@author}
+% \subsubsection{The \texttt{author} key}
+% The \marg{\texttt{author}=name} pair sets the author's full
+% name to \textit{name}. The \textit{name} is parsed using the
+% \DescribeMacro{\thesis@parseAuthor} private macro and stored
+% within the following private macros:
+% \begin{itemize}
+%   \item\DescribeMacro{\thesis@author}|\thesis@author|
+%     -- The full name of the author.
+%   \item\DescribeMacro{\thesis@author@head}|\thesis@author@head|
+%     -- The first space-delimited part of the name. This
+%     corresponds to the author's first name.
+%   \item\DescribeMacro{\thesis@author@tail}|\thesis@author@tail|
+%     -- The full name without the first space-delimited part of
+%     the name. This corresponds to the author's surname.
+% \end{itemize}
+%    \begin{macrocode}
+\def\thesis@parseAuthor#1{%
+  \def\thesis@author{#1}%
+  \def\thesis@author@head{\expandafter\expandafter\expandafter%
+    \@gobble\thesis@head#1 \relax}%
+  \def\thesis@author@tail{\thesis@tail#1 \relax}}
+\thesis@def{author}%
+\thesis@def[author]{author@head}%
+\thesis@def[author]{author@tail}%
+\define@key{thesis}{author}{%
+  \thesis@parseAuthor{#1}}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\thesis@id}
+% \subsubsection{The \texttt{id} key}
+% The \marg{\texttt{id}=identifier} pair sets the identifier
+% of the thesis author to \textit{identifier}. This usually
+% corresponds to a unique identifier of the author within the
+% information system of the given university.
+%    \begin{macrocode}
+\thesis@def{id}
+\define@key{thesis}{id}{%
+  \def\thesis@id{#1}}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\thesis@type}
+% \subsubsection{The \texttt{type} key}
+% The \marg{\texttt{type}=type} pair sets the type of the thesis
+% to \textit{type}. The following types of theses are recognized:
+% \begin{center}\begin{tabular}{lc}\toprule
+%   The thesis type & The value of \textit{type} \\\midrule
+%   Bachelor's thesis & \texttt{bc} \\
+%   Master's thesis & \texttt{mgr} \\
+%   Doctoral thesis & \texttt{d} \\
+%   Rigorous thesis & \texttt{r} \\\bottomrule
+% \end{tabular}\end{center}
+% The \textit{type} is stored within the private |\thesis@type|
+% macro, whose implicit value is |bc|. For the ease of testing of
+% the thesis type via |\ifx| conditions within style and locale
+% files, the \DescribeMacro{\thesis@bachelors}|\thesis@bachelors|,
+% \DescribeMacro{\thesis@masters}|\thesis@masters|,
+% \DescribeMacro{\thesis@doctoral}|\thesis@doctoral| and
+% \DescribeMacro{\thesis@rigorous}|\thesis@rigorous| macros
+% containing the corresponding \textit{type} values are available
+% as a part of the private API.
+%    \begin{macrocode}
+\def\thesis@bachelors{bc}
+\def\thesis@masters{mgr}
+\def\thesis@doctoral{d}
+\def\thesis@rigorous{r}
+\let\thesis@type\thesis@bachelors
+\define@key{thesis}{type}{%
+  \def\thesis@type{#1}}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\thesis@university}
+% \subsubsection{The \texttt{university} key}
+% The \marg{\texttt{university}=id} pair sets the identifier of
+% the university, at which the thesis is being written,
+% to \textit{id}. The \textit{id} is stored within the private
+% |\thesis@university| macro, whose implicit value is \texttt{mu}.
+% The |\thesis@university|
+% macro is used by the |\thesis@logopath| macro and when loading
+% the style and locale files using the |\thesis@load| macro. It
+% allows for the usage of the class at universities other than
+% the Masaryk University in Brno without the need to alter the
+% code.
+%    \begin{macrocode}
+\def\thesis@university{mu}
+\define@key{thesis}{university}{%
+  \def\thesis@university{#1}}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\thesis@faculty}
+% \subsubsection{The \texttt{faculty} key}
+% The \marg{\texttt{faculty}=domain} pair sets the faculty, at
+% which the thesis is being written, to \textit{domain}. The
+% following \textit{domain} names are recognized:
+% \begin{center}\begin{tabularx}{\textwidth}{Xc}\toprule
+%   The Faculty & The \textit{domain} name \\\midrule
+%   The Faculty of Informatics & \texttt{fi} \\
+%   The Faculty of Science & \texttt{sci} \\
+%   The Faculty of Law & \texttt{law} \\
+%   The Faculty of Economics and Administration & \texttt{econ} \\
+%   The Faculty of Social Studies & \texttt{fss} \\
+%   The Faculty of Medicine & \texttt{med} \\
+%   The Faculty of Education & \texttt{ped} \\
+%   The Faculty of Arts & \texttt{phil} \\
+%   The Faculty of Sports Studies & \texttt{fsps} \\\bottomrule
+% \end{tabularx}\end{center}
+% The \textit{domain} name is stored within the private
+% |\thesis@faculty| macro, whose implicit value is \texttt{fi}.
+%    \begin{macrocode}
+\def\thesis@faculty{fi}
+\define@key{thesis}{faculty}{%
+  \def\thesis@faculty{#1}}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\thesis@department}
+% \subsubsection{The \texttt{department} key}
+% The \marg{\texttt{department}=name} pair sets the name of the
+% department, at which the thesis is being written, to
+% \textit{name}. The \textit{name} is stored within the private
+% |\thesis@department| macro.
+%    \begin{macrocode}
+\thesis@def{department}
+\define@key{thesis}{department}{%
+  \def\thesis@department{#1}}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\thesis@departmentEn}
+% \subsubsection{The \texttt{departmentEn} key}
+% The \marg{\texttt{departmentEn}=name} pair sets the English
+% name of the department, at which the thesis is being written, to
+% \textit{name}. The \textit{name} is stored within the private
+% |\thesis@departmentEn| macro.
+%    \begin{macrocode}
+\thesis@def{departmentEn}
+\define@key{thesis}{departmentEn}{%
+  \def\thesis@departmentEn{#1}}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\thesis@programme}
+% \subsubsection{The \texttt{programme} key}
+% The \marg{\texttt{programme}=name} pair sets the name of the
+% author's study programme to \textit{name}. The \textit{name}
+% is stored within the private |\thesis@programme| macro.
+%    \begin{macrocode}
+\thesis@def{programme}
+\define@key{thesis}{programme}{%
+  \def\thesis@programme{#1}}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\thesis@programmeEn}
+% \subsubsection{The \texttt{programmeEn} key}
+% The \marg{\texttt{programmeEn}=name} pair sets the English name
+% of the author's study programme to \textit{name}. The
+% \textit{name} is stored within the private |\thesis@programmeEn|
+% macro.
+%    \begin{macrocode}
+\thesis@def{programmeEn}
+\define@key{thesis}{programmeEn}{%
+  \def\thesis@programmeEn{#1}}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\thesis@field}
+% \subsubsection{The \texttt{field} key}
+% The \marg{\texttt{field}=name} pair sets the name of the
+% author's field of stufy to \textit{name}. The \textit{name}
+% is stored within the private |\thesis@field| macro.
+%    \begin{macrocode}
+\thesis@def{field}
+\define@key{thesis}{field}{%
+  \def\thesis@field{#1}}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\thesis@fieldEn}
+% \subsubsection{The \texttt{fieldEn} key}
+% The \marg{\texttt{fieldEn}=name} pair sets the English name of
+% the author's field of stufy to \textit{name}. The \textit{name}
+% is stored within the private |\thesis@fieldEn| macro.
+%    \begin{macrocode}
+\thesis@def{fieldEn}
+\define@key{thesis}{fieldEn}{%
+  \def\thesis@fieldEn{#1}}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\thesis@universityLogo}
+% \subsubsection{The \texttt{universityLogo} key}
+% The \marg{\texttt{universityLogo}=filename} pair sets the
+% filename of the logo file to be used to \textit{filename}. The
+% \textit{filename} is stored within the private
+% |\thesis@universityLogo| macro, whose implicit value is
+% \texttt{base}. The logo file is loaded from the
+% |\thesis@logopath|\discretionary{}{}{}|\thesis@logo| path.
+%    \begin{macrocode}
+\def\thesis@universityLogo{base}
+\define@key{thesis}{universityLogo}{%
+  \def\thesis@universityLogo{#1}}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\thesis@facultyLogo}
+% \subsubsection{The \texttt{facultyLogo} key}
+% The \marg{\texttt{facultyLogo}=filename} pair sets the filename
+% of the logo file to be used to \textit{filename}. The
+% \textit{filename} is stored within the private
+% |\thesis@facultyLogo| macro, whose implicit value is
+% |\thesis@faculty|. The logo file is loaded from the
+% |\thesis@logopath\thesis@logo| path.
+%    \begin{macrocode}
+\def\thesis@facultyLogo{\thesis@faculty}
+\define@key{thesis}{facultyLogo}{%
+  \def\thesis@facultyLogo{#1}}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\thesis@style}
+% \subsubsection{The \texttt{style} key}
+% The \marg{\texttt{style}=filename} pair sets the filename of the
+% style file to be used to \textit{filename}. The \textit{filename}
+% is stored within the private |\thesis@style| macro, whose
+% implicit value is |\thesis@university/fithesis-\thesis@faculty|.
+% The style file is loaded from the
+% |\thesis@stylepath\thesis@style| path.
+%    \begin{macrocode}
+\def\thesis@style{\thesis@university/fithesis-\thesis@faculty}
+\define@key{thesis}{style}{%
+  \def\thesis@style{#1}}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\thesis@style@inheritance}
+% \subsubsection{The \texttt{styleInheritance} key}
+% The \marg{\texttt{styleInheritance}=bool} pair either enables,
+% if \textit{bool} is \texttt{true} or unspecified, or disables the
+% inheritance for style files. The effects of the inheritance
+% are documented within the subsection documenting the
+% |\thesis@load| macro. The setting can be tested using the
+% |\ifthesis@style@inheritance| \ldots
+% |\else| \ldots |\fi| conditional. Inheritance is enabled for
+% style files by default.
+%    \begin{macrocode}
+\newif\ifthesis@style@inheritance\thesis@style@inheritancetrue
+\define@key{thesis}{styleInheritance}[true]{%
+  \def\@true{true}%
+  \def\@arg{#1}%
+  \ifx\@true\@arg%
+    \thesis@style@inheritancetrue%
+  \else%
+    \thesis@style@inheritancefalse%
+  \fi}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\thesis@locale}
+% \subsubsection{The \texttt{locale} key}
+% The \marg{\texttt{locale}=filename} pair sets the filename of the
+% locale file(s) to be used to \textit{filename}. The
+% \textit{filename} is stored within the private |\thesis@locale|
+% macro, whose implicit value is the main language of either the
+% \textsf{babel} or the \textsf{polyglossia} package, or
+% \texttt{english}, when undefined. If the inheritance is disabled
+% for locale files, the locale file is loaded from the
+% |\thesis@localepath\thesis@locale| path.
+%    \begin{macrocode}
+\def\thesis@locale{%
+  % Babel detection
+  \ifx\languagename\undefined%
+  english\else\languagename\fi}
+\define@key{thesis}{locale}{%
+  \def\thesis@locale{#1}}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\ifthesis@english}
+% The English locale is special. Several parts of the document will
+% typically be typeset in both the current locale and English.
+% However, if the current locale is English, this would result in
+% duplicity. To avoid this, the |\ifthesis@english| \ldots |\else|
+% \ldots |\fi| conditional is made available for testing, whether
+% or not the current locale is English.
+%    \begin{macrocode}
+\def\ifthesis@english{
+  \expandafter\def\expandafter\@english\expandafter{\string%
+  \english}%
+  \expandafter\expandafter\expandafter\def\expandafter%
+  \expandafter\expandafter\@locale\expandafter\expandafter%
+  \expandafter{\expandafter\string\csname\thesis@locale\endcsname}%
+  \expandafter\csname\expandafter i\expandafter f\ifx\@locale%
+  \@english%
+    true%
+  \else%
+    false%
+  \fi\endcsname}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\thesis@locale@inheritance}
+% \subsubsection{The \texttt{localeInheritance} key}
+% The \marg{\texttt{localeInheritance}=bool} pair either enables,
+% if \textit{bool} is \texttt{true} or unspecified, or disables the
+% inheritance. The effects of the inheritance are
+% documented within the subsection documenting the |\thesis@load| 
+% macro. The setting can be tested using the
+% |\ifthesis@locale@inheritance| \ldots
+% |\else| \ldots |\fi| conditional. Inheritance is enabled for locale
+% files by default.
+%    \begin{macrocode}
+\newif\ifthesis@locale@inheritance\thesis@locale@inheritancetrue
+\define@key{thesis}{localeInheritance}[true]{%
+  \def\@true{true}%
+  \def\@arg{#1}%
+  \ifx\@true\@arg%
+    \thesis@locale@inheritancetrue%
+  \else%
+    \thesis@locale@inheritancefalse%
+  \fi}
+%    \end{macrocode}
+% \end{macro}
+% \subsubsection{The \texttt{date} key}
+% The \marg{\texttt{date}=date} pair sets the date of the thesis
+% defence to \textit{date}, where \textit{date} is a string
+% in the \texttt{YYYY/MM/DD} format, where \texttt{YYYY} stands
+% for full year, \texttt{MM} stands for month and \texttt{DD}
+% stands for day. The \textit{date} is parsed and stored using
+% the \DescribeMacro{\thesis@parseDate}|\thesis@parseDate| private
+% macro within the following private macros:
+% \begin{itemize}
+%   \item\DescribeMacro{\thesis@date}|\thesis@date| -- The whole
+%     date
+%   \item\DescribeMacro{\thesis@year}|\thesis@year| -- The year
+%   \item\DescribeMacro{\thesis@month}|\thesis@month| -- The month
+%   \item\DescribeMacro{\thesis@day}|\thesis@day| -- The day of
+%     month
+%   \item\DescribeMacro{\thesis@season}|\thesis@season| -- Expands
+%     to either:
+%     \begin{itemize}
+%       \item\texttt{winter} if \texttt{MM} $<7$.
+%       \item\texttt{summer} if \texttt{MM} $\geq7$.
+%     \end{itemize}
+%   \item\DescribeMacro{\thesis@academicYear}|\thesis@academicYear|
+%     -- The academic year of the given semester:
+%     \begin{itemize}
+%       \item\texttt{YYYY/YYYY}$+1$ in case of a summer semester
+%       \item\texttt{YYYY}$-1$\texttt{/YYYY} in case of a winter
+%            semester
+%     \end{itemize}
+% \end{itemize}
+% To set up the default values, the |\thesis@parseDate| macro is
+% called with the fully expanded |\the\year/\the\month/\the\day|
+% string.
+%    \begin{macrocode}
+\def\thesis@parseDate#1/#2/#3|{{
+  % Basic info
+  \gdef\thesis@date{#1/#2/#3}%
+  \gdef\thesis@year{#1}%
+  \gdef\thesis@month{#2}%
+  \gdef\thesis@day{#3}%
+  
+  % Season and academic year
+  \newcount\@year \expandafter\@year \thesis@year \relax%
+  \newcount\@month\expandafter\@month\thesis@month\relax%
+  \ifnum\@month<7%
+    \gdef\thesis@season{winter}%
+    \advance\@year-1\edef\@yearA{\the\@year}%
+    \advance\@year 1\edef\@yearB{\the\@year}%
+  \else%
+    \gdef\thesis@season{summer}%
+                    \edef\@yearA{\the\@year}%
+    \advance\@year 1\edef\@yearB{\the\@year}%
+  \fi%
+  \global\edef\thesis@academicYear{\@yearA/\@yearB}}}
+
+\edef\thesis@date{\the\year/\the\month/\the\day}%
+\expandafter\thesis@parseDate\thesis@date|%
+
+\define@key{thesis}{date}{{%
+  \edef\@date{#1}%
+  \expandafter\thesis@parseDate\@date|}}
+%    \end{macrocode}
+% \begin{macro}{\thesis@place}
+% \subsubsection{The \texttt{place} key}
+% The \marg{\texttt{place}=place} pair sets the location of the
+% faculty, at which the thesis is being prepared, to \textit{place}.
+% The \textit{place} is stored within the private |\thesis@place|
+% macro, whose implicit value is \texttt{Brno}.
+%    \begin{macrocode}
+\def\thesis@place{Brno}
+\define@key{thesis}{place}{%
+  \def\thesis@place{#1}}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\thesis@title}
+% \subsubsection{The \texttt{title} key}
+% The \marg{\texttt{title}=title} pair sets the title of the
+% thesis to \textit{title}. The \textit{title} is stored within the
+% private |\thesis@title| macro.
+%    \begin{macrocode}
+\thesis@def{title}
+\define@key{thesis}{title}{%
+  \def\thesis@title{#1}}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\thesis@TeXtitle}
+% \subsubsection{The \texttt{TeXtitle} key}
+% The \marg{\texttt{TeXtitle}=title} pair sets the \TeX\ title of
+% the thesis to \textit{title}. The \textit{title} is used, when
+% typesetting the title, whereas |\thesis@title| is a plain text,
+% which gets included in the PDF header of the
+% resulting document as well as in the \BibTeX\ file containing
+% the bibliographical entry for the thesis. The \textit{title}
+% is stored within the private |\thesis@TeXtitle| macro, whose
+% implicit value is |\thesis@title|.
+%    \begin{macrocode}
+\def\thesis@TeXtitle{\thesis@title}
+\define@key{thesis}{TeXtitle}{%
+  \def\thesis@TeXtitle{#1}}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\thesis@titleEn}
+% \subsubsection{The \texttt{titleEn} key}
+% The \marg{\texttt{titleEn}=title} pair sets the English title of
+% the thesis to \textit{title}. The \textit{title} is stored within
+% the private |\thesis@titleEn| macro.
+%    \begin{macrocode}
+\thesis@def{titleEn}
+\define@key{thesis}{titleEn}{%
+  \def\thesis@titleEn{#1}}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\thesis@TeXtitleEn}
+% \subsubsection{The \texttt{TeXtitleEn} key}
+% The \marg{\texttt{TeXtitleEn}=title} pair sets the English \TeX\ 
+% title of the thesis to \textit{title}. The \textit{title} is
+% used, when typesetting the title, whereas |\thesis@titleEn| is a
+% plain text. The \textit{title} is stored within the private
+% |\thesis@TeXtitleEn| macro, whose implicit value is
+% |\thesis@titleEn|.
+%    \begin{macrocode}
+\def\thesis@TeXtitleEn{\thesis@titleEn}
+\define@key{thesis}{TeXtitleEn}{%
+  \def\thesis@TeXtitleEn{#1}}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\thesis@keywords}
+% \subsubsection{The \texttt{keywords} key}
+% The \marg{\texttt{keywords}=list} pair sets the keywords of the
+% thesis to the comma-delimited \textit{list}. The \textit{list}
+% is stored within the private |\thesis@keywords| macro.
+%    \begin{macrocode}
+\thesis@def{keywords}
+\define@key{thesis}{keywords}{%
+  \def\thesis@keywords{#1}}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\thesis@TeXkeywords}
+% \subsubsection{The \texttt{TeXkeywords} key}
+% The \marg{\texttt{TeXkeywords}=list} pair sets the \TeX\ keywords
+% of the thesis to the comma-delimited \textit{list}. The
+% \textit{list} is used, when typesetting the keywords, whereas
+% |\thesis@keywords| is a plain text. The \textit{list} is stored
+% within the private |\thesis@TeXkeywords| macro.
+%    \begin{macrocode}
+\def\thesis@TeXkeywords{\thesis@keywords}
+\define@key{thesis}{TeXkeywords}{%
+  \def\thesis@TeXkeywords{#1}}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\thesis@keywordsEn}
+% \subsubsection{The \texttt{keywordsEn} key}
+% The \marg{\texttt{keywordsEn}=list} pair sets the English
+% keywords of the thesis to the comma-delimited \textit{list}. The
+% \textit{list} is stored within the private |\thesis@keywordsEn|
+% macro.
+%    \begin{macrocode}
+\thesis@def{keywordsEn}
+\define@key{thesis}{keywordsEn}{%
+  \def\thesis@keywordsEn{#1}}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\thesis@TeXkeywordsEn}
+% \subsubsection{The \texttt{TeXkeywordsEn} key}
+% The \marg{\texttt{TeXkeywordsEn}=list} pair sets the English
+% \TeX\ keywords of the thesis to the comma-delimited \textit{list}.
+% The \textit{list} is used, when typesetting the keywords, whereas
+% |\thesis@keywordsEn| is a plain text. The \textit{list} is stored
+% within the private |\thesis@TeXkeywordsEn| macro.
+%    \begin{macrocode}
+\def\thesis@TeXkeywordsEn{\thesis@keywordsEn}
+\define@key{thesis}{TeXkeywordsEn}{%
+  \def\thesis@TeXkeywordsEn{#1}}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\thesis@abstract}
+% \subsubsection{The \texttt{abstract} key}
+% The \marg{\texttt{abstract}=text} pair sets the abstract of the
+% thesis to \textit{text}. The \textit{text} is stored within the
+% private |\thesis@abstract| macro.
+%    \begin{macrocode}
+\thesis@def{abstract}
+\long\def\KV@thesis@abstract#1{%
+  \long\def\thesis@abstract{#1}}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\thesis@abstractEn}
+% \subsubsection{The \texttt{abstractEn} key}
+% The \marg{\texttt{abstractEn}=text} pair sets the English
+% abstract of the thesis to \textit{text}. The \textit{text}
+% is stored within the private |\thesis@abstractEn| macro.
+%    \begin{macrocode}
+\thesis@def{abstractEn}
+\long\def\KV@thesis@abstractEn#1{%
+  \long\def\thesis@abstractEn{#1}}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\thesis@advisor}
+% \subsubsection{The \texttt{advisor} key}
+% The \marg{\texttt{advisor}=name} pair sets the thesis advisor's
+% full name to \textit{name}. The \textit{name} is stored within
+% the private |\thesis@advisor| macro.
+%    \begin{macrocode}
+\thesis@def{advisor}
+\define@key{thesis}{advisor}{\def\thesis@advisor{#1}}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\thesis@thanks}
+% \subsubsection{The \texttt{thanks} key}
+% The \marg{\texttt{thanks}=text} pair sets the acknowledgement
+% text to \textit{text}. The \textit{text} is stored within
+% the private |\thesis@thanks| macro.
+%    \begin{macrocode}
+\long\def\KV@thesis@thanks#1{%
+  \long\def\thesis@thanks{#1}}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\thesis@assignmentFiles}
+% \subsubsection{The \texttt{assignment} key}
+% The \marg{\texttt{assignment}=list} pair sets the comma-separated
+% list of paths to the pdf files containing the thesis assignment
+% to \textit{list}. The \textit{list} is stored within the
+% |\thesis@assignmentFiles| private macro.
+%    \begin{macrocode}
+\define@key{thesis}{assignment}{%
+  \def\thesis@assignmentFiles{#1}}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\ifthesis@auto}
+% \subsubsection{The \texttt{autoLayout} key}
+% The \marg{\texttt{autoLayout}=bool} pair either enables,
+% if \textit{bool} is \texttt{true} or unspecified, or disables
+% autolayout. Autolayout injects the
+% |\thesis@preamble| and |\thesis@postamble| private macros
+% at the beginning and the end of the document, respectively. The
+% setting can be tested using the |\ifthesis@auto| \ldots |\else|
+% \ldots |\fi| conditional. The autolayout is enabled by default.
+%    \begin{macrocode}
+\newif\ifthesis@auto\thesis@autotrue
+\define@key{thesis}{autoLayout}[true]{%
+  \def\@true{true}%
+  \def\@arg{#1}%
+  \ifx\@true\@arg%
+    \thesis@autotrue%
+  \else%
+    \thesis@autofalse%
+  \fi}
+%    \end{macrocode}
+% \end{macro} ^^A The nested \ifthesis@auto macro definition
+% \end{macro} ^^A The \thesissetup macro definition
+% The \DescribeMacro{\thesis@preamble}|\thesis@postamble|
+% and \DescribeMacro{\thesis@postamble}|\thesis@preamble|
+% private macros are defined as empty strings by default and are
+% subject to redefinition by the style files.
+%    \begin{macrocode}
+\def\thesis@preamble{}
+\def\thesis@postamble{}
+%    \end{macrocode}
+% \subsection{The \cs{thesislong} macro}\label{sec:thesislong}
+% \begin{macro}{\thesislong}
+% The public macro |\thesislong|\marg{key}\marg{value},
+% where \textit{value} may contain multiple paragraphs of text, can
+% be used for the following \textit{key}s as an alternative to the
+% |\thesissetup| public macro, which only permits a single
+% paragraph as the \textit{value}:
+% \begin{itemize}
+%   \item\texttt{abstract}
+%   \item\texttt{abstractEn}
+%   \item\texttt{thanks}
+%   \item\texttt{declaration}
+% \end{itemize}
+%    \begin{macrocode}
+\long\def\thesislong#1#2{%
+  \csname KV@thesis@#1\endcsname{#2}}
+%    \end{macrocode}
+% \end{macro}
+% \section{Private API}
+% \subsection{Main routine}\label{sec:thesis@load}
+% \begin{macro}{\thesis@load}
+% The |\thesis@load| macro is responsible for preparing the
+% environment for, and consequently loading, the necessary locale
+% and style files. By default, the |\thesis@load| macro gets
+% expanded at the end of the preamble,
+% but it can be inserted manually prior to that, if necessary to
+% prevent package clashes. The \DescribeMacro{\ifthesis@loaded}
+% |\ifthesis@loaded| semaphore ensures that the expansion is only
+% performed once.
+%    \begin{macrocode}
+\newif\ifthesis@loaded\thesis@loadedfalse
+\AtEndPreamble{\thesis@load}
+\def\thesis@load{%
+  \ifthesis@loaded\else%
+    \thesis@loadedtrue
+    \makeatletter%
+%    \end{macrocode}
+% First, the main locale file is loaded using the
+% |\thesis@requireLocale| macro.
+%    \begin{macrocode}
+      \ifx\thesis@locale\empty\else
+        \thesis@requireLocale{\thesis@locale}
+      \fi
+%    \end{macrocode}
+% Consequently, the style files are loaded with the class options
+% passed onto them.
+%    \begin{macrocode}
+      \ifx\thesis@style\empty\else
+        \thesis@requireStyle{\thesis@style}
+      \fi
+%    \end{macrocode}
+% With the placeholder strings loaded from the locale files, we
+% can now inject metadata into the resulting PDF file. To this
+% end, the \textsf{hyperref} package is conditionally included with
+% the \texttt{unicode} option. Consequently, the following values
+% are assigned to the PDF headers:\begin{itemize}
+%   \item\texttt{Title} is set to |\thesis@title|.
+%   \item\texttt{Author} is set to |\thesis@author|.
+%   \item\texttt{Keywords} is set to |\thesis@keywords|.
+%   \item\texttt{Creator} is set to \texttt{\thesis@version}.
+% \end{itemize}
+%    \begin{macrocode}
+       \thesis@require{hyperref}%
+      {\hypersetup{unicode,
+         pdftitle={\thesis@title},%
+         pdfauthor={\thesis@author},%
+         pdfkeywords={\thesis@keywords},%
+         pdfcreator={\thesis@version},%
+     }}%
+%    \end{macrocode}
+% If autolayout is enabled, the |\thesis@preamble| and
+% |\thesis@postamble| macros are scheduled for expansion at the
+% beginning and at the end of the document, respectively.
+%    \begin{macrocode}
+      \ifthesis@auto%
+        \AtBeginDocument{\thesis@preamble}%
+        \AtEndDocument{\thesis@postamble}%
+      \fi%
+%    \end{macrocode}
+% Lastly, a \BibTeX\ file named |\jobname.bib| containing the
+% bibliographical entry for the thesis is scheduled to be
+% generated at the end of the document in the working directory
+% using the |\thesis@bibgen| macro and the
+% \DescribeMacro{\thesis@pages}|\thesis@pages| private macro
+% definition containing the length of the document is scheduled to
+% be included in the auxiliary file.
+%    \begin{macrocode}
+      \AtEndDocument{%
+        % Define \thesis@pages for the next run
+        \write\@auxout{\noexpand\gdef\noexpand%
+          \thesis@pages{\thepage}}}
+    \makeatother%
+  \fi}
+%    \end{macrocode}
+% \end{macro}
+% \subsection{File manipulation macros}
+% \begin{macro}{\thesis@exists}
+% The |\thesis@exists|\marg{file}\marg{tokens} private macro is
+% used to test for the existence of a given \textit{file}. If the
+% \textit{file} exists, the macro expands to \textit{tokens}.
+% Otherwise, a class warning is written to the output.
+%    \begin{macrocode}
+\def\thesis@input#1{%
+  \thesis@exists{#1}{\input{#1}}}
+%    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@input}
+% The |\thesis@input|\marg{file} private macro inputs the given
+% \textit{file}, if it exists.
+%    \begin{macrocode}
+\def\thesis@exists#1#2{%
+  \IfFileExists{#1}{#2}{%
+  \ClassWarning{fithesis3}{File #1 doesn't exist}}}
+%    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@require}
+% The |\thesis@require| \marg{package} expands to
+% |\RequirePackage|\marg{package}, if the specified
+% \textit{package} has not yet been loaded.
+%    \begin{macrocode}
+\def\thesis@require#1{%
+  \@ifpackageloaded{#1}{}{\RequirePackage{#1}}}
+%    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@requireWithOptions}
+% The |\thesis@requireWithOptions|\marg{package} expands to
+% |\RequirePackageWithOptions|\marg{package}, if the specified
+% \textit{package} exists and has not yet been loaded.
+%    \begin{macrocode}
+\def\thesis@requireWithOptions#1{\thesis@exists{#1.sty}{%
+  \@ifpackageloaded{#1}{}{\RequirePackageWithOptions{#1}}}}
+%    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@requireStyle}
+% If inheritance is enabled for style files, then the
+% |\thesis@requireStyle|\marg{style} private macro sequentially
+% loads each of the following files, provided they exist:
+% \begin{enumerate}
+%   \item|\thesis@stylepath fithesis-base.sty|
+%   \item|\thesis@stylepath\thesis@university/fithesis-base.sty|
+%   \item|\thesis@stylepath| \textit{style}|.sty|
+% \end{enumerate}If inheritance is disabled for style files,
+% then only the |\thesis@stylepath| \textit{style}|.sty| file is
+% loaded. The \texttt{fithesis-} prefix serves to prevent package
+% clashes with other similarly named package files within the \TeX\
+% directory structure.
+%    \begin{macrocode}
+\def\thesis@requireStyle#1{%
+  \ifthesis@style@inheritance%
+    \thesis@requireWithOptions{\thesis@stylepath fithesis-base}%
+    \thesis@requireWithOptions{\thesis@stylepath\thesis@university%
+      /fithesis-base}
+  \fi%
+  \thesis@requireWithOptions{\thesis@stylepath#1}}
+%    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@requireLocale}
+% If inheritance is enabled for style files, then the
+% |\thesis@requireStyle|\marg{locale} private macro sequentially
+% loads each of the following locale files, provided they exist:
+% \begin{enumerate}
+%   \item|\thesis@localepath| \textit{locale}|.def|
+%   \item|\thesis@localepath\thesis@university/|^^A
+%     \textit{locale}|.def|
+%   \item|\thesis@localepath\thesis@university/\thesis@faculty/|^^A
+%     \textit{locale}|.def|
+% \end{enumerate} If inheritance is disabled for locale files, then
+% only the first listed file is used. The macro can be used within
+% both locale and style files, although the usage within locale
+% files is strongly discouraged to prevent circular dependencies.
+%    \begin{macrocode}
+\def\thesis@requireLocale#1{%
+  % Prevent redundant entries
+  \expandafter\ifx\csname thesis@#1@required\endcsname\relax%
+    \expandafter\def\csname thesis@#1@required\endcsname{}%
+      \thesis@input{\thesis@localepath#1.def}
+      \ifthesis@locale@inheritance%
+        \thesis@input{\thesis@localepath\thesis@university/#1.def}% 
+        \thesis@input{\thesis@localepath\thesis@university/%
+          \thesis@faculty/#1.def}% 
+      \fi%
+  \fi}
+%    \end{macrocode}\end{macro}
+% \subsection{String manipulation macros}
+% \begin{macro}{\thesis@}
+% The |\thesis@|\marg{name} macro expands to |\thesis@|
+% \textit{name}, where \textit{name} gets fully expanded and can
+% therefore contain active characters and command sequences.
+%    \begin{macrocode}
+\def\thesis@#1{\csname thesis@#1\endcsname}
+%    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@@}
+% The |\thesis@@|\marg{name} macro expands to |\thesis@|
+% \textit{locale}|@|\textit{name}, where \textit{locale}
+% corresponds to the name of the current locale. 
+% \textit{name} gets fully expanded and can
+% therefore contain active characters and command sequences.
+%    \begin{macrocode}
+\def\thesis@@#1{\thesis@{\thesis@locale @#1}}
+%    \end{macrocode}
+% \end{macro}
+% The \DescribeMacro{\thesis@lower}|\thesis@lower|
+% and \DescribeMacro{\thesis@upper}|\thesis@upper|
+% private macros are used for upper- and lowercasing within
+% locale files. To cast the |\thesis@|\textit{name} macro
+% to the lower- or uppercase, |\thesis@lower{|\textit{name}|}| or
+% |\thesis@upper{|\textit{name}|}| would be used, respectively.
+% \textit{name} gets fully expanded and can
+% therefore contain active characters and command sequences.
+%    \begin{macrocode}
+\def\thesis@lower#1{{%
+  \let\ea\expandafter%
+  \ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\lowercase\ea\ea\ea
+  \ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea{\ea\ea\ea\ea\ea\ea\ea\ea\ea
+  \ea\ea\ea\ea\ea\ea\@gobble\ea\ea\ea\string\ea\csname\csname the%
+  sis@#1\endcsname\endcsname}}}
+\def\thesis@upper#1{{%
+  \let\ea\expandafter%
+  \ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\uppercase\ea\ea\ea
+  \ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea{\ea\ea\ea\ea\ea\ea\ea\ea\ea
+  \ea\ea\ea\ea\ea\ea\@gobble\ea\ea\ea\string\ea\csname\csname the%
+  sis@#1\endcsname\endcsname}}}
+%    \end{macrocode}
+% The \DescribeMacro{\thesis@@lower}|\thesis@@lower|
+% and \DescribeMacro{\thesis@@upper}|\thesis@@upper|
+% private macros are used for upper- and lowercasing current
+% \textit{locale} strings within style files. To cast the
+% |\thesis@|\textit{locale}|@|\textit{name} macro to the
+% lower- or uppercase, |\thesis@@lower{|\textit{name}|}| or
+% |\thesis@@upper{|\textit{name}|}| would be used,
+% respectively. \textit{name} gets fully expanded and can
+% therefore contain active characters and command sequences.
+%    \begin{macrocode}
+\def\thesis@@lower#1{\thesis@lower{\thesis@locale @#1}}
+\def\thesis@@upper#1{\thesis@upper{\thesis@locale @#1}}
+%    \end{macrocode}
+% The \DescribeMacro{\thesis@head}|\thesis@head|
+% and \DescribeMacro{\thesis@tail}|\thesis@tail|
+% private macros are used for retrieving a head or a tail of
+% space-separated token sequences, which end with |\relax|.
+%    \begin{macrocode}
+\def\thesis@head#1 #2{%
+  \ifx\relax#2%
+    \expandafter\@gobbletwo%
+  \else%
+    \ #1%
+  \fi%
+  \thesis@head#2}%
+\def\thesis@tail#1 #2{%
+  \ifx\relax#2%
+    #1%
+    \expandafter\@gobbletwo%
+  \fi%
+  \thesis@tail#2}%
+%    \end{macrocode}
+% \subsection{General purpose macros}
+% The \DescribeMacro{\thesis@pages}|\thesis@pages| macro is defined
+% at the beginning of the second \LaTeX\ run as a part of the main
+% routine (see Section \ref{sec:thesis@load}). During the first
+% run, the macro expands to \texttt{??}.
+%    \begin{macrocode}
+\ifx\thesis@pages\undefined\def\thesis@pages{??}\fi
+%    \end{macrocode}
+% \iffalse
+%</class>
+% ^^A Old fithesis classes
+%<*oldclass1>
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesClass{oldfithesis1}[2015/03/04 old fithesis will load fithesis3 MU thesis class]
+
+\ClassWarning{oldfithesis1}{%
+  You are using the fithesis class, which has been deprecated.
+  The fithesis3 class will be used instead.
+  For more information, see <http://www.fi.muni.cz/tech/unix/tex/fithesis.xhtml>%
+}\LoadClass{fithesis3}
+
+%</oldclass1>
+%
+%<*oldclass2>
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesClass{oldfithesis2}[2015/03/04 old fithesis2 will load fithesis3 MU thesis class]
+
+\ClassWarning{oldfithesis2}{%
+  You are using the fithesis2 class, which has been deprecated.
+  The fithesis3 class will be used instead.
+  For more information, see <http://www.fi.muni.cz/tech/unix/tex/fithesis.xhtml>%
+}\LoadClass{fithesis3}
+
+%</oldclass2>
+% \fi
+%
+% \subsection{Locale files}
+% \label{sec:locale-files}
+% Locale files contain macro definitions for various locales. They
+% live in the \texttt{locale/} subtree and they are loaded during
+% the main routine (see Section \ref{sec:thesis@load}).
+%
+% When creating a new locale file, it is advisable to create one
+% self-contained \texttt{dtx} file, which is then partitioned into
+% locale files via the \textsf{docstrip} tool based on the
+% respective \texttt{ins} file. A \DescribeMacro{\file} macro
+% |\file|\marg{filename} is available for the sectioning the
+% documentation of various files within the \texttt{dtx} file.
+% \textit{filename}. For more information about \texttt{dtx} files
+% and the \textsf{docstrip} tool, consult the \textsf{dtxtut,
+% docstrip, doc} and \textsf{ltxdoc} manuals.
+%
+% \subsubsection{Interface}
+% The union of locale files named \textit{locale}\texttt{.def},
+% where \textit{locale} is the result of the expansion of
+% |\thesis@locale|, loaded via main routine's inheritance scheme
+% (see Section \ref{sec:thesis@load}) needs to define the following
+% private macros:
+% \begin{itemize}
+%   \item|\thesis@|\textit{locale}|@universityName| -- The name of
+%     the university
+%   \item|\thesis@|\textit{locale}|@facultyName| -- The name of the
+%     faculty
+%   \item|\thesis@|\textit{locale}|@assignment| -- Instructions to
+%     replace the current page with the official thesis assignment
+%   \item|\thesis@|\textit{locale}|@declaration| -- The declaration
+%     text
+%   \item|\thesis@|\textit{locale}|@fieldTitle| -- The title of
+%     the field of study entry
+%   \item|\thesis@|\textit{locale}|@advisorTitle| -- The title of
+%     the advisor
+%   \item|\thesis@|\textit{locale}|@authorTitle| -- The title of
+%     the author
+%   \item|\thesis@|\textit{locale}|@abstractTitle| -- The title of
+%     the abstract section
+%   \item|\thesis@|\textit{locale}|@keywordsTitle| -- The title of
+%     the keywords section
+%   \item|\thesis@|\textit{locale}|@thanksTitle| -- The title of
+%     the acknowledgement section
+%   \item|\thesis@|\textit{locale}|@declarationTitle| -- The title
+%     of the declaration section
+%   \item|\thesis@|\textit{locale}|@idTitle| -- The title of the
+%     thesis author's identifier field
+%   \item|\thesis@|\textit{locale}|@winter| -- The name of the
+%     winter semester
+%   \item|\thesis@|\textit{locale}|@summer| -- The name of the
+%     summer semester
+%   \item|\thesis@|\textit{locale}|@semester| -- The full name of
+%     the current semester
+%   \item|\thesis@|\textit{locale}|@typeName| -- The name of the
+%     thesis type
+% \end{itemize}
+%
+% \def\file#1{\paragraph{The \texttt{#1} file}}
+% \subsubsection{English locale files}
+% \input{locale/english.dtx}
+% \subsubsection{Czech locale files}
+% \input{locale/czech.dtx}
+% \subsubsection{Slovak locale files}
+% \input{locale/slovak.dtx}
+%
+% \subsection{Style files}
+% \label{sec:style-files}
+% Style files define the structure and the look of the resulting
+% document. They live in the \texttt{style/} subtree and they are
+% loaded during the main routine (see Section
+% \ref{sec:thesis@load}).
+%
+% When creating a new style file, it is advisable to create one
+% self-contained \texttt{dtx} file, which can contain several
+% files to be extracted via the \textsf{docstrip} tool based on the
+% respective \texttt{ins} file. A \DescribeMacro{\file} macro
+% |\file|\marg{filename} is available for sectioning the
+% documentation of various files within the \texttt{dtx} file.
+% For more information about \texttt{dtx} files and the
+% \textsf{docstrip} tool, consult the \textsf{dtxtut, docstrip,
+% doc} and \textsf{ltxdoc} manuals.
+%
+% \subsubsection{Interface}
+% The union of style files loaded via main routine's inheritance
+% scheme (see Section \ref{sec:thesis@load}) should define at least
+% one of the following private macros:
+% \begin{itemize}
+%   \item\DescribeMacro{\thesis@preamble}
+%                      |\thesis@preamble| -- If autolayout is
+%                      enabled, then this macro is expanded at the
+%                      very beginning of the document.
+%   \item\DescribeMacro{\thesis@postamble}
+%                      |\thesis@postamble| -- If autolayout is
+%                      enabled, then this macro is expanded at the
+%                      very end of the document.
+% \end{itemize}
+%
+% \subsubsection{Base style files}
+% \input{style/base.dtx}
+% \input{style/mu/base.dtx}
+% \subsubsection{The style files of the Faculty of Informatics}
+% \input{style/mu/fi.dtx}
+% \subsubsection{The style files of the Faculty of Science}
+% \input{style/mu/sci.dtx}
+% \subsubsection{The style files of the Faculty of Arts}
+% \input{style/mu/phil.dtx}
+% \subsubsection{The style files of the Faculty of Education}
+% \input{style/mu/ped.dtx}
+% \subsubsection{The style files of the Faculty of Social Studies}
+% \input{style/mu/fss.dtx}
+% \subsubsection{The style files of the Faculty of Law}
+% \input{style/mu/law.dtx}
+% \subsubsection{The style files of the Faculty of Economics and
+%   Administration}
+% \input{style/mu/econ.dtx}
+% \subsubsection{The style files of the Faculty of Medicine}
+% \input{style/mu/med.dtx}
+% \subsubsection{The style files of the Faculty of Sports Studies}
+% \input{style/mu/fsps.dtx}

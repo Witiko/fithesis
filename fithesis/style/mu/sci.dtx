@@ -1,0 +1,352 @@
+% \file{style/mu/fithesis-sci.sty}
+% This is the style file for the theses written at the Faculty of
+% Science at the Masaryk University in Brno. It has been
+% prepared in accordance with the formal requirements published at
+% the website of the faculty\footnote{See
+% \url{http://www.sci.muni.cz/NW/predpisy/od/OD-2014-05.pdf}}.
+%    \begin{macrocode}
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{fithesis/style/mu/fithesis-sci}[2015/06/23]
+%    \end{macrocode}
+% The file defines the color scheme of the respective faculty.
+%    \begin{macrocode}
+\thesis@color@setup{
+  links={HTML}{20E366},
+  tableEmph={HTML}{8EDEAA},
+  tableOdd={HTML}{EDF7F1},
+  tableEven={HTML}{CCEDD8}}
+%    \end{macrocode}
+% In addition to the main locale, the file also requires the
+% Czech and English locales.
+%    \begin{macrocode}
+\thesis@requireLocale{czech}
+\thesis@requireLocale{english}
+%    \end{macrocode}
+% The file loads the following packages:
+% \begin{itemize}
+%   \item\textsf{tikz} -- Used for dimension arithmetic.
+%   \item\textsf{geometry} -- Used for the modifications of the type
+%     area dimensions.
+% \end{itemize}
+%    \begin{macrocode}
+\thesis@require{tikz}
+\thesis@require{changepage}
+%    \end{macrocode}
+% In case of rigorous and doctoral theses, the style file hides the
+% thesis assignment in accordance with the formal requirements of
+% the faculty.
+% \begin{macrocode}
+\ifx\thesis@type\thesis@bachelors\else
+\ifx\thesis@type\thesis@masters\else
+  \thesis@blocks@assignment@false
+\fi\fi
+%    \end{macrocode}
+% \begin{macro}{\thesis@blocks@bibEntry}
+% The |\thesis@blocks@bibEntry| private macro typesets a
+% bibliographical entry. Along with the macros required by the
+% locale file interface, the locale files need to define the
+% following private macros:
+% \begin{itemize}
+%   \item\DescribeMacro{\thesis@czech@bib@title}
+%     |\thesis@czech@bib@title| -- The title of the
+%     |\thesis@blocks@bib@title| block
+%   \item\DescribeMacro{\thesis@czech@bib@author}
+%     |\thesis@czech@bib@author| -- The label of the author name
+%     entry
+%   \item\DescribeMacro{\thesis@czech@bib@title}
+%     |\thesis@czech@bib@title| -- The label of the title name
+%     entry
+%   \item\DescribeMacro{\thesis@czech@bib@programme}
+%     |\thesis@czech@bib@programme| -- The label of the programme
+%     name entry
+%   \item\DescribeMacro{\thesis@czech@bib@field}
+%     |\thesis@czech@bib@field| -- The label of the field name
+%     entry
+%   \item\DescribeMacro{\thesis@czech@bib@advisor}
+%     |\thesis@czech@bib@advisor| -- The label of the advisor name
+%     entry
+%   \item\DescribeMacro{\thesis@czech@bib@academicYear}
+%     |\thesis@czech@bib@academicYear| -- The label of the academic
+%     year entry
+%   \item\DescribeMacro{\thesis@czech@bib@pages}
+%     |\thesis@czech@bib@pages| -- The label of the number of pages
+%     entry
+%   \item\DescribeMacro{\thesis@czech@bib@keywords}
+%     |\thesis@czech@bib@keywords| -- The label of the keywords
+%     entry
+% \end{itemize}
+%    \begin{macrocode}
+\def\thesis@blocks@bibEntry{%
+  \begin{alwayssingle}
+    {% Start the new chapter without clearing the right page
+    {\def\cleardoublepage{}%
+    \chapter*{\thesis@czech@bib@title}}%
+    % Calculate the width of the columns
+    \let\@A\relax\newlength{\@A}\settowidth{\@A}{{%
+      \bf\thesis@czech@bib@author:}}
+    \let\@B\relax\newlength{\@B}\settowidth{\@B}{{%
+      \bf\thesis@czech@bib@thesisTitle:}}
+    \let\@C\relax\newlength{\@C}\settowidth{\@C}{{%
+      \bf\thesis@czech@bib@programme:}}
+    \let\@D\relax\newlength{\@D}\settowidth{\@D}{{%
+      \bf\thesis@czech@bib@field:}}
+    % Unless this is a rigorous thesis, we will be typesetting the
+    % name of the thesis advisor.
+    \let\@E\relax\newlength{\@E}
+      \ifx\thesis@type\thesis@rigorous%
+        \setlength{\@E}{0pt}%
+      \else%
+        \settowidth{\@E}{{\bf\thesis@czech@bib@advisor:}}
+      \fi%
+    \let\@F\relax\newlength{\@F}\settowidth{\@F}{{%
+      \bf\thesis@czech@bib@academicYear:}}
+    \let\@G\relax\newlength{\@G}\settowidth{\@G}{{%
+      \bf\thesis@czech@bib@pages:}}
+    \let\@H\relax\newlength{\@H}\settowidth{\@H}{{%
+      \bf\thesis@czech@bib@keywords:}}
+    \let\@skip\relax\newlength{\@skip}\setlength{\@skip}{16pt}
+    \let\@left\relax\newlength{\@left}\pgfmathsetlength{\@left}{%
+      max(\@A,\@B,\@C,\@D,\@E,\@F,\@G,\@H)}
+    \let\@right\relax\newlength{\@right}\setlength{\@right}{%
+      \textwidth-\@left-\@skip}
+    % Typeset the table
+    \renewcommand{\arraystretch}{2}
+    \noindent\begin{thesis@newtable@old}%
+      {@{}p{\@left}@{\hskip\@skip}p{\@right}@{}}
+      \textbf{\thesis@czech@bib@author:} &
+        \noindent\parbox[t]{\@right}{
+          \thesis@author\\
+          \thesis@czech@facultyName,
+          \thesis@czech@universityName\\
+          \thesis@department
+        }\\
+      \textbf{\thesis@czech@bib@thesisTitle:}
+        & \thesis@title \\
+      \textbf{\thesis@czech@bib@programme:}
+        & \thesis@programme \\
+      \textbf{\thesis@czech@bib@field:}
+        & \thesis@field \\
+      % Unless this is a rigorous thesis, typeset the name of the
+      % thesis advisor.
+      \ifx\thesis@type\thesis@rigorous\else%
+        \textbf{\thesis@czech@bib@advisor:}
+          & \thesis@advisor \\
+      \fi
+      \textbf{\thesis@czech@bib@academicYear:}
+        & \thesis@academicYear \\
+      \textbf{\thesis@czech@bib@pages:}
+        & \thesis@pages \\
+      \textbf{\thesis@czech@bib@keywords:}
+        & \thesis@TeXkeywords \\
+    \end{thesis@newtable@old}}
+  \end{alwayssingle}}
+%    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@blocks@bibEntryEn}
+% The |\thesis@blocks@bibEntryEn| private macro typesets a
+% bibliographical entry in English. Along with the macros
+% required by the locale file interface, the locale files
+% need to define the following private macros:
+% \begin{itemize}
+%   \item\DescribeMacro{\thesis@english@bib@title}
+%     |\thesis@english@bib@title| -- The title of the
+%     |\thesis@blocks@bibEntryEn| block
+%   \item\DescribeMacro{\thesis@english@bib@author}
+%     |\thesis@english@bib@author| -- The label of the author name
+%     entry
+%   \item\DescribeMacro{\thesis@english@bib@title}
+%     |\thesis@english@bib@title| -- The label of the title name
+%     entry
+%   \item\DescribeMacro{\thesis@english@bib@programme}
+%     |\thesis@english@bib@programme| -- The label of the programme
+%     name entry
+%   \item\DescribeMacro{\thesis@english@bib@field}
+%     |\thesis@english@bib@field| -- The label of the field name
+%     entry
+%   \item\DescribeMacro{\thesis@english@bib@advisor}
+%     |\thesis@english@bib@advisor| -- The label of the advisor
+%     name entry
+%   \item\DescribeMacro{\thesis@english@bib@academicYear}
+%     |\thesis@english@bib@academicYear| -- The label of the
+%     academic year entry
+%   \item\DescribeMacro{\thesis@english@bib@pages}
+%     |\thesis@english@bib@pages| -- The label of the number of
+%     pages entry
+%   \item\DescribeMacro{\thesis@english@bib@keywords}
+%     |\thesis@english@bib@keywords| -- The label of the keywords
+%     entry
+% \end{itemize}
+%    \begin{macrocode}
+\def\thesis@blocks@bibEntryEn{%
+  {\def\thesis@locale{english}
+  \begin{alwayssingle}
+    % Start the new chapter without clearing the right page
+    {\def\cleardoublepage{}%
+    \chapter*{\thesis@english@bib@title}}%
+    {% Calculate the width of the columns
+    \let\@A\relax\newlength{\@A}\settowidth{\@A}{{%
+      \bf\thesis@english@bib@author:}}
+    \let\@B\relax\newlength{\@B}\settowidth{\@B}{{%
+      \bf\thesis@english@bib@thesisTitle:}}
+    \let\@C\relax\newlength{\@C}\settowidth{\@C}{{%
+      \bf\thesis@english@bib@programme:}}
+    \let\@D\relax\newlength{\@D}\settowidth{\@D}{{%
+      \bf\thesis@english@bib@field:}}
+    % Unless this is a rigorous thesis, we will be typesetting
+    % the name of the thesis advisor.
+    \let\@E\relax\newlength{\@E}
+      \ifx\thesis@type\thesis@rigorous%
+        \setlength{\@E}{0pt}%
+      \else%
+        \settowidth{\@E}{{\bf\thesis@english@bib@advisor:}}
+      \fi%
+    \let\@F\relax\newlength{\@F}\settowidth{\@F}{{%
+      \bf\thesis@english@bib@academicYear:}}
+    \let\@G\relax\newlength{\@G}\settowidth{\@G}{{%
+      \bf\thesis@english@bib@pages:}}
+    \let\@H\relax\newlength{\@H}\settowidth{\@H}{{%
+      \bf\thesis@english@bib@keywords:}}
+    \let\@skip\relax\newlength{\@skip}\setlength{\@skip}{16pt}
+    \let\@left\relax\newlength{\@left}\pgfmathsetlength{\@left}{%
+      max(\@A,\@B,\@C,\@D,\@E,\@F,\@G,\@H)}
+    \let\@right\relax\newlength{\@right}\setlength{\@right}{%
+      \textwidth-\@left-\@skip}
+    % Typeset the table
+    \renewcommand{\arraystretch}{2}
+    \noindent\begin{thesis@newtable@old}%
+      {@{}p{\@left}@{\hskip\@skip}p{\@right}@{}}
+        \textbf{\thesis@english@bib@author:} &
+          \noindent\parbox[t]{\@right}{
+            \thesis@author\\
+            \thesis@english@facultyName,
+            \thesis@english@universityName\\
+            \thesis@departmentEn
+          }\\
+        \textbf{\thesis@english@bib@thesisTitle:}
+          & \thesis@titleEn \\
+        \textbf{\thesis@english@bib@programme:}
+          & \thesis@programmeEn \\
+        \textbf{\thesis@english@bib@field:}
+          & \thesis@fieldEn \\
+        % Unless this is a rigorous thesis, typeset the name of the
+        % thesis advisor.
+        \ifx\thesis@type\thesis@rigorous\else%
+          \textbf{\thesis@english@bib@advisor:}
+            & \thesis@advisor \\
+        \fi
+        \textbf{\thesis@english@bib@academicYear:}
+          & \thesis@academicYear \\
+        \textbf{\thesis@english@bib@pages:}
+          & \thesis@pages \\
+        \textbf{\thesis@english@bib@keywords:}
+          & \thesis@TeXkeywordsEn \\
+      \end{thesis@newtable@old}}
+    \end{alwayssingle}
+  }}
+%    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@blocks@frontMatter}
+% The |\thesis@blocks@frontMatter| private macro sets up the style
+% of the front matter front matter of the thesis. The front matter
+% is typeset without any visible numbering, as mandated by the
+% formal requirements of the faculty.
+%    \begin{macrocode}
+\def\thesis@blocks@frontMatter{%
+  \pagestyle{empty}
+  \parindent 1.5em
+  \setcounter{page}{1}
+  \pagenumbering{roman}}
+%    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@blocks@cover}
+% The |\thesis@blocks@cover| private macro typesets the thesis
+% cover.
+% \begin{macrocode}
+\def\thesis@blocks@cover{%
+  \ifthesis@cover@
+    \thesis@blocks@clear
+    \ifthesis@twoside@\@twosidefalse\fi % Temporarily disable twoside
+    \begin{alwayssingle}
+      \thispagestyle{empty}
+      \begin{center}
+      {\sc\thesis@titlePage@LARGE\thesis@czech@universityName\\%
+          \thesis@titlePage@Large\thesis@czech@facultyName\\[0.3em]%
+          \thesis@titlePage@large\thesis@department}
+      \vfill
+      {\bf\thesis@titlePage@Huge\thesis@czech@typeName}
+      \vfill
+      {\thesis@titlePage@large\thesis@place
+       \ \thesis@year\hfill\thesis@author}
+      \end{center}
+    \end{alwayssingle}
+    \ifthesis@twoside@\@twosidetrue\fi % Re-enable twoside
+  \fi}
+%    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@blocks@titlePage}
+% The |\thesis@blocks@titlePage| private macro typesets the thesis
+% title page. Depending on the value of the |\ifthesis@color@|
+% conditional, the faculty logo is loaded from either
+% |\thesis@logopath|, if \texttt{false}, or from
+% |\thesis@logopath color/|, if \texttt{true}.
+% \begin{macrocode}
+\def\thesis@blocks@titlePage{{%
+  \edef\thesis@logopath@color{\thesis@logopath\ifthesis@color@ color/\fi}
+  \thesis@blocks@clear
+  \ifthesis@twoside@\@twosidefalse\fi % Temporarily disable twoside
+  \begin{alwayssingle}
+    \thispagestyle{empty}
+    % The top of the page
+    \begin{adjustwidth}{-12mm}{}
+      \begin{minipage}{30mm}
+        \thesis@blocks@universityLogo@color[width=30mm]
+      \end{minipage}\begin{minipage}{89mm}
+        \begin{center}
+          {\sc\thesis@titlePage@LARGE\thesis@czech@universityName\\%
+              \thesis@titlePage@Large\thesis@czech@facultyName\\[0.3em]%
+              \thesis@titlePage@normalsize\thesis@department}
+          \rule{\textwidth}{2pt}\vspace*{2mm}
+        \end{center}
+      \end{minipage}\begin{minipage}{30mm}
+        \thesis@blocks@facultyLogo@color[width=30mm]
+      \end{minipage}
+    \end{adjustwidth}
+    % The middle of the page
+    \vfill
+    {\bf\thesis@titlePage@Huge\thesis@TeXtitle\\[0.8em]}
+    {\thesis@titlePage@large\thesis@czech@typeName\\[1em]}
+    {\bf\thesis@titlePage@LARGE\thesis@author}\\
+    \vfill\noindent
+    % The bottom of the page
+    {\bf\thesis@titlePage@normalsize%
+      % Unless this is a rigorous thesis, typeset the name of the
+      % thesis advisor.
+      \ifx\thesis@type\thesis@rigorous\else%
+          \thesis@czech@advisorTitle: \thesis@advisor\hfill%
+      \fi%
+      \thesis@place\ \thesis@year}
+  \end{alwayssingle}
+  \ifthesis@twoside@\@twosidetrue\fi}} % Re-enable twoside
+%    \end{macrocode}
+% \end{macro}
+% The style file defines the autolayout preamble as the cover and
+% the title page followed by the bibliographic entry, the abstract
+% assignment, acknowledgement, table of contents and list of tables
+% and figures as a part of the front matter. All the blocks 
+% beside |\thesis@blocks@bibEntry| and |\thesis@blocks@bibEntryEn|
+% are defined in the \texttt{style/mu/base.sty} file. The entire
+% front matter is typeset as though the locale were Czech in
+% accordance with the formal requirements of the faculty.
+%    \begin{macrocode}
+\def\thesis@preamble{%
+  {\def\thesis@locale{czech}%
+  \thesis@blocks@cover%
+  \thesis@blocks@frontMatter%
+    \thesis@blocks@titlePage%
+    \thesis@blocks@clearRight%
+      \thesis@blocks@bibEntry%
+      \thesis@blocks@bibEntryEn%
+      \thesis@blocks@abstract%
+      \thesis@blocks@abstractEn%
+    \thesis@blocks@assignment%
+    \thesis@blocks@thanks%
+    \thesis@blocks@declaration%
+    \thesis@blocks@tables}%
+  \thesis@blocks@mainMatter}
+%    \end{macrocode}

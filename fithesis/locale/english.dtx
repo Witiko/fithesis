@@ -1,0 +1,239 @@
+% \file{locale/english.def}
+% This is the base file of the English locale. It defines all the
+% private macros mandated by the locale file interface.
+% \iffalse
+%<*base>
+% \fi\begin{macrocode}
+\ProvidesFile{fithesis/locale/english.def}[2015/06/23]
+
+% Placeholders
+\def\thesis@english@universityName{University name}
+\def\thesis@english@facultyName{Faculty name}
+\def\thesis@english@assignment{Replace this page with a copy
+  of the official signed thesis assignment.}
+\def\thesis@english@declaration{Declaration text ...}
+
+% Miscellaneous
+\def\thesis@english@fieldTitle{Field of study}
+\def\thesis@english@advisorTitle{Advisor}
+\def\thesis@english@authorTitle{Author}
+\def\thesis@english@abstractTitle{Abstract}
+\def\thesis@english@keywordsTitle{Keywords}
+\def\thesis@english@thanksTitle{Acknowledgement}
+\def\thesis@english@declarationTitle{Declaration}
+\def\thesis@english@idTitle{ID}
+\def\thesis@english@winter{Spring}
+\def\thesis@english@summer{Fall}
+\def\thesis@english@semester{%
+  \thesis@{english@\thesis@season} \thesis@year}
+\def\thesis@english@typeName{%
+  \ifx\thesis@type\thesis@bachelors%
+    Bachelor's Thesis%
+  \else\ifx\thesis@type\thesis@masters%
+    Master's Thesis%
+  \else\ifx\thesis@type\thesis@doctoral%
+    Doctoral Thesis%
+  \else\ifx\thesis@type\thesis@rigorous%
+    Rigorous Thesis%
+  \else%
+    <<Unknown thesis type (\thesis@type)>>%
+  \fi\fi\fi\fi}
+%    \end{macrocode}\iffalse
+%</base>
+% \fi\file{locale/mu/english.def}
+% This is the English locale file specific to the Masaryk
+% University in Brno. It replaces the \texttt{universityName}
+% placeholder with the correct value and defines the
+% \texttt{declaration} and \texttt{idTitle} strings.
+% \iffalse
+%<*mu>
+% \fi\begin{macrocode}
+\ProvidesFile{fithesis/locale/mu/english.def}[2015/06/23]
+\def\thesis@english@universityName{Masaryk University}
+\def\thesis@english@declaration{%
+  Hereby I declare that this paper is my original authorial work,
+  which I have worked out by my own. All sources, references and
+  literature used or excerpted during elaboration of this work are
+  properly cited and listed in complete reference to the due source.}
+
+% Miscellaneous
+\def\thesis@english@idTitle{UČO}
+%    \end{macrocode}\iffalse
+%</mu>
+% \fi\file{locale/mu/law/english.def}
+% This is the English locale file specific to the Faculty of Law at
+% the Masaryk University in Brno. It replaces the
+% \texttt{facultyName} placeholder with the correct value and
+% defines the \texttt{facultyLongName} required by the
+% |\thesis@blocks@cover| and the |\thesis@blocks@titlePage| blocks.
+% \iffalse
+%<*mu/law>
+% \fi\begin{macrocode}
+\ProvidesFile{fithesis/locale/mu/law/english.def}[2015/06/23]
+\def\thesis@english@facultyName{Faculty of Law}
+\def\thesis@english@facultyLongName{The Faculty of Law of the
+  Masaryk University}
+%    \end{macrocode}\iffalse
+%</mu/law>
+% \fi\file{locale/mu/fsps/english.def}
+% This is the English locale file specific to the Faculty of Sports
+% Studies at the Masaryk University in Brno. It replaces the
+% \texttt{facultyName} placeholder with the correct value.
+% \iffalse
+%<*mu/fsps>
+% \fi\begin{macrocode}
+\ProvidesFile{fithesis/locale/mu/fsps/english.def}[2015/06/23]
+
+% Placeholders
+\def\thesis@english@facultyName{Faculty of Sports Studies}
+
+% Miscellaneous
+\def\thesis@english@fieldTitle{Specialization}
+%    \end{macrocode}\iffalse
+%</mu/fsps>
+% \fi\file{locale/mu/fss/english.def}
+% This is the English locale file specific to the Faculty of Social
+% Studies at the Masaryk University in Brno. It replaces the
+% \texttt{facultyName} string with the correct value.
+% \iffalse
+%<*mu/fss>
+% \fi\begin{macrocode}
+\ProvidesFile{fithesis/locale/mu/fss/english.def}[2015/06/23]
+
+% Placeholders
+\def\thesis@english@facultyName{Faculty of Social Studies}
+\def\thesis@english@assignment{Replace this page with a copy
+  of the official signed thesis assignment or the copy of the
+  Statement of an Author or both, depending on the requirements of
+  the respective department.}
+%    \end{macrocode}\iffalse
+%</mu/fss>
+% \fi\file{locale/mu/econ/english.def}
+% This is the English locale file specific to the Faculty of
+% Economics and Administration at the Masaryk University in Brno.
+% It replaces the \texttt{facultyName} placeholder with the
+% correct value.
+% \iffalse
+%<*mu/econ>
+% \fi\begin{macrocode}
+\ProvidesFile{fithesis/locale/mu/econ/english.def}[2015/06/23]
+\def\thesis@english@facultyName{Faculty of Economics
+  and Administration}
+%    \end{macrocode}\iffalse
+%</mu/econ>
+% \fi\file{locale/mu/med/english.def}
+% This is the English locale file specific to the Faculty of
+% Medicine at the Masaryk University in Brno.
+% It replaces the \texttt{facultyName} placeholder with the
+% correct value and redefines the \texttt{abstractTitle} string
+% with the common usage at the faculty. The file also defines
+% the \texttt{bib@title} and \texttt{bib@pages} strings required
+% by the |\thesis@blocks@bibEntry| block defined within the
+% \texttt{style/mu/fithesis-med.sty} style file.
+% \iffalse
+%<*mu/med>
+% \fi\begin{macrocode}
+\ProvidesFile{fithesis/locale/mu/med/english.def}[2015/06/23]
+
+% Miscellaneous
+\def\thesis@english@abstractTitle{Annotation}
+
+% Placeholders
+\def\thesis@english@facultyName{Faculty of Medicine}
+
+% Bibliographic entry
+\def\thesis@english@bib@title{Bibliographic record}
+\def\thesis@english@bib@pages{p}
+%    \end{macrocode}\iffalse
+%</mu/med>
+% \fi\file{locale/mu/fi/english.def}
+% This is the English locale file specific to the Faculty of
+% Informatics at the Masaryk University in Brno.
+% It replaces the \texttt{facultyName} placeholder with the
+% correct value and updates the string in accordance with the
+% requirements of the faculty.
+% The file also defines the \texttt{advisorSignature} string
+% required by the |\thesis@blocks@titlePage| block defined
+% within the \texttt{style/mu/fithesis-fi.sty} style file.
+% \iffalse
+%<*mu/fi>
+% \fi\begin{macrocode}
+\ProvidesFile{fithesis/locale/mu/fi/english.def}[2015/06/23]
+
+% Placeholders
+\def\thesis@english@facultyName{Faculty of Informatics}
+\def\thesis@english@assignment{Replace this page with a copy
+  of the official signed thesis assignment and the copy of the
+  Statement of an Author.}
+
+% Others
+\def\thesis@english@advisorSignature{Signature of Thesis
+  \thesis@english@advisorTitle}
+%    \end{macrocode}\iffalse
+%</mu/fi>
+% \fi\file{locale/mu/phil/english.def}
+% This is the English locale file specific to the Faculty of
+% Arts at the Masaryk University in Brno.
+% It replaces the \texttt{facultyName} placeholder with the
+% correct value.
+% \iffalse
+%<*mu/phil>
+% \fi\begin{macrocode}
+\ProvidesFile{fithesis/locale/mu/phil/english.def}[2015/06/23]
+\def\thesis@english@facultyName{Faculty of Arts}
+%    \end{macrocode}\iffalse
+%</mu/phil>
+% \fi\file{locale/mu/ped/english.def}
+% This is the Slovak locale file specific to the Faculty of
+% Education at the Masaryk University in Brno.
+% It replaces the \texttt{facultyName} placeholder with the
+% correct value. The file also defines the
+% \texttt{bib@title} and \texttt{bib@pages} strings required by the
+% |\thesis@blocks@bibEntry| block defined within the
+% \texttt{style/mu/fithesis-ped.sty} style file.
+% \iffalse
+%<*mu/ped>
+% \fi\begin{macrocode}
+\ProvidesFile{fithesis/locale/mu/ped/english.def}[2015/06/23]
+
+% Placeholders
+\def\thesis@english@facultyName{Faculty of Education}
+
+% Bibliographic entry
+\def\thesis@english@bib@title{Bibliographic record}
+\def\thesis@english@bib@pages{p}
+%    \end{macrocode}\iffalse
+%</mu/ped>
+% \fi\file{locale/mu/sci/english.def}
+% This is the English locale file specific to the Faculty of
+% Science at the Masaryk University in Brno.
+% It defines the private macros required by the
+% |\thesis@blocks@bibEntryEn| block defined within the
+% \texttt{style/mu/fithesis-sci.sty} style file.
+% It also replaces the \texttt{facultyName} placeholder with the
+% correct value and redefines the \texttt{advisorTitle} string in
+% accordance with the formal requirements of the faculty.
+% \iffalse
+%<*mu/sci>
+% \fi\begin{macrocode}
+\ProvidesFile{fithesis/locale/mu/sci/english.def}[2015/06/23]
+
+% Placeholders
+\def\thesis@english@facultyName{Faculty of Science}
+
+% Miscellaneous
+\let\thesis@english@advisorTitleEn=\thesis@english@bib@advisor
+
+% Bibliographic entry
+\def\thesis@english@bib@title{Bibliographic entry}
+\let\thesis@english@bib@author\thesis@english@authorTitle
+\def\thesis@english@bib@thesisTitle{Title of Thesis}
+\def\thesis@english@bib@programme{Degree Programme}
+\let\thesis@english@bib@field\thesis@english@fieldTitle
+\def\thesis@english@bib@advisor{Supervisor}
+\def\thesis@english@bib@academicYear{Academic Year}
+\def\thesis@english@bib@pages{Number of Pages}
+\let\thesis@english@bib@keywords\thesis@english@keywordsTitle
+%    \end{macrocode}\iffalse
+%</mu/sci>
+% \fi

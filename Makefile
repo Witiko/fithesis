@@ -1,6 +1,6 @@
 .PHONY: all clean
 all:
-	make -C fithesis3
+	make -C fithesis
 	make pdflatex.pdf xelatex.pdf lualatex.pdf clean
 
 # This target typesets the pdfLaTeX example.

@@ -1,0 +1,103 @@
+% \file{style/mu/fithesis-fi.sty}
+% This is the style file for the theses written at the Faculty of
+% Informatics at the Masaryk University in Brno. It has been
+% prepared in accordance with the formal requirements published at
+% the website of the faculty\footnote{See
+% \url{http://www.fi.muni.cz/docs/BP_DP_na_FI.pdf}}.
+%    \begin{macrocode}
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{fithesis/style/mu/fithesis-fi}[2015/06/23]
+%    \end{macrocode}
+% The file defines the color scheme of the respective faculty.
+%    \begin{macrocode}
+\thesis@color@setup{
+  links={HTML}{FFD451},
+  tableEmph={HTML}{FFD451},
+  tableOdd={HTML}{FFF9E5},
+  tableEven={HTML}{FFECB3}}
+%    \end{macrocode}
+% In case of rigorous and doctoral theses, the style file hides the
+% thesis assignment in accordance with the formal requirements of
+% the faculty.
+% \begin{macrocode}
+\ifx\thesis@type\thesis@bachelors\else
+\ifx\thesis@type\thesis@masters\else
+  \thesis@blocks@assignment@false
+\fi\fi
+%    \end{macrocode}
+% \begin{macro}{\thesis@blocks@titlePage}
+% The style file redefines the cover and title page footers to
+% include the thesis advisor's name and signature in case of a
+% rigorous thesis. Along with the macros required by the
+% locale file interface, the locale files need to define the
+% following private macros:
+% \begin{itemize}
+%   \item\DescribeMacro{\thesis@advisorSignature}%
+%     |\thesis@advisorSignature| -- The label of the advisor
+%     signature field typeset in the case of a rigorous thesis
+% \end{itemize}
+% \begin{macrocode}
+\def\thesis@blocks@titlePage@content{%
+    {\thesis@titlePage@Huge\bf\thesis@TeXtitle\par\vfil}\vskip 0.8in
+    {\thesis@titlePage@large\sc\thesis@@{typeName}\\[0.3in]}
+    {\thesis@titlePage@Large\bf\thesis@author}
+    % If this is a rigorous thesis, typeset the name of the
+    % thesis advisor.
+    \ifx\thesis@type\thesis@rigorous%
+      {\thesis@titlePage@large\\[0.3in]
+        {\bf\thesis@@{advisorTitle}:} \thesis@advisor}
+    \fi}%
+\def\thesis@blocks@titlePage@footer{%
+  {\thesis@titlePage@large\thesis@place, \thesis@@{semester}
+  % If this is a rigorous thesis, create space for the advisor's
+  % signature
+  \ifx\thesis@type\thesis@rigorous%
+    \let\@A\relax\newlength{\@A}
+      \settowidth{\@A}{\thesis@@{advisorSignature}}
+      \setlength{\@A}{\@A+1cm}
+    \hfill\raisebox{-0.5em}{\parbox{\@A}{
+      \centering
+      \rule{\@A}{1pt}\\
+      \thesis@@{advisorSignature}
+    }}
+  \fi}}
+%    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@blocks@declaration}
+% The |\thesis@blocks@declaration| private macro typesets the
+% declaration text. Compared to the definition within the
+% \texttt{style/mu/base.sty} file, this private macro also
+% typesets the advisor's name at the bottom of the page.
+% \begin{macrocode}
+\def\thesis@blocks@declaration{%
+  \thesis@blocks@clear%
+  \begin{alwayssingle}%
+    \chapter*{\thesis@@{declarationTitle}}%
+    \thesis@declaration%
+    \vskip 2cm%
+    \hfill\thesis@author%
+    \par\vfill%
+    \textbf{\thesis@@{advisorTitle}:} \thesis@advisor%
+    \par\vfil%
+  \end{alwayssingle}}
+%    \end{macrocode}
+% \end{macro}
+% The style file defines the autolayout preamble as the cover and
+% the title page followed by the assignment, declaration,
+% acknowledgement, abstract, keywords, table of contents and list
+% of tables and figures as a part of the front matter. All blocks
+% beside |\thesis@titlePage| are defined in the
+% \texttt{style/mu/base.sty} file.
+%    \begin{macrocode}
+\def\thesis@preamble{%
+  \thesis@blocks@cover%
+  \thesis@blocks@titlePage%
+  \thesis@blocks@frontMatter%
+    \thesis@blocks@assignment%
+    \thesis@blocks@declaration%
+    \thesis@blocks@thanks%
+    \thesis@blocks@clearRight%
+      \thesis@blocks@abstract%
+      \thesis@blocks@keywords%
+    \thesis@blocks@tables%
+  \thesis@blocks@mainMatter}
+%    \end{macrocode}

@@ -1,0 +1,157 @@
+% \file{style/mu/fithesis-med.sty}
+% This is the style file for the theses written at the Faculty of
+% Medicine at the Masaryk University in Brno. It has been prepared
+% in accordance with the formal requirements published at the
+% website of the Department of Optometry and Orthoptics\footnote^^A
+% {See \url{http://is.muni.cz/do/med/zpravyprac/Optometrie/NALE^^A
+% ZITOSTI_ZAVERECNE_PRACE.doc}}.
+%    \begin{macrocode}
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{fithesis/style/mu/fithesis-med}[2015/06/23]
+%    \end{macrocode}
+% The file defines the color scheme of the respective faculty.
+%    \begin{macrocode}
+\thesis@color@setup{
+  links={HTML}{F58E76},
+  tableEmph={HTML}{FF9D85},
+  tableOdd={HTML}{FFF5F6},
+  tableEven={HTML}{FFDEDF}}
+%    \end{macrocode}
+% In addition to the main locale, the file also requires the
+% English locale.
+%    \begin{macrocode}
+\thesis@requireLocale{english}
+%    \end{macrocode}
+% The file loads the following packages:
+% \begin{itemize}
+%   \item\textsf{tikz} -- Used for dimension arithmetic.
+%   \item\textsf{geometry} -- Allows for modifications of the type
+%     area dimensions.
+%   \item\textsf{setspace} -- Allows for line height modifications.
+% \end{itemize}
+% In addition to this, the type area width is set to
+% 16\,cm in accordance with the formal requirements of the faculty.
+% This leads to overfull lines and is against the good conscience
+% of the author of this style.
+%    \begin{macrocode}
+\thesis@require{tikz}
+\thesis@require{geometry}
+\thesis@require{setspace}
+\geometry{top=25mm,bottom=20mm,left=25mm,right=25mm,includeheadfoot}
+%    \end{macrocode}
+% \begin{macro}{\thesis@blocks@cover}
+% The |\thesis@blocks@cover| private macro typesets the thesis
+% cover.
+%    \begin{macrocode}
+\def\thesis@blocks@cover{%
+  \ifthesis@cover@
+    \thesis@blocks@clear
+    \begin{alwayssingle}
+      \thispagestyle{empty}
+      \begin{center}
+      {\sc\thesis@titlePage@LARGE\thesis@@{universityName}\\%
+          \thesis@titlePage@Large\thesis@@{facultyName}\\}
+      \vfill
+      {\bf\thesis@titlePage@Huge\thesis@@{typeName}}
+      \vfill
+      {\thesis@titlePage@large\thesis@place
+       \ \thesis@year\hfill\thesis@author}
+      \end{center}
+    \end{alwayssingle}
+  \fi}
+% \end{macro}
+% The style file redefines the title page content
+% not to include the author's name and the title page footer
+% to include both the author's and advisor's name, the field of
+% study and the semester and place of the thesis defense as per
+% the requirements of the department.
+%    \begin{macrocode}
+\def\thesis@blocks@titlePage@content{%
+  {\thesis@titlePage@Huge\bf\thesis@TeXtitle\\[0.3in]}%
+  {\thesis@titlePage@large{\sc\thesis@@{typeName}}\\}}
+\def\thesis@blocks@titlePage@footer{%
+  {\thesis@titlePage@large
+    {% Calculate the width of the thesis author and advisor boxes
+     \let\@A\relax\newlength{\@A}\settowidth{\@A}{{%
+       \bf\thesis@@{advisorTitle}:}}
+     \let\@B\relax\newlength{\@B}\settowidth{\@B}{\thesis@advisor}
+     \let\@C\relax\newlength{\@C}\settowidth{\@C}{{%
+       \bf\thesis@@{authorTitle}:}}
+     \let\@D\relax\newlength{\@D}\settowidth{\@D}{\thesis@author}
+     \let\@E\relax\newlength{\@E}\settowidth{\@E}{{%
+       \bf\thesis@@{fieldTitle}:}}
+     \let\@F\relax\newlength{\@F}\settowidth{\@F}{\thesis@field}
+    \let\@left\relax\newlength{\@left}\pgfmathsetlength{\@left}{%
+      max(\@A,\@B)}
+    \let\@right\relax\newlength{\@right}\pgfmathsetlength{\@right}{%
+      max(\@C,\@D,\@E,\@F)}
+    % Typeset the thesis author and advisor boxes
+    \vskip 2in\begin{minipage}[t]{\@left}
+      {\bf\thesis@@{advisorTitle}:}\\\thesis@advisor
+    \end{minipage}\hfill\begin{minipage}[t]{\@right}
+      {\bf\thesis@@{authorTitle}:}\\\thesis@author
+        \\[1em]{\bf\thesis@@{fieldTitle}:}\\\thesis@field
+    \end{minipage}}\\[4em]\thesis@place, \thesis@@{semester}}}
+%    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@blocks@frontMatter}
+% The |\thesis@blocks@frontMatter| private macro sets up the style
+% of the front matter of the thesis. The page numbering is arabic
+% as per the formal requirements and it is hidden. In case of
+% double-sided typesetting, the geometry is altered according to
+% the requirements of the faculty.
+% \begin{macrocode}
+\def\thesis@blocks@frontMatter{%
+  \thesis@blocks@clear
+  % In case of double-sided typesetting, change the geometry
+  \ifthesis@twoside@
+    \newgeometry{top=25mm,bottom=20mm,left=35mm,
+      right=15mm, includeheadfoot}
+  \fi\pagestyle{empty}
+  \parindent 1.5em
+  \setcounter{page}{1}
+  \pagenumbering{arabic}}
+%    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@blocks@bibEntry}
+% The |\thesis@blocks@bibEntry| private macro typesets a
+% bibliographical entry. Along with the macros required by the
+% locale file interface, the \textit{locale} files need to define
+% the following private macros:
+% \begin{itemize}
+%   \item|\thesis@|\emph{locale}|@bib@title| -- The title of the
+%     |\thesis@blocks@bib@title| block
+%   \item|\thesis@|\emph{locale}|@bib@pages| -- The abbreviation of
+%     pages used in the bibliographical entry
+% \end{itemize}
+%    \begin{macrocode}
+\def\thesis@blocks@bibEntry{%
+  \chapter*{\thesis@@{bib@title}}
+  \noindent\thesis@upper{author@tail}, \thesis@author@head.
+  \emph{\thesis@title}. \thesis@place: \thesis@@{universityName},
+  \thesis@@{facultyName}, \thesis@department, \thesis@year.
+  \thesis@pages\ \thesis@@{bib@pages}.
+  \thesis@@{advisorTitle}: \thesis@advisor}
+%    \end{macrocode}
+% \end{macro}
+% The style file defines the autolayout preamble as the cover and
+% the title page followed by the annotation, bibliographical entry,
+% declaration, acknowledgement table of contents and the optional list
+% of tables and figures as a part of the front matter. All blocks are
+% defined in the \texttt{style/mu/base.sty} file, although some are
+% redefined in this file.
+%    \begin{macrocode}
+\def\thesis@preamble{%
+  \thesis@blocks@cover%
+  \thesis@blocks@frontMatter%
+    \thesis@blocks@titlePage%
+    \onehalfspacing%
+    \thesis@blocks@clearRight%
+      \thesis@blocks@abstract%
+      \thesis@blocks@abstractEn%
+      \thesis@blocks@keywords%
+      \thesis@blocks@keywordsEn%
+    \thesis@blocks@bibEntry%
+    \thesis@blocks@declaration%
+    \thesis@blocks@thanks%
+    \thesis@blocks@tables%
+  \thesis@blocks@mainMatter}
+%    \end{macrocode}

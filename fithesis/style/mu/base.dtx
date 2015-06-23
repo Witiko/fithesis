@@ -1,0 +1,1317 @@
+% \iffalse
+%<*base>
+% \fi\file{style/mu/fithesis-base.sty}
+% This is the base style file for theses written at the Masaryk
+% University in Brno.
+% If inheritance is enabled for style files, then this file is
+% always the second style file to be loaded right after
+% \texttt{style/base.sty}, regardless of the
+% value of the |\thesis@style| macro.
+%    \begin{macrocode}
+\ProvidesPackage{fithesis/style/mu/fithesis-base}[2015/06/23]
+\NeedsTeXFormat{LaTeX2e}
+%    \end{macrocode}
+% The file recognizes the following options: \begin{itemize}
+%   \item\texttt{10pt}, \texttt{11pt}, \texttt{12pt} -- Sets the
+%     type size to 10, 11 or 12 points respectively, along with the
+%     page geometry. The default type size is 12 points.
+%   \item\texttt{oneside}, \texttt{twoside} -- The document is
+%     going to be single- or double-sided. In a double-sided
+%     document headers, page numbering, margin notes and several
+%     other elements are rearranged based on
+%     the parity of the page. Blank pages are optionally inserted
+%     prior the beginning of the next chapter to ensure that it
+%     starts on an left-hand (even-numbered) page.
+%
+%     The \DescribeMacro{\ifthesis@twoside@}|\ifthesis@twoside@|
+%     conditional is set to either \texttt{false} or \texttt{true},
+%     respectively. This value can be tested in the subsequently
+%     loaded style files.
+%   \item\texttt{onecolumn}, \texttt{twocolumn} -- The document
+%     is going to be set in a single column or in two columns,
+%     respectively.
+%   \item\texttt{draft}, \texttt{final} -- Overful lines are or
+%     aren't marked within the document, respectively.
+%   \item\texttt{palatino}, \texttt{nopalatino} -- The default
+%     roman and math font family is going to be either set to
+%     Palatino or left untouched, respectively. The
+%     \DescribeMacro{\ifthesis@palatino@}|\ifthesis@palatino@|
+%     conditional is set to either \texttt{true} or \texttt{false},
+%     respectively.  This value can be tested in the subsequently
+%     loaded style files.
+%
+%     The Palatino font is a part of the visual identity of the
+%     Faculty of Informatics, at which the document class was
+%     created.
+%   \item\texttt{color}, \texttt{monochrome} -- Certain
+%     typographical elements either are or aren't going to be
+%     typeset in color, respectively. The
+%     \DescribeMacro{\ifthesis@color@}|\ifthesis@color@|
+%     conditional is set to either \texttt{true} or \texttt{false},
+%     respectively.  This value can be tested in the subsequently
+%     loaded style files.
+%   \item\texttt{table}, \texttt{oldtable} -- If the
+%     |\ifthesis@color@| conditional is \texttt{true}, then the
+%     definition of the \texttt{tabular} and \texttt{tabularx}
+%     commands either are or aren't going to be altered to better
+%     match the style, respectively. The \DescribeMacro%
+%     {\ifthesis@newtable@}|\ifthesis@newtable@| conditional is set
+%     to either \texttt{true} or \texttt{false}, respectively.
+%
+%     The choice of the name is deliberate -- the redefinition of
+%     the table environments depends on the \textsf{xcolor}
+%     package, which needs to be loaded with the \texttt{table}
+%     option. Since so many other packages depend on the
+%     \textsf{xcolor} package and this style file is loaded at the
+%     very end of the preamble, there would either be a great
+%     chance of an option clash, or the option would have to be
+%     passed to the \textsf{xcolor} package before the preamble
+%     from the body of the \textsf{fithesis3} class thus breaking
+%     the encapsulation. Naming the option \texttt{table} forces
+%     the option to be processed by the \textsf{xcolor} package as
+%     well and it is therefore an elegant solution to the problem
+%     at hand.
+%   \item\texttt{lot}, \texttt{nolot} -- |\listoftables| is or
+%     isn't going to be included in the
+%     \DescribeMacro{\thesis@blocks@tables}|\thesis@blocks@tables|
+%     block, respectively.
+%   \item\texttt{lof}, \texttt{nolof} -- |\listoffigures| is or
+%     isn't going to be included in the
+%     \DescribeMacro{\thesis@blocks@tables}|\thesis@blocks@tables|
+%     block, respectively.
+%   \item\texttt{cover}, \texttt{nocover} -- The
+%     \DescribeMacro{\thesis@blocks@cover}|\thesis@blocks@cover|
+%     is or isn't going to expand to the thesis cover.
+%
+%     The \DescribeMacro{\ifthesis@cover@}|\ifthesis@cover@|
+%     conditional is set to \texttt{false} or \texttt{true},
+%     respectively. This value can be tested in the subsequently
+%     loaded style files.
+% \end{itemize}
+%    \begin{macrocode}
+\DeclareOption{10pt}{\def\thesis@ptsize{0}}
+\DeclareOption{11pt}{\def\thesis@ptsize{1}}
+\DeclareOption{12pt}{\def\thesis@ptsize{2}}
+\newif\ifthesis@twoside@
+\DeclareOption{oneside}{%
+  \thesis@twoside@false\@twosidefalse\@mparswitchfalse}
+\DeclareOption{twoside}{%
+  \thesis@twoside@true \@twosidetrue \@mparswitchtrue}
+\DeclareOption{onecolumn}{\@twocolumnfalse}
+\DeclareOption{twocolumn}{\@twocolumntrue}
+\DeclareOption{draft}{\setlength\overfullrule{5pt}}
+\DeclareOption{final}{\setlength\overfullrule{0pt}}
+\newif\ifthesis@color@
+\DeclareOption{monochrome}{\thesis@color@false}
+\DeclareOption{color}{\thesis@color@true}
+\newif\ifthesis@palatino@
+\DeclareOption{palatino}{\thesis@palatino@true}
+\DeclareOption{nopalatino}{\thesis@palatino@false}
+\newif\ifthesis@newtable@
+\DeclareOption{table}{\thesis@newtable@true}
+\DeclareOption{oldtable}{\thesis@newtable@false}
+\DeclareOption{nolot}{\def\thesis@blocks@lot{}}
+\DeclareOption{lot}{\let\thesis@blocks@lot\listoftables}
+\DeclareOption{nolof}{\def\thesis@blocks@lof{}}
+\DeclareOption{lof}{\let\thesis@blocks@lof\listoffigures}
+\newif\ifthesis@cover@
+\DeclareOption{nocover}{\thesis@cover@false}
+\DeclareOption{cover}{\thesis@cover@true}
+%    \end{macrocode}
+% These are the default options:
+%    \begin{macrocode}
+\ExecuteOptions{12pt,twoside,final,monochrome,palatino,
+  oldtable,lot,lof,nocover}
+\ProcessOptions
+%    \end{macrocode}
+% The file loads the following packages: \begin{itemize}
+%   \item\textsf{xcolor} -- Adds support for color manipulation.
+%   \item\textsf{ifxetex} -- Used to detect the \Hologo{XeTeX}
+%     engine.
+%   \item\textsf{ifluatex} -- Used to detect the \Hologo{LuaTeX}
+%     engine.
+%   \item\textsf{graphix} -- Adds support for the inclusion of
+%     graphics files.
+%   \item\textsf{pdfpages} -- Adds support for the injection of PDF
+%     documents into the resulting document, namely the thesis
+%     assignment.
+%   \item\textsf{hyperref} -- Adds support for injecting metadata
+%     into the resulting PDF document.
+%   \item\textsf{keyval} -- Adds support for parsing
+%     comma-delimited lists of key-value pairs.
+% \end{itemize}
+%    \begin{macrocode}
+\thesis@require{xcolor}
+\thesis@require{graphicx}
+\thesis@require{pdfpages}
+\thesis@require{keyval}
+\thesis@require{ifxetex}
+\thesis@require{ifluatex}
+%    \end{macrocode}
+% Using the |\ifxetex| and |\ifluatex| conditionals, a compound
+% \DescribeMacro{\ifthesis@xeluatex}|\ifthesis@xeluatex|
+% conditional was constructed. This conditional can be used by
+% subsequently loaded style files to test,whether either the
+% \Hologo{XeTeX} or the \Hologo{LuaTeX} engine is being used.
+%    \begin{macrocode}
+{\let\x\expandafter
+\x\global\x\let\x\ifthesis@xeluatex\csname if%
+  \ifxetex true\else
+    \ifluatex\x\x\x t\x\x\x r\x\x\x u\x\x\x e%
+    \else   f\x\x\x a\x\x\x l\x\x\x s\x\x\x e%
+    \fi
+  \fi\endcsname}
+%    \end{macrocode}
+% The following packages get only loaded, when the document is
+% being typeset using the \Hologo{XeTeX} or \Hologo{LuaTeX}
+% engine: \begin{itemize}
+%   \item\textsf{fontspec} -- Allows the selection of
+%     system-installed fonts.
+%   \item\textsf{unicode-math} -- Allows the selection of
+%     system-installed mathematical fonts.
+% \end{itemize}
+% Under \Hologo{XeTeX}, the \textsf{TeX Gyre Pagella} and
+% \textsf{TeX Gyre Pagella Math} are also selected as the main text
+% and math fonts.
+%    \begin{macrocode}
+\ifthesis@xeluatex
+  \ifthesis@palatino@
+    \thesis@require{fontspec}
+    \thesis@require{unicode-math}
+    \setmainfont[Ligatures=TeX]{TeX Gyre Pagella}
+    \setmathfont[math-style=ISO,bold-style=ISO,vargreek-shape=TeX]%
+      {TG Pagella Math}
+  \fi
+%    \end{macrocode}
+% The following packages get only loaded, when the document is
+% not being typeset using the \Hologo{XeTeX} engine and the
+% |\ifthesis@palatino@| conditional is \texttt{true}:
+% \begin{itemize}
+%   \item\textsf{cmap} -- Places an an explicit \texttt{ToUnicode}
+%     map in the resulting PDF file, allowing for extraction of
+%     the text of the document.
+%   \item\textsf{mathpazo} -- The virtual \texttt{mathpazo} fonts
+%     will be used for math.
+%   \item\textsf{tgpagella} -- Changes the default roman font
+%     family to \TeX\ Gyre Pagella.
+%   \item\textsf{lmodern} -- Changes the default sans-serif and
+%     monotype font faces to Latin Modern instead of the default
+%     Computer Modern font family.
+%   \item\textsf{fontenc} -- The font encoding is set to Cork.
+% \end{itemize}
+%    \begin{macrocode}
+\else
+  \ifthesis@palatino@
+    \RequirePackage[resetfonts]{cmap}
+    \thesis@require{lmodern}
+    \thesis@require{mathpazo}
+    \thesis@require{tgpagella}
+    \RequirePackage[T1]{fontenc}
+  \fi
+\fi
+%    \end{macrocode}
+% If the |\thesis@newtable@| and |\thesis@color@| conditionals are
+% \texttt{true}, then the following package gets loaded:
+% \begin{itemize}
+%   \item\textsf{tabularx} -- Provides the \texttt{tabularx}
+%     environment, which enables the typesetting of tables with
+%     variable-width columns.
+% \end{itemize}
+% Subsequently, the \texttt{tabular} and \texttt{tabularx}
+% environments are redefined to better match the style of the given
+% faculty.
+% 
+% The |\thesis@newtable@old| and |\endthesis@newtable@old| macros
+% containing the original definition of the |tabular| environment
+% are always defined and are available for subsequently loaded
+% styles in case the typesetting of unaltered tables is required.
+%    \begin{macrocode}
+\let\thesis@newtable@old\tabular
+\let\endthesis@newtable@old\endtabular
+\ifthesis@newtable@\ifthesis@color@
+  \thesis@require{tabularx}
+  \thesis@require{booktabs}
+  % The redefinition of `tabular`
+  \renewenvironment{tabular}%
+    {\rowcolors{1}{thesis@color@tableOdd}%
+                  {thesis@color@tableEven}%
+     \thesis@newtable@old}%
+    {\endthesis@newtable@old}
+  % The redefinition of `tabularx`
+  \let\thesis@newtable@oldx\tabularx
+  \let\endthesis@newtable@oldx\endtabularx
+  \renewenvironment{tabularx}%
+    {\rowcolors{1}{thesis@color@tableOdd}%
+                  {thesis@color@tableEven}%
+     \thesis@newtable@oldx}%
+    {\endthesis@newtable@oldx}
+  % Adjust the measurements
+  \setlength{\aboverulesep}{0pt}
+  \setlength{\belowrulesep}{0pt}
+  \setlength{\extrarowheight}{.75ex}
+\fi\fi
+%    \end{macrocode}
+% The \textsf{hyperref} package is configured to support both roman
+% and arabic page numbering in one document and to decorate
+% hyperlinks with an underline instead of a rectangular box.
+%    \begin{macrocode}
+\thesis@require{hyperref}
+\hypersetup{
+  pdfborderstyle={/S/U/W 1}, % Less obtrusive borders
+  plainpages=false,          % Multiple page numbering support
+  pdfpagelabels              % Generate pdf page labels
+}
+%    \end{macrocode}
+% Clubs and widows are set to be infinitely bad.
+%    \begin{macrocode}
+\widowpenalty 10000
+\clubpenalty  10000
+%    \end{macrocode}
+% \begin{macro}{\thesis@color@setup}
+% The file defines the |\thesis@color@setup|\marg{colors} command,
+% where \textit{colors} is a comma-delimited list of key-value
+% pairs as defined by the \textsf{keyval} package. The command can
+% be invoked either by the subsequently loaded style files or by
+% the user to define which colors will be used, when the
+% \texttt{color} option is specified.
+%    \begin{macrocode}
+\def\thesis@color@setup#1{%
+  \setkeys{thesis@color}{#1}}
+%    \end{macrocode}
+% \end{macro}
+% The following key-value pairs are supported:
+% \begin{enumerate}
+%   \item\marg{\texttt{links}=color} -- Sets the color of hyperref
+%     links to \textit{color} and stores it under the name
+%     \texttt{thesis@color@links}. The default color of links is
+%     specified by the \textsf{hyperref} package.
+%   \item\marg{\texttt{tableOdd}=color} -- Stores the color of the
+%     odd rows of the redefined \texttt{tabular} and
+%     \texttt{tabularx} environments under the name
+%     \texttt{thesis@color@tableOdd}.
+%   \item\marg{\texttt{tableEven}=color} -- Stores the color of the
+%     even rows of the redefined \texttt{tabular} and
+%     \texttt{tabularx} environments under the name
+%     \texttt{thesis@color@tableEven}.
+%   \item\marg{\texttt{tableEmph}=color} -- Stores the color of an
+%     emphasized cell in the table for usage by the user under the
+%     name \texttt{thesis@color@tableEmph}.
+% \end{enumerate}
+%    \begin{macrocode}
+\define@key{thesis@color}{links}{%
+  \definecolor{thesis@color@links}#1
+  \hypersetup{linkbordercolor=thesis@color@links}}
+\define@key{thesis@color}{tableOdd}{%
+  \definecolor{thesis@color@tableOdd}#1}
+\define@key{thesis@color}{tableEven}{%
+  \definecolor{thesis@color@tableEven}#1}
+\define@key{thesis@color}{tableEmph}{%
+  \definecolor{thesis@color@tableEmph}#1}
+%    \end{macrocode}
+% The file defines several blocks to be used in the redefinitions
+% of the |\thesis@preamble| and |\thesis@postable| private macros
+% by the subsequently loaded style files.
+%
+% \begin{macro}{\thesis@blocks@frontMatter}
+% The |\thesis@blocks@frontMatter| private macro sets up the style
+% of the front matter of the thesis.
+% \begin{macrocode}
+\def\thesis@blocks@frontMatter{%
+  \thesis@blocks@clear
+  \pagestyle{plain}
+  \parindent 1.5em
+  \setcounter{page}{1}
+  \pagenumbering{roman}}
+%    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@blocks@clear}
+% The |\thesis@blocks@clear| private macro clears the current page
+% along with the next left-handed (even-numbered) page, when
+% double-sided typesetting is enabled.
+% \begin{macrocode}
+\def\thesis@blocks@clear{%
+  \ifthesis@twoside@%
+    \clearpage%
+    \thispagestyle{empty}%
+    \cleardoublepage%
+  \else%
+    \newpage%
+  \fi}
+%    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@blocks@clearRight}
+% The |\thesis@blocks@clearRight| private macro clears the current
+% page along with the next right-handed (odd-numbered) page, when
+% double-sided typesetting is enabled.
+% \begin{macrocode}
+\def\thesis@blocks@clearRight{%
+  \ifthesis@twoside@%
+    \clearpage%
+    \ifodd\value{page}%
+      \thispagestyle{empty}%
+      \hbox{}%
+      \newpage%
+    \fi%
+  \else%
+    \newpage%
+  \fi}
+%    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@blocks@facultyLogo@monochrome}
+% The |\thesis@blocks@facultyLogo@monochrome|\oarg{options} private
+% macro typesets the |\thesis@logopath\thesis@facultyLogo| logo
+% with the given \textit{options} passed to |\includegraphics|.
+% \begin{macrocode}
+\newcommand{\thesis@blocks@facultyLogo@monochrome}[1]%
+  [width=40mm]{{%
+    \edef\@path{\thesis@logopath\thesis@facultyLogo}%
+    \includegraphics[#1]{\@path}}}
+%    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@blocks@facultyLogo@color}
+% The |\thesis@blocks@facultyLogo@color|\oarg{options} private
+% macro typesets either the |\thesis@logopath\thesis@facultyLogo|
+% logo, if the |\ifthesis|\discretionary{}{}{}|@color@| conditional
+% is \texttt{false} or the
+% |\thesis@logopath color/\thesis@facultyLogo| logo
+% otherwise with the given \textit{options} passed to
+% |\includegraphics|.
+% \begin{macrocode}
+\newcommand{\thesis@blocks@facultyLogo@color}[1]%
+  [width=40mm]{{%
+    \edef\@path{\thesis@logopath\ifthesis@color@%
+      color/\fi\thesis@facultyLogo}%
+    \includegraphics[#1]{\@path}}}
+%    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@blocks@universityLogo@monochrome}
+% The |\thesis@blocks@universityLogo@monochrome|\oarg{options}
+% private macro typesets the
+% |\thesis@logopath\thesis@universityLogo| logo
+% with the given \textit{options} passed to |\includegraphics|.
+% \begin{macrocode}
+\newcommand{\thesis@blocks@universityLogo@monochrome}[1]%
+  [width=40mm]{{%
+    \edef\@path{\thesis@logopath\thesis@universityLogo}%
+    \includegraphics[#1]{\@path}}}
+%    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@blocks@universityLogo@color}
+% The |\thesis@blocks@universityLogo@color|\oarg{options} private
+% macro typesets either the |\thesis@logopath\thesis@universityLogo|
+% logo, if the |\ifthesis|\discretionary{}{}{}|@color@| conditional
+% is \texttt{false} or the
+% |\thesis@logopath color/\thesis@universityLogo| logo otherwise
+% with the given \textit{options} passed to |\includegraphics|.
+% \begin{macrocode}
+\newcommand{\thesis@blocks@universityLogo@color}[1]%
+  [width=40mm]{{%
+    \edef\@path{\thesis@logopath\ifthesis@color@%
+      color/\fi\thesis@universityLogo}%
+    \includegraphics[#1]{\@path}}}
+%    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@blocks@cover}
+% The |\thesis@blocks@cover| private macro typesets the thesis
+% cover. It is composed of three private macros:
+% \begin{itemize}
+%   \item\DescribeMacro{\thesis@blocks@cover@header}^^A
+%        |\thesis@blocks@cover@header| -- The header of the cover
+%        page
+%   \item\DescribeMacro{\thesis@blocks@cover@content}^^A
+%        |\thesis@blocks@cover@content| -- The content of the cover
+%        page
+%   \item\DescribeMacro{\thesis@blocks@cover@footer}^^A
+%        |\thesis@blocks@cover@footer| -- The footer of the cover
+%        page
+% \end{itemize}
+% This allows the subsequently loaded style files to only redefine
+% certain parts of the cover page.
+% \begin{macrocode}
+\def\thesis@blocks@cover{%
+  \ifthesis@cover@%
+    \thesis@blocks@clear%
+    \ifthesis@twoside@\@twosidefalse\fi % Temporarily disable twoside
+    \begin{alwayssingle}%
+      \thispagestyle{empty}%
+      \begin{center}%
+        \thesis@blocks@cover@header%
+        \thesis@blocks@facultyLogo@monochrome\\[0.4in]%
+        \let\footnotesize\small%
+        \let\footnoterule\relax{}%
+        \thesis@blocks@cover@content%
+        \par\vfill%
+        \thesis@blocks@cover@footer%
+      \end{center}%
+    \end{alwayssingle}%
+    \ifthesis@twoside@\@twosidetrue\fi % Re-enable twoside
+  \fi}
+%    \end{macrocode}
+% The output of the |\thesis@blocks@cover@header| private macro is
+% controlled by the following conditionals:
+% \begin{enumerate}
+%   \item|\ifthesis@blocks@cover@university@| -- This
+%        conditional expression determines, whether the university
+%        name is going to be included in the header of the cover.
+%        The default value of this conditional is \texttt{true}.
+%   \item|\ifthesis@blocks@cover@faculty@| -- This
+%        conditional expression determines, whether the faculty
+%        name is going to be included in the header of the cover.
+%        The default value of this conditional is \texttt{true}.
+%   \item|\ifthesis@blocks@cover@department@| -- This
+%        conditional expression determines, whether the department
+%        name is going to be included in the header of the cover.
+%        The default value of this conditional is \texttt{false}.
+%   \item|\ifthesis@blocks@cover@field@| -- This
+%        conditional expression determines, whether the field of
+%        study is going to be included in the header of the cover.
+%        The default value of this conditional is \texttt{false}.
+% \end{enumerate}
+% The sebsequently loaded style files can alter the value of these
+% conditionals to alter the output of the
+% |\thesis@blocks@cover@header| private macro without altering its
+% definition.
+% \begin{macrocode}
+\newif\ifthesis@blocks@cover@university@
+\thesis@blocks@cover@university@true
+\newif\ifthesis@blocks@cover@faculty@
+\thesis@blocks@cover@faculty@true
+\newif\ifthesis@blocks@cover@department@
+\thesis@blocks@cover@department@false
+\newif\ifthesis@blocks@cover@field@
+\thesis@blocks@cover@field@false
+
+\def\thesis@blocks@cover@header{%
+  {\sc\ifthesis@blocks@cover@university@%
+        \thesis@titlePage@LARGE\thesis@@{universityName}\\%
+   \fi\ifthesis@blocks@cover@faculty@%
+        \thesis@titlePage@Large\thesis@@{facultyName}\\%
+   \fi\ifthesis@blocks@cover@department@%
+        \thesis@titlePage@large\thesis@department\\%
+      \fi}
+  \ifthesis@blocks@cover@field@%
+    {\thesis@titlePage@large\vskip 1em%
+      {\bf\thesis@@{fieldTitle}:} \thesis@field}%
+  \fi\vskip 2em}
+\def\thesis@blocks@cover@content{%
+  {\thesis@titlePage@Huge\bf\thesis@TeXtitle\par\vfil}%
+  \vskip 0.8in%
+  {\thesis@titlePage@large\sc\thesis@@{typeName}}\\[0.3in]%
+  {\thesis@titlePage@Large\bf\thesis@author}}
+\def\thesis@blocks@cover@footer{%
+  {\thesis@titlePage@large\thesis@place, \thesis@@{semester}}}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\thesis@blocks@titlePage}
+% The |\thesis@blocks@titlePage| private macro typesets the thesis
+% title page. It is composed of three private macros:
+% \begin{itemize}
+%   \item|\thesis@blocks@titlePage@header| -- The header of the
+%        cover page
+%   \item|\thesis@blocks@titlePage@content| -- The content of the
+%        cover page
+%   \item|\thesis@blocks@titlePage@footer| -- The footer of the
+%        cover page
+% \end{itemize}
+% This allows the subsequently loaded style files to only redefine
+% certain parts of the title page. Depending on the value of the
+% |\ifthesis@color@| conditional, the faculty logo is loaded from
+% either |\thesis@logopath|, if \texttt{false}, or from
+% |\thesis@logopath color/|, if \texttt{true}.
+%    \begin{macrocode}
+\def\thesis@blocks@titlePage{%
+    \thesis@blocks@clear%
+    \begin{alwayssingle}%
+      \thispagestyle{empty}%
+      \begin{center}%
+        \thesis@blocks@titlePage@header%
+        \thesis@blocks@facultyLogo@color\\[0.4in]%
+        \let\footnotesize\small%
+        \let\footnoterule\relax{}%
+        \thesis@blocks@titlePage@content%
+        \par\vfill%
+        \thesis@blocks@titlePage@footer%
+      \end{center}%
+    \end{alwayssingle}}
+%    \end{macrocode}
+% The output of the |\thesis@blocks@titlePage@header| private macro is
+% controlled by the following conditionals:
+% \begin{enumerate}
+%   \item|\ifthesis@blocks@titlePage@university@| -- This
+%        conditional expression determines, whether the university
+%        name is going to be included in the header of the title
+%        page. The default value of this conditional is
+%        \texttt{true}.
+%   \item|\ifthesis@blocks@titlePage@faculty@| -- This
+%        conditional expression determines, whether the faculty of
+%        study is going to be included in the header of the title
+%        page. The default value of this conditional is
+%        \texttt{true}.
+%   \item|\ifthesis@blocks@titlePage@department@| -- This
+%        conditional expression determines, whether the department
+%        name is going to be included in the header of the title
+%        page. The default value of this conditional is
+%        \texttt{false}.
+%   \item|\ifthesis@blocks@titlePage@field@| -- This
+%        conditional expression determines, whether the field of
+%        study is going to be included in the header of the title
+%        page. The default value of this conditional is
+%        \texttt{false}.
+% \end{enumerate}
+% The sebsequently loaded style files can alter the value of these
+% conditionals to alter the output of the
+% |\thesis@blocks@titlePage@header| private macro without altering
+% its definition.
+% \begin{macrocode}
+\newif\ifthesis@blocks@titlePage@university@
+\thesis@blocks@titlePage@university@true
+\newif\ifthesis@blocks@titlePage@faculty@
+\thesis@blocks@titlePage@faculty@true
+\newif\ifthesis@blocks@titlePage@department@
+\thesis@blocks@titlePage@department@false
+\newif\ifthesis@blocks@titlePage@field@
+\thesis@blocks@titlePage@field@false
+
+\def\thesis@blocks@titlePage@header{%
+  {\sc\ifthesis@blocks@titlePage@university@%
+        \thesis@titlePage@LARGE\thesis@@{universityName}\\%
+   \fi\ifthesis@blocks@titlePage@faculty@%
+        \thesis@titlePage@Large\thesis@@{facultyName}\\%
+   \fi\ifthesis@blocks@titlePage@department@%
+        \thesis@titlePage@large\thesis@department\\%
+      \fi}
+  \ifthesis@blocks@titlePage@field@%
+    {\thesis@titlePage@large\vskip 1em%
+      {\bf\thesis@@{fieldTitle}:} \thesis@field}%
+  \fi\vskip 2em}
+\let\thesis@blocks@titlePage@content=\thesis@blocks@cover@content
+\let\thesis@blocks@titlePage@footer=\thesis@blocks@cover@footer
+%    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@blocks@tables}
+% The |\thesis@blocks@tables| private macro typesets the table of
+% contents and optionally the |\listoftables| and the
+% |\listoffigures|.
+% \begin{macrocode}
+\def\thesis@blocks@tables{%
+  \thesis@blocks@clear%
+  \tableofcontents%
+  \thesis@blocks@lot%
+  \thesis@blocks@lof}
+%    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@blocks@declaration}
+% The |\thesis@blocks@declaration| private macro typesets the
+% declaration text.
+% \begin{macrocode}
+\def\thesis@blocks@declaration{%
+  \thesis@blocks@clear%
+  \begin{alwayssingle}%
+    \chapter*{\thesis@@{declarationTitle}}%
+    \thesis@declaration%
+    \vskip 2cm%
+    \hfill\thesis@author%
+  \end{alwayssingle}}
+%    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@blocks@thanks}
+% The |\thesis@blocks@thanks| private macro typesets the
+% acknowledgement, if the |\thesis@thanks| private macro is
+% defined.
+% \begin{macrocode}
+\def\thesis@blocks@thanks{%
+  \ifx\thesis@thanks\undefined\else%
+    \thesis@blocks@clear%
+    \begin{alwayssingle}%
+      \chapter*{\vspace*{\fill}\thesis@@{thanksTitle}}%
+      \thesis@thanks%
+    \end{alwayssingle}%
+  \fi}
+%    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@blocks@abstract}
+% The |\thesis@blocks@abstract| private macro typesets the
+% abstract.
+% \begin{macrocode}
+\def\thesis@blocks@abstract{%
+  \begin{alwayssingle}%
+    % Start the new chapter without clearing the right page
+    {\def\cleardoublepage{}
+    \chapter*{\thesis@@{abstractTitle}}}%
+    \noindent\thesis@abstract%
+    \par\vfil\null%
+  \end{alwayssingle}}
+%    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@blocks@abstractEn}
+% The |\thesis@blocks@abstractEn| private macro typesets the
+% abstract in English. If the current locale is English, the
+% macro produces no output. A style file that uses this block
+% needs to require the English locale.
+% \begin{macrocode}
+\def\thesis@blocks@abstractEn{%
+  \ifthesis@english\else%
+    \begin{alwayssingle}%
+      % Start the new chapter without clearing the right page
+      {\def\cleardoublepage{}%
+      \chapter*{\thesis@{english@abstractTitle}}%
+      \thesis@abstractEn}%
+      \par\vfil\null%
+    \end{alwayssingle}%
+  \fi}
+%    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@blocks@keywords}
+% The |\thesis@blocks@keywords| private macro typesets the
+% keywords.
+% \begin{macrocode}
+\def\thesis@blocks@keywords{%
+  \begin{alwayssingle}%
+    % Start the new chapter without clearing the right page
+    {\def\cleardoublepage{}%
+    \chapter*{\thesis@@{keywordsTitle}}%
+    \noindent\thesis@TeXkeywords}%
+    \par\vfil\null%
+  \end{alwayssingle}}
+%    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@blocks@keywordsEn}
+% The |\thesis@blocks@keywordsEn| private macro typesets the
+% keywords in English. If the current locale is English, the
+% macro produces no output. A style file that uses this block
+% needs to require the English locale.
+% \begin{macrocode}
+\def\thesis@blocks@keywordsEn{%
+  \ifthesis@english\else%
+    \begin{alwayssingle}%
+      % Start the new chapter without clearing the right page
+      {\def\cleardoublepage{}%
+      \chapter*{\thesis@{english@keywordsTitle}}%
+      \thesis@TeXkeywordsEn}%
+      \par\vfil\null%
+    \end{alwayssingle}%
+  \fi}
+%    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@blocks@assignment}
+% The |\thesis@blocks@assignment| private macro either:
+% \begin{itemize}
+%   \item Expands to an empty token list, when the first
+%     expansion of |\thesis@assignmentPDF| yields an empty token
+%     list or when the |\ifthesis@blocks@assignment@| conditional
+%     is \texttt{false}.
+%   \item Typesets a placeholder page to be replaced with the
+%     official thesis assignment, when |\thesis@assignmentPDF|
+%     is undefined and the |\ifthesis@blocks|\discretionary{}{}^^A
+%     {}|@assignment@| conditional is \texttt{true}.
+%   \item Injects the PDF file(s) specified within the
+%     |\thesis@assignmentPDF| macro, when |\thesis@assignmentPDF|
+%     is defined, its first expansion yields a non-empty token list
+%     and the |\ifthesis@blocks@assignment@| conditional is
+%     \texttt{true}.
+% \end{itemize}
+% The default value of the \DescribeMacro{\ifthesis@blocks@assig^^A
+% nment@}|\ifthesis@blocks@assignment@| conditional is
+% \texttt{true}.
+% \begin{macrocode}
+\newif\ifthesis@blocks@assignment@
+\thesis@blocks@assignment@true
+\def\thesis@blocks@assignment{%
+  \ifthesis@blocks@assignment@%
+    \ifx\thesis@assignmentFiles\undefined%
+      % Typeset a placeholder page.
+      \thesis@blocks@clear%
+      \begin{alwayssingle}%
+        \thispagestyle{empty}%
+        \addtocounter{page}{-\ifthesis@twoside@2\else1\fi}%
+        \noindent\textit{\thesis@@{assignment}}%
+      \end{alwayssingle}%
+    \else%
+      {\edef\@pdfList{\thesis@assignmentFiles}%
+      \ifx\@pdfList\empty\else
+        \let\ea\expandafter
+        % Inject the specified PDF documents.
+        \def\@inject##1,{\thesis@blocks@clear
+          \def\@args{##1}\def\@relax{\relax}%
+          \ifx\@args\@relax\else%
+            % Trim leading spaces.
+            \edef\@trimmed{\romannumeral-`\.##1}%
+            \includepdf[pages=-]\@trimmed
+            \ea\@inject\fi}%
+        \ea\@inject\@pdfList,\relax,%
+      \fi}%
+    \fi%
+  \fi}
+%    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@blocks@mainMatter}
+% The |\thesis@blocks@mainMatter| private macro sets up the style
+% of the main matter of the thesis.
+% \begin{macrocode}
+\def\thesis@blocks@mainMatter{%
+  \thesis@blocks@clear
+  \setcounter{page}{1}
+  \pagenumbering{arabic}
+  \pagestyle{thesisheadings}
+  \parindent 1.5em\relax}
+%    \end{macrocode}
+% \end{macro}
+% The rest of the file comprises redefinitions of \LaTeX\ commands
+% and private \texttt{rapport3} class macros altering the layout of
+% the resulting document. Depending on the type size of 10, 11 or
+% 12 points, either the \texttt{fithesis-10.clo},
+% \texttt{fithesis-11.clo} or \texttt{fithesis-12.clo} file is
+% loaded from the |\thesis@stylepath| |mu| directory, respectively.
+%    \begin{macrocode}
+% Table of contents will contain sectioning commands up to
+% \subsubsection
+\setcounter{tocdepth}{4}
+
+% Load the `fithesis-1*.clo` size option
+\input\thesis@stylepath mu/fithesis-1\thesis@ptsize.clo\relax
+
+\def\ps@thesisheadings{%
+\def\chaptermark##1{%
+\markright{%
+\ifnum\c@secnumdepth >\m@ne
+\thechapter.\ %
+\fi ##1}}
+\let\@oddfoot\@empty
+\let\@oddhead\@empty
+\def\@oddhead{\vbox{\hbox to \textwidth{%
+\hfil{\sc\rightmark}}\vskip 4pt\hrule}}
+\if@twoside
+ \def\@evenhead{\vbox{\hbox to \textwidth{%
+ {\sc\rightmark}\hfil}\vskip 4pt\hrule}}
+\else
+ \let\@evenhead\@oddhead
+\fi
+\def\@oddfoot{\hfil\PageFont\thepage}
+\if@twoside
+ \def\@evenfoot{\PageFont\thepage\hfil}%
+\else
+ \let\@evenfoot\@oddfoot
+\fi
+\let\@mkboth\markboth
+}
+
+% Redefines the style of the chapter headings
+\renewcommand*\chapter{%
+\if@twoside
+ \clearpage
+ \thispagestyle{empty}
+ \cleardoublepage
+\else
+ \clearpage
+\fi
+\thispagestyle{plain}%
+\global\@topnum\z@
+\@afterindentfalse
+\secdef\@chapter\@schapter}
+
+% Redefines the style of part headings
+\renewcommand*\part{%
+\clearpage
+\thispagestyle{empty}
+\cleardoublepage
+\thispagestyle{empty}%
+\if@twocolumn%
+ \onecolumn
+ \@tempswatrue
+\else
+ \@tempswafalse
+\fi
+\hbox{}\vfil
+\secdef\@part\@spart}
+
+\newif\if@restonecol
+\def\alwayssingle{%
+  \@restonecolfalse\if@twocolumn\@restonecoltrue\onecolumn\fi}
+\def\endalwayssingle{\if@restonecol\twocolumn\fi}
+
+\renewcommand*\l@part[2]{%
+  \ifnum \c@tocdepth >-2\relax
+    \addpenalty{-\@highpenalty}%
+    \addvspace{0.5em \@plus\p@}%
+    \begingroup
+      \setlength\@tempdima{3em}%
+      \parindent \z@ \rightskip \@pnumwidth
+      \parfillskip -\@pnumwidth
+      {\leavevmode
+       \normalfont \bfseries #1\hfil \hb@xt@\@pnumwidth{\hss #2}}\par
+       \nobreak
+         \global\@nobreaktrue
+         \everypar{\global\@nobreakfalse\everypar{}}%
+    \endgroup
+    \addvspace{0.2em \@plus\p@}%
+  \fi}
+
+\renewcommand*\l@chapter[2]{%
+  \ifnum \c@tocdepth >\m@ne
+    \addpenalty{-\@highpenalty}%
+    \vskip 1.0em \@plus\p@
+    \setlength\@tempdima{1.5em}%
+    \begingroup
+      \parindent \z@ \rightskip \@pnumwidth
+      \parfillskip -\@pnumwidth
+      \leavevmode \bfseries
+      \advance\leftskip\@tempdima
+      \hskip -\leftskip
+      #1\nobreak\hfil \nobreak\hb@xt@\@pnumwidth{\hss #2}\par
+      \penalty\@highpenalty
+    \endgroup
+  \fi}
+
+\renewcommand*\l@chapter{\@dottedtocline{1}{0em}{1.5em}}
+\renewcommand*\l@section{\@dottedtocline{2}{1.5em}{2.3em}}
+\renewcommand*\l@subsection{\@dottedtocline{3}{3.8em}{3.2em}}
+\renewcommand*\l@subsubsection{\@dottedtocline{4}{7.0em}{3.8em}}
+%    \end{macrocode}\iffalse
+%</base>
+% \fi\file{style/mu/fithesis-10.clo}
+% This file is conditionally loaded by the
+% \texttt{style/mu/base.sty} file to redefine the page geometry to
+% match the type size of 10 points.
+%    \begin{macrocode}
+%<*opt>
+%<*10pt>
+\ProvidesFile{fithesis/style/mu/fithesis-10.clo}[2015/06/23]
+
+\renewcommand{\normalsize}{\fontsize\@xpt{12}\selectfont%
+\abovedisplayskip 10\p@ plus2\p@ minus5\p@
+\belowdisplayskip \abovedisplayskip
+\abovedisplayshortskip  \z@ plus3\p@
+\belowdisplayshortskip  6\p@ plus3\p@ minus3\p@
+\let\@listi\@listI}
+
+\renewcommand{\small}{\fontsize\@ixpt{11}\selectfont%
+\abovedisplayskip 8.5\p@ plus3\p@ minus4\p@
+\belowdisplayskip \abovedisplayskip
+\abovedisplayshortskip \z@ plus2\p@
+\belowdisplayshortskip 4\p@ plus2\p@ minus2\p@
+\def\@listi{\leftmargin\leftmargini
+\topsep 4\p@ plus2\p@ minus2\p@\parsep 2\p@ plus\p@ minus\p@
+\itemsep \parsep}}
+
+\renewcommand{\footnotesize}{\fontsize\@viiipt{9.5}\selectfont%
+\abovedisplayskip 6\p@ plus2\p@ minus4\p@
+\belowdisplayskip \abovedisplayskip
+\abovedisplayshortskip \z@ plus\p@
+\belowdisplayshortskip 3\p@ plus\p@ minus2\p@
+\def\@listi{\leftmargin\leftmargini %% Added 22 Dec 87
+\topsep 3\p@ plus\p@ minus\p@\parsep 2\p@ plus\p@ minus\p@
+\itemsep \parsep}}
+
+\renewcommand{\scriptsize}{\fontsize\@viipt{8pt}\selectfont}
+\renewcommand{\tiny}{\fontsize\@vpt{6pt}\selectfont}
+\renewcommand{\large}{\fontsize\@xiipt{14pt}\selectfont}
+\renewcommand{\Large}{\fontsize\@xivpt{18pt}\selectfont}
+\renewcommand{\LARGE}{\fontsize\@xviipt{22pt}\selectfont}
+\renewcommand{\huge}{\fontsize\@xxpt{25pt}\selectfont}
+\renewcommand{\Huge}{\fontsize\@xxvpt{30pt}\selectfont}
+
+%</10pt>
+%    \end{macrocode}
+% \file{style/mu/fithesis-11.clo}
+% This file is conditionally loaded by the
+% \texttt{style/mu/base.sty} file to redefine the page geometry to
+% match the type size of 11 points.
+%    \begin{macrocode}
+%<*11pt>
+\ProvidesFile{fithesis/style/mu/fithesis-11.clo}[2015/06/23]
+
+\renewcommand{\normalsize}{\fontsize\@xipt{14}\selectfont%
+\abovedisplayskip 11\p@ plus3\p@ minus6\p@
+\belowdisplayskip \abovedisplayskip
+\belowdisplayshortskip  6.5\p@ plus3.5\p@ minus3\p@
+%\abovedisplayshortskip  \z@ plus3\@p
+\let\@listi\@listI}
+
+\renewcommand{\small}{\fontsize\@xpt{12}\selectfont%
+\abovedisplayskip 10\p@ plus2\p@ minus5\p@ 
+\belowdisplayskip \abovedisplayskip
+\abovedisplayshortskip  \z@ plus3\p@
+\belowdisplayshortskip  6\p@ plus3\p@ minus3\p@
+\def\@listi{\leftmargin\leftmargini
+\topsep 6\p@ plus2\p@ minus2\p@\parsep 3\p@ plus2\p@ minus\p@
+\itemsep \parsep}}
+
+\renewcommand{\footnotesize}{\fontsize\@ixpt{11}\selectfont%
+\abovedisplayskip 8\p@ plus2\p@ minus4\p@
+\belowdisplayskip \abovedisplayskip
+\abovedisplayshortskip \z@ plus\p@ 
+\belowdisplayshortskip 4\p@ plus2\p@ minus2\p@
+\def\@listi{\leftmargin\leftmargini
+\topsep 4\p@ plus2\p@ minus2\p@\parsep 2\p@ plus\p@ minus\p@
+\itemsep \parsep}}
+
+\renewcommand{\scriptsize}{\fontsize\@viiipt{9.5pt}\selectfont}
+\renewcommand{\tiny}{\fontsize\@vipt{7pt}\selectfont}
+\renewcommand{\large}{\fontsize\@xiipt{14pt}\selectfont}
+\renewcommand{\Large}{\fontsize\@xivpt{18pt}\selectfont}
+\renewcommand{\LARGE}{\fontsize\@xviipt{22pt}\selectfont}
+\renewcommand{\huge}{\fontsize\@xxpt{25pt}\selectfont}
+\renewcommand{\Huge}{\fontsize\@xxvpt{30pt}\selectfont}
+
+%</11pt>
+%    \end{macrocode}
+% \file{style/mu/fithesis-12.clo}
+% This file is conditionally loaded by the
+% \texttt{style/mu/base.sty} file to redefine the page geometry to
+% match the type size of 12 points. The type dimensions defined by
+% the file are stored in the following private macros as well:
+% \begin{itemize}
+%  \item\DescribeMacro{\thesis@titlePage@normalsize}%
+%    |\thesis@titlePage@normalsize| -- Equivalent to |\normalsize|
+%  \item\DescribeMacro{\thesis@titlePage@small}%
+%    |\thesis@titlePage@small| -- Equivalent to |\small|
+%  \item\DescribeMacro{\thesis@titlePage@footnotesize}%
+%    |\thesis@titlePage@footnotesize| -- Equivalent to
+%    |\footnotesize|
+%  \item\DescribeMacro{\thesis@titlePage@scriptsize}%
+%    |\thesis@titlePage@scriptsize| -- Equivalent to |\scriptsize|
+%  \item\DescribeMacro{\thesis@titlePage@tiny}%
+%    |\thesis@titlePage@tiny| -- Equivalent to |\tiny|
+%  \item\DescribeMacro{\thesis@titlePage@large}%
+%    |\thesis@titlePage@large| -- Equivalent to |\large|
+%  \item\DescribeMacro{\thesis@titlePage@Large}%
+%    |\thesis@titlePage@Large| -- Equivalent to |\Large|
+%  \item\DescribeMacro{\thesis@titlePage@LARGE}%
+%    |\thesis@titlePage@LARGE| -- Equivalent to |\LARGE|
+%  \item\DescribeMacro{\thesis@titlePage@huge}%
+%    |\thesis@titlePage@huge| -- Equivalent to |\huge|
+%  \item\DescribeMacro{\thesis@titlePage@Huge}%
+%    |\thesis@titlePage@Huge| -- Equivalent to |\Huge|
+% \end{itemize}
+% These private macros can be used to typeset elements, whose size
+% should remain constant regardless of the font size setting.
+%    \begin{macrocode}
+%<*12pt>
+\ProvidesFile{fithesis/style/mu/fithesis-12.clo}[2015/06/23]
+%</12pt>
+
+\def\thesis@titlePage@normalsize{\fontsize\@xiipt{14.5}%
+\selectfont\abovedisplayskip 12\p@ plus3\p@ minus7\p@
+\belowdisplayskip \abovedisplayskip
+\abovedisplayshortskip  \z@ plus3\p@
+\belowdisplayshortskip  6.5\p@ plus3.5\p@ minus3\p@
+\let\@listi\@listI}
+
+\def\thesis@titlePage@small{\fontsize\@xipt{13.6}\selectfont%
+\abovedisplayskip 11\p@ plus3\p@ minus6\p@
+\belowdisplayskip \abovedisplayskip
+\abovedisplayshortskip  \z@ plus3\p@
+\belowdisplayshortskip  6.5\p@ plus3.5\p@ minus3\p@
+\def\@listi{\leftmargin\leftmargini %% Added 22 Dec 87
+\parsep 4.5\p@ plus2\p@ minus\p@
+            \itemsep \parsep
+            \topsep 9\p@ plus3\p@ minus5\p@}}
+
+\def\thesis@titlePage@footnotesize{\fontsize\@xpt{12}\selectfont%
+\abovedisplayskip 10\p@ plus2\p@ minus5\p@
+\belowdisplayskip \abovedisplayskip
+\abovedisplayshortskip  \z@ plus3\p@
+\belowdisplayshortskip  6\p@ plus3\p@ minus3\p@
+\def\@listi{\leftmargin\leftmargini %% Added 22 Dec 87
+\topsep 6\p@ plus2\p@ minus2\p@\parsep 3\p@ plus2\p@ minus\p@
+\itemsep \parsep}}
+            
+\def\thesis@titlePage@scriptsize{\fontsize\@viiipt{9.5pt}\selectfont}
+\def\thesis@titlePage@tiny{\fontsize\@vipt{7pt}\selectfont}
+\def\thesis@titlePage@large{\fontsize\@xivpt{18pt}\selectfont}
+\def\thesis@titlePage@Large{\fontsize\@xviipt{22pt}\selectfont}
+\def\thesis@titlePage@LARGE{\fontsize\@xxpt{25pt}\selectfont}
+\def\thesis@titlePage@huge{\fontsize\@xxvpt{30pt}\selectfont}
+\def\thesis@titlePage@Huge{\fontsize\@xxvpt{30pt}\selectfont}
+
+%<*12pt>
+\renewcommand{\normalsize}{\thesis@titlePage@normalsize}
+\renewcommand{\small}{\thesis@titlePage@small}
+\renewcommand{\footnotesize}{\thesis@titlePage@footnotesize}
+\renewcommand{\scriptsize}{\thesis@titlePage@scriptsize}
+\renewcommand{\tiny}{\thesis@titlePage@tiny}
+\renewcommand{\large}{\thesis@titlePage@large}
+\renewcommand{\Large}{\thesis@titlePage@Large}
+\renewcommand{\LARGE}{\thesis@titlePage@LARGE}
+\renewcommand{\huge}{\thesis@titlePage@huge}
+\renewcommand{\Huge}{\thesis@titlePage@Huge}
+%</12pt>
+\let\@normalsize\normalsize
+\normalsize
+
+\if@twoside               
+   \oddsidemargin 0.75in  
+   \evensidemargin 0.4in  
+   \marginparwidth 0pt    
+\else                     
+   \oddsidemargin 0.75in  
+   \evensidemargin 0.75in
+   \marginparwidth 0pt
+\fi
+\marginparsep 10pt        
+
+\topmargin 0.4in          
+                          
+\headheight 20pt          
+\headsep 10pt             
+\topskip 10pt    
+\footskip 30pt 
+
+%<*10pt>
+\textheight = 43\baselineskip
+\advance\textheight by \topskip
+\textwidth 5.0truein
+\columnsep 10pt       
+\columnseprule 0pt
+
+\footnotesep 6.65pt
+\skip\footins 9pt plus 4pt minus 2pt
+\floatsep 12pt plus 2pt minus 2pt
+\textfloatsep 20pt plus 2pt minus 4pt
+\intextsep 12pt plus 2pt minus 2pt
+\dblfloatsep 12pt plus 2pt minus 2pt
+\dbltextfloatsep 20pt plus 2pt minus 4pt
+
+\@fptop 0pt plus 1fil
+\@fpsep 8pt plus 2fil
+\@fpbot 0pt plus 1fil
+\@dblfptop 0pt plus 1fil
+\@dblfpsep 8pt plus 2fil
+\@dblfpbot 0pt plus 1fil
+\marginparpush 5pt
+
+\parskip 0pt plus 1pt
+\partopsep 2pt plus 1pt minus 1pt
+
+%</10pt>
+%
+%<*11pt>
+\textheight = 39\baselineskip
+\advance\textheight by \topskip
+\textwidth 5.0truein
+\columnsep 10pt
+\columnseprule 0pt
+
+\footnotesep 7.7pt
+\skip\footins 10pt plus 4pt minus 2pt
+\floatsep 12pt plus 2pt minus 2pt
+\textfloatsep 20pt plus 2pt minus 4pt
+\intextsep 12pt plus 2pt minus 2pt
+\dblfloatsep 12pt plus 2pt minus 2pt
+\dbltextfloatsep 20pt plus 2pt minus 4pt
+
+\@fptop 0pt plus 1fil
+\@fpsep 8pt plus 2fil
+\@fpbot 0pt plus 1fil
+\@dblfptop 0pt plus 1fil
+\@dblfpsep 8pt plus 2fil
+\@dblfpbot 0pt plus 1fil
+\marginparpush 5pt 
+
+\parskip 0pt plus 0pt
+\partopsep 3pt plus 1pt minus 2pt
+
+%</11pt>
+%
+%<*12pt>
+\textheight = 37\baselineskip
+\advance\textheight by \topskip
+\textwidth 5.0truein
+\columnsep 10pt
+\columnseprule 0pt
+
+\footnotesep 8.4pt
+\skip\footins 10.8pt plus 4pt minus 2pt
+\floatsep 14pt plus 2pt minus 4pt 
+\textfloatsep 20pt plus 2pt minus 4pt
+\intextsep 14pt plus 4pt minus 4pt
+\dblfloatsep 14pt plus 2pt minus 4pt
+\dbltextfloatsep 20pt plus 2pt minus 4pt
+
+\@fptop 0pt plus 1fil
+\@fpsep 10pt plus 2fil
+\@fpbot 0pt plus 1fil
+\@dblfptop 0pt plus 1fil
+\@dblfpsep 10pt plus 2fil
+\@dblfpbot 0pt plus 1fil
+\marginparpush 7pt
+
+\parskip 0pt plus 0pt
+\partopsep 3pt plus 2pt minus 2pt
+
+%</12pt>
+\@lowpenalty   51
+\@medpenalty  151
+\@highpenalty 301
+\@beginparpenalty -\@lowpenalty
+\@endparpenalty   -\@lowpenalty
+\@itempenalty     -\@lowpenalty
+
+\def\@makechapterhead#1{%
+  {%
+    \setlength\parindent{\z@}%
+    \setlength\parskip  {\z@}%
+    \ifnum
+      \c@secnumdepth >\m@ne
+      \par\nobreak
+      \vskip 10\p@
+    \fi
+    \Large \ChapFont \thechapter{} \space #1\par
+    \nobreak
+    \vskip 20\p@
+  }%
+}
+
+\def\@makeschapterhead#1{%
+  {%
+    \setlength\parindent{\z@}%
+    \setlength\parskip  {\z@}%
+    \Large \ChapFont #1\par
+    \nobreak
+    \vskip 20\p@
+  }%
+}
+
+\def\chapter{%
+   \clearpage
+   \thispagestyle{plain}
+   \global\@topnum\z@ 
+   \@afterindentfalse  
+   \secdef\@chapter\@schapter
+ }
+
+\def\@chapter[#1]#2{%
+  \ifnum \c@secnumdepth
+    >\m@ne
+    \refstepcounter{chapter}%
+    \typeout{\@chapapp\space\thechapter.}% 
+    \addcontentsline{toc}{chapter}{\protect
+    \numberline{\thechapter}\bfseries #1}
+  \else%
+    \addcontentsline{toc}{chapter}{\bfseries #1}
+  \fi
+  \chaptermark{#1}%
+  \addtocontents{lof}%
+  {\protect\addvspace{4\p@}} 
+  \addtocontents{lot}%
+  {\protect\addvspace{4\p@}} 
+  \if@twocolumn                   
+    \@topnewpage[\@makechapterhead{#2}]%
+  \else
+    \@makechapterhead{#2}%
+    \@afterheading          
+  \fi
+}
+
+%\def\@schapter#1{\if@twocolumn \@topnewpage[\@makeschapterhead{#1}]%
+%        \else \@makeschapterhead{#1}%
+%              \markright{#1}
+%              \@afterheading\fi}
+
+\def\section{\@startsection {section}{1}{\z@}{-3.5ex plus-1ex minus
+    -.2ex}{2.3ex plus.2ex}{\reset@font\large\bfseries}}
+\def\subsection{\@startsection{subsection}{2}{\z@}{-3.25ex plus-1ex
+    minus-.2ex}{1.5ex plus.2ex}{\reset@font\normalsize\bfseries}}
+\def\subsubsection{\@startsection{subsubsection}{3}{\z@}{-3.25ex plus   
+    -1ex minus-.2ex}{1.5ex plus.2ex}{\reset@font\normalsize}}
+\def\paragraph{\@startsection
+    {paragraph}{4}{\z@}{3.25ex plus1ex minus.2ex}{-1em}{\reset@font
+    \normalsize\bfseries}}
+\def\subparagraph{\@startsection
+     {subparagraph}{4}{\parindent}{3.25ex plus1ex minus
+     .2ex}{-1em}{\reset@font\normalsize\bfseries}}
+
+\setcounter{secnumdepth}{2}
+
+\def\appendix{\par
+  \setcounter{chapter}{0}%
+  \setcounter{section}{0}%
+  \def\@chapapp{\appendixname}%
+  \def\thechapter{\Alph{chapter}}}
+
+\leftmargini 2.5em
+\leftmarginii 2.2em     % > \labelsep + width of '(m)'
+\leftmarginiii 1.87em   % > \labelsep + width of 'vii.'
+\leftmarginiv 1.7em     % > \labelsep + width of 'M.'
+\leftmarginv 1em
+\leftmarginvi 1em
+
+\leftmargin\leftmargini
+\labelsep .5em
+\labelwidth\leftmargini\advance\labelwidth-\labelsep
+
+%<*10pt>
+\def\@listI{\leftmargin\leftmargini \parsep 4\p@ plus2\p@ minus\p@%
+\topsep 8\p@ plus2\p@ minus4\p@
+\itemsep 4\p@ plus2\p@ minus\p@}
+
+\let\@listi\@listI
+\@listi
+
+\def\@listii{\leftmargin\leftmarginii
+   \labelwidth\leftmarginii\advance\labelwidth-\labelsep
+   \topsep 4\p@ plus2\p@ minus\p@
+   \parsep 2\p@ plus\p@ minus\p@
+   \itemsep \parsep}
+
+\def\@listiii{\leftmargin\leftmarginiii
+    \labelwidth\leftmarginiii\advance\labelwidth-\labelsep
+    \topsep 2\p@ plus\p@ minus\p@
+    \parsep \z@ \partopsep\p@ plus\z@ minus\p@
+    \itemsep \topsep}
+
+\def\@listiv{\leftmargin\leftmarginiv
+     \labelwidth\leftmarginiv\advance\labelwidth-\labelsep}
+   
+\def\@listv{\leftmargin\leftmarginv
+     \labelwidth\leftmarginv\advance\labelwidth-\labelsep}
+   
+\def\@listvi{\leftmargin\leftmarginvi
+     \labelwidth\leftmarginvi\advance\labelwidth-\labelsep}
+%</10pt>
+%
+%<*11pt>
+\def\@listI{\leftmargin\leftmargini \parsep 4.5\p@ plus2\p@ minus\p@
+\topsep 9\p@ plus3\p@ minus5\p@
+\itemsep 4.5\p@ plus2\p@ minus\p@}
+
+\let\@listi\@listI
+\@listi
+
+\def\@listii{\leftmargin\leftmarginii
+   \labelwidth\leftmarginii\advance\labelwidth-\labelsep
+   \topsep 4.5\p@ plus2\p@ minus\p@
+   \parsep 2\p@ plus\p@ minus\p@
+   \itemsep \parsep}
+
+\def\@listiii{\leftmargin\leftmarginiii
+    \labelwidth\leftmarginiii\advance\labelwidth-\labelsep
+    \topsep 2\p@ plus\p@ minus\p@
+    \parsep \z@ \partopsep \p@ plus\z@ minus\p@
+    \itemsep \topsep}
+
+\def\@listiv{\leftmargin\leftmarginiv
+     \labelwidth\leftmarginiv\advance\labelwidth-\labelsep}
+   
+\def\@listv{\leftmargin\leftmarginv
+     \labelwidth\leftmarginv\advance\labelwidth-\labelsep}
+    
+\def\@listvi{\leftmargin\leftmarginvi
+     \labelwidth\leftmarginvi\advance\labelwidth-\labelsep}
+%</11pt>
+%
+%<*12pt>
+\def\@listI{\leftmargin\leftmargini \parsep 5\p@ plus2.5\p@ minus\p@
+\topsep 10\p@ plus4\p@ minus6\p@
+\itemsep 5\p@ plus2.5\p@ minus\p@}
+
+\let\@listi\@listI
+\@listi
+
+\def\@listii{\leftmargin\leftmarginii
+   \labelwidth\leftmarginii\advance\labelwidth-\labelsep
+   \topsep 5\p@ plus2.5\p@ minus\p@
+   \parsep 2.5\p@ plus\p@ minus\p@
+   \itemsep \parsep}
+
+\def\@listiii{\leftmargin\leftmarginiii
+    \labelwidth\leftmarginiii\advance\labelwidth-\labelsep
+    \topsep 2.5\p@ plus\p@ minus\p@
+    \parsep \z@ \partopsep \p@ plus\z@ minus\p@
+    \itemsep \topsep}
+
+\def\@listiv{\leftmargin\leftmarginiv
+     \labelwidth\leftmarginiv\advance\labelwidth-\labelsep}
+   
+\def\@listv{\leftmargin\leftmarginv
+     \labelwidth\leftmarginv\advance\labelwidth-\labelsep}
+    
+\def\@listvi{\leftmargin\leftmarginvi
+     \labelwidth\leftmarginvi\advance\labelwidth-\labelsep}
+%</12pt>
+%</opt>
+%    \end{macrocode}
