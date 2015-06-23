@@ -25,7 +25,7 @@ DEVEXAMPLES=guide/EXAMPLE/DESCRIPTION guide/mu/DESCRIPTION \
 EXAMPLES=$(USEREXAMPLES) $(DEVEXAMPLES)
 MISCELLANEOUS=guide/*/*.tex guide/*/*/*.tex guide/*/*.bib
 RESOURCES=$(STYLEFILES) $(LOGOS) $(LOCALES)
-SOURCES=$(DTXFILES) $(INSFILES) docstrip.cfg
+SOURCES=$(DTXFILES) $(INSFILES) LICENSE.tex
 AUXFILES=fithesis.aux fithesis.log fithesis.toc fithesis.ind \
 	fithesis.idx fithesis.out fithesis.ilg fithesis.gls \
 	fithesis.glo fithesis.hd
