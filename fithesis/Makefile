@@ -1,4 +1,4 @@
-SUBMAKES_REQUIRED=logo/mu logo/mu/color locale style style/mu
+SUBMAKES_REQUIRED=logo/mu locale style style/mu
 SUBMAKES_MISCELLANEOUS=guide/mu
 SUBMAKES=$(SUBMAKES_REQUIRED) $(SUBMAKES_MISCELLANEOUS)
 .PHONY: all complete clean dist dist-implode implode rebase \
@@ -6,8 +6,8 @@ SUBMAKES=$(SUBMAKES_REQUIRED) $(SUBMAKES_MISCELLANEOUS)
 
 CLASSFILES=fithesis.cls fithesis2.cls fithesis3.cls
 STYLEFILES=style/*.sty style/*/*.sty style/*/*.clo
-EPSLOGOS=logo/*/*.eps logo/*/color/*.eps
-PDFLOGOS=logo/*/*.pdf logo/*/color/*.pdf
+EPSLOGOS=logo/*/*.eps
+PDFLOGOS=logo/*/*.pdf
 LOGOS=$(EPSLOGOS) $(PDFLOGOS)
 LOCALES=locale/*.def locale/*/*.def locale/*/*/*.def
 DTXFILES=*.dtx locale/czech.dtx locale/english.dtx \

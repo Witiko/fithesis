@@ -592,10 +592,13 @@
 % filename of the logo file to be used to \textit{filename}. The
 % \textit{filename} is stored within the private
 % |\thesis@universityLogo| macro, whose implicit value is
-% \texttt{base}. The logo file is loaded from the
-% |\thesis@logopath|\discretionary{}{}{}|\thesis@logo| path.
+% \texttt{fithesis-base}. The \texttt{fithesis-} prefix serves to
+% prevent package clashes with other similarly named package files
+% within the \TeX\ directory structure. The logo file is loaded
+% from the |\thesis@logopath|\discretionary{}{}{}|\thesis@logo|
+% path.
 %    \begin{macrocode}
-\def\thesis@universityLogo{base}
+\def\thesis@universityLogo{fithesis-base}
 \define@key{thesis}{universityLogo}{%
   \def\thesis@universityLogo{#1}}
 %    \end{macrocode}
@@ -606,10 +609,12 @@
 % of the logo file to be used to \textit{filename}. The
 % \textit{filename} is stored within the private
 % |\thesis@facultyLogo| macro, whose implicit value is
-% |\thesis@faculty|. The logo file is loaded from the
-% |\thesis@logopath\thesis@logo| path.
+% |fithesis-\thesis@faculty|. The \texttt{fithesis-} prefix serves
+% to prevent package clashes with other similarly named logo
+% files within the \TeX\ directory structure. The logo file is
+% loaded from the |\thesis@logopath\thesis@logo| path.
 %    \begin{macrocode}
-\def\thesis@facultyLogo{\thesis@faculty}
+\def\thesis@facultyLogo{fithesis-\thesis@faculty}
 \define@key{thesis}{facultyLogo}{%
   \def\thesis@facultyLogo{#1}}
 %    \end{macrocode}

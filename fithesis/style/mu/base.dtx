@@ -369,14 +369,14 @@
 % macro typesets either the |\thesis@logopath\thesis@facultyLogo|
 % logo, if the |\ifthesis|\discretionary{}{}{}|@color@| conditional
 % is \texttt{false} or the
-% |\thesis@logopath color/\thesis@facultyLogo| logo
+% |\thesis@logopath\thesis@facultyLogo-color| logo
 % otherwise with the given \textit{options} passed to
 % |\includegraphics|.
 % \begin{macrocode}
 \newcommand{\thesis@blocks@facultyLogo@color}[1]%
   [width=40mm]{{%
-    \edef\@path{\thesis@logopath\ifthesis@color@%
-      color/\fi\thesis@facultyLogo}%
+    \edef\@path{\thesis@logopath\thesis@facultyLogo%
+      \ifthesis@color@-color\fi}%
     \includegraphics[#1]{\@path}}}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@universityLogo@monochrome}
@@ -395,13 +395,13 @@
 % macro typesets either the |\thesis@logopath\thesis@universityLogo|
 % logo, if the |\ifthesis|\discretionary{}{}{}|@color@| conditional
 % is \texttt{false} or the
-% |\thesis@logopath color/\thesis@universityLogo| logo otherwise
+% |\thesis@logopath\thesis@universityLogo-color| logo otherwise
 % with the given \textit{options} passed to |\includegraphics|.
 % \begin{macrocode}
 \newcommand{\thesis@blocks@universityLogo@color}[1]%
   [width=40mm]{{%
-    \edef\@path{\thesis@logopath\ifthesis@color@%
-      color/\fi\thesis@universityLogo}%
+    \edef\@path{\thesis@logopath\thesis@universityLogo%
+      \ifthesis@color@-color\fi}%
     \includegraphics[#1]{\@path}}}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@cover}
