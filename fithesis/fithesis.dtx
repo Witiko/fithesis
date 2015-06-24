@@ -46,11 +46,32 @@
 %<*class>
 \NeedsTeXFormat{LaTeX2e}
 % Define `\thesis@version` and store it in the `VERSION.tex` file \fi
-\def\thesis@version{2015/06/21 v0.3.16 fithesis3 MU thesis class}
+\def\thesis@version{2015/06/24 v0.3.18 fithesis3 MU thesis class}
 % {\newwrite\f\openout\f=VERSION\write\f{\thesis@version}\closeout\f}
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%
+% 
+% \changes{v0.3.18}  {2015/06/24}{A bulk of changes required to submit
+%   the document class to CTAN: Changed the structure of the output
+%   \texttt{fithesis3.ctan.zip} archive. Updated the license
+%   notice. Added a \texttt{README} file. Canonicalized a url
+%   within the user guides. Renamed the root directory from
+%   \texttt{fithesis3/} to \texttt{fithesis/}. Refactored the
+%   makefiles. Added developer example files. Renamed
+%   \texttt{docstrip.cfg} to \texttt{LICENSE.tex} to better
+%   describe its role. The \texttt{fithesis.dtx} file now
+%   generates a \texttt{VERSION.tex} file containing the version of
+%   the package, when it's being typeset. Flattened the
+%   \texttt{logo/} directory structure. [VN]}
+% \changes{v0.3.17}  {2015/06/24}{Changed a forgotten
+%   \cs{thesis@@lower}\texttt{\{...\}} invocation in the definition
+%   of \cs{thesis@czech@declaration} for the Faculty of Arts into
+%   \cs{thesis@@lower}\texttt{\{czech@...\}}, so that the macro
+%   always expands to the correct output regardless of the current
+%   locale. This is merely a matter of consistency, since the style
+%   file of the Faculty of Arts only uses Czech strings within the
+%   Czech locale. Removed an extraneous comment. Fixed a unit test.
+%   Fixed a changelog entry. [VN]}
 % \changes{v0.3.16}  {2015/06/21}{Clubs and widows are now set to
 %   be infinitely bad. The \texttt{assignment} key has weaker, but
 %   more robust semantics now. [VN]}
