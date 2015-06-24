@@ -1,4 +1,5 @@
-PDFFILES=econ-01.pdf fi-01.pdf fsps-01.pdf fss-01.pdf law-01.pdf med-01.pdf ped-01.pdf phil-01.pdf sci-01.pdf 02.pdf
+PDFFILES=econ-01.pdf fi-01.pdf fsps-01.pdf fss-01.pdf law-01.pdf \
+	med-01.pdf ped-01.pdf phil-01.pdf sci-01.pdf 02.pdf
 .PHONY: all clean
 all: $(PDFFILES) clean
 

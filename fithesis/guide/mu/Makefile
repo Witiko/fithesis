@@ -1,5 +1,7 @@
-PDFFILES=fi.pdf sci.pdf ped.pdf med.pdf fss.pdf fsps.pdf phil.pdf law.pdf econ.pdf
-TEXFILES=fi.tex sci.tex ped.tex med.tex fss.tex fsps.tex phil.tex law.tex econ.tex
+PDFFILES=fi.pdf sci.pdf ped.pdf med.pdf fss.pdf fsps.pdf phil.pdf \
+	law.pdf econ.pdf
+TEXFILES=fi.tex sci.tex ped.tex med.tex fss.tex fsps.tex phil.tex \
+	law.tex econ.tex
 TEMPLATE=guide.tex
 BIB=guide.bib
 .PHONY: all clean
