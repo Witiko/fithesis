@@ -1152,11 +1152,11 @@
 % |\thesis@requireStyle|\marg{locale} private macro sequentially
 % loads each of the following locale files, provided they exist:
 % \begin{enumerate}
-%   \item|\thesis@localepath| \textit{locale}|.def|
-%   \item|\thesis@localepath\thesis@university/|^^A
+%   \item|\thesis@localepath fithesis-|\textit{locale}|.def|
+%   \item|\thesis@localepath\thesis@university/fithesis-|^^A
 %     \textit{locale}|.def|
 %   \item|\thesis@localepath\thesis@university/\thesis@faculty/|^^A
-%     \textit{locale}|.def|
+%     |fithesis-|\textit{locale}|.def|
 % \end{enumerate} If inheritance is disabled for locale files, then
 % only the first listed file is used. The macro can be used within
 % both locale and style files, although the usage within locale
@@ -1166,11 +1166,12 @@
   % Prevent redundant entries
   \expandafter\ifx\csname thesis@#1@required\endcsname\relax%
     \expandafter\def\csname thesis@#1@required\endcsname{}%
-      \thesis@input{\thesis@localepath#1.def}
+      \thesis@input{\thesis@localepath fithesis-#1.def}
       \ifthesis@locale@inheritance%
-        \thesis@input{\thesis@localepath\thesis@university/#1.def}% 
         \thesis@input{\thesis@localepath\thesis@university/%
-          \thesis@faculty/#1.def}% 
+          fithesis-#1.def}%
+        \thesis@input{\thesis@localepath\thesis@university/%
+          \thesis@faculty/fithesis-#1.def}% 
       \fi%
   \fi}
 %    \end{macrocode}\end{macro}
