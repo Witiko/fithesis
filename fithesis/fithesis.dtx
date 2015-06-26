@@ -1041,11 +1041,11 @@
     \thesis@loadedtrue
     \makeatletter%
 %    \end{macrocode}
-% First, the main locale files are loaded using the
-% |\thesis@requireLocale| macro.
+% First, the main locale is selected and its files are loaded using
+% the |\thesis@selectLocale| macro.
 %    \begin{macrocode}
       \ifx\thesis@locale\empty\else
-        \thesis@requireLocale{\thesis@locale}
+        \thesis@selectLocale{\thesis@locale}
       \fi
 %    \end{macrocode}
 % Consequently, the style files are loaded.
@@ -1162,25 +1162,26 @@
 % \end{enumerate} If inheritance is disabled for locale files, then
 % only the first listed file is loaded. The \texttt{fithesis-}
 % prefix serves to prevent clashes with other similarly named files
-% within the \TeX\ directory structure.  To prevent prospective
-% undesirable side effects from locale files being loaded multiple
-% times, the |\thesis@|\textit{locale}|@required| macro is defined
-% as a flag, which prevents future invocations with the same
-% \textit{locale}. The macro can be used within both locale and
-% style files, although the usage within locale files is strongly
-% discouraged to prevent circular dependencies.
+% within the \TeX\ directory structure. To prevent undesirable side
+% effects from locale files being loaded multiple times, the
+% |\thesis@|\textit{locale}|@required| macro is defined as a flag,
+% which prevents future invocations with the same \textit{locale}.
+% The macro can be used within both locale and style files,
+% although the usage within locale files is strongly discouraged to
+% prevent circular dependencies.
 %    \begin{macrocode}
 \def\thesis@requireLocale#1{%
-  % Prevent redundant entries
+  % Ignore redundant requests
   \expandafter\ifx\csname thesis@#1@required\endcsname\relax%
     \expandafter\def\csname thesis@#1@required\endcsname{}%
-      \thesis@input{\thesis@localepath fithesis-#1.def}
+      {\makeatletter % Enable requiring from within the document
+      \thesis@input{\thesis@localepath fithesis-#1.def}%
       \ifthesis@locale@inheritance%
         \thesis@input{\thesis@localepath\thesis@university/%
           fithesis-#1.def}%
         \thesis@input{\thesis@localepath\thesis@university/%
-          \thesis@faculty/fithesis-#1.def}% 
-      \fi%
+          \thesis@faculty/fithesis-#1.def}%
+      \fi}
   \fi}
 %    \end{macrocode}\end{macro}
 % \subsection{String manipulation macros}
@@ -1263,6 +1264,16 @@
 %    \begin{macrocode}
 \ifx\thesis@pages\undefined\def\thesis@pages{??}\fi
 %    \end{macrocode}
+% \DescribeMacro{\thesis@selectLocale}|\thesis@selectLocale|\marg{locale}
+% macro redefines the |\thesis@locale| macro to \textit{locale},
+% loads the locale files of \textit{locale} and switches to the
+% hyphenation patterns of \textit{locale}.
+%    \begin{macrocode}
+\def\thesis@selectLocale#1{%
+  \edef\thesis@locale{#1}%
+  \thesis@requireLocale{\thesis@locale}%
+  \expandafter\language\csname l@\thesis@locale\endcsname}
+%    \end{macrocode}
 % \iffalse
 %</class>
 % ^^A Old fithesis classes
@@ -1309,11 +1320,16 @@
 % \textsf{docstrip} tool, consult the \textsf{dtxtut, docstrip,
 % doc} and \textsf{ltxdoc} manuals.
 %
+% Mind that the name of the locale is also used to load hyphenation
+% patterns, which is why it shouldn't be arbitrary. To see the
+% names of the hyphenation patterns, consult the \textsf{hyph-utf8}
+% manual.
+%
 % \subsubsection{Interface}
 % The union of locale files loaded via the locale file inheritance
 % scheme (see the definition of the |\thesis@requireLocale| macro
-% in Section \ref{sec:reflection}) needs to define the following
-% macros:
+% in Section \ref{sec:reflection}) needs to globally define the
+% following macros:
 % \begin{itemize}
 %   \item|\thesis@|\textit{locale}|@universityName| -- The name of
 %     the university
@@ -1377,8 +1393,8 @@
 % \subsubsection{Interface}
 % The union of style files loaded via the style file inheritance
 % scheme (see the definition of the |\thesis@requireStyle| macro in
-% Section \ref{sec:reflection}) should define at least one of the
-% following macros:
+% Section \ref{sec:reflection}) should globally define at least one
+% of the following macros:
 % \begin{itemize}
 %   \item\DescribeMacro{\thesis@preamble}
 %                      |\thesis@preamble| -- If autolayout is

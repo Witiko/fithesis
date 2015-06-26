@@ -10,33 +10,33 @@
 % \end{macro}\iffalse
 %<*base>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/fithesis-slovak.def}[2015/06/23]
+\ProvidesFile{fithesis/locale/fithesis-slovak.def}[2015/06/26]
 
 % Pomocná makrá
-\def\thesis@slovak@gender@koncovka{%
+\gdef\thesis@slovak@gender@koncovka{%
   \ifthesis@woman a\fi}
 
 % Zástupné texty
-\def\thesis@slovak@universityName{Názov univerzity}
-\def\thesis@slovak@facultyName{Názov fakulty}
-\def\thesis@slovak@assignment{Namiesto tejto stránky vložte kópiu
+\gdef\thesis@slovak@universityName{Názov univerzity}
+\gdef\thesis@slovak@facultyName{Názov fakulty}
+\gdef\thesis@slovak@assignment{Namiesto tejto stránky vložte kópiu
   oficiálneho podpísaného zadania práce.}
-\def\thesis@slovak@declaration{Text prehlásenie ...}
+\gdef\thesis@slovak@declaration{Text prehlásenie ...}
 
 % Rôzne
-\def\thesis@slovak@fieldTitle{Odbor}
-\def\thesis@slovak@advisorTitle{Vedúci práce}
-\def\thesis@slovak@authorTitle{Autor}
-\def\thesis@slovak@abstractTitle{Zhrnutie}
-\def\thesis@slovak@keywordsTitle{Kľúčové slová}
-\def\thesis@slovak@thanksTitle{Poďakovanie}
-\def\thesis@slovak@declarationTitle{Prehlásenie}
-\def\thesis@slovak@idTitle{ID}
-\def\thesis@slovak@winter{Jar}
-\def\thesis@slovak@summer{Jeseň}
-\def\thesis@slovak@semester{%
+\gdef\thesis@slovak@fieldTitle{Odbor}
+\gdef\thesis@slovak@advisorTitle{Vedúci práce}
+\gdef\thesis@slovak@authorTitle{Autor}
+\gdef\thesis@slovak@abstractTitle{Zhrnutie}
+\gdef\thesis@slovak@keywordsTitle{Kľúčové slová}
+\gdef\thesis@slovak@thanksTitle{Poďakovanie}
+\gdef\thesis@slovak@declarationTitle{Prehlásenie}
+\gdef\thesis@slovak@idTitle{ID}
+\gdef\thesis@slovak@winter{Jar}
+\gdef\thesis@slovak@summer{Jeseň}
+\gdef\thesis@slovak@semester{%
   \thesis@{slovak@\thesis@season} \thesis@year}
-\def\thesis@slovak@typeName{%
+\gdef\thesis@slovak@typeName{%
   \ifx\thesis@type\thesis@bachelors%
     Bakalárska práca%
   \else\ifx\thesis@type\thesis@masters%
@@ -48,7 +48,7 @@
   \else%
     <<Neznámy typ práce (\thesis@type)>>%
   \fi\fi\fi\fi}
-\def\thesis@slovak@typeName@akuzativ{%
+\gdef\thesis@slovak@typeName@akuzativ{%
   \ifx\thesis@type\thesis@bachelors%
     Bakalársku prácu%
   \else\ifx\thesis@type\thesis@masters%
@@ -70,18 +70,18 @@
 % \iffalse
 %<*mu>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/mu/fithesis-slovak.def}[2015/06/23]
+\ProvidesFile{fithesis/locale/mu/fithesis-slovak.def}[2015/06/26]
 
 % Zástupné texty
-\def\thesis@slovak@universityName{Masarykova Univerzita}
-\def\thesis@slovak@declaration{%
+\gdef\thesis@slovak@universityName{Masarykova Univerzita}
+\gdef\thesis@slovak@declaration{%
   Prehlašujem, že som predloženú \thesis@lower{%
   slovak@typeName@akuzativ} vypracoval%
   \thesis@slovak@gender@koncovka\ samostatne len s~použitím
   uvedenej literatúry a prameňov.}
 
 % Rôzne
-\def\thesis@slovak@idTitle{UČO}
+\gdef\thesis@slovak@idTitle{UČO}
 %    \end{macrocode}\iffalse
 %</mu>
 % \fi\file{locale/mu/law/fithesis-slovak.def}
@@ -95,14 +95,14 @@
 % \iffalse
 %<*mu/law>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/mu/law/fithesis-slovak.def}[2015/06/23]
+\ProvidesFile{fithesis/locale/mu/law/fithesis-slovak.def}[2015/06/26]
 
 % Rôzne
-\def\thesis@slovak@abstractTitle{Abstrakt}
+\gdef\thesis@slovak@abstractTitle{Abstrakt}
 
 % Zástupné texty
-\def\thesis@slovak@facultyName{Právnická fakulta}
-\def\thesis@slovak@facultyLongName{Právnická fakulta Masarykovej
+\gdef\thesis@slovak@facultyName{Právnická fakulta}
+\gdef\thesis@slovak@facultyLongName{Právnická fakulta Masarykovej
   univerzity}
 %    \end{macrocode}\iffalse
 %</mu/law>
@@ -115,13 +115,13 @@
 % \iffalse
 %<*mu/fsps>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/mu/fsps/fithesis-slovak.def}[2015/06/23]
+\ProvidesFile{fithesis/locale/mu/fsps/fithesis-slovak.def}[2015/06/26]
 
 % Zástupné texty
-\def\thesis@slovak@facultyName{Fakulta športových štúdií}
+\gdef\thesis@slovak@facultyName{Fakulta športových štúdií}
 
 % Rôzne
-\def\thesis@slovak@fieldTitle{Špecializácie}
+\gdef\thesis@slovak@fieldTitle{Špecializácie}
 %    \end{macrocode}\iffalse
 %</mu/fsps>
 % \fi\file{locale/mu/fss/fithesis-slovak.def}
@@ -132,11 +132,11 @@
 % \iffalse
 %<*mu/fss>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/mu/fss/fithesis-slovak.def}[2015/06/23]
+\ProvidesFile{fithesis/locale/mu/fss/fithesis-slovak.def}[2015/06/26]
 
 % Zástupné texty
-\def\thesis@slovak@facultyName{Fakulta sociálnych štúdií}
-\def\thesis@slovak@assignment{Namiesto tejto stránky vložte kópiu
+\gdef\thesis@slovak@facultyName{Fakulta sociálnych štúdií}
+\gdef\thesis@slovak@assignment{Namiesto tejto stránky vložte kópiu
   oficiálneho podpísaného zadania práce alebo prehlásenie autora
   školského diela alebo obidve~v závislosti na požiadavkách
   príslušnej katedry.}
@@ -150,8 +150,8 @@
 % \iffalse
 %<*mu/econ>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/mu/econ/fithesis-slovak.def}[2015/06/23]
-\def\thesis@slovak@facultyName{Ekonomicko-správna fakulta}
+\ProvidesFile{fithesis/locale/mu/econ/fithesis-slovak.def}[2015/06/26]
+\gdef\thesis@slovak@facultyName{Ekonomicko-správna fakulta}
 %    \end{macrocode}\iffalse
 %</mu/econ>
 % \fi\file{locale/mu/med/fithesis-slovak.def}
@@ -168,17 +168,17 @@
 % \iffalse
 %<*mu/med>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/mu/med/fithesis-slovak.def}[2015/06/23]
+\ProvidesFile{fithesis/locale/mu/med/fithesis-slovak.def}[2015/06/26]
 
 % Rôzne
-\def\thesis@slovak@abstractTitle{Anotácie}
+\gdef\thesis@slovak@abstractTitle{Anotácie}
 
 % Zástupné texty
-\def\thesis@slovak@facultyName{Lekárska fakulta}
+\gdef\thesis@slovak@facultyName{Lekárska fakulta}
 
 % Bibliografický zoznam
-\def\thesis@slovak@bib@title{Bibliografický záznam}
-\def\thesis@slovak@bib@pages{str}
+\gdef\thesis@slovak@bib@title{Bibliografický záznam}
+\gdef\thesis@slovak@bib@pages{str}
 %    \end{macrocode}\iffalse
 %</mu/med>
 % \fi\file{locale/mu/fi/fithesis-slovak.def}
@@ -194,14 +194,14 @@
 % \iffalse
 %<*mu/fi>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/mu/fi/fithesis-slovak.def}[2015/06/23]
+\ProvidesFile{fithesis/locale/mu/fi/fithesis-slovak.def}[2015/06/26]
 
 % Zástupné texty
-\def\thesis@slovak@facultyName{Fakulta informatiky}
-\def\thesis@slovak@assignment{Namiesto tejto stránky vložte kópiu
+\gdef\thesis@slovak@facultyName{Fakulta informatiky}
+\gdef\thesis@slovak@assignment{Namiesto tejto stránky vložte kópiu
   oficiálneho podpísaného zadania práce a prehlásenie autora
   školského diela.}
-\def\thesis@slovak@declaration{%
+\gdef\thesis@slovak@declaration{%
   Prehlasujem, že táto \thesis@lower{slovak@typeName} je mojím
   pôvodným autorským dielom, ktoré som vypracoval%
   \thesis@slovak@gender@koncovka\ samostatne. Všetky zdroje,
@@ -211,7 +211,7 @@
   s~uvedením úplného odkazu na príslušný zdroj.}
 
 % Rôzne
-\def\thesis@slovak@advisorSignature{Podpis vedúceho}
+\gdef\thesis@slovak@advisorSignature{Podpis vedúceho}
 %    \end{macrocode}\iffalse
 %</mu/fi>
 % \fi\file{locale/mu/phil/fithesis-slovak.def}
@@ -225,11 +225,11 @@
 % \iffalse
 %<*mu/phil>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/mu/phil/fithesis-slovak.def}[2015/06/23]
+\ProvidesFile{fithesis/locale/mu/phil/fithesis-slovak.def}[2015/06/26]
 
 % Zástupné texty
-\def\thesis@slovak@facultyName{Filozofická fakulta}
-\def\thesis@slovak@declaration{%
+\gdef\thesis@slovak@facultyName{Filozofická fakulta}
+\gdef\thesis@slovak@declaration{%
   Prehlašujem, že som predloženú \thesis@lower{%
   slovak@typeName@akuzativ} vypracoval%
   \thesis@slovak@gender@koncovka\ samostatne na
@@ -237,7 +237,7 @@
   uvedenej literatúry a prameňov.}
 
 % Rôzne
-\def\thesis@slovak@typeName{%
+\gdef\thesis@slovak@typeName{%
   \ifx\thesis@type\thesis@bachelors%
     Bakalárska diplomová práca%
   \else\ifx\thesis@type\thesis@masters%
@@ -247,7 +247,7 @@
   \else%
     <<Neznámy typ práce (\thesis@type)>>%
   \fi\fi\fi}
-\def\thesis@slovak@typeName@akuzativ{%
+\gdef\thesis@slovak@typeName@akuzativ{%
   \ifx\thesis@type\thesis@bachelors%
     Diplomovú prácu%
   \else\ifx\thesis@type\thesis@masters%
@@ -271,14 +271,14 @@
 % \iffalse
 %<*mu/ped>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/mu/ped/fithesis-slovak.def}[2015/06/23]
+\ProvidesFile{fithesis/locale/mu/ped/fithesis-slovak.def}[2015/06/26]
 
 % Zástupné texty
-\def\thesis@slovak@facultyName{Pedagogická fakulta}
+\gdef\thesis@slovak@facultyName{Pedagogická fakulta}
 
 % Bibliografický zoznam
-\def\thesis@slovak@bib@title{Bibliografický záznam}
-\def\thesis@slovak@bib@pages{str}
+\gdef\thesis@slovak@bib@title{Bibliografický záznam}
+\gdef\thesis@slovak@bib@pages{str}
 %    \end{macrocode}\iffalse
 %</mu/ped>
 % \fi\file{locale/mu/sci/fithesis-slovak.def}
@@ -289,10 +289,10 @@
 % \iffalse
 %<*mu/sci>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/mu/sci/fithesis-slovak.def}[2015/06/23]
+\ProvidesFile{fithesis/locale/mu/sci/fithesis-slovak.def}[2015/06/26]
 
 % Zástupné texty
-\def\thesis@slovak@facultyName{Prírodovedecká fakulta}
+\gdef\thesis@slovak@facultyName{Prírodovedecká fakulta}
 %    \end{macrocode}\iffalse
 %</mu/sci>
 % \fi

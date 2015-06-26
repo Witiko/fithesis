@@ -7,7 +7,7 @@
 % after \texttt{style/fithesis-base.sty}, regardless of the value
 % of the |\thesis@style| macro.
 %    \begin{macrocode}
-\ProvidesPackage{fithesis/style/mu/fithesis-base}[2015/06/23]
+\ProvidesPackage{fithesis/style/mu/fithesis-base}[2015/06/26]
 \NeedsTeXFormat{LaTeX2e}
 %    \end{macrocode}
 % The file recognizes the following options: \begin{itemize}
@@ -626,18 +626,18 @@
 % \end{macro}\begin{macro}{\thesis@blocks@abstractEn}
 % The |\thesis@blocks@abstractEn| macro typesets the
 % abstract in English. If the current locale is English, the
-% macro produces no output. A style file that uses this block
-% needs to require the English locale.
+% macro produces no output.
 % \begin{macrocode}
 \def\thesis@blocks@abstractEn{%
   \ifthesis@english\else%
+    {\thesis@selectLocale{english}%
     \begin{alwayssingle}%
       % Start the new chapter without clearing the right page
       {\def\cleardoublepage{}%
-      \chapter*{\thesis@{english@abstractTitle}}%
+      \chapter*{\thesis@english@abstractTitle}%
       \thesis@abstractEn}%
       \par\vfil\null%
-    \end{alwayssingle}%
+    \end{alwayssingle}}%
   \fi}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@keywords}
@@ -656,18 +656,18 @@
 % \end{macro}\begin{macro}{\thesis@blocks@keywordsEn}
 % The |\thesis@blocks@keywordsEn| macro typesets the
 % keywords in English. If the current locale is English, the
-% macro produces no output. A style file that uses this block
-% needs to require the English locale.
+% macro produces no output.
 % \begin{macrocode}
 \def\thesis@blocks@keywordsEn{%
   \ifthesis@english\else%
+    {\thesis@selectLocale{english}%
     \begin{alwayssingle}%
       % Start the new chapter without clearing the right page
       {\def\cleardoublepage{}%
-      \chapter*{\thesis@{english@keywordsTitle}}%
+      \chapter*{\thesis@english@keywordsTitle}%
       \thesis@TeXkeywordsEn}%
       \par\vfil\null%
-    \end{alwayssingle}%
+    \end{alwayssingle}}%
   \fi}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@assignment}
