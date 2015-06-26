@@ -30,11 +30,11 @@
 % include the thesis advisor's name and signature in case of a
 % rigorous thesis. Along with the macros required by the
 % locale file interface, the locale files need to define the
-% following private macros:
+% following macros:
 % \begin{itemize}
 %   \item\DescribeMacro{\thesis@advisorSignature}%
 %     |\thesis@advisorSignature| -- The label of the advisor
-%     signature field typeset in the case of a rigorous thesis
+%     signature field typeset in the case of rigorous theses
 % \end{itemize}
 % \begin{macrocode}
 \def\thesis@blocks@titlePage@content{%
@@ -63,9 +63,9 @@
   \fi}}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@declaration}
-% The |\thesis@blocks@declaration| private macro typesets the
+% The |\thesis@blocks@declaration| macro typesets the
 % declaration text. Compared to the definition within the
-% \texttt{style/mu/base.sty} file, this private macro also
+% \texttt{style/mu/base.sty} file, this macro also
 % typesets the advisor's name at the bottom of the page.
 % \begin{macrocode}
 \def\thesis@blocks@declaration{%
@@ -81,12 +81,9 @@
   \end{alwayssingle}}
 %    \end{macrocode}
 % \end{macro}
-% The style file defines the autolayout preamble as the cover and
-% the title page followed by the assignment, declaration,
-% acknowledgement, abstract, keywords, table of contents and list
-% of tables and figures as a part of the front matter. All blocks
-% beside |\thesis@titlePage| are defined in the
-% \texttt{style/mu/base.sty} file.
+% All blocks within the autolayout preamble that are not defined
+% within this file are defined in the
+% \texttt{style/mu/fithesis-base.sty} file.
 %    \begin{macrocode}
 \def\thesis@preamble{%
   \thesis@blocks@cover%

@@ -42,14 +42,13 @@
 \fi\fi
 %    \end{macrocode}
 % \begin{macro}{\thesis@blocks@bibEntry}
-% The |\thesis@blocks@bibEntry| private macro typesets a
+% The |\thesis@blocks@bibEntry| macro typesets a
 % bibliographical entry. Along with the macros required by the
 % locale file interface, the locale files need to define the
-% following private macros:
+% following macros:
 % \begin{itemize}
 %   \item\DescribeMacro{\thesis@czech@bib@title}
-%     |\thesis@czech@bib@title| -- The title of the
-%     |\thesis@blocks@bib@title| block
+%     |\thesis@czech@bib@title| -- The title of the entire block
 %   \item\DescribeMacro{\thesis@czech@bib@author}
 %     |\thesis@czech@bib@author| -- The label of the author name
 %     entry
@@ -60,8 +59,8 @@
 %     |\thesis@czech@bib@programme| -- The label of the programme
 %     name entry
 %   \item\DescribeMacro{\thesis@czech@bib@field}
-%     |\thesis@czech@bib@field| -- The label of the field name
-%     entry
+%     |\thesis@czech@bib@field| -- The label of the field of study
+%     name entry
 %   \item\DescribeMacro{\thesis@czech@bib@advisor}
 %     |\thesis@czech@bib@advisor| -- The label of the advisor name
 %     entry
@@ -142,14 +141,13 @@
   \end{alwayssingle}}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@bibEntryEn}
-% The |\thesis@blocks@bibEntryEn| private macro typesets a
+% The |\thesis@blocks@bibEntryEn| macro typesets a
 % bibliographical entry in English. Along with the macros
 % required by the locale file interface, the locale files
-% need to define the following private macros:
+% need to define the following macros:
 % \begin{itemize}
 %   \item\DescribeMacro{\thesis@english@bib@title}
-%     |\thesis@english@bib@title| -- The title of the
-%     |\thesis@blocks@bibEntryEn| block
+%     |\thesis@english@bib@title| -- The title of the entire block
 %   \item\DescribeMacro{\thesis@english@bib@author}
 %     |\thesis@english@bib@author| -- The label of the author name
 %     entry
@@ -160,8 +158,8 @@
 %     |\thesis@english@bib@programme| -- The label of the programme
 %     name entry
 %   \item\DescribeMacro{\thesis@english@bib@field}
-%     |\thesis@english@bib@field| -- The label of the field name
-%     entry
+%     |\thesis@english@bib@field| -- The label of the field of
+%     study name entry
 %   \item\DescribeMacro{\thesis@english@bib@advisor}
 %     |\thesis@english@bib@advisor| -- The label of the advisor
 %     name entry
@@ -244,7 +242,7 @@
   }}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@frontMatter}
-% The |\thesis@blocks@frontMatter| private macro sets up the style
+% The |\thesis@blocks@frontMatter| macro sets up the style
 % of the front matter front matter of the thesis. The front matter
 % is typeset without any visible numbering, as mandated by the
 % formal requirements of the faculty.
@@ -256,7 +254,7 @@
   \pagenumbering{roman}}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@cover}
-% The |\thesis@blocks@cover| private macro typesets the thesis
+% The |\thesis@blocks@cover| macro typesets the thesis
 % cover.
 % \begin{macrocode}
 \def\thesis@blocks@cover{%
@@ -280,7 +278,7 @@
   \fi}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@titlePage}
-% The |\thesis@blocks@titlePage| private macro typesets the thesis
+% The |\thesis@blocks@titlePage| macro typesets the thesis
 % title page. Depending on the value of the |\ifthesis@color@|
 % conditional, the faculty logo is loaded from either
 % |\thesis@logopath|, if \texttt{false}, or from
@@ -325,13 +323,10 @@
   \ifthesis@twoside@\@twosidetrue\fi}} % Re-enable twoside
 %    \end{macrocode}
 % \end{macro}
-% The style file defines the autolayout preamble as the cover and
-% the title page followed by the bibliographic entry, the abstract
-% assignment, acknowledgement, table of contents and list of tables
-% and figures as a part of the front matter. All the blocks 
-% beside |\thesis@blocks@bibEntry| and |\thesis@blocks@bibEntryEn|
-% are defined in the \texttt{style/mu/base.sty} file. The entire
-% front matter is typeset as though the locale were Czech in
+% All blocks within the autolayout postamble that are not defined
+% within this file are defined in the
+% \texttt{style/mu/fithesis-base.sty} file. The
+% entire front matter is typeset as though the locale were Czech in
 % accordance with the formal requirements of the faculty.
 %    \begin{macrocode}
 \def\thesis@preamble{%

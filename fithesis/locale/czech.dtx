@@ -5,8 +5,8 @@
 % The locale file also defines the |\thesis@czech@gender@koncovka|
 % macro, which expands to the correct verb ending based on the
 % value of the |\thesis@ifwoman| macro and the
-% |\thesis@typeName@akuzativ| containing the accusative case of the
-% thesis type name.
+% |\thesis@czech@typeName@akuzativ| containing the accusative case
+% of the thesis type name.
 % \end{macro}\iffalse
 %<*base>
 % \fi\begin{macrocode}
@@ -109,9 +109,9 @@
 % \fi\file{locale/mu/fsps/fithesis-czech.def}
 % This is the Czech locale file specific to the Faculty of Sports
 % Studies at the Masaryk University in Brno. It replaces the
-% \texttt{facultyName} placeholder with the correct value and the
-% \texttt{fieldTitle} string in accordance with the common usage
-% at the faculty.
+% \texttt{facultyName} placeholder with the correct value and
+% redefines the \texttt{fieldTitle} string in accordance with the
+% common usage at the faculty.
 % \iffalse
 %<*mu/fsps>
 % \fi\begin{macrocode}
@@ -127,7 +127,8 @@
 % \fi\file{locale/mu/fss/fithesis-czech.def}
 % This is the Czech locale file specific to the Faculty of Social
 % Studies at the Masaryk University in Brno. It replaces the
-% \texttt{facultyName} string with the correct value.
+% \texttt{facultyName} and \texttt{assignment} placeholders with
+% the correct values.
 % \iffalse
 %<*mu/fss>
 % \fi\begin{macrocode}
@@ -183,11 +184,12 @@
 % This is the Czech locale file specific to the Faculty of
 % Informatics at the Masaryk University in Brno.
 % It replaces the \texttt{facultyName} placeholder with the
-% correct value and updates the \texttt{declaration} string in
+% correct value and redefines the \texttt{declaration} string in
 % accordance with the requirements of the faculty. The file also
 % defines the \texttt{advisorSignature} string required by the
 % |\thesis@blocks@titlePage| block defined within the
-% \texttt{style/mu/fithesis-fi.sty} style file.
+% \texttt{style/mu/\discretionary{}{}{}fithesis-fi.sty}
+% style file.
 % \iffalse
 %<*mu/fi>
 % \fi\begin{macrocode}
@@ -215,10 +217,9 @@
 % This is the Czech locale file specific to the Faculty of
 % Arts at the Masaryk University in Brno.
 % It replaces the \texttt{facultyName} placeholder with the
-% correct value. It also defines the \texttt{declaration} string
-% and redefines the \texttt{typeName} and
-% \texttt{typeName@akuzativ} strings in accordance with the
-% requirements of the faculty.
+% correct value. It also redefines the \texttt{declaration},
+% \texttt{typeName} and \texttt{typeName@akuzativ} strings in
+% accordance with the requirements of the faculty.
 % \iffalse
 %<*mu/phil>
 % \fi\begin{macrocode}
@@ -261,7 +262,8 @@
 % correct value. The file also defines the
 % \texttt{bib@title} and \texttt{bib@pages} strings required by the
 % |\thesis@blocks@bibEntry| block defined within the
-% \texttt{style/mu/fithesis-ped.sty} style file.
+% \texttt{style/mu/\discretionary{}{}{}fithesis-ped.sty}
+% style file.
 % \iffalse
 %<*mu/ped>
 % \fi\begin{macrocode}
@@ -276,13 +278,13 @@
 %    \end{macrocode}\iffalse
 %</mu/ped>
 % \fi\file{locale/mu/sci/fithesis-czech.def}
-% This is the Czech locale file specific to the Faculty of
-% Science at the Masaryk University in Brno.
-% It defines the private macros required by the
-% |\thesis@blocks@bibEntry| block defined within the
-% \texttt{style/mu/fithesis-sci.sty} style file.
-% It also replaces the \texttt{facultyName} placeholder with the
-% correct value and redefines the \texttt{abstractTitle} and
+% This is the Czech locale file specific to the Faculty of Science
+% at the Masaryk University in Brno.  It defines the private macros
+% required by the |\thesis@blocks@|\discretionary{}{}{}|bibEntry|
+% block defined within the
+% \texttt{style/mu/fithesis-sci.sty} style file.  It also
+% replaces the \texttt{facultyName} placeholder with the correct
+% value and redefines the \texttt{abstractTitle} and
 % \texttt{declaration} strings in accordance with the formal
 % requirements of the faculty.
 % \iffalse

@@ -40,7 +40,7 @@
 \geometry{top=25mm,bottom=20mm,left=25mm,right=25mm,includeheadfoot}
 %    \end{macrocode}
 % \begin{macro}{\thesis@blocks@cover}
-% The |\thesis@blocks@cover| private macro typesets the thesis
+% The |\thesis@blocks@cover| macro typesets the thesis
 % cover.
 %    \begin{macrocode}
 \def\thesis@blocks@cover{%
@@ -59,12 +59,13 @@
       \end{center}
     \end{alwayssingle}
   \fi}
+%    \end{macrocode}
 % \end{macro}
 % The style file redefines the title page content
 % not to include the author's name and the title page footer
 % to include both the author's and advisor's name, the field of
-% study and the semester and place of the thesis defense as per
-% the requirements of the department.
+% study and the semester and place of the thesis defense in
+% accordance with the requirements of the department.
 %    \begin{macrocode}
 \def\thesis@blocks@titlePage@content{%
   {\thesis@titlePage@Huge\bf\thesis@TeXtitle\\[0.3in]}%
@@ -93,11 +94,11 @@
         \\[1em]{\bf\thesis@@{fieldTitle}:}\\\thesis@field
     \end{minipage}}\\[4em]\thesis@place, \thesis@@{semester}}}
 %    \end{macrocode}
-% \end{macro}\begin{macro}{\thesis@blocks@frontMatter}
-% The |\thesis@blocks@frontMatter| private macro sets up the style
-% of the front matter of the thesis. The page numbering is arabic
-% as per the formal requirements and it is hidden. In case of
-% double-sided typesetting, the geometry is altered according to
+% \begin{macro}{\thesis@blocks@frontMatter}
+% The |\thesis@blocks@frontMatter| macro sets up the style of the
+% front matter of the thesis. The page numbering is arabic in
+% accordance with the formal requirements and it is hidden. In case
+% of double-sided typesetting, the geometry is altered according to
 % the requirements of the faculty.
 % \begin{macrocode}
 \def\thesis@blocks@frontMatter{%
@@ -112,13 +113,13 @@
   \pagenumbering{arabic}}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@bibEntry}
-% The |\thesis@blocks@bibEntry| private macro typesets a
+% The |\thesis@blocks@bibEntry| macro typesets a
 % bibliographical entry. Along with the macros required by the
 % locale file interface, the \textit{locale} files need to define
-% the following private macros:
+% the following macros:
 % \begin{itemize}
 %   \item|\thesis@|\emph{locale}|@bib@title| -- The title of the
-%     |\thesis@blocks@bib@title| block
+%     entire block
 %   \item|\thesis@|\emph{locale}|@bib@pages| -- The abbreviation of
 %     pages used in the bibliographical entry
 % \end{itemize}
@@ -132,12 +133,9 @@
   \thesis@@{advisorTitle}: \thesis@advisor}
 %    \end{macrocode}
 % \end{macro}
-% The style file defines the autolayout preamble as the cover and
-% the title page followed by the annotation, bibliographical entry,
-% declaration, acknowledgement table of contents and the optional list
-% of tables and figures as a part of the front matter. All blocks are
-% defined in the \texttt{style/mu/base.sty} file, although some are
-% redefined in this file.
+% All blocks within the autolayout postamble that are not defined
+% within this file are defined in the
+% \texttt{style/mu/fithesis-base.sty} file.
 %    \begin{macrocode}
 \def\thesis@preamble{%
   \thesis@blocks@cover%

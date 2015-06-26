@@ -2,9 +2,11 @@
 % This is the base file of the Slovak locale. It defines all the
 % private macros mandated by the locale file interface.
 % \begin{macro}{\thesis@slovak@gender@koncovka}
-% The locale file defines the |\thesis@slovak@gender@koncovka|
+% The locale file also defines the |\thesis@slovak@gender@koncovka|
 % macro, which expands to the correct verb ending based on the
-% value of the |\thesis@ifwoman| macro.
+% value of the |\thesis@ifwoman| macro and the
+% |\thesis@slovak@typeName@akuzativ| containing the accusative case
+% of the thesis type name.
 % \end{macro}\iffalse
 %<*base>
 % \fi\begin{macrocode}
@@ -107,9 +109,9 @@
 % \fi\file{locale/mu/fsps/fithesis-slovak.def}
 % This is the Slovak locale file specific to the Faculty of Sports
 % Studies at the Masaryk University in Brno. It replaces the
-% \texttt{facultyName} placeholder with the correct value and the
-% \texttt{fieldTitle} string in accordance with the common usage
-% at the faculty.
+% \texttt{facultyName} placeholder with the correct value and
+% redefines the \texttt{fieldTitle} string in accordance with the
+% common usage at the faculty.
 % \iffalse
 %<*mu/fsps>
 % \fi\begin{macrocode}
@@ -125,7 +127,8 @@
 % \fi\file{locale/mu/fss/fithesis-slovak.def}
 % This is the Slovak locale file specific to the Faculty of Social
 % Studies at the Masaryk University in Brno. It replaces the
-% \texttt{facultyName} string with the correct value.
+% \texttt{facultyName} and \texttt{assignment} strings with the
+% correct values.
 % \iffalse
 %<*mu/fss>
 % \fi\begin{macrocode}
@@ -180,14 +183,14 @@
 %</mu/med>
 % \fi\file{locale/mu/fi/fithesis-slovak.def}
 % This is the Slovak locale file specific to the Faculty of
-% Informatics at the Masaryk University in Brno.
-% It replaces the \texttt{facultyName} placeholder with the
-% correct value and updates the \texttt{declaration} string
-% in accordance with the requirements of the faculty.
-% The file also defines the
+% Informatics at the Masaryk University in Brno.  It replaces the
+% \texttt{facultyName} placeholder with the correct value and
+% redefines the \texttt{declaration} string in accordance with the
+% requirements of the faculty.  The file also defines the
 % \texttt{advisorSignature} string required by the
 % |\thesis@blocks@titlePage| block defined within the
-% \texttt{style/mu/fithesis-fi.sty} style file.
+% \texttt{style/mu/\discretionary{}{}{}fithesis-fi.sty}
+% style file.
 % \iffalse
 %<*mu/fi>
 % \fi\begin{macrocode}
@@ -263,7 +266,8 @@
 % correct value. The file also defines the
 % \texttt{bib@title} and \texttt{bib@pages} strings required by the
 % |\thesis@blocks@bibEntry| block defined within the
-% \texttt{style/mu/fithesis-ped.sty} style file.
+% \texttt{style/mu/\discretionary{}{}{}fithesis-ped.sty}
+% style file.
 % \iffalse
 %<*mu/ped>
 % \fi\begin{macrocode}

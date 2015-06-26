@@ -38,7 +38,7 @@
 \geometry{top=25mm,bottom=20mm,left=25mm,right=25mm,includeheadfoot}
 %    \end{macrocode}
 % \begin{macro}{\thesis@blocks@cover}
-% The |\thesis@blocks@cover| private macro typesets the thesis
+% The |\thesis@blocks@cover| macro typesets the thesis
 % cover.
 %    \begin{macrocode}
 \def\thesis@blocks@cover{%
@@ -63,8 +63,8 @@
 % name of the field of study and redefines the title page content
 % not to include the author's name and the title page footer
 % to include both the author's and advisor's name, the year and
-% place of the thesis defense as per the requirements of the
-% faculty.
+% place of the thesis defense in accordance with the formal
+% requirements of the faculty.
 %    \begin{macrocode}
 \thesis@blocks@titlePage@field@true
 \def\thesis@blocks@titlePage@content{%
@@ -93,7 +93,7 @@
     \end{minipage}}\\[4em]\thesis@place, \thesis@year}}
 %    \end{macrocode}
 % \begin{macro}{\thesis@blocks@frontMatter}
-% The |\thesis@blocks@frontMatter| private macro sets up the style
+% The |\thesis@blocks@frontMatter| macro sets up the style
 % of the front matter of the thesis. The page numbering is arabic
 % as per the formal requirements and it is hidden. In case of
 % double-sided typesetting, the geometry is altered according to
@@ -111,7 +111,7 @@
   \pagenumbering{arabic}}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@mainMatter}
-% The |\thesis@blocks@mainMatter| private macro sets up the style
+% The |\thesis@blocks@mainMatter| macro sets up the style
 % of the main matter of the thesis. The page numbering doesn't
 % reset at the beginning of the main thesis as per the formal
 % requirements.
@@ -122,14 +122,15 @@
   \parindent 1.5em\relax}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@toc}
-% The |\thesis@blocks@toc| private macro typesets the table of
+% The |\thesis@blocks@toc| macro typesets the table of
 % contents.
 % \begin{macrocode}
 \def\thesis@blocks@toc{%
   \thesis@blocks@clear%
   \tableofcontents}
+%    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@tables}
-% The |\thesis@blocks@tables| private macro optionally typesets the
+% The |\thesis@blocks@tables| macro optionally typesets the
 % |\listoftables| and |\listoffigures|.
 % \begin{macrocode}
 \def\thesis@blocks@tables{%
@@ -138,11 +139,9 @@
   \thesis@blocks@lof}
 %    \end{macrocode}
 % \end{macro}
-% The style file defines the autolayout preamble as the cover and
-% the title page followed by the abstracts, keywords, declaration,
-% acknowledgement and table of contents. All blocks are defined in
-% the \texttt{style/mu/base.sty} file, although some are redefined
-% in this file.
+% All blocks within the autolayout preamble that are not defined
+% within this file are defined in the
+% \texttt{style/mu/fithesis-base.sty} file.
 %    \begin{macrocode}
 \def\thesis@preamble{%
   \thesis@blocks@cover%

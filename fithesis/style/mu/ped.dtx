@@ -35,13 +35,13 @@
       {\bf\thesis@@{advisorTitle}:} \thesis@advisor}}
 %    \end{macrocode}
 % \begin{macro}{\thesis@blocks@bibEntry}
-% The |\thesis@blocks@bibEntry| private macro typesets a
+% The |\thesis@blocks@bibEntry| macro typesets a
 % bibliographical entry. Along with the macros required by the
 % locale file interface, the \textit{locale} files need to define
-% the following private macros:
+% the following macros:
 % \begin{itemize}
 %   \item|\thesis@|\emph{locale}|@bib@title| -- The title of the
-%     |\thesis@blocks@bib@title| block
+%     entire block
 %   \item|\thesis@|\emph{locale}|@bib@pages| -- The abbreviation of
 %     pages used in the bibliographical entry
 % \end{itemize}
@@ -55,12 +55,9 @@
   \thesis@@{advisorTitle}: \thesis@advisor}
 %    \end{macrocode}
 % \end{macro}
-% The style file defines the autolayout preamble as the cover and
-% the title page followed by the bibliographical entry, abstracts,
-% keywords, declaration, acknowledgement, table of contents and
-% list of tables and figures as a part of the front matter. All
-% blocks beside |\thesis@blocks@bibEntry| are defined in the
-% \texttt{style/mu/base.sty} file.
+% All blocks within the autolayout postamble that are not defined
+% within this file are defined in the
+% \texttt{style/mu/fithesis-base.sty} file.
 %    \begin{macrocode}
 \def\thesis@preamble{%
   \thesis@blocks@cover%

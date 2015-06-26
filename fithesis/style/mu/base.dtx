@@ -2,54 +2,48 @@
 %<*base>
 % \fi\file{style/mu/fithesis-base.sty}
 % This is the base style file for theses written at the Masaryk
-% University in Brno.
-% If inheritance is enabled for style files, then this file is
-% always the second style file to be loaded right after
-% \texttt{style/base.sty}, regardless of the
-% value of the |\thesis@style| macro.
+% University in Brno. When inheritance is enabled for style files,
+% this file is always the second style file to be loaded right
+% after \texttt{style/fithesis-base.sty}, regardless of the value
+% of the |\thesis@style| macro.
 %    \begin{macrocode}
 \ProvidesPackage{fithesis/style/mu/fithesis-base}[2015/06/23]
 \NeedsTeXFormat{LaTeX2e}
 %    \end{macrocode}
 % The file recognizes the following options: \begin{itemize}
 %   \item\texttt{10pt}, \texttt{11pt}, \texttt{12pt} -- Sets the
-%     type size to 10, 11 or 12 points respectively, along with the
-%     page geometry. The default type size is 12 points.
+%   type size to 10, 11 or 12 points respectively.
 %   \item\texttt{oneside}, \texttt{twoside} -- The document is
-%     going to be single- or double-sided. In a double-sided
-%     document headers, page numbering, margin notes and several
-%     other elements are rearranged based on
-%     the parity of the page. Blank pages are optionally inserted
-%     prior the beginning of the next chapter to ensure that it
-%     starts on an left-hand (even-numbered) page.
-%
-%     The \DescribeMacro{\ifthesis@twoside@}|\ifthesis@twoside@|
-%     conditional is set to either \texttt{false} or \texttt{true},
-%     respectively. This value can be tested in the subsequently
-%     loaded style files.
+%   going to be either single- or double-sided, respectively. In a
+%   double-sided document, headers, page numbering, margin notes
+%   and several other elements will be arranged based on the parity
+%   of the page. Blank pages will also be inserted prior the
+%   beginning of each chapter to ensure that it starts on a
+%   right-hand (odd-numbered) page. The
+%   \DescribeMacro{\ifthesis@twoside@}|\ifthesis@twoside@|
+%   conditional is set to either \texttt{false} or \texttt{true},
+%   respectively.
 %   \item\texttt{onecolumn}, \texttt{twocolumn} -- The document
-%     is going to be set in a single column or in two columns,
+%     is going to be set in either a single column or in two
+%     columns, respectively.
+%   \item\texttt{draft}, \texttt{final} -- Overful lines either are
+%     or aren't marked within the document, respectively, and
+%     graphics either aren't or are inserted into the document,
 %     respectively.
-%   \item\texttt{draft}, \texttt{final} -- Overful lines are or
-%     aren't marked within the document, respectively.
 %   \item\texttt{palatino}, \texttt{nopalatino} -- The default
 %     roman and math font family is going to be either set to
 %     Palatino or left untouched, respectively. The
-%     \DescribeMacro{\ifthesis@palatino@}|\ifthesis@palatino@|
-%     conditional is set to either \texttt{true} or \texttt{false},
-%     respectively.  This value can be tested in the subsequently
-%     loaded style files.
-%
-%     The Palatino font is a part of the visual identity of the
-%     Faculty of Informatics, at which the document class was
-%     created.
+%     \DescribeMacro{\ifthesis@palatino@}|\ifthesis@|^^A
+%     \discretionary{}{}{}|palatino@| conditional is set to either
+%     \texttt{true} or \texttt{false}, respectively. The
+%     Palatino font is a part of the visual identity of the Faculty
+%     of Informatics at which the document class was created.
 %   \item\texttt{color}, \texttt{monochrome} -- Certain
 %     typographical elements either are or aren't going to be
 %     typeset in color, respectively. The
 %     \DescribeMacro{\ifthesis@color@}|\ifthesis@color@|
 %     conditional is set to either \texttt{true} or \texttt{false},
-%     respectively.  This value can be tested in the subsequently
-%     loaded style files.
+%     respectively.
 %   \item\texttt{table}, \texttt{oldtable} -- If the
 %     |\ifthesis@color@| conditional is \texttt{true}, then the
 %     definition of the \texttt{tabular} and \texttt{tabularx}
@@ -58,12 +52,12 @@
 %     {\ifthesis@newtable@}|\ifthesis@newtable@| conditional is set
 %     to either \texttt{true} or \texttt{false}, respectively.
 %
-%     The choice of the name is deliberate -- the redefinition of
-%     the table environments depends on the \textsf{xcolor}
-%     package, which needs to be loaded with the \texttt{table}
-%     option. Since so many other packages depend on the
-%     \textsf{xcolor} package and this style file is loaded at the
-%     very end of the preamble, there would either be a great
+%     The choice of the option name is deliberate -- the
+%     redefinition of the table environments depends on the
+%     \textsf{xcolor} package, which needs to be loaded with the
+%     \texttt{table} option. Since so many other packages depend on
+%     the \textsf{xcolor} package and this style file is loaded at
+%     the very end of the preamble, there would either be a great
 %     chance of an option clash, or the option would have to be
 %     passed to the \textsf{xcolor} package before the preamble
 %     from the body of the \textsf{fithesis3} class thus breaking
@@ -71,22 +65,21 @@
 %     the option to be processed by the \textsf{xcolor} package as
 %     well and it is therefore an elegant solution to the problem
 %     at hand.
-%   \item\texttt{lot}, \texttt{nolot} -- |\listoftables| is or
-%     isn't going to be included in the
-%     \DescribeMacro{\thesis@blocks@tables}|\thesis@blocks@tables|
-%     block, respectively.
+%   \item\texttt{lot}, \texttt{nolot} -- |\listoftables| either is
+%     or isn't going to be included in the
+%     \DescribeMacro{\thesis@blocks@tables}|\thesis@|^^A
+%     \discretionary{}{}{}|blocks@tables| block, respectively.
 %   \item\texttt{lof}, \texttt{nolof} -- |\listoffigures| is or
 %     isn't going to be included in the
-%     \DescribeMacro{\thesis@blocks@tables}|\thesis@blocks@tables|
-%     block, respectively.
+%     \DescribeMacro{\thesis@blocks@tables}|\thesis@|^^A
+%     \discretionary{}{}{}|blocks@tables| block, respectively.
 %   \item\texttt{cover}, \texttt{nocover} -- The
 %     \DescribeMacro{\thesis@blocks@cover}|\thesis@blocks@cover|
-%     is or isn't going to expand to the thesis cover.
-%
-%     The \DescribeMacro{\ifthesis@cover@}|\ifthesis@cover@|
+%     either is going to expand to either the thesis cover or
+%     produces no output, respectively. The
+%     \DescribeMacro{\ifthesis@cover@}|\ifthesis@cover@|
 %     conditional is set to \texttt{false} or \texttt{true},
-%     respectively. This value can be tested in the subsequently
-%     loaded style files.
+%     respectively.
 % \end{itemize}
 %    \begin{macrocode}
 \DeclareOption{10pt}{\def\thesis@ptsize{0}}
@@ -135,8 +128,8 @@
 %   \item\textsf{pdfpages} -- Adds support for the injection of PDF
 %     documents into the resulting document, namely the thesis
 %     assignment.
-%   \item\textsf{hyperref} -- Adds support for injecting metadata
-%     into the resulting PDF document.
+%   \item\textsf{hyperref} -- Adds support for the injection of
+%     metadata into the resulting PDF document.
 %   \item\textsf{keyval} -- Adds support for parsing
 %     comma-delimited lists of key-value pairs.
 % \end{itemize}
@@ -151,7 +144,7 @@
 % Using the |\ifxetex| and |\ifluatex| conditionals, a compound
 % \DescribeMacro{\ifthesis@xeluatex}|\ifthesis@xeluatex|
 % conditional was constructed. This conditional can be used by
-% subsequently loaded style files to test,whether either the
+% subsequently loaded style files to test, whether either the
 % \Hologo{XeTeX} or the \Hologo{LuaTeX} engine is being used.
 %    \begin{macrocode}
 {\let\x\expandafter
@@ -170,9 +163,9 @@
 %   \item\textsf{unicode-math} -- Allows the selection of
 %     system-installed mathematical fonts.
 % \end{itemize}
-% Under \Hologo{XeTeX}, the \textsf{TeX Gyre Pagella} and
-% \textsf{TeX Gyre Pagella Math} are also selected as the main text
-% and math fonts.
+% Under \Hologo{XeTeX} or \Hologo{LuaTeX}, the \textsf{TeX Gyre
+% Pagella} and \textsf{TeX Gyre Pagella Math} are also selected as
+% the main text and math fonts.
 %    \begin{macrocode}
 \ifthesis@xeluatex
   \ifthesis@palatino@
@@ -183,15 +176,15 @@
       {TG Pagella Math}
   \fi
 %    \end{macrocode}
-% The following packages get only loaded, when the document is
-% not being typeset using the \Hologo{XeTeX} engine and the
-% |\ifthesis@palatino@| conditional is \texttt{true}:
+% The following packages get only loaded, when the document is not
+% being typeset using the \Hologo{XeTeX} or \Hologo{LuaTeX} engine
+% and the |\ifthesis@palatino@| conditional is \texttt{true}:
 % \begin{itemize}
-%   \item\textsf{cmap} -- Places an an explicit \texttt{ToUnicode}
-%     map in the resulting PDF file, allowing for extraction of
-%     the text of the document.
-%   \item\textsf{mathpazo} -- The virtual \texttt{mathpazo} fonts
-%     will be used for math.
+%   \item\textsf{cmap} -- Places an explicit \texttt{ToUnicode}
+%     map in the resulting PDF file, allowing for the extraction of
+%     the text from the document.
+%   \item\textsf{mathpazo} -- Changes the default math font family
+%     to \texttt{mathpazo}.
 %   \item\textsf{tgpagella} -- Changes the default roman font
 %     family to \TeX\ Gyre Pagella.
 %   \item\textsf{lmodern} -- Changes the default sans-serif and
@@ -215,7 +208,7 @@
 % \begin{itemize}
 %   \item\textsf{tabularx} -- Provides the \texttt{tabularx}
 %     environment, which enables the typesetting of tables with
-%     variable-width columns.
+%     flexible-width columns.
 % \end{itemize}
 % Subsequently, the \texttt{tabular} and \texttt{tabularx}
 % environments are redefined to better match the style of the given
@@ -294,8 +287,9 @@
 %     \texttt{tabularx} environments under the name
 %     \texttt{thesis@color@tableEven}.
 %   \item\marg{\texttt{tableEmph}=color} -- Stores the color of an
-%     emphasized cell in the table for usage by the user under the
-%     name \texttt{thesis@color@tableEmph}.
+%     emphasized cell in a table user under the name
+%     \texttt{thesis@color@tableEmph}. This color is meant to be
+%     used manually by the user.
 % \end{enumerate}
 %    \begin{macrocode}
 \define@key{thesis@color}{links}{%
@@ -309,11 +303,11 @@
   \definecolor{thesis@color@tableEmph}#1}
 %    \end{macrocode}
 % The file defines several blocks to be used in the redefinitions
-% of the |\thesis@preamble| and |\thesis@postable| private macros
+% of the |\thesis@preamble| and |\thesis@postable| macros
 % by the subsequently loaded style files.
 %
 % \begin{macro}{\thesis@blocks@frontMatter}
-% The |\thesis@blocks@frontMatter| private macro sets up the style
+% The |\thesis@blocks@frontMatter| macro sets up the style
 % of the front matter of the thesis.
 % \begin{macrocode}
 \def\thesis@blocks@frontMatter{%
@@ -324,8 +318,8 @@
   \pagenumbering{roman}}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@clear}
-% The |\thesis@blocks@clear| private macro clears the current page
-% along with the next left-handed (even-numbered) page, when
+% The |\thesis@blocks@clear| macro clears the current page.
+% It also clears the next left-hand (even-numbered) page, when
 % double-sided typesetting is enabled.
 % \begin{macrocode}
 \def\thesis@blocks@clear{%
@@ -338,9 +332,9 @@
   \fi}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@clearRight}
-% The |\thesis@blocks@clearRight| private macro clears the current
-% page along with the next right-handed (odd-numbered) page, when
-% double-sided typesetting is enabled.
+% The |\thesis@blocks@clearRight| macro clears the current
+% page. It also clears the next right-hand (odd-numbered) page,
+% when double-sided typesetting is enabled.
 % \begin{macrocode}
 \def\thesis@blocks@clearRight{%
   \ifthesis@twoside@%
@@ -355,7 +349,7 @@
   \fi}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@facultyLogo@monochrome}
-% The |\thesis@blocks@facultyLogo@monochrome|\oarg{options} private
+% The |\thesis@blocks@facultyLogo@monochrome|\oarg{options} 
 % macro typesets the |\thesis@logopath\thesis@facultyLogo| logo
 % with the given \textit{options} passed to |\includegraphics|.
 % \begin{macrocode}
@@ -365,10 +359,10 @@
     \includegraphics[#1]{\@path}}}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@facultyLogo@color}
-% The |\thesis@blocks@facultyLogo@color|\oarg{options} private
+% The |\thesis@blocks@facultyLogo@color|\oarg{options} 
 % macro typesets either the |\thesis@logopath\thesis@facultyLogo|
 % logo, if the |\ifthesis|\discretionary{}{}{}|@color@| conditional
-% is \texttt{false} or the
+% is \texttt{false}, or the
 % |\thesis@logopath\thesis@facultyLogo-color| logo
 % otherwise with the given \textit{options} passed to
 % |\includegraphics|.
@@ -381,7 +375,7 @@
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@universityLogo@monochrome}
 % The |\thesis@blocks@universityLogo@monochrome|\oarg{options}
-% private macro typesets the
+% macro typesets the
 % |\thesis@logopath\thesis@universityLogo| logo
 % with the given \textit{options} passed to |\includegraphics|.
 % \begin{macrocode}
@@ -391,12 +385,13 @@
     \includegraphics[#1]{\@path}}}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@universityLogo@color}
-% The |\thesis@blocks@universityLogo@color|\oarg{options} private
+% The |\thesis@blocks@universityLogo@color|\oarg{options} 
 % macro typesets either the |\thesis@logopath\thesis@universityLogo|
 % logo, if the |\ifthesis|\discretionary{}{}{}|@color@| conditional
-% is \texttt{false} or the
-% |\thesis@logopath\thesis@universityLogo-color| logo otherwise
-% with the given \textit{options} passed to |\includegraphics|.
+% is \texttt{false}, or the
+% |\thesis@logopath\thesis@universityLogo|\discretionary{}{}{}|-color|
+% logo otherwise with the given \textit{options} passed to
+% |\includegraphics|.
 % \begin{macrocode}
 \newcommand{\thesis@blocks@universityLogo@color}[1]%
   [width=40mm]{{%
@@ -405,8 +400,8 @@
     \includegraphics[#1]{\@path}}}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@cover}
-% The |\thesis@blocks@cover| private macro typesets the thesis
-% cover. It is composed of three private macros:
+% The |\thesis@blocks@cover| macro typesets the thesis
+% cover. It is composed of three macros:
 % \begin{itemize}
 %   \item\DescribeMacro{\thesis@blocks@cover@header}^^A
 %        |\thesis@blocks@cover@header| -- The header of the cover
@@ -440,7 +435,7 @@
     \ifthesis@twoside@\@twosidetrue\fi % Re-enable twoside
   \fi}
 %    \end{macrocode}
-% The output of the |\thesis@blocks@cover@header| private macro is
+% The output of the |\thesis@blocks@cover@header| macro is
 % controlled by the following conditionals:
 % \begin{enumerate}
 %   \item|\ifthesis@blocks@cover@university@| -- This
@@ -460,9 +455,9 @@
 %        study is going to be included in the header of the cover.
 %        The default value of this conditional is \texttt{false}.
 % \end{enumerate}
-% The sebsequently loaded style files can alter the value of these
+% The sebsequently loaded style files can modify the value of these
 % conditionals to alter the output of the
-% |\thesis@blocks@cover@header| private macro without altering its
+% |\thesis@blocks@cover@header| macro without altering its
 % definition.
 % \begin{macrocode}
 \newif\ifthesis@blocks@cover@university@
@@ -496,8 +491,8 @@
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\thesis@blocks@titlePage}
-% The |\thesis@blocks@titlePage| private macro typesets the thesis
-% title page. It is composed of three private macros:
+% The |\thesis@blocks@titlePage| macro typesets the thesis
+% title page. It is composed of three macros:
 % \begin{itemize}
 %   \item|\thesis@blocks@titlePage@header| -- The header of the
 %        cover page
@@ -507,10 +502,7 @@
 %        cover page
 % \end{itemize}
 % This allows the subsequently loaded style files to only redefine
-% certain parts of the title page. Depending on the value of the
-% |\ifthesis@color@| conditional, the faculty logo is loaded from
-% either |\thesis@logopath|, if \texttt{false}, or from
-% |\thesis@logopath color/|, if \texttt{true}.
+% certain parts of the title page.
 %    \begin{macrocode}
 \def\thesis@blocks@titlePage{%
     \thesis@blocks@clear%
@@ -527,7 +519,7 @@
       \end{center}%
     \end{alwayssingle}}
 %    \end{macrocode}
-% The output of the |\thesis@blocks@titlePage@header| private macro is
+% The output of the |\thesis@blocks@titlePage@header| macro is
 % controlled by the following conditionals:
 % \begin{enumerate}
 %   \item|\ifthesis@blocks@titlePage@university@| -- This
@@ -551,10 +543,10 @@
 %        page. The default value of this conditional is
 %        \texttt{false}.
 % \end{enumerate}
-% The sebsequently loaded style files can alter the value of these
+% The sebsequently loaded style files can modify the value of these
 % conditionals to alter the output of the
-% |\thesis@blocks@titlePage@header| private macro without altering
-% its definition.
+% |\thesis@blocks@titlePage@header| macro without altering its
+% definition.
 % \begin{macrocode}
 \newif\ifthesis@blocks@titlePage@university@
 \thesis@blocks@titlePage@university@true
@@ -581,7 +573,7 @@
 \let\thesis@blocks@titlePage@footer=\thesis@blocks@cover@footer
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@tables}
-% The |\thesis@blocks@tables| private macro typesets the table of
+% The |\thesis@blocks@tables| macro typesets the table of
 % contents and optionally the |\listoftables| and the
 % |\listoffigures|.
 % \begin{macrocode}
@@ -592,7 +584,7 @@
   \thesis@blocks@lof}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@declaration}
-% The |\thesis@blocks@declaration| private macro typesets the
+% The |\thesis@blocks@declaration| macro typesets the
 % declaration text.
 % \begin{macrocode}
 \def\thesis@blocks@declaration{%
@@ -605,9 +597,9 @@
   \end{alwayssingle}}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@thanks}
-% The |\thesis@blocks@thanks| private macro typesets the
-% acknowledgement, if the |\thesis@thanks| private macro is
-% defined.
+% The |\thesis@blocks@thanks| macro typesets the
+% acknowledgement, if the |\thesis@thanks| macro is
+% defined. Otherwise, the macro produces no output.
 % \begin{macrocode}
 \def\thesis@blocks@thanks{%
   \ifx\thesis@thanks\undefined\else%
@@ -619,7 +611,7 @@
   \fi}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@abstract}
-% The |\thesis@blocks@abstract| private macro typesets the
+% The |\thesis@blocks@abstract| macro typesets the
 % abstract.
 % \begin{macrocode}
 \def\thesis@blocks@abstract{%
@@ -632,7 +624,7 @@
   \end{alwayssingle}}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@abstractEn}
-% The |\thesis@blocks@abstractEn| private macro typesets the
+% The |\thesis@blocks@abstractEn| macro typesets the
 % abstract in English. If the current locale is English, the
 % macro produces no output. A style file that uses this block
 % needs to require the English locale.
@@ -649,7 +641,7 @@
   \fi}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@keywords}
-% The |\thesis@blocks@keywords| private macro typesets the
+% The |\thesis@blocks@keywords| macro typesets the
 % keywords.
 % \begin{macrocode}
 \def\thesis@blocks@keywords{%
@@ -662,7 +654,7 @@
   \end{alwayssingle}}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@keywordsEn}
-% The |\thesis@blocks@keywordsEn| private macro typesets the
+% The |\thesis@blocks@keywordsEn| macro typesets the
 % keywords in English. If the current locale is English, the
 % macro produces no output. A style file that uses this block
 % needs to require the English locale.
@@ -679,12 +671,12 @@
   \fi}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@assignment}
-% The |\thesis@blocks@assignment| private macro either:
+% The |\thesis@blocks@assignment| macro either:
 % \begin{itemize}
-%   \item Expands to an empty token list, when the first
-%     expansion of |\thesis@assignmentPDF| yields an empty token
-%     list or when the |\ifthesis@blocks@assignment@| conditional
-%     is \texttt{false}.
+%   \item Produces no output, when the first expansion of
+%     |\thesis@|\discretionary{}{}{}|assignmentPDF| yields an empty
+%     token list or when the |\ifthesis@blocks@assignment@|
+%     conditional is \texttt{false}.
 %   \item Typesets a placeholder page to be replaced with the
 %     official thesis assignment, when |\thesis@assignmentPDF|
 %     is undefined and the |\ifthesis@blocks|\discretionary{}{}^^A
@@ -729,7 +721,7 @@
   \fi}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@mainMatter}
-% The |\thesis@blocks@mainMatter| private macro sets up the style
+% The |\thesis@blocks@mainMatter| macro sets up the style
 % of the main matter of the thesis.
 % \begin{macrocode}
 \def\thesis@blocks@mainMatter{%
@@ -943,7 +935,7 @@
 % This file is conditionally loaded by the
 % \texttt{style/mu/base.sty} file to redefine the page geometry to
 % match the type size of 12 points. The type dimensions defined by
-% the file are stored in the following private macros as well:
+% the file are stored in the following macros as well:
 % \begin{itemize}
 %  \item\DescribeMacro{\thesis@titlePage@normalsize}%
 %    |\thesis@titlePage@normalsize| -- Equivalent to |\normalsize|
@@ -967,7 +959,7 @@
 %  \item\DescribeMacro{\thesis@titlePage@Huge}%
 %    |\thesis@titlePage@Huge| -- Equivalent to |\Huge|
 % \end{itemize}
-% These private macros can be used to typeset elements, whose size
+% These macros can be used to typeset elements, whose size
 % should remain constant regardless of the font size setting.
 %    \begin{macrocode}
 %<*12pt>
