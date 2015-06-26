@@ -672,12 +672,13 @@
 %    \begin{macrocode}
 \newif\ifthesis@style@inheritance\thesis@style@inheritancetrue
 \define@key{thesis}{styleInheritance}[true]{%
+  \begingroup
   \def\@true{true}%
   \def\@arg{#1}%
-  \ifx\@true\@arg%
-    \thesis@style@inheritancetrue%
-  \else%
-    \thesis@style@inheritancefalse%
+  \ifx\@true\@arg
+    \endgroup\thesis@style@inheritancetrue
+  \else
+    \endgroup\thesis@style@inheritancefalse
   \fi}
 %    \end{macrocode}
 % \end{macro}
@@ -734,12 +735,13 @@
 %    \begin{macrocode}
 \newif\ifthesis@locale@inheritance\thesis@locale@inheritancetrue
 \define@key{thesis}{localeInheritance}[true]{%
+  \begingroup
   \def\@true{true}%
   \def\@arg{#1}%
-  \ifx\@true\@arg%
-    \thesis@locale@inheritancetrue%
-  \else%
-    \thesis@locale@inheritancefalse%
+  \ifx\@true\@arg
+    \endgroup\thesis@locale@inheritancetrue
+  \else
+    \endgroup\thesis@locale@inheritancefalse
   \fi}
 %    \end{macrocode}
 % \end{macro}
