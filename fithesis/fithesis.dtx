@@ -46,11 +46,24 @@
 %<*class>
 \NeedsTeXFormat{LaTeX2e}
 % Define `\thesis@version` and store it in the `VERSION.tex` file \fi
-\def\thesis@version{2015/06/24 v0.3.18 fithesis3 MU thesis class}
+\def\thesis@version{2015/06/27 v0.3.19 fithesis3 MU thesis class}
 % {\newwrite\f\openout\f=VERSION\write\f{\thesis@version}\closeout\f}
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 
+% \changes{v0.3.19}  {2015/06/27}{Updated the license. Added the
+%   \texttt{fithesis-} prefix to locale files. Proof-read and
+%   updated the documentation. Encapsulated the
+%   \texttt{localeInheritance} and \texttt{styleInheritance}
+%   setters. Added the \cs{thesis@selectLocale}\texttt{\{...\}},
+%   which acts as a replacement for
+%   \cs{def}\cs{thesis@locale}\texttt{\{...\}}, which also switches
+%   hyphenation patterns. The macro definitions inside locale files
+%   are now global to account for the fact that it now makes sense
+%   to include locale files on-site (and therefore possibly inside
+%   a group) using the \cs{thesis@selectLocale}. The class files
+%   are now generated using the XeTeX engine, which
+%   preserves the characters outside ASCII.}
 % \changes{v0.3.18}  {2015/06/24}{A bulk of changes required to submit
 %   the document class to CTAN: Changed the structure of the output
 %   \texttt{fithesis3.ctan.zip} archive. Updated the license
