@@ -70,7 +70,7 @@ dist: complete
 
 # This target creates the class files.
 $(CLASSFILES): fithesis.ins fithesis.dtx
-	tex $<
+	xetex $<
 
 # This target typesets the guides.
 $(GUIDES): $(CLASSFILES) $(RESOURCES)
