@@ -1,7 +1,7 @@
 SUBMAKES_REQUIRED=logo/mu locale style style/mu
-SUBMAKES_MISCELLANEOUS=guide/mu
+SUBMAKES_MISCELLANEOUS=guide/mu test
 SUBMAKES=$(SUBMAKES_REQUIRED) $(SUBMAKES_MISCELLANEOUS)
-.PHONY: all complete clean dist dist-implode implode rebase \
+.PHONY: all complete clean dist dist-implode implode \
 	install uninstall test $(SUBMAKES_REQUIRED)
 
 CLASSFILES=fithesis.cls fithesis2.cls fithesis3.cls

@@ -1,5 +1,5 @@
-.PHONY: all clean
-all: clean
+.PHONY: all implode
+all: implode
 	for file in *.tex; do \
 		ln -s "$$file" current.tex && \
 		pdflatex current && pdflatex current && \
@@ -8,5 +8,5 @@ all: clean
 		rm current.*; \
 	done
 
-clean:
+implode:
 		rm -f current.* texput.log
