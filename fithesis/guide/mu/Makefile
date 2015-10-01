@@ -19,7 +19,9 @@ $(PDFFILES): $(TEMPLATE) $(BIB)
 
 # This target removes any auxiliary files.
 clean:
-	rm -f $(TEXFILES) *.aux *.log *.out *.toc *.lot *.lof *.bbl *.blg *.pyg *.bcf *-blx.bib *.run.xml
+	rm -f $(TEXFILES) *.aux *.log *.out *.toc *.lot *.lof *.bbl \
+		*.blg *.pyg *.bcf *-blx.bib *.run.xml
+	rm -rf _minted-*
 
 # This target removes any auxiliary files
 # and the output PDF files.
