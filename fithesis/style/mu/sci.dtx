@@ -300,9 +300,11 @@
     \end{adjustwidth}
     % The middle of the page
     \vfill
-    {\bf\thesis@titlePage@Huge\thesis@TeXtitle\\[0.8em]}
+    \parbox\textwidth{% Prevent vfills from squashing the leading
+      \bf\thesis@titlePage@Huge\thesis@TeXtitle}
+    {\thesis@titlePage@Huge\\[0.8em]}
     {\thesis@titlePage@large\thesis@czech@typeName\\[1em]}
-    {\bf\thesis@titlePage@LARGE\thesis@author}\\
+    {\bf\thesis@titlePage@LARGE\thesis@author\\}
     \vfill\noindent
     % The bottom of the page
     {\bf\thesis@titlePage@normalsize%
