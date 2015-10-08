@@ -417,7 +417,6 @@
 \def\thesis@blocks@cover{%
   \ifthesis@cover@%
     \thesis@blocks@clear%
-    \ifthesis@twoside@\@twosidefalse\fi % Temporarily disable twoside
     \begin{alwayssingle}%
       \thispagestyle{empty}%
       \begin{center}%
@@ -430,7 +429,6 @@
         \thesis@blocks@cover@footer%
       \end{center}%
     \end{alwayssingle}%
-    \ifthesis@twoside@\@twosidetrue\fi % Re-enable twoside
   \fi}
 %    \end{macrocode}
 % The output of the |\thesis@blocks@cover@header| macro is
