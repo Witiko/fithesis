@@ -94,7 +94,7 @@ $(TDSARCHIVE):
 # This target generates a distribution file
 $(DISTARCHIVE): $(SOURCES) $(LATEXFILES) $(MAKES) $(TESTS) \
 	$(DOCS) $(PDFSOURCES) $(MISCELLANEOUS) $(EXAMPLES) $(VERSION)
-	DIR=`mktemp -d` && mkdir --parents "$$DIR/fithesis" && \
+	DIR=`mktemp -d` && mkdir -p "$$DIR/fithesis" && \
 	cp --verbose $(TDSARCHIVE) "$$DIR"/fithesis && \
 	cp --parents --verbose $^ "$$DIR/fithesis" && \
 	(cd "$$DIR" && zip -r -v -nw $@ *) && \
@@ -103,7 +103,7 @@ $(DISTARCHIVE): $(SOURCES) $(LATEXFILES) $(MAKES) $(TESTS) \
 # This target generates a CTAN distribution file
 $(CTANARCHIVE): $(SOURCES) $(MAKES) $(TESTS) \
 	$(MISCELLANEOUS) $(EPSLOGOS) $(DOCS) $(DEVEXAMPLES) $(VERSION)
-	DIR=`mktemp -d` && mkdir --parents "$$DIR/fithesis" && \
+	DIR=`mktemp -d` && mkdir -p "$$DIR/fithesis" && \
 	cp --verbose $(TDSARCHIVE) "$$DIR" && \
 	cp --parents --verbose $^ "$$DIR/fithesis" && \
 	(cd "$$DIR" && zip -r -v -nw $@ *) && \
@@ -122,15 +122,15 @@ install:
 	fi
 	
 	# Class, locale, style and logo files
-	mkdir --parents "$(to)/tex/latex/fithesis"
+	mkdir -p "$(to)/tex/latex/fithesis"
 	cp --parents --verbose $(LATEXFILES) "$(to)/tex/latex/fithesis"
 	
 	# Source files
-	mkdir --parents "$(to)/source/latex/fithesis"
+	mkdir -p "$(to)/source/latex/fithesis"
 	cp --parents --verbose $(SOURCES) "$(to)/source/latex/fithesis"
 	
 	# Documentation
-	mkdir --parents "$(to)/doc/latex/fithesis"
+	mkdir -p "$(to)/doc/latex/fithesis"
 	cp --parents --verbose $(DOCS) "$(to)/doc/latex/fithesis"
 	
 	# Rebuild the hash
