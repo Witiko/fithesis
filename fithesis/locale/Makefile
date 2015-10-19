@@ -21,7 +21,7 @@ OUTPUT=fithesis-czech.def mu/law/fithesis-czech.def \
 
 .PHONY: explode implode all
 all:
-	mkdir --parents $(DIRECTORIES)
+	mkdir -p $(DIRECTORIES)
 	make explode
 
 explode: $(LOGS)
