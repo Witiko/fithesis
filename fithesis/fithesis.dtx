@@ -238,8 +238,20 @@
 % \tableofcontents
 %
 % \section{Required classes and packages}
-% The class loads the \texttt{rapport3} base class and the
-% following packages: \begin{itemize}
+% \begin{macro}{\thesis@backend}
+% The class requires the class specified in |\thesis@backend|,
+% whose default value is |[a4paper]{rapport3}|. If a different
+% base class is desired, it can be specified by redefining
+% |\thesis@backend| prior to loading the \textsf{fithesis3} class.
+%    \begin{macrocode}
+\ProvidesClass{fithesis3}[\thesis@version]
+\ifx\thesis@backend\undefined
+  \def\thesis@backend{[a4paper]{rapport3}}
+\fi\expandafter\LoadClass\thesis@backend
+%    \end{macrocode}
+% \end{macro}
+% The class also requires the following packages:
+% \begin{itemize}
 %   \item\textsf{keyval} -- Adds support for parsing
 %     comma-delimited lists of key-value pairs.
 %   \item\textsf{etoolbox} -- Adds support for expanding
@@ -257,8 +269,6 @@
 % \ref{sec:thesis@load}). Other packages may be required by the
 % style files (see Section \ref{sec:style-files}) you are using.
 %    \begin{macrocode}
-\ProvidesClass{fithesis3}[\thesis@version]
-\LoadClass[a4paper]{rapport3}
 \RequirePackage{keyval}
 \RequirePackage{etoolbox}
 \RequirePackage{ifxetex}
