@@ -44,6 +44,13 @@
 %     \DescribeMacro{\ifthesis@color@}|\ifthesis@color@|
 %     conditional is set to either \texttt{true} or \texttt{false},
 %     respectively.
+%   \item\texttt{microtype}, \texttt{nomicrotype} -- The
+%     microtypographic extension of modern \TeX\ engines -- such as
+%     \hologo{pdfTeX}, \Hologo{XeTeX}, or \Hologo{LuaTeX} -- is or isn't
+%     going to be enabled, respectively. The
+%     \DescribeMacro{\ifthesis@microtype@}|\ifthesis@microtype@|
+%     conditional is set to either \texttt{true} or \texttt{false},
+%     respectively.
 %   \item\texttt{table}, \texttt{oldtable} -- If the
 %     |\ifthesis@color@| conditional is \texttt{true}, then the
 %     definition of the \texttt{tabular} and \texttt{tabularx}
@@ -97,6 +104,9 @@
 \newif\ifthesis@color@
 \DeclareOption{monochrome}{\thesis@color@false}
 \DeclareOption{color}{\thesis@color@true}
+\newif\ifthesis@microtype@
+\DeclareOption{microtype}{\thesis@microtype@true}
+\DeclareOption{nomicrotype}{\thesis@microtype@false}
 \newif\ifthesis@palatino@
 \DeclareOption{palatino}{\thesis@palatino@true}
 \DeclareOption{nopalatino}{\thesis@palatino@false}
@@ -113,8 +123,8 @@
 %    \end{macrocode}
 % These are the default options:
 %    \begin{macrocode}
-\ExecuteOptions{12pt,twoside,final,monochrome,palatino,
-  oldtable,lot,lof,nocover}
+\ExecuteOptions{12pt,twoside,final,monochrome,microtype,%
+  palatino,oldtable,lot,lof,nocover}
 \ProcessOptions
 %    \end{macrocode}
 % The file uses English locale strings within the macros.
@@ -144,6 +154,13 @@
 \thesis@require{keyval}
 \thesis@require{ifxetex}
 \thesis@require{ifluatex}
+%    \end{macrocode}
+% If the |\thesis@microtype@| is set to true, then the
+% \textsf{microtype} package gets loaded.
+%    \begin{macrocode}
+\ifthesis@microtype@
+  \thesis@require{microtype}
+\fi
 %    \end{macrocode}
 % Using the |\ifxetex| and |\ifluatex| conditionals, a compound
 % \DescribeMacro{\ifthesis@xeluatex}|\ifthesis@xeluatex|
