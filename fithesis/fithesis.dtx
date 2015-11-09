@@ -257,6 +257,10 @@
 %     comma-delimited lists of key-value pairs.
 %   \item\textsf{etoolbox} -- Adds support for expanding
 %     code after the preamble using the |\AtPreamble| hook.
+%   \item\textsf{ltxcmds} -- Implements several commands from
+%     the \LaTeX\ kernel. Used for the |\ltx@ifpackageloaded|
+%     command, which -- unlike its |\@ifpackageloaded| counterpart
+%     -- can be used outside the preamble.
 %   \item\textsf{ifxetex} -- Used to detect the \Hologo{XeTeX}
 %     engine.
 %   \item\textsf{ifluatex} -- Used to detect the \Hologo{LuaTeX}
@@ -272,6 +276,7 @@
 %    \begin{macrocode}
 \RequirePackage{keyval}
 \RequirePackage{etoolbox}
+\RequirePackage{ltxcmds}
 \RequirePackage{ifxetex}
 \RequirePackage{ifluatex}
 \ifxetex\else\ifluatex\else
@@ -1080,13 +1085,17 @@
     \makeatletter%
 %    \end{macrocode}
 % First, the main locale is selected and its files are loaded using
-% the |\thesis@selectLocale| macro.
+% the |\thesis@selectLocale| macro. If the user specified an
+% explicit empty string as the value of |\thesis@locale|, do
+% nothing.
 %    \begin{macrocode}
       \ifx\thesis@locale\empty\else
+        \thesis@requireLocale{\thesis@locale}
         \thesis@selectLocale{\thesis@locale}
       \fi
 %    \end{macrocode}
-% Consequently, the style files are loaded.
+% Consequently, the style files are loaded. If the user specified an
+% explicit empty string as the value of |\thesis@style|, do nothing.
 %    \begin{macrocode}
       \ifx\thesis@style\empty\else
         \thesis@requireStyle{\thesis@style}
@@ -1207,19 +1216,24 @@
 % The macro can be used within both locale and style files,
 % although the usage within locale files is strongly discouraged to
 % prevent circular dependencies.
+%
+% If the \textsf{polyglossia} package is being used, the respective
+% hyphenation patterns get loaded as well. As a consequence, this
+% command may not be used within the document, but only in the
+% preamble.
 %    \begin{macrocode}
 \def\thesis@requireLocale#1{%
   % Ignore redundant requests
   \expandafter\ifx\csname thesis@#1@required\endcsname\relax%
     \expandafter\def\csname thesis@#1@required\endcsname{}%
-      {\makeatletter % Enable requiring from within the document
-      \thesis@input{\thesis@localepath fithesis-#1.def}%
-      \ifthesis@locale@inheritance%
-        \thesis@input{\thesis@localepath\thesis@university/%
-          fithesis-#1.def}%
-        \thesis@input{\thesis@localepath\thesis@university/%
-          \thesis@faculty/fithesis-#1.def}%
-      \fi}
+    \@ifpackageloaded{polyglossia}{\setotherlanguage{#1}}{}
+    \thesis@input{\thesis@localepath fithesis-#1.def}%
+    \ifthesis@locale@inheritance%
+      \thesis@input{\thesis@localepath\thesis@university/%
+        fithesis-#1.def}%
+      \thesis@input{\thesis@localepath\thesis@university/%
+        \thesis@faculty/fithesis-#1.def}%
+    \fi
   \fi}
 %    \end{macrocode}\end{macro}
 % \subsection{String manipulation macros}
@@ -1304,13 +1318,17 @@
 %    \end{macrocode}
 % \DescribeMacro{\thesis@selectLocale}|\thesis@selectLocale|\marg{locale}
 % macro redefines the |\thesis@locale| macro to \textit{locale},
-% loads the locale files of \textit{locale} and switches to the
-% hyphenation patterns of \textit{locale}.
+% and switches to the hyphenation patterns of \textit{locale}. The
+% respective locale files and hyphenation patterns should be loaded
+% beforehand using the |\thesis@requireLocale| macro.
 %    \begin{macrocode}
 \def\thesis@selectLocale#1{%
   \edef\thesis@locale{#1}%
-  \thesis@requireLocale{\thesis@locale}%
-  \expandafter\language\csname l@\thesis@locale\endcsname}
+  \ltx@ifpackageloaded{polyglossia}{%
+    \selectlanguage{\thesis@locale}
+  }{%
+    \language\csname l@\thesis@locale\endcsname
+  }}
 %    \end{macrocode}
 % \iffalse
 %</class>
