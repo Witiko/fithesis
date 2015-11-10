@@ -790,7 +790,7 @@
 % \end{macro}
 % \subsubsection{The \texttt{date} key}
 % The \marg{\texttt{date}=date} pair sets the date of the thesis
-% defence to \textit{date}, where \textit{date} is a string
+% submission to \textit{date}, where \textit{date} is a string
 % in the \texttt{YYYY/MM/DD} format, where \texttt{YYYY} stands
 % for full year, \texttt{MM} stands for month and \texttt{DD}
 % stands for day. The \textit{date} is parsed and stored using
@@ -808,40 +808,43 @@
 %   \item\DescribeMacro{\thesis@season}|\thesis@season| -- Expands
 %     to either:
 %     \begin{itemize}
-%       \item\texttt{winter} if \texttt{MM} $<7$.
-%       \item\texttt{summer} if \texttt{MM} $\geq7$.
+%       \item\texttt{spring} if $2>{}$\texttt{MM}${}<9$,
+%       \item\texttt{fall} if $2\leq{}$\texttt{MM}${}\geq9$.
 %     \end{itemize}
 %   \item\DescribeMacro{\thesis@academicYear}|\thesis@academicYear|
 %     -- The academic year of the given semester:
 %     \begin{itemize}
-%       \item\texttt{YYYY/YYYY}$+1$ in case of a summer semester
-%       \item\texttt{YYYY}$-1$\texttt{/YYYY} in case of a winter
-%            semester
+%       \item\texttt{YYYY}${}-1$\texttt{/YYYY} if \texttt{MM}${}<9$.
+%       \item\texttt{YYYY/YYYY}${}+1$ if \texttt{MM}${}\geq9$
 %     \end{itemize}
 % \end{itemize}
 % To set up the default values, the |\thesis@parseDate| macro is
 % called with the fully expanded |\the\year/\the\month/\the\day|
-% string.
+% string, which equals the current date.
 %    \begin{macrocode}
 \def\thesis@parseDate#1/#2/#3|{{
-  % Basic info
+  % Set the basic macros
   \gdef\thesis@date{#1/#2/#3}%
   \gdef\thesis@year{#1}%
   \gdef\thesis@month{#2}%
   \gdef\thesis@day{#3}%
   
-  % Season and academic year
-  \newcount\@year \expandafter\@year \thesis@year \relax%
-  \newcount\@month\expandafter\@month\thesis@month\relax%
-  \ifnum\@month<7%
-    \gdef\thesis@season{winter}%
-    \advance\@year-1\edef\@yearA{\the\@year}%
-    \advance\@year 1\edef\@yearB{\the\@year}%
-  \else%
-    \gdef\thesis@season{summer}%
+  % Set the season
+  \newcount\@month\expandafter\@month\thesis@month\relax
+       \ifnum\@month>8\gdef\thesis@season{fall}
+  \else\ifnum\@month<3\gdef\thesis@season{fall}
+  \else               \gdef\thesis@season{spring}
+  \fi\fi
+
+  % Set the academic year
+  \newcount\@year\expandafter\@year\thesis@year\relax
+  \ifnum\@month>8%
                     \edef\@yearA{\the\@year}%
     \advance\@year 1\edef\@yearB{\the\@year}%
-  \fi%
+  \else
+    \advance\@year-1\edef\@yearA{\the\@year}%
+    \advance\@year 1\edef\@yearB{\the\@year}%
+  \fi
   \global\edef\thesis@academicYear{\@yearA/\@yearB}}}
 
 \edef\thesis@date{\the\year/\the\month/\the\day}%
@@ -1411,10 +1414,10 @@
 %     of the declaration section
 %   \item|\thesis@|\textit{locale}|@idTitle| -- The title of the
 %     thesis author's identifier field
-%   \item|\thesis@|\textit{locale}|@winter| -- The name of the
-%     winter semester
-%   \item|\thesis@|\textit{locale}|@summer| -- The name of the
-%     summer semester
+%   \item|\thesis@|\textit{locale}|@spring| -- The name of the
+%     spring semester
+%   \item|\thesis@|\textit{locale}|@fall| -- The name of the
+%     fall semester
 %   \item|\thesis@|\textit{locale}|@semester| -- The full name of
 %     the current semester
 %   \item|\thesis@|\textit{locale}|@typeName| -- The name of the
