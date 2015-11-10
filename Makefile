@@ -1,17 +1,12 @@
 .PHONY: all clean
 all:
 	make -C fithesis
-	make pdflatex.pdf xelatex.pdf lualatex.pdf clean
+	make pdflatex.pdf lualatex.pdf clean
 
 # This target typesets the pdfLaTeX example.
 pdflatex.pdf: pdflatex.tex
 	pdflatex $<
 	pdflatex $<
-
-# This target typesets the XeLaTeX example.
-xelatex.pdf: xelatex.tex
-	xelatex $<
-	xelatex $<
 
 # This target typesets the LuaLaTeX example.
 lualatex.pdf: lualatex.tex
@@ -25,4 +20,4 @@ clean:
 # This target removes any auxiliary files
 # and the output PDF file.
 implode: clean
-	rm -f pdflatex.pdf xelatex.pdf lualatex.pdf
+	rm -f pdflatex.pdf lualatex.pdf
