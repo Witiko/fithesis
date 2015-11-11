@@ -1,12 +1,12 @@
-PDFFILES=econ-01.pdf fi-01.pdf fsps-01.pdf fss-01.pdf law-01.pdf \
-	med-01.pdf ped-01.pdf phil-01.pdf sci-01.pdf 02.pdf
+PDFFILES=empty.pdf
+TEX=pdflatex
 .PHONY: all clean
 all: $(PDFFILES) clean
 
 # This target typesets the a PDF file.
 %.pdf: %.tex
-	pdflatex $<
-	pdflatex $<
+	$(TEX) $<
+	$(TEX) $<
 
 # This target removes any auxiliary files.
 clean:

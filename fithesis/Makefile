@@ -23,7 +23,9 @@ DEVEXAMPLES=guide/EXAMPLE/DESCRIPTION guide/mu/DESCRIPTION \
 	logo/DESCRIPTION style/EXAMPLE/DESCRIPTION style/mu/DESCRIPTION \
 	style/DESCRIPTION test/DESCRIPTION
 EXAMPLES=$(USEREXAMPLES) $(DEVEXAMPLES)
-MISCELLANEOUS=guide/*/*.tex guide/*/*/*.tex guide/*/*.bib
+MISCELLANEOUS=guide/mu/resources/empty.tex guide/mu/guide.bib \
+	guide/mu/guide.dtx guide/mu/resources/cog.pdf \
+	guide/mu/resources/vader.pdf guide/mu/resources/yoda.pdf
 RESOURCES=$(STYLEFILES) $(LOGOS) $(LOCALES)
 SOURCES=$(DTXFILES) $(INSFILES) LICENSE.tex
 AUXFILES=fithesis.aux fithesis.log fithesis.toc fithesis.ind \
