@@ -1201,7 +1201,7 @@
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@requireLocale}
 % If inheritance is enabled for style files, then the
-% |\thesis@requireStyle|\marg{locale} macro sequentially
+% |\thesis@requireLocale|\marg{locale} macro sequentially
 % loads each of the following locale files, provided they exist:
 % \begin{enumerate}
 %   \item|\thesis@localepath fithesis-|\textit{locale}|.def|
@@ -1220,10 +1220,10 @@
 % although the usage within locale files is strongly discouraged to
 % prevent circular dependencies.
 %
-% If the \textsf{polyglossia} package is being used, the respective
-% hyphenation patterns get loaded as well. As a consequence, this
-% command may not be used within the document, but only in the
-% preamble.
+% If the \textsf{polyglossia} package is being used, its
+% definitions for the respective locale get loaded as well. As a
+% consequence, this command may not be used within the document,
+% but only in the preamble.
 %    \begin{macrocode}
 \def\thesis@requireLocale#1{%
   % Ignore redundant requests
@@ -1322,8 +1322,12 @@
 % \DescribeMacro{\thesis@selectLocale}|\thesis@selectLocale|\marg{locale}
 % macro redefines the |\thesis@locale| macro to \textit{locale},
 % and switches to the hyphenation patterns of \textit{locale}. The
-% respective locale files and hyphenation patterns should be loaded
-% beforehand using the |\thesis@requireLocale| macro.
+% respective locale files and polyglossia locale definitions should
+% be loaded beforehand using the |\thesis@requireLocale| macro.
+%
+% This macro should always be used within a group, so that the
+% locale settings and the hyphenation return back to what the user
+% has specified after the localized block of typographic material.
 %    \begin{macrocode}
 \def\thesis@selectLocale#1{%
   \edef\thesis@locale{#1}%
