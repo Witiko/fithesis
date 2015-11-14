@@ -5,12 +5,15 @@ OUTPUT=fithesis-base.sty fithesis-1[012].clo fithesis-fi.sty \
 	fithesis-fss.sty fithesis-law.sty fithesis-econ.sty \
 	fithesis-med.sty fithesis-fsps.sty
 
-.PHONY: explode implode all
+# These targets create all the locale files.
 all: explode
 explode: $(LOGS)
 
+# This target creates the locale files from
+# one DTX file.
 %.log: %.ins %.dtx
 	xetex $<
 
+# This target removes all the locale files.
 implode:
 	rm -f $(OUTPUT) $(LOGS)

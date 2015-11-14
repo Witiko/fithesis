@@ -9,10 +9,13 @@ PDFFILES=fithesis-econ.pdf fithesis-fsps.pdf fithesis-law.pdf \
 	fithesis-base-color.pdf
 .PHONY: all implode
 
+# This target converts all the EPS logos to PDF.
 all: $(PDFFILES)
 
+# This target converts a single EPS logo to PDF.
 %.pdf: %.eps
 	epstopdf $<
 
+# This target removes all PDF logos.
 implode:
 	rm -f $(PDFFILES)

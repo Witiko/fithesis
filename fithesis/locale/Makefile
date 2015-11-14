@@ -20,15 +20,23 @@ OUTPUT=fithesis-czech.def mu/law/fithesis-czech.def \
 	fithesis-english.def
 
 .PHONY: explode implode all
+
+# This target creates the locale file directory
+# structure and creates the locale files.
 all:
 	mkdir -p $(DIRECTORIES)
 	make explode
 
+# This target creates all locale files.
 explode: $(LOGS)
 
+# This target creates the locale files from one
+# DTX file.
 %.log: %.ins %.dtx
 	xetex $<
 
+# This target tears down the locale file directory
+# structure along with the locale files.
 implode:
 	rm -f $(OUTPUT) $(LOGS)
 	-rmdir $(DIRECTORIES)
