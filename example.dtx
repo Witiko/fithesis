@@ -1,0 +1,835 @@
+%    \begin{macrocode}
+\documentclass[
+  color, %% This option enables colorful typesetting. Replace with
+         %% `monochrome`, if you are going to print the thesis on
+         %% a monochromatic printer.
+  table, %% Causes the coloring of tables. Replace with `notable`
+         %% to restore plain tables.
+  lof,   %% Prints the List of Figures. Replace with `nolof` to
+         %% hide the List of Figures.
+  lot,   %% Prints the List of Tables. Replace with `nolot` to
+         %% hide the List of Tables.
+  %% More options are listed in the class documentation at
+%<*econ>
+  %% <http://mirrors.ctan.org/macros/latex/contrib/fithesis/fithesis/guide/mu/econ.pdf>.
+%</econ>
+%<*fi>
+  %% <http://mirrors.ctan.org/macros/latex/contrib/fithesis/fithesis/guide/mu/fi.pdf>.
+%</fi>
+%<*fsps>
+  %% <http://mirrors.ctan.org/macros/latex/contrib/fithesis/fithesis/guide/mu/fsps.pdf>.
+%</fsps>
+%<*fss>
+  %% <http://mirrors.ctan.org/macros/latex/contrib/fithesis/fithesis/guide/mu/fss.pdf>.
+%</fss>
+%<*law>
+  %% <http://mirrors.ctan.org/macros/latex/contrib/fithesis/fithesis/guide/mu/law.pdf>.
+%</law>
+%<*med>
+  %% <http://mirrors.ctan.org/macros/latex/contrib/fithesis/fithesis/guide/mu/med.pdf>.
+%</med>
+%<*ped>
+  %% <http://mirrors.ctan.org/macros/latex/contrib/fithesis/fithesis/guide/mu/ped.pdf>.
+%</ped>
+%<*phil>
+  %% <http://mirrors.ctan.org/macros/latex/contrib/fithesis/fithesis/guide/mu/phil.pdf>.
+%</phil>
+%<*sci>
+  %% <http://mirrors.ctan.org/macros/latex/contrib/fithesis/fithesis/guide/mu/sci.pdf>.
+%</sci>
+]{fithesis/fithesis3}
+%<*pdftex>
+\usepackage[
+  main=english, %% By using `czech` or `slovak` as the main locale
+                %% instead of `english`, you can typeset the thesis
+                %% in either Czech or Slovak, respectively.
+  german, russian, czech, slovak %% The additional keys allow
+]{babel}        %% foreign texts to be typeset as follows:
+%%
+%%   \begin{otherlanguage}{german}  ... \end{otherlanguage}
+%%   \begin{otherlanguage}{russian} ... \end{otherlanguage}
+%%   \begin{otherlanguage}{czech}   ... \end{otherlanguage}
+%%   \begin{otherlanguage}{slovak}  ... \end{otherlanguage}
+%%
+%% For non-Latin scripts, it may be necessary to load additional
+%% fonts:
+\usepackage{paratype}
+\def\textrussian#1{{\usefont{T2A}{PTSerif-TLF}{m}{rm}#1}}
+%</pdftex>
+%<*luatex>
+\usepackage{polyglossia}  %% By using `czech` or `slovak` as the
+\setmainlanguage{english} %% main locale instead of `english`, you
+%% can typeset the thesis in either Czech or Slovak, respectively.
+\setotherlanguages{german, russian, czech, slovak} %% The
+% additional keys allow foreign texts to be typeset as follows:
+%%
+%%   \begin{otherlanguage}{german}  ... \end{otherlanguage}
+%%   \begin{otherlanguage}{russian} ... \end{otherlanguage}
+%%   \begin{otherlanguage}{czech}   ... \end{otherlanguage}
+%%   \begin{otherlanguage}{slovak}  ... \end{otherlanguage}
+%%
+%% For non-Latin scripts, it may be necessary to load additional
+%% fonts:
+\newfontfamily\russianfont[Script=Cyrillic,Ligatures=TeX]{PT Serif}
+%</luatex>
+%% 
+%% The following section sets up the metadata of the thesis.
+%<*econ>
+\thesissetup{
+    autoLayout    = false,
+    university    = mu,
+    faculty       = econ,
+    type          = bc,
+    field         = Applied Econometrics,
+    author        = Jane Doe,
+    gender        = f,
+    advisor       = John Smith,
+    title         = The Economic Value of LaTeX,
+    TeXtitle      = The Economic Value of \LaTeX,
+    keywords      = {keyword1, keyword2, ...},
+    TeXkeywords   = {keyword1, keyword2, \ldots},
+    %% The following keys are only useful, when you're using a
+    %% locale other than English. You can safely omit them in an
+    %% English thesis.
+    titleEn       = The Economic Value of LaTeX,
+    TeXtitleEn    = The Economic Value of \LaTeX,
+    keywordsEn    = {keyword1, keyword2, ...},
+    TeXkeywordsEn = {keyword1, keyword2, \ldots},
+}
+\thesislong{abstract}{
+    This is the abstract of my thesis, which can
+    
+    span multiple paragraphs.
+}
+\thesislong{thanks}{
+    This is the acknowledgement for my thesis, which can
+    
+    span multiple paragraphs.
+}
+%% The following declaration is only useful, when you're using a
+%% locale other than English. You can safely omit it in an English
+%% thesis.
+\thesislong{abstractEn}{
+    This is the English abstract of my thesis, which can
+    
+    span multiple paragraphs.
+}
+%</econ>
+%<*fi>
+\thesissetup{
+    university    = mu,
+    faculty       = fi,
+    type          = bc,
+    author        = Jane Doe,
+    gender        = f,
+    advisor       = John Smith,
+    title         = {The Proof of P = NP},
+    TeXtitle      = {The Proof of $\mathsf{P}=\mathsf{NP}$},
+    keywords      = {keyword1, keyword2, ...},
+    TeXkeywords   = {keyword1, keyword2, \ldots},
+}
+\thesislong{abstract}{
+    This is the abstract of my thesis, which can
+    
+    span multiple paragraphs.
+}
+\thesislong{thanks}{
+    This is the acknowledgement for my thesis, which can
+    
+    span multiple paragraphs.
+}
+%</fi>
+%<*fsps>
+\thesissetup{
+    university    = mu,
+    faculty       = fsps,
+    type          = bc,
+    field         = Sport Management,
+    author        = Jane Doe,
+    gender        = f,
+    advisor       = John Smith,
+    title         = The use of LaTeX for the Typesetting
+                    of Sports Tables,
+    TeXtitle      = The use of \LaTeX\ for the Typesetting
+                    of Sports Tables
+}
+%</fsps>
+%<*fss>
+\thesissetup{
+    university    = mu,
+    faculty       = fss,
+    type          = bc,
+    author        = Jane Doe,
+    gender        = f,
+    advisor       = John Smith,
+    title         = LaTeX and Its Impact on the
+                    Information Society,
+    TeXtitle      = \LaTeX\ and Its Impact on the
+                    Information Society,
+    keywords      = {keyword1, keyword2, ...},
+    TeXkeywords   = {keyword1, keyword2, \ldots},
+    %% The following keys are only useful, when you're using a
+    %% locale other than English. You can safely omit them in an
+    %% English thesis.
+    keywordsEn    = {keyword1, keyword2, ...},
+    TeXkeywordsEn = {keyword1, keyword2, \ldots},
+}
+\thesislong{abstract}{
+    This is the abstract of my thesis, which can
+    
+    span multiple paragraphs.
+}
+\thesislong{thanks}{
+    This is the acknowledgement for my thesis, which can
+    
+    span multiple paragraphs.
+}
+%% The following declaration is only useful, when you're using a
+%% locale other than English. You can safely omit it in an English
+%% thesis.
+\thesislong{abstractEn}{
+    This is the English abstract of my thesis, which can
+    
+    span multiple paragraphs.
+}
+%</fss>
+%<*law>
+\thesissetup{
+    university    = mu,
+    faculty       = law,
+    department    = The Department of Commercial Law,
+    type          = bc,
+    author        = Jane Doe,
+    gender        = f,
+    advisor       = John Smith,
+    title         = The Legal Aspects of the LaTeX Project
+                    Public License,
+    TeXtitle      = The Legal Aspects of the \LaTeX\ Project
+                    Public License,
+    keywords      = {keyword1, keyword2, ...},
+    TeXkeywords   = {keyword1, keyword2, \ldots},
+    %% The following keys are only useful, when you're using a
+    %% locale other than English. You can safely omit them in an
+    %% English thesis.
+    keywordsEn    = {keyword1, keyword2, ...},
+    TeXkeywordsEn = {keyword1, keyword2, \ldots},
+}
+\thesislong{abstract}{
+    This is the abstract of my thesis, which can
+    
+    span multiple paragraphs.
+}
+\thesislong{thanks}{
+    This is the acknowledgement for my thesis, which can
+    
+    span multiple paragraphs.
+}
+%% The following declaration is only useful, when you're using a
+%% locale other than English. You can safely omit it in an English
+%% thesis.
+\thesislong{abstractEn}{
+    This is the English abstract of my thesis, which can
+    
+    span multiple paragraphs.
+}
+%</law>
+%<*med>
+\thesissetup{
+    university    = mu,
+    faculty       = med,
+    field         = Optometry,
+    department    = The Department of Optometry and
+                    Orthoptics,
+    type          = bc,
+    author        = Jane Doe,
+    gender        = f,
+    advisor       = John Smith,
+    title         = The Curative Effects of Good
+                    Typography on the Quality of Sight,
+    TeXtitle      = The Curative Effects of Good\\
+                    Typography on the Quality of Sight,
+    keywords      = {keyword1, keyword2, ...},
+    TeXkeywords   = {keyword1, keyword2, \ldots},
+    %% The following keys are only useful, when you're using a
+    %% locale other than English. You can safely omit them in an
+    %% English thesis.
+    keywordsEn    = {keyword1, keyword2, ...},
+    TeXkeywordsEn = {keyword1, keyword2, \ldots},
+}
+\thesislong{abstract}{
+    This is the abstract of my thesis, which can
+    
+    span multiple paragraphs.
+}
+\thesislong{thanks}{
+    This is the acknowledgement for my thesis, which can
+    
+    span multiple paragraphs.
+}
+%% The following declaration is only useful, when you're using a
+%% locale other than English. You can safely omit it in an English
+%% thesis.
+\thesislong{abstractEn}{
+    This is the English abstract of my thesis, which can
+    
+    span multiple paragraphs.
+}
+%</med>
+%<*ped>
+\thesissetup{
+    university    = mu,
+    faculty       = ped,
+    type          = bc,
+    department    = Department of Primary Pedagogy,
+    author        = Jane Doe,
+    gender        = f,
+    advisor       = John Smith,
+    title         = The Challenges of Teaching LaTeX
+                    to Preschool Children,
+    TeXtitle      = The Challenges of Teaching \LaTeX\
+                    to Preschool Children,
+    keywords      = {keyword1, keyword2, ...},
+    TeXkeywords   = {keyword1, keyword2, \ldots},
+    %% The following keys are only useful, when you're using a
+    %% locale other than English. You can safely omit them in an
+    %% English thesis.
+    keywordsEn    = {keyword1, keyword2, ...},
+    TeXkeywordsEn = {keyword1, keyword2, \ldots},
+}
+\thesislong{abstract}{
+    This is the abstract of my thesis, which can
+    
+    span multiple paragraphs.
+}
+\thesislong{thanks}{
+    This is the acknowledgement for my thesis, which can
+    
+    span multiple paragraphs.
+}
+%% The following declaration is only useful, when you're using a
+%% locale other than English. You can safely omit it in an English
+%% thesis.
+\thesislong{abstractEn}{
+    This is the English abstract of my thesis, which can
+    
+    span multiple paragraphs.
+}
+%</ped>
+%<*phil>
+\thesissetup{
+    university    = mu,
+    faculty       = phil,
+    department    = Department of Psychology,
+    field         = Cognitive Sciences,
+    type          = bc,
+    author        = Jane Doe,
+    gender        = f,
+    advisor       = John Smith,
+    title         = What Can Typography Tell Us
+                    About the Nature of Man,
+    TeXtitle      = What Can Typography Tell Us\\
+                    About the Nature of Man,
+}
+\thesislong{thanks}{
+    This is the acknowledgement for my thesis, which can
+    
+    span multiple paragraphs.
+}
+%</phil>
+%<*sci>
+\thesissetup{
+    university    = mu,
+    faculty       = sci,
+    department    = Ústav matematiky a statistiky,
+    departmentEn  = Department of Mathematics and
+                    Statistics,
+    programme     = Matematika,
+    programmeEn   = Mathematics,
+    field         = Finanční a pojistná matematika,
+    fieldEn       = Financial and Insurance Mathematics,
+    type          = bc,
+    author        = Jane Doe,
+    gender        = f,
+    advisor       = John Smith,
+    title         = Principy matematické sazby v programu TeX,
+    TeXtitle      = Principy matematické sazby\\v~programu \TeX,
+    titleEn       = The Principles of the Typesetting of
+                    Mathematics in TeX: the Program,
+    TeXtitleEn    = The Principles of the Typesetting of
+                    Mathematics in \TeX: the Program,
+    keywords      = {klíčové slovo 1, klíčové slovo 2, ...},
+    TeXkeywords   = {klíčové slovo 1, klíčové slovo 2, \ldots},
+    keywordsEn    = {keyword1, keyword2, ...},
+    TeXkeywordsEn = {keyword1, keyword2, \ldots},
+}
+\thesislong{abstract}{
+    This is the abstract of my thesis, which can
+    
+    span multiple paragraphs.
+}
+\thesislong{abstractEn}{
+    This is the English abstract of my thesis, which can
+    
+    span multiple paragraphs.
+}
+\thesislong{thanks}{
+    This is the acknowledgement for my thesis, which can
+    
+    span multiple paragraphs.
+}
+%</sci>
+\usepackage[              %% When typesetting the bibliography, the
+  backend=biber,          %% `numeric` style will be used for the
+  style=numeric,          %% entries and the `numeric-comp` style
+  citestyle=numeric-comp, %% for the references to the entries. The
+  sorting=none,           %% entries will be sorted in cite order.
+  sortlocale=auto         %% For more unformation about the available
+]{biblatex}               %% `style`s and `citestyles`, see:      
+%% <http://mirrors.ctan.org/macros/latex/contrib/biblatex/doc/biblatex.pdf>.
+\addbibresource{example.bib} %% The bibliograpic database within
+                          %% the file `example.bib` will be used.
+\usepackage{makeidx}      %% The `makeidx` package contains
+\makeindex                %% helper commands for index typesetting.
+%% These additional packages are used within the document:
+\usepackage{paralist}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{url}
+\begin{document}
+%<*econ>
+\makeatletter
+  \thesis@preamble %% Print the preamble.
+\makeatother
+
+%</econ>
+\chapter{Introduction}
+Theses are rumoured to be the capstones of education, so I decided
+to write one of my own. If all goes well, I will soon have a
+diploma under my belt. Wish me luck!
+
+\begin{otherlanguage}{czech}
+Říká se, že závěrečné práce jsou vyvrcholením studia a tak jsem se
+rozhodl jednu také napsat. Pokud vše půjde podle plánu, odnesu si
+na konci semestru diplom. Držte mi palce!
+\end{otherlanguage}
+
+\begin{otherlanguage}{slovak}
+Hovorí sa, že záverečné práce sú vyvrcholením štúdia a tak som sa
+rozhodol jednu tiež napísať. Ak všetko pôjde podľa plánu, odnesiem
+si na konci semestra diplom. Držte mi palce!
+\end{otherlanguage}
+
+\begin{otherlanguage}{german}
+Man munkelt, dass die Dissertation die Krönung der Ausbildung ist.
+Deshalb habe ich mich beschlossen meine eigene zu schreiben. Wenn
+alles gut geht, bekomme ich bald ein Diplom. Wünsch mir Glück!
+\end{otherlanguage}
+
+%<*luatex>
+\begin{otherlanguage}{russian}
+%</luatex>
+%<*pdftex>
+\begin{otherlanguage}{russian}\textrussian{%
+%</pdftex>
+Говорят, что тезис -- это кульминация обучения. Поэтому я и решил
+написать собственный тезис. Если всё сработает по плану, я скоро
+получу диплом. Желайте мне удачи!
+%<*luatex>
+\end{otherlanguage}
+%</luatex>
+%<*pdftex>
+}\end{otherlanguage}
+%</pdftex>
+
+\chapter{These are}
+\section{the available}
+\subsection{sectioning commands.}
+\paragraph{Paragraphs and}
+\subparagraph{subparagraphs are available as well.}
+Inside the text, you can also use unnumbered lists,
+\begin{itemize}
+  \item such as
+  \item this one
+  \begin{itemize}
+    \item     and they can be nested as well.
+    \item[>>] You can even turn the bullets into something fancier,
+    \item[\S] if you so desire.
+  \end{itemize}
+\end{itemize}
+Numbered lists are
+\begin{enumerate}
+  \item very
+  \begin{enumerate}
+    \item similar
+  \end{enumerate}
+\end{enumerate}
+and so are description lists:
+\begin{description}
+  \item[Description list]
+    A list of terms with a description of each term
+\end{description}
+The spacing of these lists is geared towards paragraphs of text.
+For lists of words and phrases, the \textsf{paralist} package
+offers commands
+\begin{compactitem}
+  \item that
+  \begin{compactitem}
+    \item are
+    \begin{compactitem}
+      \item more
+      \begin{compactitem}
+        \item suited
+      \end{compactitem}
+    \end{compactitem}
+  \end{compactitem}
+\end{compactitem}
+\begin{compactenum}
+  \item to
+  \begin{compactenum}
+    \item this
+    \begin{compactenum}
+      \item kind of
+      \begin{compactenum}
+        \item content.
+      \end{compactenum}
+    \end{compactenum}
+  \end{compactenum}
+\end{compactenum}
+The \textsf{amsthm} package provides the commands necessary for the
+typesetting of mathematical definitions, theorems, lemmas and
+proofs.
+
+%% We will define several mathematical sectioning commands.
+\newtheorem{theorem}{Theorem}[section] %% The numbering of theorems
+                               %% will be reset after each section.
+\newtheorem{lemma}[theorem]{Lemma}     %% The numbering of lemmas
+\newtheorem{corr}[theorem]{Corrolary}  %% and corrolaries will
+                                %% share the counter with theorems.
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\begin{theorem}
+  This is a theorem that offers a profound insight into the
+  mathematical sectioning commands.
+\end{theorem}
+\begin{theorem}[Another theorem]
+  This is another theorem. Unlike the first one, this theorem has
+  been endowed with a name.
+\end{theorem}
+\begin{lemma}
+  Let us suppose that $x^2+y^2=z^2$. Then
+  \begin{equation}
+    \biggl\langle u\biggm|\sum_{i=1}^nF(e_i,v)e_i\biggr\rangle
+    =F\biggl(\sum_{i=1}^n\langle e_i|u\rangle e_i,v\biggr).
+  \end{equation}
+\end{lemma}
+\begin{proof}
+  $\nabla^2 f(x,y)=\frac{\partial^2f}{\partial x^2}+
+   \frac{\partial^2f}{\partial y^2}$.
+\end{proof}
+\begin{corr}
+  This is a corrolary.
+\end{corr}
+\begin{remark}
+  This is a remark.
+\end{remark}
+
+\chapter{Floats and references}
+\begin{figure}
+  \begin{center}
+    %% PNG and JPG images can be inserted into the document as well,
+    %% but their resolution needs to be adequate. The minimum is
+    %% about 250 pixels per 1 centimeter. That means that a JPG or
+    %% PNG image typeset at 40 × 40 mm should be 1000 × 1000 px
+    %% large at minimum.
+    \includegraphics[width=40mm]{fithesis/logo/mu/fithesis-base.pdf}
+  \end{center}
+  \caption{The logo of the Masaryk University at 40\,mm}
+  \label{fig:mulogo1}
+\end{figure}
+
+\begin{figure}
+  \begin{minipage}{.66\textwidth}
+    \includegraphics[width=\textwidth]{fithesis/logo/mu/fithesis-base.pdf}
+  \end{minipage}
+  \begin{minipage}{.33\textwidth}
+    \includegraphics[width=\textwidth]{fithesis/logo/mu/fithesis-base.pdf} \\
+    \includegraphics[width=\textwidth]{fithesis/logo/mu/fithesis-base.pdf}
+  \end{minipage}
+  \caption{The logo of the Masaryk University at $\frac23$ and
+    $\frac13$ of text width}
+  \label{fig:mulogo2}
+\end{figure}
+
+\begin{table}
+  \begin{tabularx}{\textwidth}{lllX}
+    \toprule
+    Day & Min Temp & Max Temp & Summary \\
+    \midrule
+    Monday & $13^{\circ}\mathrm{C}$ & $21^\circ\mathrm{C}$ & A
+    clear day with low wind and no adverse current advisories. \\
+    Tuesday & $11^{\circ}\mathrm{C}$ & $17^\circ\mathrm{C}$ & A
+    trough of low pressure will come from the northwest. \\
+    Wednesday & $10^{\circ}\mathrm{C}$ &
+    $21^\circ\mathrm{C}$ & Rain will spread to all parts during the
+    morning. \\
+    \bottomrule
+  \end{tabularx}
+  \caption{A weather forecast}
+  \label{tab:weather}
+\end{table}
+
+The logo of the Masaryk University is shown in Figure
+\ref{fig:mulogo1} and Figure \ref{fig:mulogo2} at pages
+\pageref{fig:mulogo1} and \pageref{fig:mulogo2}. The weather
+forecast is shown in Table \ref{tab:weather} at page
+\pageref{tab:weather}. The following chapter is Chapter
+\ref{chap:matheq} and starts at page \pageref{chap:matheq}.
+Items \ref{item:star1}, \ref{item:star2}, and
+\ref{item:star3} are starred in the following list:
+\begin{compactenum}
+  \item some text
+  \item some other text
+  \item $\star$ \label{item:star1}
+  \begin{compactenum}
+    \item some text
+    \item $\star$ \label{item:star2}
+    \item some other text
+    \begin{compactenum}
+      \item some text
+      \item some other text
+      \item yet another piece of text
+      \item $\star$ \label{item:star3}
+    \end{compactenum}
+    \item yet another piece of text
+  \end{compactenum}
+  \item yet another piece of text
+\end{compactenum}
+If your reference points to a place that has not yet been typeset,
+the \verb"\ref" command will expand to \textbf{??} during the first
+run of
+%<*pdftex>
+\texttt{pdflatex \jobname.tex}
+%</pdftex>
+%<*luatex>
+\texttt{lualatex \jobname.tex}
+%</luatex>
+and a second run is going to be needed for the references to
+resolve. With online services -- such as Overleaf -- this is
+performed automatically.
+
+\chapter{Mathematical equations}
+\label{chap:matheq}
+\TeX{} comes pre-packed with the ability to typeset inline
+equations, such as $\mathrm{e}^{ix}=\cos x+i\sin x$, and display
+equations, such as \[
+  \mathbf{A}^{-1} = \begin{bmatrix}
+  a & b \\ c & d \\ 
+  \end{bmatrix}^{-1} =
+  \frac{1}{\det(\mathbf{A})} \begin{bmatrix}
+  \,\,\,d & \!\!-b \\ -c & \,a \\ 
+  \end{bmatrix} =
+  \frac{1}{ad - bc} \begin{bmatrix}
+  \,\,\,d & \!\!-b \\ -c & \,a \\ 
+  \end{bmatrix}.
+\] \LaTeX{} defines the automatically numbered \texttt{equation}
+environment:
+\begin{equation}
+  \gamma Px = PAx = PAP^{-1}Px.
+\end{equation}
+The package \textsf{amsmath} provides several additional
+environments that can be used to typeset complex equations:
+\begin{enumerate}
+  \item An equation can be spread over multiple lines using the
+    \texttt{multline} environment:
+    \begin{multline}
+      a + b + c + d + e + f + b + c + d + e + f + b + c + d + e +
+f \\
+      + f + g + h + i + j + k + l + m + n + o + p + q
+    \end{multline}
+
+  \item Several aligned equations can be typeset using the
+    \texttt{align} environment:
+    \begin{align}
+              a + b &= c + d     \\
+                  u &= v + w + x \\[1ex]
+      i + j + k + l &= m
+    \end{align}
+
+  \item The \texttt{alignat} environment is similar to
+    \texttt{align}, but it doesn't insert horizontal spaces between
+    the individual columns:
+    \begin{alignat}{2}
+      a + b + c &+ d       &   &= 0 \\
+              e &+ f + g   &   &= 5
+    \end{alignat}
+
+  \item Much like chapter, sections, tables, figures, or list
+    items, equations -- such as \eqref{eq:first} and
+    \eqref{eq:mine} -- can also be labeled and referenced:
+    \begin{alignat}{4}
+      b_{11}x_1 &+ b_{12}x_2  &  &+ b_{13}x_3  &  &             &
+        &= y_1,                   \label{eq:first} \\
+      b_{21}x_1 &+ b_{22}x_2  &  &             &  &+ b_{24}x_4  &
+        &= y_2. \tag{My equation} \label{eq:mine}
+    \end{alignat}
+
+  \item The \texttt{gather} environment makes it possible to
+    typeset several equations without any alignment:
+    \begin{gather}
+      \psi = \psi\psi, \\
+      \eta = \eta\eta\eta\eta\eta\eta, \\
+      \theta = \theta.
+    \end{gather}
+
+  \item Several cases can be typeset using the \texttt{cases}
+    environment:
+    \begin{equation}
+      |y| = \begin{cases}
+        \phantom-y & \text{if }z\geq0, \\
+                -y & \text{otherwise}.
+      \end{cases}
+    \end{equation}
+\end{enumerate}
+For the complete list of environments and commands, consult the
+\textsf{amsmath} package manual\footnote{
+  See \url{http://mirrors.ctan.org/macros/latex/required/amslatex/math/amsldoc.pdf}.
+  The \texttt{\textbackslash url} command is provided by the
+  package \textsf{url}.
+}.
+
+\chapter{\textnormal{We \textsf{have} \texttt{several} \textsc{fonts}
+  \textit{at} \textbf{disposal}}}
+The serified roman font is used for the main body of the text.
+\textit{Italics are typically used to denote emphasis or
+quotations.} \texttt{The teletype font is typically used for source
+code listings.} The \textbf{bold}, \textsc{small-caps} and
+\textsf{sans-serif} variants of the base roman font can be used to
+denote specific types of information.
+
+\tiny We \scriptsize can \footnotesize also \small change \normalsize
+the \large font \Large size, \LARGE although \huge it \Huge
+is \huge usually \LARGE not \Large necessary.\normalsize
+
+A wide variety of mathematical fonts is also available, such as: \[
+  \mathrm{ABC}, \mathcal{ABC}, \mathbf{ABC}, \mathsf{ABC},
+  \mathit{ABC}, \mathtt{ABC}
+\] By loading the \textsf{amsfonts} packages, several additional
+fonts will become available: \[
+  \mathfrak{ABC}, \mathbb{ABC}
+\] Many other mathematical fonts are available\footnote{
+  See \url{http://tex.stackexchange.com/a/58124/70941}.
+}.
+
+\chapter{The bibliography and the index}
+\section{Inserting the index}
+After using the \verb"\makeindex" macro and loading the
+\texttt{makeidx} package that provides additional indexing
+commands, index entries can be created by issuing the \verb"\index"
+command. \index{dummy text|(}It is possible to create ranged index
+entries, which will encompass a span of text.\index{dummy text|)}
+To insert complex typographic material -- such as $\alpha$
+\index{alpha@$\alpha$} or \TeX{} \index{TeX@\TeX} --
+into the index, you need to specify a text string, which will
+determine how the entry will be sorted. It is also possible to
+create hierarchal entries. \index{vehicles!trucks}
+\index{vehicles!speed cars}
+
+After the first run of
+%<*pdftex>
+\texttt{pdflatex \jobname.tex},
+%</pdftex>
+%<*luatex>
+\texttt{lualatex \jobname.tex},
+%</luatex>
+it is necessary to generate the index by running
+\begin{center}%
+  \texttt{texindy -I omega --language }$\langle$\textit{locale}%
+  $\rangle$\texttt{ \jobname.idx}
+\end{center}
+where $\langle$\textit{locale}$\rangle$ corresponds to the main
+locale of your thesis -- such as \texttt{english}, and then running
+%<*pdftex>
+\texttt{pdflatex \jobname.tex}
+%</pdftex>
+%<*luatex>
+\texttt{lualatex \jobname.tex}
+%</luatex>
+again. With online services -- such as Overleaf -- this is
+performed automatically, although the locale may be erroneously
+detected, leading to ill-sorted index entries. To insert the
+generated index into the document, use the \verb"\printindex"
+command.
+
+\section{Inserting the bibliography}
+After loading the \texttt{biblatex} package and linking a
+bibliography data\-base file to the document using the
+\verb"\addbibresource" command, you can start citing the entries.
+This is just dummy text \cite{inbook-full} lightly sprinkled with
+citations \cite[p.~123]{incollection-full}.  Several sources can be
+cited at once \cite{whole-collection, manual-minimal,manual-full}.
+\citetitle{inbook-full} was written by \citeauthor{inbook-full} in
+\citeyear{inbook-full}. We can also produce \textcite{inbook-full}
+or %% Let us define a compound command:
+\def\citeauthoryear#1{(\textcite{#1},~\citeyear{#1})}
+\citeauthoryear{inbook-full}. The full bibliographic citation is:
+\emph{\fullcite{inbook-full}}. We can easily insert a bibliographic
+citation into the footnote\footfullcite{inbook-full}.
+
+The \verb"\nocite" command will not generate any output, but it
+will insert its argument into the bibliography. The
+\verb"\nocite{*}" command will insert all the records in the
+bibliography database file into the bibliography. Try uncommenting
+the command
+%% \nocite{*}
+and watch the bibliography section come apart at the seams.
+
+During the first run of
+%<*pdftex>
+\texttt{pdflatex \jobname.tex},
+%</pdftex>
+%<*luatex>
+\texttt{lualatex \jobname.tex},
+%</luatex>
+citing a \texttt{work} will expand to \textbf{work} and the
+\verb"\printbibliography" command will produce no output. It is now
+necessary to generate the bibliography by running \texttt{biber
+\jobname.bcf} and then by running
+%<*pdftex>
+\texttt{pdflatex \jobname.tex}
+%</pdftex>
+%<*luatex>
+\texttt{lualatex \jobname.tex}
+%</luatex>
+twice. In the first run, the bibliography section is typeset, and
+in the second run, the section appears in the Table of Contents.
+With online services -- such as Overleaf -- this is performed
+automatically.
+
+\printbibliography[heading=bibintoc] %% Print the bibliography.
+
+\makeatletter\thesis@blocks@clear\makeatother
+\phantomsection %% Print the index and insert it into the
+\addcontentsline{toc}{chapter}{\indexname} %% table of contents.
+\printindex
+%<*econ>
+
+\makeatletter
+  \thesis@postamble %% Print the postamble.
+\makeatother
+%</econ>
+
+\makeatletter\thesis@blocks@clear\makeatother
+%% Patch the appendix hyperrefs (see:
+%% <http://tex.stackexchange.com/q/174887/70941>)
+\renewcommand{\theHchapter}{A\arabic{chapter}}
+\appendix %% and start the appendices.
+
+\chapter{An appendix}
+Here you can insert the appendices of your thesis.
+
+\end{document}
+%    \end{macrocode}

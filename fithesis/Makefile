@@ -23,6 +23,7 @@ DEVEXAMPLES=guide/EXAMPLE/DESCRIPTION guide/mu/DESCRIPTION \
 	logo/DESCRIPTION style/EXAMPLE/DESCRIPTION style/mu/DESCRIPTION \
 	style/DESCRIPTION test/DESCRIPTION
 EXAMPLES=$(USEREXAMPLES) $(DEVEXAMPLES)
+EXAMPLEPDFS=../*.pdf
 MISCELLANEOUS=guide/mu/resources/empty.tex guide/mu/guide.bib \
 	guide/mu/guide.dtx guide/mu/resources/cog.pdf \
 	guide/mu/resources/vader.pdf guide/mu/resources/yoda.pdf
@@ -36,7 +37,7 @@ PDFSOURCES=fithesis.dtx
 GUIDES=guide/mu/econ.pdf guide/mu/fi.pdf guide/mu/fsps.pdf \
 	guide/mu/fss.pdf guide/mu/law.pdf guide/mu/med.pdf \
 	guide/mu/ped.pdf guide/mu/phil.pdf guide/mu/sci.pdf
-PDFS=$(MANUAL) $(GUIDES)
+PDFS=$(MANUAL) $(GUIDES) $(EXAMPLEPDFS)
 DOCS=$(PDFS) README
 VERSION=VERSION.tex
 MAKEABLES=$(PDFS) $(CLASSFILES) $(VERSION)
@@ -56,6 +57,7 @@ all: $(SUBMAKES_REQUIRED)
 # This pseudo-target creates the class files and typesets the
 # technical documentation and the guides.
 complete: all
+	make -C ..
 	make $(PDFS) clean
 
 # This pseudo-target calls a submakefile
@@ -103,11 +105,11 @@ $(DISTARCHIVE): $(SOURCES) $(LATEXFILES) $(MAKES) $(TESTS) \
 	mv "$$DIR"/$@ . && rm -rf "$$DIR"
 
 # This target generates a CTAN distribution file
-$(CTANARCHIVE): $(SOURCES) $(MAKES) $(TESTS) \
+$(CTANARCHIVE): $(SOURCES) $(MAKES) $(TESTS) $(USEREXAMPLES) \
 	$(MISCELLANEOUS) $(EPSLOGOS) $(DOCS) $(DEVEXAMPLES) $(VERSION)
-	DIR=`mktemp -d` && mkdir -p "$$DIR/fithesis" && \
+	DIR=`mktemp -d` && mkdir -p "$$DIR/fithesis/fithesis" && \
 	cp --verbose $(TDSARCHIVE) "$$DIR" && \
-	cp --parents --verbose $^ "$$DIR/fithesis" && \
+	cp --parents --verbose $^ "$$DIR/fithesis/fithesis" && \
 	(cd "$$DIR" && zip -r -v -nw $@ *) && \
 	mv "$$DIR"/$@ . && rm -rf "$$DIR"
 
