@@ -14,7 +14,8 @@
 \usepackage[T1]{fontenc} % use 8bit fonts
 \emergencystretch 2dd
 \usepackage{hypdoc}
-\usepackage[protrusion]{microtype}
+\usepackage{microtype}
+\usepackage{ragged2e}
 
 % Making paragraphs numbered
 \makeatletter
@@ -39,6 +40,7 @@
   \RecordChanges
   \DocInput{fithesis.dtx}
   \PrintIndex
+  \RaggedRight
   \PrintChanges
 \end{document}
 
@@ -47,11 +49,28 @@
 %<*class>
 \NeedsTeXFormat{LaTeX2e}
 % Define `\thesis@version` and store it in the `VERSION.tex` file \fi
-\def\thesis@version{2015/10/14 v0.3.23 fithesis3 MU thesis class}
+\def\thesis@version{2015/11/17 v0.3.24 fithesis3 MU thesis class}
 % {\newwrite\f\openout\f=VERSION\write\f{\thesis@version}\closeout\f}
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 
+% \changes{v0.3.24}  {2015/11/17}{Added the \cs{thesis@backend}
+%   tunable. The hyphenation pattern switching now uses
+%   \textsf{polyglossia} instead of crude \cs{language} switching
+%   wherenever possible. Added the opt-out \texttt{microtype}
+%   class option, which loads the microtypographic extension. The
+%   \cs{thesis@}\textit{locale}\texttt{@summer} and
+%   \texttt{@winter} locale macros were renamed to \texttt{@spring}
+%   and \texttt{@fall}. The \cs{thesis@parseDate} now uses more
+%   realistic month ranges to set \cs{thesis@season} and
+%   \cs{thesis@academicYear}. Removed the extraneous indent in the
+%   \cs{thesis@blocks@declaration} macro definition within the
+%   \texttt{style/mu/fithesis-fi.sty} style file. \cs{paragraph}s
+%   are not included in the table of contents by default. The
+%   \texttt{table} class option now supports the \texttt{tabu}
+%   environment. The list of tables and the list of figures now
+%   have an entry in the table of contents for the
+%   \texttt{style/mu/fithesis-econ.sty} style file. [VN]}
 % \changes{v0.3.23}  {2015/10/14}{Fixed a typo in the Slovak
 %   locale. [VN]}
 % \changes{v0.3.22}  {2015/10/09}{Updated the link colors in the
@@ -166,7 +185,7 @@
 %   Restructured the code to make it more amenable to literal programming.
 %   Added support for \cs{CodelineIndex} typesetting. Added information about
 %   the usage of \textsf{fithesis1} and \textsf{fithesis2} on the FI unix
-%   machines. (backport of v0.2.16) [VN]\\Minor changes throughout the text,
+%   machines. (backport of v0.2.16) [VN] Minor changes throughout the text,
 %   added a link to the the fithesis forums [PS] (backport of v0.2.15@r14:15)}
 % \changes{v0.3.04}  {2015/01/14}{Import the url package to allow for the use of
 %   \cs{url} within the documentation. (backport of v0.2.15@r13) [VN]}
