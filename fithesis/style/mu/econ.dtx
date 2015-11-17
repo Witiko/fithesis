@@ -7,7 +7,7 @@
 % 363/Smernice2014-9.pdf}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fithesis/style/mu/fithesis-econ}[2015/06/27]
+\ProvidesPackage{fithesis/style/mu/fithesis-econ}[2015/11/17]
 %    \end{macrocode}
 % The file defines the color scheme of the respective faculty.
 %    \begin{macrocode}
@@ -134,6 +134,26 @@
   \thesis@blocks@lof}
 %    \end{macrocode}
 % \end{macro}
+% If the |nolot| and |nolof| options haven't been specified, the
+% |\thesis@blocks@lot| and |\thesis@blocks@lof| macros are
+% redefined to create an entry in the table of contents.
+% \begin{macrocode}
+\ifx\thesis@blocks@lot\empty\else
+  \def\thesis@blocks@lot{%
+    \thesis@blocks@clear
+    \phantomsection
+    \addcontentsline{toc}{chapter}{\listtablename}%
+    \listoftables}
+\fi
+
+\ifx\thesis@blocks@lof\empty\else
+  \def\thesis@blocks@lof{%
+    \thesis@blocks@clear
+    \phantomsection
+    \addcontentsline{toc}{chapter}{\listfigurename}%
+    \listoffigures}
+\fi
+%    \end{macrocode}
 % All blocks within the autolayout preamble that are not defined
 % within this file are defined in the
 % \texttt{style/mu/fithesis-base.sty} file.
