@@ -53,11 +53,12 @@
 %     respectively.
 %   \item\texttt{table}, \texttt{oldtable} -- If the
 %     |\ifthesis@color@| conditional is \texttt{true}, then the
-%     definition of the \texttt{tabular} and \texttt{tabularx}
-%     commands either are or aren't going to be altered to better
-%     match the style, respectively. The \DescribeMacro%
-%     {\ifthesis@newtable@}|\ifthesis@newtable@| conditional is set
-%     to either \texttt{true} or \texttt{false}, respectively.
+%     definitions of the \texttt{tabular}, \texttt{tabularx}, and
+%     \texttt{tabu} commands either are or aren't going to be
+%     altered to better match the style, respectively. The
+%     \DescribeMacro{\ifthesis@newtable@}|\ifthesis@newtable@|
+%     conditional is set to either \texttt{true} or \texttt{false},
+%     respectively.
 %
 %     The choice of the option name is deliberate -- the
 %     redefinition of the table environments depends on the
@@ -225,25 +226,38 @@
 \fi
 %    \end{macrocode}
 % If the |\thesis@newtable@| and |\thesis@color@| conditionals are
-% \texttt{true}, then the following package gets loaded:
+% \texttt{true}, then the following packages get loaded:
 % \begin{itemize}
 %   \item\textsf{tabularx} -- Provides the \texttt{tabularx}
 %     environment, which enables the typesetting of tables with
 %     flexible-width columns.
+%   \item\textsf{tabu} -- Provides the \texttt{tabu} environment,
+%     which enables the typesetting of complex tables.
+%   \item\textsf{booktabs} -- A package, which allows the creation
+%     of publication-quality tables in \LaTeX.
 % \end{itemize}
 % Subsequently, the \texttt{tabular} and \texttt{tabularx}
 % environments are redefined to better match the style of the given
 % faculty.
 % 
-% The |\thesis@newtable@old| and |\endthesis@newtable@old| macros
-% containing the original definition of the |tabular| environment
-% are always defined and are available for subsequently loaded
-% styles in case the typesetting of unaltered tables is required.
+% The \DescribeMacro{\thesis@newtable@old}|\thesis@newtable@old|
+% and \DescribeMacro{\endthesis@newtable@old}
+% |\endthesis@newtable@old| macros containing the original
+% definition of the |tabular| environment are always defined and
+% are available for subsequently loaded styles in case the
+% typesetting of unaltered tables is required. Similarly, the
+% \DescribeMacro{\thesis@newtable@oldx}|\thesis@newtable@oldx| and
+% \DescribeMacro{\endthesis@newtable@oldx}|\endthesis@newtable@oldx|
+% macros are defined for the |tabularx| environment and the
+% \DescribeMacro{\thesis@newtable@oldtabu}|\thesis@newtable@oldtabu|
+% and \DescribeMacro{\endthesis@newtable@oldtabu}
+% |\endthesis@newtable@oldtabu| for the |tabu| environment.
 %    \begin{macrocode}
 \let\thesis@newtable@old\tabular
 \let\endthesis@newtable@old\endtabular
 \ifthesis@newtable@\ifthesis@color@
   \thesis@require{tabularx}
+  \thesis@require{tabu}
   \thesis@require{booktabs}
   % The redefinition of `tabular`
   \renewenvironment{tabular}%
@@ -259,6 +273,14 @@
                   {thesis@color@tableEven}%
      \thesis@newtable@oldx}%
     {\endthesis@newtable@oldx}
+  % The redefinition of `tabu`
+  \let\thesis@newtable@oldtabu\tabu
+  \let\endthesis@newtable@oldtabu\endtabu
+  \renewenvironment{tabu}%
+    {\rowcolors{1}{thesis@color@tableOdd}%
+                  {thesis@color@tableEven}%
+     \thesis@newtable@oldtabu}%
+    {\endthesis@newtable@oldtabu}
   % Adjust the measurements
   \setlength{\aboverulesep}{0pt}
   \setlength{\belowrulesep}{0pt}
