@@ -17,7 +17,7 @@ INSFILES=*.ins locale/czech.ins locale/english.ins \
 TESTS=test/*.tex
 MAKES=guide/mu/Makefile guide/mu/resources/Makefile \
 	locale/Makefile	logo/mu/Makefile Makefile style/Makefile \
-	style/mu/Makefile	test/Makefile
+	style/mu/Makefile test/Makefile
 USEREXAMPLES=example/mu/econ-lualatex.pdf \
 	example/mu/econ-pdflatex.pdf example/mu/fi-lualatex.pdf \
 	example/mu/fi-pdflatex.pdf example/mu/fsps-lualatex.pdf \
