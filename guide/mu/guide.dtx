@@ -6,7 +6,6 @@
 \usepackage{minted}
 \usepackage{ltxcmds}
 \usepackage{tabularx}
-\usepackage{graphicx}
 \usepackage[
   backend=biber,
   style=numeric,
@@ -34,11 +33,6 @@
   assignment={},
   keywords={thesis, typesetting, LaTeX},
   TeXkeywords={thesis, typesetting, \LaTeX{}},
-  abstract=This user guide describes the installation process of
-    the \textsf{fithesis3} document class and documents selected
-    parts of the public API of the \textsf{fithesis3} document
-    class that bear relevance to the style of the
-    \thesis@english@facultyName.,
   keywordsEn=\thesis@keywords,
   TeXkeywordsEn=\thesis@TeXkeywords,
   abstractEn=\thesis@abstract,
@@ -76,14 +70,14 @@
   \begin{center}
     \makeatletter\menu[,]{Start,Programs,Document Tools,TeXLive%
     \the\thguide@tl\ namapovani na T}\makeatother
-  \end{center} you can mount the faculty \TeX{} distribution to
+  \end{center} you can mount the faculty \TeX\ Live installation to
   drive \verb'T:\'. Consequently, you can either use the command
   line to run commands from the \TeX{} distribution by running
   \begin{center}
     \makeatletter\menu[,]{Start,Programs,Document Tools,TeXLive%
     \the\thguide@tl\ CMD}\makeatother
   \end{center}
-  or you can use the graphical \TeX\ editor \TeX works by running
+  or you can use the graphical \TeX\ editor \TeX Works by running
   \begin{center}
     \makeatletter\menu[,]{Start,Programs,Document Tools,TeXWorks+%
     TeXLive\the\thguide@tl}\makeatother
@@ -93,7 +87,7 @@
   Linux server at \url{aisa.fi.muni.cz} over SSH, or use any
   public-access computer at the
   \makeatletter\thesis@english@facultyName\makeatother\ that runs
-  Linux or Mac OS, and load the faculty \TeX{} distribution by
+  Linux or Mac OS, and load the faculty \TeX\ Live installation by
   issuing the \texttt{module add texlive} command on the command
   line. If you choose this approach, you can also skip the entire
   Section \ref{sec:install}, although a certain degree of
@@ -111,8 +105,9 @@
       \includegraphics[height=.5em]{resources/#1.pdf}%
       \thguide@iconkern\url{#1.math.muni.cz}}
   \makeatother
-  Another way to avoid installation is to connect to the Linux
-  server at \makeatletter\thguide@server{yoda}\makeatother\ or
+  Another way to avoid installation is to use the faculty \TeX\ Live
+  installation by connecting to the Linux server at
+  \makeatletter\thguide@server{yoda}\makeatother\ or
   \makeatletter\thguide@server{vader}\makeatother\ over SSH
   (through port 22222) or over the remote desktop
   protocol\footnote{
@@ -139,11 +134,14 @@
   Microsoft Windows operating system, and \TeX\ Live\footnote{%
   \TeX\ Live can be acquired from
   \url{http://www.tug.org/texlive}.}, which can be installed on
-  both Unix and Windows operating systems.  The advantages of
+  both Unix and Windows operating systems. The advantages of
   Mik\TeX\ include refined graphical user interface and the ability
-  to install packages on the fly. In comparison, the graphical user
-  interface of \TeX\ Live leaves a lot to be desired and \TeX\ Live
-  itself offers no automatic way to install new packages.
+  to install new packages on the fly.
+  
+  Along with Mik\TeX{}, you will also need to install a Perl
+  interpreter, such as Strawberry Perl\footnote{Strawberry Perl can
+  be downloaded from \url{http://strawberryperl.com/}.}. \TeX\ Live
+  installs a Perl interpreter by default.
 
   \subsection{Installing packages}\label{sec:req-packages}
   In order to function properly, \textsf{fithesis3} needs the
@@ -151,7 +149,7 @@
   distribution: \textsf{keyval}, \textsf{etoolbox},
   \textsf{ifxetex}, \textsf{ifluatex}, \textsf{inputenc},
   \textsf{xcolor}, \textsf{graphix}, \textsf{pdfpages},
-  \textsf{hyperref}, \textsf{keyval}, \textsf{microtype}%
+  \textsf{hyperref}, \textsf{microtype}%
   {\makeatletter
   % This macro typesets loaded packages.
   \def\thguide@prnpkg#1{\ltx@ifpackageloaded%
@@ -161,50 +159,70 @@
   \thguide@prnpkg{setspace}%
   \thguide@prnpkg{geometry}},
   \textsf{fontspec}, \textsf{unicode-math}, \textsf{mathpazo},
-  \textsf{tex-gyre}, \textsf{lmodern}, \textsf{cmap},
-  \textsf{fontenc}, \textsf{tabularx}, \textsf{booktabs}.
-  
+  \textsf{tex-gyre-pagella}, \textsf{lm}, \textsf{cmap},
+  \textsf{fontenc}, \textsf{tabularx}, \textsf{tabu},
+  \textsf{booktabs}, \textsf{fithesis}.
+ 
+  {\makeatletter %% A placeholder string macro
+  \def\thguide@placeholder#1{$\langle$\textit{#1}$\rangle$}
   If you performed a full installation of \TeX\ Live, you should
   already have all the required packages installed. If you are
-  using a partial installation of \TeX\ Live, you can either use
-  the \texttt{tlmgr} command-line tool by executing \texttt{tlmgr
-  install \textit{pkgname}}, where \texttt{\textit{pkgname}} is the
-  name of the package you wish to install, or you can download the
-  packages manually from the CTAN archive website\footnote{The CTAN
-  archive website is located at \url{http://ctan.org/}.} and
-  extract them into the \texttt{texmf/} directory located in your
-  user home directory.
+  using a partial installation of \TeX\ Live, you can use the
+  \texttt{tlmgr} command-line tool by executing \texttt{tlmgr
+  install} \thguide@placeholder{pkgname}, where
+  \thguide@placeholder{pkgname} is the name of the package you wish
+  to install. In some cases, \TeX\ Live may assign a different name
+  to a package. To find out the \TeX\ Live name of a package, open
+  the
+  \texttt{http://www.ctan.org/pkg/}\thguide@placeholder{pkgname}
+  webpage in a web browser. It should contain the following text:
+  \begin{center}
+    Contained in \TeX\ Live as \thguide@placeholder{texlivename}
+  \end{center}
+  where \thguide@placeholder{texlivename} corresponds to the \TeX\
+  Live name of the package. Use this name instead of
+  \thguide@placeholder{pkgname} with \texttt{tlmgr}.
+  Alternatively, you can download the packages manually from
+  \texttt{http://www.ctan.org\discretionary{/}{/}{/}pkg/}%
+  \thguide@placeholder{pkgname} and extract them into the
+  \texttt{texmf/} directory located in your user home directory.
+  Mind that the packages themselves may depend on other
+  packages; if you are using a partial installation of \TeX\ Live,
+  you will have to resolve these dependencies manually by
+  inspecting the documentation of each package.
 
   If you use Mik\TeX\ and you enabled the \textit{over the air
   installation of packages} during the installation, Mik\TeX\ will
   automatically download all the required packages, when you first
-  typeset a \textsf{fithesis3} document. If you didn't enable this
+  typeset a \textsf{fibeamer} document. If you didn't enable this
   feature, you will need to enter the Mik\TeX\ package manager by
   running
   \begin{center}
     \menu[,]{Start,MikTeX,MikTeX Package Manager (Admin)}
   \end{center}
   and download the packages manually through the user interface.
-
-  \subsection{Installing \textsf{fithesis3}}
-  Once you have a fully functional \TeX\ distribution up and
-  running, it is time to install the \textsf{fithesis3} class.
-  If you use \TeX\ Live 2015 or newer, \textsf{fithesis3} should be
-  already installed in your \TeX\ distribution and no other steps
-  are necessary.
-
-  If you use Mik\TeX\ and you enabled the \textit{over the air
-  installation of packages} during the installation, Mik\TeX\ will
-  automatically download the \textsf{fithesis3} class, when you
-  first typeset a \textsf{fithesis3} document. If you didn't enable
-  this feature, you will need to enter the Mik\TeX\ package manager
-  by running
+  In some cases, Mik\TeX\ may assign a different name to a
+  package. To find out the Mik\TeX\ name of a package, open the
+  \texttt{http://www.ctan.org\discretionary{/}{/}{/}pkg/}%
+  \thguide@placeholder{pkgname} webpage in a web browser,
+  where \thguide@placeholder{pkgname} is the name of the
+  package you wish to install. It should contain the following
+  text:
   \begin{center}
-    \menu[,]{Start,MikTeX,MikTeX Package Manager (Admin)}
+    Contained in Mik\TeX\ as \thguide@placeholder{miktexname}
   \end{center}
-  and download the package \textsf{fithesis} manually through the
-  user interface.
-
+  where \thguide@placeholder{miktexname} corresponds to the
+  Mik\TeX\ name of the package. If you still can't find the
+  package, try synchronizing the package database by selecting 
+  \begin{center}
+    \menu[,]{Repository,Synchronize}
+  \end{center}
+  from the menu bar of the Mik\TeX\ package manager. Mind that the
+  packages themselves may depend on other packages; if you disabled
+  the over the air installation of packages, you will have to
+  resolve these dependencies manually by inspecting the
+  documentation of each package.}
+  
   If you wish to use a newer version of \textsf{fithesis3} than the
   one that is available in your \TeX\ distribution, you should
   download a file named \texttt{fithesis.tds.zip} containing the
@@ -245,8 +263,8 @@
   should provide you with the relevant information. If you are
   only going to use the fonts present in the \TeX{} distribution or
   if you do not intend to change the preset \textsf{fithesis3}
-  fonts at all, you can safely use \hologo{pdfTeX}, which, at the
-  moment, is also considerably faster than \Hologo{LuaTeX}.
+  fonts at all, you can safely use \hologo{pdfTeX}, which is
+  currently also considerably faster than \Hologo{LuaTeX}.
 
   \section{Creating and typesetting a \textsf{fithesis3} document}
   Before using the \textsf{fithesis3} class, it is useful to be
@@ -270,11 +288,10 @@
   directory\footnote{The example \textsf{fithesis3} documents are
   also available online at
   \url{http://www.ctan.org/tex-archive/macros/latex/contrib/fithesis/example/mu}.}.
-  By \makeatletter modifying and by typesetting these
-  \LaTeX{} source files using either the \hologo{pdfTeX} or the
-  \Hologo{LuaTeX} engine, you can quickly gain a working knowledge
-  of \LaTeX{} and use these source files as the basis for your
-  thesis.
+  By modifying and by typesetting these \LaTeX{} source files using
+  either the \hologo{pdfTeX} or the \Hologo{LuaTeX} engine, you can
+  quickly gain a working knowledge of \LaTeX{} and use these source
+  files as the basis for your thesis.
   
   If you are using an online editor, such as Overleaf
   \footnote{Overleaf \textsf{fithesis3} templates are located at
@@ -290,7 +307,11 @@
   source file by opening the source file from within the editor and
   running either the \hologo{pdfLaTeX} or \Hologo{LuaLaTeX}
   (depending on your choice of \TeX\ engine) command from the task
-  bar.
+  bar. The command needs to be executed at least twice to produce
+  the table of contents, the list of tables, and the list of
+  figures. Additional commands for the typesetting of the
+  bibliography and the index are described in the example
+  documents.
 
   If you are using the command line, you can typeset \LaTeX{}
   source files by running either \texttt{pdflatex
@@ -299,11 +320,17 @@
   engine), where \texttt{\textit{name.tex}} corresponds to the name
   of a \LaTeX\ source file. In the case of the two aforementioned
   example files, the corresponding commands would be:
-
   \begin{center}\makeatletter
   \texttt{pdflatex \thesis@university-\thesis@faculty-pdflatex.tex}
 \\\texttt{lualatex \thesis@university-\thesis@faculty-lualatex.tex}
   \makeatother\end{center}
+  The command needs to be executed from within the directory, where
+  the \LaTeX\ source file is located. In Windows, the command line
+  can be opened in a directory by holding down the \keys{Shift} key
+  and by clicking the right mouse button while hovering the cursor
+  over a directory. Select the \menu{Open Command Window Here}
+  option in the context menu that opens shortly afterwards.  The
+  command also needs to be executed at least twice.
 
   Beside Overleaf and \TeX works, any text editor can be used to
   modify \LaTeX{} source files. However, it is important to ensure
@@ -332,156 +359,153 @@
   % This macro formats a class option.
   \let\thguide@itemfmt\textbf
   \begin{description}
-    \item[10pt, 11pt, \thguide@default12pt] These options set the
-        font size of the main text to either 10\,pt, 11\,pt, or
-        12\,pt, respectively. Using the 12\,pt font size with the
-        preset fonts
+    \item[10pt, 11pt, \thguide@default12pt]
+      These options set the font size of the main text to either
+      10\,pt, 11\,pt, or 12\,pt, respectively. Using the 12\,pt
+      font size with the preset fonts
 %<*fi,fsps,fss,law,ped,phil,sci>
-        should result in the optimal line width of
-        approximately 66 characters in one-column typesetting. With
-        two-column typesetting, the 10\,pt font size is a better
-        choice, yielding approximately the optimal 45 characters
-        per line.
+      should result in the optimal line width of approximately 66
+      characters in one-column typesetting. With two-column
+      typesetting, the 10\,pt font size is a better choice,
+      yielding approximately the optimal 45 characters per line.
 %</fi,fsps,fss,law,ped,phil,sci>
 %<*econ,med>
-        results in the excessive line width of approximately 86
-        characters, which wears the eye of the reader, but is
-        required by the page geometry specified by the formal
-        requirements of the \thesis@english@facultyName. With
-        two-column typesetting, the 11\,pt font size yields
-        approximately the optimal 45 characters per line.
+      results in the excessive line width of approximately 86
+      characters, which wears the eye of the reader, but is
+      required by the page geometry specified by the formal
+      requirements of the \thesis@english@facultyName. With
+      two-column typesetting, the 11\,pt font size yields
+      approximately the optimal 45 characters per line.
 %</econ,med>
     \item[oneside]
-        This option enables one-sided typesetting. One-sided
-        typesetting and printing is generally discouraged. Use only
-        if you don't have access to a double-sided printer, or if
-        one-sided typesetting is a formal requirement at your
-        faculty.
+      This option enables one-sided typesetting. One-sided
+      typesetting and printing is generally discouraged. Use only
+      if you don't have access to a double-sided printer, or if
+      one-sided typesetting is a formal requirement at your
+      faculty.
     \item[\thguide@default twoside]
-        This option enables double-sided typesetting. Double-sided
-        typesetting is generally regarded as more visually pleasing
-        and double-sided printing consumes less paper. Use at least
-        120 grams per square meter paper to prevent show-through.
+      This option enables double-sided typesetting. Double-sided
+      typesetting is generally regarded as more visually pleasing
+      and double-sided printing consumes less paper. Use at least
+      120 grams per square meter paper to prevent show-through.
     \item[\thguide@default onecolumn]
-        This option causes the main text of the thesis to be set in
-        one column.
+      This option causes the main text of the thesis to be set in
+      one column.
     \item[twocolumn]
-        This option causes the main text of the thesis to be set in
-        two columns. The two-column format is unconventional in
-        theses%
+      This option causes the main text of the thesis to be set in
+      two columns. The two-column format is unconventional in
+      theses%
 %<*econ,med>
-        , although it is more readable and uses the page more
-        effectively in the case of the \thesis@english@facultyName%
+      , although it is more readable and uses the page more
+      effectively in the case of the \thesis@english@facultyName%
 %</econ,med>
-        ; you should consult its use with your thesis advisor. If
-        you decide to use the two-column format, remember that you
-        also need to change the font size option
-        (\thguide@itemfmt{10pt}, \thguide@itemfmt{11pt},
-         \thguide@itemfmt{12pt}).
-    \item[draft] This option replaces any images with blank rectangles
-        and marks all overfull lines with black boxes. Other
-        packages that you use may behave differently\footnote{
-          For more information about the effects of the draft
-          option on various packages, see
-          \url{http://tex.stackexchange.com/a/49369/70941}.
-        } with the draft option specified. This can be useful, if
-        you are going to print and proofread a draft of your
-        document.
-    \item[\thguide@default final] Unlike the
-        \thguide@itemfmt{draft} option, this option typesets the
-        release version of the document.
-    \item[\thguide@default palatino] This option sets the roman
-        text font family and the mathematical font family to
-        Palatino.
-    \item[nopalatino] This option causes \textsf{fithesis3} not to
-        change any font settings. The user must set the fonts
-        manually in the preamble of the document.
+      ; you should consult its use with your thesis advisor. If you
+      decide to use the two-column format, remember that you also
+      need to change the font size option (\thguide@itemfmt{10pt},
+      \thguide@itemfmt{11pt}, \thguide@itemfmt{12pt}).
+    \item[draft]
+      This option replaces any images with blank rectangles and
+      marks all overfull lines with black boxes. Other packages
+      that you use may behave differently\footnote{
+        For more information about the effects of the draft option
+        on various packages, see
+        \url{http://tex.stackexchange.com/a/49369/70941}.
+      } with the draft option specified. This can be useful, if you
+      are going to print and proofread a draft of your document.
+    \item[\thguide@default final]
+      Unlike the \thguide@itemfmt{draft} option, this option
+      typesets the release version of the document.
+    \item[\thguide@default palatino]
+      This option sets the roman text font family and the
+      mathematical font family to Palatino.
+    \item[nopalatino]
+      This option prevents \textsf{fithesis3} from setting up the
+      fonts. The user must set the fonts manually in the preamble
+      of the document.
 %<*fi>
-        The \thesis@english@facultyName\ has licensed the Comenia
-        font family. If you wish to use it in your thesis, you
-        should contact Doc.\ RNDr.\ Petr Sojka, Ph.D.
-        
-        If you are typesetting your thesis on a public-access
-        computer at the \thesis@english@facultyName\ or on the
-        \url{aisa.fi.muni.cz} Linux server, you can use the
-        commercial Math Time mathematical font family,
+
+      The \thesis@english@facultyName\ has licensed the Comenia
+      font family. If you wish to use it in your thesis, you should
+      contact Doc.\ RNDr.\ Petr Sojka, Ph.D.
+      
+      If you are typesetting your thesis on a public-access
+      computer at the \thesis@english@facultyName\ or on the
+      \url{aisa.fi.muni.cz} Linux server, you can use the
+      commercial Math Time mathematical font family,
 %</fi>
 %<*sci>
 
-        If you are typesetting your thesis on a public-access
-        computer at the \thesis@english@facultyName\ that runs
-        Linux or on either the \thguide@server{yoda} or
-        \thguide@server{vader} Linux server, you can also use the
-        commercial Math Time mathematical font family,
+      If you are typesetting your thesis on a public-access
+      computer at the \thesis@english@facultyName\ that runs Linux
+      or on either the \thguide@server{yoda} or
+      \thguide@server{vader} Linux server, you can also use the
+      commercial Math Time mathematical font family,
 %</sci>
 %<*sci,fi> 
-        which goes well with the \TeX\ Gyre Termes text font
-        family. To use Math Time and \TeX\ Gyre Termes within your
-        thesis, the preamble of your document should look as
-        follows:
-        \begin{minted}{latex}
+      which goes well with the \TeX\ Gyre Termes text font family.
+      To use Math Time and \TeX\ Gyre Termes within your thesis,
+      the preamble of your document should look as follows:
+      \begin{minted}{latex}
 \documentclass[nopalatino, ...]{fithesis3}
 \usepackage[T1]{fontenc}
 \usepackage{tgtermes}
 \usepackage{mathtime}
 %% Here goes the rest of the document.
-        \end{minted}
+      \end{minted}
 %</sci,fi>
     \item[color]
-        This option enables the use of colors. A colorful version
-        of the document is more visually pleasing, but shouldn't be
-        used in a printed version, if you don't have access to a
-        color printer. Unless you have a compelling reason not to,
-        always use this option in the electronic version that you
-        are going to publish online.
+      This option enables the use of colors. A colorful version of
+      the document is more visually pleasing, but shouldn't be used
+      in a printed version, if you don't have access to a color
+      printer. Unless you have a compelling reason not to, always
+      use this option in the electronic version that you are going
+      to publish online.
     \item[\thguide@default monochrome]
-        This option disables colors. Disabling colors is generally
-        discouraged, unless you don't have access to a color
-        printer. However, due to the prevalence of monochrome
-        printing, this option is the default.
+      This option disables colors. Disabling colors is generally
+      discouraged, unless you don't have access to a color printer.
+      However, due to the prevalence of monochrome printing, this
+      option is the default.
     \item[\thguide@default microtype]
-        This option instructs the \TeX\ engine to use the
-        microtypographic extensions\footnote{
-          For more information about the \TeX\ engine
-          microtypographic extensions, see
-          \url{http://mirrors.ctan.org/macros/latex/contrib/microtype/microtype.pdf}.
-        }, which results in visually more pleasing paragraphs of
-        text.
+      This option sets up microtypographic extensions\footnote{
+        For more information about the \TeX\ engine
+        microtypographic extensions, see
+        \url{http://mirrors.ctan.org/macros/latex/contrib/microtype/microtype.pdf}.
+      }, which results in visually more pleasing paragraphs of
+      text.
     \item[nomicrotype]
-        This option makes \textsf{fithesis3} not to instruct the \TeX
-        \ engine to use the microtypographic extensions.
+      This option prevents \textsf{fithesis3} from setting up
+      microtypographic extensions.
     \item[table]
-        This option redefines some of the \LaTeX{} table environments
-        (\texttt{tabular} and \texttt{tabularx}) to use alternating
-        colors for odd and even rows. This option only works, if
-        the \thguide@itemfmt{color} option is enabled.
+      This option redefines some of the \LaTeX{} table environments
+      (\texttt{tabular}, \texttt{tabularx}, and \texttt{tabu}) to
+      use alternating colors for odd and even rows. This option
+      only works, if the \thguide@itemfmt{color} option is enabled.
     \item[\thguide@default oldtable]
-        This option instructs the style not to redefine any table
-        environments.
+      This option instructs the style not to redefine any table
+      environments.
     \item[\thguide@default lot]
-        This option causes the list of tables to be included in the
-        front matter of the thesis.
+      This option causes the list of tables to be included in the
+      front matter of the thesis.
     \item[nolot]
-        This option removes the list of tables from the front
-        matter of the thesis.
+      This option removes the list of tables from the front matter
+      of the thesis.
     \item[\thguide@default lof]
-        This option causes the list of figures to be included in the
-        front matter of the thesis.
+      This option causes the list of figures to be included in the
+      front matter of the thesis.
     \item[nolof]
-        This option removes the list of figures from the front
-        matter of the thesis.
+      This option removes the list of figures from the front matter
+      of the thesis.
     \item[cover]
-        This option instructs the class to typeset the cover of the
-        thesis on the first pages of the resulting document. A
-        cover should be generally present in the electronic version
-        of the document for completeness. The cover should not
-        appear inside the printed document and should only serve as
-        a template for the text imprinted on the front cover of the
-        thesis cover.
+      This option instructs the class to typeset the cover of the
+      thesis on the first pages of the resulting document. A cover
+      should be generally present in the electronic version of the
+      document for completeness. The cover should not appear inside
+      the printed document and should only serve as a template for
+      the text imprinted on the front cover of the thesis cover.
     \item[\thguide@default nocover]
-        This option forbids the typesetting of the thesis cover.
-        Use, if you are typesetting the printed version of a thesis
-        and you are not going to have a cover made for your thesis.
+      This option forbids the typesetting of the thesis cover.
+      Use, if you are typesetting the printed version of a thesis
+      and you are not going to have a cover made for your thesis.
   \end{description}}
 
   \section{Filling out the metadata}
@@ -496,7 +520,7 @@
 }
   \end{minted}
   into the preamble of your thesis. The following list summarizes
-  the keys and values that are supported by the \textsf{fithesis3}
+  the keys and values that are recognized by the \textsf{fithesis3}
   class and are meaningful for the \makeatletter
   \thesis@english@facultyName\makeatother.
 

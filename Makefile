@@ -29,8 +29,9 @@ USEREXAMPLES=example/mu/econ-lualatex.pdf \
 	example/mu/phil-pdflatex.pdf example/mu/sci-lualatex.pdf \
 	example/mu/sci-pdflatex.pdf
 DEVEXAMPLES=guide/EXAMPLE/DESCRIPTION guide/mu/DESCRIPTION \
-	guide/DESCRIPTION locale/DESCRIPTION locale/EXAMPLE.dtx \
-	locale/EXAMPLE.ins logo/EXAMPLE/DESCRIPTION logo/mu/DESCRIPTION \
+	guide/mu/resources/DESCRIPTION guide/DESCRIPTION \
+	locale/DESCRIPTION locale/EXAMPLE.dtx locale/EXAMPLE.ins \
+	logo/EXAMPLE/DESCRIPTION logo/mu/DESCRIPTION \
 	logo/DESCRIPTION style/EXAMPLE/DESCRIPTION style/mu/DESCRIPTION \
 	style/DESCRIPTION test/DESCRIPTION example/EXAMPLE/DESCRIPTION \
 	example/mu/DESCRIPTION example/DESCRIPTION
@@ -71,13 +72,13 @@ all: $(SUBMAKES_REQUIRED)
 complete: all
 	make $(PDFS) clean
 
-# This pseudo-target calls a submakefile
+# This pseudo-target calls a submakefile.
 $(SUBMAKES_REQUIRED):
 	make -C $@ all
 
-# This pseudo-target performs the unit tests
+# This pseudo-target performs the unit tests.
 test: all
-	make -C test
+	make -C test all
 
 # This pseudo-target creates the distribution archive.
 dist: dist-implode complete
@@ -94,19 +95,19 @@ $(GUIDES) $(USEREXAMPLES): $(CLASSFILES) $(RESOURCES)
 # This target typesets the technical documentation.
 $(MANUAL): $(DTXFILES)
 	pdflatex $<
-	makeindex -s gind.ist $(basename $@)
+	makeindex -s gind.ist                       $(basename $@)
 	makeindex -s gglo.ist -o $(basename $@).gls $(basename $@).glo
 	pdflatex $<
 	pdflatex $<
 
-# This target generates a TeX directory structure file
+# This target generates a TeX directory structure file.
 $(TDSARCHIVE):
 	DIR=`mktemp -d` && \
 	make install to="$$DIR" nohash=true && \
 	(cd "$$DIR" && zip -r -v -nw $@ *) && \
 	mv "$$DIR"/$@ $@ && rm -rf "$$DIR"
 
-# This target generates a distribution file
+# This target generates a distribution file.
 $(DISTARCHIVE): $(SOURCES) $(LATEXFILES) $(MAKES) $(TESTS) \
 	$(DOCS) $(PDFSOURCES) $(MISCELLANEOUS) $(EXAMPLES) $(VERSION)
 	DIR=`mktemp -d` && \
@@ -115,7 +116,7 @@ $(DISTARCHIVE): $(SOURCES) $(LATEXFILES) $(MAKES) $(TESTS) \
 	(cd "$$DIR" && zip -r -v -nw $@ *) && \
 	mv "$$DIR"/$@ . && rm -rf "$$DIR"
 
-# This target generates a CTAN distribution file
+# This target generates a CTAN distribution file.
 $(CTANARCHIVE): $(SOURCES) $(MAKES) $(TESTS) $(EXAMPLES) \
 	$(MISCELLANEOUS) $(EPSLOGOS) $(DOCS) $(VERSION)
 	DIR=`mktemp -d` && mkdir -p "$$DIR/fithesis" && \

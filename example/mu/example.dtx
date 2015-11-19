@@ -61,6 +61,7 @@
 %%
 %% For non-Latin scripts, it may be necessary to load additional
 %% fonts:
+\usepackage[T1,T2A]{fontenc}
 \usepackage{paratype}
 \def\textrussian#1{{\usefont{T2A}{PTSerif-TLF}{m}{rm}#1}}
 %</pdftex>
@@ -404,6 +405,7 @@
 \usepackage{amsthm}
 \usepackage{amsfonts}
 \usepackage{url}
+\usepackage{menukeys}
 \begin{document}
 %<*econ>
 \makeatletter
@@ -732,8 +734,52 @@ fonts will become available: \[
   See \url{http://tex.stackexchange.com/a/58124/70941}.
 }.
 
-\chapter{The bibliography and the index}
-\section{Inserting the index}
+\chapter{Inserting the bibliography}
+After loading the \texttt{biblatex} package and linking a
+bibliography data\-base file to the document using the
+\verb"\addbibresource" command, you can start citing the entries.
+This is just dummy text \cite{inbook-full} lightly sprinkled with
+citations \cite[p.~123]{incollection-full}.  Several sources can be
+cited at once \cite{whole-collection, manual-minimal,manual-full}.
+\citetitle{inbook-full} was written by \citeauthor{inbook-full} in
+\citeyear{inbook-full}. We can also produce \textcite{inbook-full}
+or%% Let us define a compound command:
+\def\citeauthoryear#1{(\textcite{#1},~\citeyear{#1})}
+\citeauthoryear{inbook-full}. The full bibliographic citation is:
+\emph{\fullcite{inbook-full}}. We can easily insert a bibliographic
+citation into the footnote\footfullcite{inbook-full}.
+
+The \verb"\nocite" command will not generate any
+output\nocite{booklet-full}, but it will insert its argument into
+the bibliography. The \verb"\nocite{*}" command will insert all the
+records in the bibliography database file into the bibliography.
+Try uncommenting the command
+%% \nocite{*}
+and watch the bibliography section come apart at the seams.
+
+When typesetting the document for the first time, citing a
+\texttt{work} will expand to [\textbf{work}] and the
+\verb"\printbibliography" command will produce no output. It is now
+necessary to generate the bibliography by running \texttt{biber
+\jobname.bcf} from the command line and then by typesetting the
+document again twice. During the first run, the bibliography
+section and the citations will be typeset, and in the second run,
+the bibliography section will appear in the table of contents.
+
+The \texttt{biber} command needs to be executed from within the
+directory, where the \LaTeX\ source file is located. In Windows,
+the command line can be opened in a directory by holding down the
+\keys{Shift} key and by clicking the right mouse button while
+hovering the cursor over a directory.  Select the \menu{Open
+Command Window Here} option in the context menu that opens shortly
+afterwards.
+
+With online services -- such as Overleaf -- all commands are
+executed automatically.
+
+\printbibliography[heading=bibintoc] %% Print the bibliography.
+
+\chapter{Inserting the index}
 After using the \verb"\makeindex" macro and loading the
 \texttt{makeidx} package that provides additional indexing
 commands, index entries can be created by issuing the \verb"\index"
@@ -746,78 +792,30 @@ determine how the entry will be sorted. It is also possible to
 create hierarchal entries. \index{vehicles!trucks}
 \index{vehicles!speed cars}
 
-After the first run of
-%<*pdftex>
-\texttt{pdflatex \jobname.tex},
-%</pdftex>
-%<*luatex>
-\texttt{lualatex \jobname.tex},
-%</luatex>
-it is necessary to generate the index by running
+After typesetting the document, it is necessary to generate the
+index by running
 \begin{center}%
-  \texttt{texindy -I omega -\kern0em-language }$\langle$\textit{locale}%
+  \texttt{texindy -I latex -C utf8 -L }$\langle$\textit{locale}%
   $\rangle$\texttt{ \jobname.idx}
 \end{center}
-where $\langle$\textit{locale}$\rangle$ corresponds to the main
-locale of your thesis -- such as \texttt{english}, and then running
-%<*pdftex>
-\texttt{pdflatex \jobname.tex}
-%</pdftex>
-%<*luatex>
-\texttt{lualatex \jobname.tex}
-%</luatex>
-again. With online services -- such as Overleaf -- this is
-performed automatically, although the locale may be erroneously
-detected, leading to ill-sorted index entries. To insert the
-generated index into the document, use the \verb"\printindex"
-command.
+from the command line, where $\langle$\textit{locale}$\rangle$
+corresponds to the main locale of your thesis -- such as
+\texttt{english}, and then typesetting the document again.
 
-\section{Inserting the bibliography}
-After loading the \texttt{biblatex} package and linking a
-bibliography data\-base file to the document using the
-\verb"\addbibresource" command, you can start citing the entries.
-This is just dummy text \cite{inbook-full} lightly sprinkled with
-citations \cite[p.~123]{incollection-full}.  Several sources can be
-cited at once \cite{whole-collection, manual-minimal,manual-full}.
-\citetitle{inbook-full} was written by \citeauthor{inbook-full} in
-\citeyear{inbook-full}. We can also produce \textcite{inbook-full}
-or %% Let us define a compound command:
-\def\citeauthoryear#1{(\textcite{#1},~\citeyear{#1})}
-\citeauthoryear{inbook-full}. The full bibliographic citation is:
-\emph{\fullcite{inbook-full}}. We can easily insert a bibliographic
-citation into the footnote\footfullcite{inbook-full}.
+The \texttt{texindy} command needs to be executed from within the
+directory, where the \LaTeX\ source file is located. In Windows,
+the command line can be opened in a directory by holding down the
+\keys{Shift} key and by clicking the right mouse button while
+hovering the cursor over a directory. Select the \menu{Open Command
+Window Here} option in the context menu that opens shortly
+afterwards.
 
-The \verb"\nocite" command will not generate any output, but it
-will insert its argument into the bibliography. The
-\verb"\nocite{*}" command will insert all the records in the
-bibliography database file into the bibliography. Try uncommenting
-the command
-%% \nocite{*}
-and watch the bibliography section come apart at the seams.
-
-During the first run of
-%<*pdftex>
-\texttt{pdflatex \jobname.tex},
-%</pdftex>
-%<*luatex>
-\texttt{lualatex \jobname.tex},
-%</luatex>
-citing a \texttt{work} will expand to [\textbf{work}] and the
-\verb"\printbibliography" command will produce no output. It is now
-necessary to generate the bibliography by running \texttt{biber
-\jobname.bcf} and then by running
-%<*pdftex>
-\texttt{pdflatex \jobname.tex}
-%</pdftex>
-%<*luatex>
-\texttt{lualatex \jobname.tex}
-%</luatex>
-twice. In the first run, the bibliography section is typeset, and
-in the second run, the section appears in the Table of Contents.
-With online services -- such as Overleaf -- this is performed
-automatically.
-
-\printbibliography[heading=bibintoc] %% Print the bibliography.
+With online services -- such as Overleaf -- the commands are
+executed automatically, although the locale may be erroneously
+detected, or the \texttt{makeindex} tool (which is only able to
+sort entries that contain digits and letters of the English
+alphabet) may be used instead of \texttt{texindy}. In either case,
+the index will be ill-sorted.
 
 \makeatletter\thesis@blocks@clear\makeatother
 \phantomsection %% Print the index and insert it into the
