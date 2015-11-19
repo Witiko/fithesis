@@ -15,7 +15,9 @@ DTXFILES=*.dtx locale/czech.dtx locale/english.dtx \
 INSFILES=*.ins locale/czech.ins locale/english.ins \
 	locale/slovak.ins style/*.ins style/*/*.ins
 TESTS=test/*.tex
-MAKES=Makefile */Makefile */*/Makefile */*/*/Makefile
+MAKES=guide/mu/Makefile guide/mu/resources/Makefile \
+	locale/Makefile	logo/mu/Makefile Makefile style/Makefile \
+	style/mu/Makefile	test/Makefile
 USEREXAMPLES=example/mu/econ-lualatex.pdf \
 	example/mu/econ-pdflatex.pdf example/mu/fi-lualatex.pdf \
 	example/mu/fi-pdflatex.pdf example/mu/fsps-lualatex.pdf \
@@ -36,7 +38,7 @@ EXAMPLES=$(USEREXAMPLES) $(DEVEXAMPLES)
 MISCELLANEOUS=guide/mu/resources/empty.tex guide/mu/guide.bib \
 	guide/mu/guide.dtx guide/mu/*.ins guide/mu/resources/cog.pdf \
 	guide/mu/resources/vader.pdf guide/mu/resources/yoda.pdf \
-	example/mu/example.dtx example/mu/example.bib example/mu/*.ins
+	example/mu/example.bib $(USEREXAMPLES:.pdf=.tex)
 RESOURCES=$(STYLEFILES) $(LOGOS) $(LOCALES)
 SOURCES=$(DTXFILES) $(INSFILES) LICENSE.tex
 AUXFILES=fithesis.aux fithesis.log fithesis.toc fithesis.ind \
@@ -78,7 +80,7 @@ test: all
 	make -C test
 
 # This pseudo-target creates the distribution archive.
-dist: complete
+dist: dist-implode complete
 	make $(TDSARCHIVE) $(DISTARCHIVE) $(CTANARCHIVE)
 
 # This target creates the class files.
@@ -107,9 +109,9 @@ $(TDSARCHIVE):
 # This target generates a distribution file
 $(DISTARCHIVE): $(SOURCES) $(LATEXFILES) $(MAKES) $(TESTS) \
 	$(DOCS) $(PDFSOURCES) $(MISCELLANEOUS) $(EXAMPLES) $(VERSION)
-	DIR=`mktemp -d` && mkdir -p "$$DIR/fithesis" && \
-	cp --verbose $(TDSARCHIVE) "$$DIR"/fithesis && \
-	cp --parents --verbose $^ "$$DIR/fithesis" && \
+	DIR=`mktemp -d` && \
+	cp --verbose $(TDSARCHIVE) "$$DIR" && \
+	cp --parents --verbose $^ "$$DIR" && \
 	(cd "$$DIR" && zip -r -v -nw $@ *) && \
 	mv "$$DIR"/$@ . && rm -rf "$$DIR"
 

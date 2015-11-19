@@ -1,4 +1,12 @@
 %    \begin{macrocode}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% I, the copyright holder of this work, release this work into the
+%% public domain. This applies worldwide. In some countries this may
+%% not be legally possible; if so: I grant anyone the right to use
+%% this work for any purpose, without any conditions, unless such
+%% conditions are required by law.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \documentclass[
   color, %% This option enables colorful typesetting. Replace with
          %% `monochrome`, if you are going to print the thesis on
@@ -747,7 +755,7 @@ After the first run of
 %</luatex>
 it is necessary to generate the index by running
 \begin{center}%
-  \texttt{texindy -I omega --language }$\langle$\textit{locale}%
+  \texttt{texindy -I omega -\kern0em-language }$\langle$\textit{locale}%
   $\rangle$\texttt{ \jobname.idx}
 \end{center}
 where $\langle$\textit{locale}$\rangle$ corresponds to the main
@@ -794,7 +802,7 @@ During the first run of
 %<*luatex>
 \texttt{lualatex \jobname.tex},
 %</luatex>
-citing a \texttt{work} will expand to \textbf{work} and the
+citing a \texttt{work} will expand to [\textbf{work}] and the
 \verb"\printbibliography" command will produce no output. It is now
 necessary to generate the bibliography by running \texttt{biber
 \jobname.bcf} and then by running
