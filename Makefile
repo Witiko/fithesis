@@ -39,7 +39,7 @@ EXAMPLES=$(USEREXAMPLES) $(DEVEXAMPLES)
 MISCELLANEOUS=guide/mu/resources/empty.tex guide/mu/guide.bib \
 	guide/mu/guide.dtx guide/mu/*.ins guide/mu/resources/cog.pdf \
 	guide/mu/resources/vader.pdf guide/mu/resources/yoda.pdf \
-	example/mu/example.bib $(USEREXAMPLES:.pdf=.tex)
+	example/mu/example.bib $(USEREXAMPLES:.pdf=.tex) README.md
 RESOURCES=$(STYLEFILES) $(LOGOS) $(LOCALES)
 SOURCES=$(DTXFILES) $(INSFILES) LICENSE.tex
 AUXFILES=fithesis.aux fithesis.log fithesis.toc fithesis.ind \
@@ -51,7 +51,7 @@ GUIDES=guide/mu/econ.pdf guide/mu/fi.pdf guide/mu/fsps.pdf \
 	guide/mu/fss.pdf guide/mu/law.pdf guide/mu/med.pdf \
 	guide/mu/ped.pdf guide/mu/phil.pdf guide/mu/sci.pdf
 PDFS=$(MANUAL) $(GUIDES) $(USEREXAMPLES)
-DOCS=$(MANUAL) $(GUIDES) README
+DOCS=$(MANUAL) $(GUIDES)
 VERSION=VERSION.tex
 MAKEABLES=$(PDFS) $(CLASSFILES) $(VERSION)
 TDSARCHIVE=fithesis.tds.zip
