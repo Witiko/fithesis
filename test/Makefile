@@ -14,5 +14,5 @@ clean:
 	rm -f *.aux *.log *.out *.lot *.lof *.toc
 
 # This target removes any files created during the testing.
-implode:
+implode: clean
 	rm -f texput.log current.*
