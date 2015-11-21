@@ -46,7 +46,10 @@
   %% <http://mirrors.ctan.org/macros/latex/contrib/fithesis/fithesis/guide/mu/sci.pdf>.
 %</sci>
 ]{fithesis3}
+%% The following section sets up the locales used in the thesis.
 %<*pdftex>
+\usepackage[resetfonts]{cmap} %% We need to load the T2A font encoding
+\usepackage[T1,T2A]{fontenc}  %% to use the Cyrillic fonts with Russian texts.
 \usepackage[
   main=english, %% By using `czech` or `slovak` as the main locale
                 %% instead of `english`, you can typeset the thesis
@@ -387,6 +390,8 @@
     span multiple paragraphs.
 }
 %</sci>
+%% The following section sets up the bibliography.
+\usepackage{csquotes}
 \usepackage[              %% When typesetting the bibliography, the
   backend=biber,          %% `numeric` style will be used for the
   style=numeric,          %% entries and the `numeric-comp` style
