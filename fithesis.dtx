@@ -55,7 +55,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 
 % \changes{v0.3.26}  {2015/11/21}{Updated the example documents and
-%   the user guide. [VN]}
+%   the user guide. Fixed a typo in the description of
+%   \cs{thesis@season}. [VN]}
 % \changes{v0.3.25}  {2015/11/20}{The example documents from the
 %   \texttt{example} directory are now a part of the CTAN archive.
 %   Additional information were inserted into the guide and to the
@@ -833,8 +834,8 @@
 %   \item\DescribeMacro{\thesis@season}|\thesis@season| -- Expands
 %     to either:
 %     \begin{itemize}
-%       \item\texttt{spring} if $2>{}$\texttt{MM}${}<9$,
-%       \item\texttt{fall} if $2\leq{}$\texttt{MM}${}\geq9$.
+%       \item\texttt{spring} if $2<{}$\texttt{MM}${}<9$,
+%       \item\texttt{fall} if \texttt{MM}${}\leq2$ or \texttt{MM}${}\geq9$.
 %     \end{itemize}
 %   \item\DescribeMacro{\thesis@academicYear}|\thesis@academicYear|
 %     -- The academic year of the given semester:
