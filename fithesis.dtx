@@ -49,7 +49,7 @@
 %<*class>
 \NeedsTeXFormat{LaTeX2e}
 % Define `\thesis@version` and store it in the `VERSION.tex` file \fi
-\def\thesis@version{2015/11/21 v0.3.26 fithesis3 MU thesis class}
+\def\thesis@version{2015/11/21 v0.3.27-dev fithesis3 MU thesis class}
 % {\newwrite\f\openout\f=VERSION\write\f{\thesis@version}\closeout\f}
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -508,6 +508,8 @@
 %     -- The full name without the first space-delimited part of
 %     the name. This corresponds to the author's surname.
 % \end{itemize}
+% The standard \LaTeX\ \DescribeMacro{\author}|\author| macro also
+% sets this key.
 %    \begin{macrocode}
 \def\thesis@parseAuthor#1{%
   \def\thesis@author{#1}%
@@ -519,6 +521,7 @@
 \thesis@def[author]{author@tail}%
 \define@key{thesis}{author}{%
   \thesis@parseAuthor{#1}}
+\let\author\thesis@parseAuthor
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\thesis@id}
@@ -896,11 +899,19 @@
 % \subsubsection{The \texttt{title} key}
 % The \marg{\texttt{title}=title} pair sets the title of the
 % thesis to \textit{title}. The \textit{title} is stored within the
-% |\thesis@title| macro.
+% |\thesis@title| macro. The standard \LaTeX\
+% \DescribeMacro{\title}|\title| macro also sets this key.
 %    \begin{macrocode}
 \thesis@def{title}
 \define@key{thesis}{title}{%
   \def\thesis@title{#1}}
+\def\title#1{\def\thesis@title{#1}}
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\maketitle}
+% The standard \LaTeX\ |\maketitle| macro is defined, but disabled.
+%    \begin{macrocode}
+\let\maketitle\relax
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\thesis@TeXtitle}
