@@ -201,7 +201,7 @@
 %   was decomposed into a base class, locale files and style files. [VN]}
 % \changes{v0.3.08}  {2015/03/04}{Fixed a non-terminated \cs{if} condition.
 %   [VN] (backport of v0.2.18)\\Fixed mostly documentation errors reported
-%   at the new fithesis discussion forum (-ti, eco$\rightarrow$econ, implicit
+%   at the new fithesis discussion forum (-ti, eco$\to$econ, implicit
 %   twocolumn, example extended (font setup), etc.). [PS] (backport of v0.2.17)}
 % \changes{v0.3.07}  {2015/02/03}{Replaced the \cs{thesiswoman} command with
 %   \cs{thesisgender}. [VN]}
@@ -252,13 +252,13 @@
 % \changes{v0.2.01}  {2004/05/11}{add subsubsection to toc [JP]}
 % \changes{v0.2.00}  {2004/05/03}{add sk lang [JP, Peter Cerensky]
 %   set default cls class to \textsf{rapport3} [JP]}
-% \changes{v0.1g}   {2004/04/01}{change of default size (12pt$\rightarrow$11pt) [JP]}
+% \changes{v0.1g}   {2004/04/01}{change of default size (12pt$\to$11pt) [JP]}
 % \changes{v0.1f}   {2004/01/24}{add documentation for hyperref [JP]}
 % \changes{v0.1e}   {2004/01/07}{add Brno to MU title [JP]}
 % \changes{v0.1d}   {2003/03/24}{removed def schapter from fit1*.clo [JP]}
 % \changes{v0.1c}   {2003/02/21}{default values of \cs{facultyname} and
 %   \\\cs{@thesissubtitle} set for backward compatibility) [PS]}
-% \changes{v0.1b}   {2003/02/14}{change of default size (11pt$\rightarrow$12pt) [JP]}
+% \changes{v0.1b}   {2003/02/14}{change of default size (11pt$\to$12pt) [JP]}
 % \changes{v0.1a}   {2003/02/12}{minor documentation changes (CZ only,
 %   sorry) [PS]}
 % \changes{v0.1}    {2003/02/11}{new release, documentation editing (CZ only,
@@ -1213,15 +1213,6 @@
         \AtBeginDocument{\thesis@preamble}%
         \AtEndDocument{\thesis@postamble}%
       \fi%
-%    \end{macrocode}
-% Lastly, the \DescribeMacro{\thesis@pages}|\thesis@pages| 
-% macro definition containing the length of the document is
-% scheduled to be included in the auxiliary file.
-%    \begin{macrocode}
-      \AtEndDocument{%
-        % Define \thesis@pages for the next run
-        \write\@auxout{\noexpand\gdef\noexpand%
-          \thesis@pages{\thepage}}}
     \makeatother%
   \fi}
 %    \end{macrocode}
@@ -1394,11 +1385,11 @@
   \thesis@tail#2}%
 %    \end{macrocode}
 % \subsection{General purpose macros}
-% The \DescribeMacro{\thesis@pages}|\thesis@pages| macro is defined
-% at the beginning of the second \LaTeX\ run as a part of the main
-% routine (see Section \ref{sec:thesis@load}). During the first
-% run, the macro expands to \texttt{??}.
+% The \DescribeMacro{\thesis@pages}|\thesis@pages| macro contains
+% the total number of pages within the document. During the first
+% \TeX\ compilation, the macro expands to \texttt{??}.
 %    \begin{macrocode}
+\AtEndDocument{\write\@auxout{\noexpand\gdef\noexpand\thesis@pages{\thepage}}}
 \ifx\thesis@pages\undefined\def\thesis@pages{??}\fi
 %    \end{macrocode}
 % \DescribeMacro{\thesis@selectLocale}|\thesis@selectLocale|\marg{locale}
