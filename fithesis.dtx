@@ -16,6 +16,7 @@
 \usepackage{hypdoc}
 \usepackage{microtype}
 \usepackage{ragged2e}
+\usepackage{paralist}
 
 % Making paragraphs numbered
 \makeatletter
@@ -56,7 +57,7 @@
 %
 % \changes{v0.3.27-dev}{2015/11/29}{Fixed a typo in the guide.
 %   Added a compatibility layer with \cs{title}, \cs{author}, and
-%   \cs{maketitle}.}
+%   \cs{maketitle}. Minor changes of the documentation.}
 % \changes{v0.3.26}  {2015/11/21}{Updated the example documents and
 %   the user guide. Fixed a typo in the description of
 %   \cs{thesis@season}. [VN]}
@@ -1097,12 +1098,12 @@
 % used as an alternative to the |\thesissetup| public macro, which
 % only permits a single paragraph as the \textit{value}, for the
 % following \textit{key}s:
-% \begin{itemize}
+% \begin{compactitem}
 %   \item\texttt{abstract}
 %   \item\texttt{abstractEn}
 %   \item\texttt{thanks}
 %   \item\texttt{declaration}
-% \end{itemize}
+% \end{compactitem}
 %    \begin{macrocode}
 \long\def\thesislong#1#2{%
   \csname KV@thesis@#1\endcsname{#2}}
@@ -1334,8 +1335,8 @@
 %    \end{macrocode}
 % The \DescribeMacro{\thesis@head}|\thesis@head|
 % and \DescribeMacro{\thesis@tail}|\thesis@tail|
-% macros are used for retrieving a head or a tail of
-% space-separated token sequences, which end with |\relax|.
+% macros are used for retrieving the head or the tail of
+% space-separated token sequences that end with |\relax|.
 %    \begin{macrocode}
 \def\thesis@head#1 #2{%
   \ifx\relax#2%
