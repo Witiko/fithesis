@@ -781,7 +781,18 @@ afterwards.
 With online services -- such as Overleaf -- all commands are
 executed automatically.
 
-\printbibliography[heading=bibintoc] %% Print the bibliography.
+%<*pdftex>
+{\csname captions\languagename\endcsname %% Temporarily override
+%% the BibLaTeX localization with the original babel definitions.
+\makeatletter %% Use the correct localization of the quotations.
+  \thesis@selectLocale{\thesis@locale}\makeatother
+\printbibliography[heading=bibintoc]} %% Print the bibliography.
+%</pdftex>
+%<*luatex>
+{\makeatletter %% Use the correct localization of the quotations.
+  \thesis@selectLocale{\thesis@locale}\makeatother
+\printbibliography[heading=bibintoc]} %% Print the bibliography.
+%</luatex>
 
 \chapter{Inserting the index}
 After using the \verb"\makeindex" macro and loading the

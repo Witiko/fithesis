@@ -161,7 +161,7 @@
   \textsf{fontspec}, \textsf{unicode-math}, \textsf{mathpazo},
   \textsf{tex-gyre-pagella}, \textsf{lm}, \textsf{cmap},
   \textsf{fontenc}, \textsf{tabularx}, \textsf{tabu},
-  \textsf{booktabs}, \textsf{fithesis}.
+  \textsf{booktabs}, \textsf{csquotes}, \textsf{fithesis}.
  
   {\makeatletter %% A placeholder string macro
   \def\thguide@placeholder#1{$\langle$\textit{#1}$\rangle$}
@@ -820,39 +820,51 @@
     \label{fig:example02}
   \end{figure}
   We are now back to the original document. Instead of inserting
-  the \texttt{\string\thesis\-@preamble} and 
-  \texttt{\string\thesis\-@postamble} commands into the document,
+  the \texttt{\string\th e\-sis\-@pre\-amble} and 
+  \texttt{\string\th e\-sis\-@post\-amble} commands into the document,
   we can insert only certain sections at the beginning and at the
-  end of the document. For the \makeatletter
-  \thesis@english@facultyName, \makeatother
-  \texttt{\string\thesis\-@preamble} expands to the following
-  commands:
+  end of the document.
+  
+  The \texttt{\string\th e\-sis\-@preamble} and
+  \texttt{\string\th e\-sis\-@postamble} commands set up the proper
+  environment and execute the \texttt{\string
+  \th e\-sis\-@blocks\-@preamble} and
+  \texttt{\string\th e\-sis\-@blocks\-@postamble} commands. To
+  change the layout, it is sufficient to redefine \texttt{\string
+  \th e\-sis\-@blocks\-@pre\-amble} and
+  \texttt{\string\th e\-sis\-@blocks\-@post\-amble} without changing
+  the definition of \texttt{\string\th e\-sis\-@pre\-amble} and
+  \texttt{\string\th e\-sis\-@post\-amble}. For the
+  \makeatletter\thesis@english@facultyName\makeatother,
+  \texttt{\string\th e\-sis\-@blocks\-@preamble} expands to the
+  following commands:
   {\makeatletter
-  % This macro typesets the meaning of another macro.
-  \def\thguide@macromeaning#1{%
+    % This macro typesets the meaning of another macro.
+    \def\thguide@macromeaning#1{%
       \let\ea\expandafter%
       \ea\let\ea\thguide@macro\csname#1\endcsname%
       \ea\def\ea\thguide@meaning\ea{\meaning\thguide@macro}%
       \def\thguide@parse##1 ##2{%
         ##1\ifx##2\relax\ea\@gobbletwo\else\\\fi\thguide@parse##2}%
       \begin{verse}%
-        \ea\ifx\@empty\thguide@macro\@empty%
+        \ea\ifx\thguide@macro\relax%
           $\langle$\emph{empty}$\rangle$
         \else%
-          \tt\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea%
-          \ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\thguide@parse\ea%
-          \ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\@gobbletwo\ea%
-          \ea\ea\ea\ea\ea\ea\@gobbletwo\ea\ea\ea\@gobbletwo\ea%
-          \@gobbletwo\thguide@meaning \relax%
-        \fi%
+          \tt\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea
+          \ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\thguide@parse\ea
+          \ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\@gobbletwo\ea
+          \ea\ea\ea\ea\ea\ea\@gobbletwo\ea\ea\ea\@gobbletwo\ea
+          \@gobbletwo\thguide@meaning{} \relax
+        \fi
       \end{verse}}
-  \thguide@macromeaning{thesis@preamble} and
-  \texttt{\string\thesis\-@postamble} 
-  expands to the following commands:
-  \thguide@macromeaning{thesis@postamble}
+    \thguide@macromeaning{thesis@blocks@preamble} and
+    \texttt{\string\th e\-sis\-@blocks\-@post\-amble} 
+    expands to the following commands:
+    \thguide@macromeaning{thesis@blocks@postamble}
   \makeatother}
-  To create a document that only contains the title page prior to
-  the text, we would use the following code:
+  To create a document that only contains the title page at the
+  beginning of the document and the list of tables at the end of
+  the document, we would use the following code:
   \begin{minted}{latex}
 \documentclass[...]{fithesis3}
 \thesissetup{
@@ -886,11 +898,15 @@
   autoLayout=false}
 \begin{document}
   \makeatletter
-    \thesis@blocks@titlePage
-    \thesis@blocks@mainMatter
+    \def\thesis@blocks@preamble{\thesis@blocks@titlePage}
+    \thesis@preamble
   \makeatother
-  A document which contains only the title
-  page of the thesis and the main matter.
+  A document that only contains the title page and the
+  list of tables.
+  \makeatletter
+    \def\thesis@blocks@postamble{\thesis@blocks@lot}
+    \thesis@postamble
+  \makeatother
 \end{document}
   \end{minted}
   The available blocks are documented in Section 3.6 of the

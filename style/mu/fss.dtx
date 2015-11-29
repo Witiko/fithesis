@@ -16,7 +16,7 @@
 % department and will require modification by the user.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fithesis/style/mu/fithesis-fss}[2015/06/27]
+\ProvidesPackage{fithesis/style/mu/fithesis-fss}[2015/11/29]
 %    \end{macrocode}
 % The file defines the color scheme of the respective faculty.
 %    \begin{macrocode}
@@ -41,18 +41,17 @@
 % within this file are defined in the
 % \texttt{style/mu/fithesis-base.sty} file.
 %    \begin{macrocode}
-\def\thesis@preamble{%
-  \thesis@blocks@cover%
-  \thesis@blocks@titlePage%
-  \thesis@blocks@frontMatter%
-    \thesis@blocks@clearRight%
-      \thesis@blocks@abstract%
-      \thesis@blocks@abstractEn%
-      \thesis@blocks@keywords%
-      \thesis@blocks@keywordsEn%
-    \thesis@blocks@assignment%
-    \thesis@blocks@declaration%
-    \thesis@blocks@thanks%
-    \thesis@blocks@tables%
-  \thesis@blocks@mainMatter}
+\def\thesis@blocks@preamble{%
+  \thesis@blocks@cover
+  \thesis@blocks@titlePage
+  \thesis@blocks@frontMatter
+    \thesis@blocks@clearRight
+      \thesis@blocks@abstract
+      \thesis@blocks@abstractEn
+      \thesis@blocks@keywords
+      \thesis@blocks@keywordsEn
+    \thesis@blocks@assignment
+    \thesis@blocks@declaration
+    \thesis@blocks@thanks
+    \thesis@blocks@tables}
 %    \end{macrocode}

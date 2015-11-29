@@ -7,7 +7,7 @@
 % 363/Smernice2014-9.pdf}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fithesis/style/mu/fithesis-econ}[2015/11/17]
+\ProvidesPackage{fithesis/style/mu/fithesis-econ}[2015/11/29]
 %    \end{macrocode}
 % The file defines the color scheme of the respective faculty.
 %    \begin{macrocode}
@@ -158,26 +158,25 @@
 % within this file are defined in the
 % \texttt{style/mu/fithesis-base.sty} file.
 %    \begin{macrocode}
-\def\thesis@preamble{%
-  \thesis@blocks@cover%
-  \thesis@blocks@frontMatter%
-    \thesis@blocks@titlePage%
-    \thesis@blocks@assignment%
-    \thesis@blocks@clearRight%
-      \thesis@blocks@abstract%
-      \thesis@blocks@abstractEn%
-      \thesis@blocks@keywords%
-      \thesis@blocks@keywordsEn%
-    \thesis@blocks@declaration%
-    \thesis@blocks@thanks%
-    \thesis@blocks@toc%
-  \thesis@blocks@mainMatter}
+\def\thesis@blocks@preamble{%
+  \thesis@blocks@cover
+  \thesis@blocks@frontMatter
+    \thesis@blocks@titlePage
+    \thesis@blocks@assignment
+    \thesis@blocks@clearRight
+      \thesis@blocks@abstract
+      \thesis@blocks@abstractEn
+      \thesis@blocks@keywords
+      \thesis@blocks@keywordsEn
+    \thesis@blocks@declaration
+    \thesis@blocks@thanks
+    \thesis@blocks@toc}
 %    \end{macrocode}
 % The style file defines the autolayout postamble as the list of
 % tables and the list of figures. All blocks are defined in the
 % \texttt{style/mu/base.sty} file, although some are redefined in
 % this file.
 %    \begin{macrocode}
-\def\thesis@postamble{%
+\def\thesis@blocks@postamble{%
   \thesis@blocks@tables}
 %    \end{macrocode}

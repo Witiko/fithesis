@@ -1,20 +1,26 @@
 % \file{locale/fithesis-slovak.def}
-% This is the base file of the Slovak locale. It defines all the
-% private macros mandated by the locale file interface.
+% This is the base file of the Slovak locale.\iffalse
+%<*base>
+% \fi\begin{macrocode}
+\ProvidesFile{fithesis/locale/fithesis-slovak.def}[2015/11/29]
+%    \end{macrocode}
+% The locale file defines all the private macros mandated by the
+% locale file interface.
 % \begin{macro}{\thesis@slovak@gender@koncovka}
 % The locale file also defines the |\thesis@slovak@gender@koncovka|
 % macro, which expands to the correct verb ending based on the
 % value of the |\thesis@ifwoman| macro and the
+% \end{macro}\begin{macro}{\thesis@slovak@typeName@akuzativ}
 % |\thesis@slovak@typeName@akuzativ| containing the accusative case
 % of the thesis type name.
-% \end{macro}\iffalse
-%<*base>
-% \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/fithesis-slovak.def}[2015/11/17]
+% \end{macro}\begin{macrocode}
 
 % Pomocná makrá
 \gdef\thesis@slovak@gender@koncovka{%
   \ifthesis@woman a\fi}
+
+% Csquotes štýl
+\gdef\thesis@slovak@csquotesStyle{german}
 
 % Zástupné texty
 \gdef\thesis@slovak@universityName{Názov univerzity}

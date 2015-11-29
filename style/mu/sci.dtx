@@ -6,7 +6,7 @@
 % \url{http://www.sci.muni.cz/NW/predpisy/od/OD-2014-05.pdf}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fithesis/style/mu/fithesis-sci}[2015/06/27]
+\ProvidesPackage{fithesis/style/mu/fithesis-sci}[2015/11/29]
 %    \end{macrocode}
 % The file defines the color scheme of the respective faculty.
 %    \begin{macrocode}
@@ -323,19 +323,18 @@
 % entire front matter is typeset as though the locale were Czech in
 % accordance with the formal requirements of the faculty.
 %    \begin{macrocode}
-\def\thesis@preamble{%
-  {\thesis@selectLocale{czech}%
-  \thesis@blocks@cover%
-  \thesis@blocks@frontMatter%
-    \thesis@blocks@titlePage%
-    \thesis@blocks@clearRight%
-      \thesis@blocks@bibEntry%
-      \thesis@blocks@bibEntryEn%
-      \thesis@blocks@abstract%
-      \thesis@blocks@abstractEn%
-    \thesis@blocks@assignment%
-    \thesis@blocks@thanks%
-    \thesis@blocks@declaration%
-    \thesis@blocks@tables}%
-  \thesis@blocks@mainMatter}
+\def\thesis@blocks@preamble{{%
+  \thesis@selectLocale{czech}
+  \thesis@blocks@cover
+  \thesis@blocks@frontMatter
+    \thesis@blocks@titlePage
+    \thesis@blocks@clearRight
+      \thesis@blocks@bibEntry
+      \thesis@blocks@bibEntryEn
+      \thesis@blocks@abstract
+      \thesis@blocks@abstractEn
+    \thesis@blocks@assignment
+    \thesis@blocks@thanks
+    \thesis@blocks@declaration
+    \thesis@blocks@tables}}
 %    \end{macrocode}

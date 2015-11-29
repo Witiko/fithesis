@@ -1,20 +1,26 @@
 % \file{locale/fithesis-czech.def}
-% This is the base file of the Czech locale. It defines all the
-% private macros mandated by the locale file interface.
+% This is the base file of the Czech locale.\iffalse
+%<*base>
+% \fi\begin{macrocode}
+\ProvidesFile{fithesis/locale/fithesis-czech.def}[2015/11/29]
+%    \end{macrocode}
+% The locale file defines all the private macros mandated by the
+% locale file interface.
 % \begin{macro}{\thesis@czech@gender@koncovka}
 % The locale file also defines the |\thesis@czech@gender@koncovka|
 % macro, which expands to the correct verb ending based on the
 % value of the |\thesis@ifwoman| macro and the
+% \end{macro}\begin{macro}{\thesis@czech@typeName@akuzativ}
 % |\thesis@czech@typeName@akuzativ| containing the accusative case
 % of the thesis type name.
-% \end{macro}\iffalse
-%<*base>
-% \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/fithesis-czech.def}[2015/11/17]
+% \end{macro}\begin{macrocode}
 
 % Pomocná makra
 \gdef\thesis@czech@gender@koncovka{%
   \ifthesis@woman a\fi}
+
+% Csquotes styl
+\gdef\thesis@czech@csquotesStyle{german}
 
 % Zástupné texty
 \gdef\thesis@czech@universityName{Název univerzity}

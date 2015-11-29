@@ -6,7 +6,7 @@
 % muni.cz/~korvas/pokyny_k_zaverecne_praci.doc}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fithesis/style/mu/fithesis-fsps}[2015/11/08]
+\ProvidesPackage{fithesis/style/mu/fithesis-fsps}[2015/11/29]
 %    \end{macrocode}
 % The file defines the color scheme of the respective faculty.
 %    \begin{macrocode}
@@ -25,12 +25,11 @@
 % within this file are defined in the
 % \texttt{style/mu/fithesis-base.sty} file.
 %    \begin{macrocode}
-\def\thesis@preamble{%
-  \thesis@blocks@cover%
-  \thesis@blocks@titlePage%
-  \thesis@blocks@frontMatter%
-    \thesis@blocks@declaration%
-    \thesis@blocks@thanks%
-    \thesis@blocks@tables%
-  \thesis@blocks@mainMatter}
+\def\thesis@blocks@preamble{%
+  \thesis@blocks@cover
+  \thesis@blocks@titlePage
+  \thesis@blocks@frontMatter
+    \thesis@blocks@declaration
+    \thesis@blocks@thanks
+    \thesis@blocks@tables}
 %    \end{macrocode}

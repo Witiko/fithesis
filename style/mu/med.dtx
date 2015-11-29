@@ -7,7 +7,7 @@
 % ZITOSTI_ZAVERECNE_PRACE.doc}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fithesis/style/mu/fithesis-med}[2015/06/27]
+\ProvidesPackage{fithesis/style/mu/fithesis-med}[2015/11/29]
 %    \end{macrocode}
 % The file defines the color scheme of the respective faculty.
 %    \begin{macrocode}
@@ -107,6 +107,19 @@
   \setcounter{page}{1}
   \pagenumbering{arabic}}
 %    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@blocks@mainMatter}
+% The |\thesis@blocks@mainMatter| macro sets up the style
+% of the main matter of the thesis. The leading is adjusted in
+% accordance with the requirements of the faculty.
+% \begin{macrocode}
+\def\thesis@blocks@mainMatter{%
+  \thesis@blocks@clear
+  \setcounter{page}{1}
+  \pagenumbering{arabic}
+  \pagestyle{thesisheadings}
+  \parindent 1.5em
+  \onehalfspacing}
+%    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@bibEntry}
 % The |\thesis@blocks@bibEntry| macro typesets a
 % bibliographical entry. Along with the macros required by the
@@ -132,19 +145,18 @@
 % within this file are defined in the
 % \texttt{style/mu/fithesis-base.sty} file.
 %    \begin{macrocode}
-\def\thesis@preamble{%
-  \thesis@blocks@cover%
-  \thesis@blocks@frontMatter%
-    \thesis@blocks@titlePage%
-    \onehalfspacing%
-    \thesis@blocks@clearRight%
-      \thesis@blocks@abstract%
-      \thesis@blocks@abstractEn%
-      \thesis@blocks@keywords%
-      \thesis@blocks@keywordsEn%
-    \thesis@blocks@bibEntry%
-    \thesis@blocks@declaration%
-    \thesis@blocks@thanks%
-    \thesis@blocks@tables%
-  \thesis@blocks@mainMatter}
+\def\thesis@blocks@preamble{%
+  \thesis@blocks@cover
+  \thesis@blocks@frontMatter
+    \thesis@blocks@titlePage
+    \onehalfspacing
+    \thesis@blocks@clearRight
+      \thesis@blocks@abstract
+      \thesis@blocks@abstractEn
+      \thesis@blocks@keywords
+      \thesis@blocks@keywordsEn
+    \thesis@blocks@bibEntry
+    \thesis@blocks@declaration
+    \thesis@blocks@thanks
+    \thesis@blocks@tables}
 %    \end{macrocode}

@@ -1,10 +1,12 @@
 % \file{locale/fithesis-english.def}
-% This is the base file of the English locale. It defines all the
-% private macros mandated by the locale file interface.
-% \iffalse
+% This is the base file of the English locale.\iffalse
 %<*base>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/fithesis-english.def}[2015/11/10]
+\ProvidesFile{fithesis/locale/fithesis-english.def}[2015/11/29]
+%    \end{macrocode}
+% The locale file defines all the private macros mandated by the
+% locale file interface.
+% \begin{macrocode}
 
 % Placeholders
 \gdef\thesis@english@universityName{University name}
@@ -12,6 +14,9 @@
 \gdef\thesis@english@assignment{Replace this page with a copy
   of the official signed thesis assignment.}
 \gdef\thesis@english@declaration{Declaration text ...}
+
+% Csquotes style
+\gdef\thesis@english@csquotesStyle{english}
 
 % Miscellaneous
 \gdef\thesis@english@fieldTitle{Field of study}
