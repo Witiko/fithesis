@@ -51,11 +51,13 @@
 %<*class>
 \NeedsTeXFormat{LaTeX2e}
 % Define `\thesis@version` and store it in the `VERSION.tex` file \fi
-\def\thesis@version{2015/11/30 v0.3.27:4-dev fithesis3 MU thesis class}
+\def\thesis@version{2015/11/30 v0.3.27:5-dev fithesis3 MU thesis class}
 % {\newwrite\f\openout\f=VERSION\write\f{\thesis@version}\closeout\f}
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
+% \changes{v0.3.27:5}{2015/11/30}{The PDF bookmarks are no longer
+%   garbled, when the \Hologo{LuaTeX} engine is used. [VN]}
 % \changes{v0.3.27:4}{2015/11/30}{\cs{thesis@english@declaration}
 %   now uses the correct idiom (by one's own $\to$ on
 %   one's own). [VN]}
@@ -1200,23 +1202,24 @@
 %   \item\texttt{Creator} is set to \texttt{\thesis@version}.
 % \end{itemize}
 %    \begin{macrocode}
-       \thesis@require{hyperref}%
-      {\hypersetup{unicode,
-         pdftitle={\thesis@title},%
-         pdfauthor={\thesis@author},%
-         pdfkeywords={\thesis@keywords},%
-         pdfcreator={\thesis@version},%
-     }}%
+       \thesis@require{hyperref}
+       \hypersetup{
+         unicode=true,
+         pdfencoding=auto,
+         pdftitle=\thesis@title,
+         pdfauthor=\thesis@author,
+         pdfkeywords=\thesis@keywords,
+         pdfcreator=\thesis@version}
 %    \end{macrocode}
 % If autolayout is enabled, the |\thesis@preamble| and
 % |\thesis@postamble| macros are scheduled for expansion at the
 % beginning and at the end of the document, respectively.
 %    \begin{macrocode}
-      \ifthesis@auto%
-        \AtBeginDocument{\thesis@preamble}%
-        \AtEndDocument{\thesis@postamble}%
-      \fi%
-    \makeatother%
+      \ifthesis@auto
+        \AtBeginDocument{\thesis@preamble}
+        \AtEndDocument{\thesis@postamble}
+      \fi
+    \makeatother
   \fi}
 %    \end{macrocode}
 % \end{macro}
