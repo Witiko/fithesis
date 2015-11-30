@@ -44,7 +44,7 @@ RESOURCES=$(STYLEFILES) $(LOGOS) $(LOCALES)
 SOURCES=$(DTXFILES) $(INSFILES) LICENSE.tex
 AUXFILES=fithesis.aux fithesis.log fithesis.toc fithesis.ind \
 	fithesis.idx fithesis.out fithesis.ilg fithesis.gls \
-	fithesis.glo fithesis.hd
+	fithesis.glo fithesis.hd fithesis.lot
 MANUAL=fithesis.pdf
 PDFSOURCES=fithesis.dtx
 GUIDES=guide/mu/econ.pdf guide/mu/fi.pdf guide/mu/fsps.pdf \
