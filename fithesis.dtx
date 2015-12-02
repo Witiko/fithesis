@@ -51,11 +51,16 @@
 %<*class>
 \NeedsTeXFormat{LaTeX2e}
 % Define `\thesis@version` and store it in the `VERSION.tex` file \fi
-\def\thesis@version{2015/11/30 v0.3.27 fithesis3 MU thesis class}
+\def\thesis@version{2015/12/02 v0.3.28-dev fithesis3 MU thesis class}
 % {\newwrite\f\openout\f=VERSION\write\f{\thesis@version}\closeout\f}
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
+% \changes{v0.3.28}  {2015/12/02}{The \texttt{draft} option has no
+%   longer an effect on the \textsf{microtype} package. The
+%   \cs{thesis@require} command now also takes an optional
+%   argument and the \cs{thesis@requireWithOption} command has
+%   become \cs{thesis@requireIfExists}. [VN]}
 % \changes{v0.3.27:5}{2015/11/30}{The PDF bookmarks are no longer
 %   garbled, when the \Hologo{LuaTeX} engine is used. [VN]}
 % \changes{v0.3.27:4}{2015/11/30}{\cs{thesis@english@declaration}
@@ -1242,20 +1247,20 @@
   \thesis@exists{#1}{\input{#1}}}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@require}
-% The |\thesis@require| \marg{package} expands to
-% |\RequirePackage|\marg{package}, if the specified
+% The |\thesis@require|\oarg{options}\marg{package} expands to
+% |\RequirePackage|\oarg{options}\marg{package}, if the specified
 % \textit{package} has not yet been loaded.
 %    \begin{macrocode}
-\def\thesis@require#1{%
-  \@ifpackageloaded{#1}{}{\RequirePackage{#1}}}
+\newcommand\thesis@require[2][]{%
+  \@ifpackageloaded{#2}{}{\RequirePackage[#1]{#2}}}
 %    \end{macrocode}
-% \end{macro}\begin{macro}{\thesis@requireWithOptions}
-% The |\thesis@requireWithOptions|\marg{package} expands to
-% |\RequirePackageWithOptions|\marg{package}, if the specified
-% \textit{package} exists and has not yet been loaded.
+% \end{macro}\begin{macro}{\thesis@requireIfExists}
+% The |\thesis@requireIfExists|\oarg{options}\marg{package} expands
+% to |\thesis@require|\oarg{options}\marg{package}, if the
+% specified \textit{package} exists and has not yet been loaded.
 %    \begin{macrocode}
-\def\thesis@requireWithOptions#1{\thesis@exists{#1.sty}{%
-  \@ifpackageloaded{#1}{}{\RequirePackageWithOptions{#1}}}}
+\newcommand\thesis@requireIfExists[2][]{%
+  \thesis@exists{#2.sty}{\thesis@require[#1]{#2}}}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@requireStyle}
 % If inheritance is enabled for style files, then the
@@ -1272,11 +1277,11 @@
 %    \begin{macrocode}
 \def\thesis@requireStyle#1{%
   \ifthesis@style@inheritance%
-    \thesis@requireWithOptions{\thesis@stylepath fithesis-base}%
-    \thesis@requireWithOptions{\thesis@stylepath\thesis@university%
+    \thesis@requireIfExists{\thesis@stylepath fithesis-base}%
+    \thesis@requireIfExists{\thesis@stylepath\thesis@university%
       /fithesis-base}
   \fi%
-  \thesis@requireWithOptions{\thesis@stylepath#1}}
+  \thesis@requireIfExists{\thesis@stylepath#1}}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@requireLocale}
 % If inheritance is enabled for style files, then the
