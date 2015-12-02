@@ -51,12 +51,17 @@
 %<*class>
 \NeedsTeXFormat{LaTeX2e}
 % Define `\thesis@version` and store it in the `VERSION.tex` file \fi
-\def\thesis@version{2015/12/02 v0.3.28-dev fithesis3 MU thesis class}
+\def\thesis@version{2015/12/03 v0.3.28-dev fithesis3 MU thesis class}
 % {\newwrite\f\openout\f=VERSION\write\f{\thesis@version}\closeout\f}
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-% \changes{v0.3.28}  {2015/12/02}{The \texttt{draft} option has no
+% \changes{v0.3.28:2}{2015/12/03}{If the thesis locale and the
+%   document locale is the same (the default behaviour), the
+%   \cs{thesis@selectLocale} macro is applied globally at the
+%   beginning of the document. As a result, the \textsf{csquotes}
+%   style is automatically set for the entire document. [VN]}
+% \changes{v0.3.28:1}{2015/12/02}{The \texttt{draft} option has no
 %   longer an effect on the \textsf{microtype} package. The
 %   \cs{thesis@require} command now also takes an optional
 %   argument and the \cs{thesis@requireWithOption} command has
@@ -1181,12 +1186,31 @@
     \thesis@loadedtrue
     \makeatletter%
 %    \end{macrocode}
-% First, the main locale file is loaded using the
-% |\thesis@requireLocale| macro. If the user specified an explicit
-% empty string as the value of |\thesis@locale|, do nothing.
+% First, the name of the main locale file is fully expanded and
+% loaded using the |\thesis@requireLocale| macro. If the user
+% specified an explicit empty string as the value of
+% |\thesis@locale|, do nothing.
 %    \begin{macrocode}
       \ifx\thesis@locale\empty\else
+        \edef\thesis@locale{\thesis@locale}
         \thesis@requireLocale{\thesis@locale}
+%    \end{macrocode}
+% If the \textsf{babel} or \textsf{polyglossia} locale is identical
+% to the thesis locale, the |\thesis@selectLocale| macro will be
+% used to globally set up the \textsf{csquotes} style appropriate for
+% the given locale.
+%    \begin{macrocode}
+        \ifx\languagename\empty\else
+          \begingroup
+          \edef\@doclocale{\languagename}%
+          \ifx\@doclocale\thesis@locale
+            \endgroup
+            \AtBeginDocument{%
+              \thesis@selectLocale{\thesis@locale}}%
+          \else
+            \endgroup
+          \fi
+        \fi
       \fi
 %    \end{macrocode}
 % Consequently, the style files are loaded. If the user specified an
