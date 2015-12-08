@@ -347,7 +347,17 @@
 % of the |\thesis@blocks@preamble| and |\thesis@blocks@postamble|
 % macros by the subsequently loaded style files.
 %
-% \begin{macro}{\thesis@blocks@frontMatter}
+% \begin{macro}{\thesis@blocks@coverMatter}
+% The |\thesis@blocks@coverMatter| macro sets up the style
+% of the cover and the title page of the thesis. This amounts
+% to disabling the page numbering, so that hyperref links do not
+% point to the cover page and the title page instead of the
+% initial pages of the main matter.
+% \begin{macrocode}
+\def\thesis@blocks@coverMatter{%
+  \pagenumbering{gobble}}
+%    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@blocks@frontMatter}
 % The |\thesis@blocks@frontMatter| macro sets up the style
 % of the front matter of the thesis.
 % \begin{macrocode}

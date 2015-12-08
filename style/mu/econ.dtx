@@ -7,7 +7,7 @@
 % 363/Smernice2014-9.pdf}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fithesis/style/mu/fithesis-econ}[2015/11/29]
+\ProvidesPackage{fithesis/style/mu/fithesis-econ}[2015/12/08]
 %    \end{macrocode}
 % The file defines the color scheme of the respective faculty.
 %    \begin{macrocode}
@@ -159,7 +159,8 @@
 % \texttt{style/mu/fithesis-base.sty} file.
 %    \begin{macrocode}
 \def\thesis@blocks@preamble{%
-  \thesis@blocks@cover
+  \thesis@blocks@coverMatter
+    \thesis@blocks@cover
   \thesis@blocks@frontMatter
     \thesis@blocks@titlePage
     \thesis@blocks@assignment

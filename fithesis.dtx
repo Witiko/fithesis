@@ -51,11 +51,14 @@
 %<*class>
 \NeedsTeXFormat{LaTeX2e}
 % Define `\thesis@version` and store it in the `VERSION.tex` file \fi
-\def\thesis@version{2015/12/03 v0.3.28 fithesis3 MU thesis class}
+\def\thesis@version{2015/12/08 v0.3.29:1-dev fithesis3 MU thesis class}
 % {\newwrite\f\openout\f=VERSION\write\f{\thesis@version}\closeout\f}
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
+% \changes{v0.3.29:1}{2015/12/08}{The initial pages of the styles
+%   of the Masaryk University in Brno are no longer page-numbered,
+%   so that hyperref links work correctly. [VN]}
 % \changes{v0.3.28:2}{2015/12/03}{If the thesis locale and the
 %   document locale is the same (the default behaviour), the
 %   \cs{thesis@selectLocale} macro is applied globally at the
@@ -64,8 +67,8 @@
 % \changes{v0.3.28:1}{2015/12/02}{The \texttt{draft} option has no
 %   longer an effect on the \textsf{microtype} package. The
 %   \cs{thesis@require} command now also takes an optional
-%   argument and the \cs{thesis@requireWithOption} command has
-%   become \cs{thesis@requireIfExists}. [VN]}
+%   argument and the \cs{thesis@require\-WithOption} command has
+%   become \cs{thesis@require\-IfExists}. [VN]}
 % \changes{v0.3.27:5}{2015/11/30}{The PDF bookmarks are no longer
 %   garbled, when the \Hologo{LuaTeX} engine is used. [VN]}
 % \changes{v0.3.27:4}{2015/11/30}{\cs{thesis@english@declaration}

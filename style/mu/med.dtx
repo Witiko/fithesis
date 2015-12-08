@@ -7,7 +7,7 @@
 % ZITOSTI_ZAVERECNE_PRACE.doc}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fithesis/style/mu/fithesis-med}[2015/11/29]
+\ProvidesPackage{fithesis/style/mu/fithesis-med}[2015/12/08]
 %    \end{macrocode}
 % The file defines the color scheme of the respective faculty.
 %    \begin{macrocode}
@@ -105,7 +105,7 @@
   \fi\pagestyle{empty}
   \parindent 1.5em
   \setcounter{page}{1}
-  \pagenumbering{arabic}}
+  \pagenumbering{roman}}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@mainMatter}
 % The |\thesis@blocks@mainMatter| macro sets up the style
@@ -146,7 +146,8 @@
 % \texttt{style/mu/fithesis-base.sty} file.
 %    \begin{macrocode}
 \def\thesis@blocks@preamble{%
-  \thesis@blocks@cover
+  \thesis@blocks@coverMatter
+    \thesis@blocks@cover
   \thesis@blocks@frontMatter
     \thesis@blocks@titlePage
     \onehalfspacing

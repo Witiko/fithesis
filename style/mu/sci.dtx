@@ -6,7 +6,7 @@
 % \url{http://www.sci.muni.cz/NW/predpisy/od/OD-2014-05.pdf}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fithesis/style/mu/fithesis-sci}[2015/11/29]
+\ProvidesPackage{fithesis/style/mu/fithesis-sci}[2015/12/08]
 %    \end{macrocode}
 % The file defines the color scheme of the respective faculty.
 %    \begin{macrocode}
@@ -324,8 +324,9 @@
 % accordance with the formal requirements of the faculty.
 %    \begin{macrocode}
 \def\thesis@blocks@preamble{{%
-  \thesis@selectLocale{czech}
-  \thesis@blocks@cover
+  \thesis@selectLocale{czech}%
+  \thesis@blocks@coverMatter
+    \thesis@blocks@cover
   \thesis@blocks@frontMatter
     \thesis@blocks@titlePage
     \thesis@blocks@clearRight
