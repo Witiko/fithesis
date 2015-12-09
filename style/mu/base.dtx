@@ -7,29 +7,49 @@
 % after \texttt{style/fithesis-base.sty}, regardless of the value
 % of the |\thesis@style| macro.
 %    \begin{macrocode}
-\ProvidesPackage{fithesis/style/mu/fithesis-base}[2015/11/17]
+\ProvidesPackage{fithesis/style/mu/fithesis-base}[2015/12/09]
 \NeedsTeXFormat{LaTeX2e}
 %    \end{macrocode}
 % The file recognizes the following options: \begin{itemize}
 %   \item\texttt{10pt}, \texttt{11pt}, \texttt{12pt} -- Sets the
-%   type size to 10, 11 or 12 points respectively.
+%     type size to 10, 11 or 12 points respectively.
+%    \begin{macrocode}
+\DeclareOption{10pt}{\def\thesis@ptsize{0}}
+\DeclareOption{11pt}{\def\thesis@ptsize{1}}
+\DeclareOption{12pt}{\def\thesis@ptsize{2}}
+%    \end{macrocode}
 %   \item\texttt{oneside}, \texttt{twoside} -- The document is
-%   going to be either single- or double-sided, respectively. In a
-%   double-sided document, headers, page numbering, margin notes
-%   and several other elements will be arranged based on the parity
-%   of the page. Blank pages will also be inserted prior the
-%   beginning of each chapter to ensure that it starts on a
-%   right-hand (odd-numbered) page. The
-%   \DescribeMacro{\ifthesis@twoside@}|\ifthesis@twoside@|
-%   conditional is set to either \texttt{false} or \texttt{true},
-%   respectively.
+%     going to be either single- or double-sided, respectively. In
+%     a double-sided document, headers, page numbering, margin
+%     notes and several other elements will be arranged based on
+%     the parity of the page. Blank pages will also be inserted
+%     prior the beginning of each chapter to ensure that it starts
+%     on a right-hand (odd-numbered) page. The
+%     \DescribeMacro{\ifthesis@twoside@}|\ifthesis@twoside@|
+%     conditional is set to either \texttt{false} or \texttt{true},
+%     respectively.
+%    \begin{macrocode}
+\newif\ifthesis@twoside@
+\DeclareOption{oneside}{%
+  \thesis@twoside@false\@twosidefalse\@mparswitchfalse}
+\DeclareOption{twoside}{%
+  \thesis@twoside@true \@twosidetrue \@mparswitchtrue}
+%    \end{macrocode}
 %   \item\texttt{onecolumn}, \texttt{twocolumn} -- The document
 %     is going to be set in either a single column or in two
 %     columns, respectively.
+%    \begin{macrocode}
+\DeclareOption{onecolumn}{\@twocolumnfalse}
+\DeclareOption{twocolumn}{\@twocolumntrue}
+%    \end{macrocode}
 %   \item\texttt{draft}, \texttt{final} -- Overful lines either are
 %     or aren't marked within the document, respectively, and
 %     graphics either aren't or are inserted into the document,
 %     respectively.
+%    \begin{macrocode}
+\DeclareOption{draft}{\setlength\overfullrule{5pt}}
+\DeclareOption{final}{\setlength\overfullrule{0pt}}
+%    \end{macrocode}
 %   \item\texttt{palatino}, \texttt{nopalatino} -- The roman
 %     text font family and the math font family is going to be
 %     either set to Palatino or left untouched, respectively. The
@@ -38,12 +58,22 @@
 %     \texttt{true} or \texttt{false}, respectively. The
 %     Palatino font is a part of the visual identity of the Faculty
 %     of Informatics at which the document class was created.
+%    \begin{macrocode}
+\newif\ifthesis@palatino@
+\DeclareOption{palatino}{\thesis@palatino@true}
+\DeclareOption{nopalatino}{\thesis@palatino@false}
+%    \end{macrocode}
 %   \item\texttt{color}, \texttt{monochrome} -- Certain
 %     typographical elements either are or aren't going to be
 %     typeset in color, respectively. The
 %     \DescribeMacro{\ifthesis@color@}|\ifthesis@color@|
 %     conditional is set to either \texttt{true} or \texttt{false},
 %     respectively.
+%    \begin{macrocode}
+\newif\ifthesis@color@
+\DeclareOption{monochrome}{\thesis@color@false}
+\DeclareOption{color}{\thesis@color@true}
+%    \end{macrocode}
 %   \item\texttt{microtype}, \texttt{nomicrotype} -- The
 %     microtypographic extension of modern \TeX\ engines -- such as
 %     \hologo{pdfTeX}, \Hologo{XeTeX}, or \Hologo{LuaTeX} -- is or isn't
@@ -51,6 +81,11 @@
 %     \DescribeMacro{\ifthesis@microtype@}|\ifthesis@microtype@|
 %     conditional is set to either \texttt{true} or \texttt{false},
 %     respectively.
+%    \begin{macrocode}
+\newif\ifthesis@microtype@
+\DeclareOption{microtype}{\thesis@microtype@true}
+\DeclareOption{nomicrotype}{\thesis@microtype@false}
+%    \end{macrocode}
 %   \item\texttt{table}, \texttt{oldtable} -- If the
 %     |\ifthesis@color@| conditional is \texttt{true}, then the
 %     definitions of the \texttt{tabular}, \texttt{tabularx}, and
@@ -59,6 +94,12 @@
 %     \DescribeMacro{\ifthesis@newtable@}|\ifthesis@newtable@|
 %     conditional is set to either \texttt{true} or \texttt{false},
 %     respectively.
+%
+%    \begin{macrocode}
+\newif\ifthesis@newtable@
+\DeclareOption{table}{\thesis@newtable@true}
+\DeclareOption{oldtable}{\thesis@newtable@false}
+%    \end{macrocode}
 %
 %     The choice of the option name is deliberate -- the
 %     redefinition of the table environments depends on the
@@ -77,10 +118,18 @@
 %     or isn't going to be included in the
 %     \DescribeMacro{\thesis@blocks@tables}|\thesis@|^^A
 %     \discretionary{}{}{}|blocks@tables| block, respectively.
+%    \begin{macrocode}
+\DeclareOption{nolot}{\def\thesis@blocks@lot{}}
+\DeclareOption{lot}{\let\thesis@blocks@lot\listoftables}
+%    \end{macrocode}
 %   \item\texttt{lof}, \texttt{nolof} -- |\listoffigures| is or
 %     isn't going to be included in the
 %     \DescribeMacro{\thesis@blocks@tables}|\thesis@|^^A
 %     \discretionary{}{}{}|blocks@tables| block, respectively.
+%    \begin{macrocode}
+\DeclareOption{nolof}{\def\thesis@blocks@lof{}}
+\DeclareOption{lof}{\let\thesis@blocks@lof\listoffigures}
+%    \end{macrocode}
 %   \item\texttt{cover}, \texttt{nocover} -- The
 %     \DescribeMacro{\thesis@blocks@cover}|\thesis@blocks@cover|
 %     either is going to expand to either the thesis cover or
@@ -88,45 +137,24 @@
 %     \DescribeMacro{\ifthesis@cover@}|\ifthesis@cover@|
 %     conditional is set to \texttt{false} or \texttt{true},
 %     respectively.
-% \end{itemize}
 %    \begin{macrocode}
-\DeclareOption{10pt}{\def\thesis@ptsize{0}}
-\DeclareOption{11pt}{\def\thesis@ptsize{1}}
-\DeclareOption{12pt}{\def\thesis@ptsize{2}}
-\newif\ifthesis@twoside@
-\DeclareOption{oneside}{%
-  \thesis@twoside@false\@twosidefalse\@mparswitchfalse}
-\DeclareOption{twoside}{%
-  \thesis@twoside@true \@twosidetrue \@mparswitchtrue}
-\DeclareOption{onecolumn}{\@twocolumnfalse}
-\DeclareOption{twocolumn}{\@twocolumntrue}
-\DeclareOption{draft}{\setlength\overfullrule{5pt}}
-\DeclareOption{final}{\setlength\overfullrule{0pt}}
-\newif\ifthesis@color@
-\DeclareOption{monochrome}{\thesis@color@false}
-\DeclareOption{color}{\thesis@color@true}
-\newif\ifthesis@microtype@
-\DeclareOption{microtype}{\thesis@microtype@true}
-\DeclareOption{nomicrotype}{\thesis@microtype@false}
-\newif\ifthesis@palatino@
-\DeclareOption{palatino}{\thesis@palatino@true}
-\DeclareOption{nopalatino}{\thesis@palatino@false}
-\newif\ifthesis@newtable@
-\DeclareOption{table}{\thesis@newtable@true}
-\DeclareOption{oldtable}{\thesis@newtable@false}
-\DeclareOption{nolot}{\def\thesis@blocks@lot{}}
-\DeclareOption{lot}{\let\thesis@blocks@lot\listoftables}
-\DeclareOption{nolof}{\def\thesis@blocks@lof{}}
-\DeclareOption{lof}{\let\thesis@blocks@lof\listoffigures}
 \newif\ifthesis@cover@
 \DeclareOption{nocover}{\thesis@cover@false}
 \DeclareOption{cover}{\thesis@cover@true}
 %    \end{macrocode}
+%   \item\texttt{digital}, \texttt{printed} -- These macrooptions
+%     set the options that are appropriate for either the printed or
+%     for the digital version of the document, respectively.
+%    \begin{macrocode}
+\DeclareOption{digital}{\ExecuteOptions{color,cover}}
+\DeclareOption{printed}{\ExecuteOptions{monochrome,nocover}}
+%    \end{macrocode}
+% \end{itemize}
 % These are the default options:
 %    \begin{macrocode}
-\ExecuteOptions{12pt,twoside,final,monochrome,microtype,%
-  palatino,oldtable,lot,lof,nocover}
-\ProcessOptions
+\ExecuteOptions{%
+  printed,12pt,twoside,final,microtype,palatino,oldtable,lot,lof}
+\ProcessOptions*
 %    \end{macrocode}
 % The file uses English locale strings within the macros.
 %    \begin{macrocode}

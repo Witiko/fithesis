@@ -1,5 +1,5 @@
 %    \begin{macrocode}
-\documentclass[color,table,nolot]{fithesis3}
+\documentclass[digital,nocover,nolot]{fithesis3}
 \usepackage[english]{babel}
 \usepackage{hologo}
 \usepackage{fancyvrb}
@@ -352,14 +352,26 @@
   \end{minted}
   is used. The following list summarizes the options that are
   supported by the \textsf{fithesis3} class and their meaning.
-  Options that are enabled by default are \textit{set in italics}.
-
+  Options that are enabled by default are
   {\makeatletter
   % This macro formats a default class option.
-  \def\thguide@default{\itshape}
+  \def\thguide@default{\itshape}%
   % This macro formats a class option.
   \let\thguide@itemfmt\textbf
+  % This macro formats a default printed option.
+  \def\thguide@printed{\color{blue}}%
+  % This macro formats a default digital option.
+  \def\thguide@digital{\color{red}}%
+  \thguide@itemfmt{\thguide@default set in italics}.
   \begin{description}
+    \item[digital] This option sets the options that are the
+      default for the digital version of a thesis. These options
+      are \thguide@itemfmt{\thguide@default \thguide@digital set in
+      red}.
+    \item[\thguide@default printed] This option sets the options
+      that are the default for the printed version of a thesis.
+      These options are \thguide@itemfmt{\thguide@default
+      \thguide@printed set in blue}.
     \item[10pt, 11pt, \thguide@default12pt]
       These options set the font size of the main text to either
       10\,pt, 11\,pt, or 12\,pt, respectively. Using the 12\,pt
@@ -456,14 +468,14 @@
 %% Here goes the rest of the document.
       \end{minted}
 %</sci,fi>
-    \item[color]
+    \item[\thguide@default\thguide@digital color]
       This option enables the use of colors. A colorful version of
       the document is more visually pleasing, but shouldn't be used
       in a printed version, if you don't have access to a color
       printer. Unless you have a compelling reason not to, always
       use this option in the electronic version that you are going
       to publish online.
-    \item[\thguide@default monochrome]
+    \item[\thguide@default\thguide@printed monochrome]
       This option disables colors. Disabling colors is generally
       discouraged, unless you don't have access to a color printer.
       However, due to the prevalence of monochrome printing, this
@@ -498,14 +510,14 @@
     \item[nolof]
       This option removes the list of figures from the front matter
       of the thesis.
-    \item[cover]
+    \item[\thguide@default\thguide@digital cover]
       This option instructs the class to typeset the cover of the
       thesis on the first pages of the resulting document. A cover
       should be generally present in the electronic version of the
       document for completeness. The cover should not appear inside
       the printed document and should only serve as a template for
       the text imprinted on the front cover of the thesis cover.
-    \item[\thguide@default nocover]
+    \item[\thguide@default\thguide@printed nocover]
       This option forbids the typesetting of the thesis cover.
       Use, if you are typesetting the printed version of a thesis
       and you are not going to have a cover made for your thesis.
