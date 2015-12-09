@@ -253,8 +253,10 @@
   \fi
 \fi
 %    \end{macrocode}
-% If the |\thesis@newtable@| and |\thesis@color@| conditionals are
-% \texttt{true}, then the following packages get loaded:
+% If the |\thesis@newtable@| conditional is \texttt{true}, then
+% some of the dimensions associated with tables are modified in
+% preparation for the coloring of the table cells. The following
+% packages are also loaded:
 % \begin{itemize}
 %   \item\textsf{tabularx} -- Provides the \texttt{tabularx}
 %     environment, which enables the typesetting of tables with
@@ -264,7 +266,21 @@
 %   \item\textsf{booktabs} -- A package, which allows the creation
 %     of publication-quality tables in \LaTeX.
 % \end{itemize}
-% Subsequently, the \texttt{tabular} and \texttt{tabularx}
+%    \begin{macrocode}
+\let\thesis@newtable@old\tabular
+\let\endthesis@newtable@old\endtabular
+\ifthesis@newtable@
+  % Load the packages.
+  \thesis@require{tabularx}
+  \thesis@require{tabu}
+  \thesis@require{booktabs}
+  % Adjust the measurements.
+  \setlength{\aboverulesep}{0pt}
+  \setlength{\belowrulesep}{0pt}
+  \setlength{\extrarowheight}{.75ex}
+%    \end{macrocode}
+% When both the |\thesis@newtable@| and |\thesis@color@| conditionals are
+% \texttt{true}, then the \texttt{tabular} and \texttt{tabularx}
 % environments are redefined to better match the style of the given
 % faculty.
 % 
@@ -281,39 +297,31 @@
 % and \DescribeMacro{\endthesis@newtable@oldtabu}
 % |\endthesis@newtable@oldtabu| for the |tabu| environment.
 %    \begin{macrocode}
-\let\thesis@newtable@old\tabular
-\let\endthesis@newtable@old\endtabular
-\ifthesis@newtable@\ifthesis@color@
-  \thesis@require{tabularx}
-  \thesis@require{tabu}
-  \thesis@require{booktabs}
-  % The redefinition of `tabular`
-  \renewenvironment{tabular}%
-    {\rowcolors{1}{thesis@color@tableOdd}%
-                  {thesis@color@tableEven}%
-     \thesis@newtable@old}%
-    {\endthesis@newtable@old}
-  % The redefinition of `tabularx`
-  \let\thesis@newtable@oldx\tabularx
-  \let\endthesis@newtable@oldx\endtabularx
-  \renewenvironment{tabularx}%
-    {\rowcolors{1}{thesis@color@tableOdd}%
-                  {thesis@color@tableEven}%
-     \thesis@newtable@oldx}%
-    {\endthesis@newtable@oldx}
-  % The redefinition of `tabu`
-  \let\thesis@newtable@oldtabu\tabu
-  \let\endthesis@newtable@oldtabu\endtabu
-  \renewenvironment{tabu}%
-    {\rowcolors{1}{thesis@color@tableOdd}%
-                  {thesis@color@tableEven}%
-     \thesis@newtable@oldtabu}%
-    {\endthesis@newtable@oldtabu}
-  % Adjust the measurements
-  \setlength{\aboverulesep}{0pt}
-  \setlength{\belowrulesep}{0pt}
-  \setlength{\extrarowheight}{.75ex}
-\fi\fi
+  \ifthesis@color@
+    % The redefinition of `tabular`
+    \renewenvironment{tabular}%
+      {\rowcolors{1}{thesis@color@tableOdd}%
+                    {thesis@color@tableEven}%
+       \thesis@newtable@old}%
+      {\endthesis@newtable@old}
+    % The redefinition of `tabularx`
+    \let\thesis@newtable@oldx\tabularx
+    \let\endthesis@newtable@oldx\endtabularx
+    \renewenvironment{tabularx}%
+      {\rowcolors{1}{thesis@color@tableOdd}%
+                    {thesis@color@tableEven}%
+       \thesis@newtable@oldx}%
+      {\endthesis@newtable@oldx}
+    % The redefinition of `tabu`
+    \let\thesis@newtable@oldtabu\tabu
+    \let\endthesis@newtable@oldtabu\endtabu
+    \renewenvironment{tabu}%
+      {\rowcolors{1}{thesis@color@tableOdd}%
+                    {thesis@color@tableEven}%
+       \thesis@newtable@oldtabu}%
+      {\endthesis@newtable@oldtabu}
+  \fi
+\fi
 %    \end{macrocode}
 % The \textsf{hyperref} package is configured to support both roman
 % and arabic page numbering in one document and to decorate
