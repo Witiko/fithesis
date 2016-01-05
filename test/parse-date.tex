@@ -1,0 +1,40 @@
+\documentclass{fithesis3}
+\thesissetup{autoLayout=false}
+\begin{document}\makeatletter
+  % Unit tests for the `\thesis@parseDate` function.
+  \def\test#1#2#3#4#5#6#7{%
+    \def\expected@date{#1}
+    \def\expected@year{#2}
+    \def\expected@month{#3}
+    \def\expected@day{#4}
+    \def\expected@season{#5}
+    \def\expected@seasonYear{#6}
+    \def\expected@academicYear{#7}
+    \thesis@parseDate#1|
+    \ifx\thesis@date\expected@date
+    \ifx\thesis@year\expected@year
+    \ifx\thesis@month\expected@month
+    \ifx\thesis@day\expected@day
+    \ifx\thesis@season\expected@season
+    \ifx\thesis@seasonYear\expected@seasonYear
+    \ifx\thesis@academicYear\expected@academicYear
+    \else\errmessage{#1 @academicYear: \thesis@academicYear !=#7}\fi
+    \else\errmessage{#1 @seasonYear: \thesis@seasonYear !=#6}\fi
+    \else\errmessage{#1 @season: \thesis@season !=#5}\fi
+    \else\errmessage{#1 @day: \thesis@day !=#4}\fi
+    \else\errmessage{#1 @month: \thesis@month !=#3}\fi
+    \else\errmessage{#1 @year: \thesis@year !=#2}\fi
+    \else\errmessage{#1 @date: \thesis@date !=#1}\fi}
+  \test{2015/01/01}{2015}{01}{01}{fall}{2014}{2014/2015}
+  \test{2015/02/01}{2015}{02}{01}{fall}{2014}{2014/2015}
+  \test{2015/03/01}{2015}{03}{01}{spring}{2015}{2014/2015}
+  \test{2015/04/01}{2015}{04}{01}{spring}{2015}{2014/2015}
+  \test{2015/05/01}{2015}{05}{01}{spring}{2015}{2014/2015}
+  \test{2015/06/01}{2015}{06}{01}{spring}{2015}{2014/2015}
+  \test{2015/07/01}{2015}{07}{01}{spring}{2015}{2014/2015}
+  \test{2015/08/01}{2015}{08}{01}{spring}{2015}{2014/2015}
+  \test{2015/09/01}{2015}{09}{01}{fall}{2015}{2015/2016}
+  \test{2015/10/01}{2015}{10}{01}{fall}{2015}{2015/2016}
+  \test{2015/11/01}{2015}{11}{01}{fall}{2015}{2015/2016}
+  \test{2015/12/01}{2015}{12}{01}{fall}{2015}{2015/2016}
+\makeatother\end{document}

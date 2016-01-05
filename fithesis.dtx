@@ -17,6 +17,7 @@
 \usepackage{microtype}
 \usepackage{ragged2e}
 \usepackage{paralist}
+\usepackage{multicol}
 
 % Making paragraphs numbered
 \makeatletter
@@ -51,11 +52,15 @@
 %<*class>
 \NeedsTeXFormat{LaTeX2e}
 % Define `\thesis@version` and store it in the `VERSION.tex` file \fi
-\def\thesis@version{2015/12/09 v0.3.29 fithesis3 MU thesis class}
+\def\thesis@version{2015/01/05 v0.3.30 fithesis3 MU thesis class}
 % {\newwrite\f\openout\f=VERSION\write\f{\thesis@version}\closeout\f}
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
+% \changes{v0.3.30}{2015/01/05}{The \cs{thesis@seasonYear} macro
+%   has been added, which, unlike \cs{thesis@year} takes into
+%   account the fact that January and Fabruary of the year $n$
+%   still belong to the fall semester of the year $n-1$.}
 % \changes{v0.3.29:3}{2015/12/09}{The \texttt{table} class option
 %   for the style files of the Masaryk University in Brno now loads
 %   all the required packages and changes the table measurements
@@ -876,20 +881,30 @@
 % stands for day. The \textit{date} is parsed and stored using
 % the \DescribeMacro{\thesis@parseDate}|\thesis@parseDate|
 % macro within the following macros:
+% \begin{multicols}{2}
 % \begin{itemize}
 %   \item\DescribeMacro{\thesis@date}|\thesis@date| -- The entire
 %     \textit{date}
 %   \item\DescribeMacro{\thesis@year}|\thesis@year| -- The
-%     \texttt{YYYY} part of \textit{date}
+%     \texttt{YYYY} of \textit{date}
 %   \item\DescribeMacro{\thesis@month}|\thesis@month| -- The
-%     \texttt{MM} part of \textit{date}
+%     \texttt{MM} of \textit{date}
 %   \item\DescribeMacro{\thesis@day}|\thesis@day| -- The
-%     \texttt{DD} part of \textit{date}
+%     \texttt{DD} of \textit{date}
+% \end{itemize}
+% \end{multicols}
+% \begin{itemize}
 %   \item\DescribeMacro{\thesis@season}|\thesis@season| -- Expands
 %     to either:
 %     \begin{itemize}
 %       \item\texttt{spring} if $2<{}$\texttt{MM}${}<9$,
 %       \item\texttt{fall} if \texttt{MM}${}\leq2$ or \texttt{MM}${}\geq9$.
+%     \end{itemize}
+%   \item\DescribeMacro{\thesis@seasonYear}|\thesis@seasonYear|
+%     -- The year of the given semester:
+%     \begin{itemize}
+%       \item\texttt{YYYY}${}-1$ if \texttt{MM}${}\leq2$.
+%       \item\texttt{YYYY} if \texttt{MM}${}>2$
 %     \end{itemize}
 %   \item\DescribeMacro{\thesis@academicYear}|\thesis@academicYear|
 %     -- The academic year of the given semester:
@@ -921,11 +936,18 @@
   \ifnum\@month>8%
                     \edef\@yearA{\the\@year}%
     \advance\@year 1\edef\@yearB{\the\@year}%
+    \advance\@year-1
   \else
     \advance\@year-1\edef\@yearA{\the\@year}%
     \advance\@year 1\edef\@yearB{\the\@year}%
   \fi
-  \global\edef\thesis@academicYear{\@yearA/\@yearB}}}
+  \global\edef\thesis@academicYear{\@yearA/\@yearB}
+  
+  % Set the season year
+  \ifnum\@month>2\else
+    \advance\@year-1
+  \fi
+  \global\edef\thesis@seasonYear{\the\@year}}}
 
 \edef\thesis@date{\the\year/\the\month/\the\day}%
 \expandafter\thesis@parseDate\thesis@date|%
