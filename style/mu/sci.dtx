@@ -6,7 +6,7 @@
 % \url{http://www.sci.muni.cz/NW/predpisy/od/OD-2014-05.pdf}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fithesis/style/mu/fithesis-sci}[2015/12/08]
+\ProvidesPackage{fithesis/style/mu/fithesis-sci}[2016/01/07]
 %    \end{macrocode}
 % The file defines the color scheme of the respective faculty.
 %    \begin{macrocode}
@@ -89,11 +89,11 @@
     % Unless this is a rigorous thesis, we will be typesetting the
     % name of the thesis advisor.
     \let\@E\relax\newlength{\@E}
-      \ifx\thesis@type\thesis@rigorous%
+      \ifx\thesis@type\thesis@rigorous
         \setlength{\@E}{0pt}%
-      \else%
+      \else
         \settowidth{\@E}{{\bf\thesis@czech@bib@advisor:}}
-      \fi%
+      \fi
     \let\@F\relax\newlength{\@F}\settowidth{\@F}{{%
       \bf\thesis@czech@bib@academicYear:}}
     \let\@G\relax\newlength{\@G}\settowidth{\@G}{{%
@@ -124,7 +124,7 @@
         & \thesis@field \\
       % Unless this is a rigorous thesis, typeset the name of the
       % thesis advisor.
-      \ifx\thesis@type\thesis@rigorous\else%
+      \ifx\thesis@type\thesis@rigorous\else
         \textbf{\thesis@czech@bib@advisor:}
           & \thesis@advisor \\
       \fi
@@ -189,11 +189,11 @@
     % Unless this is a rigorous thesis, we will be typesetting
     % the name of the thesis advisor.
     \let\@E\relax\newlength{\@E}
-      \ifx\thesis@type\thesis@rigorous%
+      \ifx\thesis@type\thesis@rigorous
         \setlength{\@E}{0pt}%
-      \else%
+      \else
         \settowidth{\@E}{{\bf\thesis@english@bib@advisor:}}
-      \fi%
+      \fi
     \let\@F\relax\newlength{\@F}\settowidth{\@F}{{%
       \bf\thesis@english@bib@academicYear:}}
     \let\@G\relax\newlength{\@G}\settowidth{\@G}{{%
@@ -224,7 +224,7 @@
           & \thesis@fieldEn \\
         % Unless this is a rigorous thesis, typeset the name of the
         % thesis advisor.
-        \ifx\thesis@type\thesis@rigorous\else%
+        \ifx\thesis@type\thesis@rigorous\else
           \textbf{\thesis@english@bib@advisor:}
             & \thesis@advisor \\
         \fi
@@ -307,12 +307,12 @@
     {\bf\thesis@titlePage@LARGE\thesis@author\\}
     \vfill\noindent
     % The bottom of the page
-    {\bf\thesis@titlePage@normalsize%
+    {\bf\thesis@titlePage@normalsize
       % Unless this is a rigorous thesis, typeset the name of the
       % thesis advisor.
-      \ifx\thesis@type\thesis@rigorous\else%
-          \thesis@czech@advisorTitle: \thesis@advisor\hfill%
-      \fi%
+      \ifx\thesis@type\thesis@rigorous\else
+          \thesis@czech@advisorTitle: \thesis@advisor\hfill
+      \fi
       \thesis@place\ \thesis@year}
   \end{alwayssingle}}
 %    \end{macrocode}

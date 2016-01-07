@@ -2,7 +2,7 @@
 % This is the base file of the English locale.\iffalse
 %<*base>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/fithesis-english.def}[2016/01/05]
+\ProvidesFile{fithesis/locale/fithesis-english.def}[2016/01/07]
 %    \end{macrocode}
 % The locale file defines all the private macros mandated by the
 % locale file interface.
@@ -32,15 +32,15 @@
 \gdef\thesis@english@semester{%
   \thesis@{english@\thesis@season} \thesis@seasonYear}
 \gdef\thesis@english@typeName{%
-  \ifx\thesis@type\thesis@bachelors%
+  \ifx\thesis@type\thesis@bachelors
     Bachelor's Thesis%
-  \else\ifx\thesis@type\thesis@masters%
+  \else\ifx\thesis@type\thesis@masters
     Master's Thesis%
-  \else\ifx\thesis@type\thesis@doctoral%
+  \else\ifx\thesis@type\thesis@doctoral
     Doctoral Thesis%
-  \else\ifx\thesis@type\thesis@rigorous%
+  \else\ifx\thesis@type\thesis@rigorous
     Rigorous Thesis%
-  \else%
+  \else
     <<Unknown thesis type (\thesis@type)>>%
   \fi\fi\fi\fi}
 %    \end{macrocode}\iffalse

@@ -2,7 +2,7 @@
 % This is the base file of the Slovak locale.\iffalse
 %<*base>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/fithesis-slovak.def}[2016/01/05]
+\ProvidesFile{fithesis/locale/fithesis-slovak.def}[2016/01/07]
 %    \end{macrocode}
 % The locale file defines all the private macros mandated by the
 % locale file interface.
@@ -43,27 +43,27 @@
 \gdef\thesis@slovak@semester{%
   \thesis@{slovak@\thesis@season} \thesis@seasonYear}
 \gdef\thesis@slovak@typeName{%
-  \ifx\thesis@type\thesis@bachelors%
+  \ifx\thesis@type\thesis@bachelors
     Bakalárska práca%
-  \else\ifx\thesis@type\thesis@masters%
+  \else\ifx\thesis@type\thesis@masters
     Diplomová práca%
-  \else\ifx\thesis@type\thesis@doctoral%
+  \else\ifx\thesis@type\thesis@doctoral
     Dizertačná práca%
-  \else\ifx\thesis@type\thesis@rigorous%
+  \else\ifx\thesis@type\thesis@rigorous
     Rigorózna práca%
-  \else%
+  \else
     <<Neznámy typ práce (\thesis@type)>>%
   \fi\fi\fi\fi}
 \gdef\thesis@slovak@typeName@akuzativ{%
-  \ifx\thesis@type\thesis@bachelors%
+  \ifx\thesis@type\thesis@bachelors
     Bakalársku prácu%
-  \else\ifx\thesis@type\thesis@masters%
+  \else\ifx\thesis@type\thesis@masters
     Diplomovú prácu%
-  \else\ifx\thesis@type\thesis@doctoral%
+  \else\ifx\thesis@type\thesis@doctoral
     Dizertačnú prácu%
-  \else\ifx\thesis@type\thesis@rigorous%
+  \else\ifx\thesis@type\thesis@rigorous
     Rigoróznu prácu%
-  \else%
+  \else
     <<Neznámy typ práce (\thesis@type)>>%
   \fi\fi\fi\fi}
 %    \end{macrocode}\iffalse
@@ -231,7 +231,7 @@
 % \iffalse
 %<*mu/phil>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/mu/phil/fithesis-slovak.def}[2015/06/26]
+\ProvidesFile{fithesis/locale/mu/phil/fithesis-slovak.def}[2016/01/07]
 
 % Zástupné texty
 \gdef\thesis@slovak@facultyName{Filozofická fakulta}
@@ -244,23 +244,23 @@
 
 % Rôzne
 \gdef\thesis@slovak@typeName{%
-  \ifx\thesis@type\thesis@bachelors%
+  \ifx\thesis@type\thesis@bachelors
     Bakalárska diplomová práca%
-  \else\ifx\thesis@type\thesis@masters%
+  \else\ifx\thesis@type\thesis@masters
     Magisterská diplomová práca%
-  \else\ifx\thesis@type\thesis@doctoral%
+  \else\ifx\thesis@type\thesis@doctoral
     Dizertačná práca%
-  \else%
+  \else
     <<Neznámy typ práce (\thesis@type)>>%
   \fi\fi\fi}
 \gdef\thesis@slovak@typeName@akuzativ{%
-  \ifx\thesis@type\thesis@bachelors%
+  \ifx\thesis@type\thesis@bachelors
     Diplomovú prácu%
-  \else\ifx\thesis@type\thesis@masters%
+  \else\ifx\thesis@type\thesis@masters
     Diplomovú prácu%
-  \else\ifx\thesis@type\thesis@doctoral%
+  \else\ifx\thesis@type\thesis@doctoral
     Dizertačnú prácu%
-  \else%
+  \else
     <<Neznámý typ práce (\thesis@type)>>%
   \fi\fi\fi}
 %    \end{macrocode}\iffalse

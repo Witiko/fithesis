@@ -6,7 +6,7 @@
 % \url{http://www.fi.muni.cz/docs/BP_DP_na_FI.pdf}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fithesis/style/mu/fithesis-fi}[2015/12/08]
+\ProvidesPackage{fithesis/style/mu/fithesis-fi}[2016/01/07]
 %    \end{macrocode}
 % The file defines the color scheme of the respective faculty.
 %    \begin{macrocode}
@@ -43,7 +43,7 @@
     {\thesis@titlePage@Large\bf\thesis@author}
     % If this is a rigorous thesis, typeset the name of the
     % thesis advisor.
-    \ifx\thesis@type\thesis@rigorous%
+    \ifx\thesis@type\thesis@rigorous
       {\thesis@titlePage@large\\[0.3in]
         {\bf\thesis@@{advisorTitle}:} \thesis@advisor}
     \fi}%
@@ -51,7 +51,7 @@
   {\thesis@titlePage@large\thesis@place, \thesis@@{semester}
   % If this is a rigorous thesis, create space for the advisor's
   % signature
-  \ifx\thesis@type\thesis@rigorous%
+  \ifx\thesis@type\thesis@rigorous
     \let\@A\relax\newlength{\@A}
       \settowidth{\@A}{\thesis@@{advisorSignature}}
       \setlength{\@A}{\@A+1cm}
@@ -69,15 +69,15 @@
 % typesets the advisor's name at the bottom of the page.
 % \begin{macrocode}
 \def\thesis@blocks@declaration{%
-  \thesis@blocks@clear%
+  \thesis@blocks@clear
   \begin{alwayssingle}%
     \chapter*{\thesis@@{declarationTitle}}%
-    \thesis@declaration%
+    \thesis@declaration
     \vskip 2cm%
-    \hfill\thesis@author%
-    \par\vfill\noindent%
-    \textbf{\thesis@@{advisorTitle}:} \thesis@advisor%
-    \par\vfil%
+    \hfill\thesis@author
+    \par\vfill\noindent
+    \textbf{\thesis@@{advisorTitle}:} \thesis@advisor
+    \par\vfil
   \end{alwayssingle}}
 %    \end{macrocode}
 % \end{macro}

@@ -152,7 +152,7 @@
   \textsf{hyperref}, \textsf{microtype}%
   {\makeatletter
   % This macro typesets loaded packages.
-  \def\thguide@prnpkg#1{\ltx@ifpackageloaded%
+  \def\thguide@prnpkg#1{\ltx@ifpackageloaded
     {#1}{, \textsf{#1}}{}}%
   \thguide@prnpkg{tikz}%
   \thguide@prnpkg{changepage}%
@@ -410,7 +410,7 @@
       theses%
 %<*econ,med>
       , although it is more readable and uses the page more
-      effectively in the case of the \thesis@english@facultyName%
+      effectively in the case of the \thesis@english@facultyName
 %</econ,med>
       ; you should consult its use with your thesis advisor. If you
       decide to use the two-column format, remember that you also
@@ -852,15 +852,15 @@
   {\makeatletter
     % This macro typesets the meaning of another macro.
     \def\thguide@macromeaning#1{%
-      \let\ea\expandafter%
-      \ea\let\ea\thguide@macro\csname#1\endcsname%
+      \let\ea\expandafter
+      \ea\let\ea\thguide@macro\csname#1\endcsname
       \ea\def\ea\thguide@meaning\ea{\meaning\thguide@macro}%
       \def\thguide@parse##1 ##2{%
         ##1\ifx##2\relax\ea\@gobbletwo\else\\\fi\thguide@parse##2}%
       \begin{verse}%
-        \ea\ifx\thguide@macro\relax%
+        \ea\ifx\thguide@macro\relax
           $\langle$\emph{empty}$\rangle$
-        \else%
+        \else
           \tt\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea
           \ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\thguide@parse\ea
           \ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\@gobbletwo\ea

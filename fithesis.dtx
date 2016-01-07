@@ -52,11 +52,15 @@
 %<*class>
 \NeedsTeXFormat{LaTeX2e}
 % Define `\thesis@version` and store it in the `VERSION.tex` file \fi
-\def\thesis@version{2016/01/07 v0.3.31:1-dev fithesis3 MU thesis class}
+\def\thesis@version{2016/01/07 v0.3.31:2-dev fithesis3 MU thesis class}
 % {\newwrite\f\openout\f=VERSION\write\f{\thesis@version}\closeout\f}
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
+% \changes{v0.3.31:2}{2016/01/07}{All trailing \%s were removed.
+%   Some of the inherited \textsf{fithesis2} code in the
+%   \texttt{fithesis-1*.clo} and \texttt{style/mu/fithesis-base.sty}
+%   files was refactored and reformatted.}
 % \changes{v0.3.31:1}{2016/01/07}{The redefinition of \cs{appendix}
 %   from the \texttt{fithesis-1*.clo}, which broke the hyperref
 %   links to the appendices, were removed.}
@@ -407,9 +411,9 @@
 %    \begin{macrocode}
 \def\thesis@basepath{fithesis/}
 \define@key{thesis}{basePath}{%
-  \ifx\thesis@empty#1\thesis@empty%
+  \ifx\thesis@empty#1\thesis@empty
     \def\thesis@basepath{}%
-  \else%
+  \else
     \def\thesis@basepath{#1/}%
   \fi}
 %    \end{macrocode}
@@ -477,7 +481,7 @@
       \else%              /<path> -> /<path>/
         #1#2#3#4/%
       \fi
-    \else%
+    \else
       \if#1.%
         \ifx#2\empty%           . -> ./
           ./%
@@ -503,7 +507,7 @@
       \else
         \thesis@basepath#1#2#3#4/%
       \fi
-    \fi%
+    \fi
   \fi}
 %    \end{macrocode}
 % \end{macro}
@@ -544,10 +548,10 @@
 \define@key{thesis}{gender}{%
   \def\thesis@male{m}%
   \def\thesis@arg{#1}%
-  \ifx\thesis@male\thesis@arg%
-    \thesis@womanfalse%
-  \else%
-    \thesis@womantrue%
+  \ifx\thesis@male\thesis@arg
+    \thesis@womanfalse
+  \else
+    \thesis@womantrue
   \fi}
 %    \end{macrocode}
 % \end{macro}
@@ -572,7 +576,7 @@
 %    \begin{macrocode}
 \def\thesis@parseAuthor#1{%
   \def\thesis@author{#1}%
-  \def\thesis@author@head{\expandafter\expandafter\expandafter%
+  \def\thesis@author@head{\expandafter\expandafter\expandafter
     \@gobble\thesis@head#1 \relax}%
   \def\thesis@author@tail{\thesis@tail#1 \relax}}
 \thesis@def{author}%
@@ -826,7 +830,7 @@
 %    \begin{macrocode}
 \def\thesis@locale{%
   % Babel / polyglossia detection
-  \ifx\languagename\undefined%
+  \ifx\languagename\undefined
   english\else\languagename\fi}
 \define@key{thesis}{locale}{%
   \def\thesis@locale{#1}}
@@ -841,15 +845,15 @@
 % or not the current locale is English.
 %    \begin{macrocode}
 \def\ifthesis@english{
-  \expandafter\def\expandafter\@english\expandafter{\string%
+  \expandafter\def\expandafter\@english\expandafter{\string
   \english}%
-  \expandafter\expandafter\expandafter\def\expandafter%
-  \expandafter\expandafter\@locale\expandafter\expandafter%
+  \expandafter\expandafter\expandafter\def\expandafter
+  \expandafter\expandafter\@locale\expandafter\expandafter
   \expandafter{\expandafter\string\csname\thesis@locale\endcsname}%
-  \expandafter\csname\expandafter i\expandafter f\ifx\@locale%
-  \@english%
+  \expandafter\csname\expandafter i\expandafter f\ifx\@locale
+  \@english
     true%
-  \else%
+  \else
     false%
   \fi\endcsname}
 %    \end{macrocode}
@@ -1147,10 +1151,10 @@
 \define@key{thesis}{autoLayout}[true]{%
   \def\@true{true}%
   \def\@arg{#1}%
-  \ifx\@true\@arg%
-    \thesis@autotrue%
-  \else%
-    \thesis@autofalse%
+  \ifx\@true\@arg
+    \thesis@autotrue
+  \else
+    \thesis@autofalse
   \fi}
 %    \end{macrocode}
 % \end{macro} ^^A The nested \ifthesis@auto macro definition
@@ -1219,9 +1223,9 @@
 \newif\ifthesis@loaded\thesis@loadedfalse
 \AtEndPreamble{\thesis@load}
 \def\thesis@load{%
-  \ifthesis@loaded\else%
+  \ifthesis@loaded\else
     \thesis@loadedtrue
-    \makeatletter%
+    \makeatletter
 %    \end{macrocode}
 % First, the name of the main locale file is fully expanded and
 % loaded using the |\thesis@requireLocale| macro. If the user
@@ -1337,11 +1341,11 @@
 % named package files within the \TeX\ directory structure.
 %    \begin{macrocode}
 \def\thesis@requireStyle#1{%
-  \ifthesis@style@inheritance%
+  \ifthesis@style@inheritance
     \thesis@requireIfExists{\thesis@stylepath fithesis-base}%
-    \thesis@requireIfExists{\thesis@stylepath\thesis@university%
+    \thesis@requireIfExists{\thesis@stylepath\thesis@university
       /fithesis-base}
-  \fi%
+  \fi
   \thesis@requireIfExists{\thesis@stylepath#1}}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@requireLocale}
@@ -1372,11 +1376,11 @@
 %    \begin{macrocode}
 \def\thesis@requireLocale#1{%
   % Ignore redundant requests
-  \expandafter\ifx\csname thesis@#1@required\endcsname\relax%
+  \expandafter\ifx\csname thesis@#1@required\endcsname\relax
     \expandafter\def\csname thesis@#1@required\endcsname{}%
     \@ifpackageloaded{polyglossia}{\setotherlanguage{#1}}{}
     \thesis@input{\thesis@localepath fithesis-#1.def}%
-    \ifthesis@locale@inheritance%
+    \ifthesis@locale@inheritance
       \thesis@input{\thesis@localepath\thesis@university/%
         fithesis-#1.def}%
       \thesis@input{\thesis@localepath\thesis@university/%
@@ -1412,13 +1416,13 @@
 % active characters and command sequences.
 %    \begin{macrocode}
 \def\thesis@lower#1{{%
-  \let\ea\expandafter%
+  \let\ea\expandafter
   \ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\lowercase\ea\ea\ea
   \ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea{\ea\ea\ea\ea\ea\ea\ea\ea\ea
   \ea\ea\ea\ea\ea\ea\@gobble\ea\ea\ea\string\ea\csname\csname the%
   sis@#1\endcsname\endcsname}}}
 \def\thesis@upper#1{{%
-  \let\ea\expandafter%
+  \let\ea\expandafter
   \ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\uppercase\ea\ea\ea
   \ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea{\ea\ea\ea\ea\ea\ea\ea\ea\ea
   \ea\ea\ea\ea\ea\ea\@gobble\ea\ea\ea\string\ea\csname\csname the%
@@ -1444,16 +1448,16 @@
 %    \begin{macrocode}
 \def\thesis@head#1 #2{%
   \ifx\relax#2%
-    \expandafter\@gobbletwo%
-  \else%
+    \expandafter\@gobbletwo
+  \else
     \ #1%
-  \fi%
+  \fi
   \thesis@head#2}%
 \def\thesis@tail#1 #2{%
   \ifx\relax#2%
     #1%
-    \expandafter\@gobbletwo%
-  \fi%
+    \expandafter\@gobbletwo
+  \fi
   \thesis@tail#2}%
 %    \end{macrocode}
 % \subsection{General purpose macros}
