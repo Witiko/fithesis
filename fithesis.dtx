@@ -52,11 +52,14 @@
 %<*class>
 \NeedsTeXFormat{LaTeX2e}
 % Define `\thesis@version` and store it in the `VERSION.tex` file \fi
-\def\thesis@version{2016/01/05 v0.3.30 fithesis3 MU thesis class}
+\def\thesis@version{2016/01/07 v0.3.31:1-dev fithesis3 MU thesis class}
 % {\newwrite\f\openout\f=VERSION\write\f{\thesis@version}\closeout\f}
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
+% \changes{v0.3.31:1}{2016/01/07}{The redefinition of \cs{appendix}
+%   from the \texttt{fithesis-1*.clo}, which broke the hyperref
+%   links to the appendices, were removed.}
 % \changes{v0.3.30}{2016/01/05}{The \cs{thesis@seasonYear} macro
 %   has been added, which, unlike \cs{thesis@year} takes into
 %   account the fact that January and Fabruary of the year $n$

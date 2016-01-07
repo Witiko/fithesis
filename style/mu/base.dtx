@@ -7,7 +7,7 @@
 % after \texttt{style/fithesis-base.sty}, regardless of the value
 % of the |\thesis@style| macro.
 %    \begin{macrocode}
-\ProvidesPackage{fithesis/style/mu/fithesis-base}[2015/12/09]
+\ProvidesPackage{fithesis/style/mu/fithesis-base}[2016/01/07]
 \NeedsTeXFormat{LaTeX2e}
 %    \end{macrocode}
 % The file recognizes the following options: \begin{itemize}
@@ -329,8 +329,7 @@
 %    \begin{macrocode}
 \thesis@require{hyperref}
 \hypersetup{
-  pdfborderstyle={/S/U/W 1}, % Less obtrusive borders
-  plainpages=false}          % Multiple page numbering support
+  pdfborderstyle={/S/U/W 1}}
 %    \end{macrocode}
 % Clubs and widows are set to be infinitely bad.
 %    \begin{macrocode}
@@ -1283,12 +1282,6 @@
      .2ex}{-1em}{\reset@font\normalsize\bfseries}}
 
 \setcounter{secnumdepth}{2}
-
-\def\appendix{\par
-  \setcounter{chapter}{0}%
-  \setcounter{section}{0}%
-  \def\@chapapp{\appendixname}%
-  \def\thechapter{\Alph{chapter}}}
 
 \leftmargini 2.5em
 \leftmarginii 2.2em     % > \labelsep + width of '(m)'
