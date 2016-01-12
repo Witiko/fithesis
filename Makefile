@@ -18,6 +18,8 @@ TESTS=test/*.tex
 MAKES=guide/mu/Makefile guide/mu/resources/Makefile \
 	locale/Makefile	logo/mu/Makefile Makefile style/Makefile \
 	style/mu/Makefile test/Makefile
+USEREXAMPLE_SOURCES=example/mu/Makefile example/mu/example.dtx \
+	example/mu/*.ins
 USEREXAMPLES=example/mu/econ-lualatex.pdf \
 	example/mu/econ-pdflatex.pdf example/mu/fi-lualatex.pdf \
 	example/mu/fi-pdflatex.pdf example/mu/fsps-lualatex.pdf \
@@ -109,7 +111,8 @@ $(TDSARCHIVE):
 
 # This target generates a distribution file.
 $(DISTARCHIVE): $(SOURCES) $(LATEXFILES) $(MAKES) $(TESTS) \
-	$(DOCS) $(PDFSOURCES) $(MISCELLANEOUS) $(EXAMPLES) $(VERSION)
+	$(USEREXAMPLE_SOURCES) $(DOCS) $(PDFSOURCES) $(MISCELLANEOUS) \
+	$(EXAMPLES) $(VERSION)
 	DIR=`mktemp -d` && \
 	cp --verbose $(TDSARCHIVE) "$$DIR" && \
 	cp --parents --verbose $^ "$$DIR" && \
