@@ -2,7 +2,7 @@
 % This is the base file of the Slovak locale.\iffalse
 %<*base>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/fithesis-slovak.def}[2016/01/07]
+\ProvidesFile{fithesis/locale/fithesis-slovak.def}[2016/01/13]
 %    \end{macrocode}
 % The locale file defines all the private macros mandated by the
 % locale file interface.
@@ -29,6 +29,12 @@
   oficiálneho podpísaného zadania práce.}
 \gdef\thesis@slovak@declaration{Text prehlásenie ...}
 
+% Časové údaje
+\gdef\thesis@slovak@spring{jar}
+\gdef\thesis@slovak@fall{jeseň}
+\gdef\thesis@slovak@semester{%
+  \thesis@{slovak@\thesis@season} \thesis@seasonYear}
+
 % Rôzne
 \gdef\thesis@slovak@fieldTitle{Odbor}
 \gdef\thesis@slovak@advisorTitle{Vedúci práce}
@@ -38,10 +44,6 @@
 \gdef\thesis@slovak@thanksTitle{Poďakovanie}
 \gdef\thesis@slovak@declarationTitle{Prehlásenie}
 \gdef\thesis@slovak@idTitle{ID}
-\gdef\thesis@slovak@spring{jar}
-\gdef\thesis@slovak@fall{jeseň}
-\gdef\thesis@slovak@semester{%
-  \thesis@{slovak@\thesis@season} \thesis@seasonYear}
 \gdef\thesis@slovak@typeName{%
   \ifx\thesis@type\thesis@bachelors
     Bakalárska práca%

@@ -52,11 +52,18 @@
 %<*class>
 \NeedsTeXFormat{LaTeX2e}
 % Define `\thesis@version` and store it in the `VERSION.tex` file \fi
-\def\thesis@version{2016/01/07 v0.3.31:2-dev fithesis3 MU thesis class}
+\def\thesis@version{2016/01/13 v0.3.31:3-dev fithesis3 MU thesis class}
 % {\newwrite\f\openout\f=VERSION\write\f{\thesis@version}\closeout\f}
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
+% \changes{v0.3.31:3}{2016/01/13}{The
+%   \texttt{style/mu/fithesis-sci.sty} style file redefines
+%   \cs{thesis@blocks}\texttt{\discretionary{@}{@}{@}declaration}
+%   to include a formatted date and an author's signature field.
+%   The locale file \texttt{style/mu/sci/czech.def} contains a new
+%   string \cs{thesis@czech\discretionary{@}{@}{@}formattedDate}.
+%   [VN]}
 % \changes{v0.3.31:2}{2016/01/07}{All trailing \%s were removed.
 %   Some of the inherited \textsf{fithesis2} code in the
 %   \texttt{fithesis-1*.clo} and \texttt{style/mu/fithesis-base.sty}
@@ -66,7 +73,7 @@
 % \changes{v0.3.31:1}{2016/01/07}{The redefinition of \cs{appendix}
 %   from the \texttt{fithesis-1*.clo}, which broke the hyperref
 %   links to the appendices, were removed. [VN]}
-% \changes{v0.3.30}{2016/01/05}{The \cs{thesis@seasonYear} macro
+% \changes{v0.3.30}  {2016/01/05}{The \cs{thesis@seasonYear} macro
 %   has been added, which, unlike \cs{thesis@year} takes into
 %   account the fact that January and Fabruary of the year $n$
 %   still belong to the fall semester of the year $n-1$. [VN]}

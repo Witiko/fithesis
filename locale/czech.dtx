@@ -2,7 +2,7 @@
 % This is the base file of the Czech locale.\iffalse
 %<*base>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/fithesis-czech.def}[2016/01/07]
+\ProvidesFile{fithesis/locale/fithesis-czech.def}[2016/01/13]
 %    \end{macrocode}
 % The locale file defines all the private macros mandated by the
 % locale file interface.
@@ -29,6 +29,12 @@
   oficiálního podepsaného zadání práce.}
 \gdef\thesis@czech@declaration{Text prohlášení ...}
 
+% Časové údaje
+\gdef\thesis@czech@spring{jaro}
+\gdef\thesis@czech@fall{podzim}
+\gdef\thesis@czech@semester{%
+  \thesis@{czech@\thesis@season} \thesis@seasonYear}
+
 % Různé
 \gdef\thesis@czech@fieldTitle{Obor}
 \gdef\thesis@czech@advisorTitle{Vedoucí práce}
@@ -38,10 +44,6 @@
 \gdef\thesis@czech@thanksTitle{Poděkování}
 \gdef\thesis@czech@declarationTitle{Prohlášení}
 \gdef\thesis@czech@idTitle{ID}
-\gdef\thesis@czech@spring{jaro}
-\gdef\thesis@czech@fall{podzim}
-\gdef\thesis@czech@semester{%
-  \thesis@{czech@\thesis@season} \thesis@seasonYear}
 \gdef\thesis@czech@typeName{%
   \ifx\thesis@type\thesis@bachelors
     Bakalářská práce%
@@ -296,7 +298,7 @@
 % \iffalse
 %<*mu/sci>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/mu/sci/fithesis-czech.def}[2015/06/26]
+\ProvidesFile{fithesis/locale/mu/sci/fithesis-czech.def}[2016/01/12]
 
 % Zástupné texty
 \gdef\thesis@czech@facultyName{Přírodovědecká fakulta}
@@ -308,6 +310,41 @@
   akuzativ} vypracoval\thesis@czech@gender@koncovka\ samo%
   statně s~využitím informačních zdrojů, které jsou v~práci
   citovány.}
+\gdef\thesis@czech@authorSignature{Podpis autora}
+
+% Časové údaje
+\gdef\thesis@czech@formattedDate{{%
+  \thesis@day.
+  \newcount\@month\expandafter\@month\thesis@month\relax
+  \ifnum\@month=1%
+    ledna
+  \else\ifnum\@month=2%
+    února
+  \else\ifnum\@month=3%
+    března
+  \else\ifnum\@month=4%
+    dubna
+  \else\ifnum\@month=5%
+    května
+  \else\ifnum\@month=6%
+    června
+  \else\ifnum\@month=7%
+    července
+  \else\ifnum\@month=8%
+    srpna
+  \else\ifnum\@month=9%
+    září
+  \else\ifnum\@month=10%
+    října
+  \else\ifnum\@month=11%
+    listopadu
+  \else\ifnum\@month=12%
+    prosince
+  \else
+    <<neznámý měsíc (\the\@month)>>
+  \fi\fi\fi\fi\fi\fi
+  \fi\fi\fi\fi\fi\fi
+  \thesis@year}}
 
 % Bibliografický záznam
 \gdef\thesis@czech@bib@title{Bibliografický záznam}
