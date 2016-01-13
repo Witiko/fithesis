@@ -125,6 +125,8 @@ $(CTANARCHIVE): $(SOURCES) $(MAKES) $(TESTS) $(EXAMPLES) \
 	DIR=`mktemp -d` && mkdir -p "$$DIR/fithesis" && \
 	cp --verbose $(TDSARCHIVE) "$$DIR" && \
 	cp --parents --verbose $^ "$$DIR/fithesis" && \
+	printf '.PHONY: implode\nimplode:\n' > \
+		"$$DIR/fithesis/example/mu/Makefile" && \
 	(cd "$$DIR" && zip -r -v -nw $@ *) && \
 	mv "$$DIR"/$@ . && rm -rf "$$DIR"
 
