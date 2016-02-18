@@ -7,7 +7,7 @@
 % ZITOSTI_ZAVERECNE_PRACE.doc}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fithesis/style/mu/fithesis-med}[2015/12/08]
+\ProvidesPackage{fithesis/style/mu/fithesis-med}[2016/02/18]
 %    \end{macrocode}
 % The file defines the color scheme of the respective faculty.
 %    \begin{macrocode}
@@ -114,7 +114,11 @@
 % \begin{macrocode}
 \def\thesis@blocks@mainMatter{%
   \thesis@blocks@clear
-  \setcounter{page}{1}
+  % In case of double-sided typesetting, change the geometry
+  \ifthesis@twoside@
+    \newgeometry{top=25mm,bottom=20mm,left=35mm,
+      right=15mm, includeheadfoot}
+  \fi\setcounter{page}{1}
   \pagenumbering{arabic}
   \pagestyle{thesisheadings}
   \parindent 1.5em
