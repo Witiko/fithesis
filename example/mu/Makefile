@@ -19,7 +19,7 @@ all: $(OUTPUT) clean
 %-pdflatex.pdf: %-pdflatex.tex example.bib
 	pdflatex $<
 	biber                               $(basename $<).bcf
-	texindy -I omega --language english $(basename $<).idx
+	texindy -I latex -C utf8 -L english $(basename $<).idx
 	pdflatex $<
 	pdflatex $<
 
@@ -27,7 +27,7 @@ all: $(OUTPUT) clean
 %-lualatex.pdf: %-lualatex.tex example.bib
 	lualatex $<
 	biber                               $(basename $<).bcf
-	texindy -I omega --language english $(basename $<).idx
+	texindy -I latex -C utf8 -L english $(basename $<).idx
 	lualatex $<
 	lualatex $<
 
