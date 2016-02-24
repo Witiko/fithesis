@@ -17,19 +17,19 @@ all: $(OUTPUT) clean
 
 # This target typesets a pdfLaTeX example.
 %-pdflatex.pdf: %-pdflatex.tex example.bib
-	pdflatex $<
+	pdflatex $< # The initial typesetting.
 	biber                               $(basename $<).bcf
+	pdflatex $< # Update the index after the bibliography insertion.
 	texindy -I latex -C utf8 -L english $(basename $<).idx
-	pdflatex $<
-	pdflatex $<
+	pdflatex $< # The final typesetting, now also with index.
 
 # This target typesets a LuaLaTeX example.
 %-lualatex.pdf: %-lualatex.tex example.bib
-	lualatex $<
+	lualatex $< # The initial typesetting.
 	biber                               $(basename $<).bcf
+	lualatex $< # Update the index after the bibliography insertion.
 	texindy -I latex -C utf8 -L english $(basename $<).idx
-	lualatex $<
-	lualatex $<
+	lualatex $< # The final typesetting, now also with index.
 
 # This target removes any auxiliary files.
 clean:

@@ -1,8 +1,9 @@
 SUBMAKES_REQUIRED=logo/mu locale style style/mu
-SUBMAKES_MISCELLANEOUS=guide/mu test example/mu
-SUBMAKES=$(SUBMAKES_REQUIRED) $(SUBMAKES_MISCELLANEOUS)
+SUBMAKES_EXTRA=guide/mu example/mu
+SUBMAKES_TEST=test test/mu/blind test/mu/compare
+SUBMAKES=$(SUBMAKES_REQUIRED) $(SUBMAKES_EXTRA) $(SUBMAKES_TEST)
 .PHONY: all complete clean dist dist-implode implode \
-	install uninstall test $(SUBMAKES_REQUIRED)
+	install uninstall tests $(SUBMAKES)
 
 CLASSFILES=fithesis.cls fithesis2.cls fithesis3.cls
 STYLEFILES=style/*.sty style/*/*.sty style/*/*.clo
@@ -14,10 +15,11 @@ DTXFILES=*.dtx locale/czech.dtx locale/english.dtx \
 	locale/slovak.dtx style/*.dtx style/*/*.dtx
 INSFILES=*.ins locale/czech.ins locale/english.ins \
 	locale/slovak.ins style/*.ins style/*/*.ins
-TESTS=test/*.tex
+TESTS=test/*.tex test/mu/blind/*.tex test/mu/compare/*.pdf
 MAKES=guide/mu/Makefile guide/mu/resources/Makefile \
 	locale/Makefile	logo/mu/Makefile Makefile style/Makefile \
-	style/mu/Makefile test/Makefile
+	style/mu/Makefile test/Makefile test/mu/blind/Makefile \
+	test/mu/compare/Makefile
 USEREXAMPLE_SOURCES=example/mu/Makefile example/mu/example.dtx \
 	example/mu/*.ins
 USEREXAMPLES=example/mu/econ-lualatex.pdf \
@@ -35,7 +37,9 @@ DEVEXAMPLES=guide/EXAMPLE/DESCRIPTION guide/mu/DESCRIPTION \
 	locale/DESCRIPTION locale/EXAMPLE.dtx locale/EXAMPLE.ins \
 	logo/EXAMPLE/DESCRIPTION logo/mu/DESCRIPTION \
 	logo/DESCRIPTION style/EXAMPLE/DESCRIPTION style/mu/DESCRIPTION \
-	style/DESCRIPTION test/DESCRIPTION example/EXAMPLE/DESCRIPTION \
+	style/DESCRIPTION test/DESCRIPTION test/EXAMPLE/DESCRIPTION \
+	test/mu/DESCRIPTION test/mu/blind/DESCRIPTION \
+	test/mu/compare/DESCRIPTION example/EXAMPLE/DESCRIPTION \
 	example/mu/DESCRIPTION example/DESCRIPTION
 EXAMPLES=$(USEREXAMPLES) $(DEVEXAMPLES)
 MISCELLANEOUS=guide/mu/resources/empty.tex guide/mu/guide.bib \
@@ -75,12 +79,11 @@ complete: all
 	make $(PDFS) clean
 
 # This pseudo-target calls a submakefile.
-$(SUBMAKES_REQUIRED):
+$(SUBMAKES):
 	make -C $@ all
 
-# This pseudo-target performs the unit tests.
-test: all
-	make -C test all
+# This pseudo-target performs the tests.
+tests: all $(SUBMAKES_TEST)
 
 # This pseudo-target creates the distribution archive.
 dist: dist-implode complete

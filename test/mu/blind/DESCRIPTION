@@ -1,0 +1,4 @@
+This directory contains blind test files for the style files of the
+Masaryk University (Brno, Czech Republic). Each blind test file is
+compiled by pdfTeX, XeTeX and LuaTeX in an attempt to make them
+fail the compilation.
