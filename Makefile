@@ -2,8 +2,8 @@ SUBMAKES_REQUIRED=logo/mu locale style style/mu
 SUBMAKES_EXTRA=guide/mu example/mu
 SUBMAKES_TEST=test test/mu/blind test/mu/compare
 SUBMAKES=$(SUBMAKES_REQUIRED) $(SUBMAKES_EXTRA) $(SUBMAKES_TEST)
-.PHONY: all complete clean dist dist-implode implode \
-	install uninstall tests $(SUBMAKES)
+.PHONY: all complete docs clean dist dist-implode implode \
+	install install-base install-docs uninstall tests $(SUBMAKES)
 
 CLASSFILES=fithesis.cls fithesis2.cls fithesis3.cls
 STYLEFILES=style/*.sty style/*/*.sty style/*/*.clo
@@ -74,9 +74,14 @@ all: $(SUBMAKES_REQUIRED)
 	make $(CLASSFILES)
 
 # This pseudo-target creates the class files and typesets the
-# technical documentation and the guides.
+# technical documentation, the user guides, and the user examples.
 complete: all
 	make $(PDFS) clean
+
+# This pseudo-target typesets the technical documentation and the
+# user guides.
+docs:
+	make $(DOCS) clean
 
 # This pseudo-target calls a submakefile.
 $(SUBMAKES):
@@ -134,55 +139,77 @@ $(CTANARCHIVE): $(SOURCES) $(MAKES) $(TESTS) $(EXAMPLES) \
 	(cd "$$DIR" && zip -r -v -nw $@ *) && \
 	mv "$$DIR"/$@ . && rm -rf "$$DIR"
 
-# This pseudo-target installs the class files and the technical
-# documentation into the TeX directory structure, whose root
-# directory is specified within the "to" argument. Specify
-# "nohash=true", if you wish to forgo the reindexing of the package
-# database.
-install:
+# This pseudo-target installs the class, locale, style, and logo
+# files - as well as the technical documentation and user guides -
+# into the TeX directory structure, whose root directory is
+# specified within the "to" argument. Specify "nohash=true", if you
+# wish to forgo the reindexing of the package database.
+install: install-base install-docs
+
+# This pseudo-target installs the class, locale, style, and logo
+# files into the TeX directory structure, whose root directory is
+# specified within the "to" argument. Specify "nohash=true", if you
+# wish to forgo the reindexing of the package database.
+install-base:
 	@if [ -z "$(to)" ]; then \
-		printf "Usage: make install to=DIRECTORY"; \
+		printf "Usage: make install-base to=DIRECTORY\n"; \
 		printf "Detected TeXLive directory: %s\n" $(TEXLIVEDIR); \
 		exit 1; \
 	fi
 	
-	# Class, locale, style and logo files
+	@# Class, locale, style and logo files
 	mkdir -p "$(to)/tex/latex/fithesis"
 	cp --parents --verbose $(LATEXFILES) "$(to)/tex/latex/fithesis"
 	
-	# Source files
+	@# Source files
 	mkdir -p "$(to)/source/latex/fithesis"
 	cp --parents --verbose $(SOURCES) "$(to)/source/latex/fithesis"
 	
-	# Documentation
-	mkdir -p "$(to)/doc/latex/fithesis"
-	cp --parents --verbose $(DOCS) "$(to)/doc/latex/fithesis"
-	
-	# Rebuild the hash
+	@# Rebuild the hash
 	[ "$(nohash)" = "true" ] || texhash
 
-# This pseudo-target installs the class files and the technical
+# This pseudo-target installs the the technical and user
 # documentation into the TeX directory structure, whose root
 # directory is specified within the "to" argument. Specify
 # "nohash=true", if you wish to forgo the reindexing of the package
 # database.
-uninstall:
-	@if [ -z "$(from)" ]; then \
-		printf "Usage: make uninstall from=DIRECTORY"; \
+install-docs:
+	@if [ -z "$(to)" ]; then \
+		printf "Usage: make install-docs to=DIRECTORY\n"; \
 		printf "Detected TeXLive directory: %s\n" $(TEXLIVEDIR); \
 		exit 1; \
 	fi
 	
-	# Class, locale, style and logo files
+	@# Documentation
+	mkdir -p "$(to)/doc/latex/fithesis"
+	cp --parents --verbose $(DOCS) "$(to)/doc/latex/fithesis"
+
+	@# Rebuild the hash
+	[ "$(nohash)" = "true" ] || texhash
+
+
+# This pseudo-target uninstalls the class, locale, style, and logo
+# files - as well as the technical documentation and user guides -
+# from the TeX directory structure, whose root directory is
+# specified within the "from" argument. Specify "nohash=true", if
+# you wish to forgo the reindexing of the package database.
+uninstall:
+	@if [ -z "$(from)" ]; then \
+		printf "Usage: make uninstall from=DIRECTORY\n"; \
+		printf "Detected TeXLive directory: %s\n" $(TEXLIVEDIR); \
+		exit 1; \
+	fi
+	
+	@# Class, locale, style and logo files
 	rm -rf "$(from)/tex/latex/fithesis"
 	
-	# Source files
+	@# Source files
 	rm -rf "$(from)/source/latex/fithesis"
 	
-	# Documentation
+	@# Documentation
 	rm -rf "$(from)/doc/latex/fithesis"
 	
-	# Rebuild the hash
+	@# Rebuild the hash
 	[ "$(nohash)" = "true" ] || texhash
 
 # This pseudo-target removes any existing auxiliary files.
