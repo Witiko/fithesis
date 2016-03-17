@@ -120,20 +120,11 @@
   \fi\pagestyle{thesisheadings}
   \parindent 1.5em\relax}
 %    \end{macrocode}
-% \end{macro}\begin{macro}{\thesis@blocks@toc}
-% The |\thesis@blocks@toc| macro typesets the table of
-% contents.
-% \begin{macrocode}
-\def\thesis@blocks@toc{%
-  \thesis@blocks@clear
-  \tableofcontents}
-%    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@tables}
 % The |\thesis@blocks@tables| macro optionally typesets the
 % |\listoftables| and |\listoffigures|.
 % \begin{macrocode}
 \def\thesis@blocks@tables{%
-  \thesis@blocks@clear
   \thesis@blocks@lot
   \thesis@blocks@lof}
 %    \end{macrocode}
@@ -142,7 +133,7 @@
 % |\thesis@blocks@lot| and |\thesis@blocks@lof| macros are
 % redefined to create an entry in the table of contents.
 % \begin{macrocode}
-\ifx\thesis@blocks@lot\empty\else
+\ifx\thesis@blocks@lot\relax\else
   \def\thesis@blocks@lot{%
     \thesis@blocks@clear
     \phantomsection
@@ -150,7 +141,7 @@
     \listoftables}
 \fi
 
-\ifx\thesis@blocks@lof\empty\else
+\ifx\thesis@blocks@lof\relax\else
   \def\thesis@blocks@lof{%
     \thesis@blocks@clear
     \phantomsection

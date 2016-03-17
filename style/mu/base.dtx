@@ -114,20 +114,26 @@
 %     the option to be processed by the \textsf{xcolor} package as
 %     well and it is therefore an elegant solution to the problem
 %     at hand.
-%   \item\texttt{lot}, \texttt{nolot} -- |\listoftables| either is
-%     or isn't going to be included in the
-%     \DescribeMacro{\thesis@blocks@tables}|\thesis@|^^A
-%     \discretionary{}{}{}|blocks@tables| block, respectively.
+%   \item\texttt{lot}, \texttt{nolot} -- The \DescribeMacro{^^A
+%     \thesis@blocks@lot}|\thesis@blocks@lot| macro will be defined
+%     as either |\listoftables| or |\relax|, respectively. As a
+%     side effect, the |\listoftables| either is or isn't going to
+%     be included in the \DescribeMacro{\thesis@blocks@tables}^^A
+%     |\thesis@|\discretionary{}{}{}|blocks@tables| block,
+%     respectively.
 %    \begin{macrocode}
-\DeclareOption{nolot}{\def\thesis@blocks@lot{}}
+\DeclareOption{nolot}{\let\thesis@blocks@lot\relax}
 \DeclareOption{lot}{\let\thesis@blocks@lot\listoftables}
 %    \end{macrocode}
-%   \item\texttt{lof}, \texttt{nolof} -- |\listoffigures| is or
-%     isn't going to be included in the
-%     \DescribeMacro{\thesis@blocks@tables}|\thesis@|^^A
-%     \discretionary{}{}{}|blocks@tables| block, respectively.
+%   \item\texttt{lot}, \texttt{nolot} -- The \DescribeMacro{^^A
+%     \thesis@blocks@lof}|\thesis@blocks@lof| macro will be defined
+%     as either |\listoffigures| or |\relax|, respectively. As a
+%     side effect, the |\listoffigures| either is or isn't going to
+%     be included in the \DescribeMacro{\thesis@blocks@tables}^^A
+%     |\thesis@|\discretionary{}{}{}|blocks@tables| block,
+%     respectively.
 %    \begin{macrocode}
-\DeclareOption{nolof}{\def\thesis@blocks@lof{}}
+\DeclareOption{nolof}{\let\thesis@blocks@lof\relax}
 \DeclareOption{lof}{\let\thesis@blocks@lof\listoffigures}
 %    \end{macrocode}
 %   \item\texttt{cover}, \texttt{nocover} -- The
@@ -655,14 +661,20 @@
 \let\thesis@blocks@titlePage@content=\thesis@blocks@cover@content
 \let\thesis@blocks@titlePage@footer=\thesis@blocks@cover@footer
 %    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@blocks@toc}
+% The |\thesis@blocks@toc| macro typesets the table of contents.
+% \begin{macrocode}
+\def\thesis@blocks@toc{%
+  \thesis@blocks@clear
+  \tableofcontents}
+%    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@tables}
 % The |\thesis@blocks@tables| macro typesets the table of
-% contents and optionally the |\listoftables| and the
-% |\listoffigures|.
+% contents and optionally the list of tables and the
+% list of figures.
 % \begin{macrocode}
 \def\thesis@blocks@tables{%
-  \thesis@blocks@clear
-  \tableofcontents
+  \thesis@blocks@toc
   \thesis@blocks@lot
   \thesis@blocks@lof}
 %    \end{macrocode}
