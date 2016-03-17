@@ -2,7 +2,7 @@ SUBMAKES_REQUIRED=logo/mu locale style style/mu
 SUBMAKES_EXTRA=guide/mu example/mu
 SUBMAKES_TEST=test test/mu/blind test/mu/compare
 SUBMAKES=$(SUBMAKES_REQUIRED) $(SUBMAKES_EXTRA) $(SUBMAKES_TEST)
-.PHONY: all complete docs clean dist dist-implode implode \
+.PHONY: all base complete docs clean dist dist-implode implode \
 	install install-base install-docs uninstall tests $(SUBMAKES)
 
 CLASSFILES=fithesis.cls fithesis2.cls fithesis3.cls
@@ -68,14 +68,17 @@ LATEXFILES=$(CLASSFILES) $(RESOURCES)
 
 TEXLIVEDIR=$(shell kpsewhich -var-value TEXMFLOCAL)
 
+# This is the default pseudo-target.
+all: base
+
 # This pseudo-target expands all the docstrip files, converts the
 # logos and creates the class files.
-all: $(SUBMAKES_REQUIRED)
+base: $(SUBMAKES_REQUIRED)
 	make $(CLASSFILES)
 
 # This pseudo-target creates the class files and typesets the
 # technical documentation, the user guides, and the user examples.
-complete: all
+complete: base
 	make $(PDFS) clean
 
 # This pseudo-target typesets the technical documentation and the
@@ -88,7 +91,7 @@ $(SUBMAKES):
 	make -C $@ all
 
 # This pseudo-target performs the tests.
-tests: all $(SUBMAKES_TEST)
+tests: base $(SUBMAKES_TEST)
 
 # This pseudo-target creates the distribution archive.
 dist: dist-implode complete
