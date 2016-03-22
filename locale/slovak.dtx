@@ -2,7 +2,7 @@
 % This is the base file of the Slovak locale.\iffalse
 %<*base>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/fithesis-slovak.def}[2016/01/13]
+\ProvidesFile{fithesis/locale/fithesis-slovak.def}[2016/03/22]
 %    \end{macrocode}
 % The locale file defines all the private macros mandated by the
 % locale file interface.
@@ -78,7 +78,7 @@
 % \iffalse
 %<*mu>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/mu/fithesis-slovak.def}[2015/11/17]
+\ProvidesFile{fithesis/locale/mu/fithesis-slovak.def}[2016/03/22]
 
 % Zástupné texty
 \gdef\thesis@slovak@universityName{Masarykova univerzita}
@@ -87,6 +87,10 @@
   slovak@typeName@akuzativ} vypracoval%
   \thesis@slovak@gender@koncovka\ samostatne len s~použitím
   uvedenej literatúry a prameňov.}
+
+% Bibliografický zoznam
+\gdef\thesis@slovak@bib@title{Bibliografický záznam}
+\gdef\thesis@slovak@bib@pages{str}
 
 % Rôzne
 \gdef\thesis@slovak@idTitle{UČO}
@@ -230,41 +234,61 @@
 % and redefines the \texttt{typeName} and
 % \texttt{typeName@akuzativ} strings in accordance with the
 % requirements of the faculty.
+% 
+% The locale file also defines the \texttt{departmentName}
+% string, which is used by the \texttt{style/mu/fithesis-phil^^A
+% .sty} style file, when typesetting the names of known
+% departments.
 % \iffalse
 %<*mu/phil>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/mu/phil/fithesis-slovak.def}[2016/01/07]
+\ProvidesFile{fithesis/locale/mu/phil/fithesis-slovak.def}[2016/03/22]
 
 % Zástupné texty
 \gdef\thesis@slovak@facultyName{Filozofická fakulta}
-\gdef\thesis@slovak@declaration{%
-  Prehlasujem, že som predloženú \thesis@lower{%
-  slovak@typeName@akuzativ} vypracoval%
-  \thesis@slovak@gender@koncovka\ samostatne na
-  základe vlastných zistení a len s~použitím
-  uvedenej literatúry a prameňov.}
+\gdef\thesis@slovak@departmentName{%
+  \ifx\thesis@department\thesis@departments@kisk
+    Kabinet informačných štúdií a knihovníctva%
+  \else
+    <<Neznáme oddělenie (\thesis@department)>>%
+  \fi}
+\gdef\thesis@czech@declaration{%
+  \ifx\thesis@department\thesis@departments@kisk
+    Prehlasujem, že som predkladanú prácu spracoval%
+    \thesis@slovak@gender@koncovka\ samostatne~a použil%
+    \thesis@slovak@gender@koncovka\ len uvedené pramene~a
+    literatúru. Súčasne dávam súhlas k tomu, aby elektronická
+    verzia tejto práce bola sprístupnená cez informačný
+    systém Masarykovej univerzity.%
+  \else
+    Prehlasujem, že som predloženú \thesis@lower{%
+    slovak@typeName@akuzativ} vypracoval%
+    \thesis@slovak@gender@koncovka\ samostatne na základe vlastných
+    zistení a len s~použitím uvedenej literatúry a prameňov.%
+  \fi}
 
 % Rôzne
+\global\let\thesis@slovak@typeName@super
+  \thesis@slovak@typeName
 \gdef\thesis@slovak@typeName{%
   \ifx\thesis@type\thesis@bachelors
     Bakalárska diplomová práca%
   \else\ifx\thesis@type\thesis@masters
     Magisterská diplomová práca%
-  \else\ifx\thesis@type\thesis@doctoral
-    Dizertačná práca%
   \else
-    <<Neznámy typ práce (\thesis@type)>>%
-  \fi\fi\fi}
+    \thesis@slovak@typeName@super
+  \fi\fi}
+
+\global\let\thesis@slovak@typeName@akuzativ@super
+  \thesis@slovak@typeName@akuzativ
 \gdef\thesis@slovak@typeName@akuzativ{%
   \ifx\thesis@type\thesis@bachelors
     Diplomovú prácu%
   \else\ifx\thesis@type\thesis@masters
     Diplomovú prácu%
-  \else\ifx\thesis@type\thesis@doctoral
-    Dizertačnú prácu%
   \else
-    <<Neznámý typ práce (\thesis@type)>>%
-  \fi\fi\fi}
+    \thesis@slovak@typeName@akuzativ@super
+  \fi\fi}
 %    \end{macrocode}\iffalse
 %</mu/phil>
 % \fi\file{locale/mu/ped/fithesis-slovak.def}
@@ -279,14 +303,10 @@
 % \iffalse
 %<*mu/ped>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/mu/ped/fithesis-slovak.def}[2015/06/26]
+\ProvidesFile{fithesis/locale/mu/ped/fithesis-slovak.def}[2016/03/22]
 
 % Zástupné texty
 \gdef\thesis@slovak@facultyName{Pedagogická fakulta}
-
-% Bibliografický zoznam
-\gdef\thesis@slovak@bib@title{Bibliografický záznam}
-\gdef\thesis@slovak@bib@pages{str}
 %    \end{macrocode}\iffalse
 %</mu/ped>
 % \fi\file{locale/mu/sci/fithesis-slovak.def}

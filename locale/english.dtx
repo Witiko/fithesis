@@ -2,7 +2,7 @@
 % This is the base file of the English locale.\iffalse
 %<*base>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/fithesis-english.def}[2016/01/13]
+\ProvidesFile{fithesis/locale/fithesis-english.def}[2016/03/22]
 %    \end{macrocode}
 % The locale file defines all the private macros mandated by the
 % locale file interface.
@@ -55,13 +55,17 @@
 % \iffalse
 %<*mu>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/mu/fithesis-english.def}[2015/11/30]
+\ProvidesFile{fithesis/locale/mu/fithesis-english.def}[2016/03/22]
 \gdef\thesis@english@universityName{Masaryk University}
 \gdef\thesis@english@declaration{%
   Hereby I declare that this paper is my original authorial work,
   which I have worked out on my own. All sources, references, and
   literature used or excerpted during elaboration of this work are
   properly cited and listed in complete reference to the due source.}
+
+% Bibliographic entry
+\gdef\thesis@english@bib@title{Bibliographic record}
+\gdef\thesis@english@bib@pages{p}
 
 % Miscellaneous
 \gdef\thesis@english@idTitle{UČO}
@@ -187,12 +191,21 @@
 % This is the English locale file specific to the Faculty of
 % Arts at the Masaryk University in Brno.
 % It replaces the \texttt{facultyName} placeholder with the
-% correct value.
+% correct value. It also defines the \texttt{departmentName}
+% string, which is used by the \texttt{style/mu/fithesis-phil^^A
+% .sty} style file, when typesetting the names of known
+% departments.
 % \iffalse
 %<*mu/phil>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/mu/phil/fithesis-english.def}[2015/06/26]
+\ProvidesFile{fithesis/locale/mu/phil/fithesis-english.def}[2016/03/22]
 \gdef\thesis@english@facultyName{Faculty of Arts}
+\gdef\thesis@english@departmentName{%
+  \ifx\thesis@department\thesis@departments@kisk
+    Division of Information and Library Studies%
+  \else
+    <<Unknown department (\thesis@department)>>%
+  \fi}
 %    \end{macrocode}\iffalse
 %</mu/phil>
 % \fi\file{locale/mu/ped/fithesis-english.def}
@@ -207,14 +220,10 @@
 % \iffalse
 %<*mu/ped>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/mu/ped/fithesis-english.def}[2015/06/26]
+\ProvidesFile{fithesis/locale/mu/ped/fithesis-english.def}[2016/03/22]
 
 % Placeholders
 \gdef\thesis@english@facultyName{Faculty of Education}
-
-% Bibliographic entry
-\gdef\thesis@english@bib@title{Bibliographic record}
-\gdef\thesis@english@bib@pages{p}
 %    \end{macrocode}\iffalse
 %</mu/ped>
 % \fi\file{locale/mu/sci/fithesis-english.def}

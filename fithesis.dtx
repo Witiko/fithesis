@@ -56,11 +56,15 @@
   \gdef\thesis@version@number{#1}
   \gdef\thesis@version@date{#2}
   \gdef\thesis@version{#2 #1 fithesis3 MU thesis class}}
-\thesis@versiondef{v0.3.35-dev}{2016/03/17}}
+\thesis@versiondef{v0.3.35-dev}{2016/03/22}}
 % {\newwrite\f\openout\f=VERSION\write\f{\thesis@version}\closeout\f}
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
+% \changes{v0.3.35}  {2016/03/22}{Added support for the Division of
+%   Information and Library Studies of the Faculty of Arts at the
+%   Masaryk University in Brno. This support is enabled by
+%   specifying \cs{thesis@department} to be \texttt{kisk}.}
 % \changes{v0.3.34}  {2016/02/24}{Added visual tests of output
 %   PDFs. The \texttt{test/} directory is now also uses the
 %   \textit{university}\texttt{/}\textit{faculty} path scheme
@@ -698,10 +702,10 @@
 % \subsubsection{The \texttt{department} key}
 % The \marg{\texttt{department}=name} pair sets the name of the
 % department, at which the thesis is being written, to
-% \textit{name}. Unlike the university and faculty identifiers, the
-% department \textit{name} is only used for typesetting and it
-% should therefore be specified in plain language with optional
-% \TeX\ macros. The \textit{name} is stored within the
+% \textit{name}. Unlike the university and faculty identifiers,
+% \textsf{fithesis3} does not prescribe the format of the
+% \textit{name}; the style files may internally parse it, or
+% typeset it as-is. The \textit{name} is stored within the
 % |\thesis@department| macro.
 %    \begin{macrocode}
 \thesis@def{department}

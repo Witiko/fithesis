@@ -6,7 +6,7 @@
 % \url{http://www.sci.muni.cz/NW/predpisy/od/OD-2014-05.pdf}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fithesis/style/mu/fithesis-sci}[2016/01/12]
+\ProvidesPackage{fithesis/style/mu/fithesis-sci}[2016/03/22]
 %    \end{macrocode}
 % The file defines the color scheme of the respective faculty.
 %    \begin{macrocode}
@@ -114,14 +114,14 @@
           \thesis@author\\
           \thesis@czech@facultyName,
           \thesis@czech@universityName\\
-          \thesis@department
+          \thesis@department@name
         }\\
       \textbf{\thesis@czech@bib@thesisTitle:}
         & \thesis@title \\
       \textbf{\thesis@czech@bib@programme:}
         & \thesis@programme \\
       \textbf{\thesis@czech@bib@field:}
-        & \thesis@field \\
+        & \thesis@field@name \\
       % Unless this is a rigorous thesis, typeset the name of the
       % thesis advisor.
       \ifx\thesis@type\thesis@rigorous\else
@@ -214,14 +214,14 @@
             \thesis@author\\
             \thesis@english@facultyName,
             \thesis@english@universityName\\
-            \thesis@departmentEn
+            \thesis@departmentEn@name
           }\\
         \textbf{\thesis@english@bib@thesisTitle:}
           & \thesis@titleEn \\
         \textbf{\thesis@english@bib@programme:}
           & \thesis@programmeEn \\
         \textbf{\thesis@english@bib@field:}
-          & \thesis@fieldEn \\
+          & \thesis@fieldEn@name \\
         % Unless this is a rigorous thesis, typeset the name of the
         % thesis advisor.
         \ifx\thesis@type\thesis@rigorous\else
@@ -262,7 +262,7 @@
       \begin{center}
       {\sc\thesis@titlePage@LARGE\thesis@czech@universityName\\%
           \thesis@titlePage@Large\thesis@czech@facultyName\\[0.3em]%
-          \thesis@titlePage@large\thesis@department}
+          \thesis@titlePage@large\thesis@department@name}
       \vfill
       {\bf\thesis@titlePage@Huge\thesis@czech@typeName}
       \vfill
@@ -291,7 +291,7 @@
         \begin{center}
           {\sc\thesis@titlePage@LARGE\thesis@czech@universityName\\%
               \thesis@titlePage@Large\thesis@czech@facultyName\\[0.3em]%
-              \thesis@titlePage@normalsize\thesis@department}
+              \thesis@titlePage@normalsize\thesis@department@name}
           \rule{\textwidth}{2pt}\vspace*{2mm}
         \end{center}
       \end{minipage}\begin{minipage}{30mm}

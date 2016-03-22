@@ -6,7 +6,7 @@
 % o/law/ud/predp/smer/S-07-2012.pdf}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fithesis/style/mu/fithesis-law}[2015/12/08]
+\ProvidesPackage{fithesis/style/mu/fithesis-law}[2016/03/22]
 %    \end{macrocode}
 % The file defines the color scheme of the respective faculty.
 %    \begin{macrocode}
@@ -19,15 +19,15 @@
 % The style file configures the cover and title page headers to
 % include only the faculty name and the department name.
 % Along with the macros required by the locale file interface,
-% the locale files need to define the following macros:
+% the locale files need to define the following strings:
 % \begin{itemize}
-%   \item|\thesis@|\textit{locale}|@facultyLongName| -- The name
-%     of the faculty combined with the name of the university.
+%   \item\texttt{facultyLongName} -- The name of the faculty
+%     combined with the name of the university.
 % \end{itemize}
 %    \begin{macrocode}
 \def\thesis@blocks@cover@header{%
   {\sc\thesis@titlePage@Large\thesis@@{facultyLongName}\\%
-    \thesis@titlePage@large\thesis@department\\\vskip 2em}}
+    \thesis@titlePage@large\thesis@department@name\\\vskip 2em}}
 \let\thesis@blocks@titlePage@header=\thesis@blocks@cover@header
 %    \end{macrocode}
 % \begin{macro}{\thesis@blocks@frontMatter}

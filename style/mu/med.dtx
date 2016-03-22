@@ -7,7 +7,7 @@
 % ZITOSTI_ZAVERECNE_PRACE.doc}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fithesis/style/mu/fithesis-med}[2016/02/18]
+\ProvidesPackage{fithesis/style/mu/fithesis-med}[2016/03/22]
 %    \end{macrocode}
 % The file defines the color scheme of the respective faculty.
 %    \begin{macrocode}
@@ -76,7 +76,7 @@
      \let\@D\relax\newlength{\@D}\settowidth{\@D}{\thesis@author}
      \let\@E\relax\newlength{\@E}\settowidth{\@E}{{%
        \bf\thesis@@{fieldTitle}:}}
-     \let\@F\relax\newlength{\@F}\settowidth{\@F}{\thesis@field}
+     \let\@F\relax\newlength{\@F}\settowidth{\@F}{\thesis@field@name}
     \let\@left\relax\newlength{\@left}\pgfmathsetlength{\@left}{%
       max(\@A,\@B)}
     \let\@right\relax\newlength{\@right}\pgfmathsetlength{\@right}{%
@@ -86,7 +86,7 @@
       {\bf\thesis@@{advisorTitle}:}\\\thesis@advisor
     \end{minipage}\hfill\begin{minipage}[t]{\@right}
       {\bf\thesis@@{authorTitle}:}\\\thesis@author
-        \\[1em]{\bf\thesis@@{fieldTitle}:}\\\thesis@field
+        \\[1em]{\bf\thesis@@{fieldTitle}:}\\\thesis@field@name
     \end{minipage}}\\[4em]\thesis@place, \thesis@@{semester}}}
 %    \end{macrocode}
 % \begin{macro}{\thesis@blocks@frontMatter}
@@ -140,7 +140,7 @@
   \chapter*{\thesis@@{bib@title}}
   \noindent\thesis@upper{author@tail}, \thesis@author@head.
   \emph{\thesis@title}. \thesis@place: \thesis@@{universityName},
-  \thesis@@{facultyName}, \thesis@department, \thesis@year.
+  \thesis@@{facultyName}, \thesis@department@name, \thesis@year.
   \thesis@pages\ \thesis@@{bib@pages}.
   \thesis@@{advisorTitle}: \thesis@advisor}
 %    \end{macrocode}

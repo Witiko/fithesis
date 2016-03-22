@@ -6,7 +6,7 @@
 % do/ped/VPAN/pokdek/Pokyn_dekana_c._1-2010__2_.pdf}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fithesis/style/mu/fithesis-ped}[2015/12/08]
+\ProvidesPackage{fithesis/style/mu/fithesis-ped}[2016/03/22]
 %    \end{macrocode}
 % The file defines the color scheme of the respective faculty.
 %    \begin{macrocode}
@@ -17,7 +17,7 @@
   tableEven={HTML}{FFDEB7}}
 %    \end{macrocode}
 % The style file configures the title page header to include the
-% department name and the title page content to include
+% department name and the title page content to include the
 % advisor's name.
 %    \begin{macrocode}
 \thesis@blocks@titlePage@department@true
@@ -28,26 +28,6 @@
     % Typeset the name of the thesis advisor.
     {\thesis@titlePage@large\\[0.3in]
       {\bf\thesis@@{advisorTitle}:} \thesis@advisor}}
-%    \end{macrocode}
-% \begin{macro}{\thesis@blocks@bibEntry}
-% The |\thesis@blocks@bibEntry| macro typesets a
-% bibliographical entry. Along with the macros required by the
-% locale file interface, the \textit{locale} files need to define
-% the following macros:
-% \begin{itemize}
-%   \item|\thesis@|\emph{locale}|@bib@title| -- The title of the
-%     entire block
-%   \item|\thesis@|\emph{locale}|@bib@pages| -- The abbreviation of
-%     pages used in the bibliographical entry
-% \end{itemize}
-%    \begin{macrocode}
-\def\thesis@blocks@bibEntry{%
-  \chapter*{\thesis@@{bib@title}}
-  \noindent\thesis@upper{author@tail}, \thesis@author@head.
-  \emph{\thesis@title}. \thesis@place: \thesis@@{universityName},
-  \thesis@@{facultyName}, \thesis@department, \thesis@year.
-  \thesis@pages\ \thesis@@{bib@pages}.
-  \thesis@@{advisorTitle}: \thesis@advisor}
 %    \end{macrocode}
 % \end{macro}
 % All blocks within the autolayout postamble that are not defined
@@ -60,11 +40,10 @@
     \thesis@blocks@titlePage
   \thesis@blocks@frontMatter
     \thesis@blocks@bibEntry
-    \thesis@blocks@clearRight
-      \thesis@blocks@abstract
-      \thesis@blocks@abstractEn
-      \thesis@blocks@keywords
-      \thesis@blocks@keywordsEn
+    \thesis@blocks@abstract
+    \thesis@blocks@abstractEn
+    \thesis@blocks@keywords
+    \thesis@blocks@keywordsEn
     \thesis@blocks@declaration
     \thesis@blocks@thanks
     \thesis@blocks@tables}

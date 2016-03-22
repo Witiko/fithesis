@@ -6,7 +6,7 @@
 % 1421/4581421/Vzor_bakalarske_prace.pdf}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fithesis/style/mu/fithesis-phil}[2015/12/08]
+\ProvidesPackage{fithesis/style/mu/fithesis-phil}[2016/03/22]
 %    \end{macrocode}
 % The file defines the color scheme of the respective faculty.
 %    \begin{macrocode}
@@ -22,6 +22,45 @@
 \thesis@blocks@titlePage@department@true
 \thesis@blocks@titlePage@field@true
 %    \end{macrocode}
+% The style file parses the value of the |\thesis@department| macro
+% and recognizes the following divisions of the Faculty of Arts:
+% \begin{itemize}
+%   \item\texttt{kisk} -- The Division of Information and Library
+%     Studies \footnote{See \url{http://kisk.phil.muni.cz/cs/pov^^A
+%     vinnosti}.} (KISK)
+%    \begin{macrocode}
+\def\thesis@departments@kisk{kisk}
+%    \end{macrocode}
+% \end{itemize}
+% Along with the macros required by the locale file interface, the
+% locale files need to define the following macros:
+% \begin{itemize}
+%   \item\texttt{departmentName} -- The human-readable name of the
+%     given recognized division.
+% \end{itemize}
+%    \begin{macrocode}
+\ifx\thesis@department\thesis@departments@kisk
+  \def\thesis@department@name{\thesis@@{departmentName}}
+  \def\thesis@departmentEn@name{\thesis@english@departmentName}
+\fi
+%    \end{macrocode}
+% \begin{macro}{\thesis@blocks@titlePage}
+% In the case of a KISK thesis, the style file redefines the cover
+% and title page footers to include the thesis advisor's name.
+% \begin{macrocode}
+\ifx\thesis@department\thesis@departments@kisk
+  \def\thesis@blocks@titlePage@content{%
+    {\thesis@titlePage@Huge\bf\thesis@TeXtitle\par\vfil}\vskip 0.8in
+    {\thesis@titlePage@large\sc\thesis@@{typeName}\\[0.3in]}
+    {\thesis@titlePage@Large\bf\thesis@author}
+    % If this is a KISK thesis, typeset the name of the thesis
+    % advisor.
+    \ifx\thesis@department\thesis@departments@kisk
+      {\thesis@titlePage@large\\[0.3in]
+        {\bf\thesis@@{advisorTitle}:} \thesis@advisor}
+    \fi}%
+\fi
+%    \end{macrocode}
 % All blocks within the autolayout postamble that are not defined
 % within this file are defined in the
 % \texttt{style/mu/fithesis-base.sty} file.
@@ -31,7 +70,37 @@
     \thesis@blocks@cover
     \thesis@blocks@titlePage
   \thesis@blocks@frontMatter
+%    \end{macrocode}
+% In KISK theses, the bibliographical entry, the abstract, and the
+% keywords will be included after the cover matter.
+%    \begin{macrocode}
+    \ifx\thesis@department\thesis@departments@kisk
+      \thesis@blocks@bibEntry
+      \thesis@blocks@abstract
+      \thesis@blocks@abstractEn
+      \thesis@blocks@keywords
+      \thesis@blocks@keywordsEn
+    \fi
     \thesis@blocks@declaration
     \thesis@blocks@thanks
-    \thesis@blocks@tables}
+%    \end{macrocode}
+% In KISK theses, the lists of tables and figures will be included
+% behind the bibliography rather than at the beginning of the
+% document.
+%    \begin{macrocode}
+    \ifx\thesis@department\thesis@departments@kisk
+      \thesis@blocks@toc
+    \else
+      \thesis@blocks@tables
+    \fi}
+%    \end{macrocode}
+% In KISK theses, the lists of tables and figures will be included
+% behind the bibliography rather than at the beginning of the
+% document.
+%    \begin{macrocode}
+\ifx\thesis@department\thesis@departments@kisk
+  \def\thesis@blocks@postamble{%
+    \thesis@blocks@lot
+    \thesis@blocks@lof}
+\fi
 %    \end{macrocode}

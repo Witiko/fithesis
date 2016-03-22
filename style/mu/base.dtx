@@ -7,7 +7,7 @@
 % after \texttt{style/fithesis-base.sty}, regardless of the value
 % of the |\thesis@style| macro.
 %    \begin{macrocode}
-\ProvidesPackage{fithesis/style/mu/fithesis-base}[2016/01/07]
+\ProvidesPackage{fithesis/style/mu/fithesis-base}[2016/03/22]
 \NeedsTeXFormat{LaTeX2e}
 %    \end{macrocode}
 % The file recognizes the following options: \begin{itemize}
@@ -490,6 +490,18 @@
       \ifthesis@color@-color\fi}%
     \includegraphics[#1]{\@path}}}
 %    \end{macrocode}
+% The |\thesis@department@name| and |\thesis@field@name| macros and
+% their English counterparts provide a level of indirection that
+% allows the subsequently loaded style files to parse the values of
+% |\thesis@department| and |\thesis@field| (and their English
+% counterparts) and map them to human-readable names, which will
+% then be typeset.
+% \begin{macrocode}
+\let\thesis@department@name\thesis@department
+\let\thesis@departmentEn@name\thesis@departmentEn
+\let\thesis@field@name\thesis@field
+\let\thesis@fieldEn@name\thesis@fieldEn
+%    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@cover}
 % The |\thesis@blocks@cover| macro typesets the thesis
 % cover. It is composed of three macros:
@@ -564,11 +576,11 @@
    \fi\ifthesis@blocks@cover@faculty@
         \thesis@titlePage@Large\thesis@@{facultyName}\\%
    \fi\ifthesis@blocks@cover@department@
-        \thesis@titlePage@large\thesis@department\\%
+        \thesis@titlePage@large\thesis@department@name\\%
       \fi}
   \ifthesis@blocks@cover@field@
     {\thesis@titlePage@large\vskip 1em%
-      {\bf\thesis@@{fieldTitle}:} \thesis@field}%
+      {\bf\thesis@@{fieldTitle}:} \thesis@field@name}%
   \fi\vskip 2em}
 \def\thesis@blocks@cover@content{%
   {\thesis@titlePage@Huge\bf\thesis@TeXtitle\par\vfil}%
@@ -652,11 +664,11 @@
    \fi\ifthesis@blocks@titlePage@faculty@
         \thesis@titlePage@Large\thesis@@{facultyName}\\%
    \fi\ifthesis@blocks@titlePage@department@
-        \thesis@titlePage@large\thesis@department\\%
+        \thesis@titlePage@large\thesis@department@name\\%
       \fi}
   \ifthesis@blocks@titlePage@field@
     {\thesis@titlePage@large\vskip 1em%
-      {\bf\thesis@@{fieldTitle}:} \thesis@field}%
+      {\bf\thesis@@{fieldTitle}:} \thesis@field@name}%
   \fi\vskip 2em}
 \let\thesis@blocks@titlePage@content=\thesis@blocks@cover@content
 \let\thesis@blocks@titlePage@footer=\thesis@blocks@cover@footer
@@ -825,6 +837,26 @@
   \pagenumbering{arabic}
   \pagestyle{thesisheadings}
   \parindent 1.5em\relax}
+%    \end{macrocode}
+% \begin{macro}{\thesis@blocks@bibEntry}
+% The |\thesis@blocks@bibEntry| macro typesets a bibliographical
+% entry. Along with the macros required by the locale file
+% interface, the \textit{locale} files need to define the following
+% strings:
+% \begin{itemize}
+%   \item\texttt{bib@title} -- The title of the entire block
+%   \item\texttt{bib@pages} -- The abbreviation of pages used in
+%     the bibliographical entry
+% \end{itemize}
+%    \begin{macrocode}
+\def\thesis@blocks@bibEntry{%
+  \chapter*{\thesis@@{bib@title}}
+  \noindent\thesis@upper{author@tail}, \thesis@author@head.
+  \emph{\thesis@title}. \thesis@place: \thesis@@{universityName},
+  \thesis@@{facultyName}, \thesis@department@name, \thesis@year.
+  \thesis@pages\ \thesis@@{bib@pages}.
+  \thesis@@{advisorTitle}: \thesis@advisor
+  \thesis@blocks@clearRight}
 %    \end{macrocode}
 % \end{macro}
 % The rest of the file comprises redefinitions of \LaTeX\ commands

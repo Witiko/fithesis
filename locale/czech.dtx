@@ -2,7 +2,7 @@
 % This is the base file of the Czech locale.\iffalse
 %<*base>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/fithesis-czech.def}[2016/01/13]
+\ProvidesFile{fithesis/locale/fithesis-czech.def}[2016/03/22]
 %    \end{macrocode}
 % The locale file defines all the private macros mandated by the
 % locale file interface.
@@ -78,7 +78,7 @@
 % \iffalse
 %<*mu>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/mu/fithesis-czech.def}[2015/11/17]
+\ProvidesFile{fithesis/locale/mu/fithesis-czech.def}[2016/03/22]
 
 % Zástupné texty
 \gdef\thesis@czech@universityName{Masarykova univerzita}
@@ -87,6 +87,10 @@
   \thesis@czech@gender@koncovka\ samostatně a
   použil\thesis@czech@gender@koncovka\ jen prameny
   uvedené~v seznamu literatury.}
+
+% Bibliografický záznam
+\gdef\thesis@czech@bib@title{Bibliografický záznam}
+\gdef\thesis@czech@bib@pages{str}
 
 % Různé
 \gdef\thesis@czech@idTitle{UČO}
@@ -228,39 +232,60 @@
 % correct value. It also redefines the \texttt{declaration},
 % \texttt{typeName} and \texttt{typeName@akuzativ} strings in
 % accordance with the requirements of the faculty.
+% 
+% The locale file also defines the \texttt{departmentName}
+% string, which is used by the \texttt{style/mu/fithesis-phil^^A
+% .sty} style file, when typesetting the names of known
+% departments.
 % \iffalse
 %<*mu/phil>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/mu/phil/fithesis-czech.def}[2016/01/07]
+\ProvidesFile{fithesis/locale/mu/phil/fithesis-czech.def}[2016/03/22]
 
 % Zástupné texty
 \gdef\thesis@czech@facultyName{Filozofická fakulta}
+\gdef\thesis@czech@departmentName{%
+  \ifx\thesis@department\thesis@departments@kisk
+    Kabinet informačních studií a knihovnictví%
+  \else
+    <<Neznámé oddělení (\thesis@department)>>%
+  \fi}
 \gdef\thesis@czech@declaration{%
-  Prohlašuji, že jsem \thesis@lower{czech@typeName@akuzativ}
-  vypracoval\thesis@czech@gender@koncovka\ samostatně~s využitím
-  uvedené literatury.}
+  \ifx\thesis@department\thesis@departments@kisk
+    Prohlašuji, že jsem předkládanou práci zpracoval%
+    \thesis@czech@gender@koncovka\ samostatně~a použil%
+    \thesis@czech@gender@koncovka\ jen uvedené prameny~a
+    literaturu. Současně dávám svolení k tomu, aby elektronická
+    verze této práce byla zpřístupněna přes informační systém
+    Masarykovy univerzity.%
+  \else
+    Prohlašuji, že jsem \thesis@lower{czech@typeName@akuzativ}
+    vypracoval\thesis@czech@gender@koncovka\ samostatně~s využitím
+    uvedené literatury.%
+  \fi}
 
 % Ostatní
+\global\let\thesis@czech@typeName@super
+  \thesis@czech@typeName
 \gdef\thesis@czech@typeName{%
   \ifx\thesis@type\thesis@bachelors
     Bakalářská diplomová práce%
   \else\ifx\thesis@type\thesis@masters
     Magisterská diplomová práce%
-  \else\ifx\thesis@type\thesis@doctoral
-    Disertační práce%
   \else
-    <<Neznámý typ práce (\thesis@type)>>%
-  \fi\fi\fi}
+    \thesis@czech@typeName@super
+  \fi\fi}
+
+\global\let\thesis@czech@typeName@akuzativ@super
+  \thesis@czech@typeName@akuzativ
 \gdef\thesis@czech@typeName@akuzativ{%
   \ifx\thesis@type\thesis@bachelors
     Diplomovou práci%
   \else\ifx\thesis@type\thesis@masters
     Diplomovou práci%
-  \else\ifx\thesis@type\thesis@doctoral
-    Disertační práci%
   \else
-    <<Neznámý typ práce (\thesis@type)>>%
-  \fi\fi\fi}
+    \thesis@czech@typeName@akuzativ@super
+  \fi\fi}
 %    \end{macrocode}\iffalse
 %</mu/phil>
 % \fi\file{locale/mu/ped/fithesis-czech.def}
@@ -275,14 +300,10 @@
 % \iffalse
 %<*mu/ped>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/mu/ped/fithesis-czech.def}[2015/06/26]
+\ProvidesFile{fithesis/locale/mu/ped/fithesis-czech.def}[2016/03/22]
 
 % Zástupné texty
 \gdef\thesis@czech@facultyName{Pedagogická fakulta}
-
-% Bibliografický záznam
-\gdef\thesis@czech@bib@title{Bibliografický záznam}
-\gdef\thesis@czech@bib@pages{str}
 %    \end{macrocode}\iffalse
 %</mu/ped>
 % \fi\file{locale/mu/sci/fithesis-czech.def}
