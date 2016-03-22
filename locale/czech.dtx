@@ -45,7 +45,9 @@
 \gdef\thesis@czech@declarationTitle{Prohlášení}
 \gdef\thesis@czech@idTitle{ID}
 \gdef\thesis@czech@typeName{%
-  \ifx\thesis@type\thesis@bachelors
+  \ifx\thesis@type\thesis@sempaper
+    Seminární práce%
+  \else\ifx\thesis@type\thesis@bachelors
     Bakalářská práce%
   \else\ifx\thesis@type\thesis@masters
     Diplomová práce%
@@ -55,9 +57,11 @@
     Rigorózní práce%
   \else
     <<Neznámý typ práce (\thesis@type)>>%
-  \fi\fi\fi\fi}
+  \fi\fi\fi\fi\fi}
 \gdef\thesis@czech@typeName@akuzativ{%
-  \ifx\thesis@type\thesis@bachelors
+  \ifx\thesis@type\thesis@sempaper
+    Seminární práci%
+  \else\ifx\thesis@type\thesis@bachelors
     Bakalářskou práci%
   \else\ifx\thesis@type\thesis@masters
     Diplomovou práci%
@@ -67,7 +71,7 @@
     Rigorózní práci%
   \else
     <<Neznámý typ práce (\thesis@type)>>%
-  \fi\fi\fi\fi}
+  \fi\fi\fi\fi\fi}
 %    \end{macrocode}\iffalse
 %</base>
 % \fi\file{locale/mu/fithesis-czech.def}

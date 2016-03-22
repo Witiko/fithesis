@@ -56,12 +56,16 @@
   \gdef\thesis@version@number{#1}
   \gdef\thesis@version@date{#2}
   \gdef\thesis@version{#2 #1 fithesis3 MU thesis class}}
-\thesis@versiondef{v0.3.35-dev}{2016/03/22}}
+\thesis@versiondef{v0.3.35:2-dev}{2016/03/22}}
 % {\newwrite\f\openout\f=VERSION\write\f{\thesis@version}\closeout\f}
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-% \changes{v0.3.35}  {2016/03/22}{Added support for the Division of
+% \changes{v0.3.35:2}{2016/03/22}{Added support for seminar papers
+%   on the \textsf{fithesis3} class level. The style files for the
+%   faculties of the Masaryk University in Brno do not provide any
+%   special handling of this thesis type yet.}
+% \changes{v0.3.35:1}{2016/03/22}{Added support for the Division of
 %   Information and Library Studies of the Faculty of Arts at the
 %   Masaryk University in Brno. This support is enabled by
 %   specifying \cs{thesis@department} to be \texttt{kisk}.}
@@ -633,22 +637,25 @@
 % The \marg{\texttt{type}=type} pair sets the type of the thesis
 % to \textit{type}. The following types of theses are recognized:
 % \begin{center}\begin{tabular}{lc}\toprule
-%   The thesis type & The value of \textit{type} \\\midrule
+%   The thesis type   & The value of \textit{type} \\\midrule
+%   Seminar paper     & \texttt{sem} \\
 %   Bachelor's thesis & \texttt{bc} \\
-%   Master's thesis & \texttt{mgr} \\
-%   Doctoral thesis & \texttt{d} \\
-%   Rigorous thesis & \texttt{r} \\\bottomrule
+%   Master's thesis   & \texttt{mgr} \\
+%   Doctoral thesis   & \texttt{d} \\
+%   Rigorous thesis   & \texttt{r} \\\bottomrule
 % \end{tabular}\end{center}
 % The \textit{type} is stored within the |\thesis@type| macro,
 % whose implicit value is |bc|. For the ease of testing of the
 % thesis type via |\ifx| conditions within style and locale files,
-% the \DescribeMacro{\thesis@bachelors}|\thesis@bachelors|,
+% the \DescribeMacro{\thesis@sempaper}|\thesis@sempaper|,
+% \DescribeMacro{\thesis@bachelors}|\thesis@bachelors|,
 % \DescribeMacro{\thesis@masters}|\thesis@masters|,
 % \DescribeMacro{\thesis@doctoral}|\thesis@doctoral| and
 % \DescribeMacro{\thesis@rigorous}|\thesis@rigorous| macros
 % containing the corresponding \textit{type} values are available
 % as a part of the private API.
 %    \begin{macrocode}
+\def\thesis@sempaper{sem}
 \def\thesis@bachelors{bc}
 \def\thesis@masters{mgr}
 \def\thesis@doctoral{d}

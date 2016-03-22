@@ -34,7 +34,9 @@
 \gdef\thesis@english@declarationTitle{Declaration}
 \gdef\thesis@english@idTitle{ID}
 \gdef\thesis@english@typeName{%
-  \ifx\thesis@type\thesis@bachelors
+  \ifx\thesis@type\thesis@sempaper
+    Seminar Paper%
+  \else\ifx\thesis@type\thesis@bachelors
     Bachelor's Thesis%
   \else\ifx\thesis@type\thesis@masters
     Master's Thesis%
@@ -44,7 +46,7 @@
     Rigorous Thesis%
   \else
     <<Unknown thesis type (\thesis@type)>>%
-  \fi\fi\fi\fi}
+  \fi\fi\fi\fi\fi}
 %    \end{macrocode}\iffalse
 %</base>
 % \fi\file{locale/mu/fithesis-english.def}

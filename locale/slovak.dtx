@@ -45,7 +45,9 @@
 \gdef\thesis@slovak@declarationTitle{Prehlásenie}
 \gdef\thesis@slovak@idTitle{ID}
 \gdef\thesis@slovak@typeName{%
-  \ifx\thesis@type\thesis@bachelors
+  \ifx\thesis@type\thesis@sempaper
+    Seminárna práca%
+  \else\ifx\thesis@type\thesis@bachelors
     Bakalárska práca%
   \else\ifx\thesis@type\thesis@masters
     Diplomová práca%
@@ -55,9 +57,11 @@
     Rigorózna práca%
   \else
     <<Neznámy typ práce (\thesis@type)>>%
-  \fi\fi\fi\fi}
+  \fi\fi\fi\fi\fi}
 \gdef\thesis@slovak@typeName@akuzativ{%
-  \ifx\thesis@type\thesis@bachelors
+  \ifx\thesis@type\thesis@sempaper
+    Seminárnu prácu%
+  \else\ifx\thesis@type\thesis@bachelors
     Bakalársku prácu%
   \else\ifx\thesis@type\thesis@masters
     Diplomovú prácu%
@@ -67,7 +71,7 @@
     Rigoróznu prácu%
   \else
     <<Neznámy typ práce (\thesis@type)>>%
-  \fi\fi\fi\fi}
+  \fi\fi\fi\fi\fi}
 %    \end{macrocode}\iffalse
 %</base>
 % \fi\file{locale/mu/fithesis-slovak.def}
