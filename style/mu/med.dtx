@@ -124,26 +124,6 @@
   \parindent 1.5em
   \onehalfspacing}
 %    \end{macrocode}
-% \end{macro}\begin{macro}{\thesis@blocks@bibEntry}
-% The |\thesis@blocks@bibEntry| macro typesets a
-% bibliographical entry. Along with the macros required by the
-% locale file interface, the \textit{locale} files need to define
-% the following macros:
-% \begin{itemize}
-%   \item|\thesis@|\emph{locale}|@bib@title| -- The title of the
-%     entire block
-%   \item|\thesis@|\emph{locale}|@bib@pages| -- The abbreviation of
-%     pages used in the bibliographical entry
-% \end{itemize}
-%    \begin{macrocode}
-\def\thesis@blocks@bibEntry{%
-  \chapter*{\thesis@@{bib@title}}
-  \noindent\thesis@upper{author@tail}, \thesis@author@head.
-  \emph{\thesis@title}. \thesis@place: \thesis@@{universityName},
-  \thesis@@{facultyName}, \thesis@department@name, \thesis@year.
-  \thesis@pages\ \thesis@@{bib@pages}.
-  \thesis@@{advisorTitle}: \thesis@advisor}
-%    \end{macrocode}
 % \end{macro}
 % All blocks within the autolayout postamble that are not defined
 % within this file are defined in the

@@ -1,6 +1,7 @@
 SUBMAKES_REQUIRED=logo/mu locale style style/mu
 SUBMAKES_EXTRA=guide/mu example/mu
-SUBMAKES_TEST=test test/mu/blind test/mu/compare
+SUBMAKES_TEST=test test/mu/blind test/mu/compare \
+	test/mu/compare-example
 SUBMAKES=$(SUBMAKES_REQUIRED) $(SUBMAKES_EXTRA) $(SUBMAKES_TEST)
 .PHONY: all base complete docs clean dist dist-implode implode \
 	install install-base install-docs uninstall tests $(SUBMAKES)
@@ -15,11 +16,12 @@ DTXFILES=*.dtx locale/czech.dtx locale/english.dtx \
 	locale/slovak.dtx style/*.dtx style/*/*.dtx
 INSFILES=*.ins locale/czech.ins locale/english.ins \
 	locale/slovak.ins style/*.ins style/*/*.ins
-TESTS=test/*.tex test/mu/blind/*.tex test/mu/compare/*.pdf
+TESTS=test/*.tex test/mu/compare/*.pdf test/mu/compare/*.tex \
+	test/mu/compare-example/*.pdf test/mu/comparepdf.sh
 MAKES=guide/mu/Makefile guide/mu/resources/Makefile \
 	locale/Makefile	logo/mu/Makefile Makefile style/Makefile \
 	style/mu/Makefile test/Makefile test/mu/blind/Makefile \
-	test/mu/compare/Makefile
+	test/mu/compare/Makefile test/mu/compare-example/Makefile
 USEREXAMPLE_SOURCES=example/mu/Makefile example/mu/example.dtx \
 	example/mu/*.ins
 USEREXAMPLES=example/mu/econ-lualatex.pdf \
@@ -39,8 +41,9 @@ DEVEXAMPLES=guide/EXAMPLE/DESCRIPTION guide/mu/DESCRIPTION \
 	logo/DESCRIPTION style/EXAMPLE/DESCRIPTION style/mu/DESCRIPTION \
 	style/DESCRIPTION test/DESCRIPTION test/EXAMPLE/DESCRIPTION \
 	test/mu/DESCRIPTION test/mu/blind/DESCRIPTION \
-	test/mu/compare/DESCRIPTION example/EXAMPLE/DESCRIPTION \
-	example/mu/DESCRIPTION example/DESCRIPTION
+	test/mu/compare/DESCRIPTION test/mu/compare-example/DESCRIPTION \
+	example/EXAMPLE/DESCRIPTION example/mu/DESCRIPTION \
+	example/DESCRIPTION
 EXAMPLES=$(USEREXAMPLES) $(DEVEXAMPLES)
 MISCELLANEOUS=guide/mu/resources/empty.tex guide/mu/guide.bib \
 	guide/mu/guide.dtx guide/mu/*.ins guide/mu/resources/cog.pdf \

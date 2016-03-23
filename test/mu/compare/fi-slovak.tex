@@ -1,0 +1,14 @@
+\documentclass[monochrome]{../../../fithesis3}
+\usepackage{ifluatex}
+\ifluatex
+  \usepackage{polyglossia}
+  \setmainlanguage{slovak}
+\else
+  \usepackage[slovak]{babel}
+\fi
+\thesissetup{
+  basePath=../../..,
+  faculty=fi}
+\begin{document}
+  foo bar
+\end{document}

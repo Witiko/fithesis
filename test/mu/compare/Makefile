@@ -1,26 +1,90 @@
-.PHONY: all implode
-TARGETS=expected-econ-lualatex.pdf expected-fss-pdflatex.pdf \
-	expected-phil-lualatex.pdf expected-econ-pdflatex.pdf \
-	expected-law-lualatex.pdf expected-phil-pdflatex.pdf \
-	expected-fi-lualatex.pdf expected-law-pdflatex.pdf \
-	expected-sci-lualatex.pdf expected-fi-pdflatex.pdf \
-	expected-med-lualatex.pdf expected-sci-pdflatex.pdf \
-	expected-fsps-lualatex.pdf expected-med-pdflatex.pdf \
-	expected-fsps-pdflatex.pdf expected-ped-lualatex.pdf \
-	expected-fss-lualatex.pdf expected-ped-pdflatex.pdf
-EXAMPLEDIR=../../../example/mu
+.PHONY: all implode bootstrap all
+FAKETIME=faketime '2000-01-01 01:01:01'
+COMPARE=../comparepdf.sh
+SOURCES=base-digital.tex base-printed.tex base-10pt.tex \
+	base-11pt.tex base-12pt.tex econ-czech.tex econ-english.tex \
+	econ-oldtable.tex econ-slovak.tex econ-table.tex fi-color.tex \
+	fi-czech.tex fi-english.tex fi-czech-male.tex \
+	fi-czech-female.tex fi-slovak-male.tex fi-slovak-female.tex \
+	fi-oldtable.tex fi-rigorous.tex fi-slovak.tex fi-table.tex \
+	fsps-czech.tex fsps-english.tex fsps-oldtable.tex \
+	fsps-slovak.tex fsps-table.tex fss-czech.tex fss-english.tex \
+	fss-oldtable.tex fss-slovak.tex fss-table.tex law-czech.tex \
+	law-english.tex law-oldtable.tex law-slovak.tex law-table.tex \
+	med-czech.tex med-english.tex med-oldtable.tex med-slovak.tex \
+	med-table.tex ped-czech.tex ped-english.tex ped-oldtable.tex \
+	ped-slovak.tex ped-table.tex phil-czech.tex phil-english.tex \
+	phil-kisk-english.tex phil-kisk-czech.tex phil-kisk-slovak.tex \
+	phil-oldtable.tex phil-slovak.tex phil-table.tex sci-color.tex \
+	sci-czech.tex sci-czech-male.tex sci-czech-female.tex \
+	sci-slovak-male.tex sci-slovak-female.tex sci-english.tex \
+	sci-oldtable.tex sci-rigorous.tex sci-slovak.tex sci-table.tex \
+	phil-kisk-czech-male.tex phil-kisk-czech-female.tex \
+	phil-kisk-slovak-male.tex phil-kisk-slovak-female.tex
+TESTS=$(addsuffix -pdflatex.pdf,$(basename $(SOURCES))) \
+	$(addsuffix -lualatex.pdf,$(basename $(SOURCES)))
+PROTOTYPES=$(addprefix expected-,$(TESTS))
 
-# This target runs all the tests.
-all:
-	make -C $(EXAMPLEDIR) implode
-	faketime '2000-01-01 01:01:01' make -C $(EXAMPLEDIR) all
-	make $(TARGETS)
-	make -C $(EXAMPLEDIR) implode
+# This target typesets all the test documents,
+# compares them with the prototypes, and cleans
+# up afterwards.
+all: $(TESTS) implode
 
-# This target runs a single test.
-expected-%.pdf: $(EXAMPLEDIR)/%.pdf
-	comparepdf --compare=appearance --verbose=1 $< $@
+# This target typesets all the prototypes.
+bootstrap: $(PROTOTYPES) clean
 
-# This is a dummy target.
-implode:
-	
+# This target typesets a pdfLaTeX prototype.
+expected-%-pdflatex.pdf: %.tex
+	rm -f $@
+	make $(basename $<)-pdflatex.pdf
+	mv   $(basename $<)-pdflatex.pdf $@
+
+# This target typesets a LuaLaTeX prototype.
+expected-%-lualatex.pdf: %.tex
+	rm -f $@
+	make $(basename $<)-lualatex.pdf
+	mv   $(basename $<)-lualatex.pdf $@
+
+# This target typesets a pdfLaTeX test file and compares
+# it against a prototype.
+%-pdflatex.pdf: %.tex
+	@# The first run.
+	$(FAKETIME) pdflatex -jobname          $(basename $@) $<
+	@# Prepare bibliography, if necessary.
+	! [ -e $(basename $<).bcf ] || (biber  $(basename $<).bcf && \
+	$(FAKETIME) pdflatex -jobname          $(basename $@) $<)
+	@# Prepare index, if necessary.
+	! [ -e $(basename $<).idx ] || \
+		(texindy -I latex -C utf8 -L english $(basename $<).idx && \
+	$(FAKETIME) pdflatex -jobname          $(basename $@) $<)
+	@# The second run.
+	$(FAKETIME) pdflatex -jobname          $(basename $@) $<
+	@# Compare the result with the prototype.
+	! [ -e expected-$@ ] || $(COMPARE) expected-$@ $@
+
+# This target typesets a LuaLaTeX test file and compares
+# it against a prototype.
+%-lualatex.pdf: %.tex
+	@# The first run.
+	$(FAKETIME) lualatex -jobname          $(basename $@) $<
+	@# Prepare bibliography, if necessary.
+	! [ -e $(basename $<).bcf ] || (biber  $(basename $<).bcf && \
+	$(FAKETIME) lualatex -jobname          $(basename $@) $<)
+	@# Prepare index, if necessary.
+	! [ -e $(basename $<).idx ] || \
+		(texindy -I latex -C utf8 -L english $(basename $<).idx && \
+	$(FAKETIME) lualatex -jobname          $(basename $@) $<)
+	@# The second run.
+	$(FAKETIME) lualatex -jobname          $(basename $@) $<
+	@# Compare the result with the prototype.
+	! [ -e expected-$@ ] || $(COMPARE) expected-$@ $@
+
+# This target removes any auxiliary files.
+clean:
+	rm -f *.aux *.log *.out *.toc *.lot *.lof *.bcf *.blg *.run.xml \
+		*.bbl *.idx *.ind *.ilg
+
+# This target removes any auxiliary files
+# and the output PDF files.
+implode: clean
+	rm -f $(TESTS)

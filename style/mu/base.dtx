@@ -314,16 +314,16 @@
     \let\thesis@newtable@oldx\tabularx
     \let\endthesis@newtable@oldx\endtabularx
     \renewenvironment{tabularx}%
-      {\rowcolors{1}{thesis@color@tableOdd}%
-                    {thesis@color@tableEven}%
+      {\rowcolors{1}{thesis@color@tableEven}%
+                    {thesis@color@tableOdd}%
        \thesis@newtable@oldx}%
       {\endthesis@newtable@oldx}
     % The redefinition of `tabu`
     \let\thesis@newtable@oldtabu\tabu
     \let\endthesis@newtable@oldtabu\endtabu
     \renewenvironment{tabu}%
-      {\rowcolors{1}{thesis@color@tableOdd}%
-                    {thesis@color@tableEven}%
+      {\rowcolors{1}{thesis@color@tableEven}%
+                    {thesis@color@tableOdd}%
        \thesis@newtable@oldtabu}%
       {\endthesis@newtable@oldtabu}
   \fi
@@ -838,7 +838,7 @@
   \pagestyle{thesisheadings}
   \parindent 1.5em\relax}
 %    \end{macrocode}
-% \begin{macro}{\thesis@blocks@bibEntry}
+% \end{macro}\begin{macro}{\thesis@blocks@bibEntry}
 % The |\thesis@blocks@bibEntry| macro typesets a bibliographical
 % entry. Along with the macros required by the locale file
 % interface, the \textit{locale} files need to define the following

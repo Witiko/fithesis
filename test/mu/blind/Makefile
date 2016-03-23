@@ -3,9 +3,9 @@
 # This target runs all the tests.
 all: implode
 	for file in *.tex; do \
+		[ $$file = '*.tex' ] && continue; \
 		ln -s "$$file" current.tex && \
 		pdflatex current && pdflatex current && make clean && \
-		xelatex  current && xelatex  current && make clean && \
 		lualatex current && lualatex current && make implode; \
 	done
 

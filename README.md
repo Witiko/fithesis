@@ -19,8 +19,12 @@ engines as well as the LaTeX packages required for the typesetting
 of the technical documentation within the `fithesis.dtx` file and
 the guide files within the `guide/` subdirectory.
 
-(For running the test suite using the `make tests` command, the
-`faketime` and `comparepdf` commands are also required.)
+For running the test suite using the `make tests` command, the
+following tools are also required:
+
+  * `faketime`
+  * `comparepdf`
+  * `pdftk`
 
 # Installation #
 
