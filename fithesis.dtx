@@ -56,11 +56,13 @@
   \gdef\thesis@version@number{#1}
   \gdef\thesis@version@date{#2}
   \gdef\thesis@version{#2 #1 fithesis3 MU thesis class}}
-\thesis@versiondef{v0.3.35:2-dev}{2016/03/22}}
+\thesis@versiondef{v0.3.35}{2016/03/23}}
 % {\newwrite\f\openout\f=VERSION\write\f{\thesis@version}\closeout\f}
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
+% \changes{v0.3.35:3}{2016/03/23}{Fixed \cs{l@}\textit{locale}
+%   being possibly undefined in a LuaLaTeX run.}
 % \changes{v0.3.35:2}{2016/03/22}{Added support for seminar papers
 %   on the \textsf{fithesis3} class level. The style files for the
 %   faculties of the Masaryk University in Brno do not provide any
@@ -1271,6 +1273,17 @@
       \ifx\thesis@locale\empty\else
         \edef\thesis@locale{\thesis@locale}
         \thesis@requireLocale{\thesis@locale}
+%    \end{macrocode}
+% Coerce LuaTeX into defining |\l@|\textit{locale} for
+% \textit{locale}s with known hyphenation patterns, unless
+% \textsf{babel} has been loaded. In that case
+% |\l@|\textit{locale} has already been defined.
+%    \begin{macrocode}
+    \ifluatex
+      \ltx@ifpackageloaded{babel}{}{
+        % See <article.gmane.org/gmane.comp.tex.luatex.user/5680>
+        \RequirePackage[base]{babel}}
+    \fi
 %    \end{macrocode}
 % If the \textsf{babel} or \textsf{polyglossia} locale is identical
 % to the thesis locale, the |\thesis@selectLocale| macro will be
