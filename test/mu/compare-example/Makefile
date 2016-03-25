@@ -24,6 +24,7 @@ all:
 
 # This target typesets all the prototypes.
 bootstrap:
+	make -C $(EXAMPLEDIR) implode
 	$(FAKETIME) make -C $(EXAMPLEDIR) all
 	make $(PROTOTYPES)
 	make -C $(EXAMPLEDIR) implode

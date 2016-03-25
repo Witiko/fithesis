@@ -22,6 +22,7 @@ all: $(OUTPUT) clean
 	pdflatex $< # Update the index after the bibliography insertion.
 	texindy -I latex -C utf8 -L english $(basename $<).idx
 	pdflatex $< # The final typesetting, now also with index.
+	pdflatex $<
 
 # This target typesets a LuaLaTeX example.
 %-lualatex.pdf: %-lualatex.tex example.bib
@@ -30,6 +31,7 @@ all: $(OUTPUT) clean
 	lualatex $< # Update the index after the bibliography insertion.
 	texindy -I latex -C utf8 -L english $(basename $<).idx
 	lualatex $< # The final typesetting, now also with index.
+	lualatex $<
 
 # This target removes any auxiliary files.
 clean:
