@@ -56,7 +56,7 @@
   \gdef\thesis@version@number{#1}
   \gdef\thesis@version@date{#2}
   \gdef\thesis@version{#2 #1 fithesis3 MU thesis class}}
-\thesis@versiondef{v0.3.35}{2016/03/23}}
+\thesis@versiondef{v0.3.36-dev}{2016/03/26}}
 % {\newwrite\f\openout\f=VERSION\write\f{\thesis@version}\closeout\f}
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -395,7 +395,7 @@
 % \end{itemize}
 % The \texttt{hyperref} package is also conditionally loaded during
 % the expansion of the |\thesis@load| macro (see Section
-% \ref{sec:thesis@load}). Other packages may be required by the
+% \ref{sec:thesisload}). Other packages may be required by the
 % style files (see Section \ref{sec:style-files}) you are using.
 %    \begin{macrocode}
 \RequirePackage{keyval}
@@ -826,7 +826,7 @@
 % implicit value is |\thesis@university/fithesis-\thesis@faculty|.
 % When the \textit{filename} is an empty token string, no style
 % files will be loaded during the main routine (see Section
-% \ref{sec:thesis@load}).
+% \ref{sec:thesisload}).
 %    \begin{macrocode}
 \def\thesis@style{\thesis@university/fithesis-\thesis@faculty}
 \define@key{thesis}{style}{%
@@ -864,7 +864,7 @@
 % package, or \texttt{english}, when undefined. When the
 % \textit{name} is an empty token string, no locale files will be
 % loaded during the main routine (see Section
-% \ref{sec:thesis@load}).
+% \ref{sec:thesisload}).
 %    \begin{macrocode}
 \def\thesis@locale{%
   % Babel / polyglossia detection
@@ -1246,21 +1246,23 @@
   \csname KV@thesis@#1\endcsname{#2}}
 %    \end{macrocode}
 % \end{macro}
-% \section{Private API}
-% \subsection{Main routine}\label{sec:thesis@load}
-% \begin{macro}{\thesis@load}
-% The |\thesis@load| macro is responsible for preparing the
+% \subsection{The \cs{thesisload} macro}\label{sec:thesisload}
+% \begin{macro}{\thesisload}
+% The |\thesisload| macro is responsible for preparing the
 % environment for, and consequently loading, the necessary locale
-% and style files. By default, the |\thesis@load| macro gets
+% and style files. By default, the |\thesisload| macro gets
 % expanded at the end of the preamble,
 % but it can be expanded manually prior to that point, if necessary
 % to prevent package clashes. The \DescribeMacro{\ifthesis@loaded}
-% |\ifthesis@loaded| semaphore ensures that the expansion is only
-% performed once.
+% |\ifthesis@loaded| macro ensures that the expansion is only
+% performed once. For backwards compatibility, the
+% \DescribeMacro{\thesis@load}|\thesis@load| macro can be used to
+% the same effect.
 %    \begin{macrocode}
 \newif\ifthesis@loaded\thesis@loadedfalse
-\AtEndPreamble{\thesis@load}
-\def\thesis@load{%
+\AtEndPreamble{\thesisload}
+\def\thesis@load{\thesisload}
+\def\thesisload{%
   \ifthesis@loaded\else
     \thesis@loadedtrue
     \makeatletter
@@ -1342,6 +1344,7 @@
   \fi}
 %    \end{macrocode}
 % \end{macro}
+% \section{Private API}
 % \subsection{File manipulation macros}\label{sec:reflection}
 % \begin{macro}{\thesis@exists}
 % The |\thesis@exists|\marg{file}\marg{tokens} macro is
@@ -1602,7 +1605,7 @@
 % \label{sec:locale-files}
 % Locale files contain macro definitions for various locales. They
 % live in the \texttt{locale/} subtree and they are loaded during
-% the main routine (see Section \ref{sec:thesis@load}).
+% the main routine (see Section \ref{sec:thesisload}).
 %
 % When creating a new locale file, it is advisable to create one
 % self-contained \texttt{dtx} file, which is then partitioned into
@@ -1675,7 +1678,7 @@
 % Style files define the structure and the look of the resulting
 % document. They live in the \texttt{style/} subtree and they are
 % loaded during the main routine (see Section
-% \ref{sec:thesis@load}).
+% \ref{sec:thesisload}).
 %
 % When creating a new style file, it is advisable to create one
 % self-contained \texttt{dtx} file, which can contain several

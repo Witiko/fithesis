@@ -742,11 +742,11 @@
   configure the package, you can do that anywhere after the document preamble.
   If the package needs to be configured within the preamble, you can load the
   \textsf{fithesis3} style files prematurely using the
-  \texttt{\string\thesis@load} command as follows:
+  \texttt{\string\thesisload} command as follows:
   \begin{minted}{latex}
 \documentclass[...]{fithesis3}
 %% The preamble
-\makeatletter\thesis@load\makeatother
+\thesisload
 %% Here goes the package configuration.
 \begin{document}
   %% The document
