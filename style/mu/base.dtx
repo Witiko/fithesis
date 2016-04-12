@@ -873,10 +873,10 @@
 % Sections up to \subsection will be numbered.
 \setcounter{secnumdepth}{2}
 
-% Load the `fithesis-1*.clo` size option
+% Load the `fithesis-1*.clo` size option.
 \input\thesis@stylepath mu/fithesis-1\thesis@ptsize.clo\relax
 
-% Define the running heading style
+% Define the running heading style.
 \def\ps@thesisheadings{%
   \def\chaptermark##1{%
     \markright{%
@@ -908,7 +908,7 @@
   \fi
   \let\@mkboth\markboth}
 
-% Redefine the style of the chapter headings
+% Redefine the style of the chapter headings.
 \renewcommand*\chapter{%
   \thesis@blocks@clear
   \thispagestyle{plain}%
@@ -916,7 +916,7 @@
   \@afterindentfalse
   \secdef\@chapter\@schapter}
 
-% Redefine the style of part headings
+% Redefine the style of part headings.
 \renewcommand*\part{%
   \thesis@blocks@clear
   \if@twocolumn
@@ -928,33 +928,46 @@
   \hbox{}\vfil
   \secdef\@part\@spart}
 
+% A macro for temporary multicol -> singlecol switching.
 \newif\if@restonecol
 \def\alwayssingle{%
   \@restonecolfalse\if@twocolumn\@restonecoltrue\onecolumn\fi}
 \def\endalwayssingle{\if@restonecol\twocolumn\fi}
 
+% Disable uppercasing in PDF strings.
+\pdfstringdefDisableCommands{%
+  \let\MakeUppercase\relax}
+
+% Set up the table of contents entries for sectioning commands.
 \renewcommand*\l@part[2]{%
-  \ifnum \c@tocdepth >-2\relax
-    \addpenalty{-\@highpenalty}%
-    \addvspace{0.5em \@plus\p@}%
-    \begingroup
-      \setlength\@tempdima{3em}%
-      \parindent \z@ \rightskip \@pnumwidth
-      \parfillskip -\@pnumwidth
-      {\leavevmode
-       \normalfont \bfseries #1\hfil \hb@xt@\@pnumwidth{\hss #2}}\par
-       \nobreak
-         \global\@nobreaktrue
-         \everypar{\global\@nobreakfalse\everypar{}}%
-    \endgroup
-    \addvspace{0.2em \@plus\p@}%
+  \ifnum \c@tocdepth >\m@ne
+    \ifnum \c@tocdepth >0\relax
+      \addpenalty{-\@highpenalty}%
+      \ifnum \c@tocdepth >1\relax
+        \addvspace{2.25em \@plus\p@}%
+      \else
+        \addvspace{1.0em \@plus\p@}%
+      \fi
+      \begingroup
+        \setlength\@tempdima{3em}%
+        \parindent \z@ \rightskip \@pnumwidth
+        \parfillskip -\@pnumwidth
+        {\leavevmode
+         \normalfont \bfseries #1\hfil \hb@xt@\@pnumwidth{\hss #2}}\par
+         \nobreak
+           \global\@nobreaktrue
+           \everypar{\global\@nobreakfalse\everypar{}}%
+      \endgroup
+    \else
+      \@dottedtocline{0}{0em}{1.5em}{#1}{#2}
+    \fi
   \fi}
 
 \renewcommand*\l@chapter[2]{%
-  \ifnum \c@tocdepth >\m@ne
+  \ifnum \c@tocdepth >0\relax
     \ifnum \c@tocdepth >1\relax
       \addpenalty{-\@highpenalty}%
-      \vskip 1.0em \@plus\p@
+      \addvspace{1.0em \@plus\p@}%
       \setlength\@tempdima{1.5em}%
       \begingroup
         \parindent \z@ \rightskip \@pnumwidth
