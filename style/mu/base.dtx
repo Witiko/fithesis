@@ -7,7 +7,7 @@
 % after \texttt{style/fithesis-base.sty}, regardless of the value
 % of the |\thesis@style| macro.
 %    \begin{macrocode}
-\ProvidesPackage{fithesis/style/mu/fithesis-base}[2016/03/22]
+\ProvidesPackage{fithesis/style/mu/fithesis-base}[2016/04/12]
 \NeedsTeXFormat{LaTeX2e}
 %    \end{macrocode}
 % The file recognizes the following options: \begin{itemize}
@@ -867,8 +867,11 @@
 % loaded from the |\thesis@stylepath| |mu| directory, respectively.
 %    \begin{macrocode}
 % Table of contents will contain sectioning commands up to
-% \subsubsection
+% \subsection.
 \setcounter{tocdepth}{3}
+
+% Sections up to \subsection will be numbered.
+\setcounter{secnumdepth}{2}
 
 % Load the `fithesis-1*.clo` size option
 \input\thesis@stylepath mu/fithesis-1\thesis@ptsize.clo\relax
@@ -949,24 +952,29 @@
 
 \renewcommand*\l@chapter[2]{%
   \ifnum \c@tocdepth >\m@ne
-    \addpenalty{-\@highpenalty}%
-    \vskip 1.0em \@plus\p@
-    \setlength\@tempdima{1.5em}%
-    \begingroup
-      \parindent \z@ \rightskip \@pnumwidth
-      \parfillskip -\@pnumwidth
-      \leavevmode \bfseries
-      \advance\leftskip\@tempdima
-      \hskip -\leftskip
-      #1\nobreak\hfil \nobreak\hb@xt@\@pnumwidth{\hss #2}\par
-      \penalty\@highpenalty
-    \endgroup
+    \ifnum \c@tocdepth >1\relax
+      \addpenalty{-\@highpenalty}%
+      \vskip 1.0em \@plus\p@
+      \setlength\@tempdima{1.5em}%
+      \begingroup
+        \parindent \z@ \rightskip \@pnumwidth
+        \parfillskip -\@pnumwidth
+        \leavevmode \bfseries
+        \advance\leftskip\@tempdima
+        \hskip -\leftskip
+        #1\nobreak\hfil \nobreak\hb@xt@\@pnumwidth{\hss #2}\par
+        \penalty\@highpenalty
+      \endgroup
+    \else
+      \@dottedtocline{1}{0em}{1.5em}{#1}{#2}
+    \fi
   \fi}
 
-\renewcommand*\l@chapter{\@dottedtocline{1}{0em}{1.5em}}
 \renewcommand*\l@section{\@dottedtocline{2}{1.5em}{2.3em}}
 \renewcommand*\l@subsection{\@dottedtocline{3}{3.8em}{3.2em}}
 \renewcommand*\l@subsubsection{\@dottedtocline{4}{7.0em}{3.8em}}
+\renewcommand*\l@paragraph[2]\relax
+\renewcommand*\l@subparagraph[2]\relax
 %    \end{macrocode}\iffalse
 %</base>
 % \fi\file{style/mu/fithesis-10.clo}
@@ -1312,8 +1320,6 @@
 \def\subparagraph{\@startsection{subparagraph}{4}{\parindent}{%
   3.25ex plus1ex minus.2ex}{-1em}{%
   \reset@font\normalsize\bfseries}}
-
-\setcounter{secnumdepth}{2}
 
 \leftmargini 2.5em
 \leftmarginii 2.2em     % > \labelsep + width of '(m)'
