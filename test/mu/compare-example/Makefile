@@ -18,7 +18,9 @@ all:
 	make -C $(EXAMPLEDIR) implode
 	$(FAKETIME) make -C $(EXAMPLEDIR) all
 	for PROTOTYPE in $(PROTOTYPES); do \
-		$(COMPARE) "$$PROTOTYPE" $(EXAMPLEDIR)/"$${PROTOTYPE##expected-}" || exit 1;\
+		$(COMPARE) "$$PROTOTYPE" $(EXAMPLEDIR)/"$${PROTOTYPE##expected-}" || \
+		{ [ "$(UPDATE_FAILED)" = true ] && \
+			mv $(EXAMPLEDIR)/"$${PROTOTYPE##expected-}" "$$PROTOTYPE"; } || exit 1; \
 	done
 	make -C $(EXAMPLEDIR) implode
 

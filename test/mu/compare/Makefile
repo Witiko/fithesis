@@ -66,7 +66,8 @@ expected-%-lualatex.pdf: %.tex
 	@# The second run.
 	$(FAKETIME) pdflatex -jobname          $(basename $@) $<
 	@# Compare the result with the prototype.
-	! [ -e expected-$@ ] || $(COMPARE) expected-$@ $@
+	! [ -e expected-$@ ] || $(COMPARE) expected-$@ $@ || \
+	{ [ "$(UPDATE_FAILED)" = true ] && mv $@ expected-$@; }
 
 # This target typesets a LuaLaTeX test file and compares
 # it against a prototype.
@@ -83,7 +84,8 @@ expected-%-lualatex.pdf: %.tex
 	@# The second run.
 	$(FAKETIME) lualatex -jobname          $(basename $@) $<
 	@# Compare the result with the prototype.
-	! [ -e expected-$@ ] || $(COMPARE) expected-$@ $@
+	! [ -e expected-$@ ] || $(COMPARE) expected-$@ $@ || \
+	{ [ "$(UPDATE_FAILED)" = true ] && mv $@ expected-$@; }
 
 # This target removes any auxiliary files.
 clean:
