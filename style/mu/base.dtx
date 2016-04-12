@@ -868,7 +868,7 @@
 %    \begin{macrocode}
 % Table of contents will contain sectioning commands up to
 % \subsection.
-\setcounter{tocdepth}{3}
+\setcounter{tocdepth}{2}
 
 % Sections up to \subsection will be numbered.
 \setcounter{secnumdepth}{2}
@@ -938,56 +938,61 @@
 \pdfstringdefDisableCommands{%
   \let\MakeUppercase\relax}
 
+% Set up the ToC entries appearance.
+\renewcommand*\toc@font[1]{%
+	\ifcase #1\relax
+		\bfseries % \chapter (0)
+	\or
+		\slshape  % \section (1)
+	\else
+		\rmfamily % \subsection (2), \subsubsection (3)
+							% \paragraph, \subparagraph (4)
+	\fi}
+
 % Set up the table of contents entries for sectioning commands.
 \renewcommand*\l@part[2]{%
-  \ifnum \c@tocdepth >\m@ne
+  \ifnum \c@tocdepth >-2\relax
+    \addpenalty{-\@highpenalty}%
     \ifnum \c@tocdepth >0\relax
-      \addpenalty{-\@highpenalty}%
-      \ifnum \c@tocdepth >1\relax
-        \addvspace{2.25em \@plus\p@}%
-      \else
-        \addvspace{1.0em \@plus\p@}%
-      \fi
-      \begingroup
-        \setlength\@tempdima{3em}%
-        \parindent \z@ \rightskip \@pnumwidth
-        \parfillskip -\@pnumwidth
-        {\leavevmode
-         \normalfont \bfseries #1\hfil \hb@xt@\@pnumwidth{\hss #2}}\par
-         \nobreak
-           \global\@nobreaktrue
-           \everypar{\global\@nobreakfalse\everypar{}}%
-      \endgroup
+      \addvspace{2.25em \@plus\p@}%
     \else
-      \@dottedtocline{0}{0em}{1.5em}{#1}{#2}
+      \addvspace{1.0em \@plus\p@}%
     \fi
+    \begingroup
+      \setlength\@tempdima{3em}%
+      \parindent \z@ \rightskip \@pnumwidth
+      \parfillskip -\@pnumwidth
+      {\leavevmode
+       \normalfont \bfseries #1\hfil \hb@xt@\@pnumwidth{\hss #2}}\par
+       \nobreak
+         \global\@nobreaktrue
+         \everypar{\global\@nobreakfalse\everypar{}}%
+    \endgroup
   \fi}
 
 \renewcommand*\l@chapter[2]{%
   \ifnum \c@tocdepth >0\relax
-    \ifnum \c@tocdepth >1\relax
-      \addpenalty{-\@highpenalty}%
-      \addvspace{1.0em \@plus\p@}%
-      \setlength\@tempdima{1.5em}%
-      \begingroup
-        \parindent \z@ \rightskip \@pnumwidth
-        \parfillskip -\@pnumwidth
-        \leavevmode \bfseries
-        \advance\leftskip\@tempdima
-        \hskip -\leftskip
-        #1\nobreak\hfil \nobreak\hb@xt@\@pnumwidth{\hss #2}\par
-        \penalty\@highpenalty
-      \endgroup
-    \else
-      \@dottedtocline{1}{0em}{1.5em}{#1}{#2}
-    \fi
+    \addpenalty{-\@highpenalty}%
+    \addvspace{1.0em \@plus\p@}%
+    \setlength\@tempdima{1.5em}%
+    \begingroup
+      \parindent \z@ \rightskip \@pnumwidth
+      \parfillskip -\@pnumwidth
+      \leavevmode \bfseries
+      \advance\leftskip\@tempdima
+      \hskip -\leftskip
+      #1\nobreak\hfil \nobreak\hb@xt@\@pnumwidth{\hss #2}\par
+      \penalty\@highpenalty
+    \endgroup
+  \else
+    \@dottedtocline{0}{0em}{1.5em}{#1}{#2}
   \fi}
 
-\renewcommand*\l@section{\@dottedtocline{2}{1.5em}{2.3em}}
-\renewcommand*\l@subsection{\@dottedtocline{3}{3.8em}{3.2em}}
-\renewcommand*\l@subsubsection{\@dottedtocline{4}{7.0em}{3.8em}}
-\renewcommand*\l@paragraph[2]\relax
-\renewcommand*\l@subparagraph[2]\relax
+\renewcommand*\l@section{\@dottedtocline{1}{1.5em}{2.3em}}
+\renewcommand*\l@subsection{\@dottedtocline{2}{3.8em}{3.2em}}
+\renewcommand*\l@subsubsection{\@dottedtocline{3}{7.0em}{4.1em}}
+\renewcommand*\l@paragraph{\@dottedtocline{4}{10.0em}{5.0em}}
+\renewcommand*\l@subparagraph{\@dottedtocline{4}{12.0em}{6.0em}}
 %    \end{macrocode}\iffalse
 %</base>
 % \fi\file{style/mu/fithesis-10.clo}

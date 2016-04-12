@@ -20,7 +20,13 @@ SOURCES=base-digital.tex base-printed.tex base-10pt.tex \
 	sci-slovak-male.tex sci-slovak-female.tex sci-english.tex \
 	sci-oldtable.tex sci-rigorous.tex sci-slovak.tex sci-table.tex \
 	phil-kisk-czech-male.tex phil-kisk-czech-female.tex \
-	phil-kisk-slovak-male.tex phil-kisk-slovak-female.tex
+	phil-kisk-slovak-male.tex phil-kisk-slovak-female.tex \
+	toc-01.tex toc-02.tex toc-03.tex toc-04.tex toc-05.tex \
+	toc-06.tex toc-07.tex toc-08.tex toc-09.tex toc-10.tex \
+	toc-11.tex toc-12.tex toc-13.tex toc-14.tex toc-15.tex \
+	toc-16.tex toc-17.tex toc-18.tex toc-19.tex toc-20.tex \
+	toc-21.tex toc-22.tex toc-23.tex toc-24.tex toc-25.tex \
+	toc-26.tex toc-27.tex toc-28.tex
 TESTS=$(addsuffix -pdflatex.pdf,$(basename $(SOURCES))) \
 	$(addsuffix -lualatex.pdf,$(basename $(SOURCES)))
 PROTOTYPES=$(addprefix expected-,$(TESTS))
