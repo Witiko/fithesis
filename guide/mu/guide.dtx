@@ -729,7 +729,7 @@
   may wishe to configure the class beyond what the class options
   and the metadata settings offer. An understanding of how the
   main routine of \textsf{fithesis3} works is beneficial. The main
-  routine is documented in Section 3.1 of the technical
+  routine is documented in Section 2.4 of the technical
   documentation of the \textsf{fithesis3} class \cite{novotny15}.
 
   \section{Throubleshooting option clashes}
@@ -757,6 +757,39 @@
   rest of the packages is \emph{lazy-loaded} (loaded only if the
   user hasn't already loaded them), in which case no clash is
   possible.
+
+  \section{Overriding changes made by style and locale files}
+  The \textsf{fithesis3} style files are loaded immediately before
+  the beginning of your document and may change values you would
+  like to set by yourself, such as the \LaTeX \texttt{tocdepth} and
+  \texttt{secnumdepth} counters. Locale files are also loaded
+  immediately before your document, which prevents you from
+  changing locale strings from within the preamble of your
+  document.
+  
+  To overcome this limitation, you can load the style and locale
+  files prematurely using the \texttt{\string\thesisload} command
+  as follows:
+  \begin{minted}{latex}
+\documentclass[...]{fithesis3}
+%% The preamble
+\thesisload
+%% Here go your changes.
+\begin{document}
+  %% The document
+\end{document}
+  \end{minted}
+  Although you can use the \texttt{\string\thesisload} command
+  anywhere in the preamble, using the macro before the metadata
+  configuration will load the default style and locale files not
+  taking into account your faculty and locale settings.
+  
+  The \texttt{\string\thesissetup} command also loads the
+  \textsf{hyperref} package, which adds hyperlinks and PDF metadata
+  into the resulting PDF document. This package is rather delicate,
+  as it needs to be loaded after most other packages. Loading
+  additional packages after \texttt{\string\thesissetup} may
+  therefore cause problems.
   
   \section{Changing the layout}
   If you are unsatisfied with the automatic arrangement of the
