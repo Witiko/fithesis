@@ -940,14 +940,14 @@
 
 % Set up the ToC entries appearance.
 \renewcommand*\toc@font[1]{%
-	\ifcase #1\relax
-		\bfseries % \chapter (0)
-	\or
-		\slshape  % \section (1)
+  \ifcase #1\relax
+    \bfseries % \chapter (0)
+  \or
+    \slshape  % \section (1)
 	\else
-		\rmfamily % \subsection (2), \subsubsection (3)
-							% \paragraph, \subparagraph (4)
-	\fi}
+    \rmfamily % \subsection (2), \subsubsection (3)
+              % \paragraph, \subparagraph (4)
+  \fi}
 
 % Set up the table of contents entries for sectioning commands.
 \renewcommand*\l@part[2]{%
