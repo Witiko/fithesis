@@ -742,7 +742,7 @@
   configure the package, you can do that anywhere after the document preamble.
   If the package needs to be configured within the preamble, you can load the
   \textsf{fithesis3} style files prematurely using the
-  \texttt{\string\thesisload} command as follows:
+  \mintinline{latex}{\thesisload} command as follows:
   \begin{minted}{latex}
 \documentclass[...]{fithesis3}
 %% The preamble
@@ -761,14 +761,14 @@
   \section{Overriding changes made by style and locale files}
   The \textsf{fithesis3} style files are loaded immediately before
   the beginning of your document and may change values you would
-  like to set by yourself, such as the \LaTeX \texttt{tocdepth} and
-  \texttt{secnumdepth} counters. Locale files are also loaded
+  like to set by yourself, such as the \LaTeX\ \texttt{tocdepth}
+  and \texttt{secnumdepth} counters. Locale files are also loaded
   immediately before your document, which prevents you from
   changing locale strings from within the preamble of your
   document.
   
   To overcome this limitation, you can load the style and locale
-  files prematurely using the \texttt{\string\thesisload} command
+  files prematurely using the \mintinline{latex}{\thesisload} command
   as follows:
   \begin{minted}{latex}
 \documentclass[...]{fithesis3}
@@ -779,16 +779,16 @@
   %% The document
 \end{document}
   \end{minted}
-  Although you can use the \texttt{\string\thesisload} command
+  Although you can use the \mintinline{latex}{\thesisload} command
   anywhere in the preamble, using the macro before the metadata
   configuration will load the default style and locale files not
   taking into account your faculty and locale settings.
   
-  The \texttt{\string\thesissetup} command also loads the
+  The \mintinline{latex}{\thesisload} command also loads the
   \textsf{hyperref} package, which adds hyperlinks and PDF metadata
   into the resulting PDF document. This package is rather delicate,
   as it needs to be loaded after most other packages. Loading
-  additional packages after \texttt{\string\thesissetup} may
+  additional packages after \mintinline{latex}{\thesisload} may
   therefore cause problems.
   
   \section{Changing the layout}
