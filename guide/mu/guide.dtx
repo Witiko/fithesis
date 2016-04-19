@@ -6,14 +6,6 @@
 \usepackage{minted}
 \usepackage{ltxcmds}
 \usepackage{tabularx}
-\usepackage[
-  backend=biber,
-  style=numeric,
-  citestyle=numeric-comp,
-  sorting=none,
-  sortlocale=auto
-]{biblatex}
-\addbibresource{guide.bib}
 \makeatletter
 \thesissetup{
   title=A fithesis3 user guide for the \thesis@english@facultyName,
@@ -36,6 +28,7 @@
   TeXkeywordsEn=\thesis@TeXkeywords,
   abstractEn=\thesis@abstract,
   faculty=\jobname,
+  bib=guide.bib,
   autoLayout=false}
 \thesislong{abstract}{%
   \textsf{Fithesis3} is a \LaTeX{} document class, which
@@ -174,7 +167,8 @@
   \textsf{fontspec}, \textsf{unicode-math}, \textsf{mathpazo},
   \textsf{tex-gyre-pagella}, \textsf{lm}, \textsf{cmap},
   \textsf{fontenc}, \textsf{tabularx}, \textsf{tabu},
-  \textsf{booktabs}, \textsf{csquotes}, \textsf{fithesis}.
+  \textsf{booktabs}, \textsf{csquotes}, \textsf{biblatex},
+  \textsf{fithesis}.
  
   {\makeatletter %% A placeholder string macro
   \def\thguide@placeholder#1{$\langle$\textit{#1}$\rangle$}
@@ -689,6 +683,23 @@
         \ldots
       \end{center}
 %</econ,fi,fss,law,sci>
+    \item[bib]
+      This key can be used to specify a list of BIB files
+      containing the bibliography databases. The list should be in
+      the following format:
+      \begin{center}
+        \texttt{path/to/first/file.bib, path/to/second/file.bib,}
+        \ldots
+      \end{center}
+      When this key is specified, the \textsf{fithesis3} class will
+      also automatically typeset a bibliography section. If you
+      want more control over where and how the bibliography is
+      typeset, use the
+      \mintinline{latex}{\printbibliography[bibintoc]} command.
+
+      When the key is not specified, no bibliography will be
+      produced, which provides the opportunity for the advanced user
+      to set up their bibliography management manually.
   \end{description}
   Apart from the single-paragraph \mintinline{latex}{\thesissetup}
   command, the following keys can be configured with multiple
