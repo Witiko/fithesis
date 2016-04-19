@@ -26,7 +26,8 @@ SOURCES=base-digital.tex base-printed.tex base-10pt.tex \
 	toc-11.tex toc-12.tex toc-13.tex toc-14.tex toc-15.tex \
 	toc-16.tex toc-17.tex toc-18.tex toc-19.tex toc-20.tex \
 	toc-21.tex toc-22.tex toc-23.tex toc-24.tex toc-25.tex \
-	toc-26.tex toc-27.tex toc-28.tex
+	toc-26.tex toc-27.tex toc-28.tex fi-bibliography-solicited.tex \
+	fi-bibliography-unsolicited.tex
 TESTS=$(addsuffix -pdflatex.pdf,$(basename $(SOURCES))) \
 	$(addsuffix -lualatex.pdf,$(basename $(SOURCES)))
 PROTOTYPES=$(addprefix expected-,$(TESTS))
@@ -57,11 +58,13 @@ expected-%-lualatex.pdf: %.tex
 	@# The first run.
 	$(FAKETIME) pdflatex -jobname          $(basename $@) $<
 	@# Prepare bibliography, if necessary.
-	! [ -e $(basename $<).bcf ] || (biber  $(basename $<).bcf && \
+	! [ -e $(basename $<)-pdflatex.bcf ] || \
+		(biber  $(basename $<)-pdflatex.bcf && \
 	$(FAKETIME) pdflatex -jobname          $(basename $@) $<)
 	@# Prepare index, if necessary.
-	! [ -e $(basename $<).idx ] || \
-		(texindy -I latex -C utf8 -L english $(basename $<).idx && \
+	! [ -e $(basename $<)-pdflatex.idx ] || \
+		(texindy -I latex -C utf8 -L english \
+		$(basename $<)-pdflatex.idx && \
 	$(FAKETIME) pdflatex -jobname          $(basename $@) $<)
 	@# The second run.
 	$(FAKETIME) pdflatex -jobname          $(basename $@) $<
@@ -75,11 +78,13 @@ expected-%-lualatex.pdf: %.tex
 	@# The first run.
 	$(FAKETIME) lualatex -jobname          $(basename $@) $<
 	@# Prepare bibliography, if necessary.
-	! [ -e $(basename $<).bcf ] || (biber  $(basename $<).bcf && \
+	! [ -e $(basename $<)-lualatex.bcf ] || \
+		(biber  $(basename $<)-lualatex.bcf && \
 	$(FAKETIME) lualatex -jobname          $(basename $@) $<)
 	@# Prepare index, if necessary.
-	! [ -e $(basename $<).idx ] || \
-		(texindy -I latex -C utf8 -L english $(basename $<).idx && \
+	! [ -e $(basename $<)-lualatex.idx ] || \
+		(texindy -I latex -C utf8 -L english \
+		$(basename $<)-lualatex.idx && \
 	$(FAKETIME) lualatex -jobname          $(basename $@) $<)
 	@# The second run.
 	$(FAKETIME) lualatex -jobname          $(basename $@) $<
