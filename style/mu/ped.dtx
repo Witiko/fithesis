@@ -2,11 +2,11 @@
 % This is the style file for the theses written at the Faculty of
 % Education at the Masaryk University in Brno. It has been prepared
 % in accordance with the formal requirements published at the
-% website of the faculty\footnote{See \url{http://is.muni.cz/^^A
-% do/ped/VPAN/pokdek/Pokyn_dekana_c._1-2010__2_.pdf}}.
+% of the faculty\footnote{See \url{https://is.muni.cz/auth/do/p^^A
+% ed/VPAN/pokdek/Pokyn_dekana_zaverecne_prace_finale__1_.pdf}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fithesis/style/mu/fithesis-ped}[2016/03/22]
+\ProvidesPackage{fithesis/style/mu/fithesis-ped}[2016/04/18]
 %    \end{macrocode}
 % The file defines the color scheme of the respective faculty.
 %    \begin{macrocode}
@@ -15,6 +15,14 @@
   tableEmph={HTML}{FFBB6B},
   tableOdd={HTML}{FFF1E0},
   tableEven={HTML}{FFDEB7}}
+%    \end{macrocode}
+% The bibliography support is enabled. The |numeric| citations are
+% used and the bibliography is sorted by name, title, and year.
+%    \begin{macrocode}
+\thesis@bibliography@setup{
+  style=iso-numeric,
+  sorting=nty}
+\thesis@bibliography@load
 %    \end{macrocode}
 % The style file configures the title page header to include the
 % department name and the title page content to include the
@@ -29,9 +37,8 @@
     {\thesis@titlePage@large\\[0.3in]
       {\bf\thesis@@{advisorTitle}:} \thesis@advisor}}
 %    \end{macrocode}
-% \end{macro}
-% All blocks within the autolayout postamble that are not defined
-% within this file are defined in the
+% All blocks within the autolayout preamble and postamble that are
+% not defined within this file are defined in the
 % \texttt{style/mu/fithesis-base.sty} file.
 %    \begin{macrocode}
 \def\thesis@blocks@preamble{%
@@ -47,4 +54,6 @@
     \thesis@blocks@declaration
     \thesis@blocks@thanks
     \thesis@blocks@tables}
+\def\thesis@blocks@postamble{%
+  \thesis@blocks@bibliography}
 %    \end{macrocode}

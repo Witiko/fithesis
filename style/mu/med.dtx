@@ -7,7 +7,7 @@
 % ZITOSTI_ZAVERECNE_PRACE.doc}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fithesis/style/mu/fithesis-med}[2016/03/22]
+\ProvidesPackage{fithesis/style/mu/fithesis-med}[2016/04/18]
 %    \end{macrocode}
 % The file defines the color scheme of the respective faculty.
 %    \begin{macrocode}
@@ -16,6 +16,14 @@
   tableEmph={HTML}{FF9D85},
   tableOdd={HTML}{FFF5F6},
   tableEven={HTML}{FFDEDF}}
+%    \end{macrocode}
+% The bibliography support is enabled. The |authoryear| citations
+% are used and the bibliography is sorted by year, name, and title.
+%    \begin{macrocode}
+\thesis@bibliography@setup{%
+  style=iso-authoryear,
+  sorting=ynt}
+\thesis@bibliography@load
 %    \end{macrocode}
 % The file loads the following packages:
 % \begin{itemize}
@@ -125,8 +133,8 @@
   \onehalfspacing}
 %    \end{macrocode}
 % \end{macro}
-% All blocks within the autolayout postamble that are not defined
-% within this file are defined in the
+% All blocks within the autolayout preamble and postamble that are
+% not defined within this file are defined in the
 % \texttt{style/mu/fithesis-base.sty} file.
 %    \begin{macrocode}
 \def\thesis@blocks@preamble{%
@@ -144,4 +152,6 @@
     \thesis@blocks@declaration
     \thesis@blocks@thanks
     \thesis@blocks@tables}
+\def\thesis@blocks@postamble{%
+  \thesis@blocks@bibliography}
 %    \end{macrocode}

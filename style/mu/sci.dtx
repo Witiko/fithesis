@@ -6,7 +6,7 @@
 % \url{http://www.sci.muni.cz/NW/predpisy/od/OD-2014-05.pdf}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fithesis/style/mu/fithesis-sci}[2016/03/22]
+\ProvidesPackage{fithesis/style/mu/fithesis-sci}[2016/04/18]
 %    \end{macrocode}
 % The file defines the color scheme of the respective faculty.
 %    \begin{macrocode}
@@ -15,6 +15,13 @@
   tableEmph={HTML}{8EDEAA},
   tableOdd={HTML}{EDF7F1},
   tableEven={HTML}{CCEDD8}}
+%    \end{macrocode}
+% The bibliography support is enabled.
+%    \begin{macrocode}
+\thesis@bibliography@setup{
+  style=iso-numeric,
+  sorting=none}
+\thesis@bibliography@load
 %    \end{macrocode}
 % The file uses Czech locale strings within the macros.
 %    \begin{macrocode}
@@ -349,11 +356,11 @@
   \end{alwayssingle}}
 %    \end{macrocode}
 % \end{macro}
-% All blocks within the autolayout postamble that are not defined
-% within this file are defined in the
-% \texttt{style/mu/fithesis-base.sty} file. The
-% entire front matter is typeset as though the locale were Czech in
-% accordance with the formal requirements of the faculty.
+% All blocks within the autolayout preamble and postamble that are
+% not defined within this file are defined in the
+% \texttt{style/mu/fithesis-base.sty} file. The entire front matter
+% is typeset as though the locale were Czech in accordance with the
+% formal requirements of the faculty.
 %    \begin{macrocode}
 \def\thesis@blocks@preamble{{%
   \thesis@selectLocale{czech}%
@@ -370,4 +377,6 @@
     \thesis@blocks@thanks
     \thesis@blocks@declaration
     \thesis@blocks@tables}}
+\def\thesis@blocks@postamble{%
+  \thesis@blocks@bibliography}
 %    \end{macrocode}

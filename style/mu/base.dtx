@@ -7,7 +7,7 @@
 % after \texttt{style/fithesis-base.sty}, regardless of the value
 % of the |\thesis@style| macro.
 %    \begin{macrocode}
-\ProvidesPackage{fithesis/style/mu/fithesis-base}[2016/04/12]
+\ProvidesPackage{fithesis/style/mu/fithesis-base}[2016/04/18]
 \NeedsTeXFormat{LaTeX2e}
 %    \end{macrocode}
 % The file recognizes the following options: \begin{itemize}
@@ -329,6 +329,118 @@
   \fi
 \fi
 %    \end{macrocode}
+% \begin{macro}{\ifthesis@bibliography@}
+% A new conditional, |\ifthesis@bibliography@|, is defined. This
+% conditional is true, when |\thesis@bibFiles| expands to a
+% non-empty token list.
+%    \begin{macrocode}
+\newif\ifthesis@bibliography@
+\thesis@bibliography@false
+\ifx\thesis@bibFiles\undefined\else
+  {\edef\@bibList{\thesis@bibFiles}%
+  \ifx\@bibList\empty\else
+    \global\thesis@bibliography@true
+  \fi}
+\fi
+%    \end{macrocode}
+% \end{macro}
+% \begin{macro}{\thesis@bibliography@setup}
+% The file defines the |\thesis@bibliography@setup|\marg{options}
+% command, where \textit{options} is a comma-delimited list of
+% key-value pairs as defined by the \textsf{keyval} package. The
+% command can be invoked by the subsequently loaded style
+% files to define the bibliography options.
+%    \begin{macrocode}
+\def\thesis@bibliography@setup#1{%
+  \setkeys{thesis@bibliography}{#1}}
+%    \end{macrocode}
+% \end{macro}
+% The following key-value pairs are supported:
+% \begin{enumerate}
+%   \item\marg{\texttt{style}=style} -- Stores \texttt{style} in
+%     \DescribeMacro{\thesis@bibliography@style}^^A
+%     |\thesis@bibliography@style|, unless it has already been
+%     defined (presumably by the user).
+%   \item\marg{\texttt{sorting}=mode} -- Stores \texttt{mode} in
+%     \DescribeMacro{\thesis@bibliography@sorting}^^A
+%     |\thesis@bibliography@sorting|, unless it has already been
+%     defined (presumably by the user).
+% \end{enumerate}
+%    \begin{macrocode}
+\define@key{thesis@bibliography}{style}{%
+  \ifx\thesis@bibliography@style\undefined
+    \def\thesis@bibliography@style{#1}%
+  \fi}
+\define@key{thesis@bibliography}{sorting}{%
+  \ifx\thesis@bibliography@sorting\undefined
+    \def\thesis@bibliography@sorting{#1}%
+  \fi}
+%    \end{macrocode}
+% \begin{macro}{\thesis@bibliography@load}
+% When |\ifthesis@bibliography@| is true and
+% |\ifthesis@bibliography@loaded@| is false, the
+% |\thesis@bibliography@load| macro loads the \textsf{csquotes} and
+% Bib\LaTeX\ packages with the bibliography databases specified in
+% |\thesis@bibFiles|. The macro also sets the
+% \DescribeMacro{\thesis@bibliography@loaded}^^A
+% |\ifthesis@bibliography@loaded@| conditional to true.
+%    \begin{macrocode}
+\newif\ifthesis@bibliography@loaded@
+  \thesis@bibliography@loaded@false
+\def\thesis@bibliography@load{%
+  \ifthesis@bibliography@
+    \ifthesis@bibliography@loaded@\else
+      \thesis@bibliography@loaded@true
+      % Load csquotes and BibLaTeX.
+      \thesis@require{csquotes}
+%    \end{macrocode}
+% If |\thesis@bibliography@style| is undefined, the bibliography
+% and citation styles default to |iso-numeric|. If
+% |\thesis@bibliography@sorting| is undefined, the sorting scheme
+% defaults to |none|.
+%    \begin{macrocode}
+      \thesis@bibliography@setup{
+        style = iso-numeric,
+        sorting = none}
+      \thesis@require[
+        backend=biber,
+        style=\thesis@bibliography@style,
+        sorting=\thesis@bibliography@sorting,
+        autolang=other,
+        sortlocale=auto]{biblatex}
+      % Load the bibliography databases.
+      {\edef\@bibList{\thesis@bibFiles}%
+      \def\@inject##1,{%
+        \def\@args{##1}\def\@relax{\relax}%
+        \ifx\@args\@relax\else
+          % Trim leading spaces.
+          \edef\@trimmed{\romannumeral-`\.##1}%
+          \addbibresource\@trimmed
+          \expandafter\@inject\fi}%
+      \expandafter\@inject\@bibList,\relax,}%
+%    \end{macrocode}
+% \begin{macro}{\ifthesis@bibliography@included@}
+% The |\ifthesis@bibliography@included@| conditional is true, when
+% the user has manually included a bibliography into their
+% document. The default value of the conditional is false and
+% |\printbibliography| is patched to set the conditional to true on
+% expansion. This enables the user to place the bibliography
+% manually without it appearing in the autolayout. The original
+% macro is stored in the
+% \DescribeMacro{\thesis@printbibliography@old}^^A
+% |\thesis@printbibliography@old| macro.
+%    \begin{macrocode}
+      \newif\ifthesis@bibliography@included@
+      \thesis@bibliography@included@false
+      \let\thesis@printbibliography@old\printbibliography
+      \def\printbibliography{%
+        \thesis@bibliography@included@true
+        \thesis@printbibliography@old}
+    \fi
+  \fi}
+%    \end{macrocode}
+% \end{macro} ^^A The nested \ifthesis@bibliography@included@ def
+% \end{macro} ^^A The \thesis@bibliography@load macro definition
 % The \textsf{hyperref} package is configured to support both roman
 % and arabic page numbering in one document and to decorate
 % hyperlinks with an underline instead of a rectangular box.
@@ -780,18 +892,18 @@
 % \end{macro}\begin{macro}{\thesis@blocks@assignment}
 % The |\thesis@blocks@assignment| macro either:
 % \begin{itemize}
-%   \item Produces no output, when the first expansion of
-%     |\thesis@|\discretionary{}{}{}|assignmentPDF| yields an empty
+%   \item Produces no output, when the expansion of
+%     |\thesis@|\discretionary{}{}{}|assignmentFiles| yields an empty
 %     token list or when the |\ifthesis@blocks@assignment@|
 %     conditional is \texttt{false}.
 %   \item Typesets a placeholder page to be replaced with the
-%     official thesis assignment, when |\thesis@assignmentPDF|
+%     official thesis assignment, when |\thesis@assignmentFiles|
 %     is undefined and the |\ifthesis@blocks|\discretionary{}{}^^A
 %     {}|@assignment@| conditional is \texttt{true}.
 %   \item Injects the PDF file(s) specified within the
-%     |\thesis@assignmentPDF| macro, when |\thesis@assignmentPDF|
-%     is defined, its first expansion yields a non-empty token list
-%     and the |\ifthesis@blocks@assignment@| conditional is
+%     |\thesis@assignmentFiles| macro, when |\thesis@assignmentFiles|
+%     is defined, its expansion yields a non-empty token list and
+%     the |\ifthesis@blocks@assignment@| conditional is
 %     \texttt{true}.
 % \end{itemize}
 % The default value of the \DescribeMacro{\ifthesis@blocks@assig^^A
@@ -857,6 +969,20 @@
   \thesis@pages\ \thesis@@{bib@pages}.
   \thesis@@{advisorTitle}: \thesis@advisor
   \thesis@blocks@clearRight}
+%    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@blocks@bibliography}
+% When |\ifthesis@bibliography@loaded@| is true and
+% |\ifthesis@bibliography@included@| false, then the
+% |\thesis@blocks@bibliography| macro typesets a bibliography via
+% the Bib\LaTeX\ package. Otherwise, this macro produces no output.
+%    \begin{macrocode}
+\def\thesis@blocks@bibliography{%
+  \ifthesis@bibliography@loaded@
+    \ifthesis@bibliography@included@\else
+      \thesis@blocks@clear
+      \printbibliography[heading=bibintoc]%
+    \fi
+  \fi}
 %    \end{macrocode}
 % \end{macro}
 % The rest of the file comprises redefinitions of \LaTeX\ commands

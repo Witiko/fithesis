@@ -7,7 +7,7 @@
 % 363/Smernice2014-9.pdf}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fithesis/style/mu/fithesis-econ}[2016/02/18]
+\ProvidesPackage{fithesis/style/mu/fithesis-econ}[2016/04/18]
 %    \end{macrocode}
 % The file defines the color scheme of the respective faculty.
 %    \begin{macrocode}
@@ -16,6 +16,14 @@
   tableEmph={HTML}{E8B88B},
   tableOdd={HTML}{F5ECEB},
   tableEven={HTML}{EBD8D5}}
+%    \end{macrocode}
+% The bibliography support is enabled. The |authoryear| citations
+% are used and the bibliography is sorted by name, title, and year.
+%    \begin{macrocode}
+\thesis@bibliography@setup{
+  style=iso-authoryear,
+  sorting=nty}
+\thesis@bibliography@load
 %    \end{macrocode}
 % The file loads the following packages:
 % \begin{itemize}
@@ -168,11 +176,11 @@
     \thesis@blocks@thanks
     \thesis@blocks@toc}
 %    \end{macrocode}
-% The style file defines the autolayout postamble as the list of
-% tables and the list of figures. All blocks are defined in the
-% \texttt{style/mu/base.sty} file, although some are redefined in
-% this file.
+% All blocks within the autolayout postamble that are not defined
+% within this file are defined in the \texttt{style/mu/base.sty}
+% file.
 %    \begin{macrocode}
 \def\thesis@blocks@postamble{%
+  \thesis@blocks@bibliography
   \thesis@blocks@tables}
 %    \end{macrocode}
