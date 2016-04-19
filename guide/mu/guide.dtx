@@ -14,7 +14,6 @@
   sortlocale=auto
 ]{biblatex}
 \addbibresource{guide.bib}
-\usepackage[os=win]{menukeys}
 \makeatletter
 \thesissetup{
   title=A fithesis3 user guide for the \thesis@english@facultyName,
@@ -51,6 +50,8 @@
   capabilities, this document was typeset using the
   \textsf{fithesis3} class.}
 \makeatother
+\thesisload% The menukeys package does not play nice, when it is
+  \usepackage[os=win]{menukeys}% loaded before BibLaTeX.
 \begin{document}
   \makeatletter\thesis@preamble\makeatother
   \chapter{Introduction}
