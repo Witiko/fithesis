@@ -905,36 +905,8 @@
   \texttt{\string\th e\-sis\-@blocks\-@postamble} commands. To
   change the layout, it is sufficient to redefine \texttt{\string
   \th e\-sis\-@blocks\-@pre\-amble} and
-  \texttt{\string\th e\-sis\-@blocks\-@post\-amble} without changing
-  the definition of \texttt{\string\th e\-sis\-@pre\-amble} and
-  \texttt{\string\th e\-sis\-@post\-amble}. For the
-  \makeatletter\thesis@english@facultyName\makeatother,
-  \texttt{\string\th e\-sis\-@blocks\-@preamble} expands to the
-  following commands:
-  {\makeatletter
-    % This macro typesets the meaning of another macro.
-    \def\thguide@macromeaning#1{%
-      \let\ea\expandafter
-      \ea\let\ea\thguide@macro\csname#1\endcsname
-      \ea\def\ea\thguide@meaning\ea{\meaning\thguide@macro}%
-      \def\thguide@parse##1 ##2{%
-        ##1\ifx##2\relax\ea\@gobbletwo\else\\\fi\thguide@parse##2}%
-      \begin{verse}%
-        \ea\ifx\thguide@macro\relax
-          $\langle$\emph{empty}$\rangle$
-        \else
-          \tt\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea
-          \ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\thguide@parse\ea
-          \ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\@gobbletwo\ea
-          \ea\ea\ea\ea\ea\ea\@gobbletwo\ea\ea\ea\@gobbletwo\ea
-          \@gobbletwo\thguide@meaning{} \relax
-        \fi
-      \end{verse}}
-    \thguide@macromeaning{thesis@blocks@preamble} and
-    \texttt{\string\th e\-sis\-@blocks\-@post\-amble} 
-    expands to the following commands:
-    \thguide@macromeaning{thesis@blocks@postamble}
-  \makeatother}
+  \texttt{\string\th e\-sis\-@blocks\-@post\-amble}.
+
   To create a document that only contains the title page at the
   beginning of the document and the list of tables at the end of
   the document, we would use the following code:
