@@ -101,6 +101,7 @@
     TeXtitle      = The Economic Value of \LaTeX,
     keywords      = {keyword1, keyword2, ...},
     TeXkeywords   = {keyword1, keyword2, \ldots},
+    bib           = example.bib,
     %% The following keys are only useful, when you're using a
     %% locale other than English. You can safely omit them in an
     %% English thesis.
@@ -141,6 +142,7 @@
     TeXtitle      = {The Proof of $\mathsf{P}=\mathsf{NP}$},
     keywords      = {keyword1, keyword2, ...},
     TeXkeywords   = {keyword1, keyword2, \ldots},
+    bib           = example.bib,
 }
 \thesislong{abstract}{
     This is the abstract of my thesis, which can
@@ -166,7 +168,8 @@
     title         = The use of LaTeX for the Typesetting
                     of Sports Tables,
     TeXtitle      = The use of \LaTeX\ for the Typesetting
-                    of Sports Tables
+                    of Sports Tables,
+    bib           = example.bib,
 }
 %</fsps>
 %<*fss>
@@ -184,6 +187,7 @@
                     Information Society,
     keywords      = {keyword1, keyword2, ...},
     TeXkeywords   = {keyword1, keyword2, \ldots},
+    bib           = example.bib,
     %% The following keys are only useful, when you're using a
     %% locale other than English. You can safely omit them in an
     %% English thesis.
@@ -225,6 +229,7 @@
                     Public License,
     keywords      = {keyword1, keyword2, ...},
     TeXkeywords   = {keyword1, keyword2, \ldots},
+    bib           = example.bib,
     %% The following keys are only useful, when you're using a
     %% locale other than English. You can safely omit them in an
     %% English thesis.
@@ -268,6 +273,7 @@
                     Typography on the Quality of Sight,
     keywords      = {keyword1, keyword2, ...},
     TeXkeywords   = {keyword1, keyword2, \ldots},
+    bib           = example.bib,
     %% The following keys are only useful, when you're using a
     %% locale other than English. You can safely omit them in an
     %% English thesis.
@@ -309,6 +315,7 @@
                     to Preschool Children,
     keywords      = {keyword1, keyword2, ...},
     TeXkeywords   = {keyword1, keyword2, \ldots},
+    bib           = example.bib,
     %% The following keys are only useful, when you're using a
     %% locale other than English. You can safely omit them in an
     %% English thesis.
@@ -349,6 +356,7 @@
                     About the Nature of Man,
     TeXtitle      = What Can Typography Tell Us\\
                     About the Nature of Man,
+    bib           = example.bib,
 }
 \thesislong{thanks}{
     This is the acknowledgement for my thesis, which can
@@ -382,6 +390,7 @@
     TeXkeywords   = {klíčové slovo 1, klíčové slovo 2, \ldots},
     keywordsEn    = {keyword1, keyword2, ...},
     TeXkeywordsEn = {keyword1, keyword2, \ldots},
+    bib           = example.bib,
 }
 \thesislong{abstract}{
     This is the abstract of my thesis, which can
@@ -399,18 +408,6 @@
     span multiple paragraphs.
 }
 %</sci>
-%% The following section sets up the bibliography.
-\usepackage{csquotes}
-\usepackage[              %% When typesetting the bibliography, the
-  backend=biber,          %% `numeric` style will be used for the
-  style=numeric,          %% entries and the `numeric-comp` style
-  citestyle=numeric-comp, %% for the references to the entries. The
-  sorting=none,           %% entries will be sorted in cite order.
-  sortlocale=auto         %% For more unformation about the available
-]{biblatex}               %% `style`s and `citestyles`, see:      
-%% <http://mirrors.ctan.org/macros/latex/contrib/biblatex/doc/biblatex.pdf>.
-\addbibresource{example.bib} %% The bibliograpic database within
-                          %% the file `example.bib` will be used.
 \usepackage{makeidx}      %% The `makeidx` package contains
 \makeindex                %% helper commands for index typesetting.
 %% These additional packages are used within the document:
@@ -749,12 +746,12 @@ fonts will become available: \[
 }.
 
 \chapter{Inserting the bibliography}
-After loading the \texttt{biblatex} package and linking a
-bibliography data\-base file to the document using the
-\verb"\addbibresource" command, you can start citing the entries.
-This is just dummy text \cite{inbook-full} lightly sprinkled with
-citations \cite[p.~123]{incollection-full}.  Several sources can be
-cited at once \cite{whole-collection, manual-minimal,manual-full}.
+After linking a bibliography data\-base files to the document using the
+\verb"\"\texttt{thesissetup\{bib=\{\textit{file1}, \textit{file2},
+\ldots\}\}} command, you can start citing the entries. This is
+just dummy text \cite{inbook-full} lightly sprinkled with citations
+\cite[p.~123]{incollection-full}.  Several sources can be cited at
+once \cite{whole-collection, manual-minimal,manual-full}.
 \citetitle{inbook-full} was written by \citeauthor{inbook-full} in
 \citeyear{inbook-full}. We can also produce \textcite{inbook-full}
 or%% Let us define a compound command:
@@ -789,20 +786,11 @@ Command Window Here} option in the context menu that opens shortly
 afterwards.
 
 With online services -- such as Overleaf -- all commands are
-executed automatically.
+executed automatically. When you omit the
+\verb"\printbibliography" command, its location will be decided
+by the template.
 
-%<*pdftex>
-{\csname captions\languagename\endcsname %% Temporarily override
-%% the BibLaTeX localization with the original babel definitions.
-\makeatletter %% Use the correct localization of the quotations.
-  \thesis@selectLocale{\thesis@locale}\makeatother
-\printbibliography[heading=bibintoc]} %% Print the bibliography.
-%</pdftex>
-%<*luatex>
-{\makeatletter %% Use the correct localization of the quotations.
-  \thesis@selectLocale{\thesis@locale}\makeatother
-\printbibliography[heading=bibintoc]} %% Print the bibliography.
-%</luatex>
+  \printbibliography[heading=bibintoc] %% Print the bibliography.
 
 \chapter{Inserting the index}
 After using the \verb"\makeindex" macro and loading the
@@ -842,10 +830,10 @@ sort entries that contain digits and letters of the English
 alphabet) may be used instead of \texttt{texindy}. In either case,
 the index will be ill-sorted.
 
-\makeatletter\thesis@blocks@clear\makeatother
-\phantomsection %% Print the index and insert it into the
-\addcontentsline{toc}{chapter}{\indexname} %% table of contents.
-\printindex
+  \makeatletter\thesis@blocks@clear\makeatother
+  \phantomsection %% Print the index and insert it into the
+  \addcontentsline{toc}{chapter}{\indexname} %% table of contents.
+  \printindex
 %<*econ>
 
 \makeatletter
