@@ -56,7 +56,7 @@
   \gdef\thesis@version@number{#1}
   \gdef\thesis@version@date{#2}
   \gdef\thesis@version{#2 #1 fithesis3 MU thesis class}}
-\thesis@versiondef{v0.3.37}{2016/04/12}}
+\thesis@versiondef{v0.3.38-dev}{2016/04/18}}
 % {\newwrite\f\openout\f=VERSION\write\f{\thesis@version}\closeout\f}
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1182,6 +1182,23 @@
   \def\thesis@assignmentFiles{#1}}
 %    \end{macrocode}
 % \end{macro}
+% When the |\thesis@assignmentFiles| macro is defined and
+% non-empty, the style files should take that as a cue that the
+% user wishes to typeset the thesis assignment.
+% \begin{macro}{\thesis@bibFiles}
+% \subsubsection{The \texttt{bib} key}
+% The \marg{\texttt{bib}=list} pair sets the comma-delimited
+% list of paths to the BIB files containing the bibliography
+% databases to \textit{list}. The \textit{list} is stored within
+% the |\thesis@bibFiles| macro.
+%    \begin{macrocode}
+\define@key{thesis}{bib}{%
+  \def\thesis@bibFiles{#1}}
+%    \end{macrocode}
+% \end{macro}
+% When the |\thesis@bibFiles| macro is defined and non-empty, the
+% style files should take that as a cue that the user wishes to
+% typeset the bibliography.
 % \begin{macro}{\ifthesis@auto}
 % \subsubsection{The \texttt{autoLayout} key}
 % The \marg{\texttt{autoLayout}=bool} pair either enables,
