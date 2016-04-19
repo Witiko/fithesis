@@ -16,7 +16,7 @@
 % department and will require modification by the user.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fithesis/style/mu/fithesis-fss}[2015/12/08]
+\ProvidesPackage{fithesis/style/mu/fithesis-fss}[2016/04/18]
 %    \end{macrocode}
 % The file defines the color scheme of the respective faculty.
 %    \begin{macrocode}
@@ -25,6 +25,14 @@
   tableEmph={HTML}{69D6C6},
   tableOdd={HTML}{E3F1EE},
   tableEven={HTML}{C5E3DF}}
+%    \end{macrocode}
+% The bibliography support is enabled. The |authoryear| citations
+% are used and the bibliography is sorted by name, title, and year.
+%    \begin{macrocode}
+\thesis@bibliography@setup{
+  style=iso-authoryear,
+  sorting=nty}
+\thesis@bibliography@load
 %    \end{macrocode}
 % \begin{macro}{\thesis@blocks@frontMatter}
 % The |\thesis@blocks@frontMatter| macro sets up the style
@@ -37,8 +45,8 @@
   \pagenumbering{roman}}
 %    \end{macrocode}
 % \end{macro}
-% All blocks within the autolayout preamble that are not defined
-% within this file are defined in the
+% All blocks within the autolayout preamble and postamble that are
+% not defined within this file are defined in the
 % \texttt{style/mu/fithesis-base.sty} file.
 %    \begin{macrocode}
 \def\thesis@blocks@preamble{%
@@ -55,4 +63,6 @@
     \thesis@blocks@declaration
     \thesis@blocks@thanks
     \thesis@blocks@tables}
+\def\thesis@blocks@postamble{%
+  \thesis@blocks@bibliography}
 %    \end{macrocode}

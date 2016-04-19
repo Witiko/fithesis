@@ -6,7 +6,7 @@
 % 1421/4581421/Vzor_bakalarske_prace.pdf}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fithesis/style/mu/fithesis-phil}[2016/03/22]
+\ProvidesPackage{fithesis/style/mu/fithesis-phil}[2016/04/18]
 %    \end{macrocode}
 % The file defines the color scheme of the respective faculty.
 %    \begin{macrocode}
@@ -15,6 +15,14 @@
   tableEmph={HTML}{78CEF0},
   tableOdd={HTML}{EBF6FA},
   tableEven={HTML}{D0EBF5}}
+%    \end{macrocode}
+% The bibliography support is enabled. The |numeric| citations are
+% used and the bibliography is sorted by name, title, and year.
+%    \begin{macrocode}
+\thesis@bibliography@setup{
+  style=iso-numeric,
+  sorting=nty}
+\thesis@bibliography@load
 %    \end{macrocode}
 % The style file configures the title page header to include the
 % department and the field name.
@@ -27,7 +35,7 @@
 % \begin{itemize}
 %   \item\texttt{kisk} -- The Division of Information and Library
 %     Studies \footnote{See \url{http://kisk.phil.muni.cz/cs/pov^^A
-%     vinnosti}.} (KISK)
+%     innosti}.} (KISK)
 %    \begin{macrocode}
 \def\thesis@departments@kisk{kisk}
 %    \end{macrocode}
@@ -61,8 +69,9 @@
     \fi}%
 \fi
 %    \end{macrocode}
-% All blocks within the autolayout postamble that are not defined
-% within this file are defined in the
+% \end{macro}
+% All blocks within the autolayout preamble and postamble that are
+% not defined within this file are defined in the
 % \texttt{style/mu/fithesis-base.sty} file.
 %    \begin{macrocode}
 \def\thesis@blocks@preamble{%
@@ -93,14 +102,15 @@
     \else
       \thesis@blocks@tables
     \fi}
+\def\thesis@blocks@postamble{%
+  \ifx\thesis@department\thesis@departments@kisk
 %    \end{macrocode}
 % In KISK theses, the lists of tables and figures will be included
 % behind the bibliography rather than at the beginning of the
 % document.
 %    \begin{macrocode}
-\ifx\thesis@department\thesis@departments@kisk
-  \def\thesis@blocks@postamble{%
     \thesis@blocks@lot
-    \thesis@blocks@lof}
-\fi
+    \thesis@blocks@lof
+  \fi
+  \thesis@blocks@bibliography}
 %    \end{macrocode}

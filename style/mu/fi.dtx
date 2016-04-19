@@ -6,7 +6,7 @@
 % \url{http://www.fi.muni.cz/docs/BP_DP_na_FI.pdf}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fithesis/style/mu/fithesis-fi}[2016/01/07]
+\ProvidesPackage{fithesis/style/mu/fithesis-fi}[2016/04/18]
 %    \end{macrocode}
 % The file defines the color scheme of the respective faculty.
 %    \begin{macrocode}
@@ -15,6 +15,14 @@
   tableEmph={HTML}{FFD451},
   tableOdd={HTML}{FFF9E5},
   tableEven={HTML}{FFECB3}}
+%    \end{macrocode}
+% The bibliography support is enabled. The |numeric| citations are
+% used and the bibliography is sorted in citation order.
+%    \begin{macrocode}
+\thesis@bibliography@setup{
+  style=iso-numeric,
+  sorting=none}
+\thesis@bibliography@load
 %    \end{macrocode}
 % In case of rigorous and doctoral theses, the style file hides the
 % thesis assignment in accordance with the formal requirements of
@@ -80,8 +88,8 @@
   \end{alwayssingle}}
 %    \end{macrocode}
 % \end{macro}
-% All blocks within the autolayout preamble that are not defined
-% within this file are defined in the
+% All blocks within the autolayout preamble and postamble that are
+% not defined within this file are defined in the
 % \texttt{style/mu/fithesis-base.sty} file.
 %    \begin{macrocode}
 \def\thesis@blocks@preamble{%
@@ -96,4 +104,6 @@
       \thesis@blocks@abstract
       \thesis@blocks@keywords
     \thesis@blocks@tables}
+\def\thesis@blocks@postamble{%
+  \thesis@blocks@bibliography}
 %    \end{macrocode}
