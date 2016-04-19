@@ -11,6 +11,7 @@ all: clean
 	$(TEX) $(basename $@).tex
 	biber  $(basename $@)
 	$(TEX) $(basename $@).tex
+	$(TEX) $(basename $@).tex
 
 # This target prepares a TeX file.
 %.tex: %.ins guide.dtx
