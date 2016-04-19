@@ -1284,7 +1284,7 @@
 % the same effect.
 %    \begin{macrocode}
 \newif\ifthesis@loaded\thesis@loadedfalse
-\AtEndPreamble{\thesisload}
+\BeforeBeginEnvironment{document}{\thesisload}
 \def\thesis@load{\thesisload}
 \def\thesisload{%
   \ifthesis@loaded\else
@@ -1312,30 +1312,29 @@
         \RequirePackage[base]{babel}}
     \fi
 %    \end{macrocode}
-% If the \textsf{babel} or \textsf{polyglossia} locale is identical
-% to the thesis locale, the |\thesis@selectLocale| macro will be
-% used to globally set up the \textsf{csquotes} style appropriate for
-% the given locale.
-%    \begin{macrocode}
-        \ifx\languagename\empty\else
-          \begingroup
-          \edef\@doclocale{\languagename}%
-          \ifx\@doclocale\thesis@locale
-            \endgroup
-            \AtBeginDocument{%
-              \thesis@selectLocale{\thesis@locale}}%
-          \else
-            \endgroup
-          \fi
-        \fi
-      \fi
-%    \end{macrocode}
 % Consequently, the style files are loaded. If the user specified an
 % explicit empty string as the value of |\thesis@style|, do nothing.
 %    \begin{macrocode}
       \ifx\thesis@style\empty\else
         \thesis@requireStyle{\thesis@style}
       \fi
+%    \end{macrocode}
+% If the \textsf{babel} or \textsf{polyglossia} locale is identical
+% to the thesis locale, the |\thesis@selectLocale| macro will be
+% used to globally set up the \textsf{csquotes} style appropriate for
+% the given locale.
+%    \begin{macrocode}
+    \ifx\languagename\empty\else
+      \begingroup
+      \edef\@doclocale{\languagename}%
+      \ifx\@doclocale\thesis@locale
+        \endgroup
+        \AtBeginDocument{%
+          \thesis@selectLocale{\thesis@locale}}%
+      \else
+        \endgroup
+      \fi
+    \fi
 %    \end{macrocode}
 % With the placeholder strings loaded from the locale files, we
 % can now inject metadata into the resulting PDF file. To this
@@ -1557,14 +1556,12 @@
 % locale, \textsf{csquotes}, and hyphenation settings return back to
 % what the user has specified after the localized blocks of
 % typographic material.
-%
-% If not loaded by the user, the \textsf{csquotes} package gets
-% loaded at the end of the preamble.
 %    \begin{macrocode}
-\AtEndPreamble{\thesis@require{csquotes}}
 \def\thesis@selectLocale#1{%
   \edef\thesis@locale{#1}%
-  \csq@setstyle{\thesis@@{csquotesStyle}}%
+  \ltx@ifpackageloaded{csquotes}{%
+    \csq@setstyle{\thesis@@{csquotesStyle}}%
+  }{}%
   \ltx@ifpackageloaded{polyglossia}{%
     \selectlanguage{\thesis@locale}
   }{%
