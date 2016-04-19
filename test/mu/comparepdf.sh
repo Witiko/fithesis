@@ -26,14 +26,15 @@ DEST_DIR=`mktemp -d` && trap 'rm -r $SOURCE_DIR $DEST_DIR' EXIT &&
 # Compare the individual pages.
 DIFFER=false; PAGES=""
 for PAGE in `((cd $SOURCE_DIR && ls *.pdf) && (cd $DEST_DIR && ls *.pdf)) | sort -u`; do
+  PAGENUM=`echo ${PAGE%%.pdf} | sed 's/^0*//'`
   if [ -e $SOURCE_DIR/$PAGE -a ! -e $DEST_DIR/$PAGE ]; then
-    die 'The document "%s" does not contain page "%d".' "$1" "${PAGE%%.pdf}"
+    die 'The document "%s" does not contain page "%d".' "$2" $PAGENUM
   elif [ ! -e $SOURCE_DIR/$PAGE -a -e $DEST_DIR/$PAGE ]; then
-    die 'The document "%s" does not contain page "%d".' "$2" "${PAGE%%.pdf}"
+    die 'The document "%s" does not contain page "%d".' "$1" $PAGENUM
   else
     if ! comparepdf --compare=appearance --verbose=0 $SOURCE_DIR/$PAGE $DEST_DIR/$PAGE; then
       DIFFER=true
-      PAGES="$PAGES, `echo ${PAGE%%.pdf} | sed 's/^0*//'`"
+      PAGES="$PAGES, $PAGENUM"
     fi
   fi    
 done

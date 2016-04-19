@@ -434,7 +434,7 @@
       \thesis@bibliography@included@false
       \let\thesis@printbibliography@old\printbibliography
       \def\printbibliography{%
-        \thesis@bibliography@included@true
+        \global\thesis@bibliography@included@true
         \thesis@printbibliography@old}
     \fi
   \fi}
