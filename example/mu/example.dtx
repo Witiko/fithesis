@@ -528,9 +528,9 @@ proofs.
 %% We will define several mathematical sectioning commands.
 \newtheorem{theorem}{Theorem}[section] %% The numbering of theorems
                                %% will be reset after each section.
-\newtheorem{lemma}[theorem]{Lemma}     %% The numbering of lemmas
-\newtheorem{corr}[theorem]{Corrolary}  %% and corrolaries will
-                                %% share the counter with theorems.
+\newtheorem{lemma}[theorem]{Lemma}         %% The numbering of lemmas
+\newtheorem{corollary}[theorem]{Corollary} %% and corollaries will
+                               %% share the counter with theorems.
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}
 \theoremstyle{remark}
@@ -555,9 +555,9 @@ proofs.
   $\nabla^2 f(x,y)=\frac{\partial^2f}{\partial x^2}+
    \frac{\partial^2f}{\partial y^2}$.
 \end{proof}
-\begin{corr}
-  This is a corrolary.
-\end{corr}
+\begin{corollary}
+  This is a corollary.
+\end{corollary}
 \begin{remark}
   This is a remark.
 \end{remark}
