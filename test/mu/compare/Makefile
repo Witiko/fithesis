@@ -26,7 +26,8 @@ SOURCES=base-digital.tex base-printed.tex base-10pt.tex \
 	toc-11.tex toc-12.tex toc-13.tex toc-14.tex toc-15.tex \
 	toc-16.tex toc-17.tex toc-18.tex toc-19.tex toc-20.tex \
 	toc-21.tex toc-22.tex toc-23.tex toc-24.tex toc-25.tex \
-	toc-26.tex toc-27.tex toc-28.tex
+	toc-26.tex toc-27.tex toc-28.tex autohide-empty.tex \
+	autohide-toc.tex autohide-lot.tex autohide-lof.tex
 TESTS=$(addsuffix -pdflatex.pdf,$(basename $(SOURCES))) \
 	$(addsuffix -lualatex.pdf,$(basename $(SOURCES)))
 PROTOTYPES=$(addprefix expected-,$(TESTS))
