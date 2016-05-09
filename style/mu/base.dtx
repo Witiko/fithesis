@@ -7,7 +7,7 @@
 % after \texttt{style/fithesis-base.sty}, regardless of the value
 % of the |\thesis@style| macro.
 %    \begin{macrocode}
-\ProvidesPackage{fithesis/style/mu/fithesis-base}[2016/04/12]
+\ProvidesPackage{fithesis/style/mu/fithesis-base}[2016/05/10]
 \NeedsTeXFormat{LaTeX2e}
 %    \end{macrocode}
 % The file recognizes the following options: \begin{itemize}
@@ -115,26 +115,24 @@
 %     well and it is therefore an elegant solution to the problem
 %     at hand.
 %   \item\texttt{lot}, \texttt{nolot} -- The \DescribeMacro{^^A
-%     \thesis@blocks@lot}|\thesis@blocks@lot| macro will be defined
-%     as either |\listoftables| or |\relax|, respectively. As a
-%     side effect, the |\listoftables| either is or isn't going to
-%     be included in the \DescribeMacro{\thesis@blocks@tables}^^A
-%     |\thesis@|\discretionary{}{}{}|blocks@tables| block,
-%     respectively.
+%     \thesis@blocks@lot}|\thesis@blocks@lot| macro will either
+%     produce a list of tables, or no output, respectively. The
+%     \DescribeMacro{\ifthesis@lot@}|\ifthesis@lot@| conditional is
+%     set to either \texttt{true} or \texttt{false}, respectively.
 %    \begin{macrocode}
-\DeclareOption{nolot}{\let\thesis@blocks@lot\relax}
-\DeclareOption{lot}{\let\thesis@blocks@lot\listoftables}
+\newif\ifthesis@lot@
+\DeclareOption{nolot}{\thesis@lot@false}
+\DeclareOption{lot}{\thesis@lot@true}
 %    \end{macrocode}
-%   \item\texttt{lot}, \texttt{nolot} -- The \DescribeMacro{^^A
-%     \thesis@blocks@lof}|\thesis@blocks@lof| macro will be defined
-%     as either |\listoffigures| or |\relax|, respectively. As a
-%     side effect, the |\listoffigures| either is or isn't going to
-%     be included in the \DescribeMacro{\thesis@blocks@tables}^^A
-%     |\thesis@|\discretionary{}{}{}|blocks@tables| block,
-%     respectively.
+%   \item\texttt{lof}, \texttt{nolof} -- The \DescribeMacro{^^A
+%     \thesis@blocks@lof}|\thesis@blocks@lof| macro will either
+%     produce a list of figures, or no output, respectively. The
+%     \DescribeMacro{\ifthesis@lof@}|\ifthesis@lof@| conditional is
+%     set to either \texttt{true} or \texttt{false}, respectively.
 %    \begin{macrocode}
-\DeclareOption{nolof}{\let\thesis@blocks@lof\relax}
-\DeclareOption{lof}{\let\thesis@blocks@lof\listoffigures}
+\newif\ifthesis@lof@
+\DeclareOption{nolof}{\thesis@lof@false}
+\DeclareOption{lof}{\thesis@lof@true}
 %    \end{macrocode}
 %   \item\texttt{cover}, \texttt{nocover} -- The
 %     \DescribeMacro{\thesis@blocks@cover}|\thesis@blocks@cover|
@@ -181,14 +179,19 @@
 %     metadata into the resulting PDF document.
 %   \item\textsf{keyval} -- Adds support for parsing
 %     comma-delimited lists of key-value pairs.
+%   \item\textsf{pdftexcmds} -- Adds support for querying the size
+%     of files, which is used to determine, whether the table of
+%     contents and the lists of tables and figures are empty or
+%     not.
 % \end{itemize}
 %    \begin{macrocode}
 \thesis@require{xcolor}
+\thesis@require{ifxetex}
+\thesis@require{ifluatex}
 \thesis@require{graphicx}
 \thesis@require{pdfpages}
 \thesis@require{keyval}
-\thesis@require{ifxetex}
-\thesis@require{ifluatex}
+\thesis@require{pdftexcmds}
 %    \end{macrocode}
 % If the |\thesis@microtype@| is set to true, then the
 % \textsf{microtype} package gets loaded.
@@ -673,12 +676,65 @@
 \let\thesis@blocks@titlePage@content=\thesis@blocks@cover@content
 \let\thesis@blocks@titlePage@footer=\thesis@blocks@cover@footer
 %    \end{macrocode}
-% \end{macro}\begin{macro}{\thesis@blocks@toc}
-% The |\thesis@blocks@toc| macro typesets the table of contents.
+% \end{macro}\begin{macro}{\thesis@starttoc}
+% This macro is a reduced version of the \LaTeX{} |\@starttoc|
+% macro. Unlike |\@starttoc|, |\thesis@starttoc| does not typeset
+% the table of contents file, it only erases and reopens it.
 % \begin{macrocode}
+\def\thesis@starttoc#1{%
+  \if@filesw
+    \expandafter\newwrite\csname tf@#1\endcsname
+    \immediate\openout\csname tf@#1\endcsname\jobname.#1\relax
+  \fi}
+%    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@blocks@toc}
+% The |\thesis@blocks@toc| macro typesets the table of contents,
+% when it would be non-empty. This is determined by measuring the
+% size of the |.toc| file. This measurement is stored in the
+% \DescribeMacro{\thesis@tocsize}|\thesis@tocsize| macro.
+% \begin{macrocode}
+\edef\thesis@tocsize{0\pdf@filesize{\jobname.toc}}
 \def\thesis@blocks@toc{%
-  \thesis@blocks@clear
-  \tableofcontents}
+  \ifnum\thesis@tocsize>0\relax
+    \thesis@blocks@clear
+    \tableofcontents
+  \else
+    \thesis@starttoc{toc}
+  \fi}
+%    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@blocks@lot}
+% The |\thesis@blocks@lot| macro typesets a list of tables, when
+% the |\ifthesis@lot@| conditional is set to \texttt{true}, and
+% when the list would be non-empty. This is determined by measuring
+% the size of the |.lot| file. This measurement is stored in the
+% \DescribeMacro{\thesis@lotsize}|\thesis@lotsize| macro.
+% \begin{macrocode}
+\edef\thesis@lotsize{0\pdf@filesize{\jobname.lot}}
+\def\thesis@blocks@lot{%
+  \ifthesis@lot@
+    \ifnum\thesis@lotsize>0\relax
+      \listoftables
+    \else
+      \thesis@starttoc{lot}
+    \fi
+  \fi}
+%    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@blocks@lof}
+% The |\thesis@blocks@lof| macro typesets a list of figures, when
+% the |\ifthesis@lof@| conditional is set to \texttt{true}, and
+% when the list would be non-empty. This is determined by measuring
+% the size of the |.lof| file. This measurement is stored in the
+% \DescribeMacro{\thesis@lofsize}|\thesis@lofsize| macro.
+% \begin{macrocode}
+\edef\thesis@lofsize{0\pdf@filesize{\jobname.lof}}
+\def\thesis@blocks@lof{%
+  \ifthesis@lof@
+    \ifnum\thesis@lofsize>0\relax
+      \listoffigures
+    \else
+      \thesis@starttoc{lof}
+    \fi
+  \fi}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@tables}
 % The |\thesis@blocks@tables| macro typesets the table of
@@ -1311,10 +1367,6 @@
     \addcontentsline{toc}{chapter}{\bfseries #1}
   \fi
   \chaptermark{#1}%
-  \addtocontents{lof}%
-  {\protect\addvspace{4\p@}} 
-  \addtocontents{lot}%
-  {\protect\addvspace{4\p@}} 
   \if@twocolumn                   
     \@topnewpage[\@makechapterhead{#2}]%
   \else
