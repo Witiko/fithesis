@@ -1367,6 +1367,18 @@
     \addcontentsline{toc}{chapter}{\bfseries #1}
   \fi
   \chaptermark{#1}%
+  % If the .lot file is non-empty, add a vertical space between the list of
+  % tables entries for each chapter.
+  \ifnum\thesis@lofsize>0\relax
+    \addtocontents{lof}%
+      {\protect\addvspace{4\p@}} 
+  \fi
+  % If the .lof file is non-empty, add a vertical space between the list of
+  % figures entries for each chapter.
+  \ifnum\thesis@lotsize>0\relax
+    \addtocontents{lot}%
+      {\protect\addvspace{4\p@}} 
+  \fi
   \if@twocolumn                   
     \@topnewpage[\@makechapterhead{#2}]%
   \else
