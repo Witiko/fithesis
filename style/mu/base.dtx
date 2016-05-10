@@ -387,6 +387,8 @@
 %    \begin{macrocode}
 \newif\ifthesis@bibliography@loaded@
   \thesis@bibliography@loaded@false
+\newif\ifthesis@bibliography@included@
+  \thesis@bibliography@included@false
 \def\thesis@bibliography@load{%
   \ifthesis@bibliography@
     \ifthesis@bibliography@loaded@\else
@@ -430,8 +432,6 @@
 % \DescribeMacro{\thesis@printbibliography@old}^^A
 % |\thesis@printbibliography@old| macro.
 %    \begin{macrocode}
-      \newif\ifthesis@bibliography@included@
-      \thesis@bibliography@included@false
       \let\thesis@printbibliography@old\printbibliography
       \def\printbibliography{%
         \global\thesis@bibliography@included@true
