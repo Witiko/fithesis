@@ -750,22 +750,26 @@ fonts will become available: \[
 }.
 
 \chapter{Inserting the bibliography}
-After linking a bibliography data\-base files to the document using the
-\verb"\"\texttt{thesissetup\{bib=\{\textit{file1}, \textit{file2},
-\ldots\}\}} command, you can start citing the entries. This is
-just dummy text \cite{inbook-full} lightly sprinkled with citations
-\cite[p.~123]{incollection-full}.  Several sources can be cited at
-once \cite{whole-collection, manual-minimal,manual-full}.
+After linking a bibliography data\-base files to the document using
+the \verb"\"\texttt{thesissetup\{bib\discretionary{=}{=}{=}%
+\{\textit{file1},\textit{file2},\,\ldots\,\}\}} command, you can
+start citing the entries. This is just dummy text
+\parencite{inbook-full} lightly sprinkled with citations
+\parencite[p.~123]{incollection-full}. Several sources can be cited
+at once: \cite{inproceedings-full,manual-full,mastersthesis-full}.
 \citetitle{inbook-full} was written by \citeauthor{inbook-full} in
-\citeyear{inbook-full}. We can also produce \textcite{inbook-full}
-or%% Let us define a compound command:
-\def\citeauthoryear#1{(\textcite{#1},~\citeyear{#1})}
-\citeauthoryear{inbook-full}. The full bibliographic citation is:
+\citeyear{inbook-full}. We can also produce \textcite{inbook-full}%
+%<*fi,ped,phil,sci>
+\ or %% Let us define a compound command:
+\def\citeauthoryear#1{(\textcite{#1},~\citeyear{#1})}%
+\citeauthoryear{inbook-full}%
+%</fi,ped,phil,sci>
+. The full bibliographic citation is:
 \emph{\fullcite{inbook-full}}. We can easily insert a bibliographic
 citation into the footnote\footfullcite{inbook-full}.
 
 The \verb"\nocite" command will not generate any
-output\nocite{booklet-full}, but it will insert its argument into
+output\nocite{booklet-full}, but it will insert its arguments into
 the bibliography. The \verb"\nocite{*}" command will insert all the
 records in the bibliography database file into the bibliography.
 Try uncommenting the command
