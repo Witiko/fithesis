@@ -252,7 +252,7 @@
   \section{Picking a \TeX\ engine}
   There are several programs, called \TeX\ engines, that you can
   use to typeset \textsf{fithesis3} \LaTeX{} source files into
-  displayable PDF documents. The ones we will discuss are
+  displayable \textsc{pdf} documents. The ones we will discuss are
   \hologo{pdfTeX} and \Hologo{LuaTeX}.
   
   \Hologo{pdfTeX} is the more conservative choice and most \TeX\
@@ -551,14 +551,15 @@
     \item[title]
       This key can be used to specify the title of the thesis. The
       value will be stored as one of the properties of the output
-      PDF file; do not use any \LaTeX\ formatting commands within
-      the value.
+      \textsc{pdf} file; do not use any \LaTeX\ formatting commands
+      within the value.
     \item[TeXtitle]
       This key can be used to specify the title of the thesis. The
-      value will be typeset on the title page of the resulting PDF
-      document, so you can use \LaTeX\ formatting commands within
-      the value. If the value of the key is unspecified, the value
-      of the \thguide@itemfmt{title} key will be used instead.
+      value will be typeset on the title page of the resulting
+      \textsc{pdf} document, so you can use \LaTeX\ formatting
+      commands within the value. If the value of the key is
+      unspecified, the value of the \thguide@itemfmt{title} key
+      will be used instead.
 %<*sci,econ>
     \item[titleEn]
       This key can be used to specify the English title of the
@@ -571,26 +572,27 @@
     \item[TeXtitleEn]
       This key can be used to specify the English title of the
       thesis. The value will be typeset on the title page of the
-      resulting PDF document, so you can use \LaTeX\ formatting
-      commands within the value. If the value of the key is
-      unspecified, the value of the \thguide@itemfmt{titleEn} key
-      will be used instead. If you are typesetting your thesis in
-      English, this value does not need to be specified.
+      resulting \textsc{pdf} document, so you can use \LaTeX{}
+      formatting commands within the value. If the value of the key
+      is unspecified, the value of the \thguide@itemfmt{titleEn}
+      key will be used instead. If you are typesetting your thesis
+      in English, this value does not need to be specified.
 %</econ>
     \item[author]
       This key can be used to specify the full name of the author.
     \item[keywords]
       This key can be used to specify a list of keywords for your
       thesis. The value will be stored as one of the properties of
-      the output PDF file; do not use any \LaTeX\ formatting
-      commands within the value.
+      the output \textsc{pdf} file; do not use any \LaTeX{}
+      formatting commands within the value.
 %<*econ,fi,fss,law,med,ped>
     \item[TeXkeywords]
       This key can be used to specify a list of keywords for your
-      thesis. The value will be typeset in the resulting PDF
-      document, so you can use \LaTeX\ formatting commands within
-      the value. If the value of the key is unspecified, the value
-      of the \thguide@itemfmt{keywords} key will be used instead.
+      thesis. The value will be typeset in the resulting
+      \textsc{pdf} document, so you can use \LaTeX\ formatting
+      commands within the value. If the value of the key is
+      unspecified, the value of the \thguide@itemfmt{keywords} key
+      will be used instead.
 %</econ,fi,fss,law,med,ped>
 %<*econ,fss,law,med,ped>
     \item[keywordsEn]
@@ -601,9 +603,9 @@
     \item[TeXkeywordsEn]
       This key can be used to specify a list of English keywords
       for your thesis. The value will be typeset in the resulting
-      PDF document, so you can use \LaTeX\ formatting commands
-      within the value. If you are typesetting your thesis in
-      English, this value does not need to be specified.
+      \textsc{pdf} document, so you can use \LaTeX\ formatting
+      commands within the value. If you are typesetting your thesis
+      in English, this value does not need to be specified.
 %</econ,fss,law,med,ped>
 %<*econ,fi,med,ped,sci>
     \item[advisor]
@@ -675,7 +677,7 @@
       for the month, and \texttt{DD} stands for the day of month.
 %<*econ,fi,fss,law,sci>
     \item[assignment]
-      This key can be used to specify a list of PDF files
+      This key can be used to specify a list of \textsc{pdf} files
       containing the scanned thesis assignment. The list should be
       in the following format:
       \begin{center}
@@ -684,7 +686,7 @@
       \end{center}
 %</econ,fi,fss,law,sci>
     \item[bib]
-      This key can be used to specify a list of BIB files
+      This key can be used to specify a list of \textsc{bib} files
       containing the bibliography databases. The list should be in
       the following format:
       \begin{center}
@@ -692,12 +694,17 @@
         \ldots
       \end{center}
       When this key is specified, the \textsf{fithesis3} class will
-      also automatically typeset a bibliography section. If you
-      want more control over where and how the bibliography is
-      typeset, use the
+      automatically typeset a bibliography section\footnote{
+        The bibliography will be typeset according to the
+        \textsc{ISO} 690:2010 standard using the
+        \texttt{biblatex-iso690} bibliography style. For more
+        information, see
+        \url{https://www.ctan.org/pkg/biblatex-iso690}.
+      }. If you want more control over where and how the
+      bibliography is typeset, use the
       \mintinline{latex}{\printbibliography[bibintoc]} command.
 
-      When the key is not specified, no bibliography will be
+      When this key is not specified, no bibliography will be
       produced, which provides the opportunity for the advanced user
       to set up their bibliography management manually.
   \end{description}
@@ -797,11 +804,11 @@
   taking into account your faculty and locale settings.
   
   The \mintinline{latex}{\thesisload} command also loads the
-  \textsf{hyperref} package, which adds hyperlinks and PDF metadata
-  into the resulting PDF document. This package is rather delicate,
-  as it needs to be loaded after most other packages. Loading
-  additional packages after \mintinline{latex}{\thesisload} may
-  therefore cause problems.
+  \textsf{hyperref} package, which adds hyperlinks and \textsc{pdf}
+  metadata into the resulting \textsc{pdf} document. This package
+  is rather delicate, as it needs to be loaded after most other
+  packages. Loading additional packages after
+  \mintinline{latex}{\thesisload} may therefore cause problems.
   
   \section{Changing the layout}
   If you are unsatisfied with the automatic arrangement of the
