@@ -56,12 +56,14 @@
   \gdef\thesis@version@number{#1}
   \gdef\thesis@version@date{#2}
   \gdef\thesis@version{#2 #1 fithesis3 MU thesis class}}
-\thesis@versiondef{v0.3.38-dev}{2016/04/18}}
+\thesis@versiondef{v0.3.38-dev}{2016/05/15}}
 % {\newwrite\f\openout\f=VERSION\write\f{\thesis@version}\closeout\f}
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-% \changes{v0.3.38}  {2016/04/18}{The \texttt{bib} key was added
+% \changes{v0.3.38:2}{2016/05/15}{Fixed \cs{thesis@pages} not
+%   taking \cs{thesis@preamble} into account.}
+% \changes{v0.3.38:1}{2016/04/18}{The \texttt{bib} key was added
 %   on the \textsf{fithesis3} class level and is supported by the
 %   style files of the Masaryk University in Brno.}
 % \changes{v0.3.37}  {2016/04/12}{The \cs{tableofcontents} in the
@@ -1361,11 +1363,15 @@
 %    \end{macrocode}
 % If autolayout is enabled, the |\thesis@preamble| and
 % |\thesis@postamble| macros are scheduled for expansion at the
-% beginning and at the end of the document, respectively.
+% beginning and at the end of the document, respectively. The
+% definition of the |\thesis@pages| macro is also scheduled to be
+% written to the auxiliary file at the end of the document.
 %    \begin{macrocode}
       \ifthesis@auto
         \AtBeginDocument{\thesis@preamble}
-        \AtEndDocument{\thesis@postamble}
+        \AtEndDocument{%
+          \thesis@postamble
+          \write\@auxout{\noexpand\gdef\noexpand\thesis@pages{\thepage}}}
       \fi
     \makeatother
   \fi}
@@ -1544,7 +1550,6 @@
 % the total number of pages within the document. During the first
 % \TeX\ compilation, the macro expands to \texttt{??}.
 %    \begin{macrocode}
-\AtEndDocument{\write\@auxout{\noexpand\gdef\noexpand\thesis@pages{\thepage}}}
 \ifx\thesis@pages\undefined\def\thesis@pages{??}\fi
 %    \end{macrocode}
 % \DescribeMacro{\thesis@selectLocale}|\thesis@selectLocale|\marg{locale}
