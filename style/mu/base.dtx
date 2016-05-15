@@ -1128,7 +1128,7 @@
 %    \begin{macrocode}
 %<*opt>
 %<*10pt>
-\ProvidesFile{fithesis/style/mu/fithesis-10.clo}[2016/01/07]
+\ProvidesFile{fithesis/style/mu/fithesis-10.clo}[2016/05/15]
 
 \renewcommand{\normalsize}{\fontsize\@xpt{12}\selectfont
 \abovedisplayskip 10\p@ plus2\p@ minus5\p@
@@ -1171,7 +1171,7 @@
 % match the type size of 11 points.
 %    \begin{macrocode}
 %<*11pt>
-\ProvidesFile{fithesis/style/mu/fithesis-11.clo}[2016/01/07]
+\ProvidesFile{fithesis/style/mu/fithesis-11.clo}[2016/05/15]
 
 \renewcommand{\normalsize}{\fontsize\@xipt{14}\selectfont
 \abovedisplayskip 11\p@ plus3\p@ minus6\p@
@@ -1240,7 +1240,7 @@
 % should remain constant regardless of the font size setting.
 %    \begin{macrocode}
 %<*12pt>
-\ProvidesFile{fithesis/style/mu/fithesis-12.clo}[2016/01/07]
+\ProvidesFile{fithesis/style/mu/fithesis-12.clo}[2016/05/15]
 %</12pt>
 
 \def\thesis@titlePage@normalsize{\fontsize\@xiipt{14.5}%
@@ -1403,12 +1403,13 @@
 \def\@makechapterhead#1{{%
   \setlength\parindent{\z@}%
   \setlength\parskip  {\z@}%
+  \Large \ChapFont 
   \ifnum
     \c@secnumdepth >\m@ne
     \par\nobreak
     \vskip 10\p@
-  \fi
-  \Large \ChapFont \thechapter{} \space #1\par
+    \thechapter{} \space
+  \fi #1\par
   \nobreak
   \vskip 20\p@}}
 
