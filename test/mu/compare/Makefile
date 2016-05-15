@@ -9,7 +9,9 @@ SOURCES=base-digital.tex base-printed.tex base-10pt.tex \
 	fi-oldtable.tex fi-rigorous.tex fi-slovak.tex fi-table.tex \
 	fsps-czech.tex fsps-english.tex fsps-oldtable.tex \
 	fsps-slovak.tex fsps-table.tex fss-czech.tex fss-english.tex \
-	fss-oldtable.tex fss-slovak.tex fss-table.tex law-czech.tex \
+	fss-oldtable.tex fss-slovak.tex fss-table.tex \
+	fss-czech-male.tex fss-czech-female.tex \
+	fss-slovak-male.tex fss-slovak-female.tex law-czech.tex \
 	law-english.tex law-oldtable.tex law-slovak.tex law-table.tex \
 	med-czech.tex med-english.tex med-oldtable.tex med-slovak.tex \
 	med-table.tex ped-czech.tex ped-english.tex ped-oldtable.tex \
@@ -21,13 +23,38 @@ SOURCES=base-digital.tex base-printed.tex base-10pt.tex \
 	sci-oldtable.tex sci-rigorous.tex sci-slovak.tex sci-table.tex \
 	phil-kisk-czech-male.tex phil-kisk-czech-female.tex \
 	phil-kisk-slovak-male.tex phil-kisk-slovak-female.tex \
+	phil-czech-female.tex phil-czech-male.tex \
+	phil-slovak-female.tex phil-slovak-male.tex \
 	toc-01.tex toc-02.tex toc-03.tex toc-04.tex toc-05.tex \
 	toc-06.tex toc-07.tex toc-08.tex toc-09.tex toc-10.tex \
 	toc-11.tex toc-12.tex toc-13.tex toc-14.tex toc-15.tex \
 	toc-16.tex toc-17.tex toc-18.tex toc-19.tex toc-20.tex \
 	toc-21.tex toc-22.tex toc-23.tex toc-24.tex toc-25.tex \
-	toc-26.tex toc-27.tex toc-28.tex fi-bibliography-solicited.tex \
-	fi-bibliography-unsolicited.tex
+	toc-26.tex toc-27.tex toc-28.tex $(BIB)
+BIB_UNSOLICITED=econ-bibliography-unsolicited.tex \
+	fi-bibliography-unsolicited.tex \
+	fsps-bibliography-unsolicited.tex \
+	fss-bibliography-unsolicited.tex \
+	law-bibliography-unsolicited.tex \
+	med-bibliography-unsolicited.tex \
+	ped-bibliography-unsolicited.tex \
+	phil-bibliography-unsolicited.tex \
+	sci-bibliography-unsolicited.tex
+BIB_SOLICITED=econ-bibliography-solicited.tex \
+	fi-bibliography-solicited.tex \
+	fsps-bibliography-solicited.tex \
+	fss-bibliography-solicited.tex \
+	law-bibliography-solicited.tex \
+	med-bibliography-solicited.tex \
+	ped-bibliography-solicited.tex \
+	phil-bibliography-solicited.tex \
+	sci-bibliography-solicited.tex
+BIB=$(BIB_UNSOLICITED) $(BIB_SOLICITED)
+BIB_SOLICITED_PDFS=\
+	$(addprefix expected-, $(addsuffix -pdflatex.pdf, \
+		$(basename $(BIB_SOLICITED)))) \
+	$(addprefix expected-, $(addsuffix -lualatex.pdf, \
+		$(basename $(BIB_SOLICITED))))
 TESTS=$(addsuffix -pdflatex.pdf,$(basename $(SOURCES))) \
 	$(addsuffix -lualatex.pdf,$(basename $(SOURCES)))
 PROTOTYPES=$(addprefix expected-,$(TESTS))
@@ -35,7 +62,7 @@ PROTOTYPES=$(addprefix expected-,$(TESTS))
 # This target typesets all the test documents,
 # compares them with the prototypes, and cleans
 # up afterwards.
-all: $(TESTS) implode
+all: $(TESTS) bibtest implode
 
 # This target typesets all the prototypes.
 bootstrap: $(PROTOTYPES) clean
@@ -92,12 +119,19 @@ expected-%-lualatex.pdf: %.tex
 	! [ -e expected-$@ ] || $(COMPARE) expected-$@ $@ || \
 	{ [ "$(UPDATE_FAILED)" = true ] && mv $@ expected-$@; }
 
+# This target tests that the solicited and unsolicited
+# bibliography prototypes are equal.
+bibtest:
+	for i in $(BIB_SOLICITED_PDFS); do \
+		$(COMPARE) $$i `echo $$i | sed s/solicited/unsolicited/` \
+		|| exit 1; \
+  done
+
 # This target removes any auxiliary files.
 clean:
 	rm -f *.aux *.log *.out *.toc *.lot *.lof *.bcf *.blg *.run.xml \
 		*.bbl *.idx *.ind *.ilg
 
-# This target removes any auxiliary files
-# and the output PDF files.
+# This target removes any auxiliary files and the output PDF files.
 implode: clean
 	rm -f $(TESTS)

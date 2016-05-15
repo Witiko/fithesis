@@ -1,0 +1,14 @@
+\documentclass[monochrome]{fithesis3}
+\usepackage{ifluatex}
+\ifluatex
+  \usepackage{polyglossia}
+  \setmainlanguage{slovak}
+\else
+  \usepackage[slovak]{babel}
+\fi
+\thesissetup{
+  faculty=phil,
+  gender=m}
+\begin{document}
+  foo bar
+\end{document}
