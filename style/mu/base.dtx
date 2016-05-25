@@ -980,7 +980,8 @@
   \ifthesis@bibliography@loaded@
     \ifthesis@bibliography@included@\else
       \thesis@blocks@clear
-      \printbibliography[heading=bibintoc]%
+      {\emergencystretch=3em%
+      \printbibliography[heading=bibintoc]}%
     \fi
   \fi}
 %    \end{macrocode}
