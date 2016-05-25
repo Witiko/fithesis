@@ -7,7 +7,7 @@
 % after \texttt{style/fithesis-base.sty}, regardless of the value
 % of the |\thesis@style| macro.
 %    \begin{macrocode}
-\ProvidesPackage{fithesis/style/mu/fithesis-base}[2016/04/18]
+\ProvidesPackage{fithesis/style/mu/fithesis-base}[2016/05/25]
 \NeedsTeXFormat{LaTeX2e}
 %    \end{macrocode}
 % The file recognizes the following options: \begin{itemize}
@@ -150,10 +150,18 @@
 %    \end{macrocode}
 %   \item\texttt{digital}, \texttt{printed} -- These macrooptions
 %     set the options that are appropriate for either the printed or
-%     for the digital version of the document, respectively.
+%     for the digital version of the document, respectively. The
+%     \DescribeMacro{\ifthesis@digital@}|\ifthesis@digital@|
+%     conditional is set to \texttt{true} or \texttt{false},
+%     respectively.
 %    \begin{macrocode}
-\DeclareOption{digital}{\ExecuteOptions{color,cover}}
-\DeclareOption{printed}{\ExecuteOptions{monochrome,nocover}}
+\newif\ifthesis@digital@
+\DeclareOption{digital}{%
+  \ExecuteOptions{color,cover}%
+  \thesis@digital@true}
+\DeclareOption{printed}{%
+  \ExecuteOptions{monochrome,nocover}%
+  \thesis@digital@false}
 %    \end{macrocode}
 % \end{itemize}
 % These are the default options:
@@ -898,22 +906,10 @@
   \addtocounter{page}{-\ifthesis@twoside@2\else1\fi}}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@assignment}
-% The |\thesis@blocks@assignment| macro either:
-% \begin{itemize}
-%   \item Produces no output, when the expansion of
-%     |\thesis@|\discretionary{}{}{}|assignmentFiles| yields an empty
-%     token list or when the |\ifthesis@blocks@assignment@|
-%     conditional is \texttt{false}.
-%   \item Typesets a placeholder page to be replaced with the
-%     official thesis assignment, when |\thesis@assignmentFiles|
-%     is undefined and the |\ifthesis@blocks|\discretionary{}{}^^A
-%     {}|@assignment@| conditional is \texttt{true}.
-%   \item Injects the PDF file(s) specified within the
-%     |\thesis@assignmentFiles| macro, when |\thesis@assignmentFiles|
-%     is defined, its expansion yields a non-empty token list and
-%     the |\ifthesis@blocks@assignment@| conditional is
-%     \texttt{true}.
-% \end{itemize}
+% The |\thesis@blocks@assignment| macro produces a different output
+% depending on the values of the |\thesis@assignmentFiles|.
+% |\ifthesis@blocks@assignment@|, and |\ifthesis@digital| macros.
+%
 % The default value of the \DescribeMacro{\ifthesis@blocks@assig^^A
 % nment@}|\ifthesis@blocks@assignment@| conditional is
 % \texttt{true}.
@@ -921,6 +917,11 @@
 \newif\ifthesis@blocks@assignment@
 \thesis@blocks@assignment@true
 \def\thesis@blocks@assignment{%
+%    \end{macrocode}
+% If the |\ifthesis@blocks@assignment@| conditional is
+% \textsf{true} and the |\thesis@assignmentFiles| macro is
+% undefined, then typeset a placeholder page.
+% \begin{macrocode}
   \ifthesis@blocks@assignment@
     \ifx\thesis@assignmentFiles\undefined
       % Rewind the pages and typeset a placeholder page.
@@ -930,19 +931,40 @@
         \noindent\textit{\thesis@@{assignment}}%
       \end{alwayssingle}%
     \else
+%    \end{macrocode}
+% If the |\ifthesis@blocks@assignment@| conditional is
+% \textsf{true} and the |\thesis@assignmentFiles| macro is neither
+% undefined nor empty, then typeset a placeholder page, if the
+% |\ifthesis@digital@| conditional is \textsf{true}.
+% \begin{macrocode}
       {\edef\@pdfList{\thesis@assignmentFiles}%
       \ifx\@pdfList\empty\else
-        \let\ea\expandafter
-        % Inject the specified PDF documents.
-        \def\@inject##1,{\thesis@blocks@clear
-          \def\@args{##1}\def\@relax{\relax}%
-          \ifx\@args\@relax\else
-            % Trim leading spaces.
-            \edef\@trimmed{\romannumeral-`\.##1}%
-            % Rewind the pages and include the PDF.
-            \thesis@rewind\includepdf[pages=-]\@trimmed
-            \ea\@inject\fi}%
-        \ea\@inject\@pdfList,\relax,%
+        \ifthesis@digital@
+          \thesis@blocks@clear
+          \begin{alwayssingle}%
+            \thispagestyle{empty}\thesis@rewind
+            \noindent\textit{\thesis@@{assignment}}%
+          \end{alwayssingle}%
+%    \end{macrocode}
+% If the |\ifthesis@blocks@assignment@| conditional is
+% \textsf{true} and the |\thesis@assignmentFiles| macro is neither
+% undefined nor empty, then inject the PDF documents specified in
+% the |\thesis@assignmentFiles|, if the |\ifthesis@digital@|
+% conditional is \textsf{false}.
+% \begin{macrocode}
+        \else
+          \let\ea\expandafter
+          % Inject the specified PDF documents.
+          \def\@inject##1,{\thesis@blocks@clear
+            \def\@args{##1}\def\@relax{\relax}%
+            \ifx\@args\@relax\else
+              % Trim leading spaces.
+              \edef\@trimmed{\romannumeral-`\.##1}%
+              % Rewind the pages and include the PDF.
+              \thesis@rewind\includepdf[pages=-]\@trimmed
+              \ea\@inject\fi}%
+          \ea\@inject\@pdfList,\relax,%
+        \fi
       \fi}%
     \fi
   \fi}

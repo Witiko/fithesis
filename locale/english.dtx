@@ -2,7 +2,7 @@
 % This is the base file of the English locale.\iffalse
 %<*base>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/fithesis-english.def}[2016/03/22]
+\ProvidesFile{fithesis/locale/fithesis-english.def}[2016/05/25]
 %    \end{macrocode}
 % The locale file defines all the private macros mandated by the
 % locale file interface.
@@ -11,8 +11,14 @@
 % Placeholders
 \gdef\thesis@english@universityName{University name}
 \gdef\thesis@english@facultyName{Faculty name}
-\gdef\thesis@english@assignment{Replace this page with a copy
-  of the official signed thesis assignment.}
+\gdef\thesis@english@assignment{%
+  \ifthesis@digital@
+    This is where a copy of the official signed thesis assignment
+    is located in the printed version of the document.
+  \else
+    Replace this page with a copy of the official signed thesis
+    assignment.
+  \fi}
 \gdef\thesis@english@declaration{Declaration text ...}
 
 % Csquotes style
@@ -114,14 +120,20 @@
 % \iffalse
 %<*mu/fss>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/mu/fss/fithesis-english.def}[2015/06/26]
+\ProvidesFile{fithesis/locale/mu/fss/fithesis-english.def}[2016/05/25]
 
 % Placeholders
 \gdef\thesis@english@facultyName{Faculty of Social Studies}
-\gdef\thesis@english@assignment{Replace this page with a copy
-  of the official signed thesis assignment or the copy of the
-  Statement of an Author or both, depending on the requirements of
-  the respective department.}
+\gdef\thesis@english@assignment{%
+  \ifthesis@digital@
+    This is where a copy of the official signed thesis assignment
+    or a copy of the Statement of an Author or both are located
+    in the printed version of the document.
+  \else
+    Replace this page with a copy of the official signed thesis
+    assignment or a copy of the Statement of an Author or both,
+    depending on the requirements of the respective department.
+  \fi}
 %    \end{macrocode}\iffalse
 %</mu/fss>
 % \fi\file{locale/mu/econ/fithesis-english.def}
@@ -172,13 +184,22 @@
 % \iffalse
 %<*mu/fi>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/mu/fi/fithesis-english.def}[2015/06/26]
+\ProvidesFile{fithesis/locale/mu/fi/fithesis-english.def}[2016/05/25]
 
 % Placeholders
 \gdef\thesis@english@facultyName{Faculty of Informatics}
 \gdef\thesis@english@assignment{Replace this page with a copy
-  of the official signed thesis assignment and the copy of the
+  of the official signed thesis assignment and a copy of the
   Statement of an Author.}
+\gdef\thesis@english@assignment{%
+  \ifthesis@digital@
+    This is where a copy of the official signed thesis assignment
+    and a copy of the Statement of an Author is located in the
+    printed version of the document.
+  \else
+    Replace this page with a copy of the official signed thesis
+    assignment and a copy of the Statement of an Author.
+  \fi}
 
 % Others
 \gdef\thesis@english@advisorSignature{Signature of Thesis

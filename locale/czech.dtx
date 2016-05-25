@@ -2,7 +2,7 @@
 % This is the base file of the Czech locale.\iffalse
 %<*base>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/fithesis-czech.def}[2016/03/22]
+\ProvidesFile{fithesis/locale/fithesis-czech.def}[2016/05/25]
 %    \end{macrocode}
 % The locale file defines all the private macros mandated by the
 % locale file interface.
@@ -25,8 +25,14 @@
 % Zástupné texty
 \gdef\thesis@czech@universityName{Název univerzity}
 \gdef\thesis@czech@facultyName{Název fakulty}
-\gdef\thesis@czech@assignment{Místo tohoto listu vložte kopii
-  oficiálního podepsaného zadání práce.}
+\gdef\thesis@czech@assignment{%
+  \ifthesis@digital@
+    Na tomto místě se v~tištěné práci nachází oficiální podepsané
+    zadání práce.
+  \else
+    Místo tohoto listu vložte kopii oficiálního podepsaného zadání
+    práce.
+  \fi}
 \gdef\thesis@czech@declaration{Text prohlášení ...}
 
 % Časové údaje
@@ -148,14 +154,19 @@
 % \iffalse
 %<*mu/fss>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/mu/fss/fithesis-czech.def}[2015/06/26]
+\ProvidesFile{fithesis/locale/mu/fss/fithesis-czech.def}[2016/05/25]
 
 % Zástupné texty
 \gdef\thesis@czech@facultyName{Fakulta sociálních studií}
-\gdef\thesis@czech@assignment{Místo tohoto listu
-  vložte kopie oficiálního podepsaného zadání práce nebo
-  prohlášení autora školního díla nebo obojí~v závislosti na
-  požadavcích příslušné katedry.}
+\gdef\thesis@czech@assignment{%
+  \ifthesis@digital@
+    Na tomto místě se v~tištěné práci nachází oficiální podepsané
+    zadání práce, prohlášení autora školního díla nebo obojí.
+  \else
+    Místo tohoto listu vložte kopie oficiálního podepsaného zadání
+    práce nebo prohlášení autora školního díla nebo obojí~v
+    závislosti na požadavcích příslušné katedry.
+  \fi}
 
 %    \end{macrocode}\iffalse
 %</mu/fss>
@@ -205,13 +216,18 @@
 % \iffalse
 %<*mu/fi>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/mu/fi/fithesis-czech.def}[2015/06/26]
+\ProvidesFile{fithesis/locale/mu/fi/fithesis-czech.def}[2016/05/25]
 
 % Zástupné texty
 \gdef\thesis@czech@facultyName{Fakulta informatiky}
-\gdef\thesis@czech@assignment{Místo tohoto listu
-  vložte kopie oficiálního podepsaného zadání práce a
-  prohlášení autora školního díla.}
+\gdef\thesis@czech@assignment{%
+  \ifthesis@digital@
+    Na tomto místě se v~tištěné práci nachází oficiální podepsané
+    zadání práce a prohlášení autora školního díla.
+  \else
+    Místo tohoto listu vložte kopie oficiálního podepsaného zadání
+    práce a prohlášení autora školního díla.
+  \fi}
 \gdef\thesis@czech@declaration{%
   Prohlašuji, že tato \thesis@lower{czech@typeName} je mým
   původním autorským dílem, které jsem vypracoval%

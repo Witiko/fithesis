@@ -2,7 +2,7 @@
 % This is the base file of the Slovak locale.\iffalse
 %<*base>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/fithesis-slovak.def}[2016/03/22]
+\ProvidesFile{fithesis/locale/fithesis-slovak.def}[2016/05/25]
 %    \end{macrocode}
 % The locale file defines all the private macros mandated by the
 % locale file interface.
@@ -25,8 +25,14 @@
 % Zástupné texty
 \gdef\thesis@slovak@universityName{Názov univerzity}
 \gdef\thesis@slovak@facultyName{Názov fakulty}
-\gdef\thesis@slovak@assignment{Namiesto tejto stránky vložte kópiu
-  oficiálneho podpísaného zadania práce.}
+\gdef\thesis@slovak@assignment{%
+  \ifthesis@digital@
+    Na tomto mieste sa v~tlačenej práci nachádza oficiálne
+    podpísané zadanie práce.
+  \else
+    Namiesto tejto stránky vložte kópiu oficiálneho podpísaného
+    zadania práce.
+  \fi}
 \gdef\thesis@slovak@declaration{Text prehlásenie ...}
 
 % Časové údaje
@@ -148,14 +154,20 @@
 % \iffalse
 %<*mu/fss>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/mu/fss/fithesis-slovak.def}[2015/06/26]
+\ProvidesFile{fithesis/locale/mu/fss/fithesis-slovak.def}[2016/05/25]
 
 % Zástupné texty
 \gdef\thesis@slovak@facultyName{Fakulta sociálnych štúdií}
-\gdef\thesis@slovak@assignment{Namiesto tejto stránky vložte kópiu
-  oficiálneho podpísaného zadania práce alebo prehlásenie autora
-  školského diela alebo obidve~v závislosti na požiadavkách
-  príslušnej katedry.}
+\gdef\thesis@slovak@assignment{%
+  \ifthesis@digital@
+    Na tomto mieste sa v~tlačenej práci nachádza oficiálne
+    podpísané zadanie práce alebo prehlásenie autora školského
+    diela alebo obidve.
+  \else
+    Namiesto tejto stránky vložte kópiu oficiálneho podpísaného
+    zadania práce alebo prehlásenie autora školského diela alebo
+    obidve~v závislosti na požiadavkách príslušnej katedry.
+  \fi}
 %    \end{macrocode}\iffalse
 %</mu/fss>
 % \fi\file{locale/mu/econ/fithesis-slovak.def}
@@ -206,13 +218,18 @@
 % \iffalse
 %<*mu/fi>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/mu/fi/fithesis-slovak.def}[2015/06/26]
+\ProvidesFile{fithesis/locale/mu/fi/fithesis-slovak.def}[2016/05/25]
 
 % Zástupné texty
 \gdef\thesis@slovak@facultyName{Fakulta informatiky}
-\gdef\thesis@slovak@assignment{Namiesto tejto stránky vložte kópiu
-  oficiálneho podpísaného zadania práce a prehlásenie autora
-  školského diela.}
+\gdef\thesis@slovak@assignment{%
+  \ifthesis@digital@
+    Na tomto mieste sa v~tlačenej práci nachádza oficiálne
+    podpísané zadanie práce a prehlásenie autora školského diela.
+  \else
+    Namiesto tejto stránky vložte kópiu oficiálneho podpísaného
+    zadania práce a prehlásenie autora školského diela.
+  \fi}
 \gdef\thesis@slovak@declaration{%
   Prehlasujem, že táto \thesis@lower{slovak@typeName} je mojím
   pôvodným autorským dielom, ktoré som vypracoval%
