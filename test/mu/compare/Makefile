@@ -30,7 +30,12 @@ SOURCES=base-digital.tex base-printed.tex base-10pt.tex \
 	toc-11.tex toc-12.tex toc-13.tex toc-14.tex toc-15.tex \
 	toc-16.tex toc-17.tex toc-18.tex toc-19.tex toc-20.tex \
 	toc-21.tex toc-22.tex toc-23.tex toc-24.tex toc-25.tex \
-	toc-26.tex toc-27.tex toc-28.tex $(BIB)
+	toc-26.tex toc-27.tex toc-28.tex $(BIB) \
+	fi-digital-emptyassignment.tex fi-digital-noassignment.tex \
+	fi-digital-someassignment.tex fi-printed-emptyassignment.tex \
+	fi-printed-noassignment.tex \
+	fi-printed-someassignment-oneside.tex \
+	fi-printed-someassignment-twoside.tex
 BIB_UNSOLICITED=econ-bibliography-unsolicited.tex \
 	fi-bibliography-unsolicited.tex \
 	fsps-bibliography-unsolicited.tex \
