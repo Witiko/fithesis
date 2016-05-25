@@ -50,11 +50,6 @@ BIB_SOLICITED=econ-bibliography-solicited.tex \
 	phil-bibliography-solicited.tex \
 	sci-bibliography-solicited.tex
 BIB=$(BIB_UNSOLICITED) $(BIB_SOLICITED)
-BIB_SOLICITED_PDFS=\
-	$(addprefix expected-, $(addsuffix -pdflatex.pdf, \
-		$(basename $(BIB_SOLICITED)))) \
-	$(addprefix expected-, $(addsuffix -lualatex.pdf, \
-		$(basename $(BIB_SOLICITED))))
 TESTS=$(addsuffix -pdflatex.pdf,$(basename $(SOURCES))) \
 	$(addsuffix -lualatex.pdf,$(basename $(SOURCES)))
 PROTOTYPES=$(addprefix expected-,$(TESTS))
@@ -62,7 +57,7 @@ PROTOTYPES=$(addprefix expected-,$(TESTS))
 # This target typesets all the test documents,
 # compares them with the prototypes, and cleans
 # up afterwards.
-all: $(TESTS) bibtest implode
+all: $(TESTS) implode
 
 # This target typesets all the prototypes.
 bootstrap: $(PROTOTYPES) clean
@@ -118,14 +113,6 @@ expected-%-lualatex.pdf: %.tex
 	@# Compare the result with the prototype.
 	! [ -e expected-$@ ] || $(COMPARE) expected-$@ $@ || \
 	{ [ "$(UPDATE_FAILED)" = true ] && mv $@ expected-$@; }
-
-# This target tests that the solicited and unsolicited
-# bibliography prototypes are equal.
-bibtest:
-	for i in $(BIB_SOLICITED_PDFS); do \
-		$(COMPARE) $$i `echo $$i | sed s/solicited/unsolicited/` \
-		|| exit 1; \
-  done
 
 # This target removes any auxiliary files.
 clean:
