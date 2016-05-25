@@ -889,6 +889,14 @@
     \end{alwayssingle}}%
   \fi}
 %    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@rewind}
+% The |\thesis@rewind| macro rewinds the page numbers by either one
+% or two pages, depending on whether one-side or two-side
+% typesetting is enabled, respectively.
+% \begin{macrocode}
+\def\thesis@rewind{%
+  \addtocounter{page}{-\ifthesis@twoside@2\else1\fi}}
+%    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@assignment}
 % The |\thesis@blocks@assignment| macro either:
 % \begin{itemize}
@@ -915,11 +923,10 @@
 \def\thesis@blocks@assignment{%
   \ifthesis@blocks@assignment@
     \ifx\thesis@assignmentFiles\undefined
-      % Typeset a placeholder page.
+      % Rewind the pages and typeset a placeholder page.
       \thesis@blocks@clear
       \begin{alwayssingle}%
-        \thispagestyle{empty}%
-        \addtocounter{page}{-\ifthesis@twoside@2\else1\fi}%
+        \thispagestyle{empty}\thesis@rewind
         \noindent\textit{\thesis@@{assignment}}%
       \end{alwayssingle}%
     \else
@@ -932,7 +939,8 @@
           \ifx\@args\@relax\else
             % Trim leading spaces.
             \edef\@trimmed{\romannumeral-`\.##1}%
-            \includepdf[pages=-]\@trimmed
+            % Rewind the pages and include the PDF.
+            \thesis@rewind\includepdf[pages=-]\@trimmed
             \ea\@inject\fi}%
         \ea\@inject\@pdfList,\relax,%
       \fi}%
