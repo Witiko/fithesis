@@ -56,11 +56,18 @@
   \gdef\thesis@version@number{#1}
   \gdef\thesis@version@date{#2}
   \gdef\thesis@version{#2 #1 fithesis3 MU thesis class}}
-\thesis@versiondef{v0.3.39:dev}{2016/05/25}}
+\thesis@versiondef{v0.3.39}{2016/05/26}}
 % {\newwrite\f\openout\f=VERSION\write\f{\thesis@version}\closeout\f}
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
+% \changes{v0.3.39:2}{2016/05/26}{The \texttt{assignment} key no
+%   longer affects the page numbers and takes into account the
+%   \texttt{digital} and \texttt{printed} class options in the
+%   style files of the Masaryk University in Brno.}
+% \changes{v0.3.39:1}{2016/05/26}{The
+%   \cs{thesis@blocks@bibliography} now uses an emergency stretch
+%   of 3\,em in the style files of the Masaryk University in Brno.}
 % \changes{v0.3.38:2}{2016/05/15}{Fixed \cs{thesis@pages} not
 %   taking \cs{thesis@postamble} into account. Fixed the chapter
 %   number being printed regardless of secnumdepth by the style
