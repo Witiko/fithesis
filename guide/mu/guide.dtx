@@ -277,11 +277,11 @@
   Before using the \textsf{fithesis3} class, it is useful to be
   familiar with the \LaTeX{} typesetting system. A good way to get
   started is to read one of the introductory texts in English
-  \cite{veryshortlatex,shortlatex,longlatex,latex} or in Czech
-  \cite{rybicka03,satrapa11}. Taking one of the \textit{FI:PB029},
-  \textit{PřF:M5751}, or \textit{FF:PLIN028} courses taught at
-  the \makeatletter\thesis@english@universityName\makeatother\ is
-  also helpful.
+  \parencite{veryshortlatex,shortlatex,longlatex,latex} or in Czech
+  \parencite{rybicka03,satrapa11}. Taking one of the
+  \textit{FI:PB029}, \textit{PřF:M5751}, or \textit{FF:PLIN028}
+  courses taught at the \makeatletter\thesis@english@universityName
+  \makeatother\ is also helpful.
   
   To become familiar with \textsf{fithesis3}, you are encouraged to
   inspect the example documents \makeatletter
@@ -322,15 +322,17 @@
   documents.
 
   If you are using the command line, you can typeset \LaTeX{}
-  source files by running either \texttt{pdflatex
-  \textit{name.tex}} or \texttt{lualatex
-  \textit{name.tex}} (depending on your choice of \TeX\
-  engine), where \texttt{\textit{name.tex}} corresponds to the name
-  of a \LaTeX\ source file. In the case of the two aforementioned
-  example files, the corresponding commands would be:
+  source files by running either the \texttt{pdflatex
+  -{}-shell-escape \textit{name.tex}} command or the
+  \texttt{lualatex \textit{name.tex}} command depending on your
+  chosen \TeX\ engine, where \texttt{\textit{name.tex}}
+  corresponds to the name of a \LaTeX\ source file. In the case of
+  the two aforementioned example files, the corresponding commands
+  would be
   \begin{center}\makeatletter
-  \texttt{pdflatex \thesis@faculty-pdflatex.tex}
-\\\texttt{lualatex \thesis@faculty-lualatex.tex}
+  \texttt{pdflatex -{}-shell-escape \thesis@faculty-pdflatex.tex}
+  for \hologo{pdfLaTeX},\\and \texttt{lualatex \thesis@faculty-%
+  lualatex.tex} for Lua\LaTeX{}.
   \makeatother\end{center}
   The command needs to be executed from within the directory, where
   the \LaTeX\ source file is located. In Windows, the command line

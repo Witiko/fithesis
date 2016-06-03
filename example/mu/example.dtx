@@ -411,11 +411,12 @@
 \usepackage{makeidx}      %% The `makeidx` package contains
 \makeindex                %% helper commands for index typesetting.
 %% These additional packages are used within the document:
-\usepackage{paralist}
-\usepackage{amsmath}
+\usepackage{paralist} %% Compact list environments
+\usepackage{amsmath}  %% Mathematics
 \usepackage{amsthm}
 \usepackage{amsfonts}
-\usepackage{url}
+\usepackage{url}      %% Hyperlinks
+\usepackage{markdown} %% Lightweight Markup
 \begin{document}
 %<*econ>
 \makeatletter
@@ -748,6 +749,115 @@ fonts will become available: \[
 \] Many other mathematical fonts are available\footnote{
   See \url{http://tex.stackexchange.com/a/58124/70941}.
 }.
+
+\chapter{Using lightweight markup}
+%<*pdftex>
+\shorthandoff{-}
+%</pdftex>
+\begin{markdown*}{%
+  hybrid,
+  definitionLists,
+  footnotes,
+  hashEnumerators}
+
+If you decide that \LaTeX{} is too wordy for some parts of your
+document, there are [packages](https://www.ctan.org/pkg/markdown
+"Markdown") that allow you to use more lightweight markup next
+to it.
+
+ ![logo](fithesis/logo/mu/fithesis-base.pdf "The logo of the
+  Masaryk University")
+
+This is a bullet list. Unlike numbered lists, bulleted lists
+contain an **unordered** set of bullet points. When a bullet point
+contains multiple paragraphs, the list is typeset as follows:
+
+  * The first item of a bullet list
+
+    that spans several paragraphs,
+  * the second item of a bullet list,
+  * the third item of a bullet list.
+
+When none of the bullet points contains multiple paragraphs, the
+list has a more compact form:
+
+  * The first item of a bullet list,
+  * the second item of a bullet list,
+  * the third item of a bullet list.
+
+Unlike a bulleted list, a numbered list implies chronology or
+ordering of the bullet points. When a bullet point
+contains multiple paragraphs, the list is typeset as follows:
+
+  1. The first item of an ordered list
+
+     that spans several paragraphs,
+  2. the second item of an ordered list,
+  3. the third item of an ordered list.
+  #. If you are feeling lazy,
+  #. you can use hash enumerators as well.
+
+When none of the bullet points contains multiple paragraphs, the
+list has a more compact form:
+
+  6. The first item of an ordered list,
+  7. the second item of an ordered list,
+  8. the third item of an ordered list.
+
+Definition lists are used to provide definitions of terms. When
+a definition contains multiple paragraphs, the list is typeset
+as follows:
+
+Term 1
+
+:   Definition 1
+
+*Term 2*
+
+:   Definition 2
+    
+        Some code, part of Definition 2
+    
+    Third paragraph of Definition 2.
+
+When none of the bullet points contains multiple paragraphs, the
+list has a more compact form:
+
+Term 1
+:   Definition 1
+*Term 2*
+:   Definition 2
+
+Block quotations are used to include an excerpt from an external
+document in way that visually clearly separates the excerpt from
+the rest of the work:
+
+> This is the first level of quoting.
+>
+> > This is nested blockquote.
+>
+> Back to the first level.
+
+Footnotes are used to include additional information to the
+document that are not necessary for the understanding of the main
+text. Here is a footnote reference[^1] and another[^longnote].
+  
+[^1]: Here is the footnote.
+
+[^longnote]: Here's one with multiple blocks.
+  
+    Subsequent paragraphs are indented to show that they
+belong to the previous footnote.
+  
+        Some code
+
+    The whole paragraph can be indented, or just the first
+    line.  In this way, multi-paragraph footnotes work like
+    multi-paragraph list items.
+\end{markdown*}
+%<*pdftex>
+\shorthandon{-}
+%</pdftex>
 
 \chapter{Inserting the bibliography}
 After linking a bibliography data\-base files to the document using

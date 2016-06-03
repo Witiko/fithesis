@@ -3,6 +3,11 @@ PDFFILES=fi-pdflatex.pdf fi-lualatex.pdf sci-pdflatex.pdf sci-lualatex.pdf \
 	fss-pdflatex.pdf fss-lualatex.pdf fsps-pdflatex.pdf fsps-lualatex.pdf \
 	phil-pdflatex.pdf phil-lualatex.pdf law-pdflatex.pdf law-lualatex.pdf \
 	econ-pdflatex.pdf econ-lualatex.pdf
+PDFLATEX=pdflatex --shell-escape
+LUALATEX=lualatex
+AUXFILES=*.aux *.log *.out *.toc *.lot *.lof *.bcf *.blg *.run.xml \
+		*.bbl *.idx *.ind *.ilg *.markdown.*
+AUXDIRS=_markdown-*/
 OUTPUT=$(PDFFILES) $(PDFFILES:.pdf=.tex)
 
 .PHONY: all clean
@@ -17,26 +22,26 @@ all: $(OUTPUT) clean
 
 # This target typesets a pdfLaTeX example.
 %-pdflatex.pdf: %-pdflatex.tex example.bib
-	pdflatex $< # The initial typesetting.
+	$(PDFLATEX) $< # The initial typesetting.
 	biber                               $(basename $<).bcf
-	pdflatex $< # Update the index after the bibliography insertion.
+	$(PDFLATEX) $< # Update the index after the bibliography insertion.
 	texindy -I latex -C utf8 -L english $(basename $<).idx
-	pdflatex $< # The final typesetting, now also with index.
-	pdflatex $<
+	$(PDFLATEX) $< # The final typesetting, now also with index.
+	$(PDFLATEX) $<
 
 # This target typesets a LuaLaTeX example.
 %-lualatex.pdf: %-lualatex.tex example.bib
-	lualatex $< # The initial typesetting.
+	$(LUALATEX) $< # The initial typesetting.
 	biber                               $(basename $<).bcf
-	lualatex $< # Update the index after the bibliography insertion.
+	$(LUALATEX) $< # Update the index after the bibliography insertion.
 	texindy -I latex -C utf8 -L english $(basename $<).idx
-	lualatex $< # The final typesetting, now also with index.
-	lualatex $<
+	$(LUALATEX) $< # The final typesetting, now also with index.
+	$(LUALATEX) $<
 
 # This target removes any auxiliary files.
 clean:
-	rm -f *.aux *.log *.out *.toc *.lot *.lof *.bcf *.blg *.run.xml \
-		*.bbl *.idx *.ind *.ilg
+	rm -f $(AUXFILES)
+	rm -rf $(AUXDIRS)
 
 # This target removes any auxiliary files
 # and the output PDF files.
