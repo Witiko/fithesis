@@ -1384,6 +1384,9 @@
         \AtEndDocument{%
           \thesis@postamble
           \write\@auxout{\noexpand\gdef\noexpand\thesis@pages{\thepage}}}
+      \else
+        \AtEndDocument{%
+          \write\@auxout{\noexpand\gdef\noexpand\thesis@pages{\thepage}}}
       \fi
     \makeatother
   \fi}
