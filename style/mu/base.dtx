@@ -908,14 +908,21 @@
 % \end{macro}\begin{macro}{\thesis@blocks@assignment}
 % The |\thesis@blocks@assignment| macro produces a different output
 % depending on the values of the |\thesis@assignmentFiles|.
-% |\ifthesis@blocks@assignment@|, and |\ifthesis@digital| macros.
+% |\ifthesis@blocks@assignment@|,
+% |\ifthesis@blocks@assignment@hideIfDigital@|, and
+% |\ifthesis@digital| macros.
 %
-% The default value of the \DescribeMacro{\ifthesis@blocks@assig^^A
-% nment@}|\ifthesis@blocks@assignment@| conditional is
+% The default value of the
+% \DescribeMacro{\ifthesis@blocks@assignment@}^^A
+% |\ifthesis@blocks@assignment@| and
+% \DescribeMacro{\ifthesis@blocks@assignment@hideIfDigital}^^A
+% |\ifthesis@blocks@assignment@hideIfDigital@| conditionals is
 % \texttt{true}.
 % \begin{macrocode}
 \newif\ifthesis@blocks@assignment@
 \thesis@blocks@assignment@true
+\newif\ifthesis@blocks@assignment@hideIfDigital@
+\thesis@blocks@assignment@hideIfDigital@true
 \def\thesis@blocks@assignment{%
 %    \end{macrocode}
 % If the |\ifthesis@blocks@assignment@| conditional is
@@ -932,37 +939,49 @@
       \end{alwayssingle}%
     \else
 %    \end{macrocode}
+% Locally define \DescribeMacro{\@inject}|\@inject| as our routine
+% for injecting lists of PDF documents.
+% \begin{macrocode}
+      {\edef\@pdfList{\thesis@assignmentFiles}%
+      \let\ea\expandafter
+      % Injects the specified PDF documents.
+      \def\@inject##1,{\thesis@blocks@clear
+        \def\@args{##1}\def\@relax{\relax}%
+        \ifx\@args\@relax\else
+          % Trim leading spaces.
+          \edef\@trimmed{\romannumeral-`\.##1}%
+          % Rewind the pages and include the PDF.
+          \thesis@rewind\includepdf[pages=-]\@trimmed
+          \ea\@inject\fi}%
+%    \end{macrocode}
 % If the |\ifthesis@blocks@assignment@| conditional is
 % \textsf{true} and the |\thesis@assignmentFiles| macro is neither
 % undefined nor empty, then typeset a placeholder page, if the
-% |\ifthesis@digital@| conditional is \textsf{true}.
+% |\ifthesis@digital@| conditional is \textsf{true} and the
+% |\ifthesis@blocks@assignmane@hideIfDigital@| conditional is
+% \textsf{true}
 % \begin{macrocode}
-      {\edef\@pdfList{\thesis@assignmentFiles}%
       \ifx\@pdfList\empty\else
         \ifthesis@digital@
-          \thesis@blocks@clear
-          \begin{alwayssingle}%
-            \thispagestyle{empty}\thesis@rewind
-            \noindent\textit{\thesis@@{assignment}}%
-          \end{alwayssingle}%
+          \ifthesis@blocks@assignment@hideIfDigital@
+            \thesis@blocks@clear
+            \begin{alwayssingle}%
+              \thispagestyle{empty}\thesis@rewind
+              \noindent\textit{\thesis@@{assignment}}%
+            \end{alwayssingle}%
 %    \end{macrocode}
 % If the |\ifthesis@blocks@assignment@| conditional is
 % \textsf{true} and the |\thesis@assignmentFiles| macro is neither
 % undefined nor empty, then inject the PDF documents specified in
 % the |\thesis@assignmentFiles|, if the |\ifthesis@digital@|
-% conditional is \textsf{false}.
+% conditional is \textsf{false} or the
+% |\ifthesis@blocks@assignment@hideIfDigital@| conditional is
+% \textsf{false}.
 % \begin{macrocode}
+          \else
+            \ea\@inject\@pdfList,\relax,%
+          \fi
         \else
-          \let\ea\expandafter
-          % Inject the specified PDF documents.
-          \def\@inject##1,{\thesis@blocks@clear
-            \def\@args{##1}\def\@relax{\relax}%
-            \ifx\@args\@relax\else
-              % Trim leading spaces.
-              \edef\@trimmed{\romannumeral-`\.##1}%
-              % Rewind the pages and include the PDF.
-              \thesis@rewind\includepdf[pages=-]\@trimmed
-              \ea\@inject\fi}%
           \ea\@inject\@pdfList,\relax,%
         \fi
       \fi}%

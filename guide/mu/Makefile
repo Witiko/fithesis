@@ -1,6 +1,6 @@
 PDFFILES=fi.pdf sci.pdf ped.pdf med.pdf fss.pdf fsps.pdf phil.pdf \
 	law.pdf econ.pdf
-TEX=pdflatex -shell-escape
+TEX=pdflatex --shell-escape
 .PHONY: all clean
 all: clean
 	make all -C resources

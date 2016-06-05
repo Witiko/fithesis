@@ -35,7 +35,13 @@ SOURCES=base-digital.tex base-printed.tex base-10pt.tex \
 	fi-digital-someassignment.tex fi-printed-emptyassignment.tex \
 	fi-printed-noassignment.tex \
 	fi-printed-someassignment-oneside.tex \
-	fi-printed-someassignment-twoside.tex
+	fi-printed-someassignment-twoside.tex \
+	sci-digital-emptyassignment.tex sci-digital-noassignment.tex \
+	sci-digital-someassignment-oneside.tex \
+	sci-digital-someassignment-twoside.tex \
+	sci-printed-emptyassignment.tex sci-printed-noassignment.tex \
+	sci-printed-someassignment-oneside.tex \
+	sci-printed-someassignment-twoside.tex
 BIB_UNSOLICITED=econ-bibliography-unsolicited.tex \
 	fi-bibliography-unsolicited.tex \
 	fsps-bibliography-unsolicited.tex \
