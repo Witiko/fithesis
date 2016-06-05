@@ -56,55 +56,63 @@
   \gdef\thesis@version@number{#1}
   \gdef\thesis@version@date{#2}
   \gdef\thesis@version{#2 #1 fithesis3 MU thesis class}}
-\thesis@versiondef{v0.3.39}{2016/05/26}}
+\thesis@versiondef{v0.3.40}{2016/06/06}}
 % {\newwrite\f\openout\f=VERSION\write\f{\thesis@version}\closeout\f}
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
+% \changes{v0.3.40}  {2016/06/06}{Fixed \cs{thesis@pages} not
+%   working properly when the \texttt{autoLayout} key is set to
+%   \texttt{false}. Added a section on the \textsf{markdown}
+%   package to the example documents of the Masaryk University in
+%   Brno. Added the \cs{ifthesis@blocks@assignment@hideIfDigital@}
+%   conditional to the \texttt{style/mu/fithesis-base.sty} style
+%   file. [VN]}
 % \changes{v0.3.39:2}{2016/05/26}{The \texttt{assignment} key no
 %   longer affects the page numbers and takes into account the
 %   \texttt{digital} and \texttt{printed} class options in the
-%   style files of the Masaryk University in Brno.}
+%   style files of the Masaryk University in Brno. [VN]}
 % \changes{v0.3.39:1}{2016/05/26}{The
 %   \cs{thesis@blocks@bibliography} now uses an emergency stretch
-%   of 3\,em in the style files of the Masaryk University in Brno.}
+%   of 3\,em in the style files of the Masaryk University in Brno.
+%   [VN]}
 % \changes{v0.3.38:2}{2016/05/15}{Fixed \cs{thesis@pages} not
 %   taking \cs{thesis@postamble} into account. Fixed the chapter
 %   number being printed regardless of secnumdepth by the style
 %   files of the Masaryk University in Brno. Fixed
 %   \cs{thesis@blocks@assignment} being typeset in Czech only
 %   by the style file of the Faculty of Science at the Masaryk
-%   University in Brno.}
+%   University in Brno. [VN]}
 % \changes{v0.3.38:1}{2016/04/18}{The \texttt{bib} key was added
 %   on the \textsf{fithesis3} class level and is supported by the
-%   style files of the Masaryk University in Brno.}
+%   style files of the Masaryk University in Brno. [VN]}
 % \changes{v0.3.37}  {2016/04/12}{The \cs{tableofcontents} in the
 %   style files of the Masaryk University in Brno now correctly
 %   handles all tocdepth values. The expansion of \cs{part} also no
 %   longer results in a \textsf{hyperref}-related error in the
-%   style files of the Masaryk University in Brno.}
+%   style files of the Masaryk University in Brno. [VN]}
 % \changes{v0.3.36}  {2016/03/26}{The \cs{thesis@load} macro has
-%   been lifted to the public API as \cs{thesisload}.}
+%   been lifted to the public API as \cs{thesisload}. [VN]}
 % \changes{v0.3.35:3}{2016/03/23}{Fixed \cs{l@}\textit{locale}
-%   being possibly undefined in a LuaLaTeX run.}
+%   being possibly undefined in a LuaLaTeX run. [VN]}
 % \changes{v0.3.35:2}{2016/03/22}{Added support for seminar papers
 %   on the \textsf{fithesis3} class level. The style files for the
 %   faculties of the Masaryk University in Brno do not provide any
-%   special handling of this thesis type yet.}
+%   special handling of this thesis type yet. [VN]}
 % \changes{v0.3.35:1}{2016/03/22}{Added support for the Division of
 %   Information and Library Studies of the Faculty of Arts at the
 %   Masaryk University in Brno. This support is enabled by
-%   specifying \cs{thesis@department} to be \texttt{kisk}.}
+%   specifying \cs{thesis@department} to be \texttt{kisk}. [VN]}
 % \changes{v0.3.34}  {2016/02/24}{Added visual tests of output
 %   PDFs. The \texttt{test/} directory is now also uses the
 %   \textit{university}\texttt{/}\textit{faculty} path scheme
-%   employed by the rest of the package.}
-% \changes{v0.3.33}  {2016/02/19}{Added \cs{thesis@patch}.}
+%   employed by the rest of the package. [VN]}
+% \changes{v0.3.33}  {2016/02/19}{Added \cs{thesis@patch}. [VN]}
 % \changes{v0.3.32}  {2016/02/18}{Fixed a regression from 
 %   v0.3.27:2 -- The margins in \cs{thesis@blocks@mainMatter} were
 %   corrected in the style files of the Faculty of Economics and
 %   Administration and the Faculty of Medicine at the Masaryk
-%   University in Brno.}
+%   University in Brno. [VN]}
 % \changes{v0.3.31:3}{2016/01/13}{The
 %   \texttt{style/mu/fithesis-sci.sty} style file redefines
 %   \cs{thesis@blocks}\texttt{\discretionary{@}{@}{@}declaration}
