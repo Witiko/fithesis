@@ -56,11 +56,16 @@
   \gdef\thesis@version@number{#1}
   \gdef\thesis@version@date{#2}
   \gdef\thesis@version{#2 #1 fithesis3 MU thesis class}}
-\thesis@versiondef{v0.3.40}{2016/06/06}}
+\thesis@versiondef{v0.3.41}{2016/08/17}}
 % {\newwrite\f\openout\f=VERSION\write\f{\thesis@version}\closeout\f}
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
+% \changes{v0.3.41}  {2016/08/17}{Removed the arbitrary limitation
+%   of \cs{thesissetup}, which prevented it from accepting
+%   multi-paragraph values. The \cs{thesislong} macro is therefore
+%   no longer necessary, but kept around for backwards
+%   compatibility. [VN]}
 % \changes{v0.3.40}  {2016/06/06}{Fixed \cs{thesis@pages} not
 %   working properly when the \texttt{autoLayout} key is set to
 %   \texttt{false}. Added a section on the \textsf{markdown}
@@ -456,14 +461,8 @@
 % key-value pairs as defined by the \textsf{keyval} package. This
 % macro needs to be included prior to the beginning of a \LaTeX\ 
 % document. When used, the \textit{keyvals} are processed.
-%
-% Note that the values passed to the |\thesissetup| public macro
-% may only contain one paragraph of text. If you wish to set
-% multiple paragraphs of text as the value, you need to use
-% the |\thesislong| public macro (see Section
-% \ref{sec:thesislong}).
 %    \begin{macrocode}
-\def\thesissetup#1{%
+\long\def\thesissetup#1{%
   \setkeys{thesis}{#1}}
 %    \end{macrocode}
 % \subsubsection{The \texttt{basePath} key}
@@ -1279,21 +1278,15 @@
 %    \end{macrocode}
 % \subsection{The \cs{thesislong} macro}\label{sec:thesislong}
 % \begin{macro}{\thesislong}
-% The public macro |\thesislong|\marg{key}\marg{value}, where
-% \textit{value} may contain multiple paragraphs of text, can be
-% used as an alternative to the |\thesissetup| public macro, which
-% only permits a single paragraph as the \textit{value}, for the
-% following \textit{key}s:
-% \begin{compactitem}
-%   \item\texttt{abstract}
-%   \item\texttt{abstractEn}
-%   \item\texttt{thanks}
-%   \item\texttt{declaration}
-% \end{compactitem}
+% The public macro |\thesislong|\marg{key}\marg{value}, can be
+% used as an alternative to the |\thesissetup{|\meta{key}%
+% | = |\marg{value}|}| public macro:
 %    \begin{macrocode}
 \long\def\thesislong#1#2{%
   \csname KV@thesis@#1\endcsname{#2}}
 %    \end{macrocode}
+% This macro is a relict of the time when |\thesissetup| did not
+% accept multi-paragraph input.
 % \end{macro}
 % \subsection{The \cs{thesisload} macro}\label{sec:thesisload}
 % \begin{macro}{\thesisload}
