@@ -363,7 +363,16 @@
 \usepackage{amsthm}
 \usepackage{amsfonts}
 \usepackage{url}      %% Hyperlinks
-\usepackage{markdown} %% Lightweight Markup
+\usepackage{markdown} %% Lightweight markup
+\usepackage{listings} %% Source code highlighting
+\lstset{
+  basicstyle      = \ttfamily,%
+  identifierstyle = \color{black},%
+  keywordstyle    = \color{blue},%
+  keywordstyle    = {[2]\color{cyan}},%
+  keywordstyle    = {[3]\color{olive}},%
+  stringstyle     = \color{teal},%
+  commentstyle    = \itshape\color{magenta}}
 \begin{document}
 %<*econ>
 \makeatletter
@@ -705,7 +714,8 @@ fonts will become available: \[
   hybrid,
   definitionLists,
   footnotes,
-  hashEnumerators}
+  hashEnumerators,
+  fencedCode}
 
 If you decide that \LaTeX{} is too wordy for some parts of your
 document, there are [packages](https://www.ctan.org/pkg/markdown
@@ -801,6 +811,46 @@ belong to the previous footnote.
     The whole paragraph can be indented, or just the first
     line.  In this way, multi-paragraph footnotes work like
     multi-paragraph list items.
+
+Code blocks are used to include source code listings into the
+document:
+
+    #include <stdio.h>
+    #include <unistd.h>
+    #include <sys/types.h>
+    #include <sys/wait.h>
+    // This is a comment
+    int main(int argc, char **argv)
+    {
+        while (--c > 1 && !fork());
+        sleep(c = atoi(v[c]));
+        printf("%d\n", c);
+        wait(0);
+        return 0;
+    }
+
+There is an alternative syntax for code blocks that allows you to
+specify additional information, such as the language of the source
+code. This information can be used for syntax highlighting:
+
+``` sh
+#!/bin/sh
+fac() {
+  if [ "$1" -leq 1 ]; then
+    echo 1
+  else
+    echo $(("$1" * fac $(("$1" - 1))))
+  fi
+}
+``````````````
+
+~~~~~~ Ruby
+# Here's a way to empty an array.
+joe = [ 'eggs.', 'some', 'break', 'to', 'Have' ]
+print(joe.pop, " ") while joe.size > 0
+print "\n"
+~~~~~~
+    
 \end{markdown*}
 %<*pdftex>
 \shorthandon{-}
