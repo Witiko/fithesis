@@ -7,7 +7,7 @@ PDFLATEX=pdflatex --shell-escape
 LUALATEX=lualatex
 AUXFILES=*.aux *.log *.out *.toc *.lot *.lof *.bcf *.blg *.run.xml \
 		*.bbl *.idx *.ind *.ilg *.markdown.*
-AUXDIRS=_markdown-*/
+AUXDIRS=_markdown-*/ _markdown_*/ _minted-*/
 OUTPUT=$(PDFFILES) $(PDFFILES:.pdf=.tex)
 
 .PHONY: all clean
