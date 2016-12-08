@@ -741,17 +741,18 @@
 
   \chapter{Advanced usage}
   This chapter contains a couple of tips for the advanced user, who
-  may wishe to configure the class beyond what the class options
-  and the metadata settings offer. An understanding of how the
-  main routine of \textsf{fithesis3} works is beneficial. The main
+  may wand to configure the class beyond what the class options and
+  the metadata settings offer. An understanding of how the main
+  routine of \textsf{fithesis3} works is beneficial. The main
   routine is documented in Section 2.4 of the technical
   documentation of the \textsf{fithesis3} class \cite{novotny15}.
 
   \section{Throubleshooting option clashes}
-  If you need to load a package with a specific set of options and the package
-  happens to be required by the \textsf{fithesis3} class, as specified in
-  Section \ref{sec:req-packages}, you may experience an option clash error. If
-  this problem occurs, prepend
+  If you need to load a \texttt{package} with a specific set of
+  \texttt{options} and the package happens to be required by the
+  \textsf{fithesis3} class, as specified in Section
+  \ref{sec:req-packages}, you may experience an option clash error.
+  If this error occurs, prepend
   \mintinline{latex}{\PassOptionsToPackage{options}{package}} before the
   \mintinline{latex}{\documentclass[...]{fithesis3}} command. If you need to
   configure the package, you can do that anywhere after the document preamble.
@@ -779,7 +780,7 @@
   like to set by yourself, such as the \LaTeX\ \texttt{tocdepth}
   and \texttt{secnumdepth} counters. Locale files are also loaded
   immediately before your document, which prevents you from
-  changing locale strings from within the preamble of your
+  modifying locale strings from within the preamble of your
   document.
   
   To overcome this limitation, you can load the style and locale
@@ -794,21 +795,23 @@
   %% The document
 \end{document}
   \end{minted}
-  Although you can use the \mintinline{latex}{\thesisload} command
-  anywhere in the preamble, using the macro before the metadata
-  configuration will load the default style and locale files not
-  taking into account your faculty and locale settings.
+  Although you may use the \mintinline{latex}{\thesisload} command
+  anywhere in the preamble, using the command before configuring
+  your metadata using the \mintinline{latex}{\thesissetup} command
+  will load all the wrong style and locale files not taking into
+  account your faculty and locale settings.
   
-  The \mintinline{latex}{\thesisload} command also loads the
-  \textsf{hyperref} package, which adds hyperlinks and \textsc{pdf}
-  metadata into the resulting \textsc{pdf} document. This package
-  is rather delicate, as it needs to be loaded after most other
-  packages. Loading additional packages after
-  \mintinline{latex}{\thesisload} may therefore cause problems.
+  Another danger is that \mintinline{latex}{\thesisload} command
+  loads the \textsf{hyperref} package, which adds hyperlinks and
+  \textsc{pdf} metadata into the resulting \textsc{pdf} document.
+  The \textsf{hyperref} package is rather delicate in that it needs
+  to be loaded after most other packages. Loading additional
+  packages after \mintinline{latex}{\thesisload} may therefore
+  cause these packages to work incorrectly.
   
   \section{Changing the layout}
   If you are unsatisfied with the automatic arrangement of the
-  mandatory parts of the thesis, you can disable it using the
+  mandatory parts of the thesis, you may disable it using the
   \texttt{autoLayout} metadata key:
   \begin{minted}{latex}
 \documentclass[...]{fithesis3}
@@ -898,17 +901,17 @@
   We are now back to the original document. Instead of inserting
   the \texttt{\string\th e\-sis\-@pre\-amble} and 
   \texttt{\string\th e\-sis\-@post\-amble} commands into the document,
-  we can insert only certain sections at the beginning and at the
-  end of the document.
+  we may however insert only certain sections at the beginning and
+  at the end of the document.
   
   The \texttt{\string\th e\-sis\-@preamble} and
   \texttt{\string\th e\-sis\-@postamble} commands set up the proper
   environment and execute the \texttt{\string
   \th e\-sis\-@blocks\-@preamble} and
   \texttt{\string\th e\-sis\-@blocks\-@postamble} commands. To
-  change the layout, it is sufficient to redefine \texttt{\string
-  \th e\-sis\-@blocks\-@pre\-amble} and
-  \texttt{\string\th e\-sis\-@blocks\-@post\-amble}.
+  change the layout, it is sufficient to redefine the
+  \texttt{\string \th e\-sis\-@blocks\-@pre\-amble} and
+  \texttt{\string\th e\-sis\-@blocks\-@post\-amble} commands.
 
   To create a document that only contains the title page at the
   beginning of the document and the list of tables at the end of
@@ -979,7 +982,7 @@
   to the \mintinline{latex}{\documentclass} command. If you wanted
   to change the backend class of \textsf{fithesis3} to the
   KOMA-Script \textsf{screprt} with the \texttt{a4paper} option,
-  your document would start as follows:}
+  your document would begin as follows:}
   \begin{minted}{latex}
 \let\ChapFont\bfseries
 \let\PageFont\bfseries
