@@ -861,22 +861,22 @@ After linking a bibliography data\-base files to the document using
 the \verb"\"\texttt{thesissetup\{bib\discretionary{=}{=}{=}%
 \{\textit{file1},\textit{file2},\,\ldots\,\}\}} command, you can
 start citing the entries. This is just dummy text
-\parencite{inbook-full} lightly sprinkled with citations
-\parencite[p.~123]{incollection-full}. Several sources can be cited
-at once: \cite{inproceedings-full,manual-full,mastersthesis-full}.
-\citetitle{inbook-full} was written by \citeauthor{inbook-full} in
-\citeyear{inbook-full}. We can also produce \textcite{inbook-full}%
+\parencite{borgman03} lightly sprinkled with citations
+\parencite[p.~123]{greenberg98}. Several sources can be cited at
+once: \cite{borgman03,greenberg98,thanh01}.
+\citetitle{greenberg98} was written by \citeauthor{greenberg98} in
+\citeyear{greenberg98}. We can also produce \textcite{greenberg98}%
 %<*fi,ped,phil,sci>
 \ or %% Let us define a compound command:
 \def\citeauthoryear#1{(\textcite{#1},~\citeyear{#1})}%
-\citeauthoryear{inbook-full}%
+\citeauthoryear{greenberg98}%
 %</fi,ped,phil,sci>
 . The full bibliographic citation is:
-\emph{\fullcite{inbook-full}}. We can easily insert a bibliographic
-citation into the footnote\footfullcite{inbook-full}.
+\emph{\fullcite{greenberg98}}. We can easily insert a bibliographic
+citation into the footnote\footfullcite{greenberg98}.
 
 The \verb"\nocite" command will not generate any
-output\nocite{booklet-full}, but it will insert its arguments into
+output\nocite{muni}, but it will insert its arguments into
 the bibliography. The \verb"\nocite{*}" command will insert all the
 records in the bibliography database file into the bibliography.
 Try uncommenting the command
@@ -900,10 +900,10 @@ hovering the cursor over a directory.  Select the \textsf{Open
 Command Window Here} option in the context menu that opens shortly
 afterwards.
 
-With online services -- such as Overleaf -- all commands are
-executed automatically. When you omit the
-\verb"\printbibliography" command, its location will be decided
-by the template.
+With online services -- such as Overleaf -- or when using an
+automatic tool -- such as \LaTeX MK -- all commands are executed
+automatically. When you omit the \verb"\printbibliography" command,
+its location will be decided by the template.
 
   \printbibliography[heading=bibintoc] %% Print the bibliography.
 
