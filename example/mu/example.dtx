@@ -716,7 +716,10 @@ fonts will become available: \[
   footnotes,
   inlineFootnotes,
   hashEnumerators,
-  fencedCode}
+  fencedCode,
+  citations,
+  citationNbsps,
+}
 
 If you decide that \LaTeX{} is too wordy for some parts of your
 document, there are [packages](https://www.ctan.org/pkg/markdown
@@ -811,6 +814,13 @@ belong to the previous footnote.
     The whole paragraph can be indented, or just the first
     line.  In this way, multi-paragraph footnotes work like
     multi-paragraph list items.
+
+Citations are used to provide bibliographical references to other
+documents. This is a regular citation~[@borgman03, p. 123]. This is
+an in-text citation: @borgman03\. You can also cite several authors
+at once using both regular~[see @borgman03, p. 123; @greenberg98,
+sec.  3.2; and @thanh01] and in-text citations: @borgman03 [p.123;
+@greenberg98, sec. 3.2; @thanh01].
 
 Code blocks are used to include source code listings into the
 document:
