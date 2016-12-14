@@ -49,22 +49,22 @@
   \makeatletter\thesis@preamble\makeatother
   \chapter{Introduction}
   To use the \textsf{fithesis3} class, you can use an online
-  \LaTeX{} editor, such as Overleaf%
+  \LaTeX{} editor, such as Overleaf,%
   \footnote{Overleaf \textsf{fithesis3}
 %<*sci>
     and \textsf{sci.muni.thesis}
 %</sci>
     templates are located at
-    \url{http://www.overleaf.com/gallery/tagged/muni}.},
+    \url{http://www.overleaf.com/gallery/tagged/muni}.}
   which allows you to skip the installation described in Section
   \ref{sec:install} completely.
 %<*sci>
   Beside \textsf{fithesis3}, the \textsf{sci.muni.thesis} \LaTeX\
   package, as well as templates for common word processors, can
   likewise be used for the preparation of theses at the
-  \makeatletter\thesis@english@facultyName\makeatother\footnote{%
+  \makeatletter\thesis@english@facultyName\makeatother.\footnote{%
     For more information about the alternative templates, see
-    \url{http://www.sci.muni.cz/cz/BcMgrStudium/Legislativa/Sablony}.}.
+    \url{http://www.sci.muni.cz/cz/BcMgrStudium/Legislativa/Sablony}.}
 %</sci>
   
 %<*fi>
@@ -135,18 +135,18 @@
   you with preparing and typesetting your \LaTeX\ documents.
 
   The two major \TeX{} distributions that you can install are
-  Mik\TeX\footnote{Mik\TeX\ can be acquired from
-  \url{http://miktex.org/2.9/setup}.}, which can be used with the
-  Microsoft Windows operating system, and \TeX\ Live\footnote{%
+  Mik\TeX,\footnote{Mik\TeX\ can be acquired from
+  \url{http://miktex.org/2.9/setup}.} which can be used with the
+  Microsoft Windows operating system, and \TeX\ Live,\footnote{%
   \TeX\ Live can be acquired from
-  \url{http://www.tug.org/texlive}.}, which can be installed on
+  \url{http://www.tug.org/texlive}.} which can be installed on
   both Unix and Windows operating systems. The advantages of
   Mik\TeX\ over \TeX Live include refined graphical user interface
   and the ability to install new packages on the fly.
   
   Along with Mik\TeX{}, you will also need to install a Perl
-  interpreter, such as Strawberry Perl\footnote{Strawberry Perl can
-  be downloaded from \url{http://strawberryperl.com/}.}. \TeX\ Live
+  interpreter, such as Strawberry Perl.\footnote{Strawberry Perl can
+  be downloaded from \url{http://strawberryperl.com/}.} \TeX\ Live
   installs a Perl interpreter by default.
 
   \subsection{Installing packages}\label{sec:req-packages}
@@ -235,14 +235,14 @@
   download a file named \texttt{fithesis.tds.zip} containing the
   version of the package you wish to use and place it in a root
   directory that is recognized by your \TeX\ distribution. In
-  \TeX\ Live\footnote{For more information about the \TeX\ Live root
+  \TeX\ Live,\footnote{For more information about the \TeX\ Live root
   directories, see
   \url{http://www.tug.org/texlive/doc/texlive-en/texlive-en.html\#x1-110002.3},
-  Chapter 2.3.}, one of such directories is the \texttt{texmf/}
-  folder in your user home directory. In Mik\TeX\footnote{
+  Chapter 2.3.} one of such directories is the \texttt{texmf/}
+  folder in your user home directory. In Mik\TeX,\footnote{
   For more information about the Mik\TeX root
   directories, see 
-  \url{http://docs.miktex.org/manual/localadditions.html}.},
+  \url{http://docs.miktex.org/manual/localadditions.html}.}
   the list of recognized root directories can be gleaned by
   running
   \begin{center}
@@ -290,9 +290,9 @@
   source files that are named \texttt{\thesis@faculty-pdflatex.tex}
   and \texttt{\thesis@faculty-lualatex.tex}. The example documents
   are distributed along with the package inside the
-  \texttt{example/} directory\footnote{The example
+  \texttt{example/} directory.\footnote{The example
   \textsf{fithesis3} documents are also available online at
-  \url{http://mirror.ctan.org/macros/latex/contrib/fithesis/example/mu}.
+  \url{http://mirror.ctan.org/macros/latex/contrib/fithesis/example/mu}
   To typeset the example documents, you need to download the
   \texttt{example.bib} file as well, as it contains the
   bibliography database used in the examples.}.  By modifying and
@@ -301,7 +301,7 @@
   gain a working knowledge of \LaTeX{} and use these source files
   as the basis for your thesis.
   
-  If you are using an online editor, such as Overleaf
+  If you are using an online editor, such as Overleaf%
   \footnote{Overleaf \textsf{fithesis3} templates are located at
   \url{http://www.overleaf.com/gallery/tagged/muni}.}, \LaTeX{}
   source files will be typeset automatically, as you edit them. The
@@ -310,8 +310,8 @@
   \thguide@iconkern\makeatother project settings.
 
   If you are using a graphical \TeX{} editor, such as \TeX
-  works\footnote{\TeX works can be downloaded from
-  \url{http://www.tug.org/texworks/}.}, you can typeset a \LaTeX{}
+  works,\footnote{\TeX works can be downloaded from
+  \url{http://www.tug.org/texworks/}.} you can typeset a \LaTeX{}
   source file by opening the source file from within the editor and
   running either the \hologo{pdfLaTeX} or \Hologo{LuaLaTeX}
   (depending on your choice of \TeX\ engine) command from the task
@@ -497,11 +497,11 @@
       However, due to the prevalence of monochrome printing, this
       option is the default.
     \item[\thguide@default microtype]
-      This option sets up microtypographic extensions\footnote{
+      This option sets up microtypographic extensions,\footnote{
         For more information about the \TeX\ engine
         microtypographic extensions, see
         \url{http://mirrors.ctan.org/macros/latex/contrib/microtype/microtype.pdf}.
-      }, which results in visually more pleasing paragraphs of
+      } which results in visually more pleasing paragraphs of
       text.
     \item[nomicrotype]
       This option prevents \textsf{fithesis3} from setting up
@@ -703,13 +703,13 @@
         \ldots
       \end{center}
       When this key is specified, the \textsf{fithesis3} class will
-      automatically typeset a bibliography section\footnote{
+      automatically typeset a bibliography section.\footnote{
         The bibliography will be typeset according to the
         \textsc{ISO} 690:2010 standard using the
         \texttt{biblatex-iso690} bibliography style. For more
         information, see
         \url{https://www.ctan.org/pkg/biblatex-iso690}.
-      }. If you want more control over where and how the
+      } If you want more control over where and how the
       bibliography is typeset, use the
       \mintinline{latex}{\printbibliography[bibintoc]} command.
 
