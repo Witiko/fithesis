@@ -39,20 +39,28 @@
 \gdef\thesis@english@thanksTitle{Acknowledgement}
 \gdef\thesis@english@declarationTitle{Declaration}
 \gdef\thesis@english@idTitle{ID}
+\gdef\thesis@english@typeName@sempaper{Seminar Paper}
+\gdef\thesis@english@typeName@bachelors{Bachelor's Thesis}
+\gdef\thesis@english@typeName@masters{Master's Thesis}
+\gdef\thesis@english@typeName@proposal{Thesis Proposal}
+\gdef\thesis@english@typeName@doctoral{Doctoral Thesis}
+\gdef\thesis@english@typeName@rigorous{Rigorous Thesis}
 \gdef\thesis@english@typeName{%
   \ifx\thesis@type\thesis@sempaper
-    Seminar Paper%
+    \thesis@english@typeName@sempaper
   \else\ifx\thesis@type\thesis@bachelors
-    Bachelor's Thesis%
+    \thesis@english@typeName@bachelors
   \else\ifx\thesis@type\thesis@masters
-    Master's Thesis%
+    \thesis@english@typeName@masters
+  \else\ifx\thesis@type\thesis@proposal
+    \thesis@english@typeName@proposal
   \else\ifx\thesis@type\thesis@doctoral
-    Doctoral Thesis%
+    \thesis@english@typeName@doctoral
   \else\ifx\thesis@type\thesis@rigorous
-    Rigorous Thesis%
+    \thesis@english@typeName@rigorous
   \else
     <<Unknown thesis type (\thesis@type)>>%
-  \fi\fi\fi\fi\fi}
+  \fi\fi\fi\fi\fi\fi}
 %    \end{macrocode}\iffalse
 %</base>
 % \fi\file{locale/mu/fithesis-english.def}
@@ -204,6 +212,7 @@
 % Others
 \gdef\thesis@english@advisorSignature{Signature of Thesis
   \thesis@english@advisorTitle}
+\gdef\thesis@english@typeName@proposal{Ph.D. Thesis Proposal}
 %    \end{macrocode}\iffalse
 %</mu/fi>
 % \fi\file{locale/mu/phil/fithesis-english.def}

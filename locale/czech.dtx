@@ -50,34 +50,50 @@
 \gdef\thesis@czech@thanksTitle{Poděkování}
 \gdef\thesis@czech@declarationTitle{Prohlášení}
 \gdef\thesis@czech@idTitle{ID}
+\gdef\thesis@czech@typeName@sempaper{Seminární práce}
+\gdef\thesis@czech@typeName@bachelors{Bakalářská práce}
+\gdef\thesis@czech@typeName@masters{Diplomová práce}
+\gdef\thesis@czech@typeName@proposal{Teze závěrečné práce}
+\gdef\thesis@czech@typeName@doctoral{Disertační práce}
+\gdef\thesis@czech@typeName@rigorous{Rigorózní práce}
 \gdef\thesis@czech@typeName{%
   \ifx\thesis@type\thesis@sempaper
-    Seminární práce%
+    \thesis@czech@typeName@sempaper
   \else\ifx\thesis@type\thesis@bachelors
-    Bakalářská práce%
+    \thesis@czech@typeName@bachelors
   \else\ifx\thesis@type\thesis@masters
-    Diplomová práce%
+    \thesis@czech@typeName@masters
+  \else\ifx\thesis@type\thesis@proposal
+    \thesis@czech@typeName@proposal
   \else\ifx\thesis@type\thesis@doctoral
-    Disertační práce%
+    \thesis@czech@typeName@doctoral
   \else\ifx\thesis@type\thesis@rigorous
-    Rigorózní práce%
+    \thesis@czech@typeName@rigorous
   \else
     <<Neznámý typ práce (\thesis@type)>>%
-  \fi\fi\fi\fi\fi}
+  \fi\fi\fi\fi\fi\fi}
+\gdef\thesis@czech@typeName@akuzativ@sempaper{Seminární práci}
+\gdef\thesis@czech@typeName@akuzativ@bachelors{Bakalářskou práci}
+\gdef\thesis@czech@typeName@akuzativ@masters{Diplomovou práci}
+\gdef\thesis@czech@typeName@akuzativ@proposal{Tezi závěrečné práce}
+\gdef\thesis@czech@typeName@akuzativ@doctoral{Disertační práci}
+\gdef\thesis@czech@typeName@akuzativ@rigorous{Rigorózní práci}
 \gdef\thesis@czech@typeName@akuzativ{%
   \ifx\thesis@type\thesis@sempaper
-    Seminární práci%
+    \thesis@czech@typeName@akuzativ@sempaper
   \else\ifx\thesis@type\thesis@bachelors
-    Bakalářskou práci%
+    \thesis@czech@typeName@akuzativ@bachelors
   \else\ifx\thesis@type\thesis@masters
-    Diplomovou práci%
+    \thesis@czech@typeName@akuzativ@masters
+  \else\ifx\thesis@type\thesis@proposal
+    \thesis@czech@typeName@akuzativ@proposal
   \else\ifx\thesis@type\thesis@doctoral
-    Disertační práci%
+    \thesis@czech@typeName@akuzativ@doctoral
   \else\ifx\thesis@type\thesis@rigorous
-    Rigorózní práci%
+    \thesis@czech@typeName@akuzativ@rigorous
   \else
     <<Neznámý typ práce (\thesis@type)>>%
-  \fi\fi\fi\fi\fi}
+  \fi\fi\fi\fi\fi\fi}
 %    \end{macrocode}\iffalse
 %</base>
 % \fi\file{locale/mu/fithesis-czech.def}
@@ -239,6 +255,8 @@
 
 % Ostatní
 \gdef\thesis@czech@advisorSignature{Podpis vedoucího}
+\gdef\thesis@czech@typeName@proposal{Teze disertační práce}
+\gdef\thesis@czech@typeName@akuzativ@proposal{Tezi disertační práce}
 %    \end{macrocode}\iffalse
 %</mu/fi>
 % \fi\file{locale/mu/phil/fithesis-czech.def}

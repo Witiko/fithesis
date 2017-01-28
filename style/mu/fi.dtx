@@ -30,8 +30,9 @@
 % thesis assignment in accordance with the formal requirements of
 % the faculty.
 % \begin{macrocode}
-\ifx\thesis@type\thesis@bachelors\else
-\ifx\thesis@type\thesis@masters\else
+\ifx\thesis@type\thesis@rigorous
+  \thesis@blocks@assignment@false
+\else\ifx\thesis@type\thesis@doctoral
   \thesis@blocks@assignment@false
 \fi\fi
 %    \end{macrocode}
@@ -46,30 +47,38 @@
 %     signature field typeset in the case of rigorous theses
 % \end{itemize}
 % \begin{macrocode}
+\def\thesis@blocks@advisor{%
+  {\thesis@titlePage@large\\[0.3in]
+    {\bf\thesis@@{advisorTitle}:} \thesis@advisor}}
 \def\thesis@blocks@titlePage@content{%
     {\thesis@titlePage@Huge\bf\thesis@TeXtitle\par\vfil}\vskip 0.8in
     {\thesis@titlePage@large\sc\thesis@@{typeName}\\[0.3in]}
     {\thesis@titlePage@Large\bf\thesis@author}
-    % If this is a rigorous thesis, typeset the name of the
-    % thesis advisor.
+    % If this is a rigorous thesis or a PhD thesis proposal,
+    % typeset the name of the thesis advisor.
     \ifx\thesis@type\thesis@rigorous
-      {\thesis@titlePage@large\\[0.3in]
-        {\bf\thesis@@{advisorTitle}:} \thesis@advisor}
-    \fi}%
+      \thesis@blocks@advisor
+    \else\ifx\thesis@type\thesis@proposal
+      \thesis@blocks@advisor
+    \fi\fi}%
+\def\thesis@blocks@advisorSignature{%
+  \let\@A\relax\newlength{\@A}
+    \settowidth{\@A}{\thesis@@{advisorSignature}}
+    \setlength{\@A}{\@A+1cm}
+  \hfill\raisebox{-0.5em}{\parbox{\@A}{
+    \centering
+    \rule{\@A}{1pt}\\
+    \thesis@@{advisorSignature}
+  }}}%
 \def\thesis@blocks@titlePage@footer{%
   {\thesis@titlePage@large\thesis@place, \thesis@@{semester}
-  % If this is a rigorous thesis, create space for the advisor's
-  % signature
+  % If this is a rigorous thesis or a PhD thesis proposal,
+  % create space for the advisor's signature.
   \ifx\thesis@type\thesis@rigorous
-    \let\@A\relax\newlength{\@A}
-      \settowidth{\@A}{\thesis@@{advisorSignature}}
-      \setlength{\@A}{\@A+1cm}
-    \hfill\raisebox{-0.5em}{\parbox{\@A}{
-      \centering
-      \rule{\@A}{1pt}\\
-      \thesis@@{advisorSignature}
-    }}
-  \fi}}
+    \thesis@blocks@advisorSignature
+  \else\ifx\thesis@type\thesis@proposal
+    \thesis@blocks@advisorSignature
+  \fi\fi}}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@declaration}
 % The |\thesis@blocks@declaration| macro typesets the
@@ -90,6 +99,16 @@
   \end{alwayssingle}}
 %    \end{macrocode}
 % \end{macro}
+% In Ph.D. theses, only the table of contents will be typeset in
+% the front matter as per the formal requirements of the
+% faculty\footnote{See
+% \url{http://is.muni.cz/www/2575/dtedi/index_en.html}}.
+%
+% Note that there is no direct support for the seminar paper type.
+% If you would like to change the contents of the preamble and the
+% postamble, you should modify the |\thesis@blocks@preamble| and
+% |\thesis@blocks@postamble| macros.
+%
 % All blocks within the autolayout preamble and postamble that are
 % not defined within this file are defined in the
 % \texttt{style/mu/fithesis-base.sty} file.
@@ -99,13 +118,17 @@
     \thesis@blocks@cover
     \thesis@blocks@titlePage
   \thesis@blocks@frontMatter
-    \thesis@blocks@assignment
-    \thesis@blocks@declaration
-    \thesis@blocks@thanks
-    \thesis@blocks@clearRight
-      \thesis@blocks@abstract
-      \thesis@blocks@keywords
-    \thesis@blocks@tables}
+    \ifx\thesis@type\thesis@proposal
+      \thesis@blocks@toc
+    \else
+      \thesis@blocks@assignment
+      \thesis@blocks@declaration
+      \thesis@blocks@thanks
+      \thesis@blocks@clearRight
+        \thesis@blocks@abstract
+        \thesis@blocks@keywords
+      \thesis@blocks@tables
+    \fi}
 \def\thesis@blocks@postamble{%
   \thesis@blocks@bibliography}
 %    \end{macrocode}

@@ -50,34 +50,50 @@
 \gdef\thesis@slovak@thanksTitle{Poďakovanie}
 \gdef\thesis@slovak@declarationTitle{Prehlásenie}
 \gdef\thesis@slovak@idTitle{ID}
+\gdef\thesis@slovak@typeName@sempaper{Seminárna práca}
+\gdef\thesis@slovak@typeName@bachelors{Bakalárska práca}
+\gdef\thesis@slovak@typeName@masters{Diplomová práca}
+\gdef\thesis@slovak@typeName@proposal{Tézy záverečnej práce}
+\gdef\thesis@slovak@typeName@doctoral{Dizertačná práca}
+\gdef\thesis@slovak@typeName@rigorous{Rigorózna práca}
 \gdef\thesis@slovak@typeName{%
   \ifx\thesis@type\thesis@sempaper
-    Seminárna práca%
+    \thesis@slovak@typeName@sempaper
   \else\ifx\thesis@type\thesis@bachelors
-    Bakalárska práca%
+    \thesis@slovak@typeName@bachelors
   \else\ifx\thesis@type\thesis@masters
-    Diplomová práca%
+    \thesis@slovak@typeName@masters
+  \else\ifx\thesis@type\thesis@proposal
+    \thesis@slovak@typeName@proposal
   \else\ifx\thesis@type\thesis@doctoral
-    Dizertačná práca%
+    \thesis@slovak@typeName@doctoral
   \else\ifx\thesis@type\thesis@rigorous
-    Rigorózna práca%
+    \thesis@slovak@typeName@rigorous
   \else
     <<Neznámy typ práce (\thesis@type)>>%
-  \fi\fi\fi\fi\fi}
+  \fi\fi\fi\fi\fi\fi}
+\gdef\thesis@slovak@typeName@akuzativ@sempaper{Seminárnu prácu}
+\gdef\thesis@slovak@typeName@akuzativ@bachelors{Bakalársku prácu}
+\gdef\thesis@slovak@typeName@akuzativ@masters{Diplomovú prácu}
+\gdef\thesis@slovak@typeName@akuzativ@proposal{Tézy záverečnej práce}
+\gdef\thesis@slovak@typeName@akuzativ@doctoral{Dizertačnú prácu}
+\gdef\thesis@slovak@typeName@akuzativ@rigorous{Rigoróznu prácu}
 \gdef\thesis@slovak@typeName@akuzativ{%
   \ifx\thesis@type\thesis@sempaper
-    Seminárnu prácu%
+    \thesis@slovak@typeName@akuzativ@sempaper
   \else\ifx\thesis@type\thesis@bachelors
-    Bakalársku prácu%
+    \thesis@slovak@typeName@akuzativ@bachelors
   \else\ifx\thesis@type\thesis@masters
-    Diplomovú prácu%
+    \thesis@slovak@typeName@akuzativ@masters
+  \else\ifx\thesis@type\thesis@proposal
+    \thesis@slovak@typeName@akuzativ@proposal
   \else\ifx\thesis@type\thesis@doctoral
-    Dizertačnú prácu%
+    \thesis@slovak@typeName@akuzativ@doctoral
   \else\ifx\thesis@type\thesis@rigorous
-    Rigoróznu prácu%
+    \thesis@slovak@typeName@akuzativ@rigorous
   \else
     <<Neznámy typ práce (\thesis@type)>>%
-  \fi\fi\fi\fi\fi}
+  \fi\fi\fi\fi\fi\fi}
 %    \end{macrocode}\iffalse
 %</base>
 % \fi\file{locale/mu/fithesis-slovak.def}
@@ -241,6 +257,8 @@
 
 % Rôzne
 \gdef\thesis@slovak@advisorSignature{Podpis vedúceho}
+\gdef\thesis@slovak@typeName@proposal{Tézy dizertačnej práce}
+\gdef\thesis@slovak@typeName@akuzativ@proposal{Tézy dizertačnej práce}
 %    \end{macrocode}\iffalse
 %</mu/fi>
 % \fi\file{locale/mu/phil/fithesis-slovak.def}

@@ -41,7 +41,7 @@ SOURCES=base-digital.tex base-printed.tex base-10pt.tex \
 	sci-digital-someassignment-twoside.tex \
 	sci-printed-emptyassignment.tex sci-printed-noassignment.tex \
 	sci-printed-someassignment-oneside.tex \
-	sci-printed-someassignment-twoside.tex
+	sci-printed-someassignment-twoside.tex fi-proposal
 BIB_UNSOLICITED=econ-bibliography-unsolicited.tex \
 	fi-bibliography-unsolicited.tex \
 	fsps-bibliography-unsolicited.tex \
