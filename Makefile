@@ -17,7 +17,8 @@ DTXFILES=*.dtx locale/czech.dtx locale/english.dtx \
 INSFILES=*.ins locale/czech.ins locale/english.ins \
 	locale/slovak.ins style/*.ins style/*/*.ins
 TESTS=test/*.tex test/mu/compare/*.pdf test/mu/compare/*.tex \
-	test/mu/compare-example/*.pdf test/mu/comparepdf.sh
+	test/mu/compare-example/*.pdf test/mu/comparepdf.sh \
+	test/mu/update-tests.sh
 MAKES=guide/mu/Makefile guide/mu/resources/Makefile \
 	locale/Makefile	logo/mu/Makefile Makefile style/Makefile \
 	style/mu/Makefile test/Makefile test/mu/blind/Makefile \
