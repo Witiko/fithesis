@@ -30,18 +30,66 @@
 % \begin{itemize}
 %   \item\textsf{geometry} -- Allows for modifications of the type
 %     area dimensions.
+%   \item\textsf{setspace} -- Allows for line height modifications.
 % \end{itemize}
 % In addition to this, the type area width is set to
 % 14\,cm in accordance with the formal requirements of the faculty.
 %    \begin{macrocode}
 \thesis@require{geometry}
+\thesis@require{setspace}
 \geometry{top=30mm,bottom=30mm,left=40mm,right=30mm,includeheadfoot}
+%    \end{macrocode}
+% The paragraph indentation is 1.25\,cm as per the requirements of the faculty.
+%    \begin{macrocode}
+\setlength{\parindent}{1.25cm}
 %    \end{macrocode}
 % The style file configures the title page header to include the
 % field name.
 %    \begin{macrocode}
 \thesis@blocks@titlePage@field@true
 %    \end{macrocode}
+% \begin{macro}{\thesis@blocks@frontMatter}
+% The |\thesis@blocks@frontMatter| macro sets up the style of the
+% front matter of the thesis. The leading is adjusted in
+% accordance with the requirements of the faculty.
+% \begin{macrocode}
+\def\thesis@blocks@frontMatter{%
+  \thesis@blocks@clear
+  \pagestyle{plain}
+  \parindent 1.5em
+  \setcounter{page}{1}
+  \pagenumbering{roman}
+  \onehalfspacing}
+%    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@blocks@mainMatter}
+% The |\thesis@blocks@mainMatter| macro sets up the style
+% of the main matter of the thesis. The leading is adjusted in
+% accordance with the requirements of the faculty.
+% \begin{macrocode}
+\def\thesis@blocks@mainMatter{%
+  \thesis@blocks@clear
+  \setcounter{page}{1}
+  \pagenumbering{arabic}
+  \pagestyle{thesisheadings}
+  \parindent 1.5em
+  \onehalfspacing}
+%    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@blocks@bibliography}
+% The |\thesis@blocks@bibliography| macro typesets the
+% bibliography. The leading is adjusted in accordance
+% with the requirements of the faculty.
+% \begin{macrocode}
+\def\thesis@blocks@bibliography{%
+  \ifthesis@bibliography@loaded@
+    \ifthesis@bibliography@included@\else
+      \singlespacing
+      \thesis@blocks@clear
+      {\emergencystretch=3em%
+      \printbibliography[heading=bibintoc]}%
+    \fi
+  \fi}
+%    \end{macrocode}
+% \end{macro}
 % Note that there is no direct support for the seminar paper and
 % thesis proposal types.  If you would like to change the contents
 % of the preamble and the postamble, you should modify the

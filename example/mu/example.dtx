@@ -917,7 +917,13 @@ automatic tool -- such as \LaTeX MK -- all commands are executed
 automatically. When you omit the \verb"\printbibliography" command,
 its location will be decided by the template.
 
+%<*fsps>
+  {\singlespacing
+%</fsps>
   \printbibliography[heading=bibintoc] %% Print the bibliography.
+%<*fsps>
+  }
+%</fsps>
 
 \chapter{Inserting the index}
 After using the \verb"\makeindex" macro and loading the
