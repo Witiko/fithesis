@@ -29,8 +29,41 @@
 \gdef\thesis@english@fall{Fall}
 \gdef\thesis@english@semester{%
   \thesis@{english@\thesis@season} \thesis@seasonYear}
+\gdef\thesis@english@formattedDate{{%
+  \thesis@day.
+  \newcount\@month\expandafter\@month\thesis@month\relax
+  \ifnum\@month=1%
+    January
+  \else\ifnum\@month=2%
+    February
+  \else\ifnum\@month=3%
+    March
+  \else\ifnum\@month=4%
+    April
+  \else\ifnum\@month=5%
+    May
+  \else\ifnum\@month=6%
+    June
+  \else\ifnum\@month=7%
+    July
+  \else\ifnum\@month=8%
+    August
+  \else\ifnum\@month=9%
+    September
+  \else\ifnum\@month=10%
+    October
+  \else\ifnum\@month=11%
+    November
+  \else\ifnum\@month=12%
+    December
+  \else
+    <<unknown month (\the\@month)>>
+  \fi\fi\fi\fi\fi\fi
+  \fi\fi\fi\fi\fi\fi
+  \thesis@year}}
 
 % Miscellaneous
+\gdef\thesis@english@authorSignature{Author's signature}
 \gdef\thesis@english@fieldTitle{Field of study}
 \gdef\thesis@english@advisorTitle{Advisor}
 \gdef\thesis@english@authorTitle{Author}

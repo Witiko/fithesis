@@ -40,8 +40,41 @@
 \gdef\thesis@czech@fall{podzim}
 \gdef\thesis@czech@semester{%
   \thesis@{czech@\thesis@season} \thesis@seasonYear}
+\gdef\thesis@czech@formattedDate{{%
+  \thesis@day.
+  \newcount\@month\expandafter\@month\thesis@month\relax
+  \ifnum\@month=1%
+    ledna
+  \else\ifnum\@month=2%
+    února
+  \else\ifnum\@month=3%
+    března
+  \else\ifnum\@month=4%
+    dubna
+  \else\ifnum\@month=5%
+    května
+  \else\ifnum\@month=6%
+    června
+  \else\ifnum\@month=7%
+    července
+  \else\ifnum\@month=8%
+    srpna
+  \else\ifnum\@month=9%
+    září
+  \else\ifnum\@month=10%
+    října
+  \else\ifnum\@month=11%
+    listopadu
+  \else\ifnum\@month=12%
+    prosince
+  \else
+    <<neznámý měsíc (\the\@month)>>
+  \fi\fi\fi\fi\fi\fi
+  \fi\fi\fi\fi\fi\fi
+  \thesis@year}}
 
 % Různé
+\gdef\thesis@czech@authorSignature{Podpis autora}
 \gdef\thesis@czech@fieldTitle{Obor}
 \gdef\thesis@czech@advisorTitle{Vedoucí práce}
 \gdef\thesis@czech@authorTitle{Autor}
@@ -369,41 +402,6 @@
   akuzativ} vypracoval\thesis@czech@gender@koncovka\ samo%
   statně s~využitím informačních zdrojů, které jsou v~práci
   citovány.}
-\gdef\thesis@czech@authorSignature{Podpis autora}
-
-% Časové údaje
-\gdef\thesis@czech@formattedDate{{%
-  \thesis@day.
-  \newcount\@month\expandafter\@month\thesis@month\relax
-  \ifnum\@month=1%
-    ledna
-  \else\ifnum\@month=2%
-    února
-  \else\ifnum\@month=3%
-    března
-  \else\ifnum\@month=4%
-    dubna
-  \else\ifnum\@month=5%
-    května
-  \else\ifnum\@month=6%
-    června
-  \else\ifnum\@month=7%
-    července
-  \else\ifnum\@month=8%
-    srpna
-  \else\ifnum\@month=9%
-    září
-  \else\ifnum\@month=10%
-    října
-  \else\ifnum\@month=11%
-    listopadu
-  \else\ifnum\@month=12%
-    prosince
-  \else
-    <<neznámý měsíc (\the\@month)>>
-  \fi\fi\fi\fi\fi\fi
-  \fi\fi\fi\fi\fi\fi
-  \thesis@year}}
 
 % Bibliografický záznam
 \global\let\thesis@czech@bib@author\thesis@czech@authorTitle

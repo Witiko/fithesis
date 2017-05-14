@@ -40,8 +40,41 @@
 \gdef\thesis@slovak@fall{jeseň}
 \gdef\thesis@slovak@semester{%
   \thesis@{slovak@\thesis@season} \thesis@seasonYear}
+\gdef\thesis@slovak@formattedDate{{%
+  \thesis@day.
+  \newcount\@month\expandafter\@month\thesis@month\relax
+  \ifnum\@month=1%
+    januára
+  \else\ifnum\@month=2%
+    februára
+  \else\ifnum\@month=3%
+    marca
+  \else\ifnum\@month=4%
+    apríla
+  \else\ifnum\@month=5%
+    mája
+  \else\ifnum\@month=6%
+    júna
+  \else\ifnum\@month=7%
+    júla
+  \else\ifnum\@month=8%
+    augusta
+  \else\ifnum\@month=9%
+    septembra
+  \else\ifnum\@month=10%
+    októbra
+  \else\ifnum\@month=11%
+    novembra
+  \else\ifnum\@month=12%
+    decembra
+  \else
+    <<neznámy mesiac (\the\@month)>>
+  \fi\fi\fi\fi\fi\fi
+  \fi\fi\fi\fi\fi\fi
+  \thesis@year}}
 
 % Rôzne
+\gdef\thesis@slovak@authorSignature{Podpis autora}
 \gdef\thesis@slovak@fieldTitle{Odbor}
 \gdef\thesis@slovak@advisorTitle{Vedúci práce}
 \gdef\thesis@slovak@authorTitle{Autor}
