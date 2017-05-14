@@ -28,6 +28,7 @@
 %    \end{macrocode}
 % The file loads the following packages:
 % \begin{itemize}
+%   \item\textsf{tikz} -- Used for dimension arithmetic.
 %   \item\textsf{geometry} -- Allows for modifications of the type
 %     area dimensions.
 %   \item\textsf{setspace} -- Allows for line height modifications.
@@ -35,6 +36,7 @@
 % In addition to this, the type area width is set to
 % 14\,cm in accordance with the formal requirements of the faculty.
 %    \begin{macrocode}
+\thesis@require{tikz}
 \thesis@require{geometry}
 \thesis@require{setspace}
 \geometry{top=30mm,bottom=30mm,left=40mm,right=30mm,includeheadfoot}
@@ -43,10 +45,33 @@
 %    \begin{macrocode}
 \setlength{\parindent}{1.25cm}
 %    \end{macrocode}
-% The style file configures the title page header to include the
-% field name.
+% The style file redefines the title page content
+% not to include the author's name and the title page footer
+% to include both the author's and advisor's name, the year and
+% place of the thesis defense in accordance with the formal
+% requirements of the faculty.
 %    \begin{macrocode}
-\thesis@blocks@titlePage@field@true
+\def\thesis@blocks@titlePage@footer{%
+  {\thesis@titlePage@large
+    {% Calculate the width of the thesis author and advisor boxes
+     \let\@A\relax\newlength{\@A}\settowidth{\@A}{{%
+       \bf\thesis@@{advisorTitle}:}}
+     \let\@B\relax\newlength{\@B}\settowidth{\@B}{\thesis@advisor}
+     \let\@C\relax\newlength{\@C}\settowidth{\@C}{{%
+       \bf\thesis@@{authorTitle}:}}
+     \let\@D\relax\newlength{\@D}\settowidth{\@D}{\thesis@author}
+     \let\@E\relax\newlength{\@E}\settowidth{\@E}{\thesis@field}
+     \let\@F\relax\newlength{\@F}\pgfmathsetlength{\@F}{max(\@D,\@E)}
+    \let\@left\relax\newlength{\@left}\pgfmathsetlength{\@left}{%
+      max(\@A,\@B)}
+    \let\@right\relax\newlength{\@right}\pgfmathsetlength{\@right}{%
+      max(\@C,\@F)}
+    % Typeset the thesis author and advisor boxes
+    \vskip 2in\begin{minipage}[t]{\@left}
+      {\bf\thesis@@{advisorTitle}:}\\\thesis@advisor
+    \end{minipage}\hfill\begin{minipage}[t]{\@right}
+      {\bf\thesis@@{authorTitle}:}\\\thesis@author\\\thesis@field
+    \end{minipage}}\\[4em]\thesis@place, \thesis@year}}
 %    \end{macrocode}
 % \begin{macro}{\thesis@blocks@frontMatter}
 % The |\thesis@blocks@frontMatter| macro sets up the style of the
