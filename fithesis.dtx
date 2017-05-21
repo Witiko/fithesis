@@ -56,7 +56,7 @@
   \gdef\thesis@version@number{#1}
   \gdef\thesis@version@date{#2}
   \gdef\thesis@version{#2 #1 fithesis3 MU thesis class}}
-\thesis@versiondef{v0.3.44}{2017/05/18}}
+\thesis@versiondef{v0.3.45:dev}{2017/05/21}}
 % {\newwrite\f\openout\f=VERSION\write\f{\thesis@version}\closeout\f}
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1287,8 +1287,6 @@
     \thesis@autofalse
   \fi}
 %    \end{macrocode}
-% \end{macro} ^^A The nested \ifthesis@auto macro definition
-% \end{macro} ^^A The \thesissetup macro definition
 % The \DescribeMacro{\thesis@preamble}|\thesis@preamble|
 % and \DescribeMacro{\thesis@postamble}|\thesis@postamble|
 % macros temporarily switch to the hyphenation patterns and the
@@ -1320,6 +1318,47 @@
 \let\thesis@blocks@postamble\relax
 \let\thesis@blocks@mainMatter\relax
 %    \end{macrocode}
+% \end{macro} ^^A The nested \ifthesis@auto macro definition
+% \subsubsection{The \texttt{extra} key}
+% \changes{v0.3.45}{2017/05/21}{Added the \texttt{extra} key
+%   to \cs{thesissetup}. [VN]}
+% The \marg{\texttt{extra}=\marg{keyvals}} pair enables the
+% definition of extra data fields, where \textit{keyvals} is a
+% comma-delimited list of \textit{key}=\textit{value} pairs as
+% defined by the \textsf{keyval} package. For each
+% \textit{key}=\textit{value} pair, a |\thesis@extra@|\textit{key}
+% is defined to be \textit{value}. These extra data fields are
+% provided as a unified interface for passing additional data to
+% the style and locale files.
+%    \begin{macrocode}
+\define@key{thesis}{extra}{%
+  \setkeys{thesis@extra}{#1}}
+\def\thesis@extra@KV@prefix{KV@thesis@extra@}
+\long\def\KV@split#1=#2=#3\relax{%
+  \KV@@sp@def\@tempa{#1}%
+  \ifx\@tempa\@empty\else
+    \expandafter\let\expandafter\@tempc
+      \csname\KV@prefix\@tempa\endcsname
+    \ifx\@tempc\relax
+      \ifx\KV@prefix\thesis@extra@KV@prefix
+        \KV@@sp@def\@tempb{#2}%
+        \expandafter\let\csname thesis@extra@\@tempa\endcsname
+          \@tempb%
+      \else
+        \KV@errx
+         {\@tempa\space undefined}%
+      \fi
+    \else
+      \ifx\@empty#3\@empty
+        \KV@default
+      \else
+        \KV@@sp@def\@tempb{#2}%
+        \expandafter\@tempc\expandafter{\@tempb}\relax
+      \fi
+    \fi
+  \fi}
+%    \end{macrocode}
+% \end{macro} ^^A The \thesissetup macro definition
 % \subsection{The \cs{thesislong} macro}\label{sec:thesislong}
 % \begin{macro}{\thesislong}
 % The public macro |\thesislong|\marg{key}\marg{value}, can be
