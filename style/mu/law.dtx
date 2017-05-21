@@ -6,7 +6,7 @@
 % o/law/ud/predp/smer/S-07-2012.pdf}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fithesis/style/mu/fithesis-law}[2016/04/18]
+\ProvidesPackage{fithesis/style/mu/fithesis-law}[2017/05/21]
 %    \end{macrocode}
 % The file defines the color scheme of the respective faculty. Note
 % the the color definitions are in RGB, which makes the resulting
@@ -60,6 +60,9 @@
 % \begin{macrocode}
 \def\thesis@blocks@mainMatter{%
   \thesis@blocks@clear
+  \gdef\thesis@pages@frontMatter{\thepage}
+  \write\@auxout{\noexpand\gdef\noexpand
+    \thesis@pages@frontMatter{\thepage}}
   \pagestyle{thesisheadings}
   \parindent 1.5em\relax}
 %    \end{macrocode}

@@ -7,12 +7,12 @@
 % after \texttt{style/fithesis-base.sty}, regardless of the value
 % of the |\thesis@style| macro.
 %    \begin{macrocode}
-\ProvidesPackage{fithesis/style/mu/fithesis-base}[2016/06/06]
+\ProvidesPackage{fithesis/style/mu/fithesis-base}[2017/05/21]
 \NeedsTeXFormat{LaTeX2e}
 %    \end{macrocode}
 % The file recognizes the following options: \begin{itemize}
 %   \item\texttt{10pt}, \texttt{11pt}, \texttt{12pt} -- Sets the
-%     type size to 10, 11 or 12 points respectively.
+%     type size to 10, 1o or 12 points respectively.
 %    \begin{macrocode}
 \DeclareOption{10pt}{\def\thesis@ptsize{0}}
 \DeclareOption{11pt}{\def\thesis@ptsize{1}}
@@ -987,12 +987,29 @@
     \fi
   \fi}
 %    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@pages@frontMatter}
+% The \cs{thesis@pages@frontMatter} macro contains the last page
+% number within the front matter of the document. During the
+% first \TeX{} compilation, the macro expands to ??.
+% \changes{v0.3.45}{2017/05/21}{Defined the
+%   \cs{thesis@pages@frontMatter} macro in
+%   \texttt{style/mu/fithesis-base.sty}. The patch was submitted
+%   by Juraj Pálenik. [VN]}
+% \begin{macrocode}
+\ifx\thesis@pages@frontMatter\undefined
+  \def\thesis@pages@frontMatter{??}\fi
+%    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@mainMatter}
 % The |\thesis@blocks@mainMatter| macro sets up the style
-% of the main matter of the thesis.
+% of the main matter of the thesis, defines the
+% \cs{thesis@pages@frontMatter} macro and also writes the
+% definition to the auxiliary file.
 % \begin{macrocode}
 \def\thesis@blocks@mainMatter{%
   \thesis@blocks@clear
+  \gdef\thesis@pages@frontMatter{\thepage}
+  \write\@auxout{\noexpand\gdef\noexpand
+    \thesis@pages@frontMatter{\thepage}}
   \setcounter{page}{1}
   \pagenumbering{arabic}
   \pagestyle{thesisheadings}
@@ -1119,7 +1136,7 @@
     \bfseries % \chapter (0)
   \or
     \slshape  % \section (1)
-	\else
+  \else
     \rmfamily % \subsection (2), \subsubsection (3)
               % \paragraph, \subparagraph (4)
   \fi}

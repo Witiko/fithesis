@@ -6,7 +6,7 @@
 % auth/do/fsps/studijni/info-stud/SZZ/pokyny_ZP_13-5-2013.pdf}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fithesis/style/mu/fithesis-fsps}[2017/05/15]
+\ProvidesPackage{fithesis/style/mu/fithesis-fsps}[2017/05/21]
 %    \end{macrocode}
 % The file defines the color scheme of the respective faculty. Note
 % the the color definitions are in RGB, which makes the resulting
@@ -93,6 +93,9 @@
 % \begin{macrocode}
 \def\thesis@blocks@mainMatter{%
   \thesis@blocks@clear
+  \gdef\thesis@pages@frontMatter{\thepage}
+  \write\@auxout{\noexpand\gdef\noexpand
+    \thesis@pages@frontMatter{\thepage}}
   \setcounter{page}{1}
   \pagenumbering{arabic}
   \pagestyle{thesisheadings}

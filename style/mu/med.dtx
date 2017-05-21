@@ -7,7 +7,7 @@
 % ZITOSTI_ZAVERECNE_PRACE.doc}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fithesis/style/mu/fithesis-med}[2016/04/18]
+\ProvidesPackage{fithesis/style/mu/fithesis-med}[2017/05/21]
 %    \end{macrocode}
 % The file defines the color scheme of the respective faculty. Note
 % the the color definitions are in RGB, which makes the resulting
@@ -124,6 +124,9 @@
 % \begin{macrocode}
 \def\thesis@blocks@mainMatter{%
   \thesis@blocks@clear
+  \gdef\thesis@pages@frontMatter{\thepage}
+  \write\@auxout{\noexpand\gdef\noexpand
+    \thesis@pages@frontMatter{\thepage}}
   % In case of double-sided typesetting, change the geometry
   \ifthesis@twoside@
     \newgeometry{top=25mm,bottom=20mm,left=35mm,
