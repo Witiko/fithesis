@@ -6,7 +6,7 @@
 % \url{http://www.sci.muni.cz/NW/predpisy/od/OD-2014-05.pdf}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fithesis/style/mu/fithesis-sci}[2016/06/06]
+\ProvidesPackage{fithesis/style/mu/fithesis-sci}[2017/05/21]
 %    \end{macrocode}
 % The file defines the color scheme of the respective faculty. Note
 % the the color definitions are in RGB, which makes the resulting
@@ -25,6 +25,19 @@
   style=iso-numeric,
   sorting=none}
 \thesis@bibliography@load
+%    \end{macrocode}
+% The file recognizes the following options: \begin{itemize}
+%   \item\texttt{abstractonsinglepage} -- The abstracts are going
+%   to be typeset on a single page as opposed to being spread
+%   across several pages.
+% \end{itemize}
+% \changes{v0.3.45}{2017/05/21}{Defined the
+%   \texttt{abstractonsinglepage} option in
+%   \texttt{style/mu/fithesis-sci.sty}. The patch was submitted by
+%   Juraj Pálenik. [VN]}
+%    \begin{macrocode}
+\newif\ifthesis@abstractonsinglepage@
+\DeclareOption{abstractonsinglepage}{\thesis@abstractonsinglepage@true}
 %    \end{macrocode}
 % The file uses Czech locale strings within the macros.
 %    \begin{macrocode}
