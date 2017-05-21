@@ -43,6 +43,28 @@
 %    \begin{macrocode}
 \thesis@requireLocale{czech}
 %    \end{macrocode}
+% \begin{macro}{\ifthesis@czech}
+% The |\ifthesis@czech| \ldots |\else| \ldots |\fi| conditional is made
+% available for testing, whether or not the current locale is Czech.
+% \changes{v0.3.45}{2017/05/21}{Defined the
+%   \cs{ifthesis@czech} macro in
+%   \texttt{style/mu/fithesis-sci.sty}. The patch was submitted by
+%   Juraj Pálenik. [VN]}
+%    \begin{macrocode}
+\def\ifthesis@czech{
+  \expandafter\def\expandafter\@czech\expandafter{\string
+  \czech}%
+  \expandafter\expandafter\expandafter\def\expandafter
+  \expandafter\expandafter\@locale\expandafter\expandafter
+  \expandafter{\expandafter\string\csname\thesis@locale\endcsname}%
+  \expandafter\csname\expandafter i\expandafter f\ifx\@locale
+  \@czech
+    true%
+  \else
+    false%
+  \fi\endcsname}
+%    \end{macrocode}
+% \end{macro}
 % The file loads the following packages:
 % \begin{itemize}
 %   \item\textsf{tikz} -- Used for dimension arithmetic.
