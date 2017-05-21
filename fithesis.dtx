@@ -488,13 +488,20 @@
 % processed by the \texttt{style/mu/fithesis-base.sty} style file
 % documented in Section \ref{sec:fithesis-mu-base}.
 %
+% The class options specify the \emph{form} of the document.
+%
 % \subsection{The \cs{thesissetup} macro}
 % \begin{macro}{\thesissetup}
 % The main public macro is the |\thesissetup|\marg{keyvals}
 % command, where \textit{keyvals} is a comma-delimited list of
-% key-value pairs as defined by the \textsf{keyval} package. This
-% macro needs to be included prior to the beginning of a \LaTeX\ 
-% document. When used, the \textit{keyvals} are processed.
+% \textit{key}=\textit{value} pairs as defined by the
+% \textsf{keyval} package. This macro needs to be included prior to
+% the beginning of a \LaTeX\ document. When the macro is expanded,
+% the \textit{key}=\textit{value} pairs are processed.
+%
+% Contrary to the class options, the \textit{key}=\textit{value}
+% pairs of the \cs{thesissetup} macro specify metainformation about
+% the document.
 %    \begin{macrocode}
 \long\def\thesissetup#1{%
   \setkeys{thesis}{#1}}
