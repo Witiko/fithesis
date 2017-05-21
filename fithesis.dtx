@@ -1319,7 +1319,8 @@
 % \end{macro} ^^A The nested \ifthesis@auto macro definition
 % \subsubsection{The \texttt{extra} key}
 % \changes{v0.3.45}{2017/05/21}{Added the \texttt{extra} key
-%   to \cs{thesissetup}. [VN]}
+%   to \cs{thesissetup} and defined the helper
+%   \cs{thesis@def@extra} macro. [VN]}
 % The \marg{\texttt{extra}=\marg{keyvals}} pair enables the
 % definition of extra data fields, where \textit{keyvals} is a
 % comma-delimited list of \textit{key}=\textit{value} pairs as
@@ -1356,6 +1357,22 @@
     \fi
   \fi}
 %    \end{macrocode}
+% \begin{macro}{\thesis@def@extra}
+% The |\thesis@def@extra|\oarg{key}\marg{name} macro defines
+% the |\thesis@extra@|\textit{name} macro to expand
+% to either <<\textit{key}>>, if specified, or to
+% <<\textit{name}>>. The macro serves to provide placeholder
+% strings for extra data macros. If |\thesis@extra@|\textit{name}
+% has already been defined by the user, |\thesis@def@extra| has no
+% effect.
+%    \begin{macrocode}
+\newcommand{\thesis@def@extra}[2][]{%
+  \expandafter\ifx\csname thesis@extra@#2\endcsname\undefined
+    \expandafter\def\csname thesis@extra@#2\endcsname{%
+      <<\ifx\thesis@empty#1\thesis@empty#2\else#1\fi>>}%
+  \fi}
+%    \end{macrocode}
+% \end{macro}
 % \end{macro} ^^A The \thesissetup macro definition
 % \subsection{The \cs{thesislong} macro}\label{sec:thesislong}
 % \begin{macro}{\thesislong}
