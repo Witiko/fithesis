@@ -56,7 +56,7 @@
   \gdef\thesis@version@number{#1}
   \gdef\thesis@version@date{#2}
   \gdef\thesis@version{#2 #1 fithesis3 MU thesis class}}
-\thesis@versiondef{v0.3.45:dev}{2017/05/21}}
+\thesis@versiondef{v0.3.45:dev}{2017/05/22}}
 % {\newwrite\f\openout\f=VERSION\write\f{\thesis@version}\closeout\f}
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1361,7 +1361,7 @@
 % The |\thesis@def@extra|\oarg{key}\marg{name} macro defines
 % the |\thesis@extra@|\textit{name} macro to expand
 % to either <<\textit{key}>>, if specified, or to
-% <<\textit{name}>>. The macro serves to provide placeholder
+% <<extra@\textit{name}>>. The macro serves to provide placeholder
 % strings for extra data macros. If |\thesis@extra@|\textit{name}
 % has already been defined by the user, |\thesis@def@extra| has no
 % effect.
@@ -1369,7 +1369,7 @@
 \newcommand{\thesis@def@extra}[2][]{%
   \expandafter\ifx\csname thesis@extra@#2\endcsname\undefined
     \expandafter\def\csname thesis@extra@#2\endcsname{%
-      <<\ifx\thesis@empty#1\thesis@empty#2\else#1\fi>>}%
+      <<extra@\ifx\thesis@empty#1\thesis@empty#2\else#1\fi>>}%
   \fi}
 %    \end{macrocode}
 % \end{macro}
