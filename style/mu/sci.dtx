@@ -251,6 +251,33 @@
     }%
   \fi}
 %    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@blocks@abstractCs}
+% The |\thesis@blocks@abstractCs| macro typesets the
+% abstract in Czech. If the current locale is Czech, the
+% macro produces no output. The macro uses the following extra data
+% field:\begin{itemize}
+%   \item|abstractCs| -- the Czech title of the thesis used for the
+%     typesetting. This extra data field rougly corresponds to the
+%     \texttt{abstract} key for the \cs{thesissetup} macro.
+% \end{itemize}
+% \changes{v0.3.45}{2017/05/23}{Defined the
+%   \cs{thesis@blocks@abstractCs} macro in
+%   \texttt{style/mu/fithesis-sci.sty}. The patch was submitted by
+%   Juraj Pálenik. [VN]}
+%    \begin{macrocode}
+\thesis@def@extra{abstractCs}
+\def\thesis@blocks@abstractCs{%
+  \ifthesis@czech\else
+    {\thesis@selectLocale{czech}%
+    \begin{alwayssingle}%
+      % Start the new chapter without clearing the right page
+      {\def\cleardoublepage{}%
+      \chapter*{\thesis@english@abstractTitle}%
+      \thesis@extras@abstractCs}%
+      \par\vfil\null
+    \end{alwayssingle}}%
+  \fi}
+%    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@bibEntryCs}
 % The |\thesis@blocks@bibEntryCs| macro typesets a bibliographical
 % entry in English unless the current main locale is Czech. The
