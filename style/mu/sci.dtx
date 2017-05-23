@@ -258,18 +258,25 @@
 % \end{macro}\begin{macro}{\thesis@blocks@abstractCs}
 % The |\thesis@blocks@abstractCs| macro typesets the
 % abstract in Czech. If the current locale is Czech, the
-% macro produces no output. The macro uses the following extra data
-% field:\begin{itemize}
+% macro produces no output. The following extra data field is
+% defined for the macro: \begin{itemize}
 %   \item|abstractCs| -- the Czech title of the thesis used for the
-%     typesetting. This extra data field roughly corresponds to the
-%     \texttt{abstract} key for the \cs{thesissetup} macro.
+%     typesetting. This extra data field will expand to
+%     |\thesis@abstract| if the current locale of the thesis
+%     is Czech.
 % \end{itemize}
 % \changes{v0.3.45}{2017/05/23}{Defined the
 %   \cs{thesis@blocks@abstractCs} macro in
 %   \texttt{style/mu/fithesis-sci.sty}. The patch was submitted by
 %   Juraj Pálenik. [VN]}
 %    \begin{macrocode}
-\thesis@def@extra{abstractCs}
+\thesis@def@extra[{
+  \ifthesis@czech
+    \thesis@abstract
+  \else
+    \thesis@placeholder@extra@abstractCs
+  \fi
+}]{abstractCs}
 \def\thesis@blocks@abstractCs{%
   \ifthesis@czech\else
     {\thesis@selectLocale{czech}%
@@ -284,35 +291,63 @@
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@bibEntryCs}
 % The |\thesis@blocks@bibEntryCs| macro typesets a bibliographical
-% entry in English unless the current main locale is Czech. The
+% entry in English unless the current locale is Czech. The
 % macro uses the following extra data fields:\begin{itemize}
-%   \item|titleCs| -- the Czech title of the thesis used for the
-%     typesetting. This extra data field rougly corresponds to the
-%     \texttt{TeXtitle} key for the \cs{thesissetup} macro.
-%   \item|departmentCs| -- the Czech name of the department at
-%     which the thesis is being written. This extra data field
-%     rougly corresponds to the \texttt{department} key for the
-%     \cs{thesissetup} macro.
 %   \item|programmeCs| -- the Czech name of the author's study
-%     programme. This extra data field rougly corresponds to the
-%     \texttt{programme} key for the \cs{thesissetup} macro.
+%     programme. This extra data field will expand to
+%     |\thesis@programme| if the current locale of the thesis
+%     is Czech.
 %   \item|fieldCs| -- the Czech name of the author's field of
-%     study. This extra data field rougly corresponds to the
-%     \texttt{field} key for the \cs{thesissetup} macro.
-%   \item|keywordsCs| -- the Czech \TeX{} keywords of the thesis.
-%     This extra data field rougly corresponds to the
-%     \texttt{TeXkeywords} key for the \cs{thesissetup} macro.
+%     study. This extra data field will expand to
+%     |\thesis@field@name| if the current locale of the thesis
+%     is Czech.
+%   \item|keywordsCs| -- the Czech keywords of the thesis.
+%     This extra data field will expand to |\thesis@keywords| if
+%     the current locale of the thesis is Czech.
+%   \item|TeXkeywordsCs| -- the Czech \TeX{} keywords of the thesis.
+%     This extra data field will expand to |\thesis@TeXkeywords| if
+%     the current locale of the thesis is Czech.
 % \end{itemize}
 % \changes{v0.3.45}{2017/05/21}{Defined the
 %   \cs{thesis@blocks@bibEntryCs} macro in
 %   \texttt{style/mu/fithesis-sci.sty}. The patch was submitted by
 %   Juraj Pálenik. [VN]}
 %    \begin{macrocode}
-\thesis@def@extra{titleCs}
-\thesis@def@extra{departmentCs}
-\thesis@def@extra{programmeCs}
-\thesis@def@extra{fieldCs}
-\thesis@def@extra{keywordsCs}
+\thesis@def@extra[{
+  \ifthesis@czech
+    \thesis@programme
+  \else
+    \thesis@placeholder@extra@programmeCs
+  \fi
+}]{programmeCs}
+\thesis@def@extra[{
+  \ifthesis@czech
+    \thesis@field@name
+  \else
+    \thesis@placeholder@extra@fieldCs
+  \fi
+}]{fieldCs}
+\thesis@def@extra[{
+  \ifthesis@czech
+    \thesis@title
+  \else
+    \thesis@placeholder@extra@titleCs
+  \fi
+}]{titleCs}
+\thesis@def@extra[{
+  \ifthesis@czech
+    \thesis@keywords
+  \else
+    \thesis@placeholder@extra@keywordsCs
+  \fi
+}]{keywordsCs}
+\thesis@def@extra[{
+  \ifthesis@czech
+    \thesis@TeXkeywords
+  \else
+    \thesis@placeholder@extra@keywordsCs
+  \fi
+}]{TeXkeywordsCs}
 \def\thesis@blocks@bibEntryCs{%
   \ifthesis@czech\else
     {\thesis@selectLocale{czech}
@@ -374,7 +409,7 @@
           \textbf{\thesis@czech@bib@pages:}
             & \thesis@pages@frontMatter{} + \thesis@pages \\
           \textbf{\thesis@czech@bib@keywords:}
-            & \thesis@extra@keywordsCs \\
+            & \thesis@extra@TeXkeywordsCs \\
         \end{thesis@newtable@old}}
       \end{alwayssingle}
     }%
@@ -394,8 +429,21 @@
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@cover}
 % The |\thesis@blocks@cover| macro typesets the thesis
-% cover.
+% cover. The following extra data field is defined for the macro:
+% \begin{itemize}
+%   \item|departmentCs| -- the Czech name of the department at
+%     which the thesis is being written. This extra data field will
+%     expand to |\thesis@department@name| if the main locale of the
+%     thesis is Czech.
+% \end{itemize}
 % \begin{macrocode}
+\thesis@def@extra[{
+  \ifthesis@czech
+    \thesis@department@name
+  \else
+    \thesis@placeholder@extra@departmentCs
+  \fi
+}]{departmentCs}
 \def\thesis@blocks@cover{%
   \ifthesis@cover@
     \thesis@blocks@clear
@@ -404,7 +452,7 @@
       \begin{center}
       {\sc\thesis@titlePage@LARGE\thesis@czech@universityName\\%
           \thesis@titlePage@Large\thesis@czech@facultyName\\[0.3em]%
-          \thesis@titlePage@large\thesis@department@name}
+          \thesis@titlePage@normalsize\thesis@extra@departmentCs}
       \vfill
       {\bf\thesis@titlePage@Huge\thesis@czech@typeName}
       \vfill
@@ -420,7 +468,20 @@
 % conditional, the faculty logo is loaded from either
 % |\thesis@logopath|, if \texttt{false}, or from
 % |\thesis@logopath color/|, if \texttt{true}.
+% The following extra data field is defined for the macro:
+% \begin{itemize}
+%   \item|TeXtitleCs| -- the Czech title of the thesis used for the
+%     typesetting. This extra data field will expand to
+%     |\thesis@TeXtitle| if the main locale of the thesis is Czech.
+% \end{itemize}
 % \begin{macrocode}
+\thesis@def@extra[{
+  \ifthesis@czech
+    \thesis@TeXtitle
+  \else
+    \thesis@placeholder@extra@titleCs
+  \fi
+}]{TeXtitleCs}
 \def\thesis@blocks@titlePage{%
   \thesis@blocks@clear
   \begin{alwayssingle}
@@ -433,7 +494,7 @@
         \begin{center}
           {\sc\thesis@titlePage@LARGE\thesis@czech@universityName\\%
               \thesis@titlePage@Large\thesis@czech@facultyName\\[0.3em]%
-              \thesis@titlePage@normalsize\thesis@department@name}
+              \thesis@titlePage@normalsize\thesis@extra@departmentCs}
           \rule{\textwidth}{2pt}\vspace*{2mm}
         \end{center}
       \end{minipage}\begin{minipage}{30mm}
@@ -443,7 +504,7 @@
     % The middle of the page
     \vfill
     \parbox\textwidth{% Prevent vfills from squashing the leading
-      \bf\thesis@titlePage@Huge\thesis@TeXtitle}
+      \bf\thesis@titlePage@Huge\thesis@extra@TeXtitleCs}
     {\thesis@titlePage@Huge\\[0.8em]}
     {\thesis@titlePage@large\thesis@czech@typeName\\[1em]}
     {\bf\thesis@titlePage@LARGE\thesis@author\\}
