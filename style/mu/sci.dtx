@@ -31,7 +31,7 @@
 %   to be typeset on a single page as opposed to being spread
 %   across several pages.
 % \end{itemize}
-% \changes{v0.3.45}{2017/05/21}{Defined the
+% \changes{v0.3.45}{2017/05/23}{Defined the
 %   \texttt{abstractonsinglepage} option in
 %   \texttt{style/mu/fithesis-sci.sty}. The patch was submitted by
 %   Juraj Pálenik. [VN]}
@@ -511,9 +511,18 @@
       \thesis@blocks@bibEntryCs
       \thesis@blocks@bibEntry
       \thesis@blocks@bibEntryEn
-      \thesis@blocks@abstractCs
-      \thesis@blocks@abstract
-      \thesis@blocks@abstractEn
+      \ifthesis@abstractonsinglepage@
+        \begingroup
+          \thesis@blocks@clear
+          \let\cleardoublepage\relax
+          \let\clearpage\relax
+      \fi
+          \thesis@blocks@abstractCz
+          \thesis@blocks@abstract
+          \thesis@blocks@abstractEn}
+      \ifthesis@abstractonsinglepage@
+        \endgroup
+      \fi
     \thesis@blocks@assignment
     {\thesis@selectLocale{czech}%
     \thesis@blocks@thanks
