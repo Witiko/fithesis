@@ -38,6 +38,7 @@
 %    \begin{macrocode}
 \newif\ifthesis@abstractonsinglepage@
 \DeclareOption{abstractonsinglepage}{\thesis@abstractonsinglepage@true}
+\ProcessOptions*
 %    \end{macrocode}
 % The file uses Czech locale strings within the macros.
 %    \begin{macrocode}
@@ -115,10 +116,8 @@
 %    \begin{macrocode}
 \def\thesis@blocks@bibEntry{%
   \begin{alwayssingle}%
-    {% Start the new chapter without clearing the right page
-    {\def\cleardoublepage{}%
-    \chapter*{\thesis@@{bib@title}}}%
-    % Calculate the width of the columns
+    \chapter*{\thesis@@{bib@title}}%
+    {% Calculate the width of the columns
     \let\@A\relax\newlength{\@A}\settowidth{\@A}{{%
       \bf\thesis@@{bib@author}:}}
     \let\@B\relax\newlength{\@B}\settowidth{\@B}{{%
@@ -186,9 +185,7 @@
   \ifthesis@english\else
     {\thesis@selectLocale{english}
     \begin{alwayssingle}
-      % Start the new chapter without clearing the right page
-      {\def\cleardoublepage{}%
-      \chapter*{\thesis@english@bib@title}}%
+      \chapter*{\thesis@english@bib@title}%
       {% Calculate the width of the columns
       \let\@A\relax\newlength{\@A}\settowidth{\@A}{{%
         \bf\thesis@english@bib@author:}}
@@ -257,7 +254,7 @@
 % macro produces no output. The macro uses the following extra data
 % field:\begin{itemize}
 %   \item|abstractCs| -- the Czech title of the thesis used for the
-%     typesetting. This extra data field rougly corresponds to the
+%     typesetting. This extra data field roughly corresponds to the
 %     \texttt{abstract} key for the \cs{thesissetup} macro.
 % \end{itemize}
 % \changes{v0.3.45}{2017/05/23}{Defined the
@@ -273,7 +270,7 @@
       % Start the new chapter without clearing the right page
       {\def\cleardoublepage{}%
       \chapter*{\thesis@english@abstractTitle}%
-      \thesis@extras@abstractCs}%
+      \thesis@extra@abstractCs}%
       \par\vfil\null
     \end{alwayssingle}}%
   \fi}
@@ -313,9 +310,7 @@
   \ifthesis@czech\else
     {\thesis@selectLocale{czech}
     \begin{alwayssingle}
-      % Start the new chapter without clearing the right page
-      {\def\cleardoublepage{}%
-      \chapter*{\thesis@czech@bib@title}}%
+      \chapter*{\thesis@czech@bib@title}%
       {% Calculate the width of the columns
       \let\@A\relax\newlength{\@A}\settowidth{\@A}{{%
         \bf\thesis@czech@bib@author:}}
@@ -517,9 +512,9 @@
           \let\cleardoublepage\relax
           \let\clearpage\relax
       \fi
-          \thesis@blocks@abstractCz
+          \thesis@blocks@abstractCs
           \thesis@blocks@abstract
-          \thesis@blocks@abstractEn}
+          \thesis@blocks@abstractEn
       \ifthesis@abstractonsinglepage@
         \endgroup
       \fi
