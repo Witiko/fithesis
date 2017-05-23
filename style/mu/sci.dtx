@@ -47,7 +47,7 @@
 % \begin{macro}{\ifthesis@czech}
 % The |\ifthesis@czech| \ldots |\else| \ldots |\fi| conditional is made
 % available for testing, whether or not the current locale is Czech.
-% \changes{v0.3.45}{2017/05/21}{Defined the
+% \changes{v0.3.45}{2017/05/23}{Defined the
 %   \cs{ifthesis@czech} macro in
 %   \texttt{style/mu/fithesis-sci.sty}. The patch was submitted by
 %   Juraj Pálenik. [VN]}
@@ -64,6 +64,13 @@
   \else
     false%
   \fi\endcsname}
+\ifthesis@czech
+  \expandafter\expandafter\expandafter\let\expandafter\expandafter
+    \csname ifthesis@czech\endcsname\csname iftrue\endcsname
+\else
+  \expandafter\expandafter\expandafter\let\expandafter\expandafter
+    \csname ifthesis@czech\endcsname\csname iffalse\endcsname
+\fi
 %    \end{macrocode}
 % \end{macro}
 % The file loads the following packages:
@@ -179,7 +186,7 @@
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@bibEntryEn}
 % The |\thesis@blocks@bibEntryEn| macro typesets a bibliographical
-% entry in English unless the current main locale is English.
+% entry in English unless the current locale is English.
 %    \begin{macrocode}
 \def\thesis@blocks@bibEntryEn{%
   \ifthesis@english\else

@@ -1437,6 +1437,20 @@
         \RequirePackage[base]{babel}}
     \fi
 %    \end{macrocode}
+% Fix the value of the |\ifthesis@english| macro.
+% \changes{v0.3.45}{2017/05/23}{Updated the \cs{ifthesis@english}
+%   macro, so that it no longer dynamically reacts on changes of
+%   the locale. Instead, it is now based on the main locale during
+%   the expansion of |\thesisload|.}
+%    \begin{macrocode}
+\ifthesis@english
+  \expandafter\expandafter\expandafter\let\expandafter\expandafter
+    \csname ifthesis@english\endcsname\csname iftrue\endcsname
+\else
+  \expandafter\expandafter\expandafter\let\expandafter\expandafter
+    \csname ifthesis@english\endcsname\csname iffalse\endcsname
+\fi
+%    \end{macrocode}
 % Consequently, the style files are loaded. If the user specified an
 % explicit empty string as the value of |\thesis@style|, do nothing.
 %    \begin{macrocode}
