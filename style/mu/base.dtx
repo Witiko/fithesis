@@ -1006,10 +1006,10 @@
 % definition to the auxiliary file.
 % \begin{macrocode}
 \def\thesis@blocks@mainMatter{%
-  \thesis@blocks@clear
   \gdef\thesis@pages@frontMatter{\thepage}
   \write\@auxout{\noexpand\gdef\noexpand
     \thesis@pages@frontMatter{\thepage}}
+  \thesis@blocks@clear
   \setcounter{page}{1}
   \pagenumbering{arabic}
   \pagestyle{thesisheadings}

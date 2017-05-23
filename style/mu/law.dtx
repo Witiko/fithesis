@@ -59,10 +59,10 @@
 % formal requirements of the faculty.
 % \begin{macrocode}
 \def\thesis@blocks@mainMatter{%
-  \thesis@blocks@clear
   \gdef\thesis@pages@frontMatter{\thepage}
   \write\@auxout{\noexpand\gdef\noexpand
     \thesis@pages@frontMatter{\thepage}}
+  \thesis@blocks@clear
   \pagestyle{thesisheadings}
   \parindent 1.5em\relax}
 %    \end{macrocode}

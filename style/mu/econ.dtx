@@ -122,10 +122,10 @@
 % requirements.
 % \begin{macrocode}
 \def\thesis@blocks@mainMatter{%
-  \thesis@blocks@clear
   \gdef\thesis@pages@frontMatter{\thepage}
   \write\@auxout{\noexpand\gdef\noexpand
     \thesis@pages@frontMatter{\thepage}}
+  \thesis@blocks@clear
   % In case of double-sided typesetting, change the geometry
   \ifthesis@twoside@
     \newgeometry{top=25mm,bottom=20mm,left=35mm,
