@@ -26,20 +26,6 @@
   sorting=none}
 \thesis@bibliography@load
 %    \end{macrocode}
-% The file recognizes the following options: \begin{itemize}
-%   \item\texttt{abstractonsinglepage} -- The abstracts are going
-%   to be typeset on a single page as opposed to being spread
-%   across several pages.
-% \end{itemize}
-% \changes{v0.3.45}{2017/05/23}{Defined the
-%   \texttt{abstractonsinglepage} option in
-%   \texttt{style/mu/fithesis-sci.sty}. The patch was submitted by
-%   Juraj Pálenik. [VN]}
-%    \begin{macrocode}
-\newif\ifthesis@abstractonsinglepage@
-\DeclareOption{abstractonsinglepage}{\thesis@abstractonsinglepage@true}
-\ProcessOptions*
-%    \end{macrocode}
 % The file uses Czech locale strings within the macros.
 %    \begin{macrocode}
 \thesis@requireLocale{czech}
@@ -71,6 +57,24 @@
   \expandafter\expandafter\expandafter\let\expandafter\expandafter
     \csname ifthesis@czech\endcsname\csname iffalse\endcsname
 \fi
+%    \end{macrocode}
+% The file recognizes the following options: \begin{itemize}
+%   \item\texttt{abstractonsinglepage} -- The abstracts are going
+%   to be typeset on a single page as opposed to being spread
+%   across several pages. This is the default for theses whose main
+%   locale is neither Czech nor English.
+% \end{itemize}
+% \changes{v0.3.45}{2017/05/24}{Defined the
+%   \texttt{abstractonsinglepage} option in
+%   \texttt{style/mu/fithesis-sci.sty}. The patch was submitted by
+%   Juraj Pálenik. [VN]}
+%    \begin{macrocode}
+\newif\ifthesis@abstractonsinglepage@
+\DeclareOption{abstractonsinglepage}{\thesis@abstractonsinglepage@true}
+\ifthesis@czech\else\ifthesis@english\else
+  \ExecuteOptions{abstractonsinglepage}
+\fi\fi
+\ProcessOptions*
 %    \end{macrocode}
 % \end{macro}
 % The file loads the following packages:
