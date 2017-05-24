@@ -449,7 +449,8 @@
     \thesis@placeholder@extra@departmentCs
   \fi
 }]{departmentCs}
-\def\thesis@blocks@cover{%
+\def\thesis@blocks@cover{{%
+  \thesis@selectLocale{czech}
   \ifthesis@cover@
     \thesis@blocks@clear
     \begin{alwayssingle}
@@ -464,7 +465,7 @@
        \ \thesis@year\hfill\thesis@author}
       \end{center}
     \end{alwayssingle}
-  \fi}
+  \fi}}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@titlePage}
 % The |\thesis@blocks@titlePage| macro typesets the thesis
@@ -486,8 +487,9 @@
     \thesis@placeholder@extra@titleCs
   \fi
 }]{TeXtitleCs}
-\def\thesis@blocks@titlePage{%
+\def\thesis@blocks@titlePage{{%
   \thesis@blocks@clear
+  \thesis@selectLocale{czech}
   \begin{alwayssingle}
     % The top of the page
     \begin{adjustwidth}{-12mm}{}
@@ -520,7 +522,7 @@
           \thesis@czech@advisorTitle: \thesis@advisor\hfill
       \fi
       \thesis@place\ \thesis@year}
-  \end{alwayssingle}}
+  \end{alwayssingle}}}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@declaration}
 % The |\thesis@blocks@declaration| macro typesets the declaration
@@ -567,13 +569,12 @@
 % is typeset as though the locale were Czech in accordance with the
 % formal requirements of the faculty.
 %    \begin{macrocode}
-\def\thesis@blocks@preamble{{%
-  \thesis@selectLocale{czech}%
+\def\thesis@blocks@preamble{
   \thesis@blocks@coverMatter
     \thesis@blocks@cover
   \thesis@blocks@frontMatter
     \thesis@blocks@titlePage
-    \thesis@blocks@clearRight}
+    \thesis@blocks@clearRight
       \thesis@blocks@bibEntryCs
       \thesis@blocks@bibEntry
       \thesis@blocks@bibEntryEn
