@@ -1285,17 +1285,25 @@
     \thesis@autofalse
   \fi}
 %    \end{macrocode}
-% \end{macro}\begin{macro}{\thesis@pages@frontMatter}
-% The \cs{thesis@pages@frontMatter} macro contains the last page
-% number within the front matter of the document. During the
-% first \TeX{} compilation, the macro expands to ??.
+% \end{macro}\begin{macro}{\thesis@pages@preamble}
+% The \cs{thesis@pages@preamble} macro contains the last page
+% number within the preamble of the document. During the first
+% \TeX{} compilation, the macro expands to ??.
 % \changes{v0.3.45}{2017/05/24}{Defined the
-%   \cs{thesis@pages@frontMatter} macro in
-%   \texttt{style/mu/fithesis-base.sty}. The patch was submitted
-%   by Juraj Pálenik. [VN]}
+%   \cs{thesis@pages@preamble} and \cs{thesis@pages@postamble}
+%   macros in \texttt{style/mu/fithesis-base.sty}. The patch was
+%   submitted by Juraj Pálenik. [VN]}
 % \begin{macrocode}
-\ifx\thesis@pages@frontMatter\undefined
-  \def\thesis@pages@frontMatter{??}\fi
+\ifx\thesis@pages@preamble\undefined
+  \def\thesis@pages@preamble{??}\fi
+%    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@pages@postamble}
+% The \cs{thesis@pages@postamble} macro contains the last page
+% number prior to the postamble of the document. During the first
+% \TeX{} compilation, the macro expands to ??.
+% \begin{macrocode}
+\ifx\thesis@pages@postamble\undefined
+  \def\thesis@pages@postamble{??}\fi
 %    \end{macrocode}
 % \end{macro}
 % The \DescribeMacro{\thesis@preamble}|\thesis@preamble|
@@ -1306,34 +1314,43 @@
 % \DescribeMacro{\thesis@blocks@preamble}|\thesis@blocks@preamble|
 % or
 % \DescribeMacro{\thesis@blocks@postamble}|\thesis@blocks@postamble|
-% macros, respectively.
+% macros, respectively; the latter two macros are to be redefined
+% by the loaded style files.
 %
-% Before leaving the group, the |\thesis@preamble| macro defines
-% the \cs{thesis@pages@frontMatter} macro, writes the definition
-% to the auxiliary file, and  clears the page. After leaving the
-% group, th |\thesis@preamble| sets up the style of the main
-% matter by expanding the
+% After expanding |\thesis@blocks@preamble| inside a \TeX{} group,
+% the |\thesis@preamble| macro defines the
+% \cs{thesis@pages@preamble} macro, writes the definition to the
+% auxiliary file, and  clears the page. After leaving the group,
+% the |\thesis@preamble| sets up the style of the main matter by
+% expanding the
 % \DescribeMacro{\thesis@blocks@mainMatter}|\thesis@blocks@mainMatter|
-% macro. All the aforementioned |@block@| macros are defined as
-% |\relax| and are subject to redefinition by the loaded style
-% files.
+% macro.
 %    \begin{macrocode}
 \def\thesis@preamble{%
   {\thesis@selectLocale{\thesis@locale}%
   \thesis@blocks@preamble
-  \gdef\thesis@pages@frontMatter{\thepage}
+  \gdef\thesis@pages@preamble{\thepage}
   \write\@auxout{\noexpand\gdef\noexpand
-    \thesis@pages@frontMatter{\thepage}}
+    \thesis@pages@preamble{\thepage}}
   \clearpage}
   \thesis@blocks@mainMatter}
 
-\def\thesis@postamble{{%
-  \thesis@selectLocale{\thesis@locale}%
+\let\thesis@blocks@preamble\relax
+\let\thesis@blocks@mainMatter\relax
+% \end{macro}
+% Before expanding |\thesis@blocks@postamble| inside a \TeX{}
+% group, the |\thesis@postamble| macro defines the
+% \cs{thesis@pages@postamble} macro, writes the definition to the
+% auxiliary file, and  clears the page.
+%    \begin{macrocode}
+\def\thesis@postamble{%
+  \gdef\thesis@pages@postamble{\thepage}
+  \write\@auxout{\noexpand\gdef\noexpand
+    \thesis@pages@postamble{\thepage}}
+  {\thesis@selectLocale{\thesis@locale}%
   \thesis@blocks@postamble}}
 
-\let\thesis@blocks@preamble\relax
 \let\thesis@blocks@postamble\relax
-\let\thesis@blocks@mainMatter\relax
 %    \end{macrocode}
 % \end{macro} ^^A The nested \ifthesis@auto macro definition
 % \subsubsection{The \texttt{extra} key}
