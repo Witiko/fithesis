@@ -531,12 +531,19 @@
 % The |\thesis@blocks@clear| macro clears the current page.
 % It also clears the next left-hand (even-numbered) page, when
 % double-sided typesetting is enabled.
+% \changes{v0.3.45}{2017/05/24}{\cs{thesis@blocks@clear} now only
+%   sets the pagestyle to |empty|, when there is a left-hand
+%   (even-numbered) page to clear. [VN]}
+%    \begin{macrocode}
 % \begin{macrocode}
 \def\thesis@blocks@clear{%
   \ifthesis@twoside@
     \clearpage
-    \thispagestyle{empty}%
-    \cleardoublepage
+    \ifodd\value{page}\else%
+      \thispagestyle{empty}%
+      \hbox{}%
+      \newpage
+    \fi
   \else
     \newpage
   \fi}

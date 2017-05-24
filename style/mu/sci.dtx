@@ -426,6 +426,7 @@
 % formal requirements of the faculty.
 %    \begin{macrocode}
 \def\thesis@blocks@frontMatter{%
+  \thesis@blocks@clear
   \pagestyle{empty}
   \parindent 1.5em
   \setcounter{page}{1}
@@ -452,7 +453,6 @@
   \ifthesis@cover@
     \thesis@blocks@clear
     \begin{alwayssingle}
-      \thispagestyle{empty}
       \begin{center}
       {\sc\thesis@titlePage@LARGE\thesis@czech@universityName\\%
           \thesis@titlePage@Large\thesis@czech@facultyName\\[0.3em]%
@@ -489,7 +489,6 @@
 \def\thesis@blocks@titlePage{%
   \thesis@blocks@clear
   \begin{alwayssingle}
-    \thispagestyle{empty}
     % The top of the page
     \begin{adjustwidth}{-12mm}{}
       \begin{minipage}{30mm}
