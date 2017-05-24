@@ -524,6 +524,26 @@
       \thesis@place\ \thesis@year}
   \end{alwayssingle}}}
 %    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@blocks@thanks}
+% The |\thesis@blocks@thanks| macro typesets the
+% acknowledgement, if the |\thesis@thanks| macro is
+% defined. Otherwise, the macro produces no output.
+% As per the faculty requirements, the acknowledgement is
+% positioned at the top of the page.
+% \changes{v0.3.45}{2017/05/24}{Redefined the
+%   \cs{thesis@blocks@thanks} and \cs{thesis@blocks@declaration}
+%   macros in \texttt{style/mu/fithesis-sci.sty}. The patch was
+%   submitted by Juraj Pálenik. [VN]}
+%    \begin{macrocode}
+\def\thesis@blocks@thanks{%
+  \thesis@blocks@clear
+  \ifx\thesis@thanks\undefined\else
+    \begin{alwayssingle}%
+      \chapter*{\thesis@@{thanksTitle}}%
+      \leavevmode\thesis@thanks
+    \end{alwayssingle}%
+  \fi}
+%    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@declaration}
 % The |\thesis@blocks@declaration| macro typesets the declaration
 % text. Unlike the generic |\thesis@blocks@declaration| macro from
@@ -542,9 +562,11 @@
 % \end{itemize}
 %    \begin{macrocode}
 \def\thesis@blocks@declaration{%
-  \thesis@blocks@clear
   \begin{alwayssingle}%
-    \chapter*{\thesis@@{declarationTitle}}%
+    \leavevmode\vfill
+    % Start the new chapter without clearing the page.
+    {\let\clearpage\relax
+    \chapter*{\thesis@@{declarationTitle}}}%
     \thesis@declaration
     \vskip 2cm%
     {\let\@A\relax\newlength{\@A}
