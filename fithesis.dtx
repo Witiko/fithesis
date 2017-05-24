@@ -1285,6 +1285,19 @@
     \thesis@autofalse
   \fi}
 %    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@pages@frontMatter}
+% The \cs{thesis@pages@frontMatter} macro contains the last page
+% number within the front matter of the document. During the
+% first \TeX{} compilation, the macro expands to ??.
+% \changes{v0.3.45}{2017/05/24}{Defined the
+%   \cs{thesis@pages@frontMatter} macro in
+%   \texttt{style/mu/fithesis-base.sty}. The patch was submitted
+%   by Juraj Pálenik. [VN]}
+% \begin{macrocode}
+\ifx\thesis@pages@frontMatter\undefined
+  \def\thesis@pages@frontMatter{??}\fi
+%    \end{macrocode}
+% \end{macro}
 % The \DescribeMacro{\thesis@preamble}|\thesis@preamble|
 % and \DescribeMacro{\thesis@postamble}|\thesis@postamble|
 % macros temporarily switch to the hyphenation patterns and the
@@ -1295,9 +1308,11 @@
 % \DescribeMacro{\thesis@blocks@postamble}|\thesis@blocks@postamble|
 % macros, respectively.
 %
-% Before leaving the group, the |\thesis@preamble| macro clears the
-% page. After leaving the group, the |\thesis@preamble| macro sets
-% up the style of the main matter by expanding the
+% Before leaving the group, the |\thesis@preamble| macro defines
+% the \cs{thesis@pages@frontMatter} macro, writes the definition
+% to the auxiliary file, and  clears the page. After leaving the
+% group, th |\thesis@preamble| sets up the style of the main
+% matter by expanding the
 % \DescribeMacro{\thesis@blocks@mainMatter}|\thesis@blocks@mainMatter|
 % macro. All the aforementioned |@block@| macros are defined as
 % |\relax| and are subject to redefinition by the loaded style
@@ -1305,7 +1320,11 @@
 %    \begin{macrocode}
 \def\thesis@preamble{%
   {\thesis@selectLocale{\thesis@locale}%
-  \thesis@blocks@preamble\clearpage}
+  \thesis@blocks@preamble
+  \gdef\thesis@pages@frontMatter{\thepage}
+  \write\@auxout{\noexpand\gdef\noexpand
+    \thesis@pages@frontMatter{\thepage}}
+  \clearpage}
   \thesis@blocks@mainMatter}
 
 \def\thesis@postamble{{%

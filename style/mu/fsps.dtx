@@ -92,9 +92,6 @@
 % accordance with the requirements of the faculty.
 % \begin{macrocode}
 \def\thesis@blocks@mainMatter{%
-  \gdef\thesis@pages@frontMatter{\thepage}
-  \write\@auxout{\noexpand\gdef\noexpand
-    \thesis@pages@frontMatter{\thepage}}
   \thesis@blocks@clear
   \setcounter{page}{1}
   \pagenumbering{arabic}

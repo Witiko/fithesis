@@ -987,28 +987,11 @@
     \fi
   \fi}
 %    \end{macrocode}
-% \end{macro}\begin{macro}{\thesis@pages@frontMatter}
-% The \cs{thesis@pages@frontMatter} macro contains the last page
-% number within the front matter of the document. During the
-% first \TeX{} compilation, the macro expands to ??.
-% \changes{v0.3.45}{2017/05/21}{Defined the
-%   \cs{thesis@pages@frontMatter} macro in
-%   \texttt{style/mu/fithesis-base.sty}. The patch was submitted
-%   by Juraj Pálenik. [VN]}
-% \begin{macrocode}
-\ifx\thesis@pages@frontMatter\undefined
-  \def\thesis@pages@frontMatter{??}\fi
-%    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@mainMatter}
 % The |\thesis@blocks@mainMatter| macro sets up the style
-% of the main matter of the thesis, defines the
-% \cs{thesis@pages@frontMatter} macro and also writes the
-% definition to the auxiliary file.
+% of the main matter of the thesis.
 % \begin{macrocode}
 \def\thesis@blocks@mainMatter{%
-  \gdef\thesis@pages@frontMatter{\thepage}
-  \write\@auxout{\noexpand\gdef\noexpand
-    \thesis@pages@frontMatter{\thepage}}
   \thesis@blocks@clear
   \setcounter{page}{1}
   \pagenumbering{arabic}
