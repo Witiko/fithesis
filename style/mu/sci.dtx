@@ -6,7 +6,7 @@
 % \url{http://www.sci.muni.cz/NW/predpisy/od/OD-2014-05.pdf}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fithesis/style/mu/fithesis-sci}[2017/05/21]
+\ProvidesPackage{fithesis/style/mu/fithesis-sci}[2017/05/26]
 %    \end{macrocode}
 % The file defines the color scheme of the respective faculty. Note
 % the the color definitions are in RGB, which makes the resulting
@@ -124,10 +124,21 @@
 %   \item|\thesis@|\textit{locale}|@bib@keywords| -- The label of
 %     the keywords entry
 % \end{itemize}
+% \changes{v0.3.45}{2017/05/26}{Bibliographical entries in
+%   \texttt{style/mu/fithesis-sci.sty} now face each other when the
+%   main locale is either Czech or English. [VN]}
 %    \begin{macrocode}
 \def\thesis@blocks@bibEntry{%
   \begin{alwayssingle}%
+    % Clear only the right page, if the main locale is Czech.
+    \ifthesis@czech
+      \begingroup
+      \let\thesis@blocks@clear\thesis@blocks@clearRight
+    \fi
     \chapter*{\thesis@@{bib@title}}%
+    \ifthesis@czech
+      \endgroup
+    \fi
     {% Calculate the width of the columns
     \let\@A\relax\newlength{\@A}\settowidth{\@A}{{%
       \bf\thesis@@{bib@author}:}}
@@ -285,8 +296,12 @@
   \ifthesis@czech\else
     {\thesis@selectLocale{czech}%
     \begin{alwayssingle}%
-      % Start the new chapter without clearing the left page.
-      \thesis@blocks@clearRight
+      \ifthesis@abstractonsinglepage@
+        \thesis@blocks@clear
+      \else
+        % Start the new chapter without clearing the left page.
+        \thesis@blocks@clearRight
+      \fi
       {\let\thesis@blocks@clear\relax
       \chapter*{\thesis@english@abstractTitle}%
       \thesis@extra@abstractCs}%
@@ -353,11 +368,24 @@
     \thesis@placeholder@extra@keywordsCs
   \fi
 }]{TeXkeywordsCs}
+%    \end{macrocode}
+% \changes{v0.3.45}{2017/05/26}{Bibliographical entries in
+%   \texttt{style/mu/fithesis-sci.sty} now face each other when the
+%   main locale is either Czech or English. [VN]}
+%    \begin{macrocode}
 \def\thesis@blocks@bibEntryCs{%
   \ifthesis@czech\else
     {\thesis@selectLocale{czech}
     \begin{alwayssingle}
+      % Clear only the right page, if the main locale is English.
+      \ifthesis@english
+        \begingroup
+        \let\thesis@blocks@clear\thesis@blocks@clearRight
+      \fi
       \chapter*{\thesis@czech@bib@title}%
+      \ifthesis@english
+        \endgroup
+      \fi
       {% Calculate the width of the columns
       \let\@A\relax\newlength{\@A}\settowidth{\@A}{{%
         \bf\thesis@czech@bib@author:}}
@@ -601,12 +629,11 @@
       \thesis@blocks@bibEntryCs
       \thesis@blocks@bibEntry
       \thesis@blocks@bibEntryEn
+      \thesis@blocks@abstractCs
       \ifthesis@abstractonsinglepage@
         \begingroup
-          \thesis@blocks@clear
           \let\clearpage\relax
       \fi
-          \thesis@blocks@abstractCs
           \thesis@blocks@abstract
           \thesis@blocks@abstractEn
       \ifthesis@abstractonsinglepage@
