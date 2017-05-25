@@ -849,8 +849,9 @@
 % \begin{macrocode}
 \def\thesis@blocks@abstract{%
   \begin{alwayssingle}%
-    % Start the new chapter without clearing the right page
-    {\def\cleardoublepage{}
+    % Start the new chapter without clearing the left page.
+    \clearpage
+    {\let\thesis@blocks@clear\relax
     \chapter*{\thesis@@{abstractTitle}}}%
     \noindent\thesis@abstract
     \par\vfil\null
@@ -865,8 +866,9 @@
   \ifthesis@english\else
     {\thesis@selectLocale{english}%
     \begin{alwayssingle}%
-      % Start the new chapter without clearing the right page
-      {\def\cleardoublepage{}%
+      % Start the new chapter without clearing the left page.
+      \clearpage
+      {\let\thesis@blocks@clear\relax
       \chapter*{\thesis@english@abstractTitle}%
       \thesis@abstractEn}%
       \par\vfil\null
@@ -879,8 +881,9 @@
 % \begin{macrocode}
 \def\thesis@blocks@keywords{%
   \begin{alwayssingle}%
-    % Start the new chapter without clearing the right page
-    {\def\cleardoublepage{}%
+    % Start the new chapter without clearing the left page.
+    \clearpage
+    {\let\thesis@blocks@clear\relax
     \chapter*{\thesis@@{keywordsTitle}}%
     \noindent\thesis@TeXkeywords}%
     \par\vfil\null
@@ -895,8 +898,9 @@
   \ifthesis@english\else
     {\thesis@selectLocale{english}%
     \begin{alwayssingle}%
-      % Start the new chapter without clearing the right page
-      {\def\cleardoublepage{}%
+      % Start the new chapter without clearing the left page.
+      \clearpage
+      {\let\thesis@blocks@clear\relax%
       \chapter*{\thesis@english@keywordsTitle}%
       \thesis@TeXkeywordsEn}%
       \par\vfil\null

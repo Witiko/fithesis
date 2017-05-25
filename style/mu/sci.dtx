@@ -285,8 +285,9 @@
   \ifthesis@czech\else
     {\thesis@selectLocale{czech}%
     \begin{alwayssingle}%
-      % Start the new chapter without clearing the right page
-      {\def\cleardoublepage{}%
+      % Start the new chapter without clearing the left page.
+      \thesis@blocks@clearRight
+      {\let\thesis@blocks@clear\relax
       \chapter*{\thesis@english@abstractTitle}%
       \thesis@extra@abstractCs}%
       \par\vfil\null
@@ -564,8 +565,8 @@
 \def\thesis@blocks@declaration{%
   \begin{alwayssingle}%
     \leavevmode\vfill
-    % Start the new chapter without clearing the page.
-    {\let\clearpage\relax
+    % Start the new chapter without clearing any page.
+    {\let\thesis@blocks@clear\relax
     \chapter*{\thesis@@{declarationTitle}}}%
     \thesis@declaration
     \vskip 2cm%
@@ -603,7 +604,6 @@
       \ifthesis@abstractonsinglepage@
         \begingroup
           \thesis@blocks@clear
-          \let\cleardoublepage\relax
           \let\clearpage\relax
       \fi
           \thesis@blocks@abstractCs
