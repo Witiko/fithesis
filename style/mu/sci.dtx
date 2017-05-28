@@ -6,7 +6,7 @@
 % \url{http://www.sci.muni.cz/NW/predpisy/od/OD-2014-05.pdf}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fithesis/style/mu/fithesis-sci}[2017/05/26]
+\ProvidesPackage{fithesis/style/mu/fithesis-sci}[2017/05/28]
 %    \end{macrocode}
 % The file defines the color scheme of the respective faculty. Note
 % the the color definitions are in RGB, which makes the resulting
@@ -280,7 +280,7 @@
 %     |\thesis@abstract| if the current locale of the thesis
 %     is Czech.
 % \end{itemize}
-% \changes{v0.3.45}{2017/05/23}{Defined the
+% \changes{v0.3.45}{2017/05/28}{Defined the
 %   \cs{thesis@blocks@abstractCs} macro in
 %   \texttt{style/mu/fithesis-sci.sty}. The patch was submitted by
 %   Juraj Pálenik. [VN]}
@@ -303,7 +303,7 @@
         \thesis@blocks@clearRight
       \fi
       {\let\thesis@blocks@clear\relax
-      \chapter*{\thesis@english@abstractTitle}%
+      \chapter*{\thesis@czech@abstractTitle}%
       \thesis@extra@abstractCs}%
       \par\vfil\null
     \end{alwayssingle}}%
