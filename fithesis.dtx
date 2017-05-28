@@ -56,7 +56,7 @@
   \gdef\thesis@version@number{#1}
   \gdef\thesis@version@date{#2}
   \gdef\thesis@version{#2 #1 fithesis3 MU thesis class}}
-\thesis@versiondef{v0.3.45:dev}{2017/05/22}}
+\thesis@versiondef{v0.3.45:dev}{2017/05/28}}
 % {\newwrite\f\openout\f=VERSION\write\f{\thesis@version}\closeout\f}
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1354,7 +1354,7 @@
 %    \end{macrocode}
 % \end{macro} ^^A The nested \ifthesis@auto macro definition
 % \subsubsection{The \texttt{extra} key}
-% \changes{v0.3.45}{2017/05/21}{Added the \texttt{extra} key
+% \changes{v0.3.45}{2017/05/28}{Added the \texttt{extra} key
 %   to \cs{thesissetup} and defined the helper
 %   \cs{thesis@def@extra} macro. [VN]}
 % The \marg{\texttt{extra}=\marg{keyvals}} pair enables the
@@ -1367,7 +1367,8 @@
 % the style and locale files.
 %    \begin{macrocode}
 \define@key{thesis}{extra}{%
-  \setkeys{thesis@extra}{#1}}
+  \setkeys{thesis@extra}{#1}%
+  \def\KV@prefix{KV@thesis@}}
 \def\thesis@extra@KV@prefix{KV@thesis@extra@}
 \long\def\KV@split#1=#2=#3\relax{%
   \KV@@sp@def\@tempa{#1}%
