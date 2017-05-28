@@ -52,9 +52,16 @@
 \usepackage[resetfonts]{cmap} %% We need to load the T2A font encoding
 \usepackage[T1,T2A]{fontenc}  %% to use the Cyrillic fonts with Russian texts.
 \usepackage[
+%<*sci>
+  main=slovak,  %% By using `czech` or `english` as the main locale
+                %% instead of `slovak`, you can typeset the thesis
+                %% in either Czech or English, respectively.
+%</sci>
+%<*econ,fi,fsps,fss,law,med,ped,phil>
   main=english, %% By using `czech` or `slovak` as the main locale
                 %% instead of `english`, you can typeset the thesis
                 %% in either Czech or Slovak, respectively.
+%</econ,fi,fsps,fss,law,med,ped,phil>
   english, german, russian, czech, slovak %% The additional keys allow
 ]{babel}        %% foreign texts to be typeset as follows:
 %%
@@ -315,36 +322,58 @@
 %</phil>
 %<*sci>
 \thesissetup{
-    date          = \the\year/\the\month/\the\day,
-    university    = mu,
-    faculty       = sci,
-    department    = Ústav matematiky a statistiky,
-    departmentEn  = Department of Mathematics and
-                    Statistics,
-    programme     = Matematika,
-    programmeEn   = Mathematics,
-    field         = Finanční a pojistná matematika,
-    fieldEn       = Financial and Insurance Mathematics,
-    type          = bc,
-    author        = Jane Doe,
-    gender        = f,
-    advisor       = John Smith,
-    title         = Principy matematické sazby v programu TeX,
-    TeXtitle      = Principy matematické sazby\\v~programu \TeX,
-    titleEn       = The Principles of the Typesetting of
-                    Mathematics in TeX: the Program,
-    TeXtitleEn    = The Principles of the Typesetting of
-                    Mathematics in \TeX: the Program,
-    keywords      = {klíčové slovo 1, klíčové slovo 2, ...},
-    TeXkeywords   = {klíčové slovo 1, klíčové slovo 2, \ldots},
-    keywordsEn    = {keyword1, keyword2, ...},
-    TeXkeywordsEn = {keyword1, keyword2, \ldots},
+    date            = \the\year/\the\month/\the\day,
+    university      = mu,
+    faculty         = sci,
+    department      = Ústav matematiky a štatistiky,
+    departmentEn    = Department of Mathematics and
+                      Statistics,
+    extra = {
+      departmentCs  = Ústav matematiky a statistiky,
+    },
+    programme       = Matematika,
+    programmeEn     = Mathematics,
+    extra = {
+      programmeCs   = Matematika,
+    },
+    field           = Finančná a poistná matematika,
+    fieldEn         = Financial and Insurance Mathematics,
+    extra = {
+      fieldCs       = Finanční a pojistná matematika,
+    },
+    type            = bc,
+    author          = Jane Doe,
+    gender          = f,
+    advisor         = John Smith,
+    title           = Princípy matematickej sadzby v programe TeX,
+    TeXtitle        = Princípy matematickej sadzby\\v~programe \TeX,
+    titleEn         = The Principles of the Typesetting of
+                      Mathematics in TeX: the Program,
+    TeXtitleEn      = The Principles of the Typesetting of
+                      Mathematics in \TeX: the Program,
+    extra = {
+      titleCs       = Principy matematické sazby v programu TeX,
+      TeXtitleCs    = Principy matematické sazby\\v~programu \TeX,
+    },
+    keywords        = {kľúčové slovo 1, kľúčové slovo 2, ...},
+    TeXkeywords     = {kľúčové slovo 1, kľúčové slovo 2, \ldots},
+    keywordsEn      = {keyword1, keyword2, ...},
+    TeXkeywordsEn   = {keyword1, keyword2, \ldots},
+    extra = {
+      keywordsCs    = {klíčové slovo 1, klíčové slovo 2, ...},
+      TeXkeywordsCs = {klíčové slovo 1, klíčové slovo 2, \ldots},
+    },
     abstract      = {This is the abstract of my thesis, which can
 
                      span multiple paragraphs.},
     abstractEn    = {This is the English abstract of my thesis, which can
 
                      span multiple paragraphs.},
+    extra = {
+      abstractCs   = {This is the Czech abstract of my thesis, which can
+
+                     span multiple paragraphs.},
+    },
     thanks        = {This is the acknowledgement for my thesis, which can
 
                      span multiple paragraphs.},
@@ -352,7 +381,7 @@
     %% Uncomment the following line (by removing the % symbol at
     %% the beginning) and replace `assignment.pdf` with the
     %% filename of your scanned thesis assignment.
-    % assignment    = assignment.pdf
+    % assignment    = assignment.pdf,
 }
 %</sci>
 \usepackage{makeidx}      %% The `makeidx` package contains
