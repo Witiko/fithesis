@@ -11,10 +11,25 @@
   title=A fithesis3 user guide for the \thesis@english@facultyName,
   TeXtitle=A \textit{fithesis3} user guide\medskip\\\Large for the
     \thesis@english@facultyName,
+  extra={
+    titleCs=Příručka šablony fithesis3 pro
+      Přírodovědeckou fakultu,
+    TeXtitleCs=Příručka šablony \textit{fithesis3}\medskip\\ pro
+      Přírodovědeckou fakultu,
+  },
   type=bc,
   department=Department of Computer Graphics and Design,
+  extra={
+    departmentCs=Katedra počítačové grafiky a designu,
+  },
   programme=Applied Informatics,
+  extra={
+    programmeCs=Aplikovaná informatika,
+  },
   field=Typesetting,
+  extra={
+    fieldCs=Sazba,
+  },
   titleEn=\thesis@title,
   departmentEn=\thesis@department,
   programmeEn=\thesis@programme,
@@ -26,6 +41,10 @@
   TeXkeywords={thesis, typesetting, \LaTeX{}},
   keywordsEn=\thesis@keywords,
   TeXkeywordsEn=\thesis@TeXkeywords,
+  extra={
+    keywordsCs={závěrečné práce, sazba, LaTeX},
+    TeXkeywordsCs={závěrečné práce, sazba, \LaTeX{}},
+  },
   abstract={%
     \textsf{Fithesis3} is a \LaTeX{} document class, which
     streamlines the typesetting of the mandatory parts of theses, so
@@ -38,6 +57,19 @@
     \thesis@english@facultyName. As a demonstration of its
     capabilities, this document was typeset using the
     \textsf{fithesis3} class.},
+  extra={
+    abstractCs={
+      \textsf{Fithesis3} je šablona pro formát \LaTeX{}, která
+      usnadňuje přípravu povinných částí závěrečných prací, aby se
+      autor mohl soustředit pouze na obsah. \textsf{Fithesis3} lze
+      použít pro přípravu závěrečných prací v různých jazycích
+      napříč fakultami Masarykovy Univerzity.
+
+      Dokument popisuje instalaci šablony \textsf{fithesis3}, její
+      konfiguraci a použití na Přírodovědecké fakultě. Pomocí
+      šablony byl připraven i tento dokument.
+    },
+  },
   abstractEn=\thesis@abstract,
   faculty=\jobname,
   bib=guide.bib,
@@ -541,6 +573,13 @@
       This option forbids the typesetting of the thesis cover.
       Use, if you are typesetting the printed version of a thesis
       and you are not going to have a cover made for your thesis.
+%<*sci>
+    \item[abstractonsinglepage]
+      This option causes all the abstracts to be typeset on a
+      single page. This option has no effect for locales other than
+      Czech and English, as more than two abstracts will always be
+      typeset on a single page.
+%</sci>
   \end{description}}
 
   \section{Filling out the metadata}
@@ -568,11 +607,10 @@
       within the value.
     \item[TeXtitle]
       This key can be used to specify the title of the thesis. The
-      value will be typeset on the title page of the resulting
-      \textsc{pdf} document, so you can use \LaTeX\ formatting
-      commands within the value. If the value of the key is
-      unspecified, the value of the \thguide@itemfmt{title} key
-      will be used instead.
+      value will be typeset in the resulting \textsc{pdf} document,
+      so you can use \LaTeX\ formatting commands within the value.
+      If the value of the key is unspecified, the value of the
+      \thguide@itemfmt{title} key will be used instead.
 %<*sci,econ>
     \item[titleEn]
       This key can be used to specify the English title of the
@@ -584,12 +622,12 @@
       does not need to be specified.
     \item[TeXtitleEn]
       This key can be used to specify the English title of the
-      thesis. The value will be typeset on the title page of the
-      resulting \textsc{pdf} document, so you can use \LaTeX{}
-      formatting commands within the value. If the value of the key
-      is unspecified, the value of the \thguide@itemfmt{titleEn}
-      key will be used instead. If you are typesetting your thesis
-      in English, this value does not need to be specified.
+      thesis. The value will be typeset in the resulting
+      \textsc{pdf} document, so you can use \LaTeX{} formatting
+      commands within the value. If the value of the key is
+      unspecified, the value of the \thguide@itemfmt{titleEn} key
+      will be used instead. If you are typesetting your thesis in
+      English, this value does not need to be specified.
 %</econ>
     \item[author]
       This key can be used to specify the full name of the author.
@@ -742,6 +780,66 @@
       going to be used instead in the English locale:
       ``\emph{\thesis@english@declaration}''
   \end{description}
+%<*sci>
+  \subsection{Extra metadata}
+  You can fill out extra information about your thesis by inserting
+  the command
+  \begin{minted}{latex}
+\thesissetup{
+     ...
+  extra = {
+    key1 = {value1},
+    key2 = {value2},
+        ...
+    keyN = {valueN},
+  },
+     ...
+}
+  \end{minted}
+  into the preamble of your thesis. The following list summarizes
+  the keys and values that are recognized by the \textsf{fithesis3}
+  class and are meaningful for the \makeatletter
+  \thesis@english@facultyName\makeatother.
+  \begin{description}
+    \item[abstractCs]
+      This key can be used to specify the Czech abstract of the
+      thesis. If you are typesetting your thesis in Czech, this
+      value does not need to be specified.
+    \item[programmeCs]
+      This key can be used to specify the Czech name of the
+      author's study programme. If you are typesetting your thesis
+      in Czech, this value does not need to be specified.
+    \item[fieldCs]
+      This key can be used to specify the Czech name of the
+      author's field of study.
+    \item[titleCs]
+      This key can be used to specify the Czech title of the
+      thesis. Do not use any \LaTeX\ formatting commands within
+      the value.
+    \item[TeXtitleCs]
+      This key can be used to specify the Czech title of the
+      thesis. The value will be typeset in the resulting
+      \textsc{pdf} document, so you can use \LaTeX{} formatting
+      commands within the value. If you are typesetting your thesis
+      in Czech, this value does not need to be specified.
+    \item[keywordsCs]
+      This key can be used to specify a list of Czech keywords
+      for your thesis. Do not use any \LaTeX\ formatting commands
+      within the value. If you are typesetting your thesis in
+      Czech, this value does not need to be specified.
+    \item[TeXkeywordsCs]
+      This key can be used to specify a list of Czech keywords
+      for your thesis. The value will be typeset in the resulting
+      \textsc{pdf} document, so you can use \LaTeX\ formatting
+      commands within the value. If you are typesetting your thesis
+      in Czech, this value does not need to be specified.
+    \item[departmentCs]
+      This key can be used to specify the Czech name of the
+      department at which the thesis is going to be defended.
+      If you are typesetting your thesis in Czech, this value
+      does not need to be specified.
+  \end{description}
+%</sci>
   The complete list of metadata keys can be found in Section 2.2 of
   the technical documentation of the \textsf{fithesis3} class
   \cite{novotny15}.}
