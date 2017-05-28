@@ -56,7 +56,7 @@
   \gdef\thesis@version@number{#1}
   \gdef\thesis@version@date{#2}
   \gdef\thesis@version{#2 #1 fithesis3 MU thesis class}}
-\thesis@versiondef{v0.3.45:dev}{2017/05/28}}
+\thesis@versiondef{v0.3.45}{2017/05/29}}
 % {\newwrite\f\openout\f=VERSION\write\f{\thesis@version}\closeout\f}
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1291,8 +1291,7 @@
 % \TeX{} compilation, the macro expands to ??.
 % \changes{v0.3.45}{2017/05/24}{Defined the
 %   \cs{thesis@pages@preamble} and \cs{thesis@pages@postamble}
-%   macros in \texttt{style/mu/fithesis-base.sty}. The patch was
-%   submitted by Juraj Pálenik. [VN]}
+%   macros. The patch was submitted by Juraj Pálenik. [VN]}
 % \begin{macrocode}
 \ifx\thesis@pages@preamble\undefined
   \def\thesis@pages@preamble{??}\fi
@@ -1536,7 +1535,7 @@
 %    \end{macrocode}
 % Fix the value of the |\ifthesis@english| macro.
 % \changes{v0.3.45}{2017/05/23}{Updated the \cs{ifthesis@english}
-%   macro, so that it no longer dynamically reacts on changes of
+%   macro, so that it no longer dynamically reacts to changes of
 %   the locale. Instead, it is now based on the main locale during
 %   the expansion of \cs{thesisload}.}
 %    \begin{macrocode}
