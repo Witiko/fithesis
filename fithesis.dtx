@@ -1353,7 +1353,7 @@
 \let\thesis@blocks@postamble\relax
 %    \end{macrocode}
 % \subsubsection{The \texttt{extra} key}
-% \changes{v0.3.45}{2017/05/28}{Added the \texttt{extra} key
+% \changes{v0.3.45}{2017/05/29}{Added the \texttt{extra} key
 %   to \cs{thesissetup} and defined the helper
 %   \cs{thesis@def@extra} macro. [VN]}
 % The \marg{\texttt{extra}=\marg{keyvals}} pair enables the
@@ -1365,10 +1365,71 @@
 % provided as a unified interface for passing additional data to
 % the style and locale files.
 %    \begin{macrocode}
-\define@key{thesis}{extra}{%
+\def\thesis@extra@KV@prefix{KV@thesis@extra@}
+\def\thesis@extra@XKV@fams{thesis@extra}
+\long\def\KV@thesis@extra#1{%
+%    \end{macrocode}
+% Patch the \textsc{xkeyval} package to support unknown keys.
+%    \begin{macrocode}
+  \long\def\XKV@s@tk@ys##1=##2=##3\@nil{%
+    \XKV@g@tkeyname##1=\@nil\XKV@tkey
+    \expandafter\KV@@sp@def\expandafter\XKV@tkey\expandafter{\XKV@tkey}%
+    \ifx\XKV@tkey\@empty
+      \XKV@toks{##2}%
+      \ifcat$\the\XKV@toks$\else
+        \XKV@err{no key specified for value `\the\XKV@toks'}%
+      \fi
+    \else
+      \@expandtwoargs\in@{,\XKV@tkey,}{,\XKV@na,}%
+      \ifin@\else
+        \XKV@knftrue
+        \KV@@sp@def\XKV@tempa{##2}%
+        \ifXKV@preset\XKV@s@tk@ys@{##3}\else
+          \ifXKV@pl
+            \XKV@for@eo\XKV@fams\XKV@tfam{%
+              \XKV@makehd\XKV@tfam
+              \XKV@s@tk@ys@{##3}%
+            }%
+          \else
+            \XKV@whilist\XKV@fams\XKV@tfam\ifXKV@knf\fi{%
+              \XKV@makehd\XKV@tfam
+              \XKV@s@tk@ys@{##3}%
+            }%
+          \fi
+        \fi
+        \ifXKV@knf
+          \ifXKV@inpox
+            \ifx\XKV@doxs\relax
+              \ifx\@currext\@clsextension\else
+                \let\CurrentOption\XKV@tkey\@unknownoptionerror
+              \fi
+            \else\XKV@doxs\fi
+          \else
+            \ifXKV@st
+              \XKV@addtolist@o\XKV@rm\CurrentOption
+            \else
+              \ifx\XKV@fams\thesis@extra@XKV@fams
+                \expandafter\long\expandafter\def\csname%
+                  thesis@extra@\XKV@tkey\endcsname{##2}%
+              \else
+                \XKV@err{`\XKV@tkey' undefined in families
+                         `\XKV@fams'}%
+              \fi
+            \fi
+          \fi
+        \else
+          \ifXKV@inpox\ifx\XKV@testclass\XKV@documentclass
+            \expandafter\XKV@useoption\expandafter{\CurrentOption}%
+          \fi\fi
+        \fi
+      \fi
+    \fi
+  }%
   \setkeys{thesis@extra}{#1}%
   \def\KV@prefix{KV@thesis@}}
-\def\thesis@extra@KV@prefix{KV@thesis@extra@}
+%    \end{macrocode}
+% Patch the \textsc{keyval} package to support unknown keys.
+%    \begin{macrocode}
 \long\def\KV@split#1=#2=#3\relax{%
   \KV@@sp@def\@tempa{#1}%
   \ifx\@tempa\@empty\else
