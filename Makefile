@@ -131,7 +131,7 @@ $(DISTARCHIVE): $(SOURCES) $(LATEXFILES) $(MAKES) $(TESTS) \
 	$(EXAMPLES) $(VERSION)
 	DIR=`mktemp -d` && \
 	cp --verbose $(TDSARCHIVE) "$$DIR" && \
-	cp --parents --verbose $^ "$$DIR" && \
+	tar c $^ | tar xvC "$$DIR" && \
 	(cd "$$DIR" && zip -r -v -nw $@ *) && \
 	mv "$$DIR"/$@ . && rm -rf "$$DIR"
 
@@ -140,7 +140,7 @@ $(CTANARCHIVE): $(SOURCES) $(MAKES) $(TESTS) $(EXAMPLES) \
 	$(MISCELLANEOUS) $(EPSLOGOS) $(DOCS) $(VERSION)
 	DIR=`mktemp -d` && mkdir -p "$$DIR/fithesis" && \
 	cp --verbose $(TDSARCHIVE) "$$DIR" && \
-	cp --parents --verbose $^ "$$DIR/fithesis" && \
+	tar c $^ | tar xvC "$$DIR/fithesis" && \
 	printf '.PHONY: implode\nimplode:\n' > \
 		"$$DIR/fithesis/example/mu/Makefile" && \
 	(cd "$$DIR" && zip -r -v -nw $@ *) && \
@@ -166,11 +166,11 @@ install-base:
 	
 	@# Class, locale, style and logo files
 	mkdir -p "$(to)/tex/latex/fithesis"
-	cp --parents --verbose $(LATEXFILES) "$(to)/tex/latex/fithesis"
+	tar c $(LATEXFILES) | tar xvC "$(to)/tex/latex/fithesis"
 	
 	@# Source files
 	mkdir -p "$(to)/source/latex/fithesis"
-	cp --parents --verbose $(SOURCES) "$(to)/source/latex/fithesis"
+	tar c $(SOURCES) | tar xvC "$(to)/source/latex/fithesis"
 	
 	@# Rebuild the hash
 	[ "$(nohash)" = "true" ] || texhash
@@ -189,7 +189,7 @@ install-docs:
 	
 	@# Documentation
 	mkdir -p "$(to)/doc/latex/fithesis"
-	cp --parents --verbose $(DOCS) "$(to)/doc/latex/fithesis"
+	tar c $(DOCS) | tar xvC "$(to)/doc/latex/fithesis"
 
 	@# Rebuild the hash
 	[ "$(nohash)" = "true" ] || texhash
