@@ -137,7 +137,7 @@
 % \iffalse
 %<*mu>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/mu/fithesis-slovak.def}[2016/03/22]
+\ProvidesFile{fithesis/locale/mu/fithesis-slovak.def}[2017/06/02]
 
 % Zástupné texty
 \gdef\thesis@slovak@universityName{Masarykova univerzita}
@@ -150,6 +150,16 @@
 % Bibliografický záznam
 \gdef\thesis@slovak@bib@title{Bibliografický záznam}
 \gdef\thesis@slovak@bib@pages{str}
+%    \end{macrocode}
+% \changes{v0.3.46}{2017/06/02}{Lifted the \texttt{bib@author},
+%   \texttt{bib@thesisTitle}, and \texttt{bib@advisor} strings from
+%   \texttt{locale/mu/sci/*.def} to \texttt{locale/mu/*.def},
+%   so that they can be shared with \texttt{locale/mu/econ/*.def}.
+%   [VN]}
+%    \begin{macrocode}
+\global\let\thesis@slovak@bib@author\thesis@slovak@authorTitle
+\gdef\thesis@slovak@bib@thesisTitle{Názov práce}
+\global\let\thesis@slovak@bib@advisor\thesis@slovak@advisorTitle
 
 % Rôzne
 \gdef\thesis@slovak@idTitle{UČO}
@@ -232,7 +242,10 @@
 % It replaces the \texttt{facultyName} and \texttt{abstractTitle}
 % placeholders with the correct values. The locale file also
 % redefines the \texttt{declaration} string in accordance with
-% the requirements of the faculty.
+% the requirements of the faculty and defines the private macros
+% required by the |\thesis@blocks@|\discretionary{}{}{}|bibEntry|
+% block defined within the \texttt{style/mu/fithesis-econ.sty}
+% style file.
 % \iffalse
 %<*mu/econ>
 % \fi\begin{macrocode}
@@ -240,6 +253,17 @@
 
 % Zástupné texty
 \gdef\thesis@slovak@facultyName{Ekonomicko-správna fakulta}
+
+% Bibliografický záznam
+%    \end{macrocode}
+% \changes{v0.3.46}{2017/06/02}{Defined strings required by
+%   \cs{thesis@blocks@bibEntry} from
+%   \texttt{style/mu/fithesis-econ.sty} in
+%   \texttt{locale/mu/econ/*.def}. [VN]}
+%    \begin{macrocode}
+\gdef\thesis@slovak@bib@thesisTitleEn{Názov práce v angličtine}
+\gdef\thesis@slovak@bib@department{Katedra}
+\gdef\thesis@slovak@bib@year{Rok obhajoby}
 
 % Rôzne
 %    \end{macrocode}
@@ -410,7 +434,7 @@
 % \iffalse
 %<*mu/ped>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/mu/ped/fithesis-slovak.def}[2016/03/22]
+\ProvidesFile{fithesis/locale/mu/ped/fithesis-slovak.def}[2017/06/02]
 
 % Zástupné texty
 \gdef\thesis@slovak@facultyName{Pedagogická fakulta}
@@ -438,11 +462,8 @@
 \gdef\thesis@slovak@facultyName{Prírodovedecká fakulta}
 
 % Bibliografický záznam
-\global\let\thesis@slovak@bib@author\thesis@slovak@authorTitle
-\gdef\thesis@slovak@bib@thesisTitle{Názov práce}
 \gdef\thesis@slovak@bib@programme{Študijný program}
 \global\let\thesis@slovak@bib@field\thesis@slovak@fieldTitle
-\global\let\thesis@slovak@bib@advisor\thesis@slovak@advisorTitle
 \gdef\thesis@slovak@bib@academicYear{Akademický rok}
 \gdef\thesis@slovak@bib@pages{Počet strán}
 \global\let\thesis@slovak@bib@keywords\thesis@slovak@keywordsTitle
