@@ -162,7 +162,38 @@
     \listoffigures}
 \fi
 %    \end{macrocode}
-% \begin{macro}{\thesis@blocks@abstract}
+% \begin{macro}{\thesis@blocks@declaration}
+% The |\thesis@blocks@declaration| macro typesets the declaration
+% text. Unlike the generic |\thesis@blocks@declaration| macro from
+% the \texttt{style/mu/fithesis-sci.sty} file, this definition
+% includes the date and a blank line for the author's signature, as
+% per the requirements of the faculty.
+% \changes{v0.3.46}{2017/06/02}{Redefined
+%   \cs{thesis@blocks@declaration} in
+%   \texttt{style/mu/fithesis-econ.sty} in accordance with the
+%   example documents. The patch was submitted by Jana Ratajská.
+%   [VN]}
+%    \begin{macrocode}
+\def\thesis@blocks@declaration{%
+  \begin{alwayssingle}%
+    \thesis@blocks@clear
+    \leavevmode\vfill
+    % Start the new chapter without clearing any page.
+    {\let\thesis@blocks@clear\relax
+    \chapter*{\thesis@@{declarationTitle}}}%
+    \thesis@declaration
+    \vskip 2cm%
+    {\let\@A\relax\newlength{\@A}
+      \settowidth{\@A}{\thesis@@{authorSignature}}
+      \setlength{\@A}{\@A+1cm}
+    \noindent\thesis@place, \thesis@@{formattedDate}\hfill
+    \begin{minipage}[t]{\@A}%
+      \centering\rule{\@A}{1pt}\\
+      \thesis@@{authorSignature}\par
+    \end{minipage}}
+  \end{alwayssingle}}
+%    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@blocks@abstract}
 % \changes{v0.3.46}{2017/06/02}{Redefined
 %   \cs{thesis@blocks@abstract}, \cs{thesis@blocks@abstractEn},
 %   \cs{thesis@blocks@keywords}, and \cs{thesis@blocks@keywordsEn}
