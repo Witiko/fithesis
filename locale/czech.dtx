@@ -228,10 +228,10 @@
 % \fi\file{locale/mu/econ/fithesis-czech.def}
 % This is the Czech locale file specific to the Faculty of
 % Economics and Administration at the Masaryk University in Brno.
-% It replaces the \texttt{facultyName} placeholder with the
-% correct value. The locale file also redefines the
-% \texttt{declaration} string in accordance with the
-% requirements of the faculty.
+% It replaces the \texttt{facultyName} and \texttt{abstractTitle}
+% placeholders with the correct values. The locale file also
+% redefines the \texttt{declaration} string in accordance with
+% the requirements of the faculty.
 % \iffalse
 %<*mu/econ>
 % \fi\begin{macrocode}
@@ -239,6 +239,15 @@
 
 % Zástupné texty
 \gdef\thesis@czech@facultyName{Ekonomicko-správní fakulta}
+
+% Různé
+%    \end{macrocode}
+% \changes{v0.3.46}{2017/06/02}{Updated the
+%   \cs{abstractTitle} string in \texttt{locale/mu/econ/*.def} in
+%   accordance with the 2/2017 dean's directive. The patch was
+%   submitted by Jana Ratajská. [VN]}
+%    \begin{macrocode}
+\gdef\thesis@czech@abstractTitle{Anotace}
 %    \end{macrocode}
 % \changes{v0.3.46}{2017/06/02}{Updated the \cs{declaration} string
 %   in \texttt{locale/mu/econ/*.def} in accordance with the 2/2017

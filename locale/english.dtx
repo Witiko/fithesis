@@ -144,7 +144,7 @@
 % \iffalse
 %<*mu/fsps>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/mu/fsps/fithesis-english.def}[2015/06/26]
+\ProvidesFile{fithesis/locale/mu/fsps/fithesis-english.def}[2017/06/02]
 
 % Placeholders
 \gdef\thesis@english@facultyName{Faculty of Sports Studies}
@@ -180,14 +180,25 @@
 % \fi\file{locale/mu/econ/fithesis-english.def}
 % This is the English locale file specific to the Faculty of
 % Economics and Administration at the Masaryk University in Brno.
-% It replaces the \texttt{facultyName} placeholder with the
-% correct value.
+% It replaces the \texttt{facultyName} and \texttt{abstractTitle}
+% placeholders with the correct values.
 % \iffalse
 %<*mu/econ>
 % \fi\begin{macrocode}
 \ProvidesFile{fithesis/locale/mu/econ/fithesis-english.def}[2015/06/26]
+
+% Placeholders
 \gdef\thesis@english@facultyName{Faculty of Economics
   and Administration}
+
+% Miscellaneous
+%    \end{macrocode}
+% \changes{v0.3.46}{2017/06/02}{Updated the
+%   \cs{abstractTitle} string in \texttt{locale/mu/econ/*.def} in
+%   accordance with the 2/2017 dean's directive. The patch was
+%   submitted by Jana Ratajská. [VN]}
+%    \begin{macrocode}
+\gdef\thesis@english@abstractTitle{Annotation}
 %    \end{macrocode}\iffalse
 %</mu/econ>
 % \fi\file{locale/mu/med/fithesis-english.def}
