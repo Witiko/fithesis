@@ -7,7 +7,7 @@
 % after \texttt{style/fithesis-base.sty}, regardless of the value
 % of the |\thesis@style| macro.
 %    \begin{macrocode}
-\ProvidesPackage{fithesis/style/mu/fithesis-base}[2017/05/21]
+\ProvidesPackage{fithesis/style/mu/fithesis-base}[2017/06/02]
 \NeedsTeXFormat{LaTeX2e}
 %    \end{macrocode}
 % The file recognizes the following options: \begin{itemize}
@@ -861,6 +861,9 @@
 % The |\thesis@blocks@abstractEn| macro typesets the
 % abstract in English. If the current locale is English, the
 % macro produces no output.
+% \changes{v0.3.46}{2017/06/02}{Simplified the definition of
+%   \cs{thesis@blocks@abstractEn} in
+%   \texttt{style/mu/fithesis-base.sty}. [VN]}
 % \begin{macrocode}
 \def\thesis@blocks@abstractEn{%
   \ifthesis@english\else
@@ -869,8 +872,8 @@
       % Start the new chapter without clearing the left page.
       \clearpage
       {\let\thesis@blocks@clear\relax
-      \chapter*{\thesis@english@abstractTitle}%
-      \thesis@abstractEn}%
+      \chapter*{\thesis@english@abstractTitle}}%
+      \noindent\thesis@abstractEn
       \par\vfil\null
     \end{alwayssingle}}%
   \fi}
@@ -893,6 +896,9 @@
 % The |\thesis@blocks@keywordsEn| macro typesets the
 % keywords in English. If the current locale is English, the
 % macro produces no output.
+% \changes{v0.3.46}{2017/06/02}{Simplified the definition of
+%   \cs{thesis@blocks@keywordsEn} in
+%   \texttt{style/mu/fithesis-base.sty}. [VN]}
 % \begin{macrocode}
 \def\thesis@blocks@keywordsEn{%
   \ifthesis@english\else
@@ -901,8 +907,8 @@
       % Start the new chapter without clearing the left page.
       \clearpage
       {\let\thesis@blocks@clear\relax%
-      \chapter*{\thesis@english@keywordsTitle}%
-      \thesis@TeXkeywordsEn}%
+      \chapter*{\thesis@english@keywordsTitle}}%
+      \noindent\thesis@TeXkeywordsEn
       \par\vfil\null
     \end{alwayssingle}}%
   \fi}
