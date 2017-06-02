@@ -35,6 +35,8 @@
 %   \item\textsf{tikz} -- Used for dimension arithmetic.
 %   \item\textsf{geometry} -- Allows for modifications of the type
 %     area dimensions.
+%   \item\textsf{array} -- Enables |<{decl.}| and |>{decl.}|
+%     declarations in table preambles.
 % \end{itemize}
 % In addition to this, the type area width is set to
 % 16\,cm in accordance with the formal requirements of the faculty.
@@ -43,6 +45,7 @@
 %    \begin{macrocode}
 \thesis@require{tikz}
 \thesis@require{geometry}
+\thesis@require{array}
 \geometry{top=25mm,bottom=20mm,left=25mm,right=25mm,includeheadfoot}
 %    \end{macrocode}
 % \begin{macro}{\thesis@blocks@cover}
@@ -255,40 +258,7 @@
     \end{alwayssingle}}%
   \fi}
 %    \end{macrocode}
-% \end{macro}
-% Note that there is no direct support for the seminar paper and
-% thesis proposal types.  If you would like to change the contents
-% of the preamble and the postamble, you should modify the
-% |\thesis@blocks@preamble| and |\thesis@blocks@postamble| macros.
-%
-% All blocks within the autolayout preamble that are not defined
-% within this file are defined in the
-% \texttt{style/mu/fithesis-base.sty} file.
-%    \begin{macrocode}
-\def\thesis@blocks@preamble{%
-  \thesis@blocks@coverMatter
-    \thesis@blocks@cover
-  \thesis@blocks@frontMatter
-    \thesis@blocks@titlePage
-    \thesis@blocks@assignment
-    \thesis@blocks@bibEntry
-    \thesis@blocks@abstract
-    \thesis@blocks@abstractEn
-    \thesis@blocks@keywords
-    \thesis@blocks@keywordsEn
-    \thesis@blocks@declaration
-    \thesis@blocks@thanks
-    \thesis@blocks@toc}
-%    \end{macrocode}
-% All blocks within the autolayout postamble that are not defined
-% within this file are defined in the \texttt{style/mu/base.sty}
-% file.
-%    \begin{macrocode}
-\def\thesis@blocks@postamble{%
-  \thesis@blocks@bibliography
-  \thesis@blocks@tables}
-%    \end{macrocode}
-% \begin{macro}{\thesis@blocks@bibEntry}
+% \end{macro}\begin{macro}{\thesis@blocks@bibEntry}
 % The |\thesis@blocks@bibEntry| macro typesets a bibliographical
 % entry. Along with the macros required by the locale file
 % interface, the locale files need to define the following macros:
@@ -326,3 +296,35 @@
   \end{thesis@newtable@old}}
 %    \end{macrocode}
 % \end{macro}
+% Note that there is no direct support for the seminar paper and
+% thesis proposal types.  If you would like to change the contents
+% of the preamble and the postamble, you should modify the
+% |\thesis@blocks@preamble| and |\thesis@blocks@postamble| macros.
+%
+% All blocks within the autolayout preamble that are not defined
+% within this file are defined in the
+% \texttt{style/mu/fithesis-base.sty} file.
+%    \begin{macrocode}
+\def\thesis@blocks@preamble{%
+  \thesis@blocks@coverMatter
+    \thesis@blocks@cover
+  \thesis@blocks@frontMatter
+    \thesis@blocks@titlePage
+    \thesis@blocks@assignment
+    \thesis@blocks@bibEntry
+    \thesis@blocks@abstract
+    \thesis@blocks@abstractEn
+    \thesis@blocks@keywords
+    \thesis@blocks@keywordsEn
+    \thesis@blocks@declaration
+    \thesis@blocks@thanks
+    \thesis@blocks@toc}
+%    \end{macrocode}
+% All blocks within the autolayout postamble that are not defined
+% within this file are defined in the \texttt{style/mu/base.sty}
+% file.
+%    \begin{macrocode}
+\def\thesis@blocks@postamble{%
+  \thesis@blocks@bibliography
+  \thesis@blocks@tables}
+%    \end{macrocode}
