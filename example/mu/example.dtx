@@ -95,36 +95,43 @@
 %% The following section sets up the metadata of the thesis.
 %<*econ>
 \thesissetup{
-    date          = \the\year/\the\month/\the\day,
-    autoLayout    = false,
-    university    = mu,
-    faculty       = econ,
-    type          = bc,
-    field         = Applied Econometrics,
-    author        = Jane Doe,
-    gender        = f,
-    advisor       = John Smith,
-    title         = The Economic Value of LaTeX,
-    TeXtitle      = The Economic Value of \LaTeX,
-    keywords      = {keyword1, keyword2, ...},
-    TeXkeywords   = {keyword1, keyword2, \ldots},
-    abstract      = {This is the abstract of my thesis, which can
+    date               = \the\year/\the\month/\the\day,
+    autoLayout         = false,
+    university         = mu,
+    faculty            = econ,
+    type               = bc,
+    field              = Applied Econometrics,
+    author             = Jane Doe,
+    gender             = f,
+    advisor            = John Smith,
+    extra              = {
+      advisorCsGenitiv = {Johna Smithe},
+      advisorSkGenitiv = {Johna Smitha},
+    },
+    title              = The Economic Value of LaTeX,
+    TeXtitle           = The Economic Value of \LaTeX,
+    keywords           = {keyword1, keyword2, ...},
+    TeXkeywords        = {keyword1, keyword2, \ldots},
+    abstract           = {This is the abstract of my thesis, which
+                          can
 
-                     span multiple paragraphs.},
-    thanks        = {This is the acknowledgement for my thesis, which can
+                          span multiple paragraphs.},
+    thanks             = {This is the acknowledgement for my
+                          thesis, which can
 
-                     span multiple paragraphs.},
-    bib           = example.bib,
+                          span multiple paragraphs.},
+    bib                = example.bib,
     %% The following keys are only useful, when you're using a
     %% locale other than English. You can safely omit them in an
     %% English thesis.
-    titleEn       = The Economic Value of LaTeX,
-    TeXtitleEn    = The Economic Value of \LaTeX,
-    keywordsEn    = {keyword1, keyword2, ...},
-    TeXkeywordsEn = {keyword1, keyword2, \ldots},
-    abstractEn    = {This is the English abstract of my thesis, which can
+    titleEn            = The Economic Value of LaTeX,
+    TeXtitleEn         = The Economic Value of \LaTeX,
+    keywordsEn         = {keyword1, keyword2, ...},
+    TeXkeywordsEn      = {keyword1, keyword2, \ldots},
+    abstractEn         = {This is the English abstract of my
+                          thesis, which can
 
-                     span multiple paragraphs.},
+                          span multiple paragraphs.},
 }
 %</econ>
 %<*fi>
