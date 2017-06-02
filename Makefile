@@ -130,7 +130,7 @@ $(DISTARCHIVE): $(SOURCES) $(LATEXFILES) $(MAKES) $(TESTS) \
 	$(USEREXAMPLE_SOURCES) $(DOCS) $(PDFSOURCES) $(MISCELLANEOUS) \
 	$(EXAMPLES) $(VERSION)
 	DIR=`mktemp -d` && \
-	cp --verbose $(TDSARCHIVE) "$$DIR" && \
+	cp -v $(TDSARCHIVE) "$$DIR" && \
 	tar c $^ | tar xvC "$$DIR" && \
 	(cd "$$DIR" && zip -r -v -nw $@ *) && \
 	mv "$$DIR"/$@ . && rm -rf "$$DIR"
@@ -139,7 +139,7 @@ $(DISTARCHIVE): $(SOURCES) $(LATEXFILES) $(MAKES) $(TESTS) \
 $(CTANARCHIVE): $(SOURCES) $(MAKES) $(TESTS) $(EXAMPLES) \
 	$(MISCELLANEOUS) $(EPSLOGOS) $(DOCS) $(VERSION)
 	DIR=`mktemp -d` && mkdir -p "$$DIR/fithesis" && \
-	cp --verbose $(TDSARCHIVE) "$$DIR" && \
+	cp -v $(TDSARCHIVE) "$$DIR" && \
 	tar c $^ | tar xvC "$$DIR/fithesis" && \
 	printf '.PHONY: implode\nimplode:\n' > \
 		"$$DIR/fithesis/example/mu/Makefile" && \
