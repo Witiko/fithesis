@@ -234,8 +234,30 @@
 % \iffalse
 %<*mu/econ>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/mu/econ/fithesis-slovak.def}[2015/06/26]
+\ProvidesFile{fithesis/locale/mu/econ/fithesis-slovak.def}[2017/06/02]
+
+% Zástupné texty
 \gdef\thesis@slovak@facultyName{Ekonomicko-správna fakulta}
+%    \end{macrocode}
+% \changes{v0.3.46}{2017/06/02}{Updated the
+%   \cs{declaration} string in
+%   \texttt{locale/mu/econ/fithesis-slovak.def} in
+%   accordance with the 2/2017 dean's directive. [VN]}
+% The following extra data field is defined for the
+% \texttt{declaration} string: \begin{itemize}
+%   \item|advisorSkGenitiv| -- the advisor's name in
+%     genitive following Slovak morphology.
+% \end{itemize}
+%    \begin{macrocode}
+\thesis@def@extra{advisorSkGenitiv}
+\gdef\thesis@slovak@declaration{Vyhlasujem, že som
+  \thesis@lower{slovak@typeName@akuzativ} spracoval%
+  \thesis@slovak@gender@koncovka\ samostatne pod vedením
+  \thesis@extra@advisorSkGenitiv\ 
+  a~uved\ifthesis@woman la\else iol\fi\ v~nej všetky
+  odborné zdroje v~súlade s~právnymi predpismi, vnútornými
+  předpismi Masarykovej univerzity a~vnútornými aktmi riadenia
+  Masarykovej univerzity a~Ekonomicko-správnej fakulty MU.}
 %    \end{macrocode}\iffalse
 %</mu/econ>
 % \fi\file{locale/mu/med/fithesis-slovak.def}
