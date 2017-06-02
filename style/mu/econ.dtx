@@ -2,11 +2,9 @@
 % This is the style file for the theses written at the Faculty of
 % Economics and Administration at the Masaryk University in Brno.
 % It has been prepared in accordance with the formal requirements
-%    \end{macrocode}
 % \changes{v0.3.46}{2017/06/02}{The documentation now points to the
 %   2/2017 dean's directive for the Faculty of Economics and
 %   Administration, Masaryk University, Brno. [VN]}
-%    \begin{macrocode}
 % published at the website of the faculty\footnote{See \url{ht^^A
 % tps://is.muni.cz/auth/do/econ/predpisy/smernice/prehled/6715^^A
 % 9928/SmerniceDekana2017-c.2-o_zaverecnych_pracich_2017.pdf}}.
@@ -164,6 +162,69 @@
     \listoffigures}
 \fi
 %    \end{macrocode}
+% \begin{macro}{\thesis@blocks@abstract}
+% \changes{v0.3.46}{2017/06/02}{Redefined
+%   \cs{thesis@blocks@abstract}, \cs{thesis@blocks@abstractEn},
+%   \cs{thesis@blocks@keywords}, and \cs{thesis@blocks@keywordsEn}
+%   in \texttt{style/mu/fithesis-econ.sty} in accordance with the
+%   example documents. The patch was submitted by Jana Ratajská.
+%   [VN]}
+% The |\thesis@blocks@abstract| macro typesets the
+% abstract. This definition typesets the abstract on the same page.
+% \begin{macrocode}
+\def\thesis@blocks@abstract{%
+  \begin{alwayssingle}%
+    \vskip 40\p@
+    {\let\thesis@blocks@clear\relax
+    \chapter*{\thesis@@{abstractTitle}}}%
+    \noindent\thesis@abstract
+  \end{alwayssingle}}
+%    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@blocks@abstractEn}
+% The |\thesis@blocks@abstractEn| macro typesets the abstract in
+% English. If the current locale is English, the macro produces no
+% output. This macro typesets the abstract on the same page.
+% \begin{macrocode}
+\def\thesis@blocks@abstractEn{%
+  \ifthesis@english\else
+    {\thesis@selectLocale{english}%
+    \begin{alwayssingle}%
+      \vskip 20\p@
+      {\let\thesis@blocks@clear\relax
+      \chapter*{\thesis@english@abstractTitle}}%
+      \noindent\thesis@abstractEn
+    \end{alwayssingle}}%
+  \fi}
+%    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@blocks@keywords}
+% The |\thesis@blocks@keywords| macro typesets the keywords. This
+% definition typesets the keywords on the same page.
+% \begin{macrocode}
+\def\thesis@blocks@keywords{%
+  \begin{alwayssingle}%
+    \vskip 40\p@
+    {\let\thesis@blocks@clear\relax
+    \chapter*{\thesis@@{keywordsTitle}}%
+    \noindent\thesis@TeXkeywords}%
+  \end{alwayssingle}}
+%    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@blocks@keywordsEn}
+% The |\thesis@blocks@keywordsEn| macro typesets the keywords in
+% English. If the current locale is English, the macro produces no
+% output.
+% \begin{macrocode}
+\def\thesis@blocks@keywordsEn{%
+  \ifthesis@english\else
+    {\thesis@selectLocale{english}%
+    \begin{alwayssingle}%
+      \vskip 20\p@
+      {\let\thesis@blocks@clear\relax%
+      \chapter*{\thesis@english@keywordsTitle}}%
+      \noindent\thesis@TeXkeywordsEn
+    \end{alwayssingle}}%
+  \fi}
+%    \end{macrocode}
+% \end{macro}
 % Note that there is no direct support for the seminar paper and
 % thesis proposal types.  If you would like to change the contents
 % of the preamble and the postamble, you should modify the
@@ -179,11 +240,11 @@
   \thesis@blocks@frontMatter
     \thesis@blocks@titlePage
     \thesis@blocks@assignment
-    \thesis@blocks@clearRight
-      \thesis@blocks@abstract
-      \thesis@blocks@abstractEn
-      \thesis@blocks@keywords
-      \thesis@blocks@keywordsEn
+    \thesis@clear
+    \thesis@blocks@abstract
+    \thesis@blocks@abstractEn
+    \thesis@blocks@keywords
+    \thesis@blocks@keywordsEn
     \thesis@blocks@declaration
     \thesis@blocks@thanks
     \thesis@blocks@toc}
