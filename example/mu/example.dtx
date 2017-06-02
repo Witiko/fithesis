@@ -419,7 +419,9 @@
 \makeatother
 
 %</econ>
-\chapter{Introduction}
+\chapter*{Introduction}
+\addcontentsline{toc}{chapter}{Introduction}
+
 Theses are rumoured to be the capstones of education, so I decided
 to write one of my own. If all goes well, I will soon have a
 diploma under my belt. Wish me luck!
@@ -568,18 +570,22 @@ proofs.
     %% at 4 × 4 cm should be 1000 × 1000 px large or larger.
     \includegraphics[width=4cm]{fithesis/logo/mu/fithesis-base.pdf}
   \end{center}
+  \emph{Source: <<Image Source>>}
   \caption{The logo of the Masaryk University at 40\,mm}
   \label{fig:mulogo1}
 \end{figure}
 
 \begin{figure}
-  \begin{minipage}{.66\textwidth}
-    \includegraphics[width=\textwidth]{fithesis/logo/mu/fithesis-base.pdf}
-  \end{minipage}
-  \begin{minipage}{.33\textwidth}
-    \includegraphics[width=\textwidth]{fithesis/logo/mu/fithesis-base.pdf} \\
-    \includegraphics[width=\textwidth]{fithesis/logo/mu/fithesis-base.pdf}
-  \end{minipage}
+  \begin{center}
+    \begin{minipage}{.66\textwidth}
+      \includegraphics[width=\textwidth]{fithesis/logo/mu/fithesis-base.pdf}
+    \end{minipage}
+    \begin{minipage}{.33\textwidth}
+      \includegraphics[width=\textwidth]{fithesis/logo/mu/fithesis-base.pdf} \\
+      \includegraphics[width=\textwidth]{fithesis/logo/mu/fithesis-base.pdf}
+    \end{minipage}
+  \end{center}
+  \emph{Source: <<Image Source>>}
   \caption{The logo of the Masaryk University at $\frac23$ and
     $\frac13$ of text width}
   \label{fig:mulogo2}
@@ -599,6 +605,7 @@ proofs.
     morning. \\
     \bottomrule
   \end{tabularx}
+  \vskip\abovecaptionskip\emph{Source: <<Table Source>>}
   \caption{A weather forecast}
   \label{tab:weather}
 \end{table}
