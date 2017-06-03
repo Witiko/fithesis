@@ -6,7 +6,7 @@
 % \url{http://www.sci.muni.cz/NW/predpisy/od/OD-2014-05.pdf}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fithesis/style/mu/fithesis-sci}[2017/05/28]
+\ProvidesPackage{fithesis/style/mu/fithesis-sci}[2017/06/02]
 %    \end{macrocode}
 % The file defines the color scheme of the respective faculty. Note
 % the the color definitions are in RGB, which makes the resulting
@@ -579,16 +579,6 @@
 % the \texttt{style/mu/fithesis-sci.sty} file, this definition
 % includes the date and a blank line for the author's signature, as
 % per the requirements of the faculty.
-%
-% Along with the macros required by the locale file interface, the
-% locale files need to define the following macros:
-% \begin{itemize}
-%   \item\DescribeMacro{\thesis@czech@authorSignature}
-%     |\thesis@czech@authorSignature| -- The label of the author's
-%       signature field
-%   \item\DescribeMacro{\thesis@czech@formattedDate}
-%     |\thesis@czech@formattedDate| -- A formatted date
-% \end{itemize}
 %    \begin{macrocode}
 \def\thesis@blocks@declaration{%
   \begin{alwayssingle}%
@@ -601,7 +591,7 @@
     {\let\@A\relax\newlength{\@A}
       \settowidth{\@A}{\thesis@@{authorSignature}}
       \setlength{\@A}{\@A+1cm}
-    \noindent\thesis@place, \thesis@czech@formattedDate\hfill
+    \noindent\thesis@place, \thesis@@{formattedDate}\hfill
     \begin{minipage}[t]{\@A}%
       \centering\rule{\@A}{1pt}\\
       \thesis@@{authorSignature}\par

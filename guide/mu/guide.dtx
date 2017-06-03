@@ -690,11 +690,11 @@
       is going to be defended. To choose the
       \thesis@english@facultyName, use
       \thguide@itemfmt{\thesis@faculty} as the value.
-%<*law,med,ped,phil>
+%<*law,med,ped,phil,econ>
     \item[department]
       This key can be used to specify the name of the department at
       which the thesis is going to be defended.
-%</law,med,ped,phil>
+%</law,med,ped,phil,econ>
 %<*phil>
       Specifying \texttt{kisk} as the department name changes the
       output to fit the requirements of the Division of Information
@@ -780,7 +780,7 @@
       going to be used instead in the English locale:
       ``\emph{\thesis@english@declaration}''
   \end{description}
-%<*sci>
+%<*sci,econ>
   \subsection{Extra metadata}
   You can fill out extra information about your thesis by inserting
   the command
@@ -801,6 +801,8 @@
   class and are meaningful for the \makeatletter
   \thesis@english@facultyName\makeatother.
   \begin{description}
+%</sci,econ>
+%<*sci>
     \item[abstractCs]
       This key can be used to specify the Czech abstract of the
       thesis. If you are typesetting your thesis in Czech, this
@@ -838,8 +840,18 @@
       department at which the thesis is going to be defended.
       If you are typesetting your thesis in Czech, this value
       does not need to be specified.
-  \end{description}
 %</sci>
+%<*econ>
+    \item[advisorCsGenitiv]
+      This key can be used to specify the the advisor's name in
+      genitive following Czech morphology.
+    \item[advisorSkGenitiv]
+      This key can be used to specify the the advisor's name in
+      genitive following Slovak morphology.
+%</econ>
+%<*sci,econ>
+  \end{description}
+%</sci,econ>
   The complete list of metadata keys can be found in Section 2.2 of
   the technical documentation of the \textsf{fithesis3} class
   \cite{novotny15}.}

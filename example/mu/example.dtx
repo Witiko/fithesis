@@ -95,36 +95,44 @@
 %% The following section sets up the metadata of the thesis.
 %<*econ>
 \thesissetup{
-    date          = \the\year/\the\month/\the\day,
-    autoLayout    = false,
-    university    = mu,
-    faculty       = econ,
-    type          = bc,
-    field         = Applied Econometrics,
-    author        = Jane Doe,
-    gender        = f,
-    advisor       = John Smith,
-    title         = The Economic Value of LaTeX,
-    TeXtitle      = The Economic Value of \LaTeX,
-    keywords      = {keyword1, keyword2, ...},
-    TeXkeywords   = {keyword1, keyword2, \ldots},
-    abstract      = {This is the abstract of my thesis, which can
+    date               = \the\year/\the\month/\the\day,
+    autoLayout         = false,
+    university         = mu,
+    faculty            = econ,
+    type               = bc,
+    field              = Applied Econometrics,
+    department         = Department of Finance,
+    author             = Jane Doe,
+    gender             = f,
+    advisor            = John Smith,
+    extra              = {
+      advisorCsGenitiv = {Johna Smithe},
+      advisorSkGenitiv = {Johna Smitha},
+    },
+    title              = The Economic Value of LaTeX,
+    TeXtitle           = The Economic Value of \LaTeX,
+    keywords           = {keyword1, keyword2, ...},
+    TeXkeywords        = {keyword1, keyword2, \ldots},
+    abstract           = {This is the abstract of my thesis, which
+                          can
 
-                     span multiple paragraphs.},
-    thanks        = {This is the acknowledgement for my thesis, which can
+                          span multiple paragraphs.},
+    thanks             = {This is the acknowledgement for my
+                          thesis, which can
 
-                     span multiple paragraphs.},
-    bib           = example.bib,
+                          span multiple paragraphs.},
+    bib                = example.bib,
     %% The following keys are only useful, when you're using a
     %% locale other than English. You can safely omit them in an
     %% English thesis.
-    titleEn       = The Economic Value of LaTeX,
-    TeXtitleEn    = The Economic Value of \LaTeX,
-    keywordsEn    = {keyword1, keyword2, ...},
-    TeXkeywordsEn = {keyword1, keyword2, \ldots},
-    abstractEn    = {This is the English abstract of my thesis, which can
+    titleEn            = The Economic Value of LaTeX,
+    TeXtitleEn         = The Economic Value of \LaTeX,
+    keywordsEn         = {keyword1, keyword2, ...},
+    TeXkeywordsEn      = {keyword1, keyword2, \ldots},
+    abstractEn         = {This is the English abstract of my
+                          thesis, which can
 
-                     span multiple paragraphs.},
+                          span multiple paragraphs.},
 }
 %</econ>
 %<*fi>
@@ -411,7 +419,9 @@
 \makeatother
 
 %</econ>
-\chapter{Introduction}
+\chapter*{Introduction}
+\addcontentsline{toc}{chapter}{Introduction}
+
 Theses are rumoured to be the capstones of education, so I decided
 to write one of my own. If all goes well, I will soon have a
 diploma under my belt. Wish me luck!
@@ -560,18 +570,26 @@ proofs.
     %% at 4 × 4 cm should be 1000 × 1000 px large or larger.
     \includegraphics[width=4cm]{fithesis/logo/mu/fithesis-base.pdf}
   \end{center}
+%<*econ>
+  \emph{Source: <<Image Source>>}
+%</econ>
   \caption{The logo of the Masaryk University at 40\,mm}
   \label{fig:mulogo1}
 \end{figure}
 
 \begin{figure}
-  \begin{minipage}{.66\textwidth}
-    \includegraphics[width=\textwidth]{fithesis/logo/mu/fithesis-base.pdf}
-  \end{minipage}
-  \begin{minipage}{.33\textwidth}
-    \includegraphics[width=\textwidth]{fithesis/logo/mu/fithesis-base.pdf} \\
-    \includegraphics[width=\textwidth]{fithesis/logo/mu/fithesis-base.pdf}
-  \end{minipage}
+  \begin{center}
+    \begin{minipage}{.66\textwidth}
+      \includegraphics[width=\textwidth]{fithesis/logo/mu/fithesis-base.pdf}
+    \end{minipage}
+    \begin{minipage}{.33\textwidth}
+      \includegraphics[width=\textwidth]{fithesis/logo/mu/fithesis-base.pdf} \\
+      \includegraphics[width=\textwidth]{fithesis/logo/mu/fithesis-base.pdf}
+    \end{minipage}
+  \end{center}
+%<*econ>
+  \emph{Source: <<Image Source>>}
+%</econ>
   \caption{The logo of the Masaryk University at $\frac23$ and
     $\frac13$ of text width}
   \label{fig:mulogo2}
@@ -591,6 +609,9 @@ proofs.
     morning. \\
     \bottomrule
   \end{tabularx}
+%<*econ>
+  \vskip\abovecaptionskip\emph{Source: <<Table Source>>}
+%</econ>
   \caption{A weather forecast}
   \label{tab:weather}
 \end{table}

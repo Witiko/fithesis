@@ -104,7 +104,7 @@
 % \iffalse
 %<*mu>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/mu/fithesis-english.def}[2016/03/22]
+\ProvidesFile{fithesis/locale/mu/fithesis-english.def}[2017/06/02]
 \gdef\thesis@english@universityName{Masaryk University}
 \gdef\thesis@english@declaration{%
   Hereby I declare that this paper is my original authorial work,
@@ -115,6 +115,16 @@
 % Bibliographic entry
 \gdef\thesis@english@bib@title{Bibliographic record}
 \gdef\thesis@english@bib@pages{p}
+%    \end{macrocode}
+% \changes{v0.3.46}{2017/06/02}{Lifted the \texttt{bib@author},
+%   \texttt{bib@thesisTitle}, and \texttt{bib@advisor} strings from
+%   \texttt{locale/mu/sci/*.def} to \texttt{locale/mu/*.def},
+%   so that they can be shared with \texttt{locale/mu/econ/*.def}.
+%   [VN]}
+%    \begin{macrocode}
+\global\let\thesis@english@bib@author\thesis@english@authorTitle
+\gdef\thesis@english@bib@thesisTitle{Title of Thesis}
+\gdef\thesis@english@bib@advisor{Supervisor}
 
 % Miscellaneous
 \gdef\thesis@english@idTitle{UČO}
@@ -144,7 +154,7 @@
 % \iffalse
 %<*mu/fsps>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/mu/fsps/fithesis-english.def}[2015/06/26]
+\ProvidesFile{fithesis/locale/mu/fsps/fithesis-english.def}[2017/06/02]
 
 % Placeholders
 \gdef\thesis@english@facultyName{Faculty of Sports Studies}
@@ -180,14 +190,38 @@
 % \fi\file{locale/mu/econ/fithesis-english.def}
 % This is the English locale file specific to the Faculty of
 % Economics and Administration at the Masaryk University in Brno.
-% It replaces the \texttt{facultyName} placeholder with the
-% correct value.
+% It replaces the \texttt{facultyName} and \texttt{abstractTitle}
+% placeholders with the correct value. The locale file also defines
+% the private macros required by the
+% |\thesis@blocks@|\discretionary{}{}{}|bibEntry| block defined
+% within the \texttt{style/mu/fithesis-econ.sty} style file.
 % \iffalse
 %<*mu/econ>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/mu/econ/fithesis-english.def}[2015/06/26]
+\ProvidesFile{fithesis/locale/mu/econ/fithesis-english.def}[2017/06/02]
+
+% Placeholders
 \gdef\thesis@english@facultyName{Faculty of Economics
   and Administration}
+
+% Bibliographic entry
+%    \end{macrocode}
+% \changes{v0.3.46}{2017/06/02}{Defined strings required by
+%   \cs{thesis@blocks@bibEntry} from
+%   \texttt{style/mu/fithesis-econ.sty} in
+%   \texttt{locale/mu/econ/*.def}. [VN]}
+%    \begin{macrocode}
+\gdef\thesis@english@bib@department{Department}
+\gdef\thesis@english@bib@year{Year of Defense}
+
+% Miscellaneous
+%    \end{macrocode}
+% \changes{v0.3.46}{2017/06/02}{Updated the
+%   \cs{abstractTitle} string in \texttt{locale/mu/econ/*.def} in
+%   accordance with the 2/2017 dean's directive. The patch was
+%   submitted by Jana Ratajská. [VN]}
+%    \begin{macrocode}
+\gdef\thesis@english@abstractTitle{Annotation}
 %    \end{macrocode}\iffalse
 %</mu/econ>
 % \fi\file{locale/mu/med/fithesis-english.def}
@@ -205,11 +239,11 @@
 % \fi\begin{macrocode}
 \ProvidesFile{fithesis/locale/mu/med/fithesis-english.def}[2016/03/23]
 
-% Miscellaneous
-\gdef\thesis@english@abstractTitle{Annotation}
-
 % Placeholders
 \gdef\thesis@english@facultyName{Faculty of Medicine}
+
+% Miscellaneous
+\gdef\thesis@english@abstractTitle{Annotation}
 %    \end{macrocode}\iffalse
 %</mu/med>
 % \fi\file{locale/mu/fi/fithesis-english.def}
@@ -300,7 +334,7 @@
 % \iffalse
 %<*mu/sci>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/mu/sci/fithesis-english.def}[2016/03/23]
+\ProvidesFile{fithesis/locale/mu/sci/fithesis-english.def}[2017/06/02]
 
 % Placeholders
 \gdef\thesis@english@facultyName{Faculty of Science}
@@ -309,11 +343,8 @@
 \global\let\thesis@english@advisorTitleEn=\thesis@english@bib@advisor
 
 % Bibliographic entry
-\global\let\thesis@english@bib@author\thesis@english@authorTitle
-\gdef\thesis@english@bib@thesisTitle{Title of Thesis}
 \gdef\thesis@english@bib@programme{Degree Programme}
 \global\let\thesis@english@bib@field\thesis@english@fieldTitle
-\gdef\thesis@english@bib@advisor{Supervisor}
 \gdef\thesis@english@bib@academicYear{Academic Year}
 \gdef\thesis@english@bib@pages{Number of Pages}
 \global\let\thesis@english@bib@keywords\thesis@english@keywordsTitle
