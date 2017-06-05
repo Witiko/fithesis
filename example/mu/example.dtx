@@ -412,6 +412,11 @@
   commentstyle    = \itshape\color{magenta}}
 \usepackage{floatrow} %% Putting captions above tables
 \floatsetup[table]{capposition=top}
+%<*econ>
+\usepackage{chngcntr}
+\counterwithout{table}{chapter}  % Flat numbering of tables.
+\counterwithout{figure}{chapter} % Flat numbering of figures.
+%</econ>
 \begin{document}
 %<*econ>
 \makeatletter
