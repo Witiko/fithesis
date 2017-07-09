@@ -2,7 +2,7 @@
 % This is the base file of the Slovak locale.\iffalse
 %<*base>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/fithesis-slovak.def}[2017/05/15]
+\ProvidesFile{fithesis/locale/fithesis-slovak.def}[2017/07/09]
 %    \end{macrocode}
 % The locale file defines all the private macros mandated by the
 % locale file interface.
@@ -25,14 +25,15 @@
 % Zástupné texty
 \gdef\thesis@slovak@universityName{Názov univerzity}
 \gdef\thesis@slovak@facultyName{Názov fakulty}
+%    \end{macrocode}
+% \changes{v0.3.47}{2017/07/09}{Moved the \cs{ifthesis@digital}
+%   tests from \texttt{locale/*.def} to \texttt{locale/mu/*.def},
+%   since \cs{ifthesis@digital} is undefined in
+%   \texttt{fithesis3.cls}. [VN]}
+%    \begin{macrocode}
 \gdef\thesis@slovak@assignment{%
-  \ifthesis@digital@
-    Na tomto mieste sa v~tlačenej práci nachádza oficiálne
-    podpísané zadanie práce.
-  \else
-    Namiesto tejto stránky vložte kópiu oficiálneho podpísaného
-    zadania práce.
-  \fi}
+  Na tomto mieste sa v~tlačenej práci nachádza oficiálne
+  podpísané zadanie práce.}
 \gdef\thesis@slovak@declaration{Text vyhlásenie ...}
 
 % Časové údaje
@@ -137,7 +138,7 @@
 % \iffalse
 %<*mu>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/mu/fithesis-slovak.def}[2017/06/02]
+\ProvidesFile{fithesis/locale/mu/fithesis-slovak.def}[2017/07/09]
 
 % Zástupné texty
 \gdef\thesis@slovak@universityName{Masarykova univerzita}
@@ -146,6 +147,20 @@
   slovak@typeName@akuzativ} vypracoval%
   \thesis@slovak@gender@koncovka\ samostatne len s~použitím
   uvedenej literatúry a prameňov.}
+%    \end{macrocode}
+% \changes{v0.3.47}{2017/07/09}{Moved the \cs{ifthesis@digital}
+%   tests from \texttt{locale/*.def} to \texttt{locale/mu/*.def},
+%   since \cs{ifthesis@digital} is undefined in
+%   \texttt{fithesis3.cls}. [VN]}
+%    \begin{macrocode}
+\gdef\thesis@slovak@assignment{%
+  \ifthesis@digital@
+    Na tomto mieste sa v~tlačenej práci nachádza oficiálne
+    podpísané zadanie práce.
+  \else
+    Namiesto tejto stránky vložte kópiu oficiálneho podpísaného
+    zadania práce.
+  \fi}
 
 % Bibliografický záznam
 \gdef\thesis@slovak@bib@title{Bibliografický záznam}

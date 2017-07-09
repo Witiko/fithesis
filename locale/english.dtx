@@ -2,7 +2,7 @@
 % This is the base file of the English locale.\iffalse
 %<*base>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/fithesis-english.def}[2017/05/15]
+\ProvidesFile{fithesis/locale/fithesis-english.def}[2017/07/09]
 %    \end{macrocode}
 % The locale file defines all the private macros mandated by the
 % locale file interface.
@@ -11,14 +11,15 @@
 % Placeholders
 \gdef\thesis@english@universityName{University name}
 \gdef\thesis@english@facultyName{Faculty name}
+%    \end{macrocode}
+% \changes{v0.3.47}{2017/07/09}{Moved the \cs{ifthesis@digital}
+%   tests from \texttt{locale/*.def} to \texttt{locale/mu/*.def},
+%   since \cs{ifthesis@digital} is undefined in
+%   \texttt{fithesis3.cls}. [VN]}
+%    \begin{macrocode}
 \gdef\thesis@english@assignment{%
-  \ifthesis@digital@
-    This is where a copy of the official signed thesis assignment
-    is located in the printed version of the document.
-  \else
-    Replace this page with a copy of the official signed thesis
-    assignment.
-  \fi}
+  This is where a copy of the official signed thesis assignment
+  is located in the printed version of the document.}
 \gdef\thesis@english@declaration{Declaration text ...}
 
 % Csquotes style
@@ -104,13 +105,29 @@
 % \iffalse
 %<*mu>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/mu/fithesis-english.def}[2017/06/02]
+\ProvidesFile{fithesis/locale/mu/fithesis-english.def}[2017/07/09]
 \gdef\thesis@english@universityName{Masaryk University}
 \gdef\thesis@english@declaration{%
   Hereby I declare that this paper is my original authorial work,
   which I have worked out on my own. All sources, references, and
   literature used or excerpted during elaboration of this work are
   properly cited and listed in complete reference to the due source.}
+
+% Placeholders
+%    \end{macrocode}
+% \changes{v0.3.47}{2017/07/09}{Moved the \cs{ifthesis@digital}
+%   tests from \texttt{locale/*.def} to \texttt{locale/mu/*.def},
+%   since \cs{ifthesis@digital} is undefined in
+%   \texttt{fithesis3.cls}. [VN]}
+%    \begin{macrocode}
+\gdef\thesis@english@assignment{%
+  \ifthesis@digital@
+    This is where a copy of the official signed thesis assignment
+    is located in the printed version of the document.
+  \else
+    Replace this page with a copy of the official signed thesis
+    assignment.
+  \fi}
 
 % Bibliographic entry
 \gdef\thesis@english@bib@title{Bibliographic record}
