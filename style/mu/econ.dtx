@@ -10,7 +10,7 @@
 % 9928/SmerniceDekana2017-c.2-o_zaverecnych_pracich_2017.pdf}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fithesis/style/mu/fithesis-econ}[2017/05/21]
+\ProvidesPackage{fithesis/style/mu/fithesis-econ}[2017/08/09]
 %    \end{macrocode}
 % The file defines the color scheme of the respective faculty. Note
 % the the color definitions are in RGB, which makes the resulting
@@ -47,6 +47,16 @@
 \thesis@require{geometry}
 \thesis@require{array}
 \geometry{top=25mm,bottom=20mm,left=25mm,right=25mm,includeheadfoot}
+%    \end{macrocode}
+% \changes{v0.3.47}{2017/07/09}{Enabled the inclusion of the
+%   scanned assignment inside the digital version of the document
+%   in \texttt{style/mu/fithesis-econ.sty} in accordance with the
+%   example documents. The patch was submitted by Jana Ratajská.
+%   [VN]}
+% Enable the inclusion of the scanned assignment inside the digital
+% version of the document.
+%    \begin{macrocode}
+\thesis@blocks@assignment@hideIfDigital@false
 %    \end{macrocode}
 % \begin{macro}{\thesis@blocks@cover}
 % The |\thesis@blocks@cover| macro typesets the thesis
