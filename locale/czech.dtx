@@ -152,14 +152,23 @@
 %   tests from \texttt{locale/*.def} to \texttt{locale/mu/*.def},
 %   since \cs{ifthesis@digital} is undefined in
 %   \texttt{fithesis3.cls}. [VN]}
+% \changes{v0.3.47}{2017/07/09}{Added an
+% \cs{ifthesis@blocks@assignment@hideIfDigital@} test to the
+% definition of the \texttt{assignment} string for the Masaryk
+% University in Brno. [VN]}
 %    \begin{macrocode}
 \gdef\thesis@czech@assignment{%
-  \ifthesis@digital@
-    Na tomto místě se v~tištěné práci nachází oficiální podepsané
-    zadání práce.
+  \ifthesis@blocks@assignment@hideIfDigital@
+    \ifthesis@digital@
+      Na tomto místě se v~tištěné práci nachází oficiální podepsané
+      zadání práce.
+    \else
+      Místo tohoto listu vložte kopii oficiálního podepsaného zadání
+      práce.
+    \fi
   \else
-    Místo tohoto listu vložte kopii oficiálního podepsaného zadání
-    práce.
+    Nastavte pomocí klíče <<assignment>> název PDF souboru
+    s~oficiálním podepsaným zadáním práce.
   \fi}
 
 % Bibliografický záznam

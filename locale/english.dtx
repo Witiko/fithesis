@@ -122,11 +122,30 @@
 %    \begin{macrocode}
 \gdef\thesis@english@assignment{%
   \ifthesis@digital@
-    This is where a copy of the official signed thesis assignment
-    is located in the printed version of the document.
   \else
-    Replace this page with a copy of the official signed thesis
-    assignment.
+  \fi}
+%    \end{macrocode}
+% \changes{v0.3.47}{2017/07/09}{Moved the \cs{ifthesis@digital}
+%   tests from \texttt{locale/*.def} to \texttt{locale/mu/*.def},
+%   since \cs{ifthesis@digital} is undefined in
+%   \texttt{fithesis3.cls}. [VN]}
+% \changes{v0.3.47}{2017/07/09}{Added an
+% \cs{ifthesis@blocks@assignment@hideIfDigital@} test to the
+% definition of the \texttt{assignment} string for the Masaryk
+% University in Brno. [VN]}
+%    \begin{macrocode}
+\gdef\thesis@english@assignment{%
+  \ifthesis@blocks@assignment@hideIfDigital@
+    \ifthesis@digital@
+      This is where a copy of the official signed thesis assignment
+      is located in the printed version of the document.
+    \else
+      Replace this page with a copy of the official signed thesis
+      assignment.
+    \fi
+  \else
+    Set the PDF document containing the official signed thesis
+    assignment using the <<assignment>> key.
   \fi}
 
 % Bibliographic entry
