@@ -272,7 +272,7 @@
 % \iffalse
 %<*mu/econ>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/mu/econ/fithesis-czech.def}[2017/06/02]
+\ProvidesFile{fithesis/locale/mu/econ/fithesis-czech.def}[2017/07/09]
 
 % Zástupné texty
 \gdef\thesis@czech@facultyName{Ekonomicko-správní fakulta}
@@ -300,6 +300,9 @@
 % \changes{v0.3.46}{2017/06/02}{Updated the \cs{declaration} string
 %   in \texttt{locale/mu/econ/*.def} in accordance with the 2/2017
 %   dean's directive. [VN]}
+% \changes{v0.3.47}{2017/07/09}{Updated the \cs{declaration} string
+%   in \texttt{locale/mu/econ/*.def} in accordance with the 2/2017
+%   dean's directive. [VN]}
 % The following extra data field is defined for
 % \texttt{declaration} string: \begin{itemize}
 %   \item|advisorCsGenitiv| -- the advisor's name in
@@ -308,7 +311,7 @@
 %    \begin{macrocode}
 \thesis@def@extra{advisorCsGenitiv}
 \gdef\thesis@czech@declaration{Prohlašuji, že jsem
-  \thesis@lower{czech@typeName@akuzativ} zpracoval%
+  \thesis@lower{czech@typeName@akuzativ} \thesis@title{} zpracoval%
   \thesis@czech@gender@koncovka\ samostatně pod vedením
   \thesis@extra@advisorCsGenitiv\ 
   a~uvedl\thesis@czech@gender@koncovka\ v~ní všechny
