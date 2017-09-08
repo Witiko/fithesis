@@ -2,7 +2,7 @@
 % This is the base file of the English locale.\iffalse
 %<*base>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/fithesis-english.def}[2017/07/09]
+\ProvidesFile{fithesis/locale/fithesis-english.def}[2017/09/08]
 %    \end{macrocode}
 % The locale file defines all the private macros mandated by the
 % locale file interface.
@@ -70,7 +70,11 @@
 \gdef\thesis@english@authorTitle{Author}
 \gdef\thesis@english@abstractTitle{Abstract}
 \gdef\thesis@english@keywordsTitle{Keywords}
-\gdef\thesis@english@thanksTitle{Acknowledgement}
+%    \end{macrocode}
+% \changes{v0.3.48}{2017/09/08}{Changed
+%   \cs{thesis@english@thanksTitle} to plural. [VN]}
+%    \begin{macrocode}
+\gdef\thesis@english@thanksTitle{Acknowledgements}
 \gdef\thesis@english@declarationTitle{Declaration}
 \gdef\thesis@english@idTitle{ID}
 \gdef\thesis@english@typeName@sempaper{Seminar Paper}
