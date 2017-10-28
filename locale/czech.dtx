@@ -456,11 +456,22 @@
 % \iffalse
 %<*mu/ped>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/mu/ped/fithesis-czech.def}[2016/03/22]
+\ProvidesFile{fithesis/locale/mu/ped/fithesis-czech.def}[2017/10/28]
 
 % Zástupné texty
 \gdef\thesis@czech@facultyName{Pedagogická fakulta}
 %    \end{macrocode}\iffalse
+% Ostatní
+\gdef\thesis@czech@abstractTitle{Abstrakt}
+\gdef\thesis@czech@declaration{%
+  Prohlašuji, že jsem \thesis@lower{czech@typeName@%
+  akuzativ} vypracoval\thesis@czech@gender@koncovka\ samostatně,
+  s~využitím pouze citovaných pramenů, dalších informací a zdrojů
+  v~souladu s~Disciplinárním řádem pro studenty Pedagogické fakulty
+  Masarykovy univerzity a se zákonem č.\ 121/2000 Sb., o~právu
+  autorském, o~právech souvisejících s~právem autorským a o~změně
+  některých zákonů (autorský zákon), ve znění pozdějších předpisů.}
+
 %</mu/ped>
 % \fi\file{locale/mu/sci/fithesis-czech.def}
 % This is the Czech locale file specific to the Faculty of Science
@@ -475,7 +486,7 @@
 % \iffalse
 %<*mu/sci>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/mu/sci/fithesis-czech.def}[2017/10/28]
+\ProvidesFile{fithesis/locale/mu/sci/fithesis-czech.def}[2017/06/02]
 
 % Zástupné texty
 \gdef\thesis@czech@facultyName{Přírodovědecká fakulta}
@@ -483,13 +494,10 @@
 % Ostatní
 \gdef\thesis@czech@abstractTitle{Abstrakt}
 \gdef\thesis@czech@declaration{%
-  Prohlašuji, že jsem \thesis@lower{czech@typeName@%
-  akuzativ} vypracoval\thesis@czech@gender@koncovka\ samostatně,
-  s~využitím pouze citovaných pramenů, dalších informací a zdrojů
-  v~souladu s~Disciplinárním řádem pro studenty Pedagogické fakulty
-  Masarykovy univerzity a se zákonem č.\ 121/2000 Sb., o~právu
-  autorském, o~právech souvisejících s~právem autorským a o~změně
-  některých zákonů (autorský zákon), ve znění pozdějších předpisů.}
+  Prohlašuji, že jsem svoji \thesis@lower{czech@typeName@%
+  akuzativ} vypracoval\thesis@czech@gender@koncovka\ samo%
+  statně s~využitím informačních zdrojů, které jsou v~práci
+  citovány.}
 
 % Bibliografický záznam
 \gdef\thesis@czech@bib@programme{Studijní program}
