@@ -6,7 +6,7 @@
 % auth/do/fsps/studijni/info-stud/SZZ/pokyny_ZP_13-5-2013.pdf}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fithesis/style/mu/fithesis-fsps}[2017/05/21]
+\ProvidesPackage{fithesis/style/mu/fithesis-fsps}[2018/02/11]
 %    \end{macrocode}
 % The file defines the color scheme of the respective faculty. Note
 % the the color definitions are in RGB, which makes the resulting
@@ -66,6 +66,10 @@
       max(\@A,\@B)}
     \let\@right\relax\newlength{\@right}\pgfmathsetlength{\@right}{%
       max(\@C,\@F)}
+%    \end{macrocode}
+% \changes{v0.3.49}{2018/02/11}{Removed an extraneous vskip in the style files
+%   for the Masaryk University in Brno. [VN]}
+% \begin{macrocode}
     % Typeset the thesis author and advisor boxes
     \vskip 2in\begin{minipage}[t]{\@left}
       {\bf\thesis@@{advisorTitle}:}\\\thesis@advisor
