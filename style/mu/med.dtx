@@ -92,11 +92,11 @@
     \let\@right\relax\newlength{\@right}\pgfmathsetlength{\@right}{%
       max(\@C,\@D,\@E,\@F)}
 %    \end{macrocode}
-% \changes{v0.3.49}{2018/02/11}{Removed an extraneous vskip in the style files
-%   for the Masaryk University in Brno. [VN]}
+% \changes{v0.3.49}{2018/02/11}{Removed an extraneous \cs{vskip} in
+%   the style files for the Masaryk University in Brno. [VN]}
 % \begin{macrocode}
     % Typeset the thesis author and advisor boxes
-    \vskip 2in\begin{minipage}[t]{\@left}
+    \begin{minipage}[t]{\@left}
       {\bf\thesis@@{advisorTitle}:}\\\thesis@advisor
     \end{minipage}\hfill\begin{minipage}[t]{\@right}
       {\bf\thesis@@{authorTitle}:}\\\thesis@author
