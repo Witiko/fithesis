@@ -56,7 +56,7 @@
   \gdef\thesis@version@number{#1}
   \gdef\thesis@version@date{#2}
   \gdef\thesis@version{#2 #1 fithesis3 MU thesis class}}
-\thesis@versiondef{v0.3.49}{2018/02/11}}
+\thesis@versiondef{v0.3.50}{2018/03/25}}
 % {\newwrite\f\openout\f=VERSION\write\f{\thesis@version}\closeout\f}
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1342,10 +1342,12 @@
 % group, the |\thesis@postamble| macro defines the
 % \cs{thesis@pages@postamble} macro, writes the definition to the
 % auxiliary file, and  clears the page.
+% \changes{v0.3.50}{2018/03/25}{Make writes immediate, so that they
+%   do not get lost when they occur at an empty page. [VN]}
 %    \begin{macrocode}
 \def\thesis@postamble{%
   \gdef\thesis@pages@postamble{\thepage}
-  \write\@auxout{\noexpand\gdef\noexpand
+  \immediate\write\@auxout{\noexpand\gdef\noexpand
     \thesis@pages@postamble{\thepage}}
   {\thesis@selectLocale{\thesis@locale}%
   \thesis@blocks@postamble}}
@@ -1597,15 +1599,19 @@
 % beginning and at the end of the document, respectively. The
 % definition of the |\thesis@pages| macro is also scheduled to be
 % written to the auxiliary file at the end of the document.
+% \changes{v0.3.50}{2018/03/25}{Make writes immediate, so that they
+%   do not get lost when they occur at an empty page. [VN]}
 %    \begin{macrocode}
       \ifthesis@auto
         \AtBeginDocument{\thesis@preamble}
         \AtEndDocument{%
           \thesis@postamble
-          \write\@auxout{\noexpand\gdef\noexpand\thesis@pages{\thepage}}}
+          \immediate\write\@auxout{%
+            \noexpand\gdef\noexpand\thesis@pages{\thepage}}}
       \else
         \AtEndDocument{%
-          \write\@auxout{\noexpand\gdef\noexpand\thesis@pages{\thepage}}}
+          \immediate\write\@auxout{%
+            \noexpand\gdef\noexpand\thesis@pages{\thepage}}}
       \fi
     \makeatother
   \fi}
