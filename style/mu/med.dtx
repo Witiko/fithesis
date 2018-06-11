@@ -112,11 +112,9 @@
 % \begin{macrocode}
 \def\thesis@blocks@frontMatter{%
   \thesis@blocks@clear
-  % In case of double-sided typesetting, change the geometry
-  \ifthesis@twoside@
-    \newgeometry{top=25mm,bottom=20mm,left=35mm,
-      right=15mm, includeheadfoot}
-  \fi\pagestyle{empty}
+  \newgeometry{top=25mm,bottom=20mm,left=35mm,
+    right=15mm, includeheadfoot}
+  \pagestyle{empty}
   \parindent 1.5em
   \setcounter{page}{1}
   \pagenumbering{roman}}
@@ -128,11 +126,9 @@
 % \begin{macrocode}
 \def\thesis@blocks@mainMatter{%
   \thesis@blocks@clear
-  % In case of double-sided typesetting, change the geometry
-  \ifthesis@twoside@
-    \newgeometry{top=25mm,bottom=20mm,left=35mm,
-      right=15mm, includeheadfoot}
-  \fi\setcounter{page}{1}
+  \newgeometry{top=25mm,bottom=20mm,left=35mm,
+    right=15mm, includeheadfoot}
+  \setcounter{page}{1}
   \pagenumbering{arabic}
   \pagestyle{thesisheadings}
   \parindent 1.5em
