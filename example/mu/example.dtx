@@ -131,7 +131,7 @@
     %% Uncomment the following line (by removing the % symbol at
     %% the beginning) and replace `assignment.pdf` with the
     %% filename of your scanned thesis assignment.
-    % assignment    = assignment.pdf,
+    % assignment         = assignment.pdf,
     %% The following keys are only useful, when you're using a
     %% locale other than English. You can safely omit them in an
     %% English thesis.
@@ -147,24 +147,34 @@
 %</econ>
 %<*fi>
 \thesissetup{
-    date          = \the\year/\the\month/\the\day,
-    university    = mu,
-    faculty       = fi,
-    type          = bc,
-    author        = Jane Doe,
-    gender        = f,
-    advisor       = John Smith,
-    title         = {The Proof of P = NP},
-    TeXtitle      = {The Proof of $\mathsf{P}=\mathsf{NP}$},
-    keywords      = {keyword1, keyword2, ...},
-    TeXkeywords   = {keyword1, keyword2, \ldots},
-    abstract      = {This is the abstract of my thesis, which can
+    date            = \the\year/\the\month/\the\day,
+    university      = mu,
+    faculty         = fi,
+    type            = bc,
+    author          = Jane Doe,
+    gender          = f,
+    advisor         = John Smith,
+    title           = {The Proof of P = NP},
+    TeXtitle        = {The Proof of $\mathsf{P}=\mathsf{NP}$},
+    keywords        = {keyword1, keyword2, ...},
+    TeXkeywords     = {keyword1, keyword2, \ldots},
+    abstract        = {This is the abstract of my thesis, which can
 
                      span multiple paragraphs.},
-    thanks        = {These are the acknowledgements for my thesis, which can
+    thanks          = {These are the acknowledgements for my thesis,
+                       which can
 
-                     span multiple paragraphs.},
-    bib           = example.bib,
+                       span multiple paragraphs.},
+    bib             = example.bib,
+    %% Uncomment the following lines (by removing the % symbol at
+    %% the beginning) to use numeric (Vancouver) citations (i.e.
+    %% [1]) instead of alphabetic citations (i.e. [Doe04]).
+    % extra           = {
+    %   bibliography  = {
+    %     style       = iso-numeric,
+    %     sorting     = none,
+    %   }
+    % },
 }
 %</fi>
 %<*fsps>
