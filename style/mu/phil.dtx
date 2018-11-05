@@ -55,21 +55,18 @@
 \fi
 %    \end{macrocode}
 % \begin{macro}{\thesis@blocks@titlePage}
-% In the case of a KISK thesis, the style file redefines the cover
-% and title page footers to include the thesis advisor's name.
+% The style file redefines the cover and title page footers to include the
+% thesis advisor's name.
+% \changes{v0.3.51}  {2018/11/05}{Always typeset the name of the advisor
+%   on the title page for the Faculty of Arts at the Masaryk University
+%   in Brno, Czech Republic. [VN]}
 % \begin{macrocode}
-\ifx\thesis@department\thesis@departments@kisk
-  \def\thesis@blocks@titlePage@content{%
-    {\thesis@titlePage@Huge\bf\thesis@TeXtitle\par\vfil}\vskip 0.8in
-    {\thesis@titlePage@large\sc\thesis@@{typeName}\\[0.3in]}
-    {\thesis@titlePage@Large\bf\thesis@author}
-    % If this is a KISK thesis, typeset the name of the thesis
-    % advisor.
-    \ifx\thesis@department\thesis@departments@kisk
-      {\thesis@titlePage@large\\[0.3in]
-        {\bf\thesis@@{advisorTitle}:} \thesis@advisor}
-    \fi}%
-\fi
+\def\thesis@blocks@titlePage@content{%
+  {\thesis@titlePage@Huge\bf\thesis@TeXtitle\par\vfil}\vskip 0.8in
+  {\thesis@titlePage@large\sc\thesis@@{typeName}\\[0.3in]}
+  {\thesis@titlePage@Large\bf\thesis@author}
+  {\thesis@titlePage@large\\[0.3in]
+    {\bf\thesis@@{advisorTitle}:} \thesis@advisor}}
 %    \end{macrocode}
 % \end{macro}
 % Note that there is no direct support for the seminar paper and
