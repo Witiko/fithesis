@@ -3,7 +3,8 @@
 % Law at the Masaryk University in Brno. It has been prepared in
 % accordance with the formal requirements published at the
 % website of the faculty\footnote{See \url{http://is.muni.cz/d^^A
-% o/law/ud/predp/smer/S-07-2012.pdf}}.
+% o/law/ud/predp/smer/S-07-2012.pdf}, and \url{https://is.muni^^A
+% .cz/do/law/ud/predp/smer/S-04-2013_O_citacich_dokumentu.pdf}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{fithesis/style/mu/fithesis-law}[2017/05/21]
@@ -25,6 +26,12 @@
   style=iso-authoryear,
   sorting=nyt}
 \thesis@bibliography@load
+%    \end{macrocode}
+% Each footnote is uniquely numbered across the entire document as
+% per the formal requirements of the faculty.
+%    \begin{macrocode}
+\thesis@require{chngcntr}
+\counterwithout{footnote}{chapter}
 %    \end{macrocode}
 % The style file configures the cover and title page headers to
 % include only the faculty name and the department name.
