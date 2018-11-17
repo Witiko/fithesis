@@ -1,5 +1,5 @@
 %    \begin{macrocode}
-\documentclass[digital,nocover,nolot]{fithesis3}
+\documentclass[digital,nocover,nolot]{fithesis4}
 \usepackage[english]{babel}
 \usepackage{hologo}
 \usepackage{fancyvrb}
@@ -8,13 +8,13 @@
 \usepackage{tabularx}
 \makeatletter
 \thesissetup{
-  title=A fithesis3 user guide for the \thesis@english@facultyName,
-  TeXtitle=A \textit{fithesis3} user guide\medskip\\\Large for the
+  title=A fithesis4 user guide for the \thesis@english@facultyName,
+  TeXtitle=A \textit{fithesis4} user guide\medskip\\\Large for the
     \thesis@english@facultyName,
   extra={
-    titleCs=Příručka šablony fithesis3 pro
+    titleCs=Příručka šablony fithesis4 pro
       Přírodovědeckou fakultu,
-    TeXtitleCs=Příručka šablony \textit{fithesis3}\medskip\\ pro
+    TeXtitleCs=Příručka šablony \textit{fithesis4}\medskip\\ pro
       Přírodovědeckou fakultu,
   },
   type=bc,
@@ -46,26 +46,26 @@
     TeXkeywordsCs={závěrečné práce, sazba, \LaTeX{}},
   },
   abstract={%
-    \textsf{Fithesis3} is a \LaTeX{} document class, which
+    \textsf{Fithesis4} is a \LaTeX{} document class, which
     streamlines the typesetting of the mandatory parts of theses, so
-    that the author can focus at content alone. \textsf{Fithesis3}
+    that the author can focus at content alone. \textsf{Fithesis4}
     can be used to write theses in various languages across the
     faculties of the \thesis@english@universityName.
 
     This document describes the installation of the
-    \textsf{fithesis3} class, its configuration and its use at the
+    \textsf{fithesis4} class, its configuration and its use at the
     \thesis@english@facultyName. As a demonstration of its
     capabilities, this document was typeset using the
-    \textsf{fithesis3} class.},
+    \textsf{fithesis4} class.},
   extra={
     abstractCs={
-      \textsf{Fithesis3} je šablona pro formát \LaTeX{}, která
+      \textsf{Fithesis4} je šablona pro formát \LaTeX{}, která
       usnadňuje přípravu povinných částí závěrečných prací, aby se
-      autor mohl soustředit pouze na obsah. \textsf{Fithesis3} lze
+      autor mohl soustředit pouze na obsah. \textsf{Fithesis4} lze
       použít pro přípravu závěrečných prací v různých jazycích
       napříč fakultami Masarykovy Univerzity.
 
-      Dokument popisuje instalaci šablony \textsf{fithesis3}, její
+      Dokument popisuje instalaci šablony \textsf{fithesis4}, její
       konfiguraci a použití na Přírodovědecké fakultě. Pomocí
       šablony byl připraven i tento dokument.
     },
@@ -80,9 +80,9 @@
 \begin{document}
   \makeatletter\thesis@preamble\makeatother
   \chapter{Introduction}
-  To use the \textsf{fithesis3} class, you can use an online
+  To use the \textsf{fithesis4} class, you can use an online
   \LaTeX{} editor, such as Overleaf,%
-  \footnote{Overleaf \textsf{fithesis3}
+  \footnote{Overleaf \textsf{fithesis4}
 %<*sci>
     and \textsf{sci.muni.thesis}
 %</sci>
@@ -91,7 +91,7 @@
   which allows you to skip the installation described in Section
   \ref{sec:install} completely.
 %<*sci>
-  Beside \textsf{fithesis3}, the \textsf{sci.muni.thesis} \LaTeX\
+  Beside \textsf{fithesis4}, the \textsf{sci.muni.thesis} \LaTeX\
   package, as well as templates for common word processors, can
   likewise be used for the preparation of theses at the
   \makeatletter\thesis@english@facultyName\makeatother.\footnote{%
@@ -182,7 +182,7 @@
   installs a Perl interpreter by default.
 
   \subsection{Installing packages}\label{sec:req-packages}
-  In order to function properly, \textsf{fithesis3} needs the
+  In order to function properly, \textsf{fithesis4} needs the
   following packages packages to be installed in your \TeX\
   distribution: \textsf{keyval}, \textsf{etoolbox},
   \textsf{ifxetex}, \textsf{ifluatex}, \textsf{inputenc},
@@ -262,7 +262,7 @@
   resolve these dependencies manually by inspecting the
   documentation of each package.}
   
-  If you wish to use a newer version of \textsf{fithesis3} than the
+  If you wish to use a newer version of \textsf{fithesis4} than the
   one that is available in your \TeX\ distribution, you should
   download a file named \texttt{fithesis.tds.zip} containing the
   version of the package you wish to use and place it in a root
@@ -283,14 +283,14 @@
 
   \section{Picking a \TeX\ engine}
   There are several programs, called \TeX\ engines, that you can
-  use to typeset \textsf{fithesis3} \LaTeX{} source files into
+  use to typeset \textsf{fithesis4} \LaTeX{} source files into
   displayable \textsc{pdf} documents. The ones we will discuss are
   \hologo{pdfTeX} and \Hologo{LuaTeX}.
   
   \Hologo{pdfTeX} is the more conservative choice and most \TeX\
   editors use \hologo{pdfTeX} as the default \TeX\ engine. The main
   advantage \Hologo{LuaTeX} over \hologo{pdfTeX} for a
-  \textsf{fithesis3} user is the ability to use standard OpenType
+  \textsf{fithesis4} user is the ability to use standard OpenType
   and TrueType fonts installed on your system, whereas
   \hologo{pdfTeX} is confined to the fonts installed in your \TeX\
   distribution.
@@ -301,12 +301,12 @@
   at \url{http://mirrors.ctan.org/macros/latex/contrib/fontspec/fontspec.pdf}.}
   should provide you with the relevant information. If you are
   only going to use the fonts present in the \TeX{} distribution or
-  if you do not intend to change the preset \textsf{fithesis3}
+  if you do not intend to change the preset \textsf{fithesis4}
   fonts at all, you can safely use \hologo{pdfTeX}, which is
   currently also considerably faster than \Hologo{LuaTeX}.
 
-  \section{Creating and typesetting a \textsf{fithesis3} document}
-  Before using the \textsf{fithesis3} class, it is useful to be
+  \section{Creating and typesetting a \textsf{fithesis4} document}
+  Before using the \textsf{fithesis4} class, it is useful to be
   familiar with the \LaTeX{} typesetting system. A good way to get
   started is to read one of the introductory texts in English
   \parencite{veryshortlatex,shortlatex,longlatex,latex} or in Czech
@@ -315,7 +315,7 @@
   courses taught at the \makeatletter\thesis@english@universityName
   \makeatother\ is also helpful.
   
-  To become familiar with \textsf{fithesis3}, you are encouraged to
+  To become familiar with \textsf{fithesis4}, you are encouraged to
   inspect the example documents \makeatletter
   \texttt{\thesis@faculty-pdflatex.pdf} and
   \texttt{\thesis@faculty-lualatex.pdf} as well as their \LaTeX{}
@@ -323,7 +323,7 @@
   and \texttt{\thesis@faculty-lualatex.tex}. The example documents
   are distributed along with the package inside the
   \texttt{example/} directory.\footnote{The example
-  \textsf{fithesis3} documents are also available online at
+  \textsf{fithesis4} documents are also available online at
   \url{http://mirror.ctan.org/macros/latex/contrib/fithesis/example/mu}
   To typeset the example documents, you need to download the
   \texttt{example.bib} file as well, as it contains the
@@ -334,7 +334,7 @@
   as the basis for your thesis.
   
   If you are using an online editor, such as Overleaf%
-  \footnote{Overleaf \textsf{fithesis3} templates are located at
+  \footnote{Overleaf \textsf{fithesis4} templates are located at
   \url{http://www.overleaf.com/gallery/tagged/muni}.}, \LaTeX{}
   source files will be typeset automatically, as you edit them. The
   \TeX{} engine can be selected inside the
@@ -383,16 +383,16 @@
 
   \chapter{Configuration}
   This chapter provides a full list of the settings that can be
-  used to set up and customize the \textsf{fithesis3} class.
+  used to set up and customize the \textsf{fithesis4} class.
 
   \section{Setting the class options}
-  At the beginning of a \textsf{fithesis3} \LaTeX{} source file,
+  At the beginning of a \textsf{fithesis4} \LaTeX{} source file,
   the command
   \begin{minted}{latex}
-\documentclass[option1, option2, ..., optionN]{fithesis3}
+\documentclass[option1, option2, ..., optionN]{fithesis4}
   \end{minted}
   is used. The following list summarizes the options that are
-  supported by the \textsf{fithesis3} class and their meaning.
+  supported by the \textsf{fithesis4} class and their meaning.
   Options that are enabled by default are
   {\makeatletter
   % This macro formats a default class option.
@@ -481,7 +481,7 @@
       This option sets the roman text font family and the
       mathematical font family to Palatino.
     \item[nopalatino]
-      This option prevents \textsf{fithesis3} from setting up the
+      This option prevents \textsf{fithesis4} from setting up the
       fonts. The user must set the fonts manually in the preamble
       of the document.
 %<*fi>
@@ -508,7 +508,7 @@
       To use Math Time and \TeX\ Gyre Termes within your thesis,
       the preamble of your document should look as follows:
       \begin{minted}{latex}
-\documentclass[nopalatino, ...]{fithesis3}
+\documentclass[nopalatino, ...]{fithesis4}
 \usepackage{cmap}
 \usepackage[T1]{fontenc}
 \usepackage{tgtermes}
@@ -540,7 +540,7 @@
       } which results in visually more pleasing paragraphs of
       text.
     \item[nomicrotype]
-      This option prevents \textsf{fithesis3} from setting up
+      This option prevents \textsf{fithesis4} from setting up
       microtypographic extensions.
     \item[table]
       This option redefines some of the \LaTeX{} table environments
@@ -594,7 +594,7 @@
 }
   \end{minted}
   into the preamble of your thesis. The following list summarizes
-  the keys and values that are recognized by the \textsf{fithesis3}
+  the keys and values that are recognized by the \textsf{fithesis4}
   class and are meaningful for the \makeatletter
   \thesis@english@facultyName\makeatother.
 
@@ -747,7 +747,7 @@
         \texttt{path/to/first/file.bib, path/to/second/file.bib,}
         \ldots
       \end{center}
-      When this key is specified, the \textsf{fithesis3} class will
+      When this key is specified, the \textsf{fithesis4} class will
       automatically typeset a bibliography section.\footnote{
         The bibliography will be typeset according to the
         \textsc{ISO} 690:2010 standard using the
@@ -797,7 +797,7 @@
 }
   \end{minted}
   into the preamble of your thesis. The following list summarizes
-  the keys and values that are recognized by the \textsf{fithesis3}
+  the keys and values that are recognized by the \textsf{fithesis4}
   class and are meaningful for the \makeatletter
   \thesis@english@facultyName\makeatother.
   \begin{description}
@@ -853,31 +853,31 @@
   \end{description}
 %</sci,econ>
   The complete list of metadata keys can be found in Section 2.2 of
-  the technical documentation of the \textsf{fithesis3} class
-  \cite{novotny15}.}
+  the technical documentation of the \textsf{fithesis4} class
+  \cite{novotny19}.}
 
   \chapter{Advanced usage}
   This chapter contains a couple of tips for the advanced user, who
   may wand to configure the class beyond what the class options and
   the metadata settings offer. An understanding of how the main
-  routine of \textsf{fithesis3} works is beneficial. The main
+  routine of \textsf{fithesis4} works is beneficial. The main
   routine is documented in Section 2.4 of the technical
-  documentation of the \textsf{fithesis3} class \cite{novotny15}.
+  documentation of the \textsf{fithesis4} class \cite{novotny19}.
 
   \section{Throubleshooting option clashes}
   If you need to load a \texttt{package} with a specific set of
   \texttt{options} and the package happens to be required by the
-  \textsf{fithesis3} class, as specified in Section
+  \textsf{fithesis4} class, as specified in Section
   \ref{sec:req-packages}, you may experience an option clash error.
   If this error occurs, prepend
   \mintinline{latex}{\PassOptionsToPackage{options}{package}} before the
-  \mintinline{latex}{\documentclass[...]{fithesis3}} command. If you need to
+  \mintinline{latex}{\documentclass[...]{fithesis4}} command. If you need to
   configure the package, you can do that anywhere after the document preamble.
   If the package needs to be configured within the preamble, you can load the
-  \textsf{fithesis3} style files prematurely using the
+  \textsf{fithesis4} style files prematurely using the
   \mintinline{latex}{\thesisload} command as follows:
   \begin{minted}{latex}
-\documentclass[...]{fithesis3}
+\documentclass[...]{fithesis4}
 %% The preamble
 \thesisload
 %% Here goes the package configuration.
@@ -886,13 +886,13 @@
 \end{document}
   \end{minted}
   Note that only a small portion of the packages loaded by
-  \textsf{fithesis3} is loaded with a specific set of options. The
+  \textsf{fithesis4} is loaded with a specific set of options. The
   rest of the packages is \emph{lazy-loaded} (loaded only if the
   user hasn't already loaded them), in which case no clash is
   possible.
 
   \section{Overriding changes made by style and locale files}
-  The \textsf{fithesis3} style files are loaded immediately before
+  The \textsf{fithesis4} style files are loaded immediately before
   the beginning of your document and may change values you would
   like to set by yourself, such as the \LaTeX\ \texttt{tocdepth}
   and \texttt{secnumdepth} counters. Locale files are also loaded
@@ -904,7 +904,7 @@
   files prematurely using the \mintinline{latex}{\thesisload} command
   as follows:
   \begin{minted}{latex}
-\documentclass[...]{fithesis3}
+\documentclass[...]{fithesis4}
 %% The preamble
 \thesisload
 %% Here go your changes.
@@ -931,7 +931,7 @@
   mandatory parts of the thesis, you may disable it using the
   \texttt{autoLayout} metadata key:
   \begin{minted}{latex}
-\documentclass[...]{fithesis3}
+\documentclass[...]{fithesis4}
 \thesissetup{
 %<*econ>
   faculty=econ,
@@ -970,7 +970,7 @@
   matter of the thesis (see Figure \ref{fig:example02}). You can
   now manually insert the preamble and the postamble:
   \begin{minted}{latex}
-\documentclass[...]{fithesis3}
+\documentclass[...]{fithesis4}
 \thesissetup{
 %<*econ>
   faculty=econ,
@@ -1034,7 +1034,7 @@
   beginning of the document and the list of tables at the end of
   the document, we would use the following code:
   \begin{minted}{latex}
-\documentclass[...]{fithesis3}
+\documentclass[...]{fithesis4}
 \thesissetup{
 %<*econ>
   faculty=econ,
@@ -1078,15 +1078,15 @@
 \end{document}
   \end{minted}
   The available blocks are documented in Section 3.5 of the
-  technical documentation of the \textsf{fithesis3} class
-  \cite{novotny15}.
+  technical documentation of the \textsf{fithesis4} class
+  \cite{novotny19}.
   
   \section{Replacing the backend}
   {\makeatletter\newcommand\thguide@backend[2][]{#2}
   % This macro typesets the used backend class.
   \def\thguide@@backend{\expandafter\thguide@backend\thesis@backend}
   \let\ea\expandafter
-  \textsf{Fithesis3} operates on top of the
+  \textsf{Fithesis4} operates on top of the
   \textsf{\thguide@@backend} class, which defines much of the
   document design. To change the backend class, you need to redefine
   the value of \mintinline{latex}{\thesis@backend} from the default
@@ -1097,7 +1097,7 @@
   \end{center}
   to a different value. This assignment needs to be performed prior
   to the \mintinline{latex}{\documentclass} command. If you wanted
-  to change the backend class of \textsf{fithesis3} to the
+  to change the backend class of \textsf{fithesis4} to the
   KOMA-Script \textsf{screprt} with the \texttt{a4paper} option,
   your document would begin as follows:}
   \begin{minted}{latex}
@@ -1106,7 +1106,7 @@
 \makeatletter
   \def\thesis@backend{[a4paper]{scrreprt}}
 \makeatother
-\documentclass[...]{fithesis3}
+\documentclass[...]{fithesis4}
 %% Here goes the rest of the document.
   \end{minted}
   The \mintinline{latex}{\ChapFont} and

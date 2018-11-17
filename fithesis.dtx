@@ -55,8 +55,8 @@
 {\def\thesis@versiondef#1#2{
   \gdef\thesis@version@number{#1}
   \gdef\thesis@version@date{#2}
-  \gdef\thesis@version{#2 #1 fithesis3 MU thesis class}}
-\thesis@versiondef{v0.3.51-dev}{2018/06/15}}
+  \gdef\thesis@version{#2 #1 fithesis4 MU thesis class}}
+\thesis@versiondef{v0.4.0-dev}{2018/11/17}}
 % {\newwrite\f\openout\f=VERSION\write\f{\thesis@version}\closeout\f}
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -416,7 +416,7 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-% \title{The \textsf{fithesis3} class for the typesetting of theses written
+% \title{The \textsf{fithesis4} class for the typesetting of theses written
 %   at the Masaryk University in Brno}
 % \author{Daniel Marek, Jan Pavlovič, Vít Novotný, Petr Sojka}
 % \date{\today}
@@ -424,7 +424,7 @@
 %
 % \begin{abstract}
 % \noindent This document details the design and the implementation
-% of the \textsf{fithesis3} document class. It contains technical
+% of the \textsf{fithesis4} document class. It contains technical
 % information for anyone who wishes to extend the class with their
 % locale or style files. Users who only wish to use the class are
 % advised to consult the guides distributed along with the class,
@@ -439,9 +439,9 @@
 % The class requires the class specified in |\thesis@backend|,
 % whose default value is |[a4paper]{rapport3}|. If a different
 % base class is desired, it can be specified by redefining
-% |\thesis@backend| prior to loading the \textsf{fithesis3} class.
+% |\thesis@backend| prior to loading the \textsf{fithesis4} class.
 %    \begin{macrocode}
-\ProvidesClass{fithesis3}[\thesis@version]
+\ProvidesClass{fithesis4}[\thesis@version]
 \ifx\thesis@backend\undefined
   \def\thesis@backend{[a4paper]{rapport3}}
 \fi\expandafter\LoadClass\thesis@backend
@@ -786,7 +786,7 @@
 % The \marg{\texttt{department}=name} pair sets the name of the
 % department, at which the thesis is being written, to
 % \textit{name}. Unlike the university and faculty identifiers,
-% \textsf{fithesis3} does not prescribe the format of the
+% \textsf{fithesis4} does not prescribe the format of the
 % \textit{name}; the style files may internally parse it, or
 % typeset it as-is. The \textit{name} is stored within the
 % |\thesis@department| macro.
@@ -1627,7 +1627,7 @@
 %    \begin{macrocode}
 \def\thesis@exists#1#2{%
   \IfFileExists{#1}{#2}{%
-  \ClassWarning{fithesis3}{File #1 doesn't exist}}}
+  \ClassWarning{fithesis4}{File #1 doesn't exist}}}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@input}
 % The |\thesis@input|\marg{file} macro inputs the given
@@ -1820,7 +1820,7 @@
 % The |\thesis@patch|\oarg{versions}\oarg{patch} macro expands
 % \textit{patch}, if |\thesis@version|\texttt{\discretionary{@}^^A
 % {@}{@}}|number| (defined at the top of the file
-% \texttt{fithesis3.cls}) matches any of the comma-delimited
+% \texttt{fithesis4.cls}) matches any of the comma-delimited
 % \textit{versions}. This macro enables the simple deployment of
 % version-targeted patches.
 %    \begin{macrocode}
@@ -1847,13 +1847,13 @@
 %<*oldclass1>
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{oldfithesis1}[2015/03/04 old fithesis will load fithesis3 MU thesis class]
+\ProvidesClass{oldfithesis1}[2015/03/04 old fithesis will load fithesis2 MU thesis class]
 
 \ClassWarning{oldfithesis1}{%
   You are using the fithesis class, which has been deprecated.
-  The fithesis3 class will be used instead.
+  The fithesis2 class will be used instead.
   For more information, see <http://www.fi.muni.cz/tech/unix/tex/fithesis.xhtml>%
-}\LoadClass{fithesis3}
+}\LoadClass{fithesis2}
 
 %</oldclass1>
 %
@@ -1869,6 +1869,19 @@
 }\LoadClass{fithesis3}
 
 %</oldclass2>
+%
+%<*oldclass3>
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesClass{oldfithesis3}[2018/11/17 old fithesis3 will load fithesis4 MU thesis class]
+
+\ClassWarning{oldfithesis3}{%
+  You are using the fithesis3 class, which has been deprecated.
+  The fithesis4 class will be used instead.
+  For more information, see <http://www.fi.muni.cz/tech/unix/tex/fithesis.xhtml>%
+}\LoadClass{fithesis4}
+
+%</oldclass3>
 % \fi
 %
 % \subsection{Locale files}
