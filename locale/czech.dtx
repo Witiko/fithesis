@@ -75,7 +75,8 @@
   \thesis@year}}
 
 % Různé
-\gdef\thesis@czech@authorSignature{Podpis autora}
+\gdef\thesis@czech@authorSignature{%
+  Podpis autor\ifthesis@woman ky\else a\fi}
 \gdef\thesis@czech@fieldTitle{Obor}
 \gdef\thesis@czech@advisorTitle{Vedoucí práce}
 \gdef\thesis@czech@authorTitle{Autor}
