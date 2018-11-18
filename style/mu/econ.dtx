@@ -62,11 +62,16 @@
 % \begin{macro}{\thesis@blocks@cover}
 % The |\thesis@blocks@cover| macro typesets the thesis
 % cover.
+% \changes{v0.4.0}{2018/11/18}{^^A
+%   The \cs{bfseries} command switches to the sans serif typeface
+%   and to the secondary color in the style files of the Masaryk
+%   University in Brno, Czech Republic.}
 %    \begin{macrocode}
 \def\thesis@blocks@cover{%
   \ifthesis@cover@
     \thesis@blocks@clear
     \begin{alwayssingle}
+      \colorlet{thesis@color@secondary}{black}%
       \thispagestyle{empty}
       \begin{center}
       {\sc\thesis@titlePage@LARGE\thesis@@{universityName}\\%

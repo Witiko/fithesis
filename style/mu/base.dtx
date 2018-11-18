@@ -7,7 +7,7 @@
 % after \texttt{style/fithesis-base.sty}, regardless of the value
 % of the |\thesis@style| macro.
 %    \begin{macrocode}
-\ProvidesPackage{fithesis/style/mu/fithesis-base}[2018/12/25]
+\ProvidesPackage{fithesis/style/mu/fithesis-base}[2018/11/18]
 \NeedsTeXFormat{LaTeX2e}
 %    \end{macrocode}
 % The file recognizes the following options: \begin{itemize}
@@ -175,7 +175,13 @@
 \thesis@requireLocale{english}
 %    \end{macrocode}
 % The file loads the following packages: \begin{itemize}
-%   \item\textsf{xcolor} -- Adds support for color manipulation.
+%   \item\textsf{xcolor} -- Adds support for color.
+% \changes{v0.4.0}{2018/11/18}{^^A
+%   The \cs{bfseries} command switches to the sans serif typeface
+%   and to the secondary color in the style files of the Masaryk
+%   University in Brno, Czech Republic. [VN]}
+%   \item\textsf{caption} -- Adds support for changing the
+%     formatting of float captions.
 %   \item\textsf{ifxetex} -- Used to detect the \Hologo{XeTeX}
 %     engine.
 %   \item\textsf{ifluatex} -- Used to detect the \Hologo{LuaTeX}
@@ -192,6 +198,7 @@
 % \end{itemize}
 %    \begin{macrocode}
 \thesis@require{xcolor}
+\RequirePackage[labelfont=bf]{caption}
 \thesis@require{graphicx}
 \thesis@require{pdfpages}
 \thesis@require{keyval}
@@ -505,6 +512,14 @@
 %     links to \textit{color} and stores it under the name
 %     \texttt{thesis@color@links}. The default color of links is
 %     specified by the \textsf{hyperref} package.
+%   \item\marg{\texttt{secondary}=color} -- Stores the secondary
+%     color that is used with the bold type face under the name
+%     \texttt{thesis@color@secondary}.  The default secondary color
+%     for the Masaryk University is RGB 0, 0, 220.
+%   \changes{v0.4.0}{2018/11/18}{^^A
+%     The \cs{bfseries} command switches to the sans serif typeface
+%     and to the secondary color in the style files of the Masaryk
+%     University in Brno, Czech Republic. [VN]}
 %   \item\marg{\texttt{tableOdd}=color} -- Stores the color of the
 %     odd rows of the redefined \texttt{tabular} and
 %     \texttt{tabularx} environments under the name
@@ -522,12 +537,29 @@
 \define@key{thesis@color}{links}{%
   \definecolor{thesis@color@links}#1
   \hypersetup{linkbordercolor=thesis@color@links}}
+\define@key{thesis@color}{secondary}{%
+  \definecolor{thesis@color@secondary}#1}
+\thesis@color@setup{secondary={RGB}{0, 0, 220}}
 \define@key{thesis@color}{tableOdd}{%
   \definecolor{thesis@color@tableOdd}#1}
 \define@key{thesis@color}{tableEven}{%
   \definecolor{thesis@color@tableEven}#1}
 \define@key{thesis@color}{tableEmph}{%
   \definecolor{thesis@color@tableEmph}#1}
+%    \end{macrocode}
+% \changes{v0.4.0}{2018/11/18}{^^A
+%   The \cs{bfseries} command switches to the sans serif typeface
+%   and to the secondary color in the style files of the Masaryk
+%   University in Brno, Czech Republic. [VN]}
+% The |\bfseries| macro is redefined to switch to the sans serif
+% type face in the secondary color. The original definition of
+% |\bfseries| is stored in the
+% \DescribeMacro{\thesis@bfseries@old}|\thesis@bfseries@old|
+% macro.
+% \begin{macrocode}
+\let\thesis@bfseries@old\bfseries
+\def\bfseries{%
+  \sffamily\color{thesis@color@secondary}\thesis@bfseries@old}
 %    \end{macrocode}
 % The file defines several blocks to be used in the redefinitions
 % of the |\thesis@blocks@preamble| and |\thesis@blocks@postamble|
@@ -671,11 +703,16 @@
 % \end{itemize}
 % This allows the subsequently loaded style files to only redefine
 % certain parts of the cover page.
+% \changes{v0.4.0}{2018/11/18}{^^A
+%   The \cs{bfseries} command switches to the sans serif typeface
+%   and to the secondary color in the style files of the Masaryk
+%   University in Brno, Czech Republic. [VN]}
 % \begin{macrocode}
 \def\thesis@blocks@cover{%
   \ifthesis@cover@
     \thesis@blocks@clear
     \begin{alwayssingle}%
+      \colorlet{thesis@color@secondary}{black}%
       \thispagestyle{empty}%
       \begin{center}%
         \thesis@blocks@cover@header
@@ -757,10 +794,15 @@
 % \end{itemize}
 % This allows the subsequently loaded style files to only redefine
 % certain parts of the title page.
+% \changes{v0.4.0}{2018/11/18}{^^A
+%   The \cs{bfseries} command switches to the sans serif typeface
+%   and to the secondary color in the style files of the Masaryk
+%   University in Brno, Czech Republic. [VN]}
 %    \begin{macrocode}
 \def\thesis@blocks@titlePage{%
     \thesis@blocks@clear
     \begin{alwayssingle}%
+      \color{thesis@color@secondary}%
       \thispagestyle{empty}%
       \begin{center}%
         \thesis@blocks@titlePage@header
