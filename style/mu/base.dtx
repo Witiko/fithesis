@@ -234,15 +234,20 @@
 %   \item\textsf{unicode-math} -- Allows the selection of
 %     system-installed mathematical fonts.
 % \end{itemize}
-% Under \Hologo{XeTeX} or \Hologo{LuaTeX}, the \textsf{TeX Gyre
-% Pagella} and \textsf{TeX Gyre Pagella Math} are also selected as
-% the main text and math fonts.
+% Under \Hologo{XeTeX} or \Hologo{LuaTeX}, the \textsf{\TeX{} Gyre
+% Pagella} and \textsf{\TeX{} Gyre Pagella Math} fonts are also
+% selected as the main text and math fonts and the \textsf{\TeX{}
+% Gyre Heros} font is selected as the main sans serif font.
+% \changes{v0.4.0}{2018/11/18}{^^A
+%   The \TeX{} Gyre Heros is used as the main sans serif font
+%   instead of Latin Modern. [VN]}
 %    \begin{macrocode}
 \ifthesis@xeluatex
   \ifthesis@palatino@
     \thesis@require{fontspec}
     \thesis@require{unicode-math}
     \setmainfont[Ligatures=TeX]{TeX Gyre Pagella}
+    \setsansfont[Ligatures=TeX,Scale=MatchLowercase]{TeX Gyre Heros}
     \setmathfont[math-style=ISO,bold-style=ISO]{texgyrepagella-math.otf}
   \fi
 %    \end{macrocode}
@@ -257,6 +262,11 @@
 %     to \texttt{mathpazo}.
 %   \item\textsf{tgpagella} -- Changes the default roman font
 %     family to \TeX\ Gyre Pagella.
+%   \item\textsf{tgheros} -- Changes the default sans-serif font
+%     face to \TeX{} Gyre Heros.
+%   \changes{v0.4.0}{2018/11/18}{^^A
+%     The \TeX{} Gyre Heros is used as the main sans serif font
+%     instead of Latin Modern. [VN]}
 %   \item\textsf{lmodern} -- Changes the default sans-serif and
 %     monotype font faces to Latin Modern instead of the default
 %     Computer Modern font family.
@@ -269,6 +279,7 @@
     \thesis@require{lmodern}
     \thesis@require{mathpazo}
     \thesis@require{tgpagella}
+    \thesis@require[scale=0.863]{tgheros}
     \RequirePackage[T1]{fontenc}
   \fi
 \fi
