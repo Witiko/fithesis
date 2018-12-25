@@ -7,7 +7,7 @@
 % after \texttt{style/fithesis-base.sty}, regardless of the value
 % of the |\thesis@style| macro.
 %    \begin{macrocode}
-\ProvidesPackage{fithesis/style/mu/fithesis-base}[2018/06/15]
+\ProvidesPackage{fithesis/style/mu/fithesis-base}[2018/12/25]
 \NeedsTeXFormat{LaTeX2e}
 %    \end{macrocode}
 % The file recognizes the following options: \begin{itemize}
@@ -467,12 +467,20 @@
 %    \end{macrocode}
 % \end{macro} ^^A The nested \ifthesis@bibliography@included@ def
 % \end{macro} ^^A The \thesis@bibliography@load macro definition
-% The \textsf{hyperref} package is configured to support both roman
-% and arabic page numbering in one document and to decorate
-% hyperlinks with an underline instead of a rectangular box.
+% In the digital version, the \textsf{hyperref} package is configured to
+% decorate hyperlinks with an underline instead of a rectangular box.
+% In the printed version, the \textsf{hyperref} package is configured to
+% hide links.
+% \changes{v0.3.51}{2018/12/25}{^^A
+%   In the printed version, the \textsf{hyperref} package is configured to
+%   hide links. [VN]}
 %    \begin{macrocode}
 \thesis@require{hyperref}
-\hypersetup{pdfborderstyle={/S/U/W 1}} % Less obtrusive borders
+\ifthesis@digital@
+  \hypersetup{pdfborderstyle={/S/U/W 1}}
+\else
+  \hypersetup{hidelinks}
+\fi
 %    \end{macrocode}
 % Clubs and widows are set to be infinitely bad.
 %    \begin{macrocode}
