@@ -7,7 +7,7 @@
 % after \texttt{style/fithesis-base.sty}, regardless of the value
 % of the |\thesis@style| macro.
 %    \begin{macrocode}
-\ProvidesPackage{fithesis/style/mu/fithesis-base}[2018/11/18]
+\ProvidesPackage{fithesis/style/mu/fithesis-base}[2018/12/25]
 \NeedsTeXFormat{LaTeX2e}
 %    \end{macrocode}
 % The file recognizes the following options: \begin{itemize}
@@ -195,6 +195,17 @@
 %     metadata into the resulting PDF document.
 %   \item\textsf{keyval} -- Adds support for parsing
 %     comma-delimited lists of key-value pairs.
+%   \item\textsf{tabularx} -- Provides the \texttt{tabularx}
+%     environment, which enables the typesetting of tables with
+%     flexible-width columns.
+% \changes{v0.4.0}{2018/12/25}{^^A
+%   The packages \textsf{tabularx}, \textsf{tabu}, and
+%   \textsf{booktabs} are loaded by default, not only when
+%   the \texttt{table} class option has been specified. [VN]}
+%   \item\textsf{tabu} -- Provides the \texttt{tabu} environment,
+%     which enables the typesetting of complex tables.
+%   \item\textsf{booktabs} -- A package, which allows the creation
+%     of publication-quality tables in \LaTeX.
 % \end{itemize}
 %    \begin{macrocode}
 \thesis@require{xcolor}
@@ -204,6 +215,9 @@
 \thesis@require{keyval}
 \thesis@require{ifxetex}
 \thesis@require{ifluatex}
+\thesis@require{tabularx}
+\thesis@require{tabu}
+\thesis@require{booktabs}
 %    \end{macrocode}
 % If the |\thesis@microtype@| is set to true, then the
 % \textsf{microtype} package gets loaded.
@@ -286,25 +300,11 @@
 %    \end{macrocode}
 % If the |\thesis@newtable@| conditional is \texttt{true}, then
 % some of the dimensions associated with tables are modified in
-% preparation for the coloring of the table cells. The following
-% packages are also loaded:
-% \begin{itemize}
-%   \item\textsf{tabularx} -- Provides the \texttt{tabularx}
-%     environment, which enables the typesetting of tables with
-%     flexible-width columns.
-%   \item\textsf{tabu} -- Provides the \texttt{tabu} environment,
-%     which enables the typesetting of complex tables.
-%   \item\textsf{booktabs} -- A package, which allows the creation
-%     of publication-quality tables in \LaTeX.
-% \end{itemize}
+% preparation for the coloring of the table cells.
 %    \begin{macrocode}
 \let\thesis@newtable@old\tabular
 \let\endthesis@newtable@old\endtabular
 \ifthesis@newtable@
-  % Load the packages.
-  \thesis@require{tabularx}
-  \thesis@require{tabu}
-  \thesis@require{booktabs}
   % Adjust the measurements.
   \setlength{\aboverulesep}{0pt}
   \setlength{\belowrulesep}{0pt}
