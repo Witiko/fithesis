@@ -473,6 +473,42 @@
 \counterwithout{table}{chapter}  % Flat numbering of tables.
 \counterwithout{figure}{chapter} % Flat numbering of figures.
 %</econ>
+%% The following code fixes the rendering of BibLaTeX ISO 690
+%% references in old TeX Live (such as the one at Overleaf).
+\thesisload
+\makeatletter
+\def\thesis@biblatexiso@fix@package{iso-numeric.bbx}
+\def\thesis@biblatexiso@fix@end{\relax}
+\newif\ifthesis@biblatexiso@fix@
+\thesis@biblatexiso@fix@false
+\def\thesis@biblatexiso@fix@next#1,{%
+  \def\thesis@biblatexiso@fix@current{#1}%
+  \ifx\thesis@biblatexiso@fix@current\thesis@biblatexiso@fix@package
+    \thesis@biblatexiso@fix@true
+  \fi
+  \ifx\thesis@biblatexiso@fix@current\thesis@biblatexiso@fix@end
+    \expandafter
+    \@gobble
+  \fi
+  \thesis@biblatexiso@fix@next
+}
+\expandafter\expandafter\expandafter\thesis@biblatexiso@fix@next\@filelist,\relax,
+\ifthesis@biblatexiso@fix@
+  \defbibenvironment{bibliography}
+    {\list%
+       {\MethodFormat}%
+       {\setlength{\labelwidth}{\labelnumberwidth}%
+        \setlength{\leftmargin}{\labelwidth}%
+        \setlength{\labelsep}{\biblabelsep}%
+        \addtolength{\leftmargin}{\labelsep}%
+        \setlength{\itemsep}{\bibitemsep}%
+        \setlength{\parsep}{\bibparsep}}%
+        \renewcommand*{\makelabel}[1]{\hss##1}
+        }%
+    {\endlist}%
+  {\item}%
+\fi
+\makeatother
 \begin{document}
 %<*econ>
 \makeatletter
