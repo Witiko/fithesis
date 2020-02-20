@@ -1742,16 +1742,10 @@
 %    \begin{macrocode}
 \def\thesis@lower#1{{%
   \let\ea\expandafter
-  \ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\lowercase\ea\ea\ea
-  \ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea{\ea\ea\ea\ea\ea\ea\ea\ea\ea
-  \ea\ea\ea\ea\ea\ea\@gobble\ea\ea\ea\string\ea\csname\csname the%
-  sis@#1\endcsname\endcsname}}}
+  \ea\MakeLowercase\ea{\csname thesis@#1\endcsname}}}
 \def\thesis@upper#1{{%
   \let\ea\expandafter
-  \ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\uppercase\ea\ea\ea
-  \ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea\ea{\ea\ea\ea\ea\ea\ea\ea\ea\ea
-  \ea\ea\ea\ea\ea\ea\@gobble\ea\ea\ea\string\ea\csname\csname the%
-  sis@#1\endcsname\endcsname}}}
+  \ea\MakeUppercase\ea{\csname thesis@#1\endcsname}}}
 %    \end{macrocode}
 % The \DescribeMacro{\thesis@@lower}|\thesis@@lower|
 % and \DescribeMacro{\thesis@@upper}|\thesis@@upper|
