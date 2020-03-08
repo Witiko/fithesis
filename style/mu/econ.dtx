@@ -292,19 +292,39 @@
 %   in \texttt{style/mu/fithesis-econ.sty} in accordance with the
 %   example documents. The patch was submitted by Jana Ratajská.
 %   [VN]}
+% \changes{v0.3.51}{2020/03/09}{The \cs{thesis@blocks@bibEntry}
+%   command now accomodates long titles and other information that
+%   may span multiple lines. [VN]}
 %    \begin{macrocode}
 \def\thesis@blocks@bibEntry{%
   \thesis@blocks@clear
-  \noindent\begin{thesis@newtable@old}{@{}>{\bfseries}ll@{}}
-    \thesis@@{bib@author}:        & \thesis@author     \\
-    \thesis@@{bib@thesisTitle}:   & \thesis@title      \\
-  \ifthesis@english\else
-    \thesis@@{bib@thesisTitleEn}: & \thesis@titleEn    \\
-  \fi
-    \thesis@@{bib@department}:    & \thesis@department \\
-    \thesis@@{bib@advisor}:       & \thesis@advisor    \\
-    \thesis@@{bib@year}:          & \thesis@year       \\
-  \end{thesis@newtable@old}}
+  {\let\@A\relax\newlength{\@A}
+   \settowidth{\@A}{{\bf\thesis@@{bib@author}}}
+   \let\@B=\@A
+   \settowidth{\@A}{{\bf\thesis@@{bib@thesisTitle}}}
+   \ifdim\@A>\@B\let\@B=\@A\fi
+   \ifthesis@english\else
+     \settowidth{\@A}{{\bf\thesis@@{bib@thesisTitleEn}}}
+     \ifdim\@A>\@B\let\@B=\@A\fi
+   \fi
+   \settowidth{\@A}{{\bf\thesis@@{bib@department}}}
+   \ifdim\@A>\@B\let\@B=\@A\fi
+   \settowidth{\@A}{{\bf\thesis@@{bib@advisor}}}
+   \ifdim\@A>\@B\let\@B=\@A\fi
+   \settowidth{\@A}{{\bf\thesis@@{bib@year}}}
+   \ifdim\@A>\@B\let\@B=\@A\fi
+   \noindent\begin{thesis@newtable@old}{@{}>{\bfseries}%
+                                        p{\dimexpr(\@B + \tabcolsep)}%
+                                        p{\dimexpr(\textwidth - \@B - 2\tabcolsep)}@{}}
+     \thesis@@{bib@author}:        & \thesis@author     \\
+     \thesis@@{bib@thesisTitle}:   & \thesis@title      \\
+   \ifthesis@english\else
+     \thesis@@{bib@thesisTitleEn}: & \thesis@titleEn    \\
+   \fi
+     \thesis@@{bib@department}:    & \thesis@department \\
+     \thesis@@{bib@advisor}:       & \thesis@advisor    \\
+     \thesis@@{bib@year}:          & \thesis@year       \\
+   \end{thesis@newtable@old}}}
 %    \end{macrocode}
 % \end{macro}
 % Note that there is no direct support for the seminar paper and
