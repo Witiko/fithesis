@@ -300,19 +300,19 @@
   \thesis@blocks@clear
   {\let\@A\relax\newlength{\@A}
    \settowidth{\@A}{{\bf\thesis@@{bib@author}}}
-   \let\@B=\@A
+   \@B=\@A
    \settowidth{\@A}{{\bf\thesis@@{bib@thesisTitle}}}
-   \ifdim\@A>\@B\let\@B=\@A\fi
+   \ifdim\@A>\@B\@B=\@A\fi
    \ifthesis@english\else
      \settowidth{\@A}{{\bf\thesis@@{bib@thesisTitleEn}}}
-     \ifdim\@A>\@B\let\@B=\@A\fi
+     \ifdim\@A>\@B\@B=\@A\fi
    \fi
    \settowidth{\@A}{{\bf\thesis@@{bib@department}}}
-   \ifdim\@A>\@B\let\@B=\@A\fi
+   \ifdim\@A>\@B\@B=\@A\fi
    \settowidth{\@A}{{\bf\thesis@@{bib@advisor}}}
-   \ifdim\@A>\@B\let\@B=\@A\fi
+   \ifdim\@A>\@B\@B=\@A\fi
    \settowidth{\@A}{{\bf\thesis@@{bib@year}}}
-   \ifdim\@A>\@B\let\@B=\@A\fi
+   \ifdim\@A>\@B\@B=\@A\fi
    \noindent\begin{thesis@newtable@old}{@{}>{\bfseries}%
                                         p{\dimexpr(\@B + \tabcolsep)}%
                                         p{\dimexpr(\textwidth - \@B - 2\tabcolsep)}@{}}
