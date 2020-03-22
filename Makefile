@@ -51,7 +51,7 @@ MISCELLANEOUS=guide/mu/resources/empty.tex guide/mu/guide.bib \
 	guide/mu/resources/vader.pdf guide/mu/resources/yoda.pdf \
 	example/mu/example.bib $(USEREXAMPLES:.pdf=.tex) README.md
 RESOURCES=$(STYLEFILES) $(LOGOS) $(LOCALES)
-SOURCES=$(DTXFILES) $(INSFILES) LICENSE.tex
+SOURCES=$(DTXFILES) $(INSFILES) LICENSE.tex VERSION.tex
 AUXFILES=fithesis.aux fithesis.log fithesis.toc fithesis.ind \
 	fithesis.idx fithesis.out fithesis.ilg fithesis.gls \
 	fithesis.glo fithesis.hd fithesis.lot
@@ -62,7 +62,6 @@ GUIDES=guide/mu/econ.pdf guide/mu/fi.pdf guide/mu/fsps.pdf \
 	guide/mu/ped.pdf guide/mu/phil.pdf guide/mu/sci.pdf
 PDFS=$(MANUAL) $(GUIDES) $(USEREXAMPLES)
 DOCS=$(MANUAL) $(GUIDES)
-VERSION=VERSION.tex
 MAKEABLES=$(PDFS) $(CLASSFILES) $(VERSION)
 TDSARCHIVE=fithesis.tds.zip
 CTANARCHIVE=fithesis.ctan.zip
@@ -128,7 +127,7 @@ $(TDSARCHIVE):
 # This target generates a distribution file.
 $(DISTARCHIVE): $(SOURCES) $(LATEXFILES) $(MAKES) $(TESTS) \
 	$(USEREXAMPLE_SOURCES) $(DOCS) $(PDFSOURCES) $(MISCELLANEOUS) \
-	$(EXAMPLES) $(VERSION)
+	$(EXAMPLES)
 	DIR=`mktemp -d` && \
 	cp -v $(TDSARCHIVE) "$$DIR" && \
 	tar c $^ | tar xvC "$$DIR" && \
@@ -136,13 +135,10 @@ $(DISTARCHIVE): $(SOURCES) $(LATEXFILES) $(MAKES) $(TESTS) \
 	mv "$$DIR"/$@ . && rm -rf "$$DIR"
 
 # This target generates a CTAN distribution file.
-$(CTANARCHIVE): $(SOURCES) $(MAKES) $(TESTS) $(EXAMPLES) \
-	$(MISCELLANEOUS) $(EPSLOGOS) $(DOCS) $(VERSION)
+$(CTANARCHIVE): $(LOGOS) $(SOURCES) $(DOCS) README.md
 	DIR=`mktemp -d` && mkdir -p "$$DIR/fithesis" && \
 	cp -v $(TDSARCHIVE) "$$DIR" && \
 	tar c $^ | tar xvC "$$DIR/fithesis" && \
-	printf '.PHONY: implode\nimplode:\n' > \
-		"$$DIR/fithesis/example/mu/Makefile" && \
 	(cd "$$DIR" && zip -r -v -nw $@ *) && \
 	mv "$$DIR"/$@ . && rm -rf "$$DIR"
 
@@ -189,7 +185,7 @@ install-docs:
 	
 	@# Documentation
 	mkdir -p "$(to)/doc/latex/fithesis"
-	tar c $(DOCS) | tar xvC "$(to)/doc/latex/fithesis"
+	tar c $(DOCS) README.md | tar xvC "$(to)/doc/latex/fithesis"
 
 	@# Rebuild the hash
 	[ "$(nohash)" = "true" ] || texhash
