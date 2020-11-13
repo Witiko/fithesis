@@ -526,6 +526,176 @@ alles gut geht, bekomme ich bald ein Diplom. Wünsch mir Glück!
 }\end{otherlanguage}
 %</pdftex>
 
+\chapter{Using lightweight markup}
+%<*pdftex>
+\shorthandoff{-}
+%</pdftex>
+\begin{markdown*}{%
+  hybrid,
+  definitionLists,
+  footnotes,
+  inlineFootnotes,
+  hashEnumerators,
+  fencedCode,
+  citations,
+  citationNbsps,
+  pipeTables,
+  tableCaptions,
+}
+
+If you decide that \LaTeX{} is too wordy for some parts of your
+document, there are [packages](https://www.ctan.org/pkg/markdown
+"Markdown") that allow you to use more lightweight markup next
+to it.
+
+ ![logo](fithesis/logo/mu/fithesis-base.pdf "The logo of the
+  Masaryk University")
+
+| Right | Left | Default | Center |
+|------:|:-----|---------|:------:|
+|    12 | 12   | 12      |   12   |
+|   123 | 123  | 123     |   123  |
+|     1 | 1    | 1       |    1   |
+
+: This is a table with different types of alignment.
+
+This is a bullet list. Unlike numbered lists, bulleted lists
+contain an **unordered** set of bullet points. When a bullet point
+contains multiple paragraphs, the list is typeset as follows:
+
+  * The first item of a bullet list
+
+    that spans several paragraphs,
+  * the second item of a bullet list,
+  * the third item of a bullet list.
+
+When none of the bullet points contains multiple paragraphs, the
+list has a more compact form:
+
+  * The first item of a bullet list,
+  * the second item of a bullet list,
+  * the third item of a bullet list.
+
+Unlike a bulleted list, a numbered list implies chronology or
+ordering of the bullet points. When a bullet point
+contains multiple paragraphs, the list is typeset as follows:
+
+  1. The first item of an ordered list
+
+     that spans several paragraphs,
+  2. the second item of an ordered list,
+  3. the third item of an ordered list.
+  #. If you are feeling lazy,
+  #. you can use hash enumerators as well.
+
+When none of the bullet points contains multiple paragraphs, the
+list has a more compact form:
+
+  6. The first item of an ordered list,
+  7. the second item of an ordered list,
+  8. the third item of an ordered list.
+
+Definition lists are used to provide definitions of terms. When
+a definition contains multiple paragraphs, the list is typeset
+as follows:
+
+Term 1
+
+:   Definition 1
+
+*Term 2*
+
+:   Definition 2
+
+        Some code, part of Definition 2
+
+    Third paragraph of Definition 2.
+
+When none of the bullet points contains multiple paragraphs, the
+list has a more compact form:
+
+Term 1
+:   Definition 1
+*Term 2*
+:   Definition 2
+
+Block quotations are used to include an excerpt from an external
+document in way that visually clearly separates the excerpt from
+the rest of the work:
+
+> This is the first level of quoting.
+>
+> > This is nested blockquote.
+>
+> Back to the first level.
+
+Footnotes are used to include additional information to the
+document that are not necessary for the understanding of the main
+text. Here is a footnote reference^[Here is the footnote.] and
+another.[^longnote]
+
+[^longnote]: Here's one with multiple blocks.
+
+    Subsequent paragraphs are indented to show that they
+belong to the previous footnote.
+
+        Some code
+
+    The whole paragraph can be indented, or just the first
+    line.  In this way, multi-paragraph footnotes work like
+    multi-paragraph list items.
+
+Citations are used to provide bibliographical references to other
+documents. This is a regular citation~[@borgman03, p. 123]. This is
+an in-text citation: @borgman03\. You can also cite several authors
+at once using both regular~[see @borgman03, p. 123; @greenberg98,
+sec.  3.2; and @thanh01] and in-text citations: @borgman03 [p.123;
+@greenberg98, sec. 3.2; @thanh01].
+
+Code blocks are used to include source code listings into the
+document:
+
+    #include <stdio.h>
+    #include <unistd.h>
+    #include <sys/types.h>
+    #include <sys/wait.h>
+    // This is a comment
+    int main(int argc, char **argv)
+    {
+        while (--c > 1 && !fork());
+        sleep(c = atoi(v[c]));
+        printf("%d\n", c);
+        wait(0);
+        return 0;
+    }
+
+There is an alternative syntax for code blocks that allows you to
+specify additional information, such as the language of the source
+code. This information can be used for syntax highlighting:
+
+``` sh
+#!/bin/sh
+fac() {
+  if [ "$1" -leq 1 ]; then
+    echo 1
+  else
+    echo $(("$1" * fac $(("$1" - 1))))
+  fi
+}
+``````````````
+
+~~~~~~ Ruby
+# Here's a way to empty an array.
+joe = [ 'eggs.', 'some', 'break', 'to', 'Have' ]
+print(joe.pop, " ") while joe.size > 0
+print "\n"
+~~~~~~
+
+\end{markdown*}
+%<*pdftex>
+\shorthandon{-}
+%</pdftex>
+
 \chapter{These are}
 \section{the available}
 \subsection{sectioning}
@@ -823,166 +993,6 @@ fonts will become available: \[
 \] Many other mathematical fonts are available\footnote{
   See \url{http://tex.stackexchange.com/a/58124/70941}.
 }.
-
-\chapter{Using lightweight markup}
-%<*pdftex>
-\shorthandoff{-}
-%</pdftex>
-\begin{markdown*}{%
-  hybrid,
-  definitionLists,
-  footnotes,
-  inlineFootnotes,
-  hashEnumerators,
-  fencedCode,
-  citations,
-  citationNbsps,
-}
-
-If you decide that \LaTeX{} is too wordy for some parts of your
-document, there are [packages](https://www.ctan.org/pkg/markdown
-"Markdown") that allow you to use more lightweight markup next
-to it.
-
- ![logo](fithesis/logo/mu/fithesis-base.pdf "The logo of the
-  Masaryk University")
-
-This is a bullet list. Unlike numbered lists, bulleted lists
-contain an **unordered** set of bullet points. When a bullet point
-contains multiple paragraphs, the list is typeset as follows:
-
-  * The first item of a bullet list
-
-    that spans several paragraphs,
-  * the second item of a bullet list,
-  * the third item of a bullet list.
-
-When none of the bullet points contains multiple paragraphs, the
-list has a more compact form:
-
-  * The first item of a bullet list,
-  * the second item of a bullet list,
-  * the third item of a bullet list.
-
-Unlike a bulleted list, a numbered list implies chronology or
-ordering of the bullet points. When a bullet point
-contains multiple paragraphs, the list is typeset as follows:
-
-  1. The first item of an ordered list
-
-     that spans several paragraphs,
-  2. the second item of an ordered list,
-  3. the third item of an ordered list.
-  #. If you are feeling lazy,
-  #. you can use hash enumerators as well.
-
-When none of the bullet points contains multiple paragraphs, the
-list has a more compact form:
-
-  6. The first item of an ordered list,
-  7. the second item of an ordered list,
-  8. the third item of an ordered list.
-
-Definition lists are used to provide definitions of terms. When
-a definition contains multiple paragraphs, the list is typeset
-as follows:
-
-Term 1
-
-:   Definition 1
-
-*Term 2*
-
-:   Definition 2
-    
-        Some code, part of Definition 2
-    
-    Third paragraph of Definition 2.
-
-When none of the bullet points contains multiple paragraphs, the
-list has a more compact form:
-
-Term 1
-:   Definition 1
-*Term 2*
-:   Definition 2
-
-Block quotations are used to include an excerpt from an external
-document in way that visually clearly separates the excerpt from
-the rest of the work:
-
-> This is the first level of quoting.
->
-> > This is nested blockquote.
->
-> Back to the first level.
-
-Footnotes are used to include additional information to the
-document that are not necessary for the understanding of the main
-text. Here is a footnote reference^[Here is the footnote.] and
-another.[^longnote]
-
-[^longnote]: Here's one with multiple blocks.
-  
-    Subsequent paragraphs are indented to show that they
-belong to the previous footnote.
-  
-        Some code
-
-    The whole paragraph can be indented, or just the first
-    line.  In this way, multi-paragraph footnotes work like
-    multi-paragraph list items.
-
-Citations are used to provide bibliographical references to other
-documents. This is a regular citation~[@borgman03, p. 123]. This is
-an in-text citation: @borgman03\. You can also cite several authors
-at once using both regular~[see @borgman03, p. 123; @greenberg98,
-sec.  3.2; and @thanh01] and in-text citations: @borgman03 [p.123;
-@greenberg98, sec. 3.2; @thanh01].
-
-Code blocks are used to include source code listings into the
-document:
-
-    #include <stdio.h>
-    #include <unistd.h>
-    #include <sys/types.h>
-    #include <sys/wait.h>
-    // This is a comment
-    int main(int argc, char **argv)
-    {
-        while (--c > 1 && !fork());
-        sleep(c = atoi(v[c]));
-        printf("%d\n", c);
-        wait(0);
-        return 0;
-    }
-
-There is an alternative syntax for code blocks that allows you to
-specify additional information, such as the language of the source
-code. This information can be used for syntax highlighting:
-
-``` sh
-#!/bin/sh
-fac() {
-  if [ "$1" -leq 1 ]; then
-    echo 1
-  else
-    echo $(("$1" * fac $(("$1" - 1))))
-  fi
-}
-``````````````
-
-~~~~~~ Ruby
-# Here's a way to empty an array.
-joe = [ 'eggs.', 'some', 'break', 'to', 'Have' ]
-print(joe.pop, " ") while joe.size > 0
-print "\n"
-~~~~~~
-    
-\end{markdown*}
-%<*pdftex>
-\shorthandon{-}
-%</pdftex>
 
 \chapter{Inserting the bibliography}
 After linking a bibliography data\-base files to the document using
