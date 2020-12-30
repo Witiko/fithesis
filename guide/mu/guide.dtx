@@ -78,6 +78,9 @@
 \thesisload% The menukeys package does not play nice, when it is
   \usepackage[os=win]{menukeys}% loaded before BibLaTeX.
 \begin{document}
+  \renewcommand{\contentsname}{Table of contents}
+  \renewcommand{\listfigurename}{List of figures}
+  \renewcommand{\listtablename}{List of tables}
   \makeatletter\thesis@preamble\makeatother
   \chapter{Introduction}
   To use the \textsf{fithesis3} class, you can use an online
