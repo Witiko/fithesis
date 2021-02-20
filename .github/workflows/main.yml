@@ -1,0 +1,25 @@
+name: Test
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+env:
+  DEBIAN_FRONTEND: noninteractive
+jobs:
+  test:
+    name: Build and test
+    runs-on: ubuntu-latest
+    container:
+      image: texlive/texlive:latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Install the Fithesis package
+        run: |
+          set -ex
+          make base
+          make install-base to="$HOME"/texmf nohash=true
+      - name: Typeset documentation, user guides, and user examples
+        run: |
+          set -ex
+          make complete
