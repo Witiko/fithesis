@@ -27,4 +27,19 @@ jobs:
       - name: Typeset documentation, user guides, and user examples
         run: |
           set -ex
-          make complete
+          make dist
+      - name: Upload artifact fithesis.tds.zip
+        uses: actions/upload-artifact@v2
+        with:
+          name: fithesis.tds.zip
+          path: fithesis.tds.zip
+      - name: Upload artifact fithesis.ctan.zip
+        uses: actions/upload-artifact@v2
+        with:
+          name: fithesis.ctan.zip
+          path: fithesis.ctan.zip
+      - name: Upload artifact fithesis.zip
+        uses: actions/upload-artifact@v2
+        with:
+          name: fithesis.zip
+          path: fithesis.zip
