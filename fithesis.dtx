@@ -1527,15 +1527,17 @@
         \thesis@requireLocale{\thesis@locale}
       \fi
 %    \end{macrocode}
-% Coerce LuaTeX into defining |\l@|\textit{locale} for
+% Coerce Lua\TeX{} into defining |\l@|\textit{locale} for
 % \textit{locale}s with known hyphenation patterns, unless
-% \textsf{babel} has been loaded. In that case
-% |\l@|\textit{locale} has already been defined.
+% \textsf{babel} or \textsf{polyglossia} have been loaded.
+% In that case, |\l@|\textit{locale} has already been defined.
+% \changes{v1.0.0}{2020/02/21}{Only load \textsf{babel} in
+%   Lua\TeX{} if \textsf{polyglossia} has not been loaded yet.}
 %    \begin{macrocode}
     \ifluatex
       \ltx@ifpackageloaded{babel}{}{
-        % See <article.gmane.org/gmane.comp.tex.luatex.user/5680>
-        \RequirePackage[base]{babel}}
+        \ltx@ifpackageloaded{polyglossia}{}{
+          \thesis@require{babel}}}
     \fi
 %    \end{macrocode}
 % Fix the value of the |\ifthesis@english| macro.

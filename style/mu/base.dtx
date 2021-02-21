@@ -432,6 +432,10 @@
       \thesis@bibliography@setup{
         style = iso-numeric,
         sorting = none}
+      % FIXME: This is a hotfix for biblatex.
+      % It should be removed after v3.17 has been released.
+      % See https://tex.stackexchange.com/a/581469/70941.
+      \thesis@require{expl3}
       \thesis@require[
         backend=biber,
         style=\thesis@bibliography@style,
