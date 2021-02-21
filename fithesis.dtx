@@ -56,7 +56,7 @@
   \gdef\thesis@version@number{#1}
   \gdef\thesis@version@date{#2}
   \gdef\thesis@version{#2 #1 fithesis3 MU thesis class}}
-\thesis@versiondef{v0.3.51}{2020/03/09}}
+\thesis@versiondef{v1.0.0-dev}{2021/02/21}}
 % {\newwrite\f\openout\f=VERSION\write\f{\thesis@version}\closeout\f}
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -896,13 +896,15 @@
 % \subsubsection{The \texttt{style} key}
 % The \marg{\texttt{style}=filename} pair sets the filename of the
 % style file to be used to \textit{filename}. The \textit{filename}
-% is stored within the |\thesis@style| macro, whose
-% implicit value is |\thesis@university/fithesis-\thesis@faculty|.
+% is stored within the |\thesis@style| macro, whose implicit value is
+% |\thesis@university/fithesis-\thesis@university-\thesis@faculty|.
 % When the \textit{filename} is an empty token string, no style
 % files will be loaded during the main routine (see Section
 % \ref{sec:thesisload}).
+% \changes{v1.0.0}{2021/02/21}{File were renamed after
+%   breaking changes in package loading after PR 438 in \LaTeXe. [VN]}
 %    \begin{macrocode}
-\def\thesis@style{\thesis@university/fithesis-\thesis@faculty}
+\def\thesis@style{\thesis@university/fithesis-\thesis@university-\thesis@faculty}
 \define@key{thesis}{style}{%
   \def\thesis@style{#1}}
 %    \end{macrocode}
@@ -1656,9 +1658,11 @@
 % If inheritance is enabled for style files, then the
 % |\thesis@requireStyle|\marg{style} macro sequentially
 % loads each of the following files, provided they exist:
+% \changes{v1.0.0}{2021/02/21}{File were renamed after
+%   breaking changes in package loading after PR 438 in \LaTeXe. [VN]}
 % \begin{enumerate}
 %   \item|\thesis@stylepath fithesis-base.sty|
-%   \item|\thesis@stylepath\thesis@university/fithesis-base.sty|
+%   \item|\thesis@stylepath\thesis@university/fithesis-\thesis@university-base.sty|
 %   \item|\thesis@stylepath| \textit{style}|.sty|
 % \end{enumerate}If inheritance is disabled for style files, then
 % only the last listed file is loaded. The \texttt{fithesis-}
@@ -1669,7 +1673,7 @@
   \ifthesis@style@inheritance
     \thesis@requireIfExists{\thesis@stylepath fithesis-base}%
     \thesis@requireIfExists{\thesis@stylepath\thesis@university
-      /fithesis-base}
+      /fithesis-\thesis@university-base}
   \fi
   \thesis@requireIfExists{\thesis@stylepath#1}}
 %    \end{macrocode}
