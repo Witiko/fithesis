@@ -18,7 +18,7 @@ jobs:
         run: |
           set -ex
           apt-get -qy update
-          apt-get -qy install ghostscript
+          apt-get -qy install ghostscript zip
       - name: Install the Fithesis package
         run: |
           set -ex
