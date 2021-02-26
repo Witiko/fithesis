@@ -798,6 +798,27 @@
   {\thesis@titlePage@large\thesis@place, \thesis@@{semester}}}
 %    \end{macrocode}
 % \end{macro}
+% \begin{macro}{\thesis@blocks@advisorSignature}
+% The |\thesis@blocks@advisorSignature| macro produces space for
+% the thesis advisor's signature.
+% \changes{v1.0.0}{2021/02/26}{^^A
+%   The \cs{thesis@blocks@advisorSignature} macro is now defined
+%   for styles of all faculties at the Masaryk University in Brno,
+%   not just for the Faculty of Informatics, and is automatically
+%   used in the \cs{thesis@blocks@titlePage} macro for rigorous
+%   theses and PhD thesis proposals. [VN]}
+% \begin{macrocode}
+\def\thesis@blocks@advisorSignature{%
+  \let\@A\relax\newlength{\@A}
+    \settowidth{\@A}{\thesis@@{advisorSignature}}
+    \setlength{\@A}{\@A+1cm}
+  \hfill\raisebox{-0.5em}{\parbox{\@A}{
+    \centering
+    \rule{\@A}{1pt}\\
+    \thesis@@{advisorSignature}
+  }}}%
+%    \end{macrocode}
+% \end{macro}
 % \begin{macro}{\thesis@blocks@titlePage}
 % The |\thesis@blocks@titlePage| macro typesets the thesis
 % title page.
@@ -879,7 +900,22 @@
         {\sf\thesis@titlePage@large\thesis@@{fieldTitle}: \thesis@field@name}%
       \fi
       \par\vfill
-      {\sf\thesis@titlePage@large\thesis@place, \thesis@@{semester}}%
+      {\sf\thesis@titlePage@large\thesis@place, \thesis@@{semester}%
+%    \end{macrocode}
+% If this is a rigorous thesis or a PhD thesis proposal, create
+% space for the advisor's signature.
+% \changes{v1.0.0}{2021/02/26}{^^A
+%   The \cs{thesis@blocks@advisorSignature} macro is now defined
+%   for styles of all faculties at the Masaryk University in Brno,
+%   not just for the Faculty of Informatics, and is automatically
+%   used in the \cs{thesis@blocks@titlePage} macro for rigorous
+%   theses and PhD thesis proposals. [VN]}
+% \begin{macrocode}
+        \ifx\thesis@type\thesis@rigorous
+          \thesis@blocks@advisorSignature
+        \else\ifx\thesis@type\thesis@proposal
+          \thesis@blocks@advisorSignature
+        \fi\fi}%
     \end{center}%
   \end{alwayssingle}}
 %    \end{macrocode}
