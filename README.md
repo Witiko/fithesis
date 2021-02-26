@@ -1,6 +1,6 @@
 # About #
 
-`Fithesis3` is a document class for the typesetting of theses at
+`Fithesis4` is a document class for the typesetting of theses at
 the Masaryk University (Brno, Czech Republic). The class has been
 designed for easy extensibility by style and locale files of other
 academic institutions.

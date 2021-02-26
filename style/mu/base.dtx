@@ -111,7 +111,7 @@
 %     the very end of the preamble, there would either be a great
 %     chance of an option clash, or the option would have to be
 %     passed to the \textsf{xcolor} package before the preamble
-%     from the body of the \textsf{fithesis3} class thus breaking
+%     from the body of the \textsf{fithesis4} class thus breaking
 %     the encapsulation. Naming the option \texttt{table} forces
 %     the option to be processed by the \textsf{xcolor} package as
 %     well and it is therefore an elegant solution to the problem
@@ -177,7 +177,13 @@
 \thesis@requireLocale{english}
 %    \end{macrocode}
 % The file loads the following packages: \begin{itemize}
-%   \item\textsf{xcolor} -- Adds support for color manipulation.
+%   \item\textsf{xcolor} -- Adds support for color.
+% \changes{v0.4.0}{2018/11/18}{^^A
+%   The \cs{bfseries} command switches to the sans serif typeface
+%   and to the secondary color in the style files of the Masaryk
+%   University in Brno, Czech Republic. [VN]}
+%   \item\textsf{caption} -- Adds support for changing the
+%     formatting of float captions.
 %   \item\textsf{ifxetex} -- Used to detect the \Hologo{XeTeX}
 %     engine.
 %   \item\textsf{ifluatex} -- Used to detect the \Hologo{LuaTeX}
@@ -191,14 +197,29 @@
 %     metadata into the resulting PDF document.
 %   \item\textsf{keyval} -- Adds support for parsing
 %     comma-delimited lists of key-value pairs.
+%   \item\textsf{tabularx} -- Provides the \texttt{tabularx}
+%     environment, which enables the typesetting of tables with
+%     flexible-width columns.
+% \changes{v0.4.0}{2018/12/25}{^^A
+%   The packages \textsf{tabularx}, \textsf{tabu}, and
+%   \textsf{booktabs} are loaded by default, not only when
+%   the \texttt{table} class option has been specified. [VN]}
+%   \item\textsf{tabu} -- Provides the \texttt{tabu} environment,
+%     which enables the typesetting of complex tables.
+%   \item\textsf{booktabs} -- A package, which allows the creation
+%     of publication-quality tables in \LaTeX.
 % \end{itemize}
 %    \begin{macrocode}
 \thesis@require{xcolor}
+\RequirePackage[labelfont=bf]{caption}
 \thesis@require{graphicx}
 \thesis@require{pdfpages}
 \thesis@require{keyval}
 \thesis@require{ifxetex}
 \thesis@require{ifluatex}
+\thesis@require{tabularx}
+\thesis@require{tabu}
+\thesis@require{booktabs}
 %    \end{macrocode}
 % If the |\thesis@microtype@| is set to true, then the
 % \textsf{microtype} package gets loaded.
@@ -229,15 +250,20 @@
 %   \item\textsf{unicode-math} -- Allows the selection of
 %     system-installed mathematical fonts.
 % \end{itemize}
-% Under \Hologo{XeTeX} or \Hologo{LuaTeX}, the \textsf{TeX Gyre
-% Pagella} and \textsf{TeX Gyre Pagella Math} are also selected as
-% the main text and math fonts.
+% Under \Hologo{XeTeX} or \Hologo{LuaTeX}, the \textsf{\TeX{} Gyre
+% Pagella} and \textsf{\TeX{} Gyre Pagella Math} fonts are also
+% selected as the main text and math fonts and the \textsf{\TeX{}
+% Gyre Heros} font is selected as the main sans serif font.
+% \changes{v0.4.0}{2018/11/18}{^^A
+%   The \TeX{} Gyre Heros is used as the main sans serif font
+%   instead of Latin Modern. [VN]}
 %    \begin{macrocode}
 \ifthesis@xeluatex
   \ifthesis@palatino@
     \thesis@require{fontspec}
     \thesis@require{unicode-math}
     \setmainfont[Ligatures=TeX]{TeX Gyre Pagella}
+    \setsansfont[Ligatures=TeX,Scale=MatchLowercase]{TeX Gyre Heros}
     \setmathfont[math-style=ISO,bold-style=ISO]{texgyrepagella-math.otf}
   \fi
 %    \end{macrocode}
@@ -252,6 +278,11 @@
 %     to \texttt{mathpazo}.
 %   \item\textsf{tgpagella} -- Changes the default roman font
 %     family to \TeX\ Gyre Pagella.
+%   \item\textsf{tgheros} -- Changes the default sans-serif font
+%     face to \TeX{} Gyre Heros.
+%   \changes{v0.4.0}{2018/11/18}{^^A
+%     The \TeX{} Gyre Heros is used as the main sans serif font
+%     instead of Latin Modern. [VN]}
 %   \item\textsf{lmodern} -- Changes the default sans-serif and
 %     monotype font faces to Latin Modern instead of the default
 %     Computer Modern font family.
@@ -264,31 +295,18 @@
     \thesis@require{lmodern}
     \thesis@require{mathpazo}
     \thesis@require{tgpagella}
+    \thesis@require[scale=0.863]{tgheros}
     \RequirePackage[T1]{fontenc}
   \fi
 \fi
 %    \end{macrocode}
 % If the |\thesis@newtable@| conditional is \texttt{true}, then
 % some of the dimensions associated with tables are modified in
-% preparation for the coloring of the table cells. The following
-% packages are also loaded:
-% \begin{itemize}
-%   \item\textsf{tabularx} -- Provides the \texttt{tabularx}
-%     environment, which enables the typesetting of tables with
-%     flexible-width columns.
-%   \item\textsf{tabu} -- Provides the \texttt{tabu} environment,
-%     which enables the typesetting of complex tables.
-%   \item\textsf{booktabs} -- A package, which allows the creation
-%     of publication-quality tables in \LaTeX.
-% \end{itemize}
+% preparation for the coloring of the table cells.
 %    \begin{macrocode}
 \let\thesis@newtable@old\tabular
 \let\endthesis@newtable@old\endtabular
 \ifthesis@newtable@
-  % Load the packages.
-  \thesis@require{tabularx}
-  \thesis@require{tabu}
-  \thesis@require{booktabs}
   % Adjust the measurements.
   \setlength{\aboverulesep}{0pt}
   \setlength{\belowrulesep}{0pt}
@@ -511,6 +529,14 @@
 %     links to \textit{color} and stores it under the name
 %     \texttt{thesis@color@links}. The default color of links is
 %     specified by the \textsf{hyperref} package.
+%   \item\marg{\texttt{secondary}=color} -- Stores the secondary
+%     color that is used with the bold type face under the name
+%     \texttt{thesis@color@secondary}.  The default secondary color
+%     for the Masaryk University is RGB 0, 0, 220.
+%   \changes{v0.4.0}{2018/11/18}{^^A
+%     The \cs{bfseries} command switches to the sans serif typeface
+%     and to the secondary color in the style files of the Masaryk
+%     University in Brno, Czech Republic. [VN]}
 %   \item\marg{\texttt{tableOdd}=color} -- Stores the color of the
 %     odd rows of the redefined \texttt{tabular} and
 %     \texttt{tabularx} environments under the name
@@ -528,12 +554,29 @@
 \define@key{thesis@color}{links}{%
   \definecolor{thesis@color@links}#1
   \hypersetup{linkbordercolor=thesis@color@links}}
+\define@key{thesis@color}{secondary}{%
+  \definecolor{thesis@color@secondary}#1}
+\thesis@color@setup{secondary={RGB}{0, 0, 220}}
 \define@key{thesis@color}{tableOdd}{%
   \definecolor{thesis@color@tableOdd}#1}
 \define@key{thesis@color}{tableEven}{%
   \definecolor{thesis@color@tableEven}#1}
 \define@key{thesis@color}{tableEmph}{%
   \definecolor{thesis@color@tableEmph}#1}
+%    \end{macrocode}
+% \changes{v0.4.0}{2018/11/18}{^^A
+%   The \cs{bfseries} command switches to the sans serif typeface
+%   and to the secondary color in the style files of the Masaryk
+%   University in Brno, Czech Republic. [VN]}
+% The |\bfseries| macro is redefined to switch to the sans serif
+% type face in the secondary color. The original definition of
+% |\bfseries| is stored in the
+% \DescribeMacro{\thesis@bfseries@old}|\thesis@bfseries@old|
+% macro.
+% \begin{macrocode}
+\let\thesis@bfseries@old\bfseries
+\def\bfseries{%
+  \sffamily\color{thesis@color@secondary}\thesis@bfseries@old}
 %    \end{macrocode}
 % The file defines several blocks to be used in the redefinitions
 % of the |\thesis@blocks@preamble| and |\thesis@blocks@postamble|
@@ -677,11 +720,16 @@
 % \end{itemize}
 % This allows the subsequently loaded style files to only redefine
 % certain parts of the cover page.
+% \changes{v0.4.0}{2018/11/18}{^^A
+%   The \cs{bfseries} command switches to the sans serif typeface
+%   and to the secondary color in the style files of the Masaryk
+%   University in Brno, Czech Republic. [VN]}
 % \begin{macrocode}
 \def\thesis@blocks@cover{%
   \ifthesis@cover@
     \thesis@blocks@clear
     \begin{alwayssingle}%
+      \colorlet{thesis@color@secondary}{black}%
       \thispagestyle{empty}%
       \begin{center}%
         \thesis@blocks@cover@header
@@ -763,10 +811,15 @@
 % \end{itemize}
 % This allows the subsequently loaded style files to only redefine
 % certain parts of the title page.
+% \changes{v0.4.0}{2018/11/18}{^^A
+%   The \cs{bfseries} command switches to the sans serif typeface
+%   and to the secondary color in the style files of the Masaryk
+%   University in Brno, Czech Republic. [VN]}
 %    \begin{macrocode}
 \def\thesis@blocks@titlePage{%
     \thesis@blocks@clear
     \begin{alwayssingle}%
+      \color{thesis@color@secondary}%
       \thispagestyle{empty}%
       \begin{center}%
         \thesis@blocks@titlePage@header

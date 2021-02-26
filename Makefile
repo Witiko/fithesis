@@ -6,7 +6,7 @@ SUBMAKES=$(SUBMAKES_REQUIRED) $(SUBMAKES_EXTRA) $(SUBMAKES_TEST)
 .PHONY: all base complete docs clean dist dist-implode implode \
 	install install-base install-docs uninstall tests $(SUBMAKES)
 
-CLASSFILES=fithesis.cls fithesis2.cls fithesis3.cls
+CLASSFILES=fithesis.cls fithesis2.cls fithesis3.cls fithesis4.cls
 STYLEFILES=style/*.sty style/*/*.sty style/*/*.clo
 EPSLOGOS=logo/*/*.eps
 PDFLOGOS=logo/*/*.pdf

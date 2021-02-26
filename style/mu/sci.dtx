@@ -474,6 +474,10 @@
 %     expand to |\thesis@department@name| if the main locale of the
 %     thesis is Czech.
 % \end{itemize}
+% \changes{v0.4.0}{2018/11/18}{^^A
+%   The \cs{bfseries} command switches to the sans serif typeface
+%   and to the secondary color in the style files of the Masaryk
+%   University in Brno, Czech Republic.}
 % \begin{macrocode}
 \thesis@def@extra[{
   \ifthesis@czech
@@ -487,6 +491,7 @@
   \ifthesis@cover@
     \thesis@blocks@clear
     \begin{alwayssingle}
+      \colorlet{thesis@color@secondary}{black}%
       \begin{center}
       {\sc\thesis@titlePage@LARGE\thesis@czech@universityName\\%
           \thesis@titlePage@Large\thesis@czech@facultyName\\[0.3em]%
@@ -512,6 +517,10 @@
 %     typesetting. This extra data field will expand to
 %     |\thesis@TeXtitle| if the main locale of the thesis is Czech.
 % \end{itemize}
+% \changes{v0.4.0}{2018/11/18}{^^A
+%   The \cs{bfseries} command switches to the sans serif typeface
+%   and to the secondary color in the style files of the Masaryk
+%   University in Brno, Czech Republic.}
 % \begin{macrocode}
 \thesis@def@extra[{
   \ifthesis@czech
@@ -524,6 +533,7 @@
   \thesis@blocks@clear
   \thesis@selectLocale{czech}
   \begin{alwayssingle}
+    \color{thesis@color@secondary}%
     % The top of the page
     \begin{adjustwidth}{-12mm}{}
       \begin{minipage}{30mm}
