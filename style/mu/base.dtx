@@ -9,7 +9,7 @@
 % after \texttt{style/fithesis-base.sty}, regardless of the value
 % of the |\thesis@style| macro.
 %    \begin{macrocode}
-\ProvidesPackage{fithesis/style/mu/fithesis-mu-base}[2021/02/21]
+\ProvidesPackage{fithesis/style/mu/fithesis-mu-base}[2021/02/26]
 \NeedsTeXFormat{LaTeX2e}
 %    \end{macrocode}
 % The file recognizes the following options: \begin{itemize}
@@ -800,90 +800,88 @@
 % \end{macro}
 % \begin{macro}{\thesis@blocks@titlePage}
 % The |\thesis@blocks@titlePage| macro typesets the thesis
-% title page. It is composed of three macros:
-% \begin{itemize}
-%   \item|\thesis@blocks@titlePage@header| -- The header of the
-%        cover page
-%   \item|\thesis@blocks@titlePage@content| -- The content of the
-%        cover page
-%   \item|\thesis@blocks@titlePage@footer| -- The footer of the
-%        cover page
-% \end{itemize}
-% This allows the subsequently loaded style files to only redefine
-% certain parts of the title page.
+% title page.
 % \changes{v1.0.0}{2018/11/18}{^^A
 %   The \cs{bfseries} command switches to the sans serif typeface
 %   and to the secondary color in the style files of the Masaryk
 %   University in Brno, Czech Republic. [VN]}
-%    \begin{macrocode}
-\def\thesis@blocks@titlePage{%
-    \thesis@blocks@clear
-    \begin{alwayssingle}%
-      \color{thesis@color@secondary}%
-      \thispagestyle{empty}%
-      \begin{center}%
-        \thesis@blocks@titlePage@header
-        \thesis@blocks@facultyLogo@color\\[0.4in]%
-        \let\footnotesize\small
-        \let\footnoterule\relax{}%
-        \thesis@blocks@titlePage@content
-        \par\vfill
-        \thesis@blocks@titlePage@footer
-      \end{center}%
-    \end{alwayssingle}}
-%    \end{macrocode}
-% The output of the |\thesis@blocks@titlePage@header| macro is
+% \changes{v1.0.0}{2021/02/26}{^^A
+%   The \cs{thesis@blocks@titlePage} command no longer consists
+%   of the \cs{thesis@blocks@titlePage@header},
+%   \cs{thesis@blocks@titlePage@content}, and
+%   \cs{thesis@blocks@titlePage@footer} macros, which are no
+%   longer defined. [VN]}
+% The output of the |\thesis@blocks@titlePage| macro is
 % controlled by the following conditionals:
 % \begin{enumerate}
-%   \item|\ifthesis@blocks@titlePage@university@| -- This
-%        conditional expression determines, whether the university
-%        name is going to be included in the header of the title
-%        page. The default value of this conditional is
-%        \texttt{true}.
-%   \item|\ifthesis@blocks@titlePage@faculty@| -- This
-%        conditional expression determines, whether the faculty of
-%        study is going to be included in the header of the title
-%        page. The default value of this conditional is
-%        \texttt{true}.
 %   \item|\ifthesis@blocks@titlePage@department@| -- This
 %        conditional expression determines, whether the department
-%        name is going to be included in the header of the title
-%        page. The default value of this conditional is
-%        \texttt{false}.
+%        name is going to be included in the title page. The
+%        default value of this conditional is \texttt{true}.
+%   \changes{v1.0.0}{2021/02/26}{^^A
+%     The \cs{ifthesis@blocks@titlePage@department@} conditional
+%     now defaults to \texttt{true}. [VN]}
 %   \item|\ifthesis@blocks@titlePage@field@| -- This
 %        conditional expression determines, whether the field of
-%        study is going to be included in the header of the title
-%        page. The default value of this conditional is
-%        \texttt{false}.
+%        study is going to be included in the title page. The
+%        default value of this conditional is \texttt{true}.
+%   \changes{v1.0.0}{2021/02/26}{^^A
+%     The \cs{ifthesis@blocks@titlePage@field@} conditional
+%     now defaults to \texttt{true}. [VN]}
+%   \changes{v1.0.0}{2021/02/26}{^^A
+%     The \cs{ifthesis@blocks@titlePage@university@} and
+%     \cs{ifthesis@blocks@titlePage@faculty@} conditionals
+%     are no longer defined. [VN]}
+%   \item|\ifthesis@blocks@titlePage@programme@| -- This
+%        conditional expression determines, whether the study
+%        programme is going to be included in the title page. The
+%        default value of this conditional is \texttt{false}.
+%   \changes{v1.0.0}{2021/02/26}{^^A
+%     The \cs{ifthesis@blocks@titlePage@programme@} conditional
+%     is now defined and defaults to \texttt{false}. [VN]}
 % \end{enumerate}
 % The sebsequently loaded style files can modify the value of these
 % conditionals to alter the output of the
-% |\thesis@blocks@titlePage@header| macro without altering its
-% definition.
+% |\thesis@blocks@titlePage| macro without altering its definition.
 % \begin{macrocode}
-\newif\ifthesis@blocks@titlePage@university@
-\thesis@blocks@titlePage@university@true
-\newif\ifthesis@blocks@titlePage@faculty@
-\thesis@blocks@titlePage@faculty@true
 \newif\ifthesis@blocks@titlePage@department@
-\thesis@blocks@titlePage@department@false
+\thesis@blocks@titlePage@department@true
 \newif\ifthesis@blocks@titlePage@field@
-\thesis@blocks@titlePage@field@false
+\thesis@blocks@titlePage@field@true
+\newif\ifthesis@blocks@titlePage@programme@
+\thesis@blocks@titlePage@programme@true
 
-\def\thesis@blocks@titlePage@header{%
-  {\sc\ifthesis@blocks@titlePage@university@
-        \thesis@titlePage@LARGE\thesis@@{universityName}\\%
-   \fi\ifthesis@blocks@titlePage@faculty@
-        \thesis@titlePage@Large\thesis@@{facultyName}\\%
-   \fi\ifthesis@blocks@titlePage@department@
-        \thesis@titlePage@large\thesis@department@name\\%
-      \fi}
-  \ifthesis@blocks@titlePage@field@
-    {\thesis@titlePage@large\vskip 1em%
-      {\bf\thesis@@{fieldTitle}:} \thesis@field@name}%
-  \fi\vskip 2em}
-\let\thesis@blocks@titlePage@content=\thesis@blocks@cover@content
-\let\thesis@blocks@titlePage@footer=\thesis@blocks@cover@footer
+\def\thesis@blocks@titlePage{%
+  \thesis@blocks@clear
+  \begin{alwayssingle}%
+    \thispagestyle{empty}%
+    \begin{center}%
+      \thesis@blocks@universityLogo@color[width=6.3cm]%
+      \par\vspace{0.75cm}%
+      {\sf\thesis@titlePage@large\thesis@@upper{facultyName}}%
+      \par\vspace{1.75cm}%
+      {\bf\thesis@titlePage@Huge\thesis@TeXtitle}%
+      \par\vspace{1.75cm}%
+      {\sf\thesis@titlePage@Large\thesis@@{typeName}}
+      \par\vfill
+      {\sf\thesis@titlePage@LARGE\thesis@upper{author}}%
+      \par\vfill\vfill
+      {\sf\thesis@titlePage@large\thesis@@{advisorTitle}: \thesis@advisor}%
+      \par\vspace{0.75cm}%
+      \ifthesis@blocks@titlePage@department@
+        {\sf\thesis@titlePage@large\thesis@department@name}
+        \par\vspace{0.25cm}%
+      \fi
+      \ifthesis@blocks@titlePage@programme@
+        {\sf\thesis@titlePage@large\thesis@@{programmeTitle}: \thesis@programme}%
+      \fi
+      \ifthesis@blocks@titlePage@field@
+        {\sf\thesis@titlePage@large\thesis@@{fieldTitle}: \thesis@field@name}%
+      \fi
+      \par\vfill
+      {\sf\thesis@titlePage@large\thesis@place, \thesis@@{semester}}%
+    \end{center}%
+  \end{alwayssingle}}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@toc}
 % The |\thesis@blocks@toc| macro typesets the table of contents.
