@@ -165,6 +165,17 @@
 \global\let\thesis@english@bib@author\thesis@english@authorTitle
 \gdef\thesis@english@bib@thesisTitle{Title of Thesis}
 \gdef\thesis@english@bib@advisor{Supervisor}
+%    \end{macrocode}
+% \changes{v1.0.0}{2021/03/04}{Lifted the \texttt{bib@programme},
+%   \texttt{bib@academicYear}, and \texttt{bib@pages} strings from
+%   \texttt{locale/mu/sci/*.def} to \texttt{locale/mu/*.def},
+%   so that they can be shared with other faculties. [TV]}
+%    \begin{macrocode}
+\gdef\thesis@english@bib@programme{Degree Programme}
+\global\let\thesis@english@bib@field\thesis@english@fieldTitle
+\gdef\thesis@english@bib@academicYear{Academic Year}
+\gdef\thesis@english@bib@pages{Number of Pages}
+\global\let\thesis@english@bib@keywords\thesis@english@keywordsTitle
 
 % Miscellaneous
 \gdef\thesis@english@idTitle{UČO}
@@ -243,16 +254,6 @@
 % Placeholders
 \gdef\thesis@english@facultyName{Faculty of Economics
   and Administration}
-
-% Bibliographic entry
-%    \end{macrocode}
-% \changes{v0.3.46}{2017/06/02}{Defined strings required by
-%   \cs{thesis@blocks@bibEntry} from
-%   \texttt{style/mu/fithesis-econ.sty} in
-%   \texttt{locale/mu/econ/*.def}. [VN]}
-%    \begin{macrocode}
-\gdef\thesis@english@bib@department{Department}
-\gdef\thesis@english@bib@year{Year of Defense}
 
 % Miscellaneous
 %    \end{macrocode}
@@ -382,12 +383,6 @@
 % Miscellaneous
 \global\let\thesis@english@advisorTitleEn=\thesis@english@bib@advisor
 
-% Bibliographic entry
-\gdef\thesis@english@bib@programme{Degree Programme}
-\global\let\thesis@english@bib@field\thesis@english@fieldTitle
-\gdef\thesis@english@bib@academicYear{Academic Year}
-\gdef\thesis@english@bib@pages{Number of Pages}
-\global\let\thesis@english@bib@keywords\thesis@english@keywordsTitle
 %    \end{macrocode}\iffalse
 %</mu/sci>
 % \fi
