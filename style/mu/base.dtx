@@ -209,6 +209,8 @@
 %   \item\textsf{booktabs} -- A package, which allows the creation
 %     of publication-quality tables in \LaTeX.
 % \end{itemize}
+% \changes{v1.0.0}{2021/03/04}{Added required package tikz
+%   for bibEntry. [TV]}
 %    \begin{macrocode}
 \thesis@require{xcolor}
 \RequirePackage[labelfont=bf]{caption}
@@ -220,6 +222,7 @@
 \thesis@require{tabularx}
 \thesis@require{tabu}
 \thesis@require{booktabs}
+\thesis@require{tikz}
 %    \end{macrocode}
 % If the |\thesis@microtype@| is set to true, then the
 % \textsf{microtype} package gets loaded.
@@ -1137,7 +1140,7 @@
     \bf\thesis@@{bib@keywords}:}}
   \let\@skip\relax\newlength{\@skip}\setlength{\@skip}{16pt}
   \let\@left\relax\newlength{\@left}\pgfmathsetlength{\@left}{%
-    max(\@A,\@B,\@C,\@D,\@E,\@F,\@G,\@H)}
+	  max(\@A,\@B,\@C,\@D,\@E,\@F,\@G,\@H)}
   \let\@right\relax\newlength{\@right}\setlength{\@right}{%
     \textwidth-\@left-\@skip}
   % Typeset the table
@@ -1162,7 +1165,7 @@
       & \thesis@pages \\
     \textbf{\thesis@@{bib@keywords}:}
       & \thesis@TeXkeywords \\
-  \end{thesis@newtable@old}}\fi}
+  \end{thesis@newtable@old}}}
 
 \def\thesis@blocks@bibEntryEn{%
   \ifthesis@english\else
@@ -1187,7 +1190,7 @@
     \bf\thesis@english@bib@keywords:}}
   \let\@skip\relax\newlength{\@skip}\setlength{\@skip}{16pt}
   \let\@left\relax\newlength{\@left}\pgfmathsetlength{\@left}{%
-    max(\@A,\@B,\@C,\@D,\@E,\@F,\@G,\@H)}
+	  max(\@A,\@B,\@C,\@D,\@E,\@F,\@G,\@H)}
   \let\@right\relax\newlength{\@right}\setlength{\@right}{%
     \textwidth-\@left-\@skip}
   % Typeset the table
