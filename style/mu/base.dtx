@@ -209,6 +209,8 @@
 %   \item\textsf{booktabs} -- A package, which allows the creation
 %     of publication-quality tables in \LaTeX.
 % \end{itemize}
+% \changes{v1.0.0}{2021/03/04}{Added required package tikz
+%   for bibEntry. [TV]}
 %    \begin{macrocode}
 \thesis@require{xcolor}
 \RequirePackage[labelfont=bf]{caption}
@@ -220,6 +222,7 @@
 \thesis@require{tabularx}
 \thesis@require{tabu}
 \thesis@require{booktabs}
+\thesis@require{tikz}
 %    \end{macrocode}
 % If the |\thesis@microtype@| is set to true, then the
 % \textsf{microtype} package gets loaded.
@@ -1111,15 +1114,109 @@
 %   \item\texttt{bib@pages} -- The abbreviation of pages used in
 %     the bibliographical entry
 % \end{itemize}
+% \changes{v1.0.0}{2021/03/04}{The \cs{thesis@blocks@bibEntry} command
+%   was expanded to more closely resemble Faculty of Science's bibEntry.
+%   The \cs{thesis@blocks@bibEntryEn} was added. [TV]}
 %    \begin{macrocode}
 \def\thesis@blocks@bibEntry{%
+  \thesis@blocks@clear
   \chapter*{\thesis@@{bib@title}}
-  \noindent\thesis@upper{author@tail}, \thesis@author@head.
-  \emph{\thesis@title}. \thesis@place: \thesis@@{universityName},
-  \thesis@@{facultyName}, \thesis@department@name, \thesis@year.
-  \thesis@pages\ \thesis@@{bib@pages}.
-  \thesis@@{advisorTitle}: \thesis@advisor
-  \thesis@blocks@clearRight}
+  {% Calculate the width of the columns
+  \let\@A\relax\newlength{\@A}\settowidth{\@A}{{%
+    \bf\thesis@@{bib@author}:}}
+  \let\@B\relax\newlength{\@B}\settowidth{\@B}{{%
+    \bf\thesis@@{bib@thesisTitle}:}}
+  \let\@C\relax\newlength{\@C}\settowidth{\@C}{{%
+    \bf\thesis@@{bib@programme}:}}
+  \let\@D\relax\newlength{\@D}\settowidth{\@D}{{%
+    \bf\thesis@@{bib@field}:}}
+  \let\@E\relax\newlength{\@E}
+      \settowidth{\@E}{{\bf\thesis@@{bib@advisor}:}}
+  \let\@F\relax\newlength{\@F}\settowidth{\@F}{{%
+    \bf\thesis@@{bib@academicYear}:}}
+  \let\@G\relax\newlength{\@G}\settowidth{\@G}{{%
+    \bf\thesis@@{bib@pages}:}}
+  \let\@H\relax\newlength{\@H}\settowidth{\@H}{{%
+    \bf\thesis@@{bib@keywords}:}}
+  \let\@skip\relax\newlength{\@skip}\setlength{\@skip}{16pt}
+  \let\@left\relax\newlength{\@left}\pgfmathsetlength{\@left}{%
+	  max(\@A,\@B,\@C,\@D,\@E,\@F,\@G,\@H)}
+  \let\@right\relax\newlength{\@right}\setlength{\@right}{%
+    \textwidth-\@left-\@skip}
+  % Typeset the table
+  \noindent\begin{thesis@newtable@old}%
+    {@{}p{\@left}@{\hskip\@skip}p{\@right}@{}}
+    \textbf{\thesis@@{bib@author}\ifthesis@woman ka\fi:} &
+      \noindent\parbox[t]{\@right}{
+        \thesis@author\\
+        \thesis@@{facultyName} \\
+        \thesis@@{universityName}\\
+        \thesis@department@name
+      }\\
+    \textbf{\thesis@@{bib@thesisTitle}:}
+      & \thesis@title \\
+    \textbf{\thesis@@{bib@programme}:}
+      & \thesis@field \\
+    \textbf{\thesis@@{bib@advisor}:}
+      & \thesis@advisor \\
+    \textbf{\thesis@@{bib@academicYear}:}
+      & \thesis@academicYear \\
+    \textbf{\thesis@@{bib@pages}:}
+      & \thesis@pages \\
+    \textbf{\thesis@@{bib@keywords}:}
+      & \thesis@TeXkeywords \\
+  \end{thesis@newtable@old}}}
+
+\def\thesis@blocks@bibEntryEn{%
+  \ifthesis@english\else
+  \thesis@blocks@clear
+  \chapter*{\thesis@english@bib@title}
+  {% Calculate the width of the columns
+  \let\@A\relax\newlength{\@A}\settowidth{\@A}{{%
+    \bf\thesis@english@bib@author:}}
+  \let\@B\relax\newlength{\@B}\settowidth{\@B}{{%
+    \bf\thesis@english@bib@thesisTitle:}}
+  \let\@C\relax\newlength{\@C}\settowidth{\@C}{{%
+    \bf\thesis@english@bib@programme:}}
+  \let\@D\relax\newlength{\@D}\settowidth{\@D}{{%
+    \bf\thesis@english@bib@field:}}
+  \let\@E\relax\newlength{\@E}
+      \settowidth{\@E}{{\bf\thesis@english@bib@advisor:}}
+  \let\@F\relax\newlength{\@F}\settowidth{\@F}{{%
+    \bf\thesis@english@bib@academicYear:}}
+  \let\@G\relax\newlength{\@G}\settowidth{\@G}{{%
+    \bf\thesis@english@bib@pages:}}
+  \let\@H\relax\newlength{\@H}\settowidth{\@H}{{%
+    \bf\thesis@english@bib@keywords:}}
+  \let\@skip\relax\newlength{\@skip}\setlength{\@skip}{16pt}
+  \let\@left\relax\newlength{\@left}\pgfmathsetlength{\@left}{%
+	  max(\@A,\@B,\@C,\@D,\@E,\@F,\@G,\@H)}
+  \let\@right\relax\newlength{\@right}\setlength{\@right}{%
+    \textwidth-\@left-\@skip}
+  % Typeset the table
+  \noindent\begin{thesis@newtable@old}%
+    {@{}p{\@left}@{\hskip\@skip}p{\@right}@{}}
+    \textbf{\thesis@@{bib@author}:} &
+      \noindent\parbox[t]{\@right}{
+        \thesis@author\\
+        \thesis@english@facultyName \\
+        \thesis@english@universityName\\
+        \thesis@departmentEn@name
+        }\\
+    \textbf{\thesis@english@bib@thesisTitle:}
+      & \thesis@titleEn \\
+    \textbf{\thesis@english@bib@programme:}
+      & \thesis@fieldEn \\
+    \textbf{\thesis@english@bib@advisor:}
+      & \thesis@advisor \\
+    \textbf{\thesis@english@bib@academicYear:}
+      & \thesis@academicYear \\
+    \textbf{\thesis@english@bib@pages:}
+      & \thesis@pages \\
+    \textbf{\thesis@english@bib@keywords:}
+      & \thesis@TeXkeywordsEn \\
+  \end{thesis@newtable@old}}
+  \fi}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@bibliography}
 % When |\ifthesis@bibliography@loaded@| is true and
