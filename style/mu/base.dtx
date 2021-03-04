@@ -1275,7 +1275,15 @@
 \renewcommand*\l@subsubsection{\@dottedtocline{3}{7.0em}{4.1em}}
 \renewcommand*\l@paragraph{\@dottedtocline{4}{10.0em}{5.0em}}
 \renewcommand*\l@subparagraph{\@dottedtocline{4}{12.0em}{6.0em}}
-%    \end{macrocode}\iffalse
+%    \end{macrocode}
+% \changes{v1.0.0}{2021/03/04}{Styles for list of figures 
+%   and list of tables were redefined to achieve 
+%   unified look with toc. [TV]}
+%    \begin{macrocode}
+\renewcommand*\l@figure{\@dottedtocline{1}{0.5em}{2.3em}}
+\renewcommand*\l@table{\@dottedtocline{1}{0.5em}{2.3em}}
+%    \end{macrocode}
+% \iffalse
 %</base>
 % \fi\file{style/mu/fithesis-10.clo}
 % \changes{v1.0.0}{2021/02/21}{File were renamed after
