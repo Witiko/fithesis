@@ -61,12 +61,7 @@
 \usepackage[resetfonts]{cmap} %% We need to load the T2A font encoding
 \usepackage[T1,T2A]{fontenc}  %% to use the Cyrillic fonts with Russian texts.
 \usepackage[
-%<*sci>
-  main=slovak,  %% By using `czech` or `english` as the main locale
-                %% instead of `slovak`, you can typeset the thesis
-                %% in either Czech or English, respectively.
-%</sci>
-%<*econ,fi,fsps,fss,law,med,ped,phil>
+%<*econ,fi,fsps,fss,law,med,ped,phil,sci>
   main=english, %% By using `czech` or `slovak` as the main locale
                 %% instead of `english`, you can typeset the thesis
                 %% in either Czech or Slovak, respectively.
@@ -381,60 +376,24 @@
     date            = \the\year/\the\month/\the\day,
     university      = mu,
     faculty         = sci,
-    department      = Ústav matematiky a štatistiky,
-    departmentEn    = Department of Mathematics and
+    department      = Department of Mathematics and
                       Statistics,
-    extra = {
-      departmentCs  = Ústav matematiky a statistiky,
-    },
-    programme       = Matematika,
-    programmeEn     = Mathematics,
-    extra = {
-      programmeCs   = Matematika,
-    },
-    field           = Finančná a poistná matematika,
-    fieldEn         = Financial and Insurance Mathematics,
-    extra = {
-      fieldCs       = Finanční a pojistná matematika,
-    },
+    programme       = Mathematics,
+    field           = Financial and Insurance Mathematics,
     type            = bc,
     author          = Jane Doe,
     gender          = f,
     advisor         = {Prof. RNDr. John Smith, CSc.},
-    title           = Princípy matematickej sadzby v programe TeX,
-    TeXtitle        = Princípy matematickej sadzby\\v~programe \TeX,
-    titleEn         = The Principles of the Typesetting of
+    title           = The Principles of the Typesetting of
                       Mathematics in TeX: the Program,
-    TeXtitleEn      = The Principles of the Typesetting of
+    TeXtitle        = The Principles of the Typesetting of
                       Mathematics in \TeX: the Program,
-    extra = {
-      titleCs       = Principy matematické sazby v programu TeX,
-      TeXtitleCs    = Principy matematické sazby\\v~programu \TeX,
-    },
-    keywords        = {kľúčové slovo 1, kľúčové slovo 2, ...},
-    TeXkeywords     = {kľúčové slovo 1, kľúčové slovo 2, \ldots},
-    keywordsEn      = {keyword1, keyword2, ...},
-    TeXkeywordsEn   = {keyword1, keyword2, \ldots},
-    extra = {
-      keywordsCs    = {klíčové slovo 1, klíčové slovo 2, ...},
-      TeXkeywordsCs = {klíčové slovo 1, klíčové slovo 2, \ldots},
-    },
+    keywords        = {keyword1, keyword2, ...},
+    TeXkeywords     = {keyword1, keyword2, \ldots},
     abstract      = {%
       This is the abstract of my thesis, which can
 
       span multiple paragraphs.
-    },
-    abstractEn    = {%
-      This is the English abstract of my thesis, which can
-
-      span multiple paragraphs.
-    },
-    extra = {
-      abstractCs  = {%
-        This is the Czech abstract of my thesis, which can
-
-        span multiple paragraphs.
-      },
     },
     thanks        = {%
       These are the acknowledgements for my thesis, which can
