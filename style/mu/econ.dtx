@@ -13,7 +13,7 @@
 % zaverecnych_pracich_2017.docx}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fithesis/style/mu/fithesis-mu-econ}[2021/02/21]
+\ProvidesPackage{fithesis/style/mu/fithesis-mu-econ}[2021/02/26]
 %    \end{macrocode}
 % The file defines the color scheme of the respective faculty. Note
 % the the color definitions are in RGB, which makes the resulting
@@ -88,43 +88,14 @@
   \fi}
 %    \end{macrocode}
 % \end{macro}
-% The style file configures the title page header to include the
-% name of the field of study and redefines the title page content
-% not to include the author's name and the title page footer
-% to include both the author's and advisor's name, the year and
-% place of the thesis defense in accordance with the formal
-% requirements of the faculty.
-%    \begin{macrocode}
-\thesis@blocks@titlePage@field@true
-\def\thesis@blocks@titlePage@content{%
-  {\thesis@titlePage@Huge\bf\thesis@TeXtitle}
-  \ifthesis@english\else
-    {\\[0.1in]\thesis@titlePage@Large\bf\thesis@TeXtitleEn}
-  \fi {\\[0.3in]\thesis@titlePage@large\sc\thesis@@{typeName}\\}}
-\def\thesis@blocks@titlePage@footer{%
-  {\thesis@titlePage@large
-    {% Calculate the width of the thesis author and advisor boxes
-     \let\@A\relax\newlength{\@A}\settowidth{\@A}{{%
-       \bf\thesis@@{advisorTitle}:}}
-     \let\@B\relax\newlength{\@B}\settowidth{\@B}{\thesis@advisor}
-     \let\@C\relax\newlength{\@C}\settowidth{\@C}{{%
-       \bf\thesis@@{authorTitle}:}}
-     \let\@D\relax\newlength{\@D}\settowidth{\@D}{\thesis@author}
-    \let\@left\relax\newlength{\@left}\pgfmathsetlength{\@left}{%
-      max(\@A,\@B)}
-    \let\@right\relax\newlength{\@right}\pgfmathsetlength{\@right}{%
-      max(\@C,\@D)}
-%    \end{macrocode}
 % \changes{v0.3.49}{2018/02/11}{Removed an extraneous \cs{vskip} in
 %   the style files for the Masaryk University in Brno. [VN]}
-% \begin{macrocode}
-    % Typeset the thesis author and advisor boxes
-    \begin{minipage}[t]{\@left}
-      {\bf\thesis@@{advisorTitle}:}\\\thesis@advisor
-    \end{minipage}\hfill\begin{minipage}[t]{\@right}
-      {\bf\thesis@@{authorTitle}:}\\\thesis@author
-    \end{minipage}}\\[4em]\thesis@place, \thesis@year}}
-%    \end{macrocode}
+% \changes{v1.0.0}{2021/02/26}{^^A
+%   The style files for the Faculty of Economics and Administration
+%   at the Masaryk University in Brno
+%   no longer redefine the \cs{thesis@blocks@titlePage@footer}
+%   and \cs{thesis@blocks@titlePage@content} macros, which are no
+%   longer defined. [VN]}
 % \begin{macro}{\thesis@blocks@frontMatter}
 % The |\thesis@blocks@frontMatter| macro sets up the style
 % of the front matter of the thesis. The page numbering is arabic
@@ -277,7 +248,7 @@
   \fi}
 %    \end{macrocode}
 % \end{macro}
-
+%
 % Note that there is no direct support for the seminar paper and
 % thesis proposal types.  If you would like to change the contents
 % of the preamble and the postamble, you should modify the

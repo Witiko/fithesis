@@ -10,7 +10,7 @@
 % y}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fithesis/style/mu/fithesis-mu-sci}[2021/02/21]
+\ProvidesPackage{fithesis/style/mu/fithesis-mu-sci}[2021/03/12]
 %    \end{macrocode}
 % The file defines the color scheme of the respective faculty. Note
 % the the color definitions are in RGB, which makes the resulting
@@ -30,429 +30,44 @@
   sorting=none}
 \thesis@bibliography@load
 %    \end{macrocode}
-% The file uses Czech locale strings within the macros.
-%    \begin{macrocode}
-\thesis@requireLocale{czech}
-%    \end{macrocode}
-% \begin{macro}{\ifthesis@czech}
-% The |\ifthesis@czech| \ldots |\else| \ldots |\fi| conditional is made
-% available for testing, whether or not the current locale is Czech.
 % \changes{v0.3.45}{2017/05/23}{Defined the
 %   \cs{ifthesis@czech} macro in
 %   \texttt{style/mu/fithesis-sci.sty}. The patch was submitted by
 %   Juraj Pálenik. [VN]}
-%    \begin{macrocode}
-\def\ifthesis@czech{
-  \expandafter\def\expandafter\@czech\expandafter{\string
-  \czech}%
-  \expandafter\expandafter\expandafter\def\expandafter
-  \expandafter\expandafter\@locale\expandafter\expandafter
-  \expandafter{\expandafter\string\csname\thesis@locale\endcsname}%
-  \expandafter\csname\expandafter i\expandafter f\ifx\@locale
-  \@czech
-    true%
-  \else
-    false%
-  \fi\endcsname}
-\ifthesis@czech
-  \expandafter\expandafter\expandafter\let\expandafter\expandafter
-    \csname ifthesis@czech\endcsname\csname iftrue\endcsname
-\else
-  \expandafter\expandafter\expandafter\let\expandafter\expandafter
-    \csname ifthesis@czech\endcsname\csname iffalse\endcsname
-\fi
-%    \end{macrocode}
-% The file recognizes the following options: \begin{itemize}
-%   \item\texttt{abstractonsinglepage} -- The abstracts are going
-%   to be typeset on a single page as opposed to being spread
-%   across several pages. This is the default for theses whose main
-%   locale is neither Czech nor English.
-% \end{itemize}
 % \changes{v0.3.45}{2017/05/24}{Defined the
 %   \texttt{abstractonsinglepage} option in
 %   \texttt{style/mu/fithesis-sci.sty}. The patch was submitted by
 %   Juraj Pálenik. [VN]}
-%    \begin{macrocode}
-\newif\ifthesis@abstractonsinglepage@
-\DeclareOption{abstractonsinglepage}{\thesis@abstractonsinglepage@true}
-\ifthesis@czech\else\ifthesis@english\else
-  \ExecuteOptions{abstractonsinglepage}
-\fi\fi
-\ProcessOptions*
-%    \end{macrocode}
-% \end{macro}
-% The file loads the following packages:
-% \begin{itemize}
-%   \item\textsf{tikz} -- Used for dimension arithmetic.
-%   \item\textsf{changepage} -- Used for width adjustments.
-% \end{itemize}
-%    \begin{macrocode}
-\thesis@require{tikz}
-\thesis@require{changepage}
-%    \end{macrocode}
-% In case of rigorous and doctoral theses, the style file hides the
-% thesis assignment in accordance with the formal requirements of
-% the faculty.
-% \begin{macrocode}
-\ifx\thesis@type\thesis@bachelors\else
-\ifx\thesis@type\thesis@masters\else
-  \thesis@blocks@assignment@false
-\fi\fi
-%    \end{macrocode}
+% \changes{v1.0.0}{2021/03/12}{^^A
+%   The style file of the Faculty of Science at the Masaryk
+%   University in Brno, Czech Republic no longer defines the
+%   \cs{ifthesis@czech}, \cs{thesis@blocks@bibEntry},
+%   \cs{thesis@blocks@bibEntryCs}, \cs{thesis@blocks@bibEntryEn},
+%   \cs{thesis@blocks@abstractCs} macros, no longer defines the
+%   \texttt{abstractCs}, \texttt{programmeCs}, \texttt{fieldCs},
+%   \texttt{titleCs}, \texttt{keywordsCs}, \texttt{departmentCs},
+%   \texttt{TeXkeywordsCs}, and \texttt{TeXtitleCs} extra data
+%   fields, no longer defines the \texttt{abstractonsinglepage}
+%   option, and no longer overrides the \cs{thesis@blocks@cover},
+%   \cs{thesis@blocks@titlePage}, \cs{thesis@blocks@thanks}, and
+%   \cs{thesis@blocks@declaration} macros. [VN]}
+% \changes{v0.3.45}{2017/05/26}{Bibliographical entries in
+%   \texttt{style/mu/fithesis-sci.sty} now face each other when the
+%   main locale is either Czech or English. [VN]}
+% \changes{v0.3.45}{2017/05/28}{Defined the
+%   \cs{thesis@blocks@abstractCs} macro in
+%   \texttt{style/mu/fithesis-sci.sty}. The patch was submitted by
+%   Juraj Pálenik. [VN]}
+% \changes{v0.3.45}{2017/05/21}{Defined the
+%   \cs{thesis@blocks@bibEntryCs} macro in
+%   \texttt{style/mu/fithesis-sci.sty}. The patch was submitted by
+%   Juraj Pálenik. [VN]}
 % Enable the inclusion of the scanned assignment inside the digital
 % version of the document.
 % \begin{macrocode}
 \thesis@blocks@assignment@hideIfDigital@false
 %    \end{macrocode}
-% \begin{macro}{\thesis@blocks@bibEntry}
-% The |\thesis@blocks@bibEntry| macro typesets a bibliographical
-% entry. Along with the macros required by the locale file
-% interface, the locale files need to define the following macros:
-% \begin{itemize}
-%   \item|\thesis@|\textit{locale}|@bib@title| -- The title of the
-%     entire block
-%   \item|\thesis@|\textit{locale}|@bib@author| -- The label of the
-%     author name entry
-%   \item|\thesis@|\textit{locale}|@bib@title| -- The label of the
-%     title name entry
-%   \item|\thesis@|\textit{locale}|@bib@programme| -- The label of
-%     the programme name entry
-%   \item|\thesis@|\textit{locale}|@bib@field| -- The label of the
-%     field of study name entry
-%   \item|\thesis@|\textit{locale}|@bib@advisor| -- The label of
-%     the advisor name entry
-%   \item|\thesis@|\textit{locale}|@bib@academicYear| -- The label
-%     of the academic year entry
-%   \item|\thesis@|\textit{locale}|@bib@pages| -- The label of the
-%     number of pages entry
-%   \item|\thesis@|\textit{locale}|@bib@keywords| -- The label of
-%     the keywords entry
-% \end{itemize}
-% \changes{v0.3.45}{2017/05/26}{Bibliographical entries in
-%   \texttt{style/mu/fithesis-sci.sty} now face each other when the
-%   main locale is either Czech or English. [VN]}
-%    \begin{macrocode}
-\def\thesis@blocks@bibEntry{%
-  \begin{alwayssingle}%
-    % Clear only the right page, if the main locale is Czech.
-    \ifthesis@czech
-      \begingroup
-      \let\thesis@blocks@clear\thesis@blocks@clearRight
-    \fi
-    \chapter*{\thesis@@{bib@title}}%
-    \ifthesis@czech
-      \endgroup
-    \fi
-    {% Calculate the width of the columns
-    \let\@A\relax\newlength{\@A}\settowidth{\@A}{{%
-      \bf\thesis@@{bib@author}:}}
-    \let\@B\relax\newlength{\@B}\settowidth{\@B}{{%
-      \bf\thesis@@{bib@thesisTitle}:}}
-    \let\@C\relax\newlength{\@C}\settowidth{\@C}{{%
-      \bf\thesis@@{bib@programme}:}}
-    \let\@D\relax\newlength{\@D}\settowidth{\@D}{{%
-      \bf\thesis@@{bib@field}:}}
-    % Unless this is a rigorous thesis, we will be typesetting the
-    % name of the thesis advisor.
-    \let\@E\relax\newlength{\@E}
-      \ifx\thesis@type\thesis@rigorous
-        \setlength{\@E}{0pt}%
-      \else
-        \settowidth{\@E}{{\bf\thesis@@{bib@advisor}:}}
-      \fi
-    \let\@F\relax\newlength{\@F}\settowidth{\@F}{{%
-      \bf\thesis@@{bib@academicYear}:}}
-    \let\@G\relax\newlength{\@G}\settowidth{\@G}{{%
-      \bf\thesis@@{bib@pages}:}}
-    \let\@H\relax\newlength{\@H}\settowidth{\@H}{{%
-      \bf\thesis@@{bib@keywords}:}}
-    \let\@skip\relax\newlength{\@skip}\setlength{\@skip}{16pt}
-    \let\@left\relax\newlength{\@left}\pgfmathsetlength{\@left}{%
-      max(\@A,\@B,\@C,\@D,\@E,\@F,\@G,\@H)}
-    \let\@right\relax\newlength{\@right}\setlength{\@right}{%
-      \textwidth-\@left-\@skip}
-    % Typeset the table
-    \renewcommand{\arraystretch}{2}
-    \noindent\begin{thesis@newtable@old}%
-      {@{}p{\@left}@{\hskip\@skip}p{\@right}@{}}
-      \textbf{\thesis@@{bib@author}:} &
-        \noindent\parbox[t]{\@right}{
-          \thesis@author\\
-          \thesis@@{facultyName},
-          \thesis@@{universityName}\\
-          \thesis@department@name
-        }\\
-      \textbf{\thesis@@{bib@thesisTitle}:}
-        & \thesis@title \\
-      \textbf{\thesis@@{bib@programme}:}
-        & \thesis@programme \\
-      \textbf{\thesis@@{bib@field}:}
-        & \thesis@field@name \\
-      % Unless this is a rigorous thesis, typeset the name of the
-      % thesis advisor.
-      \ifx\thesis@type\thesis@rigorous\else
-        \textbf{\thesis@@{bib@advisor}:}
-          & \thesis@advisor \\
-      \fi
-      \textbf{\thesis@@{bib@academicYear}:}
-        & \thesis@academicYear \\
-      \textbf{\thesis@@{bib@pages}:}
-        & \thesis@pages@preamble{} + \thesis@pages \\
-      \textbf{\thesis@@{bib@keywords}:}
-        & \thesis@TeXkeywords \\
-    \end{thesis@newtable@old}}
-  \end{alwayssingle}}
-%    \end{macrocode}
-% \end{macro}\begin{macro}{\thesis@blocks@bibEntryEn}
-% The |\thesis@blocks@bibEntryEn| macro typesets a bibliographical
-% entry in English unless the current locale is English.
-%    \begin{macrocode}
-\def\thesis@blocks@bibEntryEn{%
-  \ifthesis@english\else
-    {\thesis@selectLocale{english}
-    \begin{alwayssingle}
-      \chapter*{\thesis@english@bib@title}%
-      {% Calculate the width of the columns
-      \let\@A\relax\newlength{\@A}\settowidth{\@A}{{%
-        \bf\thesis@english@bib@author:}}
-      \let\@B\relax\newlength{\@B}\settowidth{\@B}{{%
-        \bf\thesis@english@bib@thesisTitle:}}
-      \let\@C\relax\newlength{\@C}\settowidth{\@C}{{%
-        \bf\thesis@english@bib@programme:}}
-      \let\@D\relax\newlength{\@D}\settowidth{\@D}{{%
-        \bf\thesis@english@bib@field:}}
-      % Unless this is a rigorous thesis, we will be typesetting
-      % the name of the thesis advisor.
-      \let\@E\relax\newlength{\@E}
-        \ifx\thesis@type\thesis@rigorous
-          \setlength{\@E}{0pt}%
-        \else
-          \settowidth{\@E}{{\bf\thesis@english@bib@advisor:}}
-        \fi
-      \let\@F\relax\newlength{\@F}\settowidth{\@F}{{%
-        \bf\thesis@english@bib@academicYear:}}
-      \let\@G\relax\newlength{\@G}\settowidth{\@G}{{%
-        \bf\thesis@english@bib@pages:}}
-      \let\@H\relax\newlength{\@H}\settowidth{\@H}{{%
-        \bf\thesis@english@bib@keywords:}}
-      \let\@skip\relax\newlength{\@skip}\setlength{\@skip}{16pt}
-      \let\@left\relax\newlength{\@left}\pgfmathsetlength{\@left}{%
-        max(\@A,\@B,\@C,\@D,\@E,\@F,\@G,\@H)}
-      \let\@right\relax\newlength{\@right}\setlength{\@right}{%
-        \textwidth-\@left-\@skip}
-      % Typeset the table
-      \renewcommand{\arraystretch}{2}
-      \noindent\begin{thesis@newtable@old}%
-        {@{}p{\@left}@{\hskip\@skip}p{\@right}@{}}
-          \textbf{\thesis@english@bib@author:} &
-            \noindent\parbox[t]{\@right}{
-              \thesis@author\\
-              \thesis@english@facultyName,
-              \thesis@english@universityName\\
-              \thesis@departmentEn@name
-            }\\
-          \textbf{\thesis@english@bib@thesisTitle:}
-            & \thesis@titleEn \\
-          \textbf{\thesis@english@bib@programme:}
-            & \thesis@programmeEn \\
-          \textbf{\thesis@english@bib@field:}
-            & \thesis@fieldEn@name \\
-          % Unless this is a rigorous thesis, typeset the name of the
-          % thesis advisor.
-          \ifx\thesis@type\thesis@rigorous\else
-            \textbf{\thesis@english@bib@advisor:}
-              & \thesis@advisor \\
-          \fi
-          \textbf{\thesis@english@bib@academicYear:}
-            & \thesis@academicYear \\
-          \textbf{\thesis@english@bib@pages:}
-            & \thesis@pages@preamble{} + \thesis@pages \\
-          \textbf{\thesis@english@bib@keywords:}
-            & \thesis@TeXkeywordsEn \\
-        \end{thesis@newtable@old}}
-      \end{alwayssingle}
-    }%
-  \fi}
-%    \end{macrocode}
-% \end{macro}\begin{macro}{\thesis@blocks@abstractCs}
-% The |\thesis@blocks@abstractCs| macro typesets the
-% abstract in Czech. If the current locale is Czech, the
-% macro produces no output. The following extra data field is
-% defined for the macro: \begin{itemize}
-%   \item|abstractCs| -- the Czech title of the thesis used for the
-%     typesetting. This extra data field will expand to
-%     |\thesis@abstract| if the current locale of the thesis
-%     is Czech.
-% \end{itemize}
-% \changes{v0.3.45}{2017/05/28}{Defined the
-%   \cs{thesis@blocks@abstractCs} macro in
-%   \texttt{style/mu/fithesis-sci.sty}. The patch was submitted by
-%   Juraj Pálenik. [VN]}
-%    \begin{macrocode}
-\thesis@def@extra[{
-  \ifthesis@czech
-    \thesis@abstract
-  \else
-    \thesis@placeholder@extra@abstractCs
-  \fi
-}]{abstractCs}
-\def\thesis@blocks@abstractCs{%
-  \ifthesis@czech\else
-    {\thesis@selectLocale{czech}%
-    \begin{alwayssingle}%
-      \ifthesis@abstractonsinglepage@
-        \thesis@blocks@clear
-      \else
-        % Start the new chapter without clearing the left page.
-        \thesis@blocks@clearRight
-      \fi
-      {\let\thesis@blocks@clear\relax
-      \chapter*{\thesis@czech@abstractTitle}%
-      \thesis@extra@abstractCs}%
-      \par\vfil\null
-    \end{alwayssingle}}%
-  \fi}
-%    \end{macrocode}
-% \end{macro}\begin{macro}{\thesis@blocks@bibEntryCs}
-% The |\thesis@blocks@bibEntryCs| macro typesets a bibliographical
-% entry in English unless the current locale is Czech. The
-% macro uses the following extra data fields:\begin{itemize}
-%   \item|programmeCs| -- the Czech name of the author's study
-%     programme. This extra data field will expand to
-%     |\thesis@programme| if the current locale of the thesis
-%     is Czech.
-%   \item|fieldCs| -- the Czech name of the author's field of
-%     study. This extra data field will expand to
-%     |\thesis@field@name| if the current locale of the thesis
-%     is Czech.
-%   \item|keywordsCs| -- the Czech keywords of the thesis.
-%     This extra data field will expand to |\thesis@keywords| if
-%     the current locale of the thesis is Czech.
-%   \item|TeXkeywordsCs| -- the Czech \TeX{} keywords of the thesis.
-%     This extra data field will expand to |\thesis@TeXkeywords| if
-%     the current locale of the thesis is Czech.
-% \end{itemize}
-% \changes{v0.3.45}{2017/05/21}{Defined the
-%   \cs{thesis@blocks@bibEntryCs} macro in
-%   \texttt{style/mu/fithesis-sci.sty}. The patch was submitted by
-%   Juraj Pálenik. [VN]}
-%    \begin{macrocode}
-\thesis@def@extra[{
-  \ifthesis@czech
-    \thesis@programme
-  \else
-    \thesis@placeholder@extra@programmeCs
-  \fi
-}]{programmeCs}
-\thesis@def@extra[{
-  \ifthesis@czech
-    \thesis@field@name
-  \else
-    \thesis@placeholder@extra@fieldCs
-  \fi
-}]{fieldCs}
-\thesis@def@extra[{
-  \ifthesis@czech
-    \thesis@title
-  \else
-    \thesis@placeholder@extra@titleCs
-  \fi
-}]{titleCs}
-\thesis@def@extra[{
-  \ifthesis@czech
-    \thesis@keywords
-  \else
-    \thesis@placeholder@extra@keywordsCs
-  \fi
-}]{keywordsCs}
-\thesis@def@extra[{
-  \ifthesis@czech
-    \thesis@TeXkeywords
-  \else
-    \thesis@placeholder@extra@keywordsCs
-  \fi
-}]{TeXkeywordsCs}
-%    \end{macrocode}
-% \changes{v0.3.45}{2017/05/26}{Bibliographical entries in
-%   \texttt{style/mu/fithesis-sci.sty} now face each other when the
-%   main locale is either Czech or English. [VN]}
-%    \begin{macrocode}
-\def\thesis@blocks@bibEntryCs{%
-  \ifthesis@czech\else
-    {\thesis@selectLocale{czech}
-    \begin{alwayssingle}
-      % Clear only the right page, if the main locale is English.
-      \ifthesis@english
-        \begingroup
-        \let\thesis@blocks@clear\thesis@blocks@clearRight
-      \fi
-      \chapter*{\thesis@czech@bib@title}%
-      \ifthesis@english
-        \endgroup
-      \fi
-      {% Calculate the width of the columns
-      \let\@A\relax\newlength{\@A}\settowidth{\@A}{{%
-        \bf\thesis@czech@bib@author:}}
-      \let\@B\relax\newlength{\@B}\settowidth{\@B}{{%
-        \bf\thesis@czech@bib@thesisTitle:}}
-      \let\@C\relax\newlength{\@C}\settowidth{\@C}{{%
-        \bf\thesis@czech@bib@programme:}}
-      \let\@D\relax\newlength{\@D}\settowidth{\@D}{{%
-        \bf\thesis@czech@bib@field:}}
-      % Unless this is a rigorous thesis, we will be typesetting
-      % the name of the thesis advisor.
-      \let\@E\relax\newlength{\@E}
-        \ifx\thesis@type\thesis@rigorous
-          \setlength{\@E}{0pt}%
-        \else
-          \settowidth{\@E}{{\bf\thesis@czech@bib@advisor:}}
-        \fi
-      \let\@F\relax\newlength{\@F}\settowidth{\@F}{{%
-        \bf\thesis@czech@bib@academicYear:}}
-      \let\@G\relax\newlength{\@G}\settowidth{\@G}{{%
-        \bf\thesis@czech@bib@pages:}}
-      \let\@H\relax\newlength{\@H}\settowidth{\@H}{{%
-        \bf\thesis@czech@bib@keywords:}}
-      \let\@skip\relax\newlength{\@skip}\setlength{\@skip}{16pt}
-      \let\@left\relax\newlength{\@left}\pgfmathsetlength{\@left}{%
-        max(\@A,\@B,\@C,\@D,\@E,\@F,\@G,\@H)}
-      \let\@right\relax\newlength{\@right}\setlength{\@right}{%
-        \textwidth-\@left-\@skip}
-      % Typeset the table
-      \renewcommand{\arraystretch}{2}
-      \noindent\begin{thesis@newtable@old}%
-        {@{}p{\@left}@{\hskip\@skip}p{\@right}@{}}
-          \textbf{\thesis@czech@bib@author:} &
-            \noindent\parbox[t]{\@right}{
-              \thesis@author\\
-              \thesis@czech@facultyName,
-              \thesis@czech@universityName\\
-              \thesis@extra@departmentCs
-            }\\
-          \textbf{\thesis@czech@bib@thesisTitle:}
-            & \thesis@extra@titleCs \\
-          \textbf{\thesis@czech@bib@programme:}
-            & \thesis@extra@programmeCs \\
-          \textbf{\thesis@czech@bib@field:}
-            & \thesis@extra@fieldCs \\
-          % Unless this is a rigorous thesis, typeset the name of the
-          % thesis advisor.
-          \ifx\thesis@type\thesis@rigorous\else
-            \textbf{\thesis@czech@bib@advisor:}
-              & \thesis@advisor \\
-          \fi
-          \textbf{\thesis@czech@bib@academicYear:}
-            & \thesis@academicYear \\
-          \textbf{\thesis@czech@bib@pages:}
-            & \thesis@pages@preamble{} + \thesis@pages \\
-          \textbf{\thesis@czech@bib@keywords:}
-            & \thesis@extra@TeXkeywordsCs \\
-        \end{thesis@newtable@old}}
-      \end{alwayssingle}
-    }%
-  \fi}
-%    \end{macrocode}
-% \end{macro}\begin{macro}{\thesis@blocks@frontMatter}
+% \begin{macro}{\thesis@blocks@frontMatter}
 % The |\thesis@blocks@frontMatter| macro sets up the style
 % of the front matter front matter of the thesis. The front matter
 % is typeset without any visible numbering, as mandated by the
@@ -465,191 +80,36 @@
   \setcounter{page}{1}
   \pagenumbering{roman}}
 %    \end{macrocode}
-% \end{macro}\begin{macro}{\thesis@blocks@cover}
-% The |\thesis@blocks@cover| macro typesets the thesis
-% cover. The following extra data field is defined for the macro:
-% \begin{itemize}
-%   \item|departmentCs| -- the Czech name of the department at
-%     which the thesis is being written. This extra data field will
-%     expand to |\thesis@department@name| if the main locale of the
-%     thesis is Czech.
-% \end{itemize}
+% \end{macro}
 % \changes{v1.0.0}{2018/11/18}{^^A
 %   The \cs{bfseries} command switches to the sans serif typeface
 %   and to the secondary color in the style files of the Masaryk
 %   University in Brno, Czech Republic.}
-% \begin{macrocode}
-\thesis@def@extra[{
-  \ifthesis@czech
-    \thesis@department@name
-  \else
-    \thesis@placeholder@extra@departmentCs
-  \fi
-}]{departmentCs}
-\def\thesis@blocks@cover{{%
-  \thesis@selectLocale{czech}
-  \ifthesis@cover@
-    \thesis@blocks@clear
-    \begin{alwayssingle}
-      \colorlet{thesis@color@secondary}{black}%
-      \begin{center}
-      {\sc\thesis@titlePage@LARGE\thesis@czech@universityName\\%
-          \thesis@titlePage@Large\thesis@czech@facultyName\\[0.3em]%
-          \thesis@titlePage@normalsize\thesis@extra@departmentCs}
-      \vfill
-      {\bf\thesis@titlePage@Huge\thesis@czech@typeName}
-      \vfill
-      {\thesis@titlePage@large\thesis@place
-       \ \thesis@year\hfill\thesis@author}
-      \end{center}
-    \end{alwayssingle}
-  \fi}}
-%    \end{macrocode}
-% \end{macro}\begin{macro}{\thesis@blocks@titlePage}
-% The |\thesis@blocks@titlePage| macro typesets the thesis
-% title page. Depending on the value of the |\ifthesis@color@|
-% conditional, the faculty logo is loaded from either
-% |\thesis@logopath|, if \texttt{false}, or from
-% |\thesis@logopath color/|, if \texttt{true}.
-% The following extra data field is defined for the macro:
-% \begin{itemize}
-%   \item|TeXtitleCs| -- the Czech title of the thesis used for the
-%     typesetting. This extra data field will expand to
-%     |\thesis@TeXtitle| if the main locale of the thesis is Czech.
-% \end{itemize}
-% \changes{v1.0.0}{2018/11/18}{^^A
-%   The \cs{bfseries} command switches to the sans serif typeface
-%   and to the secondary color in the style files of the Masaryk
-%   University in Brno, Czech Republic.}
-% \begin{macrocode}
-\thesis@def@extra[{
-  \ifthesis@czech
-    \thesis@TeXtitle
-  \else
-    \thesis@placeholder@extra@titleCs
-  \fi
-}]{TeXtitleCs}
-\def\thesis@blocks@titlePage{{%
-  \thesis@blocks@clear
-  \thesis@selectLocale{czech}
-  \begin{alwayssingle}
-    \color{thesis@color@secondary}%
-    % The top of the page
-    \begin{adjustwidth}{-12mm}{}
-      \begin{minipage}{30mm}
-        \thesis@blocks@universityLogo@color[width=30mm]
-      \end{minipage}\begin{minipage}{89mm}
-        \begin{center}
-          {\sc\thesis@titlePage@LARGE\thesis@czech@universityName\\%
-              \thesis@titlePage@Large\thesis@czech@facultyName\\[0.3em]%
-              \thesis@titlePage@normalsize\thesis@extra@departmentCs}
-          \rule{\textwidth}{2pt}\vspace*{2mm}
-        \end{center}
-      \end{minipage}\begin{minipage}{30mm}
-        \thesis@blocks@facultyLogo@color[width=30mm]
-      \end{minipage}
-    \end{adjustwidth}
-    % The middle of the page
-    \vfill
-    \parbox\textwidth{% Prevent vfills from squashing the leading
-      \bf\thesis@titlePage@Huge\thesis@extra@TeXtitleCs}
-    {\thesis@titlePage@Huge\\[0.8em]}
-    {\thesis@titlePage@large\thesis@czech@typeName\\[1em]}
-    {\bf\thesis@titlePage@LARGE\thesis@author\\}
-    \vfill\noindent
-    % The bottom of the page
-    {\bf\thesis@titlePage@normalsize
-      % Unless this is a rigorous thesis, typeset the name of the
-      % thesis advisor.
-      \ifx\thesis@type\thesis@rigorous\else
-          \thesis@czech@advisorTitle: \thesis@advisor\hfill
-      \fi
-      \thesis@place\ \thesis@year}
-  \end{alwayssingle}}}
-%    \end{macrocode}
-% \end{macro}\begin{macro}{\thesis@blocks@thanks}
-% The |\thesis@blocks@thanks| macro typesets the
-% acknowledgements, if the |\thesis@thanks| macro is
-% defined. Otherwise, the macro produces no output.
-% As per the faculty requirements, the acknowledgements are
-% positioned at the top of the page.
 % \changes{v0.3.45}{2017/05/24}{Redefined the
 %   \cs{thesis@blocks@thanks} and \cs{thesis@blocks@declaration}
 %   macros in \texttt{style/mu/fithesis-sci.sty}. The patch was
 %   submitted by Juraj Pálenik. [VN]}
-%    \begin{macrocode}
-\def\thesis@blocks@thanks{%
-  \thesis@blocks@clear
-  \ifx\thesis@thanks\undefined\else
-    \begin{alwayssingle}%
-      \chapter*{\thesis@@{thanksTitle}}%
-      \leavevmode\thesis@thanks
-    \end{alwayssingle}%
-  \fi}
-%    \end{macrocode}
-% \end{macro}\begin{macro}{\thesis@blocks@declaration}
-% The |\thesis@blocks@declaration| macro typesets the declaration
-% text. Unlike the generic |\thesis@blocks@declaration| macro from
-% the \texttt{style/mu/fithesis-sci.sty} file, this definition
-% includes the date and a blank line for the author's signature, as
-% per the requirements of the faculty.
-%    \begin{macrocode}
-\def\thesis@blocks@declaration{%
-  \begin{alwayssingle}%
-    \leavevmode\vfill
-    % Start the new chapter without clearing any page.
-    {\let\thesis@blocks@clear\relax
-    \chapter*{\thesis@@{declarationTitle}}}%
-    \thesis@declaration
-    \vskip 2cm%
-    {\let\@A\relax\newlength{\@A}
-      \settowidth{\@A}{\thesis@@{authorSignature}}
-      \setlength{\@A}{\@A+1cm}
-    \noindent\thesis@place, \thesis@@{formattedDate}\hfill
-    \begin{minipage}[t]{\@A}%
-      \centering\rule{\@A}{1pt}\\
-      \thesis@@{authorSignature}\par
-    \end{minipage}}
-  \end{alwayssingle}}
-%    \end{macrocode}
-% \end{macro}
-% Note that there is no direct support for the seminar paper and
-% thesis proposal types.  If you would like to change the contents
-% of the preamble and the postamble, you should modify the
-% |\thesis@blocks@preamble| and |\thesis@blocks@postamble| macros.
 %
 % All blocks within the autolayout preamble and postamble that are
 % not defined within this file are defined in the
-% \texttt{style/mu/fithesis-base.sty} file. The entire front matter
-% is typeset as though the locale were Czech in accordance with the
-% formal requirements of the faculty.
+% \texttt{style/mu/fithesis-base.sty} file.
 %    \begin{macrocode}
 \def\thesis@blocks@preamble{
   \thesis@blocks@coverMatter
     \thesis@blocks@cover
-  \thesis@blocks@frontMatter
     \thesis@blocks@titlePage
-    \thesis@blocks@clearRight
-      \thesis@blocks@bibEntryCs
-      \thesis@blocks@bibEntry
-      \thesis@blocks@bibEntryEn
-      \thesis@blocks@abstractCs
-      \ifthesis@abstractonsinglepage@
-        \begingroup
-          \let\clearpage\relax
-      \fi
-          \thesis@blocks@abstract
-          \thesis@blocks@abstractEn
-      \ifthesis@abstractonsinglepage@
-        \endgroup
-      \fi
-    \thesis@blocks@assignment
-    {\thesis@selectLocale{czech}%
-    \thesis@blocks@thanks
-    \thesis@blocks@declaration
-    \thesis@blocks@clear
-      \pagestyle{plain}%
-      \thesis@blocks@tables}}
+  \thesis@blocks@frontMatter
+    \ifx\thesis@type\thesis@proposal
+      \thesis@blocks@toc
+    \else
+      \thesis@blocks@assignment
+      \thesis@blocks@declaration
+      \thesis@blocks@thanks
+      \thesis@blocks@clearRight
+        \thesis@blocks@abstract
+        \thesis@blocks@keywords
+      \thesis@blocks@tables
+    \fi}
 \def\thesis@blocks@postamble{%
   \thesis@blocks@bibliography}
 %    \end{macrocode}

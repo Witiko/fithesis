@@ -2,7 +2,7 @@
 % This is the base file of the English locale.\iffalse
 %<*base>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/fithesis-english.def}[2017/09/08]
+\ProvidesFile{fithesis/locale/fithesis-english.def}[2021/02/26]
 %    \end{macrocode}
 % The locale file defines all the private macros mandated by the
 % locale file interface.
@@ -65,6 +65,12 @@
 
 % Miscellaneous
 \gdef\thesis@english@authorSignature{Author's signature}
+%    \end{macrocode}
+% \changes{v1.0.0}{2021/02/26}{Lifted the \texttt{advisorSignature}
+%   string to the global locale file interface. [VN]}
+% \begin{macrocode}
+\gdef\thesis@english@advisorSignature{Signature of Thesis
+  \thesis@english@advisorTitle}
 \gdef\thesis@english@fieldTitle{Field of study}
 \gdef\thesis@english@advisorTitle{Advisor}
 \gdef\thesis@english@authorTitle{Author}
@@ -292,15 +298,13 @@
 % Informatics at the Masaryk University in Brno.  It replaces the
 % \texttt{facultyName} placeholder with the correct value and
 % redefines the string in accordance with the requirements of the
-% faculty.  The file also defines the \texttt{advisorSignature}
-% string required by the |\thesis@blocks@titlePage| block defined
-% within the
-% \texttt{style/mu/\discretionary{}{}{}fithesis-fi.sty}
-% style file.
+% faculty.
+% \changes{v1.0.0}{2021/02/26}{Lifted the \texttt{advisorSignature}
+%   string to the global locale file interface. [VN]}
 % \iffalse
 %<*mu/fi>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/mu/fi/fithesis-english.def}[2016/05/25]
+\ProvidesFile{fithesis/locale/mu/fi/fithesis-english.def}[2021/02/26]
 
 % Placeholders
 \gdef\thesis@english@facultyName{Faculty of Informatics}
@@ -318,8 +322,6 @@
   \fi}
 
 % Others
-\gdef\thesis@english@advisorSignature{Signature of Thesis
-  \thesis@english@advisorTitle}
 \gdef\thesis@english@typeName@proposal{Ph.D. Thesis Proposal}
 %    \end{macrocode}\iffalse
 %</mu/fi>

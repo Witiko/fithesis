@@ -9,7 +9,7 @@
 % ZITOSTI_ZAVERECNE_PRACE.doc}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fithesis/style/mu/fithesis-mu-med}[2021/02/21]
+\ProvidesPackage{fithesis/style/mu/fithesis-mu-med}[2021/02/26]
 %    \end{macrocode}
 % The file defines the color scheme of the respective faculty. Note
 % the the color definitions are in RGB, which makes the resulting
@@ -73,43 +73,14 @@
   \fi}
 %    \end{macrocode}
 % \end{macro}
-% The style file redefines the title page content
-% not to include the author's name and the title page footer
-% to include both the author's and advisor's name, the field of
-% study and the semester and place of the thesis defense in
-% accordance with the requirements of the department.
-%    \begin{macrocode}
-\def\thesis@blocks@titlePage@content{%
-  {\thesis@titlePage@Huge\bf\thesis@TeXtitle\\[0.3in]}%
-  {\thesis@titlePage@large{\sc\thesis@@{typeName}}\\}}
-\def\thesis@blocks@titlePage@footer{%
-  {\thesis@titlePage@large
-    {% Calculate the width of the thesis author and advisor boxes
-     \let\@A\relax\newlength{\@A}\settowidth{\@A}{{%
-       \bf\thesis@@{advisorTitle}:}}
-     \let\@B\relax\newlength{\@B}\settowidth{\@B}{\thesis@advisor}
-     \let\@C\relax\newlength{\@C}\settowidth{\@C}{{%
-       \bf\thesis@@{authorTitle}:}}
-     \let\@D\relax\newlength{\@D}\settowidth{\@D}{\thesis@author}
-     \let\@E\relax\newlength{\@E}\settowidth{\@E}{{%
-       \bf\thesis@@{fieldTitle}:}}
-     \let\@F\relax\newlength{\@F}\settowidth{\@F}{\thesis@field@name}
-    \let\@left\relax\newlength{\@left}\pgfmathsetlength{\@left}{%
-      max(\@A,\@B)}
-    \let\@right\relax\newlength{\@right}\pgfmathsetlength{\@right}{%
-      max(\@C,\@D,\@E,\@F)}
-%    \end{macrocode}
 % \changes{v0.3.49}{2018/02/11}{Removed an extraneous \cs{vskip} in
 %   the style files for the Masaryk University in Brno. [VN]}
-% \begin{macrocode}
-    % Typeset the thesis author and advisor boxes
-    \begin{minipage}[t]{\@left}
-      {\bf\thesis@@{advisorTitle}:}\\\thesis@advisor
-    \end{minipage}\hfill\begin{minipage}[t]{\@right}
-      {\bf\thesis@@{authorTitle}:}\\\thesis@author
-        \\[1em]{\bf\thesis@@{fieldTitle}:}\\\thesis@field@name
-    \end{minipage}}\\[4em]\thesis@place, \thesis@@{semester}}}
-%    \end{macrocode}
+% \changes{v1.0.0}{2021/02/26}{^^A
+%   The style files for the Faculty of Medicine
+%   at the Masaryk University in Brno
+%   no longer redefine the \cs{thesis@blocks@titlePage@footer}
+%   and \cs{thesis@blocks@titlePage@content} macros, which are no
+%   longer defined. [VN]}
 % \begin{macro}{\thesis@blocks@frontMatter}
 % The |\thesis@blocks@frontMatter| macro sets up the style of the
 % front matter of the thesis. The page numbering is arabic in
