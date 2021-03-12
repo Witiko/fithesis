@@ -97,29 +97,19 @@
 \def\thesis@blocks@preamble{
   \thesis@blocks@coverMatter
     \thesis@blocks@cover
-  \thesis@blocks@frontMatter
     \thesis@blocks@titlePage
-    \thesis@blocks@clearRight
-      \thesis@blocks@bibEntryCs
-      \thesis@blocks@bibEntry
-      \thesis@blocks@bibEntryEn
-      \thesis@blocks@abstractCs
-      \ifthesis@abstractonsinglepage@
-        \begingroup
-          \let\clearpage\relax
-      \fi
-          \thesis@blocks@abstract
-          \thesis@blocks@abstractEn
-      \ifthesis@abstractonsinglepage@
-        \endgroup
-      \fi
-    \thesis@blocks@assignment
-    {\thesis@selectLocale{czech}%
-    \thesis@blocks@thanks
-    \thesis@blocks@declaration
-    \thesis@blocks@clear
-      \pagestyle{plain}%
-      \thesis@blocks@tables}}
+  \thesis@blocks@frontMatter
+    \ifx\thesis@type\thesis@proposal
+      \thesis@blocks@toc
+    \else
+      \thesis@blocks@assignment
+      \thesis@blocks@declaration
+      \thesis@blocks@thanks
+      \thesis@blocks@clearRight
+        \thesis@blocks@abstract
+        \thesis@blocks@keywords
+      \thesis@blocks@tables
+    \fi}
 \def\thesis@blocks@postamble{%
   \thesis@blocks@bibliography}
 %    \end{macrocode}
