@@ -195,6 +195,17 @@
 \global\let\thesis@slovak@bib@author\thesis@slovak@authorTitle
 \gdef\thesis@slovak@bib@thesisTitle{Názov práce}
 \global\let\thesis@slovak@bib@advisor\thesis@slovak@advisorTitle
+%    \end{macrocode}
+% \changes{v1.0.0}{2021/03/04}{Lifted the \texttt{bib@programme},
+%   \texttt{bib@academicYear}, and \texttt{bib@pages} strings from
+%   \texttt{locale/mu/sci/*.def} to \texttt{locale/mu/*.def},
+%   so that they can be shared with other faculties. [TV]}
+%    \begin{macrocode}
+\gdef\thesis@slovak@bib@programme{Študijný program}
+\global\let\thesis@slovak@bib@field\thesis@slovak@fieldTitle
+\gdef\thesis@slovak@bib@academicYear{Akademický rok}
+\gdef\thesis@slovak@bib@pages{Počet strán}
+\global\let\thesis@slovak@bib@keywords\thesis@slovak@keywordsTitle
 
 % Rôzne
 \gdef\thesis@slovak@idTitle{UČO}
@@ -288,17 +299,6 @@
 
 % Zástupné texty
 \gdef\thesis@slovak@facultyName{Ekonomicko-správna fakulta}
-
-% Bibliografický záznam
-%    \end{macrocode}
-% \changes{v0.3.46}{2017/06/02}{Defined strings required by
-%   \cs{thesis@blocks@bibEntry} from
-%   \texttt{style/mu/fithesis-econ.sty} in
-%   \texttt{locale/mu/econ/*.def}. [VN]}
-%    \begin{macrocode}
-\gdef\thesis@slovak@bib@thesisTitleEn{Názov práce v angličtine}
-\gdef\thesis@slovak@bib@department{Katedra}
-\gdef\thesis@slovak@bib@year{Rok obhajoby}
 
 % Rôzne
 %    \end{macrocode}
@@ -496,12 +496,6 @@
 % Zástupné texty
 \gdef\thesis@slovak@facultyName{Prírodovedecká fakulta}
 
-% Bibliografický záznam
-\gdef\thesis@slovak@bib@programme{Študijný program}
-\global\let\thesis@slovak@bib@field\thesis@slovak@fieldTitle
-\gdef\thesis@slovak@bib@academicYear{Akademický rok}
-\gdef\thesis@slovak@bib@pages{Počet strán}
-\global\let\thesis@slovak@bib@keywords\thesis@slovak@keywordsTitle
 %    \end{macrocode}\iffalse
 %</mu/sci>
 % \fi

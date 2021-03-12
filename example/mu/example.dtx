@@ -98,6 +98,12 @@
 %% 
 %% The following section sets up the metadata of the thesis.
 %<*econ>
+%    \end{macrocode}
+% \changes{v1.0.0}{2021/03/04}{Added elements that are used 
+%   by thesis@bibEntry and thesis@titlePage: field, fieldEn
+%   departmentEn. [TV]}
+%    \begin{macrocode}
+
 \thesissetup{
     date               = \the\year/\the\month/\the\day,
     autoLayout         = false,
@@ -135,6 +141,8 @@
     %% The following keys are only useful, when you're using a
     %% locale other than English. You can safely omit them in an
     %% English thesis.
+    fieldEn        = Applied Econometrics,
+    departmentEn       = Department of Finance,
     titleEn            = The Economic Value of LaTeX,
     TeXtitleEn         = The Economic Value of \LaTeX,
     keywordsEn         = {keyword1, keyword2, ...},
@@ -147,11 +155,17 @@
 }
 %</econ>
 %<*fi>
+%    \end{macrocode}
+% \changes{v1.0.0}{2021/03/04}{Added elements that are used
+%   by thesis@titlePage: field, department. [TV]}
+%    \begin{macrocode}
 \thesissetup{
     date        = \the\year/\the\month/\the\day,
     university  = mu,
     faculty     = fi,
     type        = bc,
+    field       = Applied Informatics,
+    department  = Department of Machine Learning and Data Processing,
     author      = Jane Doe,
     gender      = f,
     advisor     = {Prof. RNDr. John Smith, CSc.},
@@ -177,28 +191,53 @@
 }
 %</fi>
 %<*fsps>
+%    \end{macrocode}
+% \changes{v1.0.0}{2021/03/04}{Added elements that are used
+%   by thesis@bibEntry and thesis@titlePage: field, fieldEn,
+%   department, departmentEn, titleEn, TeXtitleEn, keywords, 
+%   keywordsEn, TeXkeywords, TeXkeywordsEn. [TV]}
+%    \begin{macrocode}
 \thesissetup{
-    date       = \the\year/\the\month/\the\day,
-    university = mu,
-    faculty    = fsps,
-    type       = bc,
-    field      = Sport Management,
-    author     = Jane Doe,
-    gender     = f,
-    advisor    = {Prof. RNDr. John Smith, CSc.},
-    title      = The use of LaTeX for the Typesetting
-                 of Sports Tables,
-    TeXtitle   = The use of \LaTeX\ for the Typesetting
-                 of Sports Tables,
-    bib        = example.bib,
+    date          = \the\year/\the\month/\the\day,
+    university    = mu,
+    faculty       = fsps,
+    type          = bc,
+    field         = Sport Management,
+    department    = Department of Social Sciences and Sport Management,
+    author        = Jane Doe,
+    gender        = f,
+    advisor       = {Prof. RNDr. John Smith, CSc.},
+    title         = The use of LaTeX for the Typesetting
+                    of Sports Tables,
+    TeXtitle      = The use of \LaTeX\ for the Typesetting
+                    of Sports Tables,
+    keywords      = {keyword1, keywords2, ...},
+    TeXkeywords   = {keyword1, keywords2, \ldots},
+    bib           = example.bib,
+    %% The following keys are only useful, when you're using a
+    %% locale other than English. You can safely omit them in an
+    %% English thesis.
+    fieldEn       = Applied Econometrics,
+    departmentEn  = Department of Finance,
+    titleEn       = The Economic Value of LaTeX,
+    TeXtitleEn    = The Economic Value of \LaTeX,
+    keywordsEn    = {keyword1, keyword2, ...},
+    TeXkeywordsEn = {keyword1, keyword2, \ldots},
 }
 %</fsps>
 %<*fss>
+%    \end{macrocode}
+% \changes{v1.0.0}{2021/03/04}{Added elements that are used
+%   by thesis@bibEntry and thesis@titlePage: field, fieldEn,
+%   department, departmentEn, titleEn, TeXtitleEn. [TV]}
+%    \begin{macrocode}
 \thesissetup{
     date          = \the\year/\the\month/\the\day,
     university    = mu,
     faculty       = fss,
     type          = bc,
+    field         = Psychology,
+    department    = Department of Health,
     author        = Jane Doe,
     gender        = f,
     title         = LaTeX and Its Impact on the
@@ -221,6 +260,12 @@
     %% The following keys are only useful, when you're using a
     %% locale other than English. You can safely omit them in an
     %% English thesis.
+    fieldEn       = Psychology,
+    departmentEn  = Department of Health,
+    titleEn       = LaTeX and Its Impact on the
+                    Information Society,
+    TeXtitleEn    = \LaTeX\ and Its Impact on the
+                    Information Society,
     keywordsEn    = {keyword1, keyword2, ...},
     TeXkeywordsEn = {keyword1, keyword2, \ldots},
     abstractEn    = {%
@@ -231,12 +276,17 @@
 }
 %</fss>
 %<*law>
+%    \end{macrocode}
+% \changes{v1.0.0}{2021/03/04}{Added elements that are used
+%   by thesis@titlePage: field [TV]}
+%    \begin{macrocode}
 \thesissetup{
     date          = \the\year/\the\month/\the\day,
     university    = mu,
     faculty       = law,
-    department    = The Department of Commercial Law,
     type          = bc,
+    field         = Law and Finance,
+    department    = The Department of Commercial Law,
     author        = Jane Doe,
     gender        = f,
     title         = The Legal Aspects of the LaTeX Project
@@ -273,10 +323,10 @@
     date          = \the\year/\the\month/\the\day,
     university    = mu,
     faculty       = med,
+    type          = bc,
     field         = Optometry,
     department    = The Department of Optometry and
                     Orthoptics,
-    type          = bc,
     author        = Jane Doe,
     gender        = f,
     advisor       = {Prof. RNDr. John Smith, CSc.},
@@ -310,11 +360,17 @@
 }
 %</med>
 %<*ped>
+%    \end{macrocode}
+% \changes{v1.0.0}{2021/03/04}{Added elements that are used
+%   by thesis@bibEntry and thesis@titlePage: field, fieldEn,
+%   departmentEn, titleEn, TeXtitleEn. [TV]}
+%    \begin{macrocode}
 \thesissetup{
     date          = \the\year/\the\month/\the\day,
     university    = mu,
     faculty       = ped,
     type          = bc,
+    field         = Speech Therapy,
     department    = Department of Primary Pedagogy,
     author        = Jane Doe,
     gender        = f,
@@ -339,6 +395,12 @@
     %% The following keys are only useful, when you're using a
     %% locale other than English. You can safely omit them in an
     %% English thesis.
+    fieldEn       = Speech Therapy,
+    departmentEn  = Department of Primary Pedagogy,
+    titleEn       = The Challenges of Teaching LaTeX
+                    to Preschool Children,
+    TeXtitleEn    = The Challenges of Teaching \LaTeX\ 
+	            to Preschool Children,
     keywordsEn    = {keyword1, keyword2, ...},
     TeXkeywordsEn = {keyword1, keyword2, \ldots},
     abstractEn    = {%
@@ -349,26 +411,49 @@
 }
 %</ped>
 %<*phil>
+%    \end{macrocode}
+% \changes{v1.0.0}{2021/03/04}{Added elements that are used
+%   by thesis@bibEntry and thesis@titlePage: fieldEn, departmentEn,
+%   titleEn, TeXtitleEn, keywordsEn, TeXkeywordsEn, abstractEn. [TV]}
+%    \begin{macrocode}
 \thesissetup{
-    date       = \the\year/\the\month/\the\day,
-    university = mu,
-    faculty    = phil,
-    department = Department of Psychology,
-    field      = Cognitive Sciences,
-    type       = bc,
-    author     = Jane Doe,
-    gender     = f,
-    advisor    = {Prof. RNDr. John Smith, CSc.},
-    title      = What Can Typography Tell Us
-                 About the Nature of Man,
-    TeXtitle   = What Can Typography Tell Us\\
-                 About the Nature of Man,
-    thanks     = {%
+    date        = \the\year/\the\month/\the\day,
+    university  = mu,
+    faculty     = phil,
+    type        = bc,
+    field       = Cognitive Sciences,
+    department  = Department of Psychology,
+    author      = Jane Doe,
+    gender      = f,
+    advisor     = {Prof. RNDr. John Smith, CSc.},
+    title       = What Can Typography Tell Us
+                  About the Nature of Man,
+    TeXtitle    = What Can Typography Tell Us\\
+                  About the Nature of Man,
+    keywords    = {keyword1, keyword2, ...},
+    TeXkeywords = {keyword1, keyword2, \ldots},
+    thanks      = {%
       These are the acknowledgements for my thesis, which can
 
       span multiple paragraphs.
     },
     bib        = example.bib,
+    %% The following keys are only useful, when you're using a
+    %% locale other than English. You can safely omit them in an
+    %% English thesis.
+    fieldEn            = Cognitive Sciences,
+    departmentEn       = Department of Psychology,
+    titleEn            = What Can Typography Tell Us
+	                 About the Nature of Man,
+    TeXtitleEn         = What Can Typography Tell Us
+	                 About the Nature of Man,
+    keywordsEn         = {keyword1, keyword2, ...},
+    TeXkeywordsEn      = {keyword1, keyword2, \ldots},
+    abstractEn         = {%
+    This is the English abstract of my thesis, which can
+
+      span multiple paragraphs.
+    },
 }
 %</phil>
 %<*sci>

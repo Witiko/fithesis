@@ -247,65 +247,8 @@
     \end{alwayssingle}}%
   \fi}
 %    \end{macrocode}
-% \end{macro}\begin{macro}{\thesis@blocks@bibEntry}
-% The |\thesis@blocks@bibEntry| macro typesets a bibliographical
-% entry. Along with the macros required by the locale file
-% interface, the locale files need to define the following macros:
-% \begin{itemize}
-%   \item|\thesis@|\textit{locale}|@bib@author| -- The label of the
-%     author name entry
-%   \item|\thesis@|\textit{locale}|@bib@title| -- The label of the
-%     title name entry
-%   \item|\thesis@|\textit{locale}|@bib@titleEn| -- The label of the
-%     English title name entry (\cs{thesis@english@bib@titleEn}
-%     does not need to be defined)
-%   \item|\thesis@|\textit{locale}|@bib@department| -- The label of
-%     the department name entry
-%   \item|\thesis@|\textit{locale}|@bib@advisor| -- The label of
-%     the advisor name entry
-%   \item|\thesis@|\textit{locale}|@bib@year| -- The label of the
-%     year entry
-% \end{itemize}
-% \changes{v0.3.46}{2017/06/02}{Defined \cs{thesis@blocks@bibEntry}
-%   in \texttt{style/mu/fithesis-econ.sty} in accordance with the
-%   example documents. The patch was submitted by Jana Ratajská.
-%   [VN]}
-% \changes{v0.3.51}{2020/03/09}{The \cs{thesis@blocks@bibEntry}
-%   command now accomodates long titles and other information that
-%   may span multiple lines. [VN]}
-%    \begin{macrocode}
-\def\thesis@blocks@bibEntry{%
-  \thesis@blocks@clear
-  {\let\@A\relax\newlength{\@A}
-   \settowidth{\@A}{{\bf\thesis@@{bib@author}}}
-   \let\@B\relax\newlength{\@B}
-   \@B=\@A
-   \settowidth{\@A}{{\bf\thesis@@{bib@thesisTitle}}}
-   \ifdim\@A>\@B\@B=\@A\fi
-   \ifthesis@english\else
-     \settowidth{\@A}{{\bf\thesis@@{bib@thesisTitleEn}}}
-     \ifdim\@A>\@B\@B=\@A\fi
-   \fi
-   \settowidth{\@A}{{\bf\thesis@@{bib@department}}}
-   \ifdim\@A>\@B\@B=\@A\fi
-   \settowidth{\@A}{{\bf\thesis@@{bib@advisor}}}
-   \ifdim\@A>\@B\@B=\@A\fi
-   \settowidth{\@A}{{\bf\thesis@@{bib@year}}}
-   \ifdim\@A>\@B\@B=\@A\fi
-   \noindent\begin{thesis@newtable@old}{@{}>{\bfseries}%
-                                        p{\dimexpr(\@B + \tabcolsep)}%
-                                        p{\dimexpr(\textwidth - \@B - 2\tabcolsep)}@{}}
-     \thesis@@{bib@author}:        & \thesis@author     \\
-     \thesis@@{bib@thesisTitle}:   & \thesis@title      \\
-   \ifthesis@english\else
-     \thesis@@{bib@thesisTitleEn}: & \thesis@titleEn    \\
-   \fi
-     \thesis@@{bib@department}:    & \thesis@department \\
-     \thesis@@{bib@advisor}:       & \thesis@advisor    \\
-     \thesis@@{bib@year}:          & \thesis@year       \\
-   \end{thesis@newtable@old}}}
-%    \end{macrocode}
 % \end{macro}
+%
 % Note that there is no direct support for the seminar paper and
 % thesis proposal types.  If you would like to change the contents
 % of the preamble and the postamble, you should modify the
