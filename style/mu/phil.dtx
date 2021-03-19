@@ -70,7 +70,26 @@
   {\thesis@titlePage@large\\[0.3in]
     {\bf\thesis@@{advisorTitle}:} \thesis@advisor}}
 %    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@blocks@summary}
+% \changes{v1.0.0}{2021/03/11}{Macro for the summary was added. [TV]}
+% The |\thesis@blocks@summary| macro typesets the summary
+% for doctoral theses. If the thesis type is not doctoral, the
+% macro produces no output.
+%    \begin{macrocode}
+\thesis@def@extra[{
+  \thesis@placeholder@extra@summary
+}]{summary}
+
+\def\thesis@blocks@summary{%
+  \begin{alwayssingle}%
+    \thesis@blocks@clear
+    {\let\thesis@blocks@clear\relax
+    \chapter*{\thesis@@{summaryTitle}}}%
+    \noindent\thesis@extra@summary
+    \end{alwayssingle}}
+%    \end{macrocode}
 % \end{macro}
+%
 % Note that there is no direct support for the seminar paper and
 % thesis proposal types.  If you would like to change the contents
 % of the preamble and the postamble, you should modify the
@@ -88,6 +107,8 @@
 %    \end{macrocode}
 % In KISK theses, the bibliographical entry, the abstract, and the
 % keywords will be included after the cover matter.
+% \changes{v1.0.0}{2021/03/11}{Added conditional to add summary for
+% doctoral theses. [TV]}
 %    \begin{macrocode}
     \ifx\thesis@department\thesis@departments@kisk
       \thesis@blocks@bibEntry
@@ -97,6 +118,7 @@
       \thesis@blocks@keywordsEn
     \fi
     \thesis@blocks@declaration
+    \ifx\thesis@doctoral\thesis@type\thesis@blocks@summary\else\fi
     \thesis@blocks@thanks
 %    \end{macrocode}
 % In KISK theses, the lists of tables and figures will be included
