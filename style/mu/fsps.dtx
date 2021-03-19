@@ -9,7 +9,7 @@
 % 5-2013.pdf}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fithesis/style/mu/fithesis-mu-fsps}[2021/02/21]
+\ProvidesPackage{fithesis/style/mu/fithesis-mu-fsps}[2021/02/26]
 %    \end{macrocode}
 % The file defines the color scheme of the respective faculty. Note
 % the the color definitions are in RGB, which makes the resulting
@@ -48,38 +48,13 @@
 %    \begin{macrocode}
 \setlength{\parindent}{1.25cm}
 %    \end{macrocode}
-% The style file redefines the title page content
-% not to include the author's name and the title page footer
-% to include both the author's and advisor's name, the year and
-% place of the thesis defense in accordance with the formal
-% requirements of the faculty.
-%    \begin{macrocode}
-\def\thesis@blocks@titlePage@footer{%
-  {\thesis@titlePage@large
-    {% Calculate the width of the thesis author and advisor boxes
-     \let\@A\relax\newlength{\@A}\settowidth{\@A}{{%
-       \bf\thesis@@{advisorTitle}:}}
-     \let\@B\relax\newlength{\@B}\settowidth{\@B}{\thesis@advisor}
-     \let\@C\relax\newlength{\@C}\settowidth{\@C}{{%
-       \bf\thesis@@{authorTitle}:}}
-     \let\@D\relax\newlength{\@D}\settowidth{\@D}{\thesis@author}
-     \let\@E\relax\newlength{\@E}\settowidth{\@E}{\thesis@field}
-     \let\@F\relax\newlength{\@F}\pgfmathsetlength{\@F}{max(\@D,\@E)}
-    \let\@left\relax\newlength{\@left}\pgfmathsetlength{\@left}{%
-      max(\@A,\@B)}
-    \let\@right\relax\newlength{\@right}\pgfmathsetlength{\@right}{%
-      max(\@C,\@F)}
-%    \end{macrocode}
 % \changes{v0.3.49}{2018/02/11}{Removed an extraneous \cs{vskip} in
 %   the style files for the Masaryk University in Brno. [VN]}
-% \begin{macrocode}
-    % Typeset the thesis author and advisor boxes
-    \begin{minipage}[t]{\@left}
-      {\bf\thesis@@{advisorTitle}:}\\\thesis@advisor
-    \end{minipage}\hfill\begin{minipage}[t]{\@right}
-      {\bf\thesis@@{authorTitle}:}\\\thesis@author\\\thesis@field
-    \end{minipage}}\\[4em]\thesis@place, \thesis@year}}
-%    \end{macrocode}
+% \changes{v1.0.0}{2021/02/26}{^^A
+%   The style files for the Faculty of Sports Studies
+%   at the Masaryk University in Brno no longer
+%   redefine the \cs{thesis@blocks@titlePage@footer} macro, which
+%   is no longer defined. [VN]}
 % \begin{macro}{\thesis@blocks@frontMatter}
 % The |\thesis@blocks@frontMatter| macro sets up the style of the
 % front matter of the thesis. The leading is adjusted in

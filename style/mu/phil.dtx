@@ -8,7 +8,7 @@
 % racoviste/SO/vzory_praci/Vzor_bakalarske_prace.pdf}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fithesis/style/mu/fithesis-mu-phil}[2021/02/21]
+\ProvidesPackage{fithesis/style/mu/fithesis-mu-phil}[2021/02/26]
 %    \end{macrocode}
 % The file defines the color scheme of the respective faculty. Note
 % the the color definitions are in RGB, which makes the resulting
@@ -28,12 +28,12 @@
   sorting=nty}
 \thesis@bibliography@load
 %    \end{macrocode}
-% The style file configures the title page header to include the
-% department and the field name.
-%    \begin{macrocode}
-\thesis@blocks@titlePage@department@true
-\thesis@blocks@titlePage@field@true
-%    \end{macrocode}
+% \changes{v1.0.0}{2021/02/26}{^^A
+%   The \cs{ifthesis@blocks@titlePage@department@} conditional
+%   now defaults to \texttt{true}. [VN]}
+% \changes{v1.0.0}{2021/02/26}{^^A
+%   The \cs{ifthesis@blocks@titlePage@field@} conditional
+%   now defaults to \texttt{true}. [VN]}
 % The style file parses the value of the |\thesis@department| macro
 % and recognizes the following divisions of the Faculty of Arts:
 % \begin{itemize}

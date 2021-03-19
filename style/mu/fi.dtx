@@ -10,7 +10,7 @@
 % \url{http://www.fi.muni.cz/docs/BP_DP_na_FI.pdf}.}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fithesis/style/mu/fithesis-mu-fi}[2021/02/21]
+\ProvidesPackage{fithesis/style/mu/fithesis-mu-fi}[2021/02/26]
 %    \end{macrocode}
 % The file defines the color scheme of the respective faculty. Note
 % the the color definitions are in RGB, which makes the resulting
@@ -40,51 +40,15 @@
   \thesis@blocks@assignment@false
 \fi\fi
 %    \end{macrocode}
-% \begin{macro}{\thesis@blocks@titlePage}
-% The style file redefines the cover and title page footers to
-% include the thesis advisor's name and signature in case of a
-% rigorous thesis. Along with the macros required by the
-% locale file interface, the locale files need to define the
-% following strings:
-% \begin{itemize}
-%   \item\texttt{advisorSignature} -- The label of the advisor
-%     signature field typeset in the case of rigorous theses
-% \end{itemize}
-% \begin{macrocode}
-\def\thesis@blocks@advisor{%
-  {\thesis@titlePage@large\\[0.3in]
-    {\bf\thesis@@{advisorTitle}:} \thesis@advisor}}
-\def\thesis@blocks@titlePage@content{%
-    {\thesis@titlePage@Huge\bf\thesis@TeXtitle\par\vfil}\vskip 0.8in
-    {\thesis@titlePage@large\sc\thesis@@{typeName}\\[0.3in]}
-    {\thesis@titlePage@Large\bf\thesis@author}
-    % If this is a rigorous thesis or a PhD thesis proposal,
-    % typeset the name of the thesis advisor.
-    \ifx\thesis@type\thesis@rigorous
-      \thesis@blocks@advisor
-    \else\ifx\thesis@type\thesis@proposal
-      \thesis@blocks@advisor
-    \fi\fi}%
-\def\thesis@blocks@advisorSignature{%
-  \let\@A\relax\newlength{\@A}
-    \settowidth{\@A}{\thesis@@{advisorSignature}}
-    \setlength{\@A}{\@A+1cm}
-  \hfill\raisebox{-0.5em}{\parbox{\@A}{
-    \centering
-    \rule{\@A}{1pt}\\
-    \thesis@@{advisorSignature}
-  }}}%
-\def\thesis@blocks@titlePage@footer{%
-  {\thesis@titlePage@large\thesis@place, \thesis@@{semester}
-  % If this is a rigorous thesis or a PhD thesis proposal,
-  % create space for the advisor's signature.
-  \ifx\thesis@type\thesis@rigorous
-    \thesis@blocks@advisorSignature
-  \else\ifx\thesis@type\thesis@proposal
-    \thesis@blocks@advisorSignature
-  \fi\fi}}
-%    \end{macrocode}
-% \end{macro}\begin{macro}{\thesis@blocks@declaration}
+% \changes{v1.0.0}{2021/02/26}{^^A
+%   The \cs{thesis@blocks@advisorSignature} macro is now defined
+%   for styles of all faculties at the Masaryk University in Brno,
+%   not just for the Faculty of Informatics, and is automatically
+%   used in the \cs{thesis@blocks@titlePage} macro for rigorous
+%   theses and PhD thesis proposals. [VN]}
+% \changes{v1.0.0}{2021/02/26}{Lifted the \texttt{advisorSignature}
+%   string to the global locale file interface. [VN]}
+% \begin{macro}{\thesis@blocks@declaration}
 % The |\thesis@blocks@declaration| macro typesets the
 % declaration text. Compared to the definition within the
 % \texttt{style/mu/base.sty} file, this macro also

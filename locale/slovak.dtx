@@ -2,7 +2,7 @@
 % This is the base file of the Slovak locale.\iffalse
 %<*base>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/fithesis-slovak.def}[2017/07/09]
+\ProvidesFile{fithesis/locale/fithesis-slovak.def}[2021/02/26]
 %    \end{macrocode}
 % The locale file defines all the private macros mandated by the
 % locale file interface.
@@ -80,6 +80,11 @@
 % Rôzne
 \gdef\thesis@slovak@authorSignature{%
   Podpis autor\ifthesis@woman ky\else a\fi}
+%    \end{macrocode}
+% \changes{v1.0.0}{2021/02/26}{Lifted the \texttt{advisorSignature}
+%   string to the global locale file interface. [VN]}
+% \begin{macrocode}
+\gdef\thesis@slovak@advisorSignature{Podpis vedúceho}
 \gdef\thesis@slovak@fieldTitle{Odbor}
 \gdef\thesis@slovak@advisorTitle{Vedúci práce}
 \gdef\thesis@slovak@authorTitle{Autor}
@@ -194,6 +199,17 @@
 \global\let\thesis@slovak@bib@author\thesis@slovak@authorTitle
 \gdef\thesis@slovak@bib@thesisTitle{Názov práce}
 \global\let\thesis@slovak@bib@advisor\thesis@slovak@advisorTitle
+%    \end{macrocode}
+% \changes{v1.0.0}{2021/03/04}{Lifted the \texttt{bib@programme},
+%   \texttt{bib@academicYear}, and \texttt{bib@pages} strings from
+%   \texttt{locale/mu/sci/*.def} to \texttt{locale/mu/*.def},
+%   so that they can be shared with other faculties. [TV]}
+%    \begin{macrocode}
+\gdef\thesis@slovak@bib@programme{Študijný program}
+\global\let\thesis@slovak@bib@field\thesis@slovak@fieldTitle
+\gdef\thesis@slovak@bib@academicYear{Akademický rok}
+\gdef\thesis@slovak@bib@pages{Počet strán}
+\global\let\thesis@slovak@bib@keywords\thesis@slovak@keywordsTitle
 
 % Rôzne
 \gdef\thesis@slovak@idTitle{UČO}
@@ -288,17 +304,6 @@
 % Zástupné texty
 \gdef\thesis@slovak@facultyName{Ekonomicko-správna fakulta}
 
-% Bibliografický záznam
-%    \end{macrocode}
-% \changes{v0.3.46}{2017/06/02}{Defined strings required by
-%   \cs{thesis@blocks@bibEntry} from
-%   \texttt{style/mu/fithesis-econ.sty} in
-%   \texttt{locale/mu/econ/*.def}. [VN]}
-%    \begin{macrocode}
-\gdef\thesis@slovak@bib@thesisTitleEn{Názov práce v angličtine}
-\gdef\thesis@slovak@bib@department{Katedra}
-\gdef\thesis@slovak@bib@year{Rok obhajoby}
-
 % Rôzne
 %    \end{macrocode}
 % \changes{v0.3.46}{2017/06/02}{Updated the
@@ -359,15 +364,13 @@
 % Informatics at the Masaryk University in Brno.  It replaces the
 % \texttt{facultyName} placeholder with the correct value and
 % redefines the \texttt{declaration} string in accordance with the
-% requirements of the faculty.  The file also defines the
-% \texttt{advisorSignature} string required by the
-% |\thesis@blocks@titlePage| block defined within the
-% \texttt{style/mu/\discretionary{}{}{}fithesis-fi.sty}
-% style file.
+% requirements of the faculty.
+% \changes{v1.0.0}{2021/02/26}{Lifted the \texttt{advisorSignature}
+%   string to the global locale file interface. [VN]}
 % \iffalse
 %<*mu/fi>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/mu/fi/fithesis-slovak.def}[2016/05/25]
+\ProvidesFile{fithesis/locale/mu/fi/fithesis-slovak.def}[2021/02/26]
 
 % Zástupné texty
 \gdef\thesis@slovak@facultyName{Fakulta informatiky}
@@ -389,7 +392,6 @@
   s~uvedením úplného odkazu na príslušný zdroj.}
 
 % Rôzne
-\gdef\thesis@slovak@advisorSignature{Podpis vedúceho}
 \gdef\thesis@slovak@typeName@proposal{Tézy dizertačnej práce}
 \gdef\thesis@slovak@typeName@akuzativ@proposal{Tézy dizertačnej práce}
 %    \end{macrocode}\iffalse
@@ -498,12 +500,6 @@
 % Zástupné texty
 \gdef\thesis@slovak@facultyName{Prírodovedecká fakulta}
 
-% Bibliografický záznam
-\gdef\thesis@slovak@bib@programme{Študijný program}
-\global\let\thesis@slovak@bib@field\thesis@slovak@fieldTitle
-\gdef\thesis@slovak@bib@academicYear{Akademický rok}
-\gdef\thesis@slovak@bib@pages{Počet strán}
-\global\let\thesis@slovak@bib@keywords\thesis@slovak@keywordsTitle
 %    \end{macrocode}\iffalse
 %</mu/sci>
 % \fi

@@ -2,7 +2,7 @@
 % This is the base file of the English locale.\iffalse
 %<*base>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/fithesis-english.def}[2017/09/08]
+\ProvidesFile{fithesis/locale/fithesis-english.def}[2021/02/26]
 %    \end{macrocode}
 % The locale file defines all the private macros mandated by the
 % locale file interface.
@@ -68,6 +68,12 @@
 %    \begin{macrocode}
 % Miscellaneous
 \gdef\thesis@english@authorSignature{Author's signature}
+%    \end{macrocode}
+% \changes{v1.0.0}{2021/02/26}{Lifted the \texttt{advisorSignature}
+%   string to the global locale file interface. [VN]}
+% \begin{macrocode}
+\gdef\thesis@english@advisorSignature{Signature of Thesis
+  \thesis@english@advisorTitle}
 \gdef\thesis@english@fieldTitle{Field of study}
 \gdef\thesis@english@advisorTitle{Advisor}
 \gdef\thesis@english@authorTitle{Author}
@@ -169,6 +175,17 @@
 \global\let\thesis@english@bib@author\thesis@english@authorTitle
 \gdef\thesis@english@bib@thesisTitle{Title of Thesis}
 \gdef\thesis@english@bib@advisor{Supervisor}
+%    \end{macrocode}
+% \changes{v1.0.0}{2021/03/04}{Lifted the \texttt{bib@programme},
+%   \texttt{bib@academicYear}, and \texttt{bib@pages} strings from
+%   \texttt{locale/mu/sci/*.def} to \texttt{locale/mu/*.def},
+%   so that they can be shared with other faculties. [TV]}
+%    \begin{macrocode}
+\gdef\thesis@english@bib@programme{Degree Programme}
+\global\let\thesis@english@bib@field\thesis@english@fieldTitle
+\gdef\thesis@english@bib@academicYear{Academic Year}
+\gdef\thesis@english@bib@pages{Number of Pages}
+\global\let\thesis@english@bib@keywords\thesis@english@keywordsTitle
 
 % Miscellaneous
 \gdef\thesis@english@idTitle{UČO}
@@ -248,16 +265,6 @@
 \gdef\thesis@english@facultyName{Faculty of Economics
   and Administration}
 
-% Bibliographic entry
-%    \end{macrocode}
-% \changes{v0.3.46}{2017/06/02}{Defined strings required by
-%   \cs{thesis@blocks@bibEntry} from
-%   \texttt{style/mu/fithesis-econ.sty} in
-%   \texttt{locale/mu/econ/*.def}. [VN]}
-%    \begin{macrocode}
-\gdef\thesis@english@bib@department{Department}
-\gdef\thesis@english@bib@year{Year of Defense}
-
 % Miscellaneous
 %    \end{macrocode}
 % \changes{v0.3.46}{2017/06/02}{Updated the
@@ -295,15 +302,13 @@
 % Informatics at the Masaryk University in Brno.  It replaces the
 % \texttt{facultyName} placeholder with the correct value and
 % redefines the string in accordance with the requirements of the
-% faculty.  The file also defines the \texttt{advisorSignature}
-% string required by the |\thesis@blocks@titlePage| block defined
-% within the
-% \texttt{style/mu/\discretionary{}{}{}fithesis-fi.sty}
-% style file.
+% faculty.
+% \changes{v1.0.0}{2021/02/26}{Lifted the \texttt{advisorSignature}
+%   string to the global locale file interface. [VN]}
 % \iffalse
 %<*mu/fi>
 % \fi\begin{macrocode}
-\ProvidesFile{fithesis/locale/mu/fi/fithesis-english.def}[2016/05/25]
+\ProvidesFile{fithesis/locale/mu/fi/fithesis-english.def}[2021/02/26]
 
 % Placeholders
 \gdef\thesis@english@facultyName{Faculty of Informatics}
@@ -321,8 +326,6 @@
   \fi}
 
 % Others
-\gdef\thesis@english@advisorSignature{Signature of Thesis
-  \thesis@english@advisorTitle}
 \gdef\thesis@english@typeName@proposal{Ph.D. Thesis Proposal}
 %    \end{macrocode}\iffalse
 %</mu/fi>
@@ -386,12 +389,6 @@
 % Miscellaneous
 \global\let\thesis@english@advisorTitleEn=\thesis@english@bib@advisor
 
-% Bibliographic entry
-\gdef\thesis@english@bib@programme{Degree Programme}
-\global\let\thesis@english@bib@field\thesis@english@fieldTitle
-\gdef\thesis@english@bib@academicYear{Academic Year}
-\gdef\thesis@english@bib@pages{Number of Pages}
-\global\let\thesis@english@bib@keywords\thesis@english@keywordsTitle
 %    \end{macrocode}\iffalse
 %</mu/sci>
 % \fi

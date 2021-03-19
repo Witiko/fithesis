@@ -9,7 +9,7 @@
 % after \texttt{style/fithesis-base.sty}, regardless of the value
 % of the |\thesis@style| macro.
 %    \begin{macrocode}
-\ProvidesPackage{fithesis/style/mu/fithesis-mu-base}[2021/02/21]
+\ProvidesPackage{fithesis/style/mu/fithesis-mu-base}[2021/02/26]
 \NeedsTeXFormat{LaTeX2e}
 %    \end{macrocode}
 % The file recognizes the following options: \begin{itemize}
@@ -209,6 +209,8 @@
 %   \item\textsf{booktabs} -- A package, which allows the creation
 %     of publication-quality tables in \LaTeX.
 % \end{itemize}
+% \changes{v1.0.0}{2021/03/04}{Added required package tikz
+%   for bibEntry. [TV]}
 %    \begin{macrocode}
 \thesis@require{xcolor}
 \RequirePackage[labelfont=bf]{caption}
@@ -220,6 +222,7 @@
 \thesis@require{tabularx}
 \thesis@require{tabu}
 \thesis@require{booktabs}
+\thesis@require{tikz}
 %    \end{macrocode}
 % If the |\thesis@microtype@| is set to true, then the
 % \textsf{microtype} package gets loaded.
@@ -798,92 +801,126 @@
   {\thesis@titlePage@large\thesis@place, \thesis@@{semester}}}
 %    \end{macrocode}
 % \end{macro}
+% \begin{macro}{\thesis@blocks@advisorSignature}
+% The |\thesis@blocks@advisorSignature| macro produces space for
+% the thesis advisor's signature.
+% \changes{v1.0.0}{2021/02/26}{^^A
+%   The \cs{thesis@blocks@advisorSignature} macro is now defined
+%   for styles of all faculties at the Masaryk University in Brno,
+%   not just for the Faculty of Informatics, and is automatically
+%   used in the \cs{thesis@blocks@titlePage} macro for rigorous
+%   theses and PhD thesis proposals. [VN]}
+% \begin{macrocode}
+\def\thesis@blocks@advisorSignature{%
+  \let\@A\relax\newlength{\@A}
+    \settowidth{\@A}{\thesis@@{advisorSignature}}
+    \setlength{\@A}{\@A+1cm}
+  \hfill\raisebox{-0.5em}{\parbox{\@A}{
+    \centering
+    \rule{\@A}{1pt}\\
+    \thesis@@{advisorSignature}
+  }}}%
+%    \end{macrocode}
+% \end{macro}
 % \begin{macro}{\thesis@blocks@titlePage}
 % The |\thesis@blocks@titlePage| macro typesets the thesis
-% title page. It is composed of three macros:
-% \begin{itemize}
-%   \item|\thesis@blocks@titlePage@header| -- The header of the
-%        cover page
-%   \item|\thesis@blocks@titlePage@content| -- The content of the
-%        cover page
-%   \item|\thesis@blocks@titlePage@footer| -- The footer of the
-%        cover page
-% \end{itemize}
-% This allows the subsequently loaded style files to only redefine
-% certain parts of the title page.
+% title page.
 % \changes{v1.0.0}{2018/11/18}{^^A
 %   The \cs{bfseries} command switches to the sans serif typeface
 %   and to the secondary color in the style files of the Masaryk
 %   University in Brno, Czech Republic. [VN]}
-%    \begin{macrocode}
-\def\thesis@blocks@titlePage{%
-    \thesis@blocks@clear
-    \begin{alwayssingle}%
-      \color{thesis@color@secondary}%
-      \thispagestyle{empty}%
-      \begin{center}%
-        \thesis@blocks@titlePage@header
-        \thesis@blocks@facultyLogo@color\\[0.4in]%
-        \let\footnotesize\small
-        \let\footnoterule\relax{}%
-        \thesis@blocks@titlePage@content
-        \par\vfill
-        \thesis@blocks@titlePage@footer
-      \end{center}%
-    \end{alwayssingle}}
-%    \end{macrocode}
-% The output of the |\thesis@blocks@titlePage@header| macro is
+% \changes{v1.0.0}{2021/02/26}{^^A
+%   The \cs{thesis@blocks@titlePage} command no longer consists
+%   of the \cs{thesis@blocks@titlePage@header},
+%   \cs{thesis@blocks@titlePage@content}, and
+%   \cs{thesis@blocks@titlePage@footer} macros, which are no
+%   longer defined. [VN]}
+% The output of the |\thesis@blocks@titlePage| macro is
 % controlled by the following conditionals:
 % \begin{enumerate}
-%   \item|\ifthesis@blocks@titlePage@university@| -- This
-%        conditional expression determines, whether the university
-%        name is going to be included in the header of the title
-%        page. The default value of this conditional is
-%        \texttt{true}.
-%   \item|\ifthesis@blocks@titlePage@faculty@| -- This
-%        conditional expression determines, whether the faculty of
-%        study is going to be included in the header of the title
-%        page. The default value of this conditional is
-%        \texttt{true}.
 %   \item|\ifthesis@blocks@titlePage@department@| -- This
 %        conditional expression determines, whether the department
-%        name is going to be included in the header of the title
-%        page. The default value of this conditional is
-%        \texttt{false}.
+%        name is going to be included in the title page. The
+%        default value of this conditional is \texttt{true}.
+%   \changes{v1.0.0}{2021/02/26}{^^A
+%     The \cs{ifthesis@blocks@titlePage@department@} conditional
+%     now defaults to \texttt{true}. [VN]}
 %   \item|\ifthesis@blocks@titlePage@field@| -- This
 %        conditional expression determines, whether the field of
-%        study is going to be included in the header of the title
-%        page. The default value of this conditional is
-%        \texttt{false}.
+%        study is going to be included in the title page. The
+%        default value of this conditional is \texttt{true}.
+%   \changes{v1.0.0}{2021/02/26}{^^A
+%     The \cs{ifthesis@blocks@titlePage@field@} conditional
+%     now defaults to \texttt{true}. [VN]}
+%   \changes{v1.0.0}{2021/02/26}{^^A
+%     The \cs{ifthesis@blocks@titlePage@university@} and
+%     \cs{ifthesis@blocks@titlePage@faculty@} conditionals
+%     are no longer defined. [VN]}
+%   \item|\ifthesis@blocks@titlePage@programme@| -- This
+%        conditional expression determines, whether the study
+%        programme is going to be included in the title page. The
+%        default value of this conditional is \texttt{false}.
+%   \changes{v1.0.0}{2021/02/26}{^^A
+%     The \cs{ifthesis@blocks@titlePage@programme@} conditional
+%     is now defined and defaults to \texttt{false}. [VN]}
 % \end{enumerate}
 % The sebsequently loaded style files can modify the value of these
 % conditionals to alter the output of the
-% |\thesis@blocks@titlePage@header| macro without altering its
-% definition.
+% |\thesis@blocks@titlePage| macro without altering its definition.
 % \begin{macrocode}
-\newif\ifthesis@blocks@titlePage@university@
-\thesis@blocks@titlePage@university@true
-\newif\ifthesis@blocks@titlePage@faculty@
-\thesis@blocks@titlePage@faculty@true
 \newif\ifthesis@blocks@titlePage@department@
-\thesis@blocks@titlePage@department@false
+\thesis@blocks@titlePage@department@true
 \newif\ifthesis@blocks@titlePage@field@
-\thesis@blocks@titlePage@field@false
+\thesis@blocks@titlePage@field@true
+\newif\ifthesis@blocks@titlePage@programme@
+\thesis@blocks@titlePage@programme@true
 
-\def\thesis@blocks@titlePage@header{%
-  {\sc\ifthesis@blocks@titlePage@university@
-        \thesis@titlePage@LARGE\thesis@@{universityName}\\%
-   \fi\ifthesis@blocks@titlePage@faculty@
-        \thesis@titlePage@Large\thesis@@{facultyName}\\%
-   \fi\ifthesis@blocks@titlePage@department@
-        \thesis@titlePage@large\thesis@department@name\\%
-      \fi}
-  \ifthesis@blocks@titlePage@field@
-    {\thesis@titlePage@large\vskip 1em%
-      {\bf\thesis@@{fieldTitle}:} \thesis@field@name}%
-  \fi\vskip 2em}
-\let\thesis@blocks@titlePage@content=\thesis@blocks@cover@content
-\let\thesis@blocks@titlePage@footer=\thesis@blocks@cover@footer
+\def\thesis@blocks@titlePage{%
+  \thesis@blocks@clear
+  \begin{alwayssingle}%
+    \thispagestyle{empty}%
+    \begin{center}%
+      \thesis@blocks@universityLogo@color[width=6.3cm]%
+      \par\vspace{0.75cm}%
+      {\sf\thesis@titlePage@large\thesis@@upper{facultyName}}%
+      \par\vspace{1.75cm}%
+      {\bf\thesis@titlePage@Huge\thesis@TeXtitle}%
+      \par\vspace{1.75cm}%
+      {\sf\thesis@titlePage@Large\thesis@@{typeName}}
+      \par\vfill
+      {\sf\thesis@titlePage@LARGE\thesis@upper{author}}%
+      \par\vfill\vfill
+      {\sf\thesis@titlePage@large\thesis@@{advisorTitle}: \thesis@advisor}%
+      \par\vspace{0.75cm}%
+      \ifthesis@blocks@titlePage@department@
+        {\sf\thesis@titlePage@large\thesis@department@name}
+        \par\vspace{0.25cm}%
+      \fi
+      \ifthesis@blocks@titlePage@programme@
+        {\sf\thesis@titlePage@large\thesis@@{programmeTitle}: \thesis@programme}%
+      \fi
+      \ifthesis@blocks@titlePage@field@
+        {\sf\thesis@titlePage@large\thesis@@{fieldTitle}: \thesis@field@name}%
+      \fi
+      \par\vfill
+      {\sf\thesis@titlePage@large\thesis@place, \thesis@@{semester}%
+%    \end{macrocode}
+% If this is a rigorous thesis or a PhD thesis proposal, create
+% space for the advisor's signature.
+% \changes{v1.0.0}{2021/02/26}{^^A
+%   The \cs{thesis@blocks@advisorSignature} macro is now defined
+%   for styles of all faculties at the Masaryk University in Brno,
+%   not just for the Faculty of Informatics, and is automatically
+%   used in the \cs{thesis@blocks@titlePage} macro for rigorous
+%   theses and PhD thesis proposals. [VN]}
+% \begin{macrocode}
+        \ifx\thesis@type\thesis@rigorous
+          \thesis@blocks@advisorSignature
+        \else\ifx\thesis@type\thesis@proposal
+          \thesis@blocks@advisorSignature
+        \fi\fi}%
+    \end{center}%
+  \end{alwayssingle}}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@toc}
 % The |\thesis@blocks@toc| macro typesets the table of contents.
@@ -1115,15 +1152,109 @@
 %   \item\texttt{bib@pages} -- The abbreviation of pages used in
 %     the bibliographical entry
 % \end{itemize}
+% \changes{v1.0.0}{2021/03/04}{The \cs{thesis@blocks@bibEntry} command
+%   was expanded to more closely resemble Faculty of Science's bibEntry.
+%   The \cs{thesis@blocks@bibEntryEn} was added. [TV]}
 %    \begin{macrocode}
 \def\thesis@blocks@bibEntry{%
+  \thesis@blocks@clear
   \chapter*{\thesis@@{bib@title}}
-  \noindent\thesis@upper{author@tail}, \thesis@author@head.
-  \emph{\thesis@title}. \thesis@place: \thesis@@{universityName},
-  \thesis@@{facultyName}, \thesis@department@name, \thesis@year.
-  \thesis@pages\ \thesis@@{bib@pages}.
-  \thesis@@{advisorTitle}: \thesis@advisor
-  \thesis@blocks@clearRight}
+  {% Calculate the width of the columns
+  \let\@A\relax\newlength{\@A}\settowidth{\@A}{{%
+    \bf\thesis@@{bib@author}:}}
+  \let\@B\relax\newlength{\@B}\settowidth{\@B}{{%
+    \bf\thesis@@{bib@thesisTitle}:}}
+  \let\@C\relax\newlength{\@C}\settowidth{\@C}{{%
+    \bf\thesis@@{bib@programme}:}}
+  \let\@D\relax\newlength{\@D}\settowidth{\@D}{{%
+    \bf\thesis@@{bib@field}:}}
+  \let\@E\relax\newlength{\@E}
+      \settowidth{\@E}{{\bf\thesis@@{bib@advisor}:}}
+  \let\@F\relax\newlength{\@F}\settowidth{\@F}{{%
+    \bf\thesis@@{bib@academicYear}:}}
+  \let\@G\relax\newlength{\@G}\settowidth{\@G}{{%
+    \bf\thesis@@{bib@pages}:}}
+  \let\@H\relax\newlength{\@H}\settowidth{\@H}{{%
+    \bf\thesis@@{bib@keywords}:}}
+  \let\@skip\relax\newlength{\@skip}\setlength{\@skip}{16pt}
+  \let\@left\relax\newlength{\@left}\pgfmathsetlength{\@left}{%
+	  max(\@A,\@B,\@C,\@D,\@E,\@F,\@G,\@H)}
+  \let\@right\relax\newlength{\@right}\setlength{\@right}{%
+    \textwidth-\@left-\@skip}
+  % Typeset the table
+  \noindent\begin{thesis@newtable@old}%
+    {@{}p{\@left}@{\hskip\@skip}p{\@right}@{}}
+    \textbf{\thesis@@{bib@author}\ifthesis@woman ka\fi:} &
+      \noindent\parbox[t]{\@right}{
+        \thesis@author\\
+        \thesis@@{facultyName} \\
+        \thesis@@{universityName}\\
+        \thesis@department@name
+      }\\
+    \textbf{\thesis@@{bib@thesisTitle}:}
+      & \thesis@title \\
+    \textbf{\thesis@@{bib@programme}:}
+      & \thesis@field \\
+    \textbf{\thesis@@{bib@advisor}:}
+      & \thesis@advisor \\
+    \textbf{\thesis@@{bib@academicYear}:}
+      & \thesis@academicYear \\
+    \textbf{\thesis@@{bib@pages}:}
+      & \thesis@pages \\
+    \textbf{\thesis@@{bib@keywords}:}
+      & \thesis@TeXkeywords \\
+  \end{thesis@newtable@old}}}
+
+\def\thesis@blocks@bibEntryEn{%
+  \ifthesis@english\else
+  \thesis@blocks@clear
+  \chapter*{\thesis@english@bib@title}
+  {% Calculate the width of the columns
+  \let\@A\relax\newlength{\@A}\settowidth{\@A}{{%
+    \bf\thesis@english@bib@author:}}
+  \let\@B\relax\newlength{\@B}\settowidth{\@B}{{%
+    \bf\thesis@english@bib@thesisTitle:}}
+  \let\@C\relax\newlength{\@C}\settowidth{\@C}{{%
+    \bf\thesis@english@bib@programme:}}
+  \let\@D\relax\newlength{\@D}\settowidth{\@D}{{%
+    \bf\thesis@english@bib@field:}}
+  \let\@E\relax\newlength{\@E}
+      \settowidth{\@E}{{\bf\thesis@english@bib@advisor:}}
+  \let\@F\relax\newlength{\@F}\settowidth{\@F}{{%
+    \bf\thesis@english@bib@academicYear:}}
+  \let\@G\relax\newlength{\@G}\settowidth{\@G}{{%
+    \bf\thesis@english@bib@pages:}}
+  \let\@H\relax\newlength{\@H}\settowidth{\@H}{{%
+    \bf\thesis@english@bib@keywords:}}
+  \let\@skip\relax\newlength{\@skip}\setlength{\@skip}{16pt}
+  \let\@left\relax\newlength{\@left}\pgfmathsetlength{\@left}{%
+	  max(\@A,\@B,\@C,\@D,\@E,\@F,\@G,\@H)}
+  \let\@right\relax\newlength{\@right}\setlength{\@right}{%
+    \textwidth-\@left-\@skip}
+  % Typeset the table
+  \noindent\begin{thesis@newtable@old}%
+    {@{}p{\@left}@{\hskip\@skip}p{\@right}@{}}
+    \textbf{\thesis@@{bib@author}:} &
+      \noindent\parbox[t]{\@right}{
+        \thesis@author\\
+        \thesis@english@facultyName \\
+        \thesis@english@universityName\\
+        \thesis@departmentEn@name
+        }\\
+    \textbf{\thesis@english@bib@thesisTitle:}
+      & \thesis@titleEn \\
+    \textbf{\thesis@english@bib@programme:}
+      & \thesis@fieldEn \\
+    \textbf{\thesis@english@bib@advisor:}
+      & \thesis@advisor \\
+    \textbf{\thesis@english@bib@academicYear:}
+      & \thesis@academicYear \\
+    \textbf{\thesis@english@bib@pages:}
+      & \thesis@pages \\
+    \textbf{\thesis@english@bib@keywords:}
+      & \thesis@TeXkeywordsEn \\
+  \end{thesis@newtable@old}}
+  \fi}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@bibliography}
 % When |\ifthesis@bibliography@loaded@| is true and
@@ -1279,7 +1410,15 @@
 \renewcommand*\l@subsubsection{\@dottedtocline{3}{7.0em}{4.1em}}
 \renewcommand*\l@paragraph{\@dottedtocline{4}{10.0em}{5.0em}}
 \renewcommand*\l@subparagraph{\@dottedtocline{4}{12.0em}{6.0em}}
-%    \end{macrocode}\iffalse
+%    \end{macrocode}
+% \changes{v1.0.0}{2021/03/04}{Styles for list of figures 
+%   and list of tables were redefined to achieve 
+%   unified look with toc. [TV]}
+%    \begin{macrocode}
+\renewcommand*\l@figure{\@dottedtocline{1}{0.5em}{2.3em}}
+\renewcommand*\l@table{\@dottedtocline{1}{0.5em}{2.3em}}
+%    \end{macrocode}
+% \iffalse
 %</base>
 % \fi\file{style/mu/fithesis-10.clo}
 % \changes{v1.0.0}{2021/02/21}{File were renamed after

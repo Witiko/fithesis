@@ -13,7 +13,7 @@
 % zaverecnych_pracich_2017.docx}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fithesis/style/mu/fithesis-mu-econ}[2021/02/21]
+\ProvidesPackage{fithesis/style/mu/fithesis-mu-econ}[2021/02/26]
 %    \end{macrocode}
 % The file defines the color scheme of the respective faculty. Note
 % the the color definitions are in RGB, which makes the resulting
@@ -88,43 +88,14 @@
   \fi}
 %    \end{macrocode}
 % \end{macro}
-% The style file configures the title page header to include the
-% name of the field of study and redefines the title page content
-% not to include the author's name and the title page footer
-% to include both the author's and advisor's name, the year and
-% place of the thesis defense in accordance with the formal
-% requirements of the faculty.
-%    \begin{macrocode}
-\thesis@blocks@titlePage@field@true
-\def\thesis@blocks@titlePage@content{%
-  {\thesis@titlePage@Huge\bf\thesis@TeXtitle}
-  \ifthesis@english\else
-    {\\[0.1in]\thesis@titlePage@Large\bf\thesis@TeXtitleEn}
-  \fi {\\[0.3in]\thesis@titlePage@large\sc\thesis@@{typeName}\\}}
-\def\thesis@blocks@titlePage@footer{%
-  {\thesis@titlePage@large
-    {% Calculate the width of the thesis author and advisor boxes
-     \let\@A\relax\newlength{\@A}\settowidth{\@A}{{%
-       \bf\thesis@@{advisorTitle}:}}
-     \let\@B\relax\newlength{\@B}\settowidth{\@B}{\thesis@advisor}
-     \let\@C\relax\newlength{\@C}\settowidth{\@C}{{%
-       \bf\thesis@@{authorTitle}:}}
-     \let\@D\relax\newlength{\@D}\settowidth{\@D}{\thesis@author}
-    \let\@left\relax\newlength{\@left}\pgfmathsetlength{\@left}{%
-      max(\@A,\@B)}
-    \let\@right\relax\newlength{\@right}\pgfmathsetlength{\@right}{%
-      max(\@C,\@D)}
-%    \end{macrocode}
 % \changes{v0.3.49}{2018/02/11}{Removed an extraneous \cs{vskip} in
 %   the style files for the Masaryk University in Brno. [VN]}
-% \begin{macrocode}
-    % Typeset the thesis author and advisor boxes
-    \begin{minipage}[t]{\@left}
-      {\bf\thesis@@{advisorTitle}:}\\\thesis@advisor
-    \end{minipage}\hfill\begin{minipage}[t]{\@right}
-      {\bf\thesis@@{authorTitle}:}\\\thesis@author
-    \end{minipage}}\\[4em]\thesis@place, \thesis@year}}
-%    \end{macrocode}
+% \changes{v1.0.0}{2021/02/26}{^^A
+%   The style files for the Faculty of Economics and Administration
+%   at the Masaryk University in Brno
+%   no longer redefine the \cs{thesis@blocks@titlePage@footer}
+%   and \cs{thesis@blocks@titlePage@content} macros, which are no
+%   longer defined. [VN]}
 % \begin{macro}{\thesis@blocks@frontMatter}
 % The |\thesis@blocks@frontMatter| macro sets up the style
 % of the front matter of the thesis. The page numbering is arabic
@@ -252,63 +223,6 @@
       \noindent\thesis@TeXkeywordsEn
     \end{alwayssingle}}%
   \fi}
-%    \end{macrocode}
-% \end{macro}\begin{macro}{\thesis@blocks@bibEntry}
-% The |\thesis@blocks@bibEntry| macro typesets a bibliographical
-% entry. Along with the macros required by the locale file
-% interface, the locale files need to define the following macros:
-% \begin{itemize}
-%   \item|\thesis@|\textit{locale}|@bib@author| -- The label of the
-%     author name entry
-%   \item|\thesis@|\textit{locale}|@bib@title| -- The label of the
-%     title name entry
-%   \item|\thesis@|\textit{locale}|@bib@titleEn| -- The label of the
-%     English title name entry (\cs{thesis@english@bib@titleEn}
-%     does not need to be defined)
-%   \item|\thesis@|\textit{locale}|@bib@department| -- The label of
-%     the department name entry
-%   \item|\thesis@|\textit{locale}|@bib@advisor| -- The label of
-%     the advisor name entry
-%   \item|\thesis@|\textit{locale}|@bib@year| -- The label of the
-%     year entry
-% \end{itemize}
-% \changes{v0.3.46}{2017/06/02}{Defined \cs{thesis@blocks@bibEntry}
-%   in \texttt{style/mu/fithesis-econ.sty} in accordance with the
-%   example documents. The patch was submitted by Jana Ratajská.
-%   [VN]}
-% \changes{v0.3.51}{2020/03/09}{The \cs{thesis@blocks@bibEntry}
-%   command now accomodates long titles and other information that
-%   may span multiple lines. [VN]}
-%    \begin{macrocode}
-\def\thesis@blocks@bibEntry{%
-  \thesis@blocks@clear
-  {\let\@A\relax\newlength{\@A}
-   \settowidth{\@A}{{\bf\thesis@@{bib@author}}}
-   \@B=\@A
-   \settowidth{\@A}{{\bf\thesis@@{bib@thesisTitle}}}
-   \ifdim\@A>\@B\@B=\@A\fi
-   \ifthesis@english\else
-     \settowidth{\@A}{{\bf\thesis@@{bib@thesisTitleEn}}}
-     \ifdim\@A>\@B\@B=\@A\fi
-   \fi
-   \settowidth{\@A}{{\bf\thesis@@{bib@department}}}
-   \ifdim\@A>\@B\@B=\@A\fi
-   \settowidth{\@A}{{\bf\thesis@@{bib@advisor}}}
-   \ifdim\@A>\@B\@B=\@A\fi
-   \settowidth{\@A}{{\bf\thesis@@{bib@year}}}
-   \ifdim\@A>\@B\@B=\@A\fi
-   \noindent\begin{thesis@newtable@old}{@{}>{\bfseries}%
-                                        p{\dimexpr(\@B + \tabcolsep)}%
-                                        p{\dimexpr(\textwidth - \@B - 2\tabcolsep)}@{}}
-     \thesis@@{bib@author}:        & \thesis@author     \\
-     \thesis@@{bib@thesisTitle}:   & \thesis@title      \\
-   \ifthesis@english\else
-     \thesis@@{bib@thesisTitleEn}: & \thesis@titleEn    \\
-   \fi
-     \thesis@@{bib@department}:    & \thesis@department \\
-     \thesis@@{bib@advisor}:       & \thesis@advisor    \\
-     \thesis@@{bib@year}:          & \thesis@year       \\
-   \end{thesis@newtable@old}}}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@summary}
 % \changes{v1.0.0}{2021/03/11}{Macro for the summary was added. [TV]}
