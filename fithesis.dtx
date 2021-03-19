@@ -56,7 +56,7 @@
   \gdef\thesis@version@number{#1}
   \gdef\thesis@version@date{#2}
   \gdef\thesis@version{#2 #1 fithesis4 MU thesis class}}
-\thesis@versiondef{v1.0.0-dev}{2021/02/21}}
+\thesis@versiondef{v1.0.0-dev}{2021/03/19}}
 % {\newwrite\f\openout\f=VERSION\write\f{\thesis@version}\closeout\f}
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -864,13 +864,19 @@
 % filename of the logo file to be used as the university logo to
 % \textit{filename}. The \textit{filename} is stored within the
 % |\thesis@universityLogo| macro, whose implicit value is
-% \texttt{fithesis-base}. The \texttt{fithesis-} prefix serves to
-% prevent package clashes with other similarly named files within
-% the \TeX\ directory structure. The logo file is loaded from the
-% |\thesis@logopath|\discretionary{}{}{}|\thesis@universityLogo|
-% path.
+% \texttt{fithesis-base}|-\thesis@locale|. The \texttt{fithesis-}
+% prefix serves to prevent package clashes with other similarly
+% named files within the \TeX\ directory structure. The logo file
+% is loaded from the |\thesis@logopath|\discretionary{}{}{}^^A
+% |\thesis@universityLogo| path.
+% \changes{v1.0.0}{2021/03/19}{^^A
+%   Change \cs{thesis@universityLogo},
+%   \cs{thesis@blocks@universityLogo@monochrome}, and
+%   \cs{thesis@blocks@universityLogo@color} to use the new logotype
+%   of the Masaryk University in Brno in the correct size and
+%   localization. [VN]}
 %    \begin{macrocode}
-\def\thesis@universityLogo{fithesis-base}
+\def\thesis@universityLogo{fithesis-base-\thesis@locale}
 \define@key{thesis}{universityLogo}{%
   \def\thesis@universityLogo{#1}}
 %    \end{macrocode}
