@@ -1,7 +1,7 @@
 % \iffalse
 %<*base>
 % \fi\file{style/mu/fithesis-base.sty}\label{sec:fithesis-mu-base}
-% \changes{v1.0.0}{2021/02/21}{File were renamed after
+% \changes{v1.0.0}{2021/03/19}{File were renamed after
 %   breaking changes in package loading after PR 438 in \LaTeXe. [VN]}
 % This is the base style file for theses written at the Masaryk
 % University in Brno. When inheritance is enabled for style files,
@@ -674,9 +674,15 @@
 % macro typesets the
 % |\thesis@logopath\thesis@universityLogo| logo
 % with the given \textit{options} passed to |\includegraphics|.
+% \changes{v1.0.0}{2021/03/19}{^^A
+%   Change \cs{thesis@universityLogo},
+%   \cs{thesis@blocks@universityLogo@monochrome}, and
+%   \cs{thesis@blocks@universityLogo@color} to use the new logotype
+%   of the Masaryk University in Brno in the correct size and
+%   localization. [VN]}
 % \begin{macrocode}
 \newcommand{\thesis@blocks@universityLogo@monochrome}[1]%
-  [width=40mm]{{%
+  [width=6.3cm]{{%
     \edef\@path{\thesis@logopath\thesis@universityLogo}%
     \includegraphics[#1]{\@path}}}
 %    \end{macrocode}
@@ -688,9 +694,15 @@
 % |\thesis@logopath\thesis@universityLogo|\discretionary{}{}{}|-color|
 % logo otherwise with the given \textit{options} passed to
 % |\includegraphics|.
+% \changes{v1.0.0}{2021/03/19}{^^A
+%   Change \cs{thesis@universityLogo},
+%   \cs{thesis@blocks@universityLogo@monochrome}, and
+%   \cs{thesis@blocks@universityLogo@color} to use the new logotype
+%   of the Masaryk University in Brno in the correct size and
+%   localization. [VN]}
 % \begin{macrocode}
 \newcommand{\thesis@blocks@universityLogo@color}[1]%
-  [width=40mm]{{%
+  [width=6.3cm]{{%
     \edef\@path{\thesis@logopath\thesis@universityLogo
       \ifthesis@color@-color\fi}%
     \includegraphics[#1]{\@path}}}
