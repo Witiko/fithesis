@@ -932,11 +932,13 @@
 % \end{macro}\begin{macro}{\thesis@blocks@abstract}
 % The |\thesis@blocks@abstract| macro typesets the
 % abstract.
+% \changes{v1.0.0}{2021/03/05}{Changed \texttt{clearpage}
+% to \texttt{vskip} so it is by default on the same page
+% when the template contains bibEntry. [TV]}
 % \begin{macrocode}
 \def\thesis@blocks@abstract{%
   \begin{alwayssingle}%
-    % Start the new chapter without clearing the left page.
-    \clearpage
+    \vskip 40 \p@
     {\let\thesis@blocks@clear\relax
     \chapter*{\thesis@@{abstractTitle}}}%
     \noindent\thesis@abstract
@@ -950,13 +952,15 @@
 % \changes{v0.3.46}{2017/06/02}{Simplified the definition of
 %   \cs{thesis@blocks@abstractEn} in
 %   \texttt{style/mu/fithesis-base.sty}. [VN]}
+% \changes{v1.0.0}{2021/03/05}{Changed \texttt{clearpage}
+% to \texttt{vskip} so it is by default on the same page
+% when the template contains bibEntry. [TV]}
 % \begin{macrocode}
 \def\thesis@blocks@abstractEn{%
   \ifthesis@english\else
     {\thesis@selectLocale{english}%
     \begin{alwayssingle}%
-      % Start the new chapter without clearing the left page.
-      \clearpage
+      \vskip 40 \p@
       {\let\thesis@blocks@clear\relax
       \chapter*{\thesis@english@abstractTitle}}%
       \noindent\thesis@abstractEn
