@@ -20,6 +20,7 @@
 \usepackage{multicol}
 \usepackage[acronym]{glossaries}
 
+
 % Making paragraphs numbered
 \makeatletter
 \renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
@@ -29,6 +30,13 @@
 \makeatother
 \setcounter{secnumdepth}{4} % how many sectioning levels to assign
 \setcounter{tocdepth}{4}    % how many sectioning levels to show
+
+% Aligning page numbers of occurences of terms and abbreviation
+% to the right
+\makeatletter
+\renewcommand*\glspostdescription{\hfill}
+\makeatother
+\makeglossaries
 
 % ltxdoc class options
 \CodelineIndex
@@ -1277,6 +1285,22 @@
 % When the |\thesis@bibFiles| macro is defined and non-empty, the
 % style files should take that as a cue that the user wishes to
 % typeset the bibliography.
+% \changes{v1.0.0}{2021/03/22}{Added \texttt{dict} key for printing
+%   glossaries. [TV]}
+% \begin{macro}{\thesis@dictFiles}
+% \subsubsection{The \texttt{dict} key}
+% The \marg{\texttt{dict}=list} pair sets the comma-delimited
+% list of paths to the TeX files containing the Dictionary and
+% List of Abbreviations databases to \textit{list}. The \textit{list}
+% is stored within the |\thesis@dictFiles| macro.
+%    \begin{macrocode}
+\define@key{thesis@dict}{%
+  \def\thesis@dictFiles{#1}}
+%    \end{macrocode}
+% \end{macro}
+% When the |\thesis@dictFiles| macro is defined and non-empty, the
+% style files should take that as a cue that the user wishes to
+% typeset the dictionary and list of abbreviations.
 % \begin{macro}{\ifthesis@auto}
 % \subsubsection{The \texttt{autoLayout} key}
 % The \marg{\texttt{autoLayout}=bool} pair either enables,
