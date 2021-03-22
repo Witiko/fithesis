@@ -100,8 +100,8 @@
 %<*econ>
 %    \end{macrocode}
 % \changes{v1.0.0}{2021/03/04}{Added elements that are used 
-%   by thesis@bibEntry and thesis@titlePage: field, fieldEn
-%   departmentEn. [TV]}
+%   by thesis@bibEntry and thesis@titlePage: field, fieldEn,
+%   departmentEn, programme, programmeEn. [TV]}
 %    \begin{macrocode}
 
 \thesissetup{
@@ -110,6 +110,7 @@
     university         = mu,
     faculty            = econ,
     type               = bc,
+    programme          = NA,
     field              = Applied Econometrics,
     department         = Department of Finance,
     author             = Jane Doe,
@@ -141,7 +142,8 @@
     %% The following keys are only useful, when you're using a
     %% locale other than English. You can safely omit them in an
     %% English thesis.
-    fieldEn        = Applied Econometrics,
+    programmeEn        = NA,
+    fieldEn            = Applied Econometrics,
     departmentEn       = Department of Finance,
     titleEn            = The Economic Value of LaTeX,
     TeXtitleEn         = The Economic Value of \LaTeX,
@@ -166,13 +168,14 @@
 %<*fi>
 %    \end{macrocode}
 % \changes{v1.0.0}{2021/03/04}{Added elements that are used
-%   by thesis@titlePage: field, department. [TV]}
+%   by thesis@titlePage: field, department, programme. [TV]}
 %    \begin{macrocode}
 \thesissetup{
     date        = \the\year/\the\month/\the\day,
     university  = mu,
     faculty     = fi,
     type        = bc,
+    programme   = Informatics,
     field       = Applied Informatics,
     department  = Department of Machine Learning and Data Processing,
     author      = Jane Doe,
@@ -204,13 +207,15 @@
 % \changes{v1.0.0}{2021/03/04}{Added elements that are used
 %   by thesis@bibEntry and thesis@titlePage: field, fieldEn,
 %   department, departmentEn, titleEn, TeXtitleEn, keywords, 
-%   keywordsEn, TeXkeywords, TeXkeywordsEn. [TV]}
+%   keywordsEn, TeXkeywords, TeXkeywordsEn, programme,
+%   programmeEn. [TV]}
 %    \begin{macrocode}
 \thesissetup{
     date          = \the\year/\the\month/\the\day,
     university    = mu,
     faculty       = fsps,
     type          = bc,
+    programme     = NA,
     field         = Sport Management,
     department    = Department of Social Sciences and Sport Management,
     author        = Jane Doe,
@@ -226,6 +231,7 @@
     %% The following keys are only useful, when you're using a
     %% locale other than English. You can safely omit them in an
     %% English thesis.
+    programmeEn   = NA,
     fieldEn       = Applied Econometrics,
     departmentEn  = Department of Finance,
     titleEn       = The Economic Value of LaTeX,
@@ -238,13 +244,15 @@
 %    \end{macrocode}
 % \changes{v1.0.0}{2021/03/04}{Added elements that are used
 %   by thesis@bibEntry and thesis@titlePage: field, fieldEn,
-%   department, departmentEn, titleEn, TeXtitleEn. [TV]}
+%   department, departmentEn, titleEn, TeXtitleEn, programme,
+%   programmeEn. [TV]}
 %    \begin{macrocode}
 \thesissetup{
     date          = \the\year/\the\month/\the\day,
     university    = mu,
     faculty       = fss,
     type          = bc,
+    programme     = NA,
     field         = Psychology,
     department    = Department of Health,
     author        = Jane Doe,
@@ -269,6 +277,7 @@
     %% The following keys are only useful, when you're using a
     %% locale other than English. You can safely omit them in an
     %% English thesis.
+    programmeEn   = NA,
     fieldEn       = Psychology,
     departmentEn  = Department of Health,
     titleEn       = LaTeX and Its Impact on the
@@ -287,13 +296,14 @@
 %<*law>
 %    \end{macrocode}
 % \changes{v1.0.0}{2021/03/04}{Added elements that are used
-%   by thesis@titlePage: field [TV]}
+%   by thesis@titlePage: field, programme [TV]}
 %    \begin{macrocode}
 \thesissetup{
     date          = \the\year/\the\month/\the\day,
     university    = mu,
     faculty       = law,
     type          = bc,
+    programme     = NA,
     field         = Law and Finance,
     department    = The Department of Commercial Law,
     author        = Jane Doe,
@@ -328,11 +338,16 @@
 }
 %</law>
 %<*med>
+%    \end{macrocode}
+% \changes{v1.0.0}{2021/03/22}{Added element that is used
+%   by thesis@titlePage: programme [TV]}
+%    \begin{macrocode}
 \thesissetup{
     date          = \the\year/\the\month/\the\day,
     university    = mu,
     faculty       = med,
     type          = bc,
+    programme     = NA,
     field         = Optometry,
     department    = The Department of Optometry and
                     Orthoptics,
@@ -372,13 +387,15 @@
 %    \end{macrocode}
 % \changes{v1.0.0}{2021/03/04}{Added elements that are used
 %   by thesis@bibEntry and thesis@titlePage: field, fieldEn,
-%   departmentEn, titleEn, TeXtitleEn. [TV]}
+%   departmentEn, titleEn, TeXtitleEn, programme, programmeEn.
+%   [TV]}
 %    \begin{macrocode}
 \thesissetup{
     date          = \the\year/\the\month/\the\day,
     university    = mu,
     faculty       = ped,
     type          = bc,
+    programme     = NA,
     field         = Speech Therapy,
     department    = Department of Primary Pedagogy,
     author        = Jane Doe,
@@ -404,6 +421,7 @@
     %% The following keys are only useful, when you're using a
     %% locale other than English. You can safely omit them in an
     %% English thesis.
+    programmeEn   = NA,
     fieldEn       = Speech Therapy,
     departmentEn  = Department of Primary Pedagogy,
     titleEn       = The Challenges of Teaching LaTeX
@@ -423,13 +441,15 @@
 %    \end{macrocode}
 % \changes{v1.0.0}{2021/03/04}{Added elements that are used
 %   by thesis@bibEntry and thesis@titlePage: fieldEn, departmentEn,
-%   titleEn, TeXtitleEn, keywordsEn, TeXkeywordsEn, abstractEn. [TV]}
+%   titleEn, TeXtitleEn, keywordsEn, TeXkeywordsEn, abstractEn,
+%   programme. [TV]}
 %    \begin{macrocode}
 \thesissetup{
     date        = \the\year/\the\month/\the\day,
     university  = mu,
     faculty     = phil,
     type        = bc,
+    programme   = NA,
     field       = Cognitive Sciences,
     department  = Department of Psychology,
     author      = Jane Doe,
@@ -475,6 +495,11 @@
 }
 %</phil>
 %<*sci>
+%    \end{macrocode}
+% \changes{v1.0.0}{2021/03/22}{Added elements that are used
+%   by thesis@bibEntry and thesis@titlePage: fieldEn,
+%   departmentEn, titleEn, TeXtitleEn, programmeEn. [TV]}
+%    \begin{macrocode}
 \thesissetup{
     date            = \the\year/\the\month/\the\day,
     university      = mu,
@@ -508,6 +533,30 @@
     %% beginning) and replace `assignment.pdf` with the filename
     %% of your scanned thesis assignment.
 %%    assignment         = assignment.pdf,
+    %% The following keys are only useful, when you're using a
+    %% locale other than English. You can safely omit them in an
+    %% English thesis.
+    programmeEn     = Mathematics,
+    fieldEn         = Financial and Insurance Mathematics,
+    departmentEn    = Department of Mathematics and
+	              Statistics,
+    titleEn         = The Principles of the Typesetting of
+                      Mathematics in TeX: the Program,
+    TeXtitleEn      = The Principles of the Typesetting of
+                      Mathematics in \TeX: the Program,
+    keywordsEn      = {keyword1, keyword2, ...},
+    TeXkeywordsEn   = {keyword1, keyword2, \ldots},
+    abstractEn      = {%
+      This is the abstract of my thesis, which can
+
+      span multiple paragraphs.
+    },
+    thanks        = {%
+      These are the acknowledgements for my thesis, which can
+
+      span multiple paragraphs.
+    },
+
 }
 %</sci>
 %    \end{macrocode}
