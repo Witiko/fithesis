@@ -1271,6 +1271,7 @@
 % When the |\thesis@assignmentFiles| macro is defined and
 % non-empty, the style files should take that as a cue that the
 % user wishes to typeset the thesis assignment.
+
 % \begin{macro}{\thesis@bibFiles}
 % \subsubsection{The \texttt{bib} key}
 % The \marg{\texttt{bib}=list} pair sets the comma-delimited
@@ -1285,6 +1286,7 @@
 % When the |\thesis@bibFiles| macro is defined and non-empty, the
 % style files should take that as a cue that the user wishes to
 % typeset the bibliography.
+
 % \changes{v1.0.0}{2021/03/22}{Added \texttt{dict} key for printing
 %   glossaries. [TV]}
 % \begin{macro}{\thesis@dictFiles}
@@ -1294,13 +1296,14 @@
 % List of Abbreviations databases to \textit{list}. The \textit{list}
 % is stored within the |\thesis@dictFiles| macro.
 %    \begin{macrocode}
-\define@key{thesis@dict}{%
+\define@key{thesis}{dict}{%
   \def\thesis@dictFiles{#1}}
 %    \end{macrocode}
 % \end{macro}
 % When the |\thesis@dictFiles| macro is defined and non-empty, the
 % style files should take that as a cue that the user wishes to
 % typeset the dictionary and list of abbreviations.
+
 % \begin{macro}{\ifthesis@auto}
 % \subsubsection{The \texttt{autoLayout} key}
 % The \marg{\texttt{autoLayout}=bool} pair either enables,
