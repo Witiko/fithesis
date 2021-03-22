@@ -510,8 +510,16 @@
 %%    assignment         = assignment.pdf,
 }
 %</sci>
+%    \end{macrocode}
+% \changes{v1.0.0}{2021/03/22}{Added \textsf{glossaries} package.
+%    [TV]}
+%    \begin{macrocode}
 \usepackage{makeidx}      %% The `makeidx` package contains
 \makeindex                %% helper commands for index typesetting.
+\usepackage[acronym]{glossaries}          %% The `glossaries` package
+\renewcommand*\glspostdescription{\hfill} %% contains helper commands
+\loadglsentries{example-terms-abbrs.tex}  %% for dict and loa
+\makenoidxglossaries                      %% typesetting.
 %% These additional packages are used within the document:
 \usepackage{paralist} %% Compact list environments
 \usepackage{amsmath}  %% Mathematics
@@ -544,6 +552,18 @@
 \makeatother
 
 %</econ>
+%    \end{macrocode}
+% \changes{v1.0.0}{2021/03/22}{Added \cs{printnoidxglossary} to print
+%   Dictionary and List of Abbreviations. [TV]}
+%    \begin{macrocode}
+%% Uncomment the following lines (by removing the %% at the beginning)
+%% and to print out List of Abbreviations and/or Dictionary in your
+%% document. Titles for these tables can be changed by replacing the
+%% titles `Abbreviations` and `Dictionary`, respectively.
+%% \clearpage
+%% \printnoidxglossary[title={Abbreviations}, type=\acronymtype]
+%% \printnoidxglossary[title={Dictionary}]
+
 \chapter*{Introduction}
 \addcontentsline{toc}{chapter}{Introduction}
 
@@ -885,7 +905,7 @@ proofs.
 %<*econ>
   \emph{Source: <<Image Source>>}
 %</econ>
-  \caption{The logo of the Masaryk University at $\frac23$ and
+	\caption{The logo of the \acrlong{MUNI} at $\frac23$ and
     $\frac13$ of text width}
   \label{fig:mulogo2}
 \end{figure}
@@ -947,7 +967,7 @@ run of
 \texttt{lualatex \jobname.tex}
 %</luatex>
 and a second run is going to be needed for the references to
-resolve. With online services -- such as Overleaf -- this is
+resolve. With online services -- such as \Gls{Overleaf} -- this is
 performed automatically.
 
 \chapter{Mathematical equations}
