@@ -95,35 +95,37 @@
 %   programme are in the upper part of the titlePage. [TV]}
 %    \begin{macrocode}
 \xpatchcmd{\thesis@blocks@titlePage}
-  {{\sf\thesis@titlePage@large\thesis@@{advisorTitle}: \thesis@advisor}%
-      \par\vspace{0.75cm}%
-      \ifthesis@blocks@titlePage@department@
-        {\sf\thesis@titlePage@large\thesis@department@name}
-      \fi
-      \ifthesis@blocks@titlePage@programme@
-        \par\vspace{0.25cm}%
-        {\sf\thesis@titlePage@large\thesis@@{bib@programme}: \thesis@programme}\par
-      \fi
-      \ifthesis@blocks@titlePage@field@
-        \par\vspace{0.25cm}%
-        {\sf\thesis@titlePage@large\thesis@@{fieldTitle}: \thesis@field@name}%
-      \fi
-      \par\vfill
-  }
-  {}{}{}
+{{\sf\thesis@titlePage@large\thesis@@{advisorTitle}: \thesis@advisor}%
+   \par\vspace{0.75cm}%
+   \ifthesis@blocks@titlePage@department@
+     {\sf\thesis@titlePage@large\thesis@department@name}
+   \fi
+   \ifthesis@blocks@titlePage@programme@
+     \par\vspace{0.25cm}%
+     {\sf\thesis@titlePage@large\thesis@@{bib@programme}: 
+	\thesis@programme}\par
+   \fi
+   \ifthesis@blocks@titlePage@field@
+     \par\vspace{0.25cm}%
+     {\sf\thesis@titlePage@large\thesis@@{fieldTitle}: 
+	\thesis@field@name}%
+   \fi
+   \par\vfill
+}
+{}{}{}
 
 \xpatchcmd{\thesis@blocks@titlePage}
-  {{\sf\thesis@titlePage@large\thesis@@upper{facultyName}}%
-   \par\vspace{1.75cm}%
-  }
-  {{\sf\thesis@titlePage@large\thesis@@upper{facultyName}}%
-   \par\vspace{0.75cm}%
-   {\sf\thesis@titlePage@large\thesis@programme}%
-   \par\vspace{0.25cm}%
-   {\sf\thesis@titlePage@large\thesis@department@name}
-   \par\vspace{1.75cm}%
-  }
-  {}{}
+{{\sf\thesis@titlePage@large\thesis@@upper{facultyName}}%
+ \par\vspace{1.75cm}%
+}
+{{\sf\thesis@titlePage@large\thesis@@upper{facultyName}}%
+ \par\vspace{0.75cm}%
+ {\sf\thesis@titlePage@large\thesis@programme}%
+ \par\vspace{0.25cm}%
+ {\sf\thesis@titlePage@large\thesis@department@name}
+ \par\vspace{1.75cm}%
+}
+{}{}
 %    \end{macrocode}
 % \begin{macro}{\thesis@blocks@frontMatter}
 % The |\thesis@blocks@frontMatter| macro sets up the style of the
