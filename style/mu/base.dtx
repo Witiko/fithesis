@@ -906,12 +906,13 @@
       \par\vspace{0.75cm}%
       \ifthesis@blocks@titlePage@department@
         {\sf\thesis@titlePage@large\thesis@department@name}
-        \par\vspace{0.25cm}%
       \fi
       \ifthesis@blocks@titlePage@programme@
+	\par\vspace{0.25cm}%
         {\sf\thesis@titlePage@large\thesis@@{bib@programme}: \thesis@programme}\par
       \fi
       \ifthesis@blocks@titlePage@field@
+	\par\vspace{0.25cm}%
         {\sf\thesis@titlePage@large\thesis@@{fieldTitle}: \thesis@field@name}%
       \fi
       \par\vfill
@@ -1206,6 +1207,8 @@
     \textbf{\thesis@@{bib@thesisTitle}:}
       & \thesis@title \\
     \textbf{\thesis@@{bib@programme}:}
+      & \thesis@programme \\
+    \textbf{\thesis@@{bib@field}:}
       & \thesis@field \\
     \textbf{\thesis@@{bib@advisor}:}
       & \thesis@advisor \\
@@ -1256,6 +1259,8 @@
     \textbf{\thesis@english@bib@thesisTitle:}
       & \thesis@titleEn \\
     \textbf{\thesis@english@bib@programme:}
+      & \thesis@programmeEn \\
+    \textbr{\thesis@english@bib@field:}
       & \thesis@fieldEn \\
     \textbf{\thesis@english@bib@advisor:}
       & \thesis@advisor \\
