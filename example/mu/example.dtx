@@ -519,7 +519,7 @@
 \usepackage[acronym]{glossaries}          %% The `glossaries` package
 \renewcommand*\glspostdescription{\hfill} %% contains helper commands
 \loadglsentries{example-terms-abbrs.tex}  %% for dict and loa
-\makeglossaries                           %% typesetting.
+\makenoidxglossaries                      %% typesetting.
 %% These additional packages are used within the document:
 \usepackage{paralist} %% Compact list environments
 \usepackage{amsmath}  %% Mathematics
@@ -553,7 +553,7 @@
 
 %</econ>
 %    \end{macrocode}
-% \changes{v1.0.0}{2021/03/22}{Added \cs{printglossary} to print out
+% \changes{v1.0.0}{2021/03/22}{Added \cs{printnoidxglossary} to print
 %   Dictionary and List of Abbreviations. [TV]}
 %    \begin{macrocode}
 %% Uncomment the following lines (by removing the %% at the beginning)
@@ -561,8 +561,8 @@
 %% document. Titles for these tables can be changed by replacing the
 %% titles `Abbreviations` and `Dictionary`, respectively.
 \clearpage
-\printglossary[title={Abbreviations}, type=\acronymtype]
-\printglossary[title={Dictionary}]
+\printnoidxglossary[title={Abbreviations}, type=\acronymtype]
+\printnoidxglossary[title={Dictionary}]
 
 \chapter*{Introduction}
 \addcontentsline{toc}{chapter}{Introduction}
@@ -905,7 +905,7 @@ proofs.
 %<*econ>
   \emph{Source: <<Image Source>>}
 %</econ>
-	\caption{The logo of the \arclong{MUNI} at $\frac23$ and
+	\caption{The logo of the \acrlong{MUNI} at $\frac23$ and
     $\frac13$ of text width}
   \label{fig:mulogo2}
 \end{figure}
