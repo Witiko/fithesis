@@ -140,13 +140,19 @@
 % All blocks within the autolayout preamble and postamble that are
 % not defined within this file are defined in the
 % \texttt{style/mu/fithesis-base.sty} file.
+% \changes{v1.0.0}{2021/03/22}{Reorganised the blocks to fit the
+%   faculty's requirements. [TV]}
 %    \begin{macrocode}
 \def\thesis@blocks@preamble{%
   \thesis@blocks@coverMatter
     \thesis@blocks@cover
     \thesis@blocks@titlePage
   \thesis@blocks@frontMatter
-    \thesis@blocks@declaration
+    \thesis@blocks@seal
+    \thesis@blocks@bibEntry
+    \thesis@blocks@abstract
+    \thesis@blocks@bibEntryEn
+    \thesis@blocks@abstractEn
     \thesis@blocks@thanks
     \thesis@blocks@tables}
 \def\thesis@blocks@postamble{%
