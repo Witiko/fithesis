@@ -24,7 +24,8 @@ MAKES=guide/mu/Makefile guide/mu/resources/Makefile \
 	style/mu/Makefile test/Makefile test/mu/blind/Makefile \
 	test/mu/compare/Makefile test/mu/compare-example/Makefile
 USEREXAMPLE_SOURCES=example/mu/Makefile example/mu/example.dtx \
-	example/mu/*.ins example/mu/latexmkrc
+	example/mu/*.ins example/mu/latexmkrc \
+	example/mu/example-terms-abbrs.tex
 USEREXAMPLES=example/mu/econ-lualatex.pdf \
 	example/mu/econ-pdflatex.pdf example/mu/fi-lualatex.pdf \
 	example/mu/fi-pdflatex.pdf example/mu/fsps-lualatex.pdf \
