@@ -21,7 +21,7 @@ all: $(OUTPUT) clean
 		$(patsubst %-pdflatex.tex,%-,$(subst lua,pdf,$@))*.tex
 
 # This target typesets a pdfLaTeX example.
-%-pdflatex.pdf: %-pdflatex.tex example.bib
+%-pdflatex.pdf: %-pdflatex.tex example.bib example-terms-abbrs.tex
 	$(PDFLATEX) $< # The initial typesetting.
 	biber                               $(basename $<).bcf
 	$(PDFLATEX) $< # Update the index after the bibliography insertion.
@@ -30,7 +30,7 @@ all: $(OUTPUT) clean
 	$(PDFLATEX) $<
 
 # This target typesets a LuaLaTeX example.
-%-lualatex.pdf: %-lualatex.tex example.bib
+%-lualatex.pdf: %-lualatex.tex example.bib example-terms-abbrs.tex
 	$(LUALATEX) $< # The initial typesetting.
 	biber                               $(basename $<).bcf
 	$(LUALATEX) $< # Update the index after the bibliography insertion.
