@@ -208,7 +208,7 @@
 %   by thesis@bibEntry and thesis@titlePage: field, fieldEn,
 %   department, departmentEn, titleEn, TeXtitleEn, keywords, 
 %   keywordsEn, TeXkeywords, TeXkeywordsEn, programme,
-%   programmeEn. [TV]}
+%   programmeEn, abstract, abstractEn. [TV]}
 %    \begin{macrocode}
 \thesissetup{
     date          = \the\year/\the\month/\the\day,
@@ -227,6 +227,11 @@
                     of Sports Tables,
     keywords      = {keyword1, keywords2, ...},
     TeXkeywords   = {keyword1, keywords2, \ldots},
+    abstract      = {%
+      This is the abstract of my thesis, which can
+
+      span multiple paragraphs.
+    },
     bib           = example.bib,
     %% The following keys are only useful, when you're using a
     %% locale other than English. You can safely omit them in an
@@ -238,6 +243,11 @@
     TeXtitleEn    = The Economic Value of \LaTeX,
     keywordsEn    = {keyword1, keyword2, ...},
     TeXkeywordsEn = {keyword1, keyword2, \ldots},
+    abstractEn    = {%
+      This is the abstract of my thesis, which can
+
+      span multiple paragraphs.
+    },
 }
 %</fsps>
 %<*fss>
