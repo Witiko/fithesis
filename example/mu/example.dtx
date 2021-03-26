@@ -165,6 +165,62 @@
     },
 }
 %</econ>
+%<*faf>
+%    \end{macrocode}
+% \changes{v1.0.0}{2021/03/26}{Added the \texttt{thesissetup}
+%   for the Faculty of Pharmacy. [TV]}
+%    \begin{macrocode}
+\thesissetup{
+    date               = \the\year/\the\month/\the\day,
+    university         = mu,
+    faculty            = pharm,
+    type               = bc,
+    programme          = NA,
+    field              = Pharmacy,
+    department         = Department of Pharmacy,
+    author             = Jane Doe,
+    gender             = f,
+    advisor            = {Prof. RNDr. John Smith, CSc.},
+    extra              = {
+      advisorCsGenitiv = Johna Smithe,
+      advisorSkGenitiv = Johna Smitha,
+    },
+    title              = Plotting Data in LaTeX,
+    TeXtitle           = Plotting Data in \LaTeX,
+    keywords           = {keyword1, keyword2, ...},
+    TeXkeywords        = {keyword1, keyword2, \ldots},
+    abstract           = {%
+      This is the abstract of my thesis, which can
+
+      span multiple paragraphs.
+    },
+    thanks             = {%
+      These are the acknowledgements for my thesis, which can
+
+      span multiple paragraphs.
+    },
+    bib                = example.bib,
+    %% Uncomment the following line (by removing the %% at the
+    %% beginning) and replace `assignment.pdf` with the filename
+    %% of your scanned thesis assignment.
+%%    assignment         = assignment.pdf,
+    %% The following keys are only useful, when you're using a
+    %% locale other than English. You can safely omit them in an
+    %% English thesis.
+    programmeEn        = NA,
+    fieldEn            = Pharmacy,
+    departmentEn       = Department of Pharmacy,
+    titleEn            = Plotting Data in LaTeX,
+    TeXtitleEn         = Plotting Data in \LaTeX,
+    keywordsEn         = {keyword1, keyword2, ...},
+    TeXkeywordsEn      = {keyword1, keyword2, \ldots},
+    abstractEn         = {%
+      This is the English abstract of my thesis, which can
+
+      span multiple paragraphs.
+    },
+}
+%</faf>
 %<*fi>
 %    \end{macrocode}
 % \changes{v1.0.0}{2021/03/04}{Added elements that are used
