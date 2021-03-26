@@ -391,4 +391,24 @@
 
 %    \end{macrocode}\iffalse
 %</mu/sci>
+% \changes{v1.0.0}{2021/03/26}{Added specifics for the
+%   Faculty of Pharmacy. [TV]}
+% \fi\file{locale/mu/faf/fithesis-czech.def}
+% This is the Czech locale file specific to the Faculty of Pharmacy
+% at the Masaryk University in Brno.
+% It replaces the \texttt{facultyName} placeholder with the
+% correct value and redefines the \texttt{abstractTitle}
+% in accordance with the guidelines of the faculty.
+% \iffalse
+% <*mu/faf>
+% \fi\begin{macrocode}
+\ProvidesFile{fithesis/locale/mu/faf/fithesis-english.def}[2021/03/26]
+
+% Placeholders
+\gdef\thesis@english@facultyName{Faculty of Pharmacy}
+
+% Miscellaneous
+\gdef\thesis@english@abstractTitle{Annotation}
+%    \end{macrocode}\iffalse
+%</mu/faf>
 % \fi
