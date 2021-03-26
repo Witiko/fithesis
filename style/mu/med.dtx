@@ -46,10 +46,13 @@
 % 16\,cm in accordance with the formal requirements of the faculty.
 % This leads to overfull lines and is against the good conscience
 % of the author of this style.
+% \changes{v1.0.0}{2021/03/22}{Added \textsf{xpatch} package to
+%   redefine layout of titlePage. [TV]}
 %    \begin{macrocode}
 \thesis@require{tikz}
 \thesis@require{geometry}
 \thesis@require{setspace}
+	\thesis@require{xpatch}
 \geometry{top=25mm,bottom=20mm,left=25mm,right=25mm,includeheadfoot}
 %    \end{macrocode}
 % \begin{macro}{\thesis@blocks@cover}
@@ -87,6 +90,43 @@
 %   no longer redefine the \cs{thesis@blocks@titlePage@footer}
 %   and \cs{thesis@blocks@titlePage@content} macros, which are no
 %   longer defined. [VN]}
+% \changes{v1.0.0}{2021/03/22}{Added redefinition of the titlePage
+%   layout as per the faculty requirements. Department name and
+%   programme are in the upper part of the titlePage. [TV]}
+%    \begin{macrocode}
+\xpatchcmd{\thesis@blocks@titlePage}
+{{\sf\thesis@titlePage@large\thesis@@{advisorTitle}: \thesis@advisor}%
+   \par\vspace{0.75cm}%
+   \ifthesis@blocks@titlePage@department@
+     {\sf\thesis@titlePage@large\thesis@department@name}
+   \fi
+   \ifthesis@blocks@titlePage@programme@
+     \par\vspace{0.25cm}%
+     {\sf\thesis@titlePage@large\thesis@@{bib@programme}: 
+	\thesis@programme}\par
+   \fi
+   \ifthesis@blocks@titlePage@field@
+     \par\vspace{0.25cm}%
+     {\sf\thesis@titlePage@large\thesis@@{fieldTitle}: 
+	\thesis@field@name}%
+   \fi
+   \par\vfill
+}
+{}{}{}
+
+\xpatchcmd{\thesis@blocks@titlePage}
+{{\sf\thesis@titlePage@large\thesis@@upper{facultyName}}%
+ \par\vspace{1.75cm}%
+}
+{{\sf\thesis@titlePage@large\thesis@@upper{facultyName}}%
+ \par\vspace{0.75cm}%
+ {\sf\thesis@titlePage@large\thesis@programme}%
+ \par\vspace{0.25cm}%
+ {\sf\thesis@titlePage@large\thesis@department@name}
+ \par\vspace{1.75cm}%
+}
+{}{}
+%    \end{macrocode}
 % \begin{macro}{\thesis@blocks@frontMatter}
 % The |\thesis@blocks@frontMatter| macro sets up the style of the
 % front matter of the thesis. The page numbering is arabic in
@@ -127,20 +167,22 @@
 % All blocks within the autolayout preamble and postamble that are
 % not defined within this file are defined in the
 % \texttt{style/mu/fithesis-base.sty} file.
+% \changes{v1.0.0}{2021/03/22}{Reorganised the blocks to fit the
+%   faculty's requirements. [TV]}
 %    \begin{macrocode}
 \def\thesis@blocks@preamble{%
   \thesis@blocks@coverMatter
     \thesis@blocks@cover
-  \thesis@blocks@frontMatter
     \thesis@blocks@titlePage
-    \onehalfspacing
+  \thesis@blocks@frontMatter
+    \thesis@blocks@seal
+    \thesis@blocks@declaration
     \thesis@blocks@clearRight
       \thesis@blocks@abstract
-      \thesis@blocks@abstractEn
       \thesis@blocks@keywords
+    \thesis@blocks@clearRight
+      \thesis@blocks@abstractEn
       \thesis@blocks@keywordsEn
-    \thesis@blocks@bibEntry
-    \thesis@blocks@declaration
     \thesis@blocks@thanks
     \thesis@blocks@tables}
 \def\thesis@blocks@postamble{%

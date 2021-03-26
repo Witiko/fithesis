@@ -255,21 +255,23 @@
 % All blocks within the autolayout preamble that are not defined
 % within this file are defined in the
 % \texttt{style/mu/fithesis-base.sty} file.
+% \changes{v1.0.0}{2021/03/22}{Reorganised the blocks to fit the
+%   faculty's requirements. [TV]}
 %    \begin{macrocode}
 \def\thesis@blocks@preamble{%
   \thesis@blocks@coverMatter
     \thesis@blocks@cover
-  \thesis@blocks@frontMatter
     \thesis@blocks@titlePage
-    \thesis@blocks@assignment
+  \thesis@blocks@frontMatter
+    \thesis@blocks@seal
     \thesis@blocks@bibEntry
     \thesis@blocks@abstract
+    \thesis@blocks@bibEntryEn
     \thesis@blocks@abstractEn
-    \thesis@blocks@keywords
-    \thesis@blocks@keywordsEn
     \thesis@blocks@declaration
     \thesis@blocks@thanks
-    \thesis@blocks@toc}
+    \thesis@blocks@toc
+    \thesis@blocks@tables}
 %    \end{macrocode}
 % All blocks within the autolayout postamble that are not defined
 % within this file are defined in the \texttt{style/mu/base.sty}
@@ -280,5 +282,5 @@
 \def\thesis@blocks@postamble{%
   \ifx\thesis@doctoral\thesis@type\thesis@blocks@summary\else\fi
   \thesis@blocks@bibliography
-  \thesis@blocks@tables}
+}
 %    \end{macrocode}

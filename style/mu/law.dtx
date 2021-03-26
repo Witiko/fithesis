@@ -35,7 +35,10 @@
 %    \end{macrocode}
 % Each footnote is uniquely numbered across the entire document as
 % per the formal requirements of the faculty.
+% \changes{v1.0.0}{2021/03/22}{Added \textsf{regexpatch} package to
+%   redefine the layout of titlePage. [TV]}
 %    \begin{macrocode}
+\thesis@require{xpatch}
 \thesis@require{chngcntr}
 \counterwithout{footnote}{chapter}
 %    \end{macrocode}
@@ -52,6 +55,43 @@
   {\sc\thesis@titlePage@Large\thesis@@{facultyLongName}\\%
     \thesis@titlePage@large\thesis@department@name\\\vskip 2em}}
 \let\thesis@blocks@titlePage@header=\thesis@blocks@cover@header
+%    \end{macrocode}
+% \changes{v1.0.0}{2021/03/22}{Added redefinition of the titlePage
+%   layout as per the faculty requirements. Department name and
+%   field are in the upper part of the titlePage. [TV]}
+%    \begin{macrocode}
+\xpatchcmd{\thesis@blocks@titlePage}
+{{\sf\thesis@titlePage@large\thesis@@{advisorTitle}: \thesis@advisor}%
+   \par\vspace{0.75cm}%
+   \ifthesis@blocks@titlePage@department@
+     {\sf\thesis@titlePage@large\thesis@department@name}
+   \fi
+   \ifthesis@blocks@titlePage@programme@
+     \par\vspace{0.25cm}%
+     {\sf\thesis@titlePage@large\thesis@@{bib@programme}: 
+	\thesis@programme}\par
+   \fi
+   \ifthesis@blocks@titlePage@field@
+     \par\vspace{0.25cm}%
+     {\sf\thesis@titlePage@large\thesis@@{fieldTitle}: 
+	\thesis@field@name}%
+   \fi
+   \par\vfill
+}
+{}{}{}
+
+\xpatchcmd{\thesis@blocks@titlePage}
+{{\sf\thesis@titlePage@large\thesis@@upper{facultyName}}%
+ \par\vspace{1.75cm}%
+}
+{{\sf\thesis@titlePage@large\thesis@@upper{facultyName}}%
+ \par\vspace{0.75cm}%
+ {\sf\thesis@titlePage@large\thesis@field}%
+ \par\vspace{0.25cm}%
+ {\sf\thesis@titlePage@large\thesis@department@name}
+ \par\vspace{1.75cm}%
+}
+{}{}
 %    \end{macrocode}
 % \begin{macro}{\thesis@blocks@frontMatter}
 % The |\thesis@blocks@frontMatter| macro sets up the style
@@ -85,17 +125,21 @@
 % All blocks within the autolayout preamble that are not defined
 % within this file are defined in the
 % \texttt{style/mu/fithesis-base.sty} file.
+% \changes{v1.0.0}{2021/03/22}{Reorganised the blocks to fit the
+%   faculty's requirements. [TV]}
 %    \begin{macrocode}
 \def\thesis@blocks@preamble{%
   \thesis@blocks@coverMatter
     \thesis@blocks@cover
     \thesis@blocks@titlePage
   \thesis@blocks@frontMatter
+    \thesis@blocks@seal
     \thesis@blocks@declaration
     \thesis@blocks@clearRight
       \thesis@blocks@abstract
-      \thesis@blocks@abstractEn
       \thesis@blocks@keywords
+    \thesis@blocks@clearRight
+      \thesis@blocks@abstractEn
       \thesis@blocks@keywordsEn
     \thesis@blocks@thanks
     \thesis@blocks@tables}

@@ -906,12 +906,13 @@
       \par\vspace{0.75cm}%
       \ifthesis@blocks@titlePage@department@
         {\sf\thesis@titlePage@large\thesis@department@name}
-        \par\vspace{0.25cm}%
       \fi
       \ifthesis@blocks@titlePage@programme@
+	\par\vspace{0.25cm}%
         {\sf\thesis@titlePage@large\thesis@@{bib@programme}: \thesis@programme}\par
       \fi
       \ifthesis@blocks@titlePage@field@
+	\par\vspace{0.25cm}%
         {\sf\thesis@titlePage@large\thesis@@{fieldTitle}: \thesis@field@name}%
       \fi
       \par\vfill
@@ -933,6 +934,23 @@
         \fi\fi}%
     \end{center}%
   \end{alwayssingle}}
+%    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@blocks@seal}
+% \changes{v1.0.0}{2021/03/22}{Added macro for the seal of faculty.
+% [TV]}
+% The |\thesis@blocks@seal| macro typesets the seal of the faculty.
+% \begin{macrocode}
+\def\thesis@blocks@seal{%
+  \thesis@blocks@clear
+    \begin{alwayssingle}%
+      \thispagestyle{empty}%
+      \begin{center}%
+        \leavevmode
+        \par\vfill
+        \thesis@blocks@facultyLogo@color[width=6.3cm]%
+        \par\vfill\vfill\vfill\vfill
+      \end{center}%
+    \end{alwayssingle}}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@toc}
 % The |\thesis@blocks@toc| macro typesets the table of contents.
@@ -1020,15 +1038,16 @@
 % \end{macro}\begin{macro}{\thesis@blocks@keywords}
 % The |\thesis@blocks@keywords| macro typesets the
 % keywords.
+% \changes{v1.0.0}{2021/03/22}{Redefined keywords, keywordsEn
+%   macros so they by default start on the same page as the
+%   the previous element and are in the lower part of the page.
+%   [TV]}
 % \begin{macrocode}
 \def\thesis@blocks@keywords{%
   \begin{alwayssingle}%
-    % Start the new chapter without clearing the left page.
-    \clearpage
-    {\let\thesis@blocks@clear\relax
-    \chapter*{\thesis@@{keywordsTitle}}%
-    \noindent\thesis@TeXkeywords}%
-    \par\vfil\null
+    {\let\thesis@blocks@clear\relax%
+    \chapter*{\vspace*{\fill}\thesis@@{keywordsTitle}}}%
+    \leavevmode\thesis@keywords  
   \end{alwayssingle}}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@keywordsEn}
@@ -1043,12 +1062,9 @@
   \ifthesis@english\else
     {\thesis@selectLocale{english}%
     \begin{alwayssingle}%
-      % Start the new chapter without clearing the left page.
-      \clearpage
       {\let\thesis@blocks@clear\relax%
-      \chapter*{\thesis@english@keywordsTitle}}%
-      \noindent\thesis@TeXkeywordsEn
-      \par\vfil\null
+      \chapter*{\vspace*{\fill}\thesis@english@keywordsTitle}}%
+      \leavevmode\thesis@keywords
     \end{alwayssingle}}%
   \fi}
 %    \end{macrocode}
@@ -1206,6 +1222,8 @@
     \textbf{\thesis@@{bib@thesisTitle}:}
       & \thesis@title \\
     \textbf{\thesis@@{bib@programme}:}
+      & \thesis@programme \\
+    \textbf{\thesis@@{bib@field}:}
       & \thesis@field \\
     \textbf{\thesis@@{bib@advisor}:}
       & \thesis@advisor \\
@@ -1256,6 +1274,8 @@
     \textbf{\thesis@english@bib@thesisTitle:}
       & \thesis@titleEn \\
     \textbf{\thesis@english@bib@programme:}
+      & \thesis@programmeEn \\
+    \textbf{\thesis@english@bib@field:}
       & \thesis@fieldEn \\
     \textbf{\thesis@english@bib@advisor:}
       & \thesis@advisor \\
