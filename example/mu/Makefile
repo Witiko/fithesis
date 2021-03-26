@@ -2,7 +2,9 @@ PDFFILES=fi-pdflatex.pdf fi-lualatex.pdf sci-pdflatex.pdf sci-lualatex.pdf \
 	ped-pdflatex.pdf ped-lualatex.pdf med-pdflatex.pdf med-lualatex.pdf \
 	fss-pdflatex.pdf fss-lualatex.pdf fsps-pdflatex.pdf fsps-lualatex.pdf \
 	phil-pdflatex.pdf phil-lualatex.pdf law-pdflatex.pdf law-lualatex.pdf \
-	econ-pdflatex.pdf econ-lualatex.pdf
+	econ-pdflatex.pdf econ-lualatex.pdf pharm-pdflatex.pdf \
+	pharm-lualatex.pdf
+
 PDFLATEX=pdflatex --shell-escape
 LUALATEX=lualatex
 AUXFILES=*.aux *.log *.out *.toc *.lot *.lof *.bcf *.blg *.run.xml \
