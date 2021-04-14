@@ -9,7 +9,7 @@
 % prepared in accordance with the formal requirements published at
 % the website of the faculty\footnote{See
 % \url{https://is.muni.cz/do/fi/uredni_deska/predpisy/smernice/^^A
-% Smernice_dekana_1_2018_zaverecne_prace.pdfa.pdf}, and
+% Smernice_dekana_1_2021_zaverecne_prace.pdf}, and
 % \url{https://www.fi.muni.cz/files/studijni/manual-bpdp.pdf}.}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
@@ -95,12 +95,11 @@
     \ifx\thesis@type\thesis@proposal
       \thesis@blocks@toc
     \else
-      \thesis@blocks@assignment
       \thesis@blocks@declaration
-      \thesis@blocks@clearRight
+      \thesis@blocks@thanks
+      \thesis@blocks@clear
         \thesis@blocks@abstract
         \thesis@blocks@keywords
-      \thesis@blocks@thanks
       \thesis@blocks@tables
     \fi}
 \def\thesis@blocks@postamble{%
