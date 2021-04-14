@@ -8,7 +8,8 @@ PDFFILES=fithesis-econ.pdf fithesis-fsps.pdf fithesis-law.pdf \
 	fithesis-phil-color.pdf fithesis-sci-color.pdf \
 	fithesis-fi-color.pdf fithesis-fss-color.pdf fithesis-base-color.pdf \
 	fithesis-base-czech-color.pdf fithesis-base-english-color.pdf \
-	fithesis-base-slovak-color.pdf
+	fithesis-base-slovak-color.pdf fithesis-pharm-color.pdf \
+	fithesis-pharm.pdf
 .PHONY: all implode
 
 # This target converts all the EPS logos to PDF.
