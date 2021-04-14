@@ -13,7 +13,7 @@
 % h_dokumentu.pdf}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fithesis/style/mu/fithesis-mu-law}[2021/02/21]
+\ProvidesPackage{fithesis/style/mu/fithesis-mu-law}[2021/03/26]
 %    \end{macrocode}
 % The file defines the color scheme of the respective faculty. Note
 % the the color definitions are in RGB, which makes the resulting
@@ -25,11 +25,14 @@
   tableOdd={HTML}{F2EBF5},
   tableEven={HTML}{E5CCED}}
 %    \end{macrocode}
-% The bibliography support is enabled. The |authoryear| citations
+% The bibliography support is enabled. The |iso-authortitle| citations
 % are used and the bibliography is sorted by name, year, and title.
+% \changes{v1.0.0}{2021/03/26}{^^A
+%   The Faculty of Law at the Masaryk University in Brno uses the ISO~690
+%   author-title citation and reference style. [VN]}
 %    \begin{macrocode}
 \thesis@bibliography@setup{%
-  style=iso-authoryear,
+  style=iso-authortitle,
   sorting=nyt}
 \thesis@bibliography@load
 %    \end{macrocode}
