@@ -1,6 +1,6 @@
 LOGS=czech.log slovak.log english.log
 DIRECTORIES=mu/law mu/fsps mu/fss mu/econ mu/med mu/fi mu/phil \
-	mu/ped mu/sci mu
+	mu/ped mu/sci mu/pharm mu
 OUTPUT=fithesis-czech.def mu/law/fithesis-czech.def \
 	mu/law/fithesis-slovak.def mu/law/fithesis-english.def \
 	mu/fithesis-czech.def mu/fsps/fithesis-czech.def \
@@ -16,7 +16,9 @@ OUTPUT=fithesis-czech.def mu/law/fithesis-czech.def \
 	mu/ped/fithesis-czech.def mu/ped/fithesis-slovak.def \
 	mu/ped/fithesis-english.def mu/fithesis-english.def \
 	mu/sci/fithesis-czech.def mu/sci/fithesis-slovak.def \
-	mu/sci/fithesis-english.def fithesis-slovak.def \
+	mu/sci/fithesis-english.def mu/pharm/fithesis-czech.def \
+	mu/pharm/fithesis-slovak.def mu/pharm/fithesis-english.def \
+	fithesis-czech.def fithesis-slovak.def \
 	fithesis-english.def
 
 .PHONY: explode implode all
