@@ -66,25 +66,6 @@
 %   in Brno no longer redefine the 
 %   \cs{thesis@blocks@titlePage@content} macro, which is no longer
 %   defined. [TV]}
-% \begin{macro}{\thesis@blocks@summary}
-% \changes{v1.0.0}{2021/03/11}{Macro for the summary was added. [TV]}
-% The |\thesis@blocks@summary| macro typesets the summary
-% for doctoral theses. If the thesis type is not doctoral, the
-% macro produces no output.
-%    \begin{macrocode}
-\thesis@def@extra[{
-  \thesis@placeholder@extra@summary
-}]{summary}
-
-\def\thesis@blocks@summary{%
-  \begin{alwayssingle}%
-    \thesis@blocks@clear
-    {\let\thesis@blocks@clear\relax
-    \chapter*{\thesis@@{summaryTitle}}}%
-    \noindent\thesis@extra@summary
-    \end{alwayssingle}}
-%    \end{macrocode}
-% \end{macro}
 %
 % Note that there is no direct support for the seminar paper and
 % thesis proposal types.  If you would like to change the contents
@@ -116,7 +97,6 @@
       \thesis@blocks@abstractEn
     \fi
     \thesis@blocks@declaration
-    \ifx\thesis@doctoral\thesis@type\thesis@blocks@summary\else\fi
     \thesis@blocks@thanks
 %    \end{macrocode}
 % In KISK theses, the lists of tables and figures will be included
