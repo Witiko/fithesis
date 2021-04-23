@@ -64,33 +64,6 @@
 %    \begin{macrocode}
 \thesis@blocks@assignment@hideIfDigital@false
 %    \end{macrocode}
-% \begin{macro}{\thesis@blocks@cover}
-% The |\thesis@blocks@cover| macro typesets the thesis
-% cover.
-% \changes{v1.0.0}{2018/11/18}{^^A
-%   The \cs{bfseries} command switches to the sans serif typeface
-%   and to the secondary color in the style files of the Masaryk
-%   University in Brno, Czech Republic.}
-%    \begin{macrocode}
-\def\thesis@blocks@cover{%
-  \ifthesis@cover@
-    \thesis@blocks@clear
-    \begin{alwayssingle}
-      \colorlet{thesis@color@secondary}{black}%
-      \thispagestyle{empty}
-      \begin{center}
-      {\sc\thesis@titlePage@LARGE\thesis@@{universityName}\\%
-          \thesis@titlePage@Large\thesis@@{facultyName}\\}
-      \vfill
-      {\bf\thesis@titlePage@Huge\thesis@@{typeName}}
-      \vfill
-      {\thesis@titlePage@large\thesis@place
-       \ \thesis@year\hfill\thesis@author}
-      \end{center}
-    \end{alwayssingle}
-  \fi}
-%    \end{macrocode}
-% \end{macro}
 % \changes{v0.3.49}{2018/02/11}{Removed an extraneous \cs{vskip} in
 %   the style files for the Masaryk University in Brno. [VN]}
 % \changes{v1.0.0}{2021/02/26}{^^A
@@ -99,6 +72,9 @@
 %   no longer redefine the \cs{thesis@blocks@titlePage@footer}
 %   and \cs{thesis@blocks@titlePage@content} macros, which are no
 %   longer defined. [VN]}
+% \changes{v1.0.0}{2021/04/23}{^^A
+%   The style files for the Faculty of Economics and Administration
+%   no longer redefine the \cs{thesis@blocks@cover}. [TV]}    
 % \begin{macro}{\thesis@blocks@frontMatter}
 % The |\thesis@blocks@frontMatter| macro sets up the style
 % of the front matter of the thesis. The page numbering is arabic

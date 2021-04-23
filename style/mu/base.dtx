@@ -720,21 +720,10 @@
 \let\thesis@fieldEn@name\thesis@fieldEn
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@cover}
+% \changes{v1.0.0}{2021/04/23}{^^A
+%    The macro is no longer composed of three macros. [TV]}
 % The |\thesis@blocks@cover| macro typesets the thesis
-% cover. It is composed of three macros:
-% \begin{itemize}
-%   \item\DescribeMacro{\thesis@blocks@cover@header}^^A
-%        |\thesis@blocks@cover@header| -- The header of the cover
-%        page
-%   \item\DescribeMacro{\thesis@blocks@cover@content}^^A
-%        |\thesis@blocks@cover@content| -- The content of the cover
-%        page
-%   \item\DescribeMacro{\thesis@blocks@cover@footer}^^A
-%        |\thesis@blocks@cover@footer| -- The footer of the cover
-%        page
-% \end{itemize}
-% This allows the subsequently loaded style files to only redefine
-% certain parts of the cover page.
+% cover.
 % \changes{v1.0.0}{2018/11/18}{^^A
 %   The \cs{bfseries} command switches to the sans serif typeface
 %   and to the secondary color in the style files of the Masaryk
@@ -747,71 +736,23 @@
       \colorlet{thesis@color@secondary}{black}%
       \thispagestyle{empty}%
       \begin{center}%
-        \thesis@blocks@cover@header
-        \thesis@blocks@facultyLogo@monochrome\\[0.4in]%
-        \let\footnotesize\small
-        \let\footnoterule\relax{}%
-        \thesis@blocks@cover@content
+        \thesis@blocks@universityLogo@monochrome[width=6.3cm]%
+        \par\vspace{0.75cm}%
+        {\sf\thesis@titlePage@large\thesis@@upper{facultyName}}%
         \par\vfill
-        \thesis@blocks@cover@footer
+        {\bf\thesis@titlePage@Huge\thesis@@upper{typeName}}
+        \par\vfill
+        {\sf\thesis@titlePage@LARGE\thesis@upper{author}}%
+        \par\vfill\vfill
+        \par\vspace{0.75cm}%
+        \sf\thesis@titlePage@large\thesis@place, \thesis@@{semester}%
       \end{center}%
     \end{alwayssingle}%
   \fi}
 %    \end{macrocode}
-% The output of the |\thesis@blocks@cover@header| macro is
-% controlled by the following conditionals:
-% \begin{enumerate}
-%   \item|\ifthesis@blocks@cover@university@| -- This
-%        conditional expression determines, whether the university
-%        name is going to be included in the header of the cover.
-%        The default value of this conditional is \texttt{true}.
-%   \item|\ifthesis@blocks@cover@faculty@| -- This
-%        conditional expression determines, whether the faculty
-%        name is going to be included in the header of the cover.
-%        The default value of this conditional is \texttt{true}.
-%   \item|\ifthesis@blocks@cover@department@| -- This
-%        conditional expression determines, whether the department
-%        name is going to be included in the header of the cover.
-%        The default value of this conditional is \texttt{false}.
-%   \item|\ifthesis@blocks@cover@field@| -- This
-%        conditional expression determines, whether the field of
-%        study is going to be included in the header of the cover.
-%        The default value of this conditional is \texttt{false}.
-% \end{enumerate}
-% The sebsequently loaded style files can modify the value of these
-% conditionals to alter the output of the
-% |\thesis@blocks@cover@header| macro without altering its
-% definition.
-% \begin{macrocode}
-\newif\ifthesis@blocks@cover@university@
-\thesis@blocks@cover@university@true
-\newif\ifthesis@blocks@cover@faculty@
-\thesis@blocks@cover@faculty@true
-\newif\ifthesis@blocks@cover@department@
-\thesis@blocks@cover@department@false
-\newif\ifthesis@blocks@cover@field@
-\thesis@blocks@cover@field@false
-
-\def\thesis@blocks@cover@header{%
-  {\sc\ifthesis@blocks@cover@university@
-        \thesis@titlePage@LARGE\thesis@@{universityName}\\%
-   \fi\ifthesis@blocks@cover@faculty@
-        \thesis@titlePage@Large\thesis@@{facultyName}\\%
-   \fi\ifthesis@blocks@cover@department@
-        \thesis@titlePage@large\thesis@department@name\\%
-      \fi}
-  \ifthesis@blocks@cover@field@
-    {\thesis@titlePage@large\vskip 1em%
-      {\bf\thesis@@{fieldTitle}:} \thesis@field@name}%
-  \fi\vskip 2em}
-\def\thesis@blocks@cover@content{%
-  {\thesis@titlePage@Huge\bf\thesis@TeXtitle\par\vfil}%
-  \vskip 0.8in%
-  {\thesis@titlePage@large\sc\thesis@@{typeName}}\\[0.3in]%
-  {\thesis@titlePage@Large\bf\thesis@author}}
-\def\thesis@blocks@cover@footer{%
-  {\thesis@titlePage@large\thesis@place, \thesis@@{semester}}}
-%    \end{macrocode}
+% \changes{v1.0.0}{2021/04/23}{Removed the header conditionals as the
+%    covers are unified for all faculties and shouldn't need to be
+%    modified. [TV]}
 % \end{macro}
 % \begin{macro}{\thesis@blocks@advisorSignature}
 % The |\thesis@blocks@advisorSignature| macro produces space for
