@@ -648,9 +648,15 @@
 % The |\thesis@blocks@facultyLogo@monochrome|\oarg{options} 
 % macro typesets the |\thesis@logopath\thesis@facultyLogo| logo
 % with the given \textit{options} passed to |\includegraphics|.
+% \changes{v1.0.0}{2021/04/24}{^^A
+%   Change \cs{thesis@facultyLogo},
+%   \cs{thesis@blocks@facultyLogo@monochrome}, and
+%   \cs{thesis@blocks@facultyLogo@color} to use the new logotype
+%   of the Masaryk University in Brno in the correct size and
+%   localization. Add \cs{thesis@blocks@seal}. [VN]}
 % \begin{macrocode}
 \newcommand{\thesis@blocks@facultyLogo@monochrome}[1]%
-  [width=40mm]{{%
+  [width=6.3cm]{{%
     \edef\@path{\thesis@logopath\thesis@facultyLogo}%
     \includegraphics[#1]{\@path}}}
 %    \end{macrocode}
@@ -662,9 +668,15 @@
 % |\thesis@logopath\thesis@facultyLogo-color| logo
 % otherwise with the given \textit{options} passed to
 % |\includegraphics|.
+% \changes{v1.0.0}{2021/04/24}{^^A
+%   Change \cs{thesis@facultyLogo},
+%   \cs{thesis@blocks@facultyLogo@monochrome}, and
+%   \cs{thesis@blocks@facultyLogo@color} to use the new logotype
+%   of the Masaryk University in Brno in the correct size and
+%   localization. Add \cs{thesis@blocks@seal}. [VN]}
 % \begin{macrocode}
 \newcommand{\thesis@blocks@facultyLogo@color}[1]%
-  [width=40mm]{{%
+  [width=6.3cm]{{%
     \edef\@path{\thesis@logopath\thesis@facultyLogo
       \ifthesis@color@-color\fi}%
     \includegraphics[#1]{\@path}}}
@@ -933,6 +945,27 @@
         \fi\fi}%
     \end{center}%
   \end{alwayssingle}}
+%    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@blocks@seal}
+% The |\thesis@blocks@seal| macro typesets the seal of a faculty.
+% \changes{v1.0.0}{2021/03/19}{^^A
+%   Change \cs{thesis@universityLogo},
+%   \cs{thesis@blocks@universityLogo@monochrome}, and
+%   \cs{thesis@blocks@universityLogo@color} to use the new logotype
+%   of the Masaryk University in Brno in the correct size and
+%   localization. Add \cs{thesis@blocks@seal}. [VN]}
+% \begin{macrocode}
+\def\thesis@blocks@seal{%
+  \thesis@blocks@clear
+    \begin{alwayssingle}%
+      \thispagestyle{empty}%
+      \begin{center}%
+        \leavevmode
+        \par\vfill
+        \thesis@blocks@facultyLogo@color
+        \par\vfill\vfill\vfill\vfill
+      \end{center}%
+    \end{alwayssingle}}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@toc}
 % The |\thesis@blocks@toc| macro typesets the table of contents.
