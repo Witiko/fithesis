@@ -14,7 +14,7 @@
 % /08/standard_zaverecnych_praci_katedra_pedagogiky-opravene3_08.pdf}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fithesis/style/mu/fithesis-mu-ped}[2021/02/26]
+\ProvidesPackage{fithesis/style/mu/fithesis-mu-ped}[2021/03/26]
 %    \end{macrocode}
 % The file defines the color scheme of the respective faculty. Note
 % the the color definitions are in RGB, which makes the resulting
@@ -26,11 +26,14 @@
   tableOdd={HTML}{FFF1E0},
   tableEven={HTML}{FFDEB7}}
 %    \end{macrocode}
-% The bibliography support is enabled. The |numeric| citations are
+% The bibliography support is enabled. The |apa| citations are
 % used and the bibliography is sorted by name, title, and year.
+% \changes{v1.0.0}{2021/03/26}{^^A
+%   The Faculty of Education at the Masaryk University in Brno
+%   uses the APA citation and reference style. [VN]}
 %    \begin{macrocode}
 \thesis@bibliography@setup{
-  style=iso-numeric,
+  style=apa,
   sorting=nty}
 \thesis@bibliography@load
 %    \end{macrocode}
