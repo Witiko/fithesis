@@ -656,7 +656,7 @@
 %   localization. Add \cs{thesis@blocks@seal}. [VN]}
 % \begin{macrocode}
 \newcommand{\thesis@blocks@facultyLogo@monochrome}[1]%
-  [width=6.3cm]{{%
+  [scale=0.95]{{%
     \edef\@path{\thesis@logopath\thesis@facultyLogo}%
     \includegraphics[#1]{\@path}}}
 %    \end{macrocode}
@@ -676,7 +676,7 @@
 %   localization. Add \cs{thesis@blocks@seal}. [VN]}
 % \begin{macrocode}
 \newcommand{\thesis@blocks@facultyLogo@color}[1]%
-  [width=6.3cm]{{%
+  [scale=0.95]{{%
     \edef\@path{\thesis@logopath\thesis@facultyLogo
       \ifthesis@color@-color\fi}%
     \includegraphics[#1]{\@path}}}
@@ -694,7 +694,7 @@
 %   localization. [VN]}
 % \begin{macrocode}
 \newcommand{\thesis@blocks@universityLogo@monochrome}[1]%
-  [width=6.3cm]{{%
+  [scale=0.9]{{%
     \edef\@path{\thesis@logopath\thesis@universityLogo}%
     \includegraphics[#1]{\@path}}}
 %    \end{macrocode}
@@ -714,7 +714,7 @@
 %   localization. [VN]}
 % \begin{macrocode}
 \newcommand{\thesis@blocks@universityLogo@color}[1]%
-  [width=6.3cm]{{%
+  [scale=0.9]{{%
     \edef\@path{\thesis@logopath\thesis@universityLogo
       \ifthesis@color@-color\fi}%
     \includegraphics[#1]{\@path}}}
