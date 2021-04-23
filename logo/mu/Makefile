@@ -1,14 +1,7 @@
-PDFFILES=fithesis-econ.pdf fithesis-fsps.pdf fithesis-law.pdf \
-	fithesis-med.pdf fithesis-ped.pdf fithesis-phil.pdf \
-	fithesis-sci.pdf fithesis-fi.pdf fithesis-fss.pdf fithesis-base.pdf \
-	fithesis-base-czech.pdf fithesis-base-english.pdf \
-	fithesis-base-slovak.pdf fithesis-econ-color.pdf \
-	fithesis-fsps-color.pdf fithesis-law-color.pdf \
-	fithesis-med-color.pdf fithesis-ped-color.pdf \
-	fithesis-phil-color.pdf fithesis-sci-color.pdf \
-	fithesis-fi-color.pdf fithesis-fss-color.pdf fithesis-base-color.pdf \
-	fithesis-base-czech-color.pdf fithesis-base-english-color.pdf \
-	fithesis-base-slovak-color.pdf
+FACULTIES=base econ fi fsps fss law med ped pharm phil sci
+LANGUAGES=czech slovak english
+SUFFIXES=-color.pdf .pdf
+PDFFILES=$(foreach SUFFIX,$(SUFFIXES),$(foreach FACULTY,$(FACULTIES),fithesis-$(FACULTY)$(SUFFIX) $(foreach LANGUAGE,$(LANGUAGES),fithesis-$(FACULTY)-$(LANGUAGE)$(SUFFIX))))
 .PHONY: all implode
 
 # This target converts all the EPS logos to PDF.
