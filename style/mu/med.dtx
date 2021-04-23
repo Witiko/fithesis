@@ -42,34 +42,36 @@
 %   The Faculty of Medicine at the Masaryk University in Brno uses the
 %   AMA citation and reference style. [VN]}
 %    \begin{macrocode}
-\DeclareNameAlias{sortname}{last-first}
-\renewcommand*{\revsdnamepunct}{}
-\DeclareFieldFormat[%
-  article,inbook,incollection,inproceedings,patent,thesis,unpublished]%
-  {title}{{#1\isdot}}
-\renewbibmacro{in:}{}
-\DeclareFieldFormat{pages}{#1}
-\renewcommand*{\bibpagespunct}{\addcolon}
-\DeclareFieldFormat{journaltitle}{#1\addperiod}
-\DeclareFieldFormat{booktitle}{{#1}}
-\DeclareFieldFormat{title}{{#1}}
-\renewbibmacro*{journal+issuetitle}{%
-  \usebibmacro{journal}%
-  \setunit*{\addspace}%
-  \iffieldundef{series}
-  {}
-  {\newunit
-    \printfield{series}%
-    \setunit{\addspace}}%
-  \usebibmacro{issue+date}%
-  \setunit{\addsemicolon\addspace}%
-  \usebibmacro{volume+number+eid}%
-  \setunit{\addcolon\space}%
-  \usebibmacro{issue}%
-  \newunit%
-}
-\renewbibmacro*{issue+date}{\printfield{year}}
-\renewcommand*{\finalnamedelim}{\multinamedelim}
+\ifthesis@bibliography@loaded@
+  \DeclareNameAlias{sortname}{last-first}
+  \renewcommand*{\revsdnamepunct}{}
+  \DeclareFieldFormat[%
+    article,inbook,incollection,inproceedings,patent,thesis,unpublished]%
+    {title}{{#1\isdot}}
+  \renewbibmacro{in:}{}
+  \DeclareFieldFormat{pages}{#1}
+  \renewcommand*{\bibpagespunct}{\addcolon}
+  \DeclareFieldFormat{journaltitle}{#1\addperiod}
+  \DeclareFieldFormat{booktitle}{{#1}}
+  \DeclareFieldFormat{title}{{#1}}
+  \renewbibmacro*{journal+issuetitle}{%
+    \usebibmacro{journal}%
+    \setunit*{\addspace}%
+    \iffieldundef{series}
+    {}
+    {\newunit
+      \printfield{series}%
+      \setunit{\addspace}}%
+    \usebibmacro{issue+date}%
+    \setunit{\addsemicolon\addspace}%
+    \usebibmacro{volume+number+eid}%
+    \setunit{\addcolon\space}%
+    \usebibmacro{issue}%
+    \newunit%
+  }
+  \renewbibmacro*{issue+date}{\printfield{year}}
+  \renewcommand*{\finalnamedelim}{\multinamedelim}
+\fi
 %    \end{macrocode}
 % The file loads the following packages:
 % \begin{itemize}
