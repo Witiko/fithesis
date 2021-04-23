@@ -61,21 +61,12 @@
   \def\thesis@departmentEn@name{\thesis@english@departmentName}
 \fi
 %    \end{macrocode}
-% \begin{macro}{\thesis@blocks@titlePage}
-% The style file redefines the cover and title page footers to include the
-% thesis advisor's name.
-% \changes{v0.3.51}  {2018/11/05}{Always typeset the name of the advisor
-%   on the title page for the Faculty of Arts at the Masaryk University
-%   in Brno, Czech Republic. [VN]}
-% \begin{macrocode}
-\def\thesis@blocks@titlePage@content{%
-  {\thesis@titlePage@Huge\bf\thesis@TeXtitle\par\vfil}\vskip 0.8in
-  {\thesis@titlePage@large\sc\thesis@@{typeName}\\[0.3in]}
-  {\thesis@titlePage@Large\bf\thesis@author}
-  {\thesis@titlePage@large\\[0.3in]
-    {\bf\thesis@@{advisorTitle}:} \thesis@advisor}}
-%    \end{macrocode}
-% \end{macro}\begin{macro}{\thesis@blocks@summary}
+% \changes{v1.0.0}{2021/04/23}{^^A
+%   The style files of the Faculty of Arts at the Masaryk University
+%   in Brno no longer redefine the 
+%   \cs{\thesis@blocks@titlePage@content} macro, which is no longer
+%   defined. [TV]}
+% \begin{macro}{\thesis@blocks@summary}
 % \changes{v1.0.0}{2021/03/11}{Macro for the summary was added. [TV]}
 % The |\thesis@blocks@summary| macro typesets the summary
 % for doctoral theses. If the thesis type is not doctoral, the
