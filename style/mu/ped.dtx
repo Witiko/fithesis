@@ -1,12 +1,17 @@
 % \file{style/mu/fithesis-ped.sty}
 % \changes{v1.0.0}{2021/02/21}{File were renamed after
 %   breaking changes in package loading after PR 438 in \LaTeXe. [VN]}
+% \changes{v1.0.0}{2021/03/19}{Updated urls to show the most recent
+%   requirements and recommendations used in preparation of the
+%   template. [TV]}
 % This is the style file for the theses written at the Faculty of
 % Education at the Masaryk University in Brno. It has been prepared
 % in accordance with the formal requirements published at the
-% of the faculty\footnote{See \url{https://is.muni.cz/do/ped/VPA^^A
-% N/pokdek/c._1_2015_K_realizaci_zaverecnych_praci.pdf}, and
-% \url{http://moodlinka.ics.muni.cz/course/view.php?id=632}}.
+% of the faculty\footnote{See \url{K_realizaci_zaverecnych_praci^^A
+% __bakalarskych__diplomovych__rigoroznich_a_zaverecnych_praci_CZV_},
+% and standard of the department of Pedagogy 
+% \url{http://www.ped.muni.cz/pedagogika/wp-content/uploads/2018^^A
+% /08/standard_zaverecnych_praci_katedra_pedagogiky-opravene3_08.pdf}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{fithesis/style/mu/fithesis-mu-ped}[2021/04/24]
@@ -21,11 +26,14 @@
   tableOdd={HTML}{FFF1E0},
   tableEven={HTML}{FFDEB7}}
 %    \end{macrocode}
-% The bibliography support is enabled. The |numeric| citations are
+% The bibliography support is enabled. The |apa| citations are
 % used and the bibliography is sorted by name, title, and year.
+% \changes{v1.0.0}{2021/03/26}{^^A
+%   The Faculty of Education at the Masaryk University in Brno
+%   uses the APA citation and reference style. [VN]}
 %    \begin{macrocode}
 \thesis@bibliography@setup{
-  style=iso-numeric,
+  style=apa,
   sorting=nty}
 \thesis@bibliography@load
 %    \end{macrocode}
@@ -45,6 +53,8 @@
 % All blocks within the autolayout preamble and postamble that are
 % not defined within this file are defined in the
 % \texttt{style/mu/fithesis-base.sty} file.
+% \changes{v1.0.0}{2021/03/22}{Reorganised the blocks to fit the
+%   faculty's requirements. [TV]}
 % \changes{v1.0.0}{2021/04/24}{^^A
 %   Change \cs{thesis@facultyLogo},
 %   \cs{thesis@blocks@facultyLogo@monochrome}, and
@@ -60,9 +70,8 @@
     \thesis@blocks@seal
     \thesis@blocks@bibEntry
     \thesis@blocks@abstract
+    \thesis@blocks@bibEntryEn
     \thesis@blocks@abstractEn
-    \thesis@blocks@keywords
-    \thesis@blocks@keywordsEn
     \thesis@blocks@declaration
     \thesis@blocks@thanks
     \thesis@blocks@tables}

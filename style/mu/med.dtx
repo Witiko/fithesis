@@ -1,12 +1,18 @@
 % \file{style/mu/fithesis-med.sty}
 % \changes{v1.0.0}{2021/02/21}{File were renamed after
 %   breaking changes in package loading after PR 438 in \LaTeXe. [VN]}
+% \changes{v1.0.0}{2021/03/19}{Updated urls to show the most recent
+%   requirements and recommendations used in preparation of the
+%   template. [TV]}
 % This is the style file for the theses written at the Faculty of
 % Medicine at the Masaryk University in Brno. It has been prepared
 % in accordance with the formal requirements published at the
-% website of the Department of Optometry and Orthoptics\footnote^^A
-% {See \url{http://is.muni.cz/do/med/zpravyprac/Optometrie/NALE^^A
-% ZITOSTI_ZAVERECNE_PRACE.doc}}.
+% website of the faculty \footnote {See \url{https://is.muni.cz/do/^^A
+% med/uredni_deska/pravni_normy/smernice_dekana/2020/smernice_lf_mu^^A
+% _2_2020_-_pokyny_k_formalnim_nalezitostem_zaverecnych_bakalarskyc^^A
+% h/Smernice_LF_MU_2-2020_-_Pokyny_k_formalnim_nalezitostem_zaverec^^A
+% nych_bakalarskych_a_diplomovych_praci_vypracovanych_na_Lekarske_f^^A
+% akulte_MU.pdf}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{fithesis/style/mu/fithesis-mu-med}[2021/04/24]
@@ -21,13 +27,51 @@
   tableOdd={HTML}{FFF5F6},
   tableEven={HTML}{FFDEDF}}
 %    \end{macrocode}
-% The bibliography support is enabled. The |authoryear| citations
+% The bibliography support is enabled. The |authortitle| citations
 % are used and the bibliography is sorted by year, name, and title.
 %    \begin{macrocode}
 \thesis@bibliography@setup{%
-  style=iso-authoryear,
+  style=authortitle,
   sorting=ynt}
 \thesis@bibliography@load
+%    \end{macrocode}
+% The AMA citation style is defined using |authortitle| as the basis.
+% The following code has been adapted from
+% \url{https://tex.stackexchange.com/a/233423/70941}.
+% \changes{v1.0.0}{2021/03/26}{^^A
+%   The Faculty of Medicine at the Masaryk University in Brno uses the
+%   AMA citation and reference style. [VN]}
+%    \begin{macrocode}
+\ifthesis@bibliography@loaded@
+  \DeclareNameAlias{sortname}{last-first}
+  \renewcommand*{\revsdnamepunct}{}
+  \DeclareFieldFormat[%
+    article,inbook,incollection,inproceedings,patent,thesis,unpublished]%
+    {title}{{#1\isdot}}
+  \renewbibmacro{in:}{}
+  \DeclareFieldFormat{pages}{#1}
+  \renewcommand*{\bibpagespunct}{\addcolon}
+  \DeclareFieldFormat{journaltitle}{#1\addperiod}
+  \DeclareFieldFormat{booktitle}{{#1}}
+  \DeclareFieldFormat{title}{{#1}}
+  \renewbibmacro*{journal+issuetitle}{%
+    \usebibmacro{journal}%
+    \setunit*{\addspace}%
+    \iffieldundef{series}
+    {}
+    {\newunit
+      \printfield{series}%
+      \setunit{\addspace}}%
+    \usebibmacro{issue+date}%
+    \setunit{\addsemicolon\addspace}%
+    \usebibmacro{volume+number+eid}%
+    \setunit{\addcolon\space}%
+    \usebibmacro{issue}%
+    \newunit%
+  }
+  \renewbibmacro*{issue+date}{\printfield{year}}
+  \renewcommand*{\finalnamedelim}{\multinamedelim}
+\fi
 %    \end{macrocode}
 % The file loads the following packages:
 % \begin{itemize}
@@ -40,39 +84,15 @@
 % 16\,cm in accordance with the formal requirements of the faculty.
 % This leads to overfull lines and is against the good conscience
 % of the author of this style.
+% \changes{v1.0.0}{2021/03/22}{Added \textsf{xpatch} package to
+%   redefine layout of titlePage. [TV]}
 %    \begin{macrocode}
 \thesis@require{tikz}
 \thesis@require{geometry}
 \thesis@require{setspace}
+	\thesis@require{xpatch}
 \geometry{top=25mm,bottom=20mm,left=25mm,right=25mm,includeheadfoot}
 %    \end{macrocode}
-% \begin{macro}{\thesis@blocks@cover}
-% The |\thesis@blocks@cover| macro typesets the thesis
-% cover.
-% \changes{v1.0.0}{2018/11/18}{^^A
-%   The \cs{bfseries} command switches to the sans serif typeface
-%   and to the secondary color in the style files of the Masaryk
-%   University in Brno, Czech Republic.}
-%    \begin{macrocode}
-\def\thesis@blocks@cover{%
-  \ifthesis@cover@
-    \thesis@blocks@clear
-    \begin{alwayssingle}
-      \colorlet{thesis@color@secondary}{black}%
-      \thispagestyle{empty}
-      \begin{center}
-      {\sc\thesis@titlePage@LARGE\thesis@@{universityName}\\%
-          \thesis@titlePage@Large\thesis@@{facultyName}\\}
-      \vfill
-      {\bf\thesis@titlePage@Huge\thesis@@{typeName}}
-      \vfill
-      {\thesis@titlePage@large\thesis@place
-       \ \thesis@year\hfill\thesis@author}
-      \end{center}
-    \end{alwayssingle}
-  \fi}
-%    \end{macrocode}
-% \end{macro}
 % \changes{v0.3.49}{2018/02/11}{Removed an extraneous \cs{vskip} in
 %   the style files for the Masaryk University in Brno. [VN]}
 % \changes{v1.0.0}{2021/02/26}{^^A
@@ -81,6 +101,47 @@
 %   no longer redefine the \cs{thesis@blocks@titlePage@footer}
 %   and \cs{thesis@blocks@titlePage@content} macros, which are no
 %   longer defined. [VN]}
+% \changes{v1.0.0}{2021/03/22}{Added redefinition of the titlePage
+%   layout as per the faculty requirements. Department name and
+%   programme are in the upper part of the titlePage. [TV]}
+% \changes{v1.0.0}{2021/04/23}{^^A
+%   The style files of the Faculty of Medicine at the Masary University
+%   in Brno no longer redefine the \cs{thesis@blocks@cover} macro.
+%   [TV]}
+%    \begin{macrocode}
+\xpatchcmd{\thesis@blocks@titlePage}
+{{\sf\thesis@titlePage@large\thesis@@{advisorTitle}: \thesis@advisor}%
+   \par\vspace{0.75cm}%
+   \ifthesis@blocks@titlePage@department@
+     {\sf\thesis@titlePage@large\thesis@department@name}
+   \fi
+   \ifthesis@blocks@titlePage@programme@
+     \par\vspace{0.25cm}%
+     {\sf\thesis@titlePage@large\thesis@@{bib@programme}: 
+	\thesis@programme}\par
+   \fi
+   \ifthesis@blocks@titlePage@field@
+     \par\vspace{0.25cm}%
+     {\sf\thesis@titlePage@large\thesis@@{fieldTitle}: 
+	\thesis@field@name}%
+   \fi
+   \par\vfill
+}
+{}{}{}
+
+\xpatchcmd{\thesis@blocks@titlePage}
+{{\sf\thesis@titlePage@large\thesis@@upper{facultyName}}%
+ \par\vspace{1.75cm}%
+}
+{{\sf\thesis@titlePage@large\thesis@@upper{facultyName}}%
+ \par\vspace{0.75cm}%
+ {\sf\thesis@titlePage@large\thesis@programme}%
+ \par\vspace{0.25cm}%
+ {\sf\thesis@titlePage@large\thesis@department@name}
+ \par\vspace{1.75cm}%
+}
+{}{}
+%    \end{macrocode}
 % \begin{macro}{\thesis@blocks@frontMatter}
 % The |\thesis@blocks@frontMatter| macro sets up the style of the
 % front matter of the thesis. The page numbering is arabic in
@@ -121,6 +182,8 @@
 % All blocks within the autolayout preamble and postamble that are
 % not defined within this file are defined in the
 % \texttt{style/mu/fithesis-base.sty} file.
+% \changes{v1.0.0}{2021/03/22}{Reorganised the blocks to fit the
+%   faculty's requirements. [TV]}
 % \changes{v1.0.0}{2021/04/24}{^^A
 %   Change \cs{thesis@facultyLogo},
 %   \cs{thesis@blocks@facultyLogo@monochrome}, and
@@ -131,17 +194,16 @@
 \def\thesis@blocks@preamble{%
   \thesis@blocks@coverMatter
     \thesis@blocks@cover
-  \thesis@blocks@frontMatter
     \thesis@blocks@titlePage
+  \thesis@blocks@frontMatter
     \thesis@blocks@seal
-    \onehalfspacing
-    \thesis@blocks@clearRight
-      \thesis@blocks@abstract
-      \thesis@blocks@abstractEn
-      \thesis@blocks@keywords
-      \thesis@blocks@keywordsEn
-    \thesis@blocks@bibEntry
     \thesis@blocks@declaration
+    \thesis@blocks@clear
+      \thesis@blocks@abstract
+      \thesis@blocks@keywords
+    \thesis@blocks@clear
+      \thesis@blocks@abstractEn
+      \thesis@blocks@keywordsEn
     \thesis@blocks@thanks
     \thesis@blocks@tables}
 \def\thesis@blocks@postamble{%

@@ -1,20 +1,14 @@
 % \file{style/mu/fithesis-fss.sty}
 % \changes{v1.0.0}{2021/02/21}{File were renamed after
 %   breaking changes in package loading after PR 438 in \LaTeXe. [VN]}
+% \changes{v1.0.0}{2021/03/19}{Updated urls to show the most recent
+%   requirements and recommendations used in preparation of the
+%   template. [TV]}
 % This is the style file for the theses written at the Faculty of
-% Social Studies at the Masaryk University in Brno. Since there
-% exists no faculty-wide formal requirement or recommendation,^^A
-% \footnote{See \url{https://medzur.fss.muni.cz/informace-pro-st^^A
-% udenty/bakalarske-a-diplomove-prace}, \url{https://is.muni.cz/^^A
-% do/fss/kspsp/mvplzszz/dp_pokyny.html}, \url{https://psych.fss.^^A
-% muni.cz/media/3054818/pokyny_pro_psani_zaverecnych_praci.pdf},
-% \url{http://mve.fss.muni.cz/cs/studium/studijni-agenda/pokyny-^^A
-% ke-szz}, \url{https://humenv.fss.muni.cz/mgr/zaverecne-prace},
-% and \url{https://medzur.fss.muni.cz/media/11356/pravidla_pro_z^^A
-% averecne_prace_na_kmszu_verze_2013.pdf}.}
-% this style is just a skeleton, which is unlikely to satisfy the
-% exact requirements of any department and will require
-% modification by the individual departments.
+% Social Studies at the Masaryk University in Brno. It has been
+% prepared in accordance with the MS template of the faculty
+% \footnote{See \url{https://is.muni.cz/auth/do/fss/sablona_^^A
+% zaverecne_prace/sablonaDP-MUNI-FSS.dotx}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{fithesis/style/mu/fithesis-mu-fss}[2021/04/24]
@@ -29,7 +23,7 @@
   tableOdd={HTML}{E3F1EE},
   tableEven={HTML}{C5E3DF}}
 %    \end{macrocode}
-% The bibliography support is enabled. The |authoryear| citations
+% The bibliography support is enabled. The |iso-authoryear| citations
 % are used and the bibliography is sorted by name, title, and year.
 %    \begin{macrocode}
 \thesis@bibliography@setup{
@@ -56,6 +50,8 @@
 % All blocks within the autolayout preamble and postamble that are
 % not defined within this file are defined in the
 % \texttt{style/mu/fithesis-base.sty} file.
+% \changes{v1.0.0}{2021/03/22}{Reorganised the blocks to fit the
+%   faculty's requirements. [TV]}
 % \changes{v1.0.0}{2021/04/24}{^^A
 %   Change \cs{thesis@facultyLogo},
 %   \cs{thesis@blocks@facultyLogo@monochrome}, and
@@ -69,12 +65,10 @@
     \thesis@blocks@titlePage
   \thesis@blocks@frontMatter
     \thesis@blocks@seal
-    \thesis@blocks@clearRight
-      \thesis@blocks@abstract
-      \thesis@blocks@abstractEn
-      \thesis@blocks@keywords
-      \thesis@blocks@keywordsEn
-    \thesis@blocks@assignment
+    \thesis@blocks@bibEntry
+    \thesis@blocks@abstract
+    \thesis@blocks@bibEntryEn
+    \thesis@blocks@abstractEn
     \thesis@blocks@declaration
     \thesis@blocks@thanks
     \thesis@blocks@tables}

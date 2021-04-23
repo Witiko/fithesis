@@ -508,4 +508,24 @@
 
 %    \end{macrocode}\iffalse
 %</mu/sci>
+% \changes{v1.0.0}{2021/03/26}{Added specifics for the
+%   Faculty of Pharmacy. [TV]}
+% \fi\file{locale/mu/pharm/fithesis-czech.def}
+% This is the Czech locale file specific to the Faculty of Pharmacy
+% at the Masaryk University in Brno.
+% It replaces the \texttt{facultyName} placeholder with the
+% correct value and redefines the \texttt{abstractTitle}
+% accordance with the guidelines of the faculty.
+% \iffalse
+%<*mu/pharm>
+% \fi\begin{macrocode}
+\ProvidesFile{fithesis/locale/mu/pharm/fithesis-czech.def}[2021/03/26]
+
+% Zástupné texty
+\gdef\thesis@czech@facultyName{Farmaceutická fakulta}
+
+% Ostatní
+\gdef\thesis@czech@abstractTitle{Anotace}
+%    \end{macrocode}\iffalse
+%</mu/pharm>
 % \fi

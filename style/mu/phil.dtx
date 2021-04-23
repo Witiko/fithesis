@@ -1,11 +1,16 @@
 % \file{style/mu/fithesis-phil.sty}
 % \changes{v1.0.0}{2021/02/21}{File were renamed after
 %   breaking changes in package loading after PR 438 in \LaTeXe. [VN]}
+% \changes{v1.0.0}{2021/03/19}{Updated urls to show the most recent
+%   requirements and recommendations used in preparation of the
+%   template. [TV]}
 % This is the style file for the theses written at the Faculty of
 % Arts at the Masaryk University in Brno. It has been prepared in
 % accordance with the formal requirements published at the website
-% of the faculty\footnote{See \url{https://is.muni.cz/do/phil/P^^A
-% racoviste/SO/vzory_praci/Vzor_bakalarske_prace.pdf}}.
+% of the department of Slavonic Studies\footnote{See \url{https://^^A
+% slavistika.phil.muni.cz/media/2109309/diplomove-prace-pokyny.pdf}
+% and the thesis Word template \url{https://is.muni.cz/auth/do/phi^^A
+% l/Pracoviste/SO/vzory_praci/sablonaDP-MUNI-ARTS-dipl-obor.dotx}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{fithesis/style/mu/fithesis-mu-phil}[2021/04/24]
@@ -20,8 +25,8 @@
   tableOdd={HTML}{EBF6FA},
   tableEven={HTML}{D0EBF5}}
 %    \end{macrocode}
-% The bibliography support is enabled. The |numeric| citations are
-% used and the bibliography is sorted by name, title, and year.
+% The bibliography support is enabled. The |iso-authoryear| citations
+% are used and the bibliography is sorted by name, title, and year.
 %    \begin{macrocode}
 \thesis@bibliography@setup{
   style=iso-authoryear,
@@ -56,39 +61,11 @@
   \def\thesis@departmentEn@name{\thesis@english@departmentName}
 \fi
 %    \end{macrocode}
-% \begin{macro}{\thesis@blocks@titlePage}
-% The style file redefines the cover and title page footers to include the
-% thesis advisor's name.
-% \changes{v0.3.51}  {2018/11/05}{Always typeset the name of the advisor
-%   on the title page for the Faculty of Arts at the Masaryk University
-%   in Brno, Czech Republic. [VN]}
-% \begin{macrocode}
-\def\thesis@blocks@titlePage@content{%
-  {\thesis@titlePage@Huge\bf\thesis@TeXtitle\par\vfil}\vskip 0.8in
-  {\thesis@titlePage@large\sc\thesis@@{typeName}\\[0.3in]}
-  {\thesis@titlePage@Large\bf\thesis@author}
-  {\thesis@titlePage@large\\[0.3in]
-    {\bf\thesis@@{advisorTitle}:} \thesis@advisor}}
-%    \end{macrocode}
-% \end{macro}\begin{macro}{\thesis@blocks@summary}
-% \changes{v1.0.0}{2021/03/11}{Macro for the summary was added. [TV]}
-% The |\thesis@blocks@summary| macro typesets the summary
-% for doctoral theses. If the thesis type is not doctoral, the
-% macro produces no output.
-%    \begin{macrocode}
-\thesis@def@extra[{
-  \thesis@placeholder@extra@summary
-}]{summary}
-
-\def\thesis@blocks@summary{%
-  \begin{alwayssingle}%
-    \thesis@blocks@clear
-    {\let\thesis@blocks@clear\relax
-    \chapter*{\thesis@@{summaryTitle}}}%
-    \noindent\thesis@extra@summary
-    \end{alwayssingle}}
-%    \end{macrocode}
-% \end{macro}
+% \changes{v1.0.0}{2021/04/23}{^^A
+%   The style files of the Faculty of Arts at the Masaryk University
+%   in Brno no longer redefine the 
+%   \cs{thesis@blocks@titlePage@content} macro, which is no longer
+%   defined. [TV]}
 %
 % Note that there is no direct support for the seminar paper and
 % thesis proposal types.  If you would like to change the contents
@@ -98,6 +75,8 @@
 % All blocks within the autolayout preamble and postamble that are
 % not defined within this file are defined in the
 % \texttt{style/mu/fithesis-base.sty} file.
+% \changes{v1.0.0}{2021/03/22}{Reorganised the blocks to fit the
+%   faculty's requirements. [TV]}
 % \changes{v1.0.0}{2021/04/24}{^^A
 %   Change \cs{thesis@facultyLogo},
 %   \cs{thesis@blocks@facultyLogo@monochrome}, and
@@ -120,12 +99,10 @@
     \ifx\thesis@department\thesis@departments@kisk
       \thesis@blocks@bibEntry
       \thesis@blocks@abstract
+      \thesis@blocks@bibEntryEn
       \thesis@blocks@abstractEn
-      \thesis@blocks@keywords
-      \thesis@blocks@keywordsEn
     \fi
     \thesis@blocks@declaration
-    \ifx\thesis@doctoral\thesis@type\thesis@blocks@summary\else\fi
     \thesis@blocks@thanks
 %    \end{macrocode}
 % In KISK theses, the lists of tables and figures will be included

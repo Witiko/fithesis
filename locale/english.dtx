@@ -74,7 +74,7 @@
 % \begin{macrocode}
 \gdef\thesis@english@advisorSignature{Signature of Thesis
   \thesis@english@advisorTitle}
-\gdef\thesis@english@fieldTitle{Field of study}
+\gdef\thesis@english@fieldTitle{Field of Study}
 \gdef\thesis@english@advisorTitle{Advisor}
 \gdef\thesis@english@authorTitle{Author}
 \gdef\thesis@english@abstractTitle{Abstract}
@@ -391,4 +391,24 @@
 
 %    \end{macrocode}\iffalse
 %</mu/sci>
+% \changes{v1.0.0}{2021/03/26}{Added specifics for the
+%   Faculty of Pharmacy. [TV]}
+% \fi\file{locale/mu/pharm/fithesis-english.def}
+% This is the English locale file specific to the Faculty of Pharmacy
+% at the Masaryk University in Brno.
+% It replaces the \texttt{facultyName} placeholder with the
+% correct value and redefines the \texttt{abstractTitle}
+% in accordance with the guidelines of the faculty.
+% \iffalse
+%<*mu/pharm>
+% \fi\begin{macrocode}
+\ProvidesFile{fithesis/locale/mu/pharm/fithesis-english.def}[2021/03/26]
+
+% Placeholders
+\gdef\thesis@english@facultyName{Faculty of Pharmacy}
+
+% Miscellaneous
+\gdef\thesis@english@abstractTitle{Annotation}
+%    \end{macrocode}\iffalse
+%</mu/pharm>
 % \fi

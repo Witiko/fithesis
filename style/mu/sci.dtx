@@ -1,13 +1,15 @@
 % \file{style/mu/fithesis-sci.sty}
 % \changes{v1.0.0}{2021/02/21}{File were renamed after
 %   breaking changes in package loading after PR 438 in \LaTeXe. [VN]}
+% \changes{v1.0.0}{2021/03/19}{Updated urls to show the most recent
+%   requirements and recommendations used in preparation of the
+%   template. [TV]}
 % This is the style file for the theses written at the Faculty of
 % Science at the Masaryk University in Brno. It has been
 % prepared in accordance with the formal requirements published at
 % the website of the faculty\footnote{See
-% \url{http://www.sci.muni.cz/NW/predpisy/od/OD-2014-05.pdf}, and
-% \url{http://www.sci.muni.cz/cz/BcMgrStudium/Legislativa/Sablon^^A
-% y}}.
+% \url{https://is.muni.cz/auth/do/sci/normy/OD/OD-2019_3/OD_3_2019^^A
+% _-_Pokyny_pro_vypracovani_bc._dipl._a_rigor.praci.pdf}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{fithesis/style/mu/fithesis-mu-sci}[2021/04/24]
@@ -22,8 +24,8 @@
   tableOdd={HTML}{EDF7F1},
   tableEven={HTML}{CCEDD8}}
 %    \end{macrocode}
-% The bibliography support is enabled. The |numeric| citations are
-% used and the bibliography is sorted in citation order.
+% The bibliography support is enabled. The |iso-numeric| citations
+% are used and the bibliography is sorted in citation order.
 %    \begin{macrocode}
 \thesis@bibliography@setup{
   style=iso-numeric,
@@ -93,6 +95,8 @@
 % All blocks within the autolayout preamble and postamble that are
 % not defined within this file are defined in the
 % \texttt{style/mu/fithesis-base.sty} file.
+% \changes{v1.0.0}{2021/03/22}{Reorganised the blocks to fit the
+%   faculty's requirements. [TV]}
 % \changes{v1.0.0}{2021/04/24}{^^A
 %   Change \cs{thesis@facultyLogo},
 %   \cs{thesis@blocks@facultyLogo@monochrome}, and
@@ -109,12 +113,16 @@
     \ifx\thesis@type\thesis@proposal
       \thesis@blocks@toc
     \else
-      \thesis@blocks@assignment
-      \thesis@blocks@declaration
-      \thesis@blocks@thanks
-      \thesis@blocks@clearRight
+      \thesis@blocks@seal
+      \thesis@blocks@bibEntry
+      \thesis@blocks@bibEntryEn
+      \thesis@blocks@clear
         \thesis@blocks@abstract
-        \thesis@blocks@keywords
+      \thesis@blocks@clearRight
+	\thesis@blocks@abstractEn
+      \thesis@blocks@assignment
+      \thesis@blocks@thanks
+      \thesis@blocks@declaration
       \thesis@blocks@tables
     \fi}
 \def\thesis@blocks@postamble{%

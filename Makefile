@@ -24,7 +24,8 @@ MAKES=guide/mu/Makefile guide/mu/resources/Makefile \
 	style/mu/Makefile test/Makefile test/mu/blind/Makefile \
 	test/mu/compare/Makefile test/mu/compare-example/Makefile
 USEREXAMPLE_SOURCES=example/mu/Makefile example/mu/example.dtx \
-	example/mu/*.ins example/mu/latexmkrc
+	example/mu/*.ins example/mu/latexmkrc \
+	example/mu/example-terms-abbrs.tex
 USEREXAMPLES=example/mu/econ-lualatex.pdf \
 	example/mu/econ-pdflatex.pdf example/mu/fi-lualatex.pdf \
 	example/mu/fi-pdflatex.pdf example/mu/fsps-lualatex.pdf \
@@ -34,7 +35,8 @@ USEREXAMPLES=example/mu/econ-lualatex.pdf \
 	example/mu/med-pdflatex.pdf example/mu/ped-lualatex.pdf \
 	example/mu/ped-pdflatex.pdf example/mu/phil-lualatex.pdf \
 	example/mu/phil-pdflatex.pdf example/mu/sci-lualatex.pdf \
-	example/mu/sci-pdflatex.pdf
+	example/mu/sci-pdflatex.pdf example/mu/pharm-lualatex.pdf \
+	example/mu/pharm-pdflatex.pdf
 DEVEXAMPLES=guide/EXAMPLE/DESCRIPTION guide/mu/DESCRIPTION \
 	guide/mu/resources/DESCRIPTION guide/DESCRIPTION \
 	locale/DESCRIPTION locale/EXAMPLE.dtx locale/EXAMPLE.ins \

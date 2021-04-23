@@ -7,10 +7,13 @@
 % \changes{v0.3.46}{2017/06/02}{The documentation now points to the
 %   2/2017 dean's directive for the Faculty of Economics and
 %   Administration, Masaryk University, Brno. [VN]}
-% published at the website of the faculty\footnote{See \url{htt^^A
-% ps://is.muni.cz/auth/do/econ/uredni_deska/predpisy_ESF/smerni^^A
-% ce/smernice_dekana/prehled/67159928/SmerniceDekana2017-c.9-o_^^A
-% zaverecnych_pracich_2017.docx}}.
+% \changes{v1.0.0}{2021/03/19}{Updated urls to show the most recent
+%   requirements and recommendations used in preparation of the 
+%   template. [TV]}
+% published at the website of the faculty\footnote{See \url{https:^^A
+% //is.muni.cz/auth/do/econ/uredni_deska/predpisy_ESF/smernice/sme^^A
+% rnice_dekana/94383996/} and \url{https://is.muni.cz/auth/do/econ^^A
+% /uredni_deska/predpisy_ESF/smernice/smernice_dekana/104768134/}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{fithesis/style/mu/fithesis-mu-econ}[2021/04/24]
@@ -25,7 +28,7 @@
   tableOdd={HTML}{F5ECEB},
   tableEven={HTML}{EBD8D5}}
 %    \end{macrocode}
-% The bibliography support is enabled. The |authoryear| citations
+% The bibliography support is enabled. The |iso-authoryear| citations
 % are used and the bibliography is sorted by name, title, and year.
 %    \begin{macrocode}
 \thesis@bibliography@setup{
@@ -61,33 +64,6 @@
 %    \begin{macrocode}
 \thesis@blocks@assignment@hideIfDigital@false
 %    \end{macrocode}
-% \begin{macro}{\thesis@blocks@cover}
-% The |\thesis@blocks@cover| macro typesets the thesis
-% cover.
-% \changes{v1.0.0}{2018/11/18}{^^A
-%   The \cs{bfseries} command switches to the sans serif typeface
-%   and to the secondary color in the style files of the Masaryk
-%   University in Brno, Czech Republic.}
-%    \begin{macrocode}
-\def\thesis@blocks@cover{%
-  \ifthesis@cover@
-    \thesis@blocks@clear
-    \begin{alwayssingle}
-      \colorlet{thesis@color@secondary}{black}%
-      \thispagestyle{empty}
-      \begin{center}
-      {\sc\thesis@titlePage@LARGE\thesis@@{universityName}\\%
-          \thesis@titlePage@Large\thesis@@{facultyName}\\}
-      \vfill
-      {\bf\thesis@titlePage@Huge\thesis@@{typeName}}
-      \vfill
-      {\thesis@titlePage@large\thesis@place
-       \ \thesis@year\hfill\thesis@author}
-      \end{center}
-    \end{alwayssingle}
-  \fi}
-%    \end{macrocode}
-% \end{macro}
 % \changes{v0.3.49}{2018/02/11}{Removed an extraneous \cs{vskip} in
 %   the style files for the Masaryk University in Brno. [VN]}
 % \changes{v1.0.0}{2021/02/26}{^^A
@@ -96,6 +72,9 @@
 %   no longer redefine the \cs{thesis@blocks@titlePage@footer}
 %   and \cs{thesis@blocks@titlePage@content} macros, which are no
 %   longer defined. [VN]}
+% \changes{v1.0.0}{2021/04/23}{^^A
+%   The style files for the Faculty of Economics and Administration
+%   no longer redefine the \cs{thesis@blocks@cover}. [TV]}    
 % \begin{macro}{\thesis@blocks@frontMatter}
 % The |\thesis@blocks@frontMatter| macro sets up the style
 % of the front matter of the thesis. The page numbering is arabic
@@ -252,6 +231,8 @@
 % All blocks within the autolayout preamble that are not defined
 % within this file are defined in the
 % \texttt{style/mu/fithesis-base.sty} file.
+% \changes{v1.0.0}{2021/03/22}{Reorganised the blocks to fit the
+%   faculty's requirements. [TV]}
 % \changes{v1.0.0}{2021/04/24}{^^A
 %   Change \cs{thesis@facultyLogo},
 %   \cs{thesis@blocks@facultyLogo@monochrome}, and
@@ -262,18 +243,17 @@
 \def\thesis@blocks@preamble{%
   \thesis@blocks@coverMatter
     \thesis@blocks@cover
-  \thesis@blocks@frontMatter
     \thesis@blocks@titlePage
+  \thesis@blocks@frontMatter
     \thesis@blocks@seal
-    \thesis@blocks@assignment
     \thesis@blocks@bibEntry
     \thesis@blocks@abstract
+    \thesis@blocks@bibEntryEn
     \thesis@blocks@abstractEn
-    \thesis@blocks@keywords
-    \thesis@blocks@keywordsEn
     \thesis@blocks@declaration
     \thesis@blocks@thanks
-    \thesis@blocks@toc}
+    \thesis@blocks@toc
+    \thesis@blocks@tables}
 %    \end{macrocode}
 % All blocks within the autolayout postamble that are not defined
 % within this file are defined in the \texttt{style/mu/base.sty}
@@ -284,5 +264,5 @@
 \def\thesis@blocks@postamble{%
   \ifx\thesis@doctoral\thesis@type\thesis@blocks@summary\else\fi
   \thesis@blocks@bibliography
-  \thesis@blocks@tables}
+}
 %    \end{macrocode}
