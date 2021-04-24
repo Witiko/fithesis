@@ -9,7 +9,7 @@
 % after \texttt{style/fithesis-base.sty}, regardless of the value
 % of the |\thesis@style| macro.
 %    \begin{macrocode}
-\ProvidesPackage{fithesis/style/mu/fithesis-mu-base}[2021/02/26]
+\ProvidesPackage{fithesis/style/mu/fithesis-mu-base}[2021/04/24]
 \NeedsTeXFormat{LaTeX2e}
 %    \end{macrocode}
 % The file recognizes the following options: \begin{itemize}
@@ -648,9 +648,15 @@
 % The |\thesis@blocks@facultyLogo@monochrome|\oarg{options} 
 % macro typesets the |\thesis@logopath\thesis@facultyLogo| logo
 % with the given \textit{options} passed to |\includegraphics|.
+% \changes{v1.0.0}{2021/04/24}{^^A
+%   Change \cs{thesis@facultyLogo},
+%   \cs{thesis@blocks@facultyLogo@monochrome}, and
+%   \cs{thesis@blocks@facultyLogo@color} to use the new logotype
+%   of the Masaryk University in Brno in the correct size and
+%   localization. Add \cs{thesis@blocks@seal}. [VN]}
 % \begin{macrocode}
 \newcommand{\thesis@blocks@facultyLogo@monochrome}[1]%
-  [width=40mm]{{%
+  [scale=0.95]{{%
     \edef\@path{\thesis@logopath\thesis@facultyLogo}%
     \includegraphics[#1]{\@path}}}
 %    \end{macrocode}
@@ -662,9 +668,15 @@
 % |\thesis@logopath\thesis@facultyLogo-color| logo
 % otherwise with the given \textit{options} passed to
 % |\includegraphics|.
+% \changes{v1.0.0}{2021/04/24}{^^A
+%   Change \cs{thesis@facultyLogo},
+%   \cs{thesis@blocks@facultyLogo@monochrome}, and
+%   \cs{thesis@blocks@facultyLogo@color} to use the new logotype
+%   of the Masaryk University in Brno in the correct size and
+%   localization. Add \cs{thesis@blocks@seal}. [VN]}
 % \begin{macrocode}
 \newcommand{\thesis@blocks@facultyLogo@color}[1]%
-  [width=40mm]{{%
+  [scale=0.95]{{%
     \edef\@path{\thesis@logopath\thesis@facultyLogo
       \ifthesis@color@-color\fi}%
     \includegraphics[#1]{\@path}}}
@@ -682,7 +694,7 @@
 %   localization. [VN]}
 % \begin{macrocode}
 \newcommand{\thesis@blocks@universityLogo@monochrome}[1]%
-  [width=6.3cm]{{%
+  [scale=0.9]{{%
     \edef\@path{\thesis@logopath\thesis@universityLogo}%
     \includegraphics[#1]{\@path}}}
 %    \end{macrocode}
@@ -702,7 +714,7 @@
 %   localization. [VN]}
 % \begin{macrocode}
 \newcommand{\thesis@blocks@universityLogo@color}[1]%
-  [width=6.3cm]{{%
+  [scale=0.9]{{%
     \edef\@path{\thesis@logopath\thesis@universityLogo
       \ifthesis@color@-color\fi}%
     \includegraphics[#1]{\@path}}}
@@ -736,7 +748,7 @@
       \colorlet{thesis@color@secondary}{black}%
       \thispagestyle{empty}%
       \begin{center}%
-        \thesis@blocks@universityLogo@monochrome[width=6.3cm]%
+        \thesis@blocks@universityLogo@monochrome
         \par\vspace{0.75cm}%
         {\sf\thesis@titlePage@large\thesis@@upper{facultyName}}%
         \par\vfill
@@ -833,7 +845,7 @@
   \begin{alwayssingle}%
     \thispagestyle{empty}%
     \begin{center}%
-      \thesis@blocks@universityLogo@color[width=6.3cm]%
+      \thesis@blocks@universityLogo@color
       \par\vspace{0.75cm}%
       {\sf\thesis@titlePage@large\thesis@@upper{facultyName}}%
       \par\vspace{1.75cm}%
@@ -877,9 +889,13 @@
   \end{alwayssingle}}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@seal}
-% \changes{v1.0.0}{2021/03/22}{Added macro for the seal of faculty.
-% [TV]}
-% The |\thesis@blocks@seal| macro typesets the seal of the faculty.
+% The |\thesis@blocks@seal| macro typesets the seal of a faculty.
+% \changes{v1.0.0}{2021/04/24}{^^A
+%   Change \cs{thesis@facultyLogo},
+%   \cs{thesis@blocks@facultyLogo@monochrome}, and
+%   \cs{thesis@blocks@facultyLogo@color} to use the new logotype
+%   of the Masaryk University in Brno in the correct size and
+%   localization. Add \cs{thesis@blocks@seal}. [VN]}
 % \begin{macrocode}
 \def\thesis@blocks@seal{%
   \thesis@blocks@clear
@@ -888,7 +904,7 @@
       \begin{center}%
         \leavevmode
         \par\vfill
-        \thesis@blocks@facultyLogo@color[width=6.3cm]%
+        \thesis@blocks@facultyLogo@color
         \par\vfill\vfill\vfill\vfill
       \end{center}%
     \end{alwayssingle}}
