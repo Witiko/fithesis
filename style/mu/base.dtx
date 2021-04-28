@@ -644,6 +644,27 @@
     \newpage
   \fi}
 %    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@blocks@logo}
+% The |\thesis@blocks@logo|\marg{pathname}\marg{options} macro
+% typesets the \textit{pathname} logo with the given
+% \textit{options} passed to |\includegraphics|.
+% \changes{v1.0.0}{2021/04/24}{^^A
+%   Change \cs{thesis@facultyLogo},
+%   \cs{thesis@blocks@facultyLogo@monochrome}, and
+%   \cs{thesis@blocks@facultyLogo@color} to use the new logotype
+%   of the Masaryk University in Brno in the correct size and
+%   localization. Add \cs{thesis@blocks@seal}. [VN]}
+% \begin{macrocode}
+\newcommand{\thesis@blocks@logo}[2]{{%
+  \let\@logowidth\relax\newlength\@logowidth
+  \let\@logoheight\relax\newlength\@logoheight
+  \settowidth\@logowidth{\includegraphics[#2]{#1}}%
+  \settoheight\@logoheight{\includegraphics[#2]{#1}}%
+  \def\@maxwidth##1{\ifdim\@logowidth>##1 ##1\else\@logowidth\fi}
+  \def\@maxheight##1{\ifdim\@logoheight>##1 ##1\else\@logoheight\fi}
+  \includegraphics[width=\@maxwidth{6.3cm}, height=\@maxheight{5cm},
+    keepaspectratio, #2]{#1}}}
+%    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@facultyLogo@monochrome}
 % The |\thesis@blocks@facultyLogo@monochrome|\oarg{options} 
 % macro typesets the |\thesis@logopath\thesis@facultyLogo| logo
@@ -658,7 +679,7 @@
 \newcommand{\thesis@blocks@facultyLogo@monochrome}[1]%
   [scale=0.95]{{%
     \edef\@path{\thesis@logopath\thesis@facultyLogo}%
-    \includegraphics[#1]{\@path}}}
+    \expandafter\thesis@blocks@logo\expandafter{\@path}{#1}}}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@facultyLogo@color}
 % The |\thesis@blocks@facultyLogo@color|\oarg{options} 
@@ -679,7 +700,7 @@
   [scale=0.95]{{%
     \edef\@path{\thesis@logopath\thesis@facultyLogo
       \ifthesis@color@-color\fi}%
-    \includegraphics[#1]{\@path}}}
+    \expandafter\thesis@blocks@logo\expandafter{\@path}{#1}}}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@universityLogo@monochrome}
 % The |\thesis@blocks@universityLogo@monochrome|\oarg{options}
@@ -696,7 +717,7 @@
 \newcommand{\thesis@blocks@universityLogo@monochrome}[1]%
   [scale=0.9]{{%
     \edef\@path{\thesis@logopath\thesis@universityLogo}%
-    \includegraphics[#1]{\@path}}}
+    \expandafter\thesis@blocks@logo\expandafter{\@path}{#1}}}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@universityLogo@color}
 % The |\thesis@blocks@universityLogo@color|\oarg{options} 
@@ -717,7 +738,7 @@
   [scale=0.9]{{%
     \edef\@path{\thesis@logopath\thesis@universityLogo
       \ifthesis@color@-color\fi}%
-    \includegraphics[#1]{\@path}}}
+    \expandafter\thesis@blocks@logo\expandafter{\@path}{#1}}}
 %    \end{macrocode}
 % The |\thesis@department@name| and |\thesis@field@name| macros and
 % their English counterparts provide a level of indirection that
