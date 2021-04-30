@@ -15,7 +15,7 @@
 % akulte_MU.pdf}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fithesis/style/mu/fithesis-mu-med}[2021/02/26]
+\ProvidesPackage{fithesis/style/mu/fithesis-mu-med}[2021/03/26]
 %    \end{macrocode}
 % The file defines the color scheme of the respective faculty. Note
 % the the color definitions are in RGB, which makes the resulting
@@ -27,13 +27,49 @@
   tableOdd={HTML}{FFF5F6},
   tableEven={HTML}{FFDEDF}}
 %    \end{macrocode}
-% The bibliography support is enabled. The |authoryear| citations
+% The bibliography support is enabled. The |authortitle| citations
 % are used and the bibliography is sorted by year, name, and title.
 %    \begin{macrocode}
 \thesis@bibliography@setup{%
-  style=iso-authoryear,
+  style=authortitle,
   sorting=ynt}
 \thesis@bibliography@load
+%    \end{macrocode}
+% The AMA citation style is defined using |authortitle| as the basis.
+% The following code has been adapted from
+% \url{https://tex.stackexchange.com/a/233423/70941}.
+% \changes{v1.0.0}{2021/03/26}{^^A
+%   The Faculty of Medicine at the Masaryk University in Brno uses the
+%   AMA citation and reference style. [VN]}
+%    \begin{macrocode}
+\DeclareNameAlias{sortname}{last-first}
+\renewcommand*{\revsdnamepunct}{}
+\DeclareFieldFormat[%
+  article,inbook,incollection,inproceedings,patent,thesis,unpublished]%
+  {title}{{#1\isdot}}
+\renewbibmacro{in:}{}
+\DeclareFieldFormat{pages}{#1}
+\renewcommand*{\bibpagespunct}{\addcolon}
+\DeclareFieldFormat{journaltitle}{#1\addperiod}
+\DeclareFieldFormat{booktitle}{{#1}}
+\DeclareFieldFormat{title}{{#1}}
+\renewbibmacro*{journal+issuetitle}{%
+  \usebibmacro{journal}%
+  \setunit*{\addspace}%
+  \iffieldundef{series}
+  {}
+  {\newunit
+    \printfield{series}%
+    \setunit{\addspace}}%
+  \usebibmacro{issue+date}%
+  \setunit{\addsemicolon\addspace}%
+  \usebibmacro{volume+number+eid}%
+  \setunit{\addcolon\space}%
+  \usebibmacro{issue}%
+  \newunit%
+}
+\renewbibmacro*{issue+date}{\printfield{year}}
+\renewcommand*{\finalnamedelim}{\multinamedelim}
 %    \end{macrocode}
 % The file loads the following packages:
 % \begin{itemize}
@@ -158,10 +194,10 @@
   \thesis@blocks@frontMatter
     \thesis@blocks@seal
     \thesis@blocks@declaration
-    \thesis@blocks@clearRight
+    \thesis@blocks@clear
       \thesis@blocks@abstract
       \thesis@blocks@keywords
-    \thesis@blocks@clearRight
+    \thesis@blocks@clear
       \thesis@blocks@abstractEn
       \thesis@blocks@keywordsEn
     \thesis@blocks@thanks
