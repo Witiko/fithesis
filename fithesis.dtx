@@ -1858,7 +1858,7 @@
 % macro by the replacement code via \textit{xpatchcmd} If the 
 % \textit{xpatchcmd} fails, a class error is written to the output.
 %    \begin{macrocode}
-\def\thesis@xpatch#1#2#3{%
+\long\def\thesis@xpatch#1#2#3{%
     \xpatchcmd{#1}{#2}{#3}{}%
       {\ClassError{fithesis4}{The command #1 does not contain searched text}}}
 %    \end{macrocode}
