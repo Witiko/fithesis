@@ -43,8 +43,9 @@
 \counterwithout{footnote}{chapter}
 %    \end{macrocode}
 % The style file configures the upper part of the title page headers
-% to include the name of the name of the department and the study field
-% which are by default in the bottom part of the title page.
+% to include the name of the department and the study field
+% which are by default in the bottom part of the title page. Upon failure
+% of the \textit{xpatchcmd}, \cs{thesis@xpatchError} is called.
 % \changes{v1.0.0}{2021/04/23}{^^A
 %   The style files for the Faculty of Law at the Masaryk University
 %   in Brno no longer redefine the \cs{thesis@blocks@cover@header}
@@ -71,7 +72,7 @@
    \fi
    \par\vfill
 }
-{}{}{}
+{}{}{\thesis@xpatchError{}}
 
 \xpatchcmd{\thesis@blocks@titlePage}
 {{\sf\thesis@titlePage@large\thesis@@upper{facultyName}}%
@@ -84,7 +85,7 @@
  {\sf\thesis@titlePage@large\thesis@department@name}
  \par\vspace{1.75cm}%
 }
-{}{}
+{}{\thesis@xpatchError{}}
 %    \end{macrocode}
 % \begin{macro}{\thesis@blocks@frontMatter}
 % The |\thesis@blocks@frontMatter| macro sets up the style

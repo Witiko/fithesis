@@ -55,6 +55,10 @@
 	\thesis@require{xpatch}
 \geometry{top=25mm,bottom=20mm,left=25mm,right=25mm,includeheadfoot}
 %    \end{macrocode}
+% The style file configures the upper part of the title page headers
+% to include the the name of the department and the study programme
+% which are by default in the bottom part of the title page. Upon failure
+% of the \textit{xpatchcmd}, \cs{thesis@xpatchError} is called.
 % \changes{v0.3.49}{2018/02/11}{Removed an extraneous \cs{vskip} in
 %   the style files for the Masaryk University in Brno. [VN]}
 % \changes{v1.0.0}{2021/02/26}{^^A
@@ -89,7 +93,7 @@
    \fi
    \par\vfill
 }
-{}{}{}
+{}{}{\thesis@xpatchError{}}
 
 \xpatchcmd{\thesis@blocks@titlePage}
 {{\sf\thesis@titlePage@large\thesis@@upper{facultyName}}%
@@ -102,7 +106,7 @@
  {\sf\thesis@titlePage@large\thesis@department@name}
  \par\vspace{1.75cm}%
 }
-{}{}
+{}{\thesis@xpatchError{}}
 %    \end{macrocode}
 % \begin{macro}{\thesis@blocks@frontMatter}
 % The |\thesis@blocks@frontMatter| macro sets up the style of the

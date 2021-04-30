@@ -1850,6 +1850,15 @@
   \expandafter\thesis@patch@versions\expandafter,\relax,}
 %    \end{macrocode}
 % \end{macro}
+% \begin{macro}{\thesis@xpatchError}
+% The |\thesis@xpatchError| macro is used to test for error of the given
+% \textit{xpatchcmd}. If the \textit{xpatchcmd} fails, a class error is
+% written to the output.
+%    \begin{macrocode}
+\def\thesis@xpatchError{%
+    \ClassError{xpatchcmd}{The class does not contain searched text}}
+%    \end{macrocode}
+% \end{macro}
 % \iffalse
 %</class>
 % ^^A Old fithesis classes
