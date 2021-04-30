@@ -38,17 +38,13 @@
 %    \end{macrocode}
 % Each footnote is uniquely numbered across the entire document as
 % per the formal requirements of the faculty.
-% \changes{v1.0.0}{2021/03/22}{Added \textsf{regexpatch} package to
-%   redefine the layout of titlePage. [TV]}
 %    \begin{macrocode}
-\thesis@require{xpatch}
 \thesis@require{chngcntr}
 \counterwithout{footnote}{chapter}
 %    \end{macrocode}
 % The style file configures the upper part of the title page headers
 % to include the name of the department and the study field
-% which are by default in the bottom part of the title page. Upon failure
-% of the \textit{xpatchcmd}, \cs{thesis@xpatchError} is called.
+% which are by default in the bottom part of the title page.
 % \changes{v1.0.0}{2021/04/23}{^^A
 %   The style files for the Faculty of Law at the Masaryk University
 %   in Brno no longer redefine the \cs{thesis@blocks@cover@header}
@@ -57,7 +53,7 @@
 %   layout as per the faculty requirements. Department name and
 %   field are in the upper part of the titlePage. [TV]}
 %    \begin{macrocode}
-\xpatchcmd{\thesis@blocks@titlePage}
+\thesis@xpatch{\thesis@blocks@titlePage}
 {{\sf\thesis@titlePage@large\thesis@@{advisorTitle}: \thesis@advisor}%
    \par\vspace{0.75cm}%
    \ifthesis@blocks@titlePage@department@
@@ -74,10 +70,9 @@
 	\thesis@field@name}%
    \fi
    \par\vfill
-}
-{}{}{\thesis@xpatchError{}}
+}{}
 
-\xpatchcmd{\thesis@blocks@titlePage}
+\thesis@xpatch{\thesis@blocks@titlePage}
 {{\sf\thesis@titlePage@large\thesis@@upper{facultyName}}%
  \par\vspace{1.75cm}%
 }
@@ -88,7 +83,6 @@
  {\sf\thesis@titlePage@large\thesis@department@name}
  \par\vspace{1.75cm}%
 }
-{}{\thesis@xpatchError{}}
 %    \end{macrocode}
 % \begin{macro}{\thesis@blocks@frontMatter}
 % The |\thesis@blocks@frontMatter| macro sets up the style

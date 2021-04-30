@@ -82,13 +82,10 @@
 % 16\,cm in accordance with the formal requirements of the faculty.
 % This leads to overfull lines and is against the good conscience
 % of the author of this style.
-% \changes{v1.0.0}{2021/03/22}{Added \textsf{xpatch} package to
-%   redefine layout of titlePage. [TV]}
 %    \begin{macrocode}
 \thesis@require{tikz}
 \thesis@require{geometry}
 \thesis@require{setspace}
-	\thesis@require{xpatch}
 \geometry{top=25mm,bottom=20mm,left=25mm,right=25mm,includeheadfoot}
 %    \end{macrocode}
 % The style file configures the upper part of the title page headers
@@ -111,7 +108,7 @@
 %   in Brno no longer redefine the \cs{thesis@blocks@cover} macro.
 %   [TV]}
 %    \begin{macrocode}
-\xpatchcmd{\thesis@blocks@titlePage}
+\thesis@xpatch{\thesis@blocks@titlePage}
 {{\sf\thesis@titlePage@large\thesis@@{advisorTitle}: \thesis@advisor}%
    \par\vspace{0.75cm}%
    \ifthesis@blocks@titlePage@department@
@@ -128,10 +125,9 @@
 	\thesis@field@name}%
    \fi
    \par\vfill
-}
-{}{}{\thesis@xpatchError{}}
+}{}
 
-\xpatchcmd{\thesis@blocks@titlePage}
+\thesis@xpatch{\thesis@blocks@titlePage}
 {{\sf\thesis@titlePage@large\thesis@@upper{facultyName}}%
  \par\vspace{1.75cm}%
 }
@@ -142,7 +138,6 @@
  {\sf\thesis@titlePage@large\thesis@department@name}
  \par\vspace{1.75cm}%
 }
-{}{\thesis@xpatchError{}}
 %    \end{macrocode}
 % \begin{macro}{\thesis@blocks@frontMatter}
 % The |\thesis@blocks@frontMatter| macro sets up the style of the

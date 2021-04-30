@@ -465,6 +465,8 @@
 %   \item\textsf{inputenc} -- Used to enable the input UTF-8
 %     encoding. This package does not get loaded under
 %     the \Hologo{XeTeX} and \Hologo{LuaTeX} engines.
+%   \item\textsf{xpatch} -- Used to redefine parts of code
+%     in macros without redefining the whole macro.
 % \end{itemize}
 % The \texttt{hyperref} package is also conditionally loaded during
 % the expansion of the |\thesis@load| macro (see Section
@@ -479,6 +481,7 @@
 \ifxetex\else\ifluatex\else
   \RequirePackage[utf8]{inputenc}
 \fi\fi
+\RequirePackage{xpatch}
 %    \end{macrocode}
 % \section{Public API}
 % \label{sec:public-api}
@@ -1850,13 +1853,14 @@
   \expandafter\thesis@patch@versions\expandafter,\relax,}
 %    \end{macrocode}
 % \end{macro}
-% \begin{macro}{\thesis@xpatchError}
-% The |\thesis@xpatchError| macro is used to test for error of the given
-% \textit{xpatchcmd}. If the \textit{xpatchcmd} fails, a class error is
-% written to the output.
+% \begin{macro}{\thesis@xpatch}
+% The |\thesis@xpatch| macro is used to to replace code in a searched
+% macro by the replacement code via \textit{xpatchcmd} If the 
+% \textit{xpatchcmd} fails, a class error is written to the output.
 %    \begin{macrocode}
-\def\thesis@xpatchError{%
-    \ClassError{xpatchcmd}{The class does not contain searched text}}
+\def\thesis@xpatch#1#2#3{%
+    \xpatchcmd{#1}{#2}{#3}{}%
+      {\ClassError{fithesis4}{The command #1 does not contain searched text}}}
 %    \end{macrocode}
 % \end{macro}
 % \iffalse
