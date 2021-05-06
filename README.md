@@ -16,8 +16,7 @@ environment as well as the following tools:
 Aside from these tools, the installation requires a correctly
 configured TeX distribution containing the pdfTeX, XeTeX and LuaTeX
 engines as well as the LaTeX packages required for the typesetting
-of the technical documentation within the `fithesis.dtx` file and
-the guide files within the `guide/` subdirectory.
+of the technical documentation within the `fithesis.dtx`.
 
 For running the test suite using the `make tests` command, the
 following tools are also required:
