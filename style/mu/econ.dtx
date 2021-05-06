@@ -80,6 +80,32 @@
 %    \begin{macrocode}
 \thesis@blocks@titlePage@field@false
 %    \end{macrocode}
+% \begin{macro}{\thesis@blocks@cover}
+% The |\thesis@blocks@cover| macro typesets the cover page. Compared
+% to the definition within the \texttt{style/mu/base.sty} file, this
+% macro does not include the title of the thesis, and typesets the
+% name of the author at the bottom of the page.
+%    \begin{macrocode}
+\def\thesis@blocks@cover{%
+  \ifthesis@cover@
+    \thesis@blocks@clear
+    \begin{alwayssingle}
+      \colorlet{thesis@color@secondary}{black}%
+      \thispagestyle{empty}
+      \begin{center}
+        \thesis@blocks@universityLogo@monochrome
+	\par\vspace{0.75cm}%
+	{\sf\thesis@titlePage@large\thesis@@upper{facultyName}}%
+	\par\vfill
+	{\bf\thesis@titlePage@Huge\thesis@@{typeName}}%
+	\vfill
+	{\sf\thesis@titlePage@large\thesis@place
+	 \ \sf\thesis@year\hfill\thesis@author}
+      \end{center}
+    \end{alwayssingle}
+  \fi}
+%    \end{macrocode}
+% \end{macro}
 % \begin{macro}{\thesis@blocks@frontMatter}
 % The |\thesis@blocks@frontMatter| macro sets up the style
 % of the front matter of the thesis. The page numbering is arabic
