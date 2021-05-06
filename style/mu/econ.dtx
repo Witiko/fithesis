@@ -75,6 +75,11 @@
 % \changes{v1.0.0}{2021/04/23}{^^A
 %   The style files for the Faculty of Economics and Administration
 %   no longer redefine the \cs{thesis@blocks@cover}. [TV]}    
+% \changes{v1.0.0}{2021/05/06}{Added redefinition of the conditional
+%   to exclude the study field from the title page. [TV]}
+%    \begin{macrocode}
+\thesis@blocks@titlePage@field@false
+%    \end{macrocode}
 % \begin{macro}{\thesis@blocks@frontMatter}
 % The |\thesis@blocks@frontMatter| macro sets up the style
 % of the front matter of the thesis. The page numbering is arabic

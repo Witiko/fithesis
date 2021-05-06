@@ -45,6 +45,8 @@
 % The style file configures the upper part of the title page headers
 % to include the name of the department and the study field
 % which are by default in the bottom part of the title page.
+% \changes{v1.0.0}{2021/05/06}{Added conditional redefinition for the
+%   study programme. [TV]}
 % \changes{v1.0.0}{2021/04/23}{^^A
 %   The style files for the Faculty of Law at the Masaryk University
 %   in Brno no longer redefine the \cs{thesis@blocks@cover@header}
@@ -53,6 +55,8 @@
 %   layout as per the faculty requirements. Department name and
 %   field are in the upper part of the titlePage. [TV]}
 %    \begin{macrocode}
+\thesis@blocks@titlePage@programme@false
+
 \thesis@xpatch{\thesis@blocks@titlePage}
 {{\sf\thesis@titlePage@large\thesis@@{advisorTitle}: \thesis@advisor}%
    \par\vspace{0.75cm}%
@@ -74,14 +78,14 @@
 
 \thesis@xpatch{\thesis@blocks@titlePage}
 {{\sf\thesis@titlePage@large\thesis@@upper{facultyName}}%
- \par\vspace{1.75cm}%
+ \par\vfill
 }
 {{\sf\thesis@titlePage@large\thesis@@upper{facultyName}}%
  \par\vspace{0.75cm}%
  {\sf\thesis@titlePage@large\thesis@field}%
  \par\vspace{0.25cm}%
  {\sf\thesis@titlePage@large\thesis@department@name}
- \par\vspace{1.75cm}%
+ \par\vspace{4cm}%
 }
 %    \end{macrocode}
 % \begin{macro}{\thesis@blocks@frontMatter}
