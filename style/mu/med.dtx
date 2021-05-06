@@ -109,7 +109,11 @@
 %   The style files of the Faculty of Medicine at the Masary University
 %   in Brno no longer redefine the \cs{thesis@blocks@cover} macro.
 %   [TV]}
+% \changes{v1.0.0}{2021/05/06}{Added conditional redefinition for the
+%   study field. [TV]}
 %    \begin{macrocode}
+\thesis@blocks@titlePage@field@false
+
 \thesis@xpatch{\thesis@blocks@titlePage}
 {{\sf\thesis@titlePage@large\thesis@@{advisorTitle}: \thesis@advisor}%
    \par\vspace{0.75cm}%
@@ -131,14 +135,14 @@
 
 \thesis@xpatch{\thesis@blocks@titlePage}
 {{\sf\thesis@titlePage@large\thesis@@upper{facultyName}}%
- \par\vspace{1.75cm}%
+ \par\vfill
 }
 {{\sf\thesis@titlePage@large\thesis@@upper{facultyName}}%
  \par\vspace{0.75cm}%
  {\sf\thesis@titlePage@large\thesis@programme}%
  \par\vspace{0.25cm}%
  {\sf\thesis@titlePage@large\thesis@department@name}
- \par\vspace{1.75cm}%
+ \par\vspace{4cm}%
 }
 %    \end{macrocode}
 % \begin{macro}{\thesis@blocks@frontMatter}

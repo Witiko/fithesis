@@ -40,6 +40,9 @@
 %   \texttt{abstractonsinglepage} option in
 %   \texttt{style/mu/fithesis-sci.sty}. The patch was submitted by
 %   Juraj Pálenik. [VN]}
+% \changes{v1.0.0}{2021/05/06}{Added redefinition of the conditionals
+%   to exclude the study programme and the study field from the title
+%   page. [TV]}
 % \changes{v1.0.0}{2021/03/12}{^^A
 %   The style file of the Faculty of Science at the Masaryk
 %   University in Brno, Czech Republic no longer defines the
@@ -67,6 +70,9 @@
 % Enable the inclusion of the scanned assignment inside the digital
 % version of the document.
 % \begin{macrocode}
+\thesis@blocks@titlePage@field@false
+\thesis@blocks@titlePage@programme@false
+
 \thesis@blocks@assignment@hideIfDigital@false
 %    \end{macrocode}
 % \begin{macro}{\thesis@blocks@frontMatter}
