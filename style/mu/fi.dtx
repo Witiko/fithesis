@@ -69,6 +69,13 @@
   \end{alwayssingle}}
 %    \end{macrocode}
 % \end{macro}
+% \changes{v1.0.0}{2021/05/06}{Added redefinition of conditionals
+%    to exclude the study field and the study programme from the
+  %    title page. [TV]}
+%    \begin{macrocode}
+\thesis@blocks@titlePage@field@false
+\thesis@blocks@titlePage@programme@false
+%    \end{macrocode}
 % In Ph.D. theses, only the table of contents will be typeset in
 % the front matter as per the formal requirements of the
 % faculty\footnote{See
