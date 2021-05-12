@@ -1191,7 +1191,8 @@
   % Typeset the table
   \noindent\begin{thesis@newtable@old}%
     {@{}p{\@left}@{\hskip\@skip}p{\@right}@{}}
-    \textbf{\thesis@@{bib@author}\ifthesis@woman ka\fi:} &
+    \textbf{\thesis@@{bib@author}%
+	  \ifthesis@english\else\ifthesis@woman ka\fi\fi:} &
       \noindent\parbox[t]{\@right}{
         \thesis@author\\
         \thesis@@{facultyName} \\
