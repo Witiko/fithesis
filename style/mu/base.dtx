@@ -773,11 +773,11 @@
         \par\vspace{0.75cm}%
         {\sf\thesis@titlePage@large\thesis@@upper{facultyName}}%
         \par\vfill
-	{\bf\thesis@titlePage@Huge\thesis@TeXtitle}%
-	\par\vspace{1.5cm}
+        {\bf\thesis@titlePage@Huge\thesis@TeXtitle}%
+        \par\vspace{1.5cm}
         {\sf\thesis@titlePage@Large\thesis@@{typeName}}%
-	\par\vspace{1.5cm}
-	{\sf\thesis@titlePage@LARGE\thesis@upper{author}}%
+        \par\vspace{1.5cm}
+        {\sf\thesis@titlePage@LARGE\thesis@upper{author}}%
         \par\vfill
         \sf\thesis@titlePage@large\thesis@place, \thesis@@{semester}%
       \end{center}%
@@ -883,11 +883,11 @@
         {\sf\thesis@titlePage@large\thesis@department@name}
       \fi
       \ifthesis@blocks@titlePage@programme@
-	\par\vspace{0.25cm}%
+        \par\vspace{0.25cm}%
         {\sf\thesis@titlePage@large\thesis@@{bib@programme}: \thesis@programme}\par
       \fi
       \ifthesis@blocks@titlePage@field@
-	\par\vspace{0.25cm}%
+        \par\vspace{0.25cm}%
         {\sf\thesis@titlePage@large\thesis@@{fieldTitle}: \thesis@field@name}%
       \fi
       \par\vfill
@@ -1185,14 +1185,14 @@
     \bf\thesis@@{bib@keywords}:}}
   \let\@skip\relax\newlength{\@skip}\setlength{\@skip}{16pt}
   \let\@left\relax\newlength{\@left}\pgfmathsetlength{\@left}{%
-	  max(\@A,\@B,\@C,\@D,\@E,\@F,\@G,\@H)}
+    max(\@A,\@B,\@C,\@D,\@E,\@F,\@G,\@H)}
   \let\@right\relax\newlength{\@right}\setlength{\@right}{%
     \textwidth-\@left-\@skip}
   % Typeset the table
   \noindent\begin{thesis@newtable@old}%
     {@{}p{\@left}@{\hskip\@skip}p{\@right}@{}}
     \textbf{\thesis@@{bib@author}%
-	  \ifthesis@english\else\ifthesis@woman ka\fi\fi:} &
+    \ifthesis@english\else\ifthesis@woman ka\fi\fi:} &
       \noindent\parbox[t]{\@right}{
         \thesis@author\\
         \thesis@@{facultyName} \\
@@ -1238,7 +1238,7 @@
     \bf\thesis@english@bib@keywords:}}
   \let\@skip\relax\newlength{\@skip}\setlength{\@skip}{16pt}
   \let\@left\relax\newlength{\@left}\pgfmathsetlength{\@left}{%
-	  max(\@A,\@B,\@C,\@D,\@E,\@F,\@G,\@H)}
+    max(\@A,\@B,\@C,\@D,\@E,\@F,\@G,\@H)}
   \let\@right\relax\newlength{\@right}\setlength{\@right}{%
     \textwidth-\@left-\@skip}
   % Typeset the table
