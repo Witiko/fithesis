@@ -137,16 +137,14 @@
 %</econ>
 %<*fi>
 %    \end{macrocode}
-% \changes{v1.0.0}{2021/03/04}{Added elements that are used
-%   by thesis@titlePage: field, department, programme. [TV]}
+% \changes{v1.0.0}{2021/03/04}{Added element that is used
+%   by thesis@titlePage: department. [TV]}
 %    \begin{macrocode}
 \thesissetup{
     date        = \the\year/\the\month/\the\day,
     university  = mu,
     faculty     = fi,
     type        = bc,
-    programme   = Informatics,
-    field       = Applied Informatics,
     department  = Department of Machine Learning and Data Processing,
     author      = Jane Doe,
     gender      = f,
@@ -277,15 +275,14 @@
 %</fss>
 %<*law>
 %    \end{macrocode}
-% \changes{v1.0.0}{2021/03/04}{Added elements that are used
-%   by thesis@titlePage: field, programme [TV]}
+% \changes{v1.0.0}{2021/03/04}{Added element that is used
+%   by thesis@titlePage: field [TV]}
 %    \begin{macrocode}
 \thesissetup{
     date          = \the\year/\the\month/\the\day,
     university    = mu,
     faculty       = law,
     type          = bc,
-    programme     = NA,
     field         = Law and Finance,
     department    = The Department of Commercial Law,
     author        = Jane Doe,
@@ -329,8 +326,7 @@
     university    = mu,
     faculty       = med,
     type          = bc,
-    programme     = NA,
-    field         = Optometry,
+    programme     = Optometry,
     department    = The Department of Optometry and
                     Orthoptics,
     author        = Jane Doe,
@@ -480,7 +476,7 @@
 % \changes{v1.0.0}{2021/03/04}{Added elements that are used
 %   by thesis@bibEntry and thesis@titlePage: fieldEn, departmentEn,
 %   titleEn, TeXtitleEn, keywordsEn, TeXkeywordsEn, abstractEn,
-%   programme. [TV]}
+%   programme, programmeEn. [TV]}
 %    \begin{macrocode}
 \thesissetup{
     date        = \the\year/\the\month/\the\day,
@@ -508,6 +504,7 @@
     %% The following keys are only useful, when you're using a
     %% locale other than English. You can safely omit them in an
     %% English thesis.
+    programmeEn	       = NA,
     fieldEn            = Cognitive Sciences,
     departmentEn       = Department of Psychology,
     titleEn            = What Can Typography Tell Us
