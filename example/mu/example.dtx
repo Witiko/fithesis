@@ -15,8 +15,6 @@
 %%  color,   %% Uncomment these lines (by removing the %% at the
 %%           %% beginning) to use color in the digital version of your
 %%           %% document
-  table,   %% The `table` option causes the coloring of tables.
-           %% Replace with `notable` to restore plain LaTeX tables.
   twoside, %% The `twoside` option enables double-sided typesetting.
            %% Use at least 120 g/m² paper to prevent show-through.
            %% Replace with `oneside` to use one-sided typesetting;
@@ -614,10 +612,11 @@
 }
 \usepackage{floatrow} %% Putting captions above tables
 \floatsetup[table]{capposition=top}
+\usepackage[babel]{csquotes} %% Context-sensitive quotation marks
 %<*econ>
 \usepackage{chngcntr}
-\counterwithout{table}{chapter}  % Flat numbering of tables.
-\counterwithout{figure}{chapter} % Flat numbering of figures.
+\counterwithout{table}{chapter}  %% Flat numbering of tables
+\counterwithout{figure}{chapter} %% Flat numbering of figures
 %</econ>
 \begin{document}
 %<*econ>
@@ -641,26 +640,27 @@
 \chapter*{Introduction}
 \addcontentsline{toc}{chapter}{Introduction}
 
-Theses are rumoured to be the capstones of education, so I decided
-to write one of my own. If all goes well, I will soon have a
-diploma under my belt. Wish me luck!
+Theses are rumoured to be \enquote{the capstones of education}, so
+I decided to write one of my own. If all goes well, I will soon
+have a diploma under my belt. Wish me luck!
 
 \begin{otherlanguage}{czech}
-Říká se, že závěrečné práce jsou vyvrcholením studia a tak jsem se
-rozhodl jednu také napsat. Pokud vše půjde podle plánu, odnesu si
-na konci semestru diplom. Držte mi palce!
+Říká se, že závěrečné práce jsou \enquote{vyvrcholením studia}
+a tak jsem se rozhodl jednu také napsat. Pokud vše půjde podle
+plánu, odnesu si na konci semestru diplom. Držte mi palce!
 \end{otherlanguage}
 
 \begin{otherlanguage}{slovak}
-Hovorí sa, že záverečné práce sú vyvrcholením štúdia a tak som sa
-rozhodol jednu tiež napísať. Ak všetko pôjde podľa plánu, odnesiem
-si na konci semestra diplom. Držte mi palce!
+Hovorí sa, že záverečné práce sú \enquote{vyvrcholením štúdia}
+a tak som sa rozhodol jednu tiež napísať. Ak všetko pôjde podľa
+plánu, odnesiem si na konci semestra diplom. Držte mi palce!
 \end{otherlanguage}
 
 \begin{otherlanguage}{german}
-Man munkelt, dass die Dissertation die Krönung der Ausbildung ist.
-Deshalb habe ich mich beschlossen meine eigene zu schreiben. Wenn
-alles gut geht, bekomme ich bald ein Diplom. Wünsch mir Glück!
+Man munkelt, dass die Dissertation \enquote{die Krönung der
+Ausbildung} ist. Deshalb habe ich mich beschlossen meine eigene
+zu schreiben. Wenn alles gut geht, bekomme ich bald ein Diplom.
+Wünsch mir Glück!
 \end{otherlanguage}
 
 %<*luatex>
@@ -669,9 +669,9 @@ alles gut geht, bekomme ich bald ein Diplom. Wünsch mir Glück!
 %<*pdftex>
 \begin{otherlanguage}{russian}\textrussian{%
 %</pdftex>
-Говорят, что тезис -- это кульминация обучения. Поэтому я и решил
-написать собственный тезис. Если всё сработает по плану, я скоро
-получу диплом. Желайте мне удачи!
+Говорят, что тезис -- это \enquote{кульминация обучения}. Поэтому
+я и решил написать собственный тезис. Если всё сработает по плану,
+я скоро получу диплом. Желайте мне удачи!
 %<*luatex>
 \end{otherlanguage}
 %</luatex>
