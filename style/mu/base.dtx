@@ -769,17 +769,17 @@
       \colorlet{thesis@color@secondary}{black}%
       \thispagestyle{empty}%
       \begin{center}%
-        \thesis@blocks@universityLogo@monochrome
-        \par\vspace{0.75cm}%
-        {\sf\thesis@titlePage@large\thesis@@upper{facultyName}}%
-        \par\vfill
-        {\bf\thesis@titlePage@Huge\thesis@TeXtitle}%
-        \par\vspace{1.5cm}
-        {\sf\thesis@titlePage@Large\thesis@@{typeName}}%
-        \par\vspace{1.5cm}
-        {\sf\thesis@titlePage@LARGE\thesis@upper{author}}%
-        \par\vfill
-        \sf\thesis@titlePage@large\thesis@place, \thesis@@{semester}%
+        \thesis@blocks@universityLogo@monochrome\par
+        \vspace{0.75cm}%
+        {\sf\thesis@titlePage@large\thesis@@upper{facultyName}\par}%
+        \vfill
+        {\bf\thesis@titlePage@Huge\thesis@TeXtitle\par}%
+        \vspace{1.5cm}%
+        {\sf\thesis@titlePage@Large\thesis@@{typeName}\par}%
+        \vspace{1.5cm}%
+        {\sf\thesis@titlePage@LARGE\thesis@upper{author}\par}%
+        \vfill
+        {\sf\thesis@titlePage@large\thesis@place, \thesis@@{semester}\par}%
       \end{center}%
     \end{alwayssingle}%
   \fi}
@@ -869,28 +869,28 @@
     \begin{center}%
       \thesis@blocks@universityLogo@color
       \par\vspace{0.75cm}%
-      {\sf\thesis@titlePage@large\thesis@@upper{facultyName}}%
-      \par\vfill
-      {\bf\thesis@titlePage@Huge\thesis@TeXtitle}%
-      \par\vspace{1.5cm}%
-      {\sf\thesis@titlePage@Large\thesis@@{typeName}}
-      \par\vspace{1.5cm}
-      {\sf\thesis@titlePage@LARGE\thesis@upper{author}}%
-      \par\vfill
-      {\sf\thesis@titlePage@large\thesis@@{advisorTitle}: \thesis@advisor}%
-      \par\vspace{0.75cm}%
+      {\sf\thesis@titlePage@large\thesis@@upper{facultyName}\par}%
+      \vfill
+      {\bf\thesis@titlePage@Huge\thesis@TeXtitle\par}%
+      \vspace{1.5cm}%
+      {\sf\thesis@titlePage@Large\thesis@@{typeName}\par}%
+      \vspace{1.5cm}%
+      {\sf\thesis@titlePage@LARGE\thesis@upper{author}\par}%
+      \vfill
+      {\sf\thesis@titlePage@large\thesis@@{advisorTitle}: \thesis@advisor\par}%
+      \vspace{0.75cm}%
       \ifthesis@blocks@titlePage@department@
-        {\sf\thesis@titlePage@large\thesis@department@name}
+        {\sf\thesis@titlePage@large\thesis@department@name\par}%
       \fi
       \ifthesis@blocks@titlePage@programme@
-        \par\vspace{0.25cm}%
-        {\sf\thesis@titlePage@large\thesis@@{bib@programme}: \thesis@programme}\par
+        \vspace{0.25cm}%
+        {\sf\thesis@titlePage@large\thesis@@{bib@programme}: \thesis@programme\par}
       \fi
       \ifthesis@blocks@titlePage@field@
-        \par\vspace{0.25cm}%
-        {\sf\thesis@titlePage@large\thesis@@{fieldTitle}: \thesis@field@name}%
+        \vspace{0.25cm}%
+        {\sf\thesis@titlePage@large\thesis@@{fieldTitle}: \thesis@field@name\par}%
       \fi
-      \par\vfill
+      \vfill
       {\sf\thesis@titlePage@large\thesis@place, \thesis@@{semester}%
 %    \end{macrocode}
 % If this is a rigorous thesis or a PhD thesis proposal, create
@@ -906,7 +906,7 @@
           \thesis@blocks@advisorSignature
         \else\ifx\thesis@type\thesis@proposal
           \thesis@blocks@advisorSignature
-        \fi\fi}%
+        \fi\fi\par}%
     \end{center}%
   \end{alwayssingle}}
 %    \end{macrocode}
