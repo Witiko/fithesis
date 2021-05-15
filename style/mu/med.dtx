@@ -114,35 +114,35 @@
 %    \begin{macrocode}
 \thesis@blocks@titlePage@field@false
 
-\thesis@xpatch{\thesis@blocks@titlePage}
-{{\sf\thesis@titlePage@large\thesis@@{advisorTitle}: \thesis@advisor}%
-   \par\vspace{0.75cm}%
+\thesis@xpatch\thesis@blocks@titlePage{%
+  {\sf\thesis@titlePage@large\thesis@@{advisorTitle}: \thesis@advisor\par}%
+   \vspace{0.75cm}%
    \ifthesis@blocks@titlePage@department@
-     {\sf\thesis@titlePage@large\thesis@department@name}
+     {\sf\thesis@titlePage@large\thesis@department@name\par}%
    \fi
    \ifthesis@blocks@titlePage@programme@
-     \par\vspace{0.25cm}%
-     {\sf\thesis@titlePage@large\thesis@@{bib@programme}: 
-	\thesis@programme}\par
+     \vspace{0.25cm}%
+     {\sf\thesis@titlePage@large\thesis@@{bib@programme}:
+      \thesis@programme\par}%
    \fi
    \ifthesis@blocks@titlePage@field@
-     \par\vspace{0.25cm}%
+     \vspace{0.25cm}%
      {\sf\thesis@titlePage@large\thesis@@{fieldTitle}: 
-	\thesis@field@name}%
+      \thesis@field@name\par}%
    \fi
-   \par\vfill
+   \vfill
 }{}
 
-\thesis@xpatch{\thesis@blocks@titlePage}
-{{\sf\thesis@titlePage@large\thesis@@upper{facultyName}}%
- \par\vfill
-}
-{{\sf\thesis@titlePage@large\thesis@@upper{facultyName}}%
- \par\vspace{0.5cm}%
- {\sf\thesis@titlePage@large\thesis@programme}%
- \par\vspace{0.25cm}%
- {\sf\thesis@titlePage@large\thesis@department@name}
- \par\vspace{1cm}%
+\thesis@xpatch\thesis@blocks@titlePage{%
+  {\sf\thesis@titlePage@large\thesis@@upper{facultyName}\par}%
+  \vfill
+}{%
+  {\sf\thesis@titlePage@large\thesis@@upper{facultyName}\par}%
+  \vspace{0.5cm}%
+  {\sf\thesis@titlePage@large\thesis@programme\par}%
+  \vspace{0.25cm}%
+  {\sf\thesis@titlePage@large\thesis@department@name\par}%
+  \vspace{1cm}%
 }
 %    \end{macrocode}
 % \begin{macro}{\thesis@blocks@frontMatter}
