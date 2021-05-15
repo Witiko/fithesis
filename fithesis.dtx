@@ -462,6 +462,7 @@
 %   \item\textsf{inputenc} -- Used to enable the input UTF-8
 %     encoding. This package does not get loaded under
 %     the \Hologo{XeTeX} and \Hologo{LuaTeX} engines.
+%   \changes{v1.0.0}{2021/04/30}{Added \cs{thesis@xpatch} command. [TV]}
 %   \item\textsf{xpatch} -- Used to redefine parts of code
 %     in macros without redefining the whole macro.
 % \end{itemize}
@@ -1857,6 +1858,7 @@
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\thesis@xpatch}
+% \changes{v1.0.0}{2021/04/30}{Added \cs{thesis@xpatch} command. [TV]}
 % The |\thesis@xpatch|\marg{command}\marg{search}\marg{replace} macro
 % is used to to replace \textit{search} with \textit{replace} in the definition
 % of \textit{command}. If the replacement fails, a class error is written to
