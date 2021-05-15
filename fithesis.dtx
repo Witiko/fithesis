@@ -1832,7 +1832,7 @@
   }}
 %    \end{macrocode}
 % \begin{macro}{\thesis@patch}
-% The |\thesis@patch|\oarg{versions}\oarg{patch} macro expands
+% The |\thesis@patch|\marg{versions}\marg{patch} macro expands
 % \textit{patch}, if |\thesis@version|\texttt{\discretionary{@}^^A
 % {@}{@}}|number| (defined at the top of the file
 % \texttt{fithesis4.cls}) matches any of the comma-delimited
@@ -1857,13 +1857,14 @@
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\thesis@xpatch}
-% The |\thesis@xpatch| macro is used to to replace code in a searched
-% macro by the replacement code via \textit{xpatchcmd} If the 
-% \textit{xpatchcmd} fails, a class error is written to the output.
+% The |\thesis@xpatch|\marg{command}\marg{search}\marg{replace} macro
+% is used to to replace \textit{search} with \textit{replace} in the definition
+% of \textit{command}. If the replacement fails, a class error is written to
+% the output.
 %    \begin{macrocode}
 \long\def\thesis@xpatch#1#2#3{%
-    \xpatchcmd{#1}{#2}{#3}{}%
-      {\ClassError{fithesis4}{The command #1 does not contain searched text}}}
+  \xpatchcmd{#1}{#2}{#3}{}%
+    {\ClassError{fithesis4}{The command \string#1 does not contain the searched text}{}}}
 %    \end{macrocode}
 % \end{macro}
 % \iffalse

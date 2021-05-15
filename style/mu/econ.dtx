@@ -86,8 +86,7 @@
 % macro does not include the title of the thesis, and typesets the
 % name of the author at the bottom of the page.
 %    \begin{macrocode}
-\thesis@xpatch{\thesis@blocks@cover}
-{%
+\thesis@xpatch\thesis@blocks@cover{%
   \vfill
   {\bf\thesis@titlePage@Huge\thesis@TeXtitle\par}%
   \vspace{1.5cm}%

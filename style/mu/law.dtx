@@ -57,8 +57,8 @@
 %    \begin{macrocode}
 \thesis@blocks@titlePage@programme@false
 
-\thesis@xpatch{\thesis@blocks@titlePage}
-{{\sf\thesis@titlePage@large\thesis@@{advisorTitle}: \thesis@advisor\par}%
+\thesis@xpatch\thesis@blocks@titlePage{%
+  {\sf\thesis@titlePage@large\thesis@@{advisorTitle}: \thesis@advisor\par}%
    \vspace{0.75cm}%
    \ifthesis@blocks@titlePage@department@
      {\sf\thesis@titlePage@large\thesis@department@name\par}%
@@ -76,16 +76,16 @@
    \vfill
 }{}
 
-\thesis@xpatch{\thesis@blocks@titlePage}
-{{\sf\thesis@titlePage@large\thesis@@upper{facultyName}\par}%
- \vfill
-}
-{{\sf\thesis@titlePage@large\thesis@@upper{facultyName}\par}%
- \vspace{0.75cm}%
- {\sf\thesis@titlePage@large\thesis@field\par}%
- \vspace{0.25cm}%
- {\sf\thesis@titlePage@large\thesis@department@name\par}
- \vspace{4cm}%
+\thesis@xpatch\thesis@blocks@titlePage{%
+  {\sf\thesis@titlePage@large\thesis@@upper{facultyName}\par}%
+  \vfill
+}{%
+  {\sf\thesis@titlePage@large\thesis@@upper{facultyName}\par}%
+  \vspace{0.75cm}%
+  {\sf\thesis@titlePage@large\thesis@field\par}%
+  \vspace{0.25cm}%
+  {\sf\thesis@titlePage@large\thesis@department@name\par}%
+  \vspace{4cm}%
 }
 %    \end{macrocode}
 % \begin{macro}{\thesis@blocks@frontMatter}

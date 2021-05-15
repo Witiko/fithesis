@@ -45,14 +45,14 @@
 % \changes{v1.0.0}{2021/05/06}{Added redefinition of the cover to include
 %   the faculty seal. [TV]}
 %    \begin{macrocode}
-\thesis@xpatch{\thesis@blocks@cover}
-{\vfill
- {\bf\thesis@titlePage@Huge\thesis@TeXtitle\par}%
-}
-{\vspace{2cm}%
- \thesis@blocks@facultyLogo@monochrome\par
- \vspace{2cm}%
- {\bf\thesis@titlePage@Huge\thesis@TeXtitle\par}%
+\thesis@xpatch\thesis@blocks@cover{%
+  \vfill
+  {\bf\thesis@titlePage@Huge\thesis@TeXtitle\par}%
+}{%
+  \vspace{2cm}%
+  \thesis@blocks@facultyLogo@monochrome\par
+  \vspace{2cm}%
+  {\bf\thesis@titlePage@Huge\thesis@TeXtitle\par}%
 }
 %    \end{macrocode}
 % \changes{v1.0.0}{2021/02/26}{^^A
