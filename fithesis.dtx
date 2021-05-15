@@ -1866,7 +1866,8 @@
 %    \begin{macrocode}
 \long\def\thesis@xpatch#1#2#3{%
   \xpatchcmd{#1}{#2}{#3}{}%
-    {\ClassError{fithesis4}{The command \string#1 does not contain the searched text}{}}}
+    {\ClassError{fithesis4}{%
+       Command \string#1 does not contain the searched text}{}}}
 %    \end{macrocode}
 % \end{macro}
 % \iffalse
