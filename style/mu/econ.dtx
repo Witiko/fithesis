@@ -86,24 +86,23 @@
 % macro does not include the title of the thesis, and typesets the
 % name of the author at the bottom of the page.
 %    \begin{macrocode}
-\def\thesis@blocks@cover{%
-  \ifthesis@cover@
-    \thesis@blocks@clear
-    \begin{alwayssingle}
-      \colorlet{thesis@color@secondary}{black}%
-      \thispagestyle{empty}
-      \begin{center}
-        \thesis@blocks@universityLogo@monochrome\par
-        \vspace{0.75cm}%
-        {\sf\thesis@titlePage@large\thesis@@upper{facultyName}\par}%
-        \vfill
-        {\bf\thesis@titlePage@Huge\thesis@@{typeName}\par}%
-        \vfill
-        {\sf\thesis@titlePage@large\thesis@place
-         \ \sf\thesis@year\hfill\thesis@author\par}
-      \end{center}
-    \end{alwayssingle}
-  \fi}
+\thesis@xpatch{\thesis@blocks@cover}
+{%
+  \vfill
+  {\bf\thesis@titlePage@Huge\thesis@TeXtitle\par}%
+  \vspace{1.5cm}%
+  {\sf\thesis@titlePage@Large\thesis@@{typeName}\par}%
+  \vspace{1.5cm}%
+  {\sf\thesis@titlePage@LARGE\thesis@upper{author}\par}%
+  \vfill
+  {\sf\thesis@titlePage@large\thesis@place, \thesis@@{semester}\par}%
+}{%
+  \vfill
+  {\bf\thesis@titlePage@Huge\thesis@@{typeName}\par}%
+  \vfill
+  {\sf\thesis@titlePage@large\thesis@place
+   \ \sf\thesis@year\hfill\thesis@author\par}%
+}
 %    \end{macrocode}
 % \end{macro}
 % \begin{macro}{\thesis@blocks@frontMatter}
