@@ -1,10 +1,9 @@
 SUBMAKES_REQUIRED=logo/mu locale style style/mu
 SUBMAKES_EXTRA=example/mu
-SUBMAKES_TEST=test test/mu/blind test/mu/compare \
-	test/mu/compare-example
-SUBMAKES=$(SUBMAKES_REQUIRED) $(SUBMAKES_EXTRA) $(SUBMAKES_TEST)
+SUBMAKES=$(SUBMAKES_REQUIRED) $(SUBMAKES_EXTRA)
+
 .PHONY: all base complete docs clean dist dist-implode implode \
-	install install-base install-docs uninstall tests $(SUBMAKES)
+	install install-base install-docs uninstall $(SUBMAKES)
 
 CLASSFILES=fithesis.cls fithesis2.cls fithesis3.cls fithesis4.cls
 STYLEFILES=style/*.sty style/*/*.sty style/*/*.clo
@@ -16,12 +15,8 @@ DTXFILES=*.dtx locale/czech.dtx locale/english.dtx \
 	locale/slovak.dtx style/*.dtx style/*/*.dtx
 INSFILES=*.ins locale/czech.ins locale/english.ins \
 	locale/slovak.ins style/*.ins style/*/*.ins
-TESTS=test/*.tex test/mu/compare/*.pdf test/mu/compare/*.tex \
-	test/mu/compare-example/*.pdf test/mu/comparepdf.sh \
-	test/mu/update-tests.sh
 MAKES=locale/Makefile logo/mu/Makefile Makefile style/Makefile \
-	style/mu/Makefile test/Makefile test/mu/blind/Makefile \
-	test/mu/compare/Makefile test/mu/compare-example/Makefile
+	style/mu/Makefile
 USEREXAMPLE_SOURCES=example/mu/Makefile example/mu/example.dtx \
 	example/mu/*.ins example/mu/latexmkrc \
 	example/mu/example-terms-abbrs.tex
@@ -39,10 +34,7 @@ USEREXAMPLES=example/mu/econ-lualatex.pdf \
 DEVEXAMPLES=locale/DESCRIPTION locale/EXAMPLE.dtx locale/EXAMPLE.ins \
 	logo/EXAMPLE/DESCRIPTION logo/mu/DESCRIPTION \
 	logo/DESCRIPTION style/EXAMPLE/DESCRIPTION style/mu/DESCRIPTION \
-	style/DESCRIPTION test/DESCRIPTION test/EXAMPLE/DESCRIPTION \
-	test/mu/DESCRIPTION test/mu/blind/DESCRIPTION \
-	test/mu/compare/DESCRIPTION test/mu/compare-example/DESCRIPTION \
-	example/EXAMPLE/DESCRIPTION example/mu/DESCRIPTION \
+	style/DESCRIPTION example/EXAMPLE/DESCRIPTION example/mu/DESCRIPTION \
 	example/DESCRIPTION
 EXAMPLES=$(USEREXAMPLES) $(DEVEXAMPLES)
 MISCELLANEOUS=example/mu/example.bib $(USEREXAMPLES:.pdf=.tex) \
@@ -86,9 +78,6 @@ docs:
 $(SUBMAKES):
 	make -C $@ all
 
-# This pseudo-target performs the tests.
-tests: base $(SUBMAKES_TEST)
-
 # This pseudo-target creates the distribution archive.
 dist: dist-implode complete
 	make $(TDSARCHIVE) $(DISTARCHIVE) $(CTANARCHIVE)
@@ -118,7 +107,7 @@ $(TDSARCHIVE):
 	mv "$$DIR"/$@ $@ && rm -rf "$$DIR"
 
 # This target generates a distribution file.
-$(DISTARCHIVE): $(SOURCES) $(LATEXFILES) $(MAKES) $(TESTS) \
+$(DISTARCHIVE): $(SOURCES) $(LATEXFILES) $(MAKES) \
 	$(USEREXAMPLE_SOURCES) $(DOCS) $(PDFSOURCES) $(MISCELLANEOUS) \
 	$(EXAMPLES)
 	DIR=`mktemp -d` && \
