@@ -1,7 +1,0 @@
-This directory contains precompiled files from the `/example/mu`
-directory. These files are visually compared against fresh-compiled
-files from the `/example/mu` directory.
-
-By running `make UPDATE_FAILED=true`, the precompiled files will be
-automatically replaced with fresh-compiled ones, if the two are
-visually incompatible.
