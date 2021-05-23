@@ -9,7 +9,7 @@
 % after \texttt{style/fithesis-base.sty}, regardless of the value
 % of the |\thesis@style| macro.
 %    \begin{macrocode}
-\ProvidesPackage{fithesis/style/mu/fithesis-mu-base}[2021/04/24]
+\ProvidesPackage{fithesis/style/mu/fithesis-mu-base}[2021/05/23]
 \NeedsTeXFormat{LaTeX2e}
 %    \end{macrocode}
 % The file recognizes the following options: \begin{itemize}
@@ -1336,6 +1336,12 @@
     \let\@evenfoot\@oddfoot
   \fi
   \let\@mkboth\markboth}
+%    \end{macrocode}
+% \changes{v1.0.0}{2021/05/23}{Redefine all predefined page styles of the
+%   backend class, so that they can't be accidentally activated. [VN]}
+%    \begin{macrocode}
+\let\ps@headings\ps@thesisheadings
+\let\ps@myheadings\ps@thesisheadings
 
 % Redefine the style of the chapter headings.
 \renewcommand*\chapter{%
