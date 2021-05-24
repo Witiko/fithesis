@@ -43,3 +43,8 @@ jobs:
         with:
           name: fithesis.zip
           path: fithesis.zip
+      - name: Upload artifact fithesis.pdf
+        uses: actions/upload-artifact@v2
+        with:
+          name: fithesis.pdf
+          path: fithesis.pdf

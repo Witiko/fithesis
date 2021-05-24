@@ -1,12 +1,11 @@
 SUBMAKES_REQUIRED=logo/mu locale style style/mu
-SUBMAKES_EXTRA=guide/mu example/mu
-SUBMAKES_TEST=test test/mu/blind test/mu/compare \
-	test/mu/compare-example
-SUBMAKES=$(SUBMAKES_REQUIRED) $(SUBMAKES_EXTRA) $(SUBMAKES_TEST)
-.PHONY: all base complete docs clean dist dist-implode implode \
-	install install-base install-docs uninstall tests $(SUBMAKES)
+SUBMAKES_EXTRA=example/mu
+SUBMAKES=$(SUBMAKES_REQUIRED) $(SUBMAKES_EXTRA)
 
-CLASSFILES=fithesis.cls fithesis2.cls fithesis3.cls
+.PHONY: all base complete docs clean dist dist-implode implode \
+	install install-base install-docs uninstall $(SUBMAKES)
+
+CLASSFILES=fithesis.cls fithesis2.cls fithesis3.cls fithesis4.cls
 STYLEFILES=style/*.sty style/*/*.sty style/*/*.clo
 EPSLOGOS=logo/*/*.eps
 PDFLOGOS=logo/*/*.pdf
@@ -16,15 +15,11 @@ DTXFILES=*.dtx locale/czech.dtx locale/english.dtx \
 	locale/slovak.dtx style/*.dtx style/*/*.dtx
 INSFILES=*.ins locale/czech.ins locale/english.ins \
 	locale/slovak.ins style/*.ins style/*/*.ins
-TESTS=test/*.tex test/mu/compare/*.pdf test/mu/compare/*.tex \
-	test/mu/compare-example/*.pdf test/mu/comparepdf.sh \
-	test/mu/update-tests.sh
-MAKES=guide/mu/Makefile guide/mu/resources/Makefile \
-	locale/Makefile	logo/mu/Makefile Makefile style/Makefile \
-	style/mu/Makefile test/Makefile test/mu/blind/Makefile \
-	test/mu/compare/Makefile test/mu/compare-example/Makefile
+MAKES=locale/Makefile logo/mu/Makefile Makefile style/Makefile \
+	style/mu/Makefile
 USEREXAMPLE_SOURCES=example/mu/Makefile example/mu/example.dtx \
-	example/mu/*.ins example/mu/latexmkrc
+	example/mu/*.ins example/mu/latexmkrc \
+	example/mu/example-terms-abbrs.tex
 USEREXAMPLES=example/mu/econ-lualatex.pdf \
 	example/mu/econ-pdflatex.pdf example/mu/fi-lualatex.pdf \
 	example/mu/fi-pdflatex.pdf example/mu/fsps-lualatex.pdf \
@@ -34,22 +29,16 @@ USEREXAMPLES=example/mu/econ-lualatex.pdf \
 	example/mu/med-pdflatex.pdf example/mu/ped-lualatex.pdf \
 	example/mu/ped-pdflatex.pdf example/mu/phil-lualatex.pdf \
 	example/mu/phil-pdflatex.pdf example/mu/sci-lualatex.pdf \
-	example/mu/sci-pdflatex.pdf
-DEVEXAMPLES=guide/EXAMPLE/DESCRIPTION guide/mu/DESCRIPTION \
-	guide/mu/resources/DESCRIPTION guide/DESCRIPTION \
-	locale/DESCRIPTION locale/EXAMPLE.dtx locale/EXAMPLE.ins \
+	example/mu/sci-pdflatex.pdf example/mu/pharm-lualatex.pdf \
+	example/mu/pharm-pdflatex.pdf
+DEVEXAMPLES=locale/DESCRIPTION locale/EXAMPLE.dtx locale/EXAMPLE.ins \
 	logo/EXAMPLE/DESCRIPTION logo/mu/DESCRIPTION \
 	logo/DESCRIPTION style/EXAMPLE/DESCRIPTION style/mu/DESCRIPTION \
-	style/DESCRIPTION test/DESCRIPTION test/EXAMPLE/DESCRIPTION \
-	test/mu/DESCRIPTION test/mu/blind/DESCRIPTION \
-	test/mu/compare/DESCRIPTION test/mu/compare-example/DESCRIPTION \
-	example/EXAMPLE/DESCRIPTION example/mu/DESCRIPTION \
+	style/DESCRIPTION example/EXAMPLE/DESCRIPTION example/mu/DESCRIPTION \
 	example/DESCRIPTION
 EXAMPLES=$(USEREXAMPLES) $(DEVEXAMPLES)
-MISCELLANEOUS=guide/mu/resources/empty.tex guide/mu/guide.bib \
-	guide/mu/guide.dtx guide/mu/*.ins guide/mu/resources/cog.pdf \
-	guide/mu/resources/vader.pdf guide/mu/resources/yoda.pdf \
-	example/mu/example.bib $(USEREXAMPLES:.pdf=.tex) README.md
+MISCELLANEOUS=example/mu/example.bib $(USEREXAMPLES:.pdf=.tex) \
+	README.md
 RESOURCES=$(STYLEFILES) $(LOGOS) $(LOCALES)
 SOURCES=$(DTXFILES) $(INSFILES) LICENSE.tex VERSION.tex
 AUXFILES=fithesis.aux fithesis.log fithesis.toc fithesis.ind \
@@ -57,11 +46,8 @@ AUXFILES=fithesis.aux fithesis.log fithesis.toc fithesis.ind \
 	fithesis.glo fithesis.hd fithesis.lot
 MANUAL=fithesis.pdf
 PDFSOURCES=fithesis.dtx
-GUIDES=guide/mu/econ.pdf guide/mu/fi.pdf guide/mu/fsps.pdf \
-	guide/mu/fss.pdf guide/mu/law.pdf guide/mu/med.pdf \
-	guide/mu/ped.pdf guide/mu/phil.pdf guide/mu/sci.pdf
-PDFS=$(MANUAL) $(GUIDES) $(USEREXAMPLES)
-DOCS=$(MANUAL) $(GUIDES)
+PDFS=$(MANUAL) $(USEREXAMPLES)
+DOCS=$(MANUAL)
 MAKEABLES=$(PDFS) $(CLASSFILES) $(VERSION)
 TDSARCHIVE=fithesis.tds.zip
 CTANARCHIVE=fithesis.ctan.zip
@@ -80,21 +66,17 @@ base: $(SUBMAKES_REQUIRED)
 	make $(CLASSFILES)
 
 # This pseudo-target creates the class files and typesets the
-# technical documentation, the user guides, and the user examples.
+# technical documentation and the user examples.
 complete: base
 	make $(PDFS) clean
 
-# This pseudo-target typesets the technical documentation and the
-# user guides.
+# This pseudo-target typesets the technical documentation.
 docs:
 	make $(DOCS) clean
 
 # This pseudo-target calls a submakefile.
 $(SUBMAKES):
 	make -C $@ all
-
-# This pseudo-target performs the tests.
-tests: base $(SUBMAKES_TEST)
 
 # This pseudo-target creates the distribution archive.
 dist: dist-implode complete
@@ -104,8 +86,8 @@ dist: dist-implode complete
 $(CLASSFILES): fithesis.ins fithesis.dtx
 	xetex $<
 
-# This target typesets the guides and user examples.
-$(GUIDES) $(USEREXAMPLES): $(CLASSFILES) $(RESOURCES)
+# This target typesets the user examples.
+$(USEREXAMPLES): $(CLASSFILES) $(RESOURCES)
 	make -BC $(dir $@)
 
 # This target typesets the technical documentation.
@@ -125,7 +107,7 @@ $(TDSARCHIVE):
 	mv "$$DIR"/$@ $@ && rm -rf "$$DIR"
 
 # This target generates a distribution file.
-$(DISTARCHIVE): $(SOURCES) $(LATEXFILES) $(MAKES) $(TESTS) \
+$(DISTARCHIVE): $(SOURCES) $(LATEXFILES) $(MAKES) \
 	$(USEREXAMPLE_SOURCES) $(DOCS) $(PDFSOURCES) $(MISCELLANEOUS) \
 	$(EXAMPLES)
 	DIR=`mktemp -d` && \
@@ -143,7 +125,7 @@ $(CTANARCHIVE): $(LOGOS) $(SOURCES) $(DOCS) README.md
 	mv "$$DIR"/$@ . && rm -rf "$$DIR"
 
 # This pseudo-target installs the class, locale, style, and logo
-# files - as well as the technical documentation and user guides -
+# files - as well as the technical documentation -
 # into the TeX directory structure, whose root directory is
 # specified within the "to" argument. Specify "nohash=true", if you
 # wish to forgo the reindexing of the package database.
@@ -192,7 +174,7 @@ install-docs:
 
 
 # This pseudo-target uninstalls the class, locale, style, and logo
-# files - as well as the technical documentation and user guides -
+# files - as well as the technical documentation -
 # from the TeX directory structure, whose root directory is
 # specified within the "from" argument. Specify "nohash=true", if
 # you wish to forgo the reindexing of the package database.

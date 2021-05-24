@@ -1,0 +1,106 @@
+% \file{style/mu/fithesis-pharm.sty}
+% This is the style file for the theses written at the Faculty of
+% Pharmacy at the Masaryk University in Brno. It has been prepared
+% in accordance with the formal requirements.
+%    \begin{macrocode}
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{fithesis/style/mu/fithesis-mu-pharm}[2018/06/11]
+%    \end{macrocode}
+% The file defines the color scheme of the respective faculty. Note
+% the the color definitions are in RGB, which makes the resulting
+% files generally unsuitable for printing.
+%    \begin{macrocode}
+\thesis@color@setup{
+  links={HTML}{A0B9C5},
+  tableEmph={HTML}{B0C3CF},
+  tableOdd={HTML}{EFF3F6},
+  tableEven={HTML}{D6E1E6}}
+%    \end{macrocode}
+% The bibliography support is enabled. The |authoryear| citations
+% are used and the bibliography is sorted by name, title, and year.
+%    \begin{macrocode}
+\thesis@bibliography@setup{
+  style=iso-authoryear,
+  sorting=nty}
+\thesis@bibliography@load
+%    \end{macrocode}
+% The file loads the following packages:
+% \begin{itemize}
+%   \item\textsf{tikz} -- Used for dimension arithmetic.
+%   \item\textsf{geometry} -- Allows for modifications of the type
+%     area dimensions.
+%   \item\textsf{setspace} -- Used for setting space.
+% \end{itemize}
+%    \begin{macrocode}
+\thesis@require{tikz}
+\thesis@require{geometry}
+\thesis@require{setspace}
+\geometry{top=25mm,bottom=20mm,left=25mm,right=25mm,includeheadfoot}
+
+%    \end{macrocode}
+% Enable the inclusion of the scanned assignment inside the digital
+% version of the document.
+%    \begin{macrocode}
+\thesis@blocks@assignment@hideIfDigital@false
+%    \end{macrocode}
+% \begin{macro}{\thesis@blocks@frontMatter}
+% The |\thesis@blocks@frontMatter| macro sets up the style
+% of the front matter of the thesis. The page numbering is roman
+% in accordance with the formal requirements of the faculty.
+% \begin{macrocode}
+\def\thesis@blocks@frontMatter{%
+\thesis@blocks@clear
+  \newgeometry{top=25mm, bottom=20mm, left=35mm, right=15mm, includeheadfoot}
+  \pagestyle{empty}
+  \parindent 1.5em
+  \setcounter{page}{1}
+  \pagenumbering{roman}}
+%    \end{macrocode}
+% \end{macro}\begin{macro}{\thesis@blocks@mainMatter}
+% The |\thesis@blocks@mainMatter| macro sets up the style
+% of the main matter of the thesis. The page numbering doesn't
+% reset at the beginning of the main thesis in accordance with the
+% formal requirements of the faculty.
+% \begin{macrocode}
+\def\thesis@blocks@mainMatter{%
+  \thesis@blocks@clear
+  \newgeometry{top=25mm,bottom=20mm,left=35mm,
+    right=15mm, includeheadfoot}
+  \setcounter{page}{1}
+  \pagenumbering{arabic}
+  \pagestyle{thesisheadings}
+  \parindent 1.5em
+  \onehalfspacing}
+%    \end{macrocode}
+% \end{macro}
+% Note that there is no direct support for the seminar paper and
+% thesis proposal types.  If you would like to change the contents
+% of the preamble and the postamble, you should modify the
+% |\thesis@blocks@preamble| and |\thesis@blocks@postamble| macros.
+%
+% All blocks within the autolayout preamble that are not defined
+% within this file are defined in the
+% \texttt{style/mu/fithesis-base.sty} file.
+%    \begin{macrocode}
+\def\thesis@blocks@preamble{%
+  \thesis@blocks@coverMatter
+    \thesis@blocks@cover
+  \thesis@blocks@frontMatter
+    \thesis@blocks@titlePage
+    \thesis@blocks@seal
+    \thesis@blocks@bibEntry
+    \thesis@blocks@abstract
+    \thesis@blocks@bibEntryEn
+    \thesis@blocks@abstractEn
+    \thesis@blocks@assignment
+    \thesis@blocks@declaration
+    \thesis@blocks@thanks
+    \thesis@blocks@tables}
+%    \end{macrocode}
+% All blocks within the autolayout postamble that are not defined
+% within this file are defined in the
+% \texttt{style/mu/fithesis-base.sty} file.
+%    \begin{macrocode}
+\def\thesis@blocks@postamble{%
+  \thesis@blocks@bibliography}
+%    \end{macrocode}

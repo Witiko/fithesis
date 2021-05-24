@@ -19,6 +19,7 @@
 \usepackage{paralist}
 \usepackage{multicol}
 
+
 % Making paragraphs numbered
 \makeatletter
 \renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
@@ -55,8 +56,8 @@
 {\def\thesis@versiondef#1#2{
   \gdef\thesis@version@number{#1}
   \gdef\thesis@version@date{#2}
-  \gdef\thesis@version{#2 #1 fithesis3 MU thesis class}}
-\thesis@versiondef{v1.0.0-dev}{2021/02/21}}
+  \gdef\thesis@version{#2 #1 fithesis4 MU thesis class}}
+\thesis@versiondef{v1.0.0-dev}{2021/04/24}}
 % {\newwrite\f\openout\f=VERSION\write\f{\thesis@version}\closeout\f}
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -416,20 +417,17 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-% \title{The \textsf{fithesis3} class for the typesetting of theses written
+% \title{The \textsf{fithesis4} class for the typesetting of theses written
 %   at the Masaryk University in Brno}
-% \author{Daniel Marek, Jan Pavlovič, Vít Novotný, Petr Sojka}
+% \author{Daniel Marek, Jan Pavlovič, Vít Novotný, Tereza Vrabcová, Petr Sojka}
 % \date{\today}
 % \maketitle
 %
 % \begin{abstract}
 % \noindent This document details the design and the implementation
-% of the \textsf{fithesis3} document class. It contains technical
+% of the \textsf{fithesis4} document class. It contains technical
 % information for anyone who wishes to extend the class with their
-% locale or style files. Users who only wish to use the class are
-% advised to consult the guides distributed along with the class,
-% which only document the parts of the public API relevant to the
-% given style files.
+% locale or style files.
 % \end{abstract}
 %
 % \tableofcontents
@@ -439,9 +437,9 @@
 % The class requires the class specified in |\thesis@backend|,
 % whose default value is |[a4paper]{rapport3}|. If a different
 % base class is desired, it can be specified by redefining
-% |\thesis@backend| prior to loading the \textsf{fithesis3} class.
+% |\thesis@backend| prior to loading the \textsf{fithesis4} class.
 %    \begin{macrocode}
-\ProvidesClass{fithesis3}[\thesis@version]
+\ProvidesClass{fithesis4}[\thesis@version]
 \ifx\thesis@backend\undefined
   \def\thesis@backend{[a4paper]{rapport3}}
 \fi\expandafter\LoadClass\thesis@backend
@@ -464,6 +462,9 @@
 %   \item\textsf{inputenc} -- Used to enable the input UTF-8
 %     encoding. This package does not get loaded under
 %     the \Hologo{XeTeX} and \Hologo{LuaTeX} engines.
+%   \changes{v1.0.0}{2021/04/30}{Added \cs{thesis@xpatch} command. [TV]}
+%   \item\textsf{xpatch} -- Used to redefine parts of code
+%     in macros without redefining the whole macro.
 % \end{itemize}
 % The \texttt{hyperref} package is also conditionally loaded during
 % the expansion of the |\thesis@load| macro (see Section
@@ -478,6 +479,7 @@
 \ifxetex\else\ifluatex\else
   \RequirePackage[utf8]{inputenc}
 \fi\fi
+\RequirePackage{xpatch}
 %    \end{macrocode}
 % \section{Public API}
 % \label{sec:public-api}
@@ -771,7 +773,8 @@
 %   The Faculty of Medicine & \texttt{med} \\
 %   The Faculty of Education & \texttt{ped} \\
 %   The Faculty of Arts & \texttt{phil} \\
-%   The Faculty of Sports Studies & \texttt{fsps} \\\bottomrule
+%   The Faculty of Sports Studies & \texttt{fsps} \\
+%   The Faculty of Pharmacy & \texttt{pharm} \\\bottomrule
 % \end{tabularx}\end{center}
 % The \textit{identifier} is stored within the |\thesis@faculty|
 % macro, whose implicit value is \texttt{fi}.
@@ -786,7 +789,7 @@
 % The \marg{\texttt{department}=name} pair sets the name of the
 % department, at which the thesis is being written, to
 % \textit{name}. Unlike the university and faculty identifiers,
-% \textsf{fithesis3} does not prescribe the format of the
+% \textsf{fithesis4} does not prescribe the format of the
 % \textit{name}; the style files may internally parse it, or
 % typeset it as-is. The \textit{name} is stored within the
 % |\thesis@department| macro.
@@ -864,13 +867,19 @@
 % filename of the logo file to be used as the university logo to
 % \textit{filename}. The \textit{filename} is stored within the
 % |\thesis@universityLogo| macro, whose implicit value is
-% \texttt{fithesis-base}. The \texttt{fithesis-} prefix serves to
-% prevent package clashes with other similarly named files within
-% the \TeX\ directory structure. The logo file is loaded from the
-% |\thesis@logopath|\discretionary{}{}{}|\thesis@universityLogo|
-% path.
+% \texttt{fithesis-base}|-\thesis@locale|. The \texttt{fithesis-}
+% prefix serves to prevent package clashes with other similarly
+% named files within the \TeX\ directory structure. The logo file
+% is loaded from the |\thesis@logopath|\discretionary{}{}{}^^A
+% |\thesis@universityLogo| path.
+% \changes{v1.0.0}{2021/03/19}{^^A
+%   Change \cs{thesis@universityLogo},
+%   \cs{thesis@blocks@universityLogo@monochrome}, and
+%   \cs{thesis@blocks@universityLogo@color} to use the new logotype
+%   of the Masaryk University in Brno in the correct size and
+%   localization. Add \cs{thesis@blocks@seal}. [VN]}
 %    \begin{macrocode}
-\def\thesis@universityLogo{fithesis-base}
+\def\thesis@universityLogo{fithesis-base-\thesis@locale}
 \define@key{thesis}{universityLogo}{%
   \def\thesis@universityLogo{#1}}
 %    \end{macrocode}
@@ -881,13 +890,19 @@
 % of the logo file to be used as the faculty logo to
 % \textit{filename}. The \textit{filename} is stored within the
 % |\thesis@|\discretionary{}{}{}|facultyLogo| macro, whose
-% implicit value is |fithesis-\thesis@faculty|. The
+% implicit value is |fithesis-\thesis@faculty-\thesis@locale|. The
 % \texttt{fithesis-} prefix serves to prevent package clashes with
 % other similarly named files within the \TeX\ directory structure.
 % The logo file is loaded from the
 % |\thesis@logopath\thesis@facultyLogo| path.
+% \changes{v1.0.0}{2021/04/24}{^^A
+%   Change \cs{thesis@facultyLogo},
+%   \cs{thesis@blocks@facultyLogo@monochrome}, and
+%   \cs{thesis@blocks@facultyLogo@color} to use the new logotype
+%   of the Masaryk University in Brno in the correct size and
+%   localization. Add \cs{thesis@blocks@seal}. [VN]}
 %    \begin{macrocode}
-\def\thesis@facultyLogo{fithesis-\thesis@faculty}
+\def\thesis@facultyLogo{fithesis-\thesis@faculty-\thesis@locale}
 \define@key{thesis}{facultyLogo}{%
   \def\thesis@facultyLogo{#1}}
 %    \end{macrocode}
@@ -901,7 +916,7 @@
 % When the \textit{filename} is an empty token string, no style
 % files will be loaded during the main routine (see Section
 % \ref{sec:thesisload}).
-% \changes{v1.0.0}{2021/02/21}{File were renamed after
+% \changes{v1.0.0}{2021/02/21}{Files were renamed after
 %   breaking changes in package loading after PR 438 in \LaTeXe. [VN]}
 %    \begin{macrocode}
 \def\thesis@style{\thesis@university/fithesis-\thesis@university-\thesis@faculty}
@@ -1254,6 +1269,7 @@
 % When the |\thesis@assignmentFiles| macro is defined and
 % non-empty, the style files should take that as a cue that the
 % user wishes to typeset the thesis assignment.
+
 % \begin{macro}{\thesis@bibFiles}
 % \subsubsection{The \texttt{bib} key}
 % The \marg{\texttt{bib}=list} pair sets the comma-delimited
@@ -1631,7 +1647,7 @@
 %    \begin{macrocode}
 \def\thesis@exists#1#2{%
   \IfFileExists{#1}{#2}{%
-  \ClassWarning{fithesis3}{File #1 doesn't exist}}}
+  \ClassWarning{fithesis4}{File #1 doesn't exist}}}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@input}
 % The |\thesis@input|\marg{file} macro inputs the given
@@ -1660,7 +1676,7 @@
 % If inheritance is enabled for style files, then the
 % |\thesis@requireStyle|\marg{style} macro sequentially
 % loads each of the following files, provided they exist:
-% \changes{v1.0.0}{2021/02/21}{File were renamed after
+% \changes{v1.0.0}{2021/02/21}{Files were renamed after
 %   breaking changes in package loading after PR 438 in \LaTeXe. [VN]}
 % \begin{enumerate}
 %   \item|\thesis@stylepath fithesis-base.sty|
@@ -1817,10 +1833,10 @@
   }}
 %    \end{macrocode}
 % \begin{macro}{\thesis@patch}
-% The |\thesis@patch|\oarg{versions}\oarg{patch} macro expands
+% The |\thesis@patch|\marg{versions}\marg{patch} macro expands
 % \textit{patch}, if |\thesis@version|\texttt{\discretionary{@}^^A
 % {@}{@}}|number| (defined at the top of the file
-% \texttt{fithesis3.cls}) matches any of the comma-delimited
+% \texttt{fithesis4.cls}) matches any of the comma-delimited
 % \textit{versions}. This macro enables the simple deployment of
 % version-targeted patches.
 %    \begin{macrocode}
@@ -1841,19 +1857,32 @@
   \expandafter\thesis@patch@versions\expandafter,\relax,}
 %    \end{macrocode}
 % \end{macro}
+% \begin{macro}{\thesis@xpatch}
+% \changes{v1.0.0}{2021/04/30}{Added \cs{thesis@xpatch} command. [TV]}
+% The |\thesis@xpatch|\marg{command}\marg{search}\marg{replace} macro
+% is used to to replace \textit{search} with \textit{replace} in the definition
+% of \textit{command}. If the replacement fails, a class error is written to
+% the output.
+%    \begin{macrocode}
+\long\def\thesis@xpatch#1#2#3{%
+  \xpatchcmd{#1}{#2}{#3}{}%
+    {\ClassError{fithesis4}{%
+       Command \string#1 does not contain the searched text}{}}}
+%    \end{macrocode}
+% \end{macro}
 % \iffalse
 %</class>
 % ^^A Old fithesis classes
 %<*oldclass1>
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{oldfithesis1}[2015/03/04 old fithesis will load fithesis3 MU thesis class]
+\ProvidesClass{oldfithesis1}[2015/03/04 old fithesis will load fithesis2 MU thesis class]
 
 \ClassWarning{oldfithesis1}{%
   You are using the fithesis class, which has been deprecated.
-  The fithesis3 class will be used instead.
+  The fithesis2 class will be used instead.
   For more information, see <http://www.fi.muni.cz/tech/unix/tex/fithesis.xhtml>%
-}\LoadClass{fithesis3}
+}\LoadClass{fithesis2}
 
 %</oldclass1>
 %
@@ -1869,6 +1898,19 @@
 }\LoadClass{fithesis3}
 
 %</oldclass2>
+%
+%<*oldclass3>
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesClass{oldfithesis3}[2018/11/17 old fithesis3 will load fithesis4 MU thesis class]
+
+\ClassWarning{oldfithesis3}{%
+  You are using the fithesis3 class, which has been deprecated.
+  The fithesis4 class will be used instead.
+  For more information, see <http://www.fi.muni.cz/tech/unix/tex/fithesis.xhtml>%
+}\LoadClass{fithesis4}
+
+%</oldclass3>
 % \fi
 %
 % \subsection{Locale files}
@@ -1940,6 +1982,10 @@
 %     of the author's signature field
 %   \item|\thesis@|\textit{locale}|@formattedDate| -- A formatted
 %     date
+% \changes{v1.0.0}{2021/02/26}{Lifted the \texttt{advisorSignature}
+%   string to the global locale file interface. [VN]}
+%   \item|\thesis@|\textit{locale}|@advisorSignature| -- The label
+%     of the author's signature field
 % \end{itemize} where \textit{locale} is the name of the locale.
 %
 % \def\file#1{\paragraph{The \texttt{#1} file}}
@@ -2008,3 +2054,5 @@
 % \input{style/mu/med.dtx}
 % \subsubsection{The style files of the Faculty of Sports Studies}
 % \input{style/mu/fsps.dtx}
+% \subsubsection{The style files of the Faculty of Pharmacy}
+% \input{style/mu/pharm.dtx}

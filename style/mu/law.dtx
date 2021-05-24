@@ -1,15 +1,19 @@
 % \file{style/mu/fithesis-law.sty}
-% \changes{v1.0.0}{2021/02/21}{File were renamed after
+% \changes{v1.0.0}{2021/02/21}{Files were renamed after
 %   breaking changes in package loading after PR 438 in \LaTeXe. [VN]}
+% \changes{v1.0.0}{2021/03/19}{Updated urls to show the most recent
+%   requirements and recommendations used in preparation of the
+%   template. [TV]}
 % This is the style file for the theses written at the Faculty of
 % Law at the Masaryk University in Brno. It has been prepared in
 % accordance with the formal requirements published at the
 % website of the faculty\footnote{See \url{http://is.muni.cz/d^^A
 % o/law/ud/predp/smer/S-07-2012.pdf}, and \url{https://is.muni^^A
-% .cz/do/law/ud/predp/smer/S-04-2013_O_citacich_dokumentu.pdf}}.
+% .cz/do/law/ud/predp/smer/Smernice_dekana_c._3-2020_O_citacic^^A
+% h_dokumentu.pdf}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fithesis/style/mu/fithesis-mu-law}[2021/02/21]
+\ProvidesPackage{fithesis/style/mu/fithesis-mu-law}[2021/04/24]
 %    \end{macrocode}
 % The file defines the color scheme of the respective faculty. Note
 % the the color definitions are in RGB, which makes the resulting
@@ -21,11 +25,14 @@
   tableOdd={HTML}{F2EBF5},
   tableEven={HTML}{E5CCED}}
 %    \end{macrocode}
-% The bibliography support is enabled. The |authoryear| citations
+% The bibliography support is enabled. The |iso-authortitle| citations
 % are used and the bibliography is sorted by name, year, and title.
+% \changes{v1.0.0}{2021/03/26}{^^A
+%   The Faculty of Law at the Masaryk University in Brno uses the ISO~690
+%   author-title citation and reference style. [VN]}
 %    \begin{macrocode}
 \thesis@bibliography@setup{%
-  style=iso-authoryear,
+  style=iso-authortitle,
   sorting=nyt}
 \thesis@bibliography@load
 %    \end{macrocode}
@@ -35,19 +42,51 @@
 \thesis@require{chngcntr}
 \counterwithout{footnote}{chapter}
 %    \end{macrocode}
-% The style file configures the cover and title page headers to
-% include only the faculty name and the department name.
-% Along with the macros required by the locale file interface,
-% the locale files need to define the following strings:
-% \begin{itemize}
-%   \item\texttt{facultyLongName} -- The name of the faculty
-%     combined with the name of the university.
-% \end{itemize}
+% The style file configures the upper part of the title page headers
+% to include the name of the department and the study field
+% which are by default in the bottom part of the title page.
+% \changes{v1.0.0}{2021/05/06}{Added conditional redefinition for the
+%   study programme. [TV]}
+% \changes{v1.0.0}{2021/04/23}{^^A
+%   The style files for the Faculty of Law at the Masaryk University
+%   in Brno no longer redefine the \cs{thesis@blocks@cover@header}
+%   macro, which is no longer defined. [TV]}
+% \changes{v1.0.0}{2021/03/22}{Added redefinition of the titlePage
+%   layout as per the faculty requirements. Department name and
+%   field are in the upper part of the titlePage. [TV]}
 %    \begin{macrocode}
-\def\thesis@blocks@cover@header{%
-  {\sc\thesis@titlePage@Large\thesis@@{facultyLongName}\\%
-    \thesis@titlePage@large\thesis@department@name\\\vskip 2em}}
-\let\thesis@blocks@titlePage@header=\thesis@blocks@cover@header
+\thesis@blocks@titlePage@programme@false
+
+\thesis@xpatch\thesis@blocks@titlePage{%
+  {\sf\thesis@titlePage@large\thesis@@{advisorTitle}: \thesis@advisor\par}%
+   \vspace{0.75cm}%
+   \ifthesis@blocks@titlePage@department@
+     {\sf\thesis@titlePage@large\thesis@department@name\par}%
+   \fi
+   \ifthesis@blocks@titlePage@programme@
+     \vspace{0.25cm}%
+     {\sf\thesis@titlePage@large\thesis@@{bib@programme}: 
+      \thesis@programme\par}%
+   \fi
+   \ifthesis@blocks@titlePage@field@
+     \vspace{0.25cm}%
+     {\sf\thesis@titlePage@large\thesis@@{fieldTitle}: 
+      \thesis@field@name\par}%
+   \fi
+   \vfill
+}{}
+
+\thesis@xpatch\thesis@blocks@titlePage{%
+  {\sf\thesis@titlePage@large\thesis@@upper{facultyName}\par}%
+  \vfill
+}{%
+  {\sf\thesis@titlePage@large\thesis@@upper{facultyName}\par}%
+  \vspace{0.5cm}%
+  {\sf\thesis@titlePage@large\thesis@field\par}%
+  \vspace{0.25cm}%
+  {\sf\thesis@titlePage@large\thesis@department@name\par}%
+  \vspace{1cm}%
+}
 %    \end{macrocode}
 % \begin{macro}{\thesis@blocks@frontMatter}
 % The |\thesis@blocks@frontMatter| macro sets up the style
@@ -81,17 +120,27 @@
 % All blocks within the autolayout preamble that are not defined
 % within this file are defined in the
 % \texttt{style/mu/fithesis-base.sty} file.
+% \changes{v1.0.0}{2021/03/22}{Reorganised the blocks to fit the
+%   faculty's requirements. [TV]}
+% \changes{v1.0.0}{2021/04/24}{^^A
+%   Change \cs{thesis@facultyLogo},
+%   \cs{thesis@blocks@facultyLogo@monochrome}, and
+%   \cs{thesis@blocks@facultyLogo@color} to use the new logotype
+%   of the Masaryk University in Brno in the correct size and
+%   localization. Add \cs{thesis@blocks@seal}. [VN]}
 %    \begin{macrocode}
 \def\thesis@blocks@preamble{%
   \thesis@blocks@coverMatter
     \thesis@blocks@cover
-    \thesis@blocks@titlePage
   \thesis@blocks@frontMatter
+    \thesis@blocks@titlePage
+    \thesis@blocks@seal
     \thesis@blocks@declaration
-    \thesis@blocks@clearRight
+    \thesis@blocks@clear
       \thesis@blocks@abstract
-      \thesis@blocks@abstractEn
       \thesis@blocks@keywords
+    \thesis@blocks@clear
+      \thesis@blocks@abstractEn
       \thesis@blocks@keywordsEn
     \thesis@blocks@thanks
     \thesis@blocks@tables}

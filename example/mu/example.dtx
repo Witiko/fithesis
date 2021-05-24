@@ -15,8 +15,6 @@
 %%  color,   %% Uncomment these lines (by removing the %% at the
 %%           %% beginning) to use color in the digital version of your
 %%           %% document
-  table,   %% The `table` option causes the coloring of tables.
-           %% Replace with `notable` to restore plain LaTeX tables.
   twoside, %% The `twoside` option enables double-sided typesetting.
            %% Use at least 120 g/m² paper to prevent show-through.
            %% Replace with `oneside` to use one-sided typesetting;
@@ -27,50 +25,17 @@
            %% with `nolof` to hide the List of Figures.
   lot,     %% The `lot` option prints the List of Tables. Replace
            %% with `nolot` to hide the List of Tables.
-  %% More options are listed in the user guide at
-%<*econ>
-  %% <http://mirrors.ctan.org/macros/latex/contrib/fithesis/guide/mu/econ.pdf>.
-%</econ>
-%<*fi>
-  %% <http://mirrors.ctan.org/macros/latex/contrib/fithesis/guide/mu/fi.pdf>.
-%</fi>
-%<*fsps>
-  %% <http://mirrors.ctan.org/macros/latex/contrib/fithesis/guide/mu/fsps.pdf>.
-%</fsps>
-%<*fss>
-  %% <http://mirrors.ctan.org/macros/latex/contrib/fithesis/guide/mu/fss.pdf>.
-%</fss>
-%<*law>
-  %% <http://mirrors.ctan.org/macros/latex/contrib/fithesis/guide/mu/law.pdf>.
-%</law>
-%<*med>
-  %% <http://mirrors.ctan.org/macros/latex/contrib/fithesis/guide/mu/med.pdf>.
-%</med>
-%<*ped>
-  %% <http://mirrors.ctan.org/macros/latex/contrib/fithesis/guide/mu/ped.pdf>.
-%</ped>
-%<*phil>
-  %% <http://mirrors.ctan.org/macros/latex/contrib/fithesis/guide/mu/phil.pdf>.
-%</phil>
-%<*sci>
-  %% <http://mirrors.ctan.org/macros/latex/contrib/fithesis/guide/mu/sci.pdf>.
-%</sci>
-]{fithesis3}
+]{fithesis4}
 %% The following section sets up the locales used in the thesis.
 %<*pdftex>
 \usepackage[resetfonts]{cmap} %% We need to load the T2A font encoding
 \usepackage[T1,T2A]{fontenc}  %% to use the Cyrillic fonts with Russian texts.
 \usepackage[
-%<*sci>
-  main=slovak,  %% By using `czech` or `english` as the main locale
-                %% instead of `slovak`, you can typeset the thesis
-                %% in either Czech or English, respectively.
-%</sci>
-%<*econ,fi,fsps,fss,law,med,ped,phil>
+%<*econ,fi,fsps,fss,law,med,ped,phil,sci,pharm>
   main=english, %% By using `czech` or `slovak` as the main locale
                 %% instead of `english`, you can typeset the thesis
                 %% in either Czech or Slovak, respectively.
-%</econ,fi,fsps,fss,law,med,ped,phil>
+%</econ,fi,fsps,fss,law,med,ped,phil,sci,pharm>
   english, german, russian, czech, slovak %% The additional keys allow
 ]{babel}        %% foreign texts to be typeset as follows:
 %%
@@ -103,12 +68,19 @@
 %% 
 %% The following section sets up the metadata of the thesis.
 %<*econ>
+%    \end{macrocode}
+% \changes{v1.0.0}{2021/03/04}{Added elements that are used 
+%   by thesis@bibEntry and thesis@titlePage: field, fieldEn,
+%   departmentEn, programme, programmeEn. [TV]}
+%    \begin{macrocode}
+
 \thesissetup{
     date               = \the\year/\the\month/\the\day,
     autoLayout         = false,
     university         = mu,
     faculty            = econ,
     type               = bc,
+    programme          = NA,
     field              = Applied Econometrics,
     department         = Department of Finance,
     author             = Jane Doe,
@@ -140,6 +112,9 @@
     %% The following keys are only useful, when you're using a
     %% locale other than English. You can safely omit them in an
     %% English thesis.
+    programmeEn        = NA,
+    fieldEn            = Applied Econometrics,
+    departmentEn       = Department of Finance,
     titleEn            = The Economic Value of LaTeX,
     TeXtitleEn         = The Economic Value of \LaTeX,
     keywordsEn         = {keyword1, keyword2, ...},
@@ -149,14 +124,28 @@
 
       span multiple paragraphs.
     },
+    %% The following key is only useful when you are writing a
+    %% doctoral thesis. You can safely omit it in other theses.
+    extra              = {
+      summary          = {%
+        This is the summary of my thesis, which should
+
+	        not be very long.
+      },
+    },
 }
 %</econ>
 %<*fi>
+%    \end{macrocode}
+% \changes{v1.0.0}{2021/03/04}{Added element that is used
+%   by thesis@titlePage: department. [TV]}
+%    \begin{macrocode}
 \thesissetup{
     date        = \the\year/\the\month/\the\day,
     university  = mu,
     faculty     = fi,
     type        = bc,
+    department  = Department of Machine Learning and Data Processing,
     author      = Jane Doe,
     gender      = f,
     advisor     = {Prof. RNDr. John Smith, CSc.},
@@ -179,33 +168,76 @@
     %% beginning) and replace `assignment.pdf` with the filename
     %% of your scanned thesis assignment.
 %%    assignment         = assignment.pdf,
+    %% Remove the following line to use the JVS 2018 faculty logo.
+    facultyLogo = fithesis-fi,
 }
 %</fi>
 %<*fsps>
+%    \end{macrocode}
+% \changes{v1.0.0}{2021/03/04}{Added elements that are used
+%   by thesis@bibEntry and thesis@titlePage: field, fieldEn,
+%   department, departmentEn, titleEn, TeXtitleEn, keywords, 
+%   keywordsEn, TeXkeywords, TeXkeywordsEn, programme,
+%   programmeEn, abstract, abstractEn. [TV]}
+%    \begin{macrocode}
 \thesissetup{
-    date       = \the\year/\the\month/\the\day,
-    university = mu,
-    faculty    = fsps,
-    type       = bc,
-    field      = Sport Management,
-    author     = Jane Doe,
-    gender     = f,
-    advisor    = {Prof. RNDr. John Smith, CSc.},
-    title      = The use of LaTeX for the Typesetting
-                 of Sports Tables,
-    TeXtitle   = The use of \LaTeX\ for the Typesetting
-                 of Sports Tables,
-    bib        = example.bib,
+    date          = \the\year/\the\month/\the\day,
+    university    = mu,
+    faculty       = fsps,
+    type          = bc,
+    programme     = NA,
+    field         = Sport Management,
+    department    = Department of Social Sciences and Sport Management,
+    author        = Jane Doe,
+    gender        = f,
+    advisor       = {Prof. RNDr. John Smith, CSc.},
+    title         = The use of LaTeX for the Typesetting
+                    of Sports Tables,
+    TeXtitle      = The use of \LaTeX\ for the Typesetting
+                    of Sports Tables,
+    keywords      = {keyword1, keywords2, ...},
+    TeXkeywords   = {keyword1, keywords2, \ldots},
+    abstract      = {%
+      This is the abstract of my thesis, which can
+
+      span multiple paragraphs.
+    },
+    bib           = example.bib,
+    %% The following keys are only useful, when you're using a
+    %% locale other than English. You can safely omit them in an
+    %% English thesis.
+    programmeEn   = NA,
+    fieldEn       = Applied Econometrics,
+    departmentEn  = Department of Finance,
+    titleEn       = The Economic Value of LaTeX,
+    TeXtitleEn    = The Economic Value of \LaTeX,
+    keywordsEn    = {keyword1, keyword2, ...},
+    TeXkeywordsEn = {keyword1, keyword2, \ldots},
+    abstractEn    = {%
+      This is the abstract of my thesis, which can
+
+      span multiple paragraphs.
+    },
 }
 %</fsps>
 %<*fss>
+%    \end{macrocode}
+% \changes{v1.0.0}{2021/03/04}{Added elements that are used
+%   by thesis@bibEntry and thesis@titlePage: advisor, field, fieldEn,
+%   department, departmentEn, titleEn, TeXtitleEn, programme,
+%   programmeEn. [TV]}
+%    \begin{macrocode}
 \thesissetup{
     date          = \the\year/\the\month/\the\day,
     university    = mu,
     faculty       = fss,
     type          = bc,
+    programme     = NA,
+    field         = Psychology,
+    department    = Department of Health,
     author        = Jane Doe,
     gender        = f,
+    advisor       = {Prof. RNDr. John Smith, CSc.},
     title         = LaTeX and Its Impact on the
                     Information Society,
     TeXtitle      = \LaTeX\ and Its Impact on the
@@ -226,6 +258,13 @@
     %% The following keys are only useful, when you're using a
     %% locale other than English. You can safely omit them in an
     %% English thesis.
+    programmeEn   = NA,
+    fieldEn       = Psychology,
+    departmentEn  = Department of Health,
+    titleEn       = LaTeX and Its Impact on the
+                    Information Society,
+    TeXtitleEn    = \LaTeX\ and Its Impact on the
+                    Information Society,
     keywordsEn    = {keyword1, keyword2, ...},
     TeXkeywordsEn = {keyword1, keyword2, \ldots},
     abstractEn    = {%
@@ -236,12 +275,17 @@
 }
 %</fss>
 %<*law>
+%    \end{macrocode}
+% \changes{v1.0.0}{2021/03/04}{Added element that is used
+%   by thesis@titlePage: field [TV]}
+%    \begin{macrocode}
 \thesissetup{
     date          = \the\year/\the\month/\the\day,
     university    = mu,
     faculty       = law,
-    department    = The Department of Commercial Law,
     type          = bc,
+    field         = Law and Finance,
+    department    = The Department of Commercial Law,
     author        = Jane Doe,
     gender        = f,
     title         = The Legal Aspects of the LaTeX Project
@@ -274,14 +318,18 @@
 }
 %</law>
 %<*med>
+%    \end{macrocode}
+% \changes{v1.0.0}{2021/03/22}{Added element that is used
+%   by thesis@titlePage: programme [TV]}
+%    \begin{macrocode}
 \thesissetup{
     date          = \the\year/\the\month/\the\day,
     university    = mu,
     faculty       = med,
-    field         = Optometry,
+    type          = bc,
+    programme     = Optometry,
     department    = The Department of Optometry and
                     Orthoptics,
-    type          = bc,
     author        = Jane Doe,
     gender        = f,
     advisor       = {Prof. RNDr. John Smith, CSc.},
@@ -315,11 +363,19 @@
 }
 %</med>
 %<*ped>
+%    \end{macrocode}
+% \changes{v1.0.0}{2021/03/04}{Added elements that are used
+%   by thesis@bibEntry and thesis@titlePage: field, fieldEn,
+%   departmentEn, titleEn, TeXtitleEn, programme, programmeEn.
+%   [TV]}
+%    \begin{macrocode}
 \thesissetup{
     date          = \the\year/\the\month/\the\day,
     university    = mu,
     faculty       = ped,
     type          = bc,
+    programme     = NA,
+    field         = Speech Therapy,
     department    = Department of Primary Pedagogy,
     author        = Jane Doe,
     gender        = f,
@@ -344,6 +400,13 @@
     %% The following keys are only useful, when you're using a
     %% locale other than English. You can safely omit them in an
     %% English thesis.
+    programmeEn   = NA,
+    fieldEn       = Speech Therapy,
+    departmentEn  = Department of Primary Pedagogy,
+    titleEn       = The Challenges of Teaching LaTeX
+                    to Preschool Children,
+    TeXtitleEn    = The Challenges of Teaching \LaTeX\ 
+	            to Preschool Children,
     keywordsEn    = {keyword1, keyword2, ...},
     TeXkeywordsEn = {keyword1, keyword2, \ldots},
     abstractEn    = {%
@@ -353,88 +416,139 @@
     },
 }
 %</ped>
-%<*phil>
+%<*pharm>
+%    \end{macrocode}
+% \changes{v1.0.0}{2021/03/26}{Added the \texttt{thesissetup}
+%   for the Faculty of Pharmacy. [TV]}
+%    \begin{macrocode}
 \thesissetup{
-    date       = \the\year/\the\month/\the\day,
-    university = mu,
-    faculty    = phil,
-    department = Department of Psychology,
-    field      = Cognitive Sciences,
-    type       = bc,
-    author     = Jane Doe,
-    gender     = f,
-    advisor    = {Prof. RNDr. John Smith, CSc.},
-    title      = What Can Typography Tell Us
-                 About the Nature of Man,
-    TeXtitle   = What Can Typography Tell Us\\
-                 About the Nature of Man,
-    thanks     = {%
+    date               = \the\year/\the\month/\the\day,
+    university         = mu,
+    faculty            = pharm,
+    type               = bc,
+    programme          = NA,
+    field              = Pharmacy,
+    department         = Department of Pharmacy,
+    author             = Jane Doe,
+    gender             = f,
+    advisor            = {Prof. RNDr. John Smith, CSc.},
+    extra              = {
+      advisorCsGenitiv = Johna Smithe,
+      advisorSkGenitiv = Johna Smitha,
+    },
+    title              = Plotting Data in LaTeX,
+    TeXtitle           = Plotting Data in \LaTeX,
+    keywords           = {keyword1, keyword2, ...},
+    TeXkeywords        = {keyword1, keyword2, \ldots},
+    abstract           = {%
+      This is the abstract of my thesis, which can
+
+      span multiple paragraphs.
+    },
+    thanks             = {%
+      These are the acknowledgements for my thesis, which can
+
+      span multiple paragraphs.
+    },
+    bib                = example.bib,
+    %% Uncomment the following line (by removing the %% at the
+    %% beginning) and replace `assignment.pdf` with the filename
+    %% of your scanned thesis assignment.
+%%    assignment         = assignment.pdf,
+    %% The following keys are only useful, when you're using a
+    %% locale other than English. You can safely omit them in an
+    %% English thesis.
+    programmeEn        = NA,
+    fieldEn            = Pharmacy,
+    departmentEn       = Department of Pharmacy,
+    titleEn            = Plotting Data in LaTeX,
+    TeXtitleEn         = Plotting Data in \LaTeX,
+    keywordsEn         = {keyword1, keyword2, ...},
+    TeXkeywordsEn      = {keyword1, keyword2, \ldots},
+    abstractEn         = {%
+      This is the English abstract of my thesis, which can
+
+      span multiple paragraphs.
+    },
+}
+%</pharm>
+%<*phil>
+%    \end{macrocode}
+% \changes{v1.0.0}{2021/03/04}{Added elements that are used
+%   by thesis@bibEntry and thesis@titlePage: fieldEn, departmentEn,
+%   titleEn, TeXtitleEn, keywordsEn, TeXkeywordsEn, abstractEn,
+%   programme, programmeEn. [TV]}
+%    \begin{macrocode}
+\thesissetup{
+    date        = \the\year/\the\month/\the\day,
+    university  = mu,
+    faculty     = phil,
+    type        = bc,
+    programme   = NA,
+    field       = Cognitive Sciences,
+    department  = Department of Psychology,
+    author      = Jane Doe,
+    gender      = f,
+    advisor     = {Prof. RNDr. John Smith, CSc.},
+    title       = What Can Typography Tell Us
+                  About the Nature of Man,
+    TeXtitle    = What Can Typography Tell Us\\
+                  About the Nature of Man,
+    keywords    = {keyword1, keyword2, ...},
+    TeXkeywords = {keyword1, keyword2, \ldots},
+    thanks      = {%
       These are the acknowledgements for my thesis, which can
 
       span multiple paragraphs.
     },
     bib        = example.bib,
+    %% The following keys are only useful, when you're using a
+    %% locale other than English. You can safely omit them in an
+    %% English thesis.
+    programmeEn	       = NA,
+    fieldEn            = Cognitive Sciences,
+    departmentEn       = Department of Psychology,
+    titleEn            = What Can Typography Tell Us
+	                 About the Nature of Man,
+    TeXtitleEn         = What Can Typography Tell Us
+	                 About the Nature of Man,
+    keywordsEn         = {keyword1, keyword2, ...},
+    TeXkeywordsEn      = {keyword1, keyword2, \ldots},
+    abstractEn         = {%
+    This is the English abstract of my thesis, which can
+
+      span multiple paragraphs.
+    },
 }
 %</phil>
 %<*sci>
+%    \end{macrocode}
+% \changes{v1.0.0}{2021/03/22}{Added elements that are used
+%   by thesis@bibEntry and thesis@titlePage: fieldEn,
+%   departmentEn, titleEn, TeXtitleEn, programmeEn. [TV]}
+%    \begin{macrocode}
 \thesissetup{
     date            = \the\year/\the\month/\the\day,
     university      = mu,
     faculty         = sci,
-    department      = Ústav matematiky a štatistiky,
-    departmentEn    = Department of Mathematics and
+    department      = Department of Mathematics and
                       Statistics,
-    extra = {
-      departmentCs  = Ústav matematiky a statistiky,
-    },
-    programme       = Matematika,
-    programmeEn     = Mathematics,
-    extra = {
-      programmeCs   = Matematika,
-    },
-    field           = Finančná a poistná matematika,
-    fieldEn         = Financial and Insurance Mathematics,
-    extra = {
-      fieldCs       = Finanční a pojistná matematika,
-    },
+    programme       = Mathematics,
+    field           = Financial and Insurance Mathematics,
     type            = bc,
     author          = Jane Doe,
     gender          = f,
     advisor         = {Prof. RNDr. John Smith, CSc.},
-    title           = Princípy matematickej sadzby v programe TeX,
-    TeXtitle        = Princípy matematickej sadzby\\v~programe \TeX,
-    titleEn         = The Principles of the Typesetting of
+    title           = The Principles of the Typesetting of
                       Mathematics in TeX: the Program,
-    TeXtitleEn      = The Principles of the Typesetting of
+    TeXtitle        = The Principles of the Typesetting of
                       Mathematics in \TeX: the Program,
-    extra = {
-      titleCs       = Principy matematické sazby v programu TeX,
-      TeXtitleCs    = Principy matematické sazby\\v~programu \TeX,
-    },
-    keywords        = {kľúčové slovo 1, kľúčové slovo 2, ...},
-    TeXkeywords     = {kľúčové slovo 1, kľúčové slovo 2, \ldots},
-    keywordsEn      = {keyword1, keyword2, ...},
-    TeXkeywordsEn   = {keyword1, keyword2, \ldots},
-    extra = {
-      keywordsCs    = {klíčové slovo 1, klíčové slovo 2, ...},
-      TeXkeywordsCs = {klíčové slovo 1, klíčové slovo 2, \ldots},
-    },
+    keywords        = {keyword1, keyword2, ...},
+    TeXkeywords     = {keyword1, keyword2, \ldots},
     abstract      = {%
       This is the abstract of my thesis, which can
 
       span multiple paragraphs.
-    },
-    abstractEn    = {%
-      This is the English abstract of my thesis, which can
-
-      span multiple paragraphs.
-    },
-    extra = {
-      abstractCs  = {%
-        This is the Czech abstract of my thesis, which can
-
-        span multiple paragraphs.
-      },
     },
     thanks        = {%
       These are the acknowledgements for my thesis, which can
@@ -446,10 +560,36 @@
     %% beginning) and replace `assignment.pdf` with the filename
     %% of your scanned thesis assignment.
 %%    assignment         = assignment.pdf,
+    %% The following keys are only useful, when you're using a
+    %% locale other than English. You can safely omit them in an
+    %% English thesis.
+    programmeEn     = Mathematics,
+    fieldEn         = Financial and Insurance Mathematics,
+    departmentEn    = Department of Mathematics and
+	              Statistics,
+    titleEn         = The Principles of the Typesetting of
+                      Mathematics in TeX: the Program,
+    TeXtitleEn      = The Principles of the Typesetting of
+                      Mathematics in \TeX: the Program,
+    keywordsEn      = {keyword1, keyword2, ...},
+    TeXkeywordsEn   = {keyword1, keyword2, \ldots},
+    abstractEn      = {%
+      This is the abstract of my thesis, which can
+
+      span multiple paragraphs.
+    },
 }
 %</sci>
+%    \end{macrocode}
+% \changes{v1.0.0}{2021/03/22}{Added \textsf{glossaries} package.
+%    [TV]}
+%    \begin{macrocode}
 \usepackage{makeidx}      %% The `makeidx` package contains
 \makeindex                %% helper commands for index typesetting.
+\usepackage[acronym]{glossaries}          %% The `glossaries` package
+\renewcommand*\glspostdescription{\hfill} %% contains helper commands
+\loadglsentries{example-terms-abbrs.tex}  %% for glossary and loa
+\makenoidxglossaries                      %% typesetting.
 %% These additional packages are used within the document:
 \usepackage{paralist} %% Compact list environments
 \usepackage{amsmath}  %% Mathematics
@@ -457,9 +597,6 @@
 \usepackage{amsfonts}
 \usepackage{url}      %% Hyperlinks
 \usepackage{markdown} %% Lightweight markup
-\usepackage{tabularx} %% Tables
-\usepackage{tabu}
-\usepackage{booktabs}
 \usepackage{listings} %% Source code highlighting
 \lstset{
   basicstyle      = \ttfamily,
@@ -473,10 +610,11 @@
 }
 \usepackage{floatrow} %% Putting captions above tables
 \floatsetup[table]{capposition=top}
+\usepackage[babel]{csquotes} %% Context-sensitive quotation marks
 %<*econ>
 \usepackage{chngcntr}
-\counterwithout{table}{chapter}  % Flat numbering of tables.
-\counterwithout{figure}{chapter} % Flat numbering of figures.
+\counterwithout{table}{chapter}  %% Flat numbering of tables
+\counterwithout{figure}{chapter} %% Flat numbering of figures
 %</econ>
 \begin{document}
 %<*econ>
@@ -485,29 +623,42 @@
 \makeatother
 
 %</econ>
+%    \end{macrocode}
+% \changes{v1.0.0}{2021/03/22}{Added \cs{printnoidxglossary} to print
+%   Glossary and List of Abbreviations. [TV]}
+%    \begin{macrocode}
+%% Uncomment the following lines (by removing the %% at the beginning)
+%% and to print out List of Abbreviations and/or Glossary in your
+%% document. Titles for these tables can be changed by replacing the
+%% titles `Abbreviations` and `Glossary`, respectively.
+%% \clearpage
+%% \printnoidxglossary[title={Abbreviations}, type=\acronymtype]
+%% \printnoidxglossary[title={Glossary}]
+
 \chapter*{Introduction}
 \addcontentsline{toc}{chapter}{Introduction}
 
-Theses are rumoured to be the capstones of education, so I decided
-to write one of my own. If all goes well, I will soon have a
-diploma under my belt. Wish me luck!
+Theses are rumoured to be \enquote{the capstones of education}, so
+I decided to write one of my own. If all goes well, I will soon
+have a diploma under my belt. Wish me luck!
 
 \begin{otherlanguage}{czech}
-Říká se, že závěrečné práce jsou vyvrcholením studia a tak jsem se
-rozhodl jednu také napsat. Pokud vše půjde podle plánu, odnesu si
-na konci semestru diplom. Držte mi palce!
+Říká se, že závěrečné práce jsou \enquote{vyvrcholením studia}
+a tak jsem se rozhodl jednu také napsat. Pokud vše půjde podle
+plánu, odnesu si na konci semestru diplom. Držte mi palce!
 \end{otherlanguage}
 
 \begin{otherlanguage}{slovak}
-Hovorí sa, že záverečné práce sú vyvrcholením štúdia a tak som sa
-rozhodol jednu tiež napísať. Ak všetko pôjde podľa plánu, odnesiem
-si na konci semestra diplom. Držte mi palce!
+Hovorí sa, že záverečné práce sú \enquote{vyvrcholením štúdia}
+a tak som sa rozhodol jednu tiež napísať. Ak všetko pôjde podľa
+plánu, odnesiem si na konci semestra diplom. Držte mi palce!
 \end{otherlanguage}
 
 \begin{otherlanguage}{german}
-Man munkelt, dass die Dissertation die Krönung der Ausbildung ist.
-Deshalb habe ich mich beschlossen meine eigene zu schreiben. Wenn
-alles gut geht, bekomme ich bald ein Diplom. Wünsch mir Glück!
+Man munkelt, dass die Dissertation \enquote{die Krönung der
+Ausbildung} ist. Deshalb habe ich mich beschlossen meine eigene
+zu schreiben. Wenn alles gut geht, bekomme ich bald ein Diplom.
+Wünsch mir Glück!
 \end{otherlanguage}
 
 %<*luatex>
@@ -516,9 +667,9 @@ alles gut geht, bekomme ich bald ein Diplom. Wünsch mir Glück!
 %<*pdftex>
 \begin{otherlanguage}{russian}\textrussian{%
 %</pdftex>
-Говорят, что тезис -- это кульминация обучения. Поэтому я и решил
-написать собственный тезис. Если всё сработает по плану, я скоро
-получу диплом. Желайте мне удачи!
+Говорят, что тезис -- это \enquote{кульминация обучения}. Поэтому
+я и решил написать собственный тезис. Если всё сработает по плану,
+я скоро получу диплом. Желайте мне удачи!
 %<*luatex>
 \end{otherlanguage}
 %</luatex>
@@ -826,7 +977,7 @@ proofs.
 %<*econ>
   \emph{Source: <<Image Source>>}
 %</econ>
-  \caption{The logo of the Masaryk University at $\frac23$ and
+	\caption{The logo of the \acrlong{MUNI} at $\frac23$ and
     $\frac13$ of text width}
   \label{fig:mulogo2}
 \end{figure}
@@ -888,7 +1039,7 @@ run of
 \texttt{lualatex \jobname.tex}
 %</luatex>
 and a second run is going to be needed for the references to
-resolve. With online services -- such as Overleaf -- this is
+resolve. With online services -- such as \Gls{Overleaf} -- this is
 performed automatically.
 
 \chapter{Mathematical equations}

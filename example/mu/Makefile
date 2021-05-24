@@ -2,7 +2,9 @@ PDFFILES=fi-pdflatex.pdf fi-lualatex.pdf sci-pdflatex.pdf sci-lualatex.pdf \
 	ped-pdflatex.pdf ped-lualatex.pdf med-pdflatex.pdf med-lualatex.pdf \
 	fss-pdflatex.pdf fss-lualatex.pdf fsps-pdflatex.pdf fsps-lualatex.pdf \
 	phil-pdflatex.pdf phil-lualatex.pdf law-pdflatex.pdf law-lualatex.pdf \
-	econ-pdflatex.pdf econ-lualatex.pdf
+	econ-pdflatex.pdf econ-lualatex.pdf pharm-pdflatex.pdf \
+	pharm-lualatex.pdf
+
 PDFLATEX=pdflatex --shell-escape
 LUALATEX=lualatex
 AUXFILES=*.aux *.log *.out *.toc *.lot *.lof *.bcf *.blg *.run.xml \
@@ -21,7 +23,7 @@ all: $(OUTPUT) clean
 		$(patsubst %-pdflatex.tex,%-,$(subst lua,pdf,$@))*.tex
 
 # This target typesets a pdfLaTeX example.
-%-pdflatex.pdf: %-pdflatex.tex example.bib
+%-pdflatex.pdf: %-pdflatex.tex example.bib example-terms-abbrs.tex
 	$(PDFLATEX) $< # The initial typesetting.
 	biber                               $(basename $<).bcf
 	$(PDFLATEX) $< # Update the index after the bibliography insertion.
@@ -30,7 +32,7 @@ all: $(OUTPUT) clean
 	$(PDFLATEX) $<
 
 # This target typesets a LuaLaTeX example.
-%-lualatex.pdf: %-lualatex.tex example.bib
+%-lualatex.pdf: %-lualatex.tex example.bib example-terms-abbrs.tex
 	$(LUALATEX) $< # The initial typesetting.
 	biber                               $(basename $<).bcf
 	$(LUALATEX) $< # Update the index after the bibliography insertion.

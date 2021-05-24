@@ -1,5 +1,5 @@
 % \file{style/mu/fithesis-econ.sty}
-% \changes{v1.0.0}{2021/02/21}{File were renamed after
+% \changes{v1.0.0}{2021/02/21}{Files were renamed after
 %   breaking changes in package loading after PR 438 in \LaTeXe. [VN]}
 % This is the style file for the theses written at the Faculty of
 % Economics and Administration at the Masaryk University in Brno.
@@ -7,13 +7,16 @@
 % \changes{v0.3.46}{2017/06/02}{The documentation now points to the
 %   2/2017 dean's directive for the Faculty of Economics and
 %   Administration, Masaryk University, Brno. [VN]}
-% published at the website of the faculty\footnote{See \url{htt^^A
-% ps://is.muni.cz/auth/do/econ/uredni_deska/predpisy_ESF/smerni^^A
-% ce/smernice_dekana/prehled/67159928/SmerniceDekana2017-c.9-o_^^A
-% zaverecnych_pracich_2017.docx}}.
+% \changes{v1.0.0}{2021/03/19}{Updated urls to show the most recent
+%   requirements and recommendations used in preparation of the 
+%   template. [TV]}
+% published at the website of the faculty\footnote{See \url{https:^^A
+% //is.muni.cz/auth/do/econ/uredni_deska/predpisy_ESF/smernice/sme^^A
+% rnice_dekana/94383996/} and \url{https://is.muni.cz/auth/do/econ^^A
+% /uredni_deska/predpisy_ESF/smernice/smernice_dekana/104768134/}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fithesis/style/mu/fithesis-mu-econ}[2021/02/21]
+\ProvidesPackage{fithesis/style/mu/fithesis-mu-econ}[2021/04/24]
 %    \end{macrocode}
 % The file defines the color scheme of the respective faculty. Note
 % the the color definitions are in RGB, which makes the resulting
@@ -25,7 +28,7 @@
   tableOdd={HTML}{F5ECEB},
   tableEven={HTML}{EBD8D5}}
 %    \end{macrocode}
-% The bibliography support is enabled. The |authoryear| citations
+% The bibliography support is enabled. The |iso-authoryear| citations
 % are used and the bibliography is sorted by name, title, and year.
 %    \begin{macrocode}
 \thesis@bibliography@setup{
@@ -61,65 +64,46 @@
 %    \begin{macrocode}
 \thesis@blocks@assignment@hideIfDigital@false
 %    \end{macrocode}
-% \begin{macro}{\thesis@blocks@cover}
-% The |\thesis@blocks@cover| macro typesets the thesis
-% cover.
-%    \begin{macrocode}
-\def\thesis@blocks@cover{%
-  \ifthesis@cover@
-    \thesis@blocks@clear
-    \begin{alwayssingle}
-      \thispagestyle{empty}
-      \begin{center}
-      {\sc\thesis@titlePage@LARGE\thesis@@{universityName}\\%
-          \thesis@titlePage@Large\thesis@@{facultyName}\\}
-      \vfill
-      {\bf\thesis@titlePage@Huge\thesis@@{typeName}}
-      \vfill
-      {\thesis@titlePage@large\thesis@place
-       \ \thesis@year\hfill\thesis@author}
-      \end{center}
-    \end{alwayssingle}
-  \fi}
-%    \end{macrocode}
-% \end{macro}
-% The style file configures the title page header to include the
-% name of the field of study and redefines the title page content
-% not to include the author's name and the title page footer
-% to include both the author's and advisor's name, the year and
-% place of the thesis defense in accordance with the formal
-% requirements of the faculty.
-%    \begin{macrocode}
-\thesis@blocks@titlePage@field@true
-\def\thesis@blocks@titlePage@content{%
-  {\thesis@titlePage@Huge\bf\thesis@TeXtitle}
-  \ifthesis@english\else
-    {\\[0.1in]\thesis@titlePage@Large\bf\thesis@TeXtitleEn}
-  \fi {\\[0.3in]\thesis@titlePage@large\sc\thesis@@{typeName}\\}}
-\def\thesis@blocks@titlePage@footer{%
-  {\thesis@titlePage@large
-    {% Calculate the width of the thesis author and advisor boxes
-     \let\@A\relax\newlength{\@A}\settowidth{\@A}{{%
-       \bf\thesis@@{advisorTitle}:}}
-     \let\@B\relax\newlength{\@B}\settowidth{\@B}{\thesis@advisor}
-     \let\@C\relax\newlength{\@C}\settowidth{\@C}{{%
-       \bf\thesis@@{authorTitle}:}}
-     \let\@D\relax\newlength{\@D}\settowidth{\@D}{\thesis@author}
-    \let\@left\relax\newlength{\@left}\pgfmathsetlength{\@left}{%
-      max(\@A,\@B)}
-    \let\@right\relax\newlength{\@right}\pgfmathsetlength{\@right}{%
-      max(\@C,\@D)}
-%    \end{macrocode}
 % \changes{v0.3.49}{2018/02/11}{Removed an extraneous \cs{vskip} in
 %   the style files for the Masaryk University in Brno. [VN]}
-% \begin{macrocode}
-    % Typeset the thesis author and advisor boxes
-    \begin{minipage}[t]{\@left}
-      {\bf\thesis@@{advisorTitle}:}\\\thesis@advisor
-    \end{minipage}\hfill\begin{minipage}[t]{\@right}
-      {\bf\thesis@@{authorTitle}:}\\\thesis@author
-    \end{minipage}}\\[4em]\thesis@place, \thesis@year}}
+% \changes{v1.0.0}{2021/02/26}{^^A
+%   The style files for the Faculty of Economics and Administration
+%   at the Masaryk University in Brno
+%   no longer redefine the \cs{thesis@blocks@titlePage@footer}
+%   and \cs{thesis@blocks@titlePage@content} macros, which are no
+%   longer defined. [VN]}
+% \changes{v1.0.0}{2021/04/23}{^^A
+%   The style files for the Faculty of Economics and Administration
+%   no longer redefine the \cs{thesis@blocks@cover}. [TV]}    
+% \changes{v1.0.0}{2021/05/06}{Added redefinition of the conditional
+%   to exclude the study field from the title page. [TV]}
+%    \begin{macrocode}
+\thesis@blocks@titlePage@field@false
 %    \end{macrocode}
+% \begin{macro}{\thesis@blocks@cover}
+% The |\thesis@blocks@cover| macro typesets the cover page. Compared
+% to the definition within the \texttt{style/mu/base.sty} file, this
+% macro does not include the title of the thesis, and typesets the
+% name of the author at the bottom of the page.
+%    \begin{macrocode}
+\thesis@xpatch\thesis@blocks@cover{%
+  \vfill
+  {\bf\thesis@titlePage@Huge\thesis@TeXtitle\par}%
+  \vspace{1.5cm}%
+  {\sf\thesis@titlePage@Large\thesis@@{typeName}\par}%
+  \vspace{1.5cm}%
+  {\sf\thesis@titlePage@LARGE\thesis@upper{author}\par}%
+  \vfill\vfill\vfill\vfill
+  {\sf\thesis@titlePage@large\thesis@place, \thesis@@{semester}\par}%
+}{%
+  \vfill
+  {\bf\thesis@titlePage@Huge\thesis@@{typeName}\par}%
+  \vfill
+  {\sf\thesis@titlePage@large\thesis@place
+   \ \sf\thesis@year\hfill\thesis@author\par}%
+}
+%    \end{macrocode}
+% \end{macro}
 % \begin{macro}{\thesis@blocks@frontMatter}
 % The |\thesis@blocks@frontMatter| macro sets up the style
 % of the front matter of the thesis. The page numbering is arabic
@@ -209,41 +193,18 @@
     \end{minipage}}
   \end{alwayssingle}}
 %    \end{macrocode}
-% \end{macro}\begin{macro}{\thesis@blocks@abstract}
+% \end{macro}
 % \changes{v0.3.46}{2017/06/02}{Redefined
 %   \cs{thesis@blocks@abstract}, \cs{thesis@blocks@abstractEn},
 %   \cs{thesis@blocks@keywords}, and \cs{thesis@blocks@keywordsEn}
 %   in \texttt{style/mu/fithesis-econ.sty} in accordance with the
 %   example documents. The patch was submitted by Jana Ratajská.
 %   [VN]}
+% \changes{v1.0.0}{2021/03/11}{Macros for abstract and abstractEn
+%   were moved to \texttt{base.dtx}. [TV]}
 % The |\thesis@blocks@abstract| macro typesets the
 % abstract. This definition typesets the abstract on the same page.
-% \begin{macrocode}
-\def\thesis@blocks@abstract{%
-  \begin{alwayssingle}%
-    \vskip 40\p@
-    {\let\thesis@blocks@clear\relax
-    \chapter*{\thesis@@{abstractTitle}}}%
-    \noindent\thesis@abstract
-  \end{alwayssingle}}
-%    \end{macrocode}
-% \end{macro}\begin{macro}{\thesis@blocks@abstractEn}
-% The |\thesis@blocks@abstractEn| macro typesets the abstract in
-% English. If the current locale is English, the macro produces no
-% output. This macro typesets the abstract on the same page.
-% \begin{macrocode}
-\def\thesis@blocks@abstractEn{%
-  \ifthesis@english\else
-    {\thesis@selectLocale{english}%
-    \begin{alwayssingle}%
-      \vskip 20\p@
-      {\let\thesis@blocks@clear\relax
-      \chapter*{\thesis@english@abstractTitle}}%
-      \noindent\thesis@abstractEn
-    \end{alwayssingle}}%
-  \fi}
-%    \end{macrocode}
-% \end{macro}\begin{macro}{\thesis@blocks@keywords}
+% \begin{macro}{\thesis@blocks@keywords}
 % The |\thesis@blocks@keywords| macro typesets the keywords. This
 % definition typesets the keywords on the same page.
 % \begin{macrocode}
@@ -271,64 +232,26 @@
     \end{alwayssingle}}%
   \fi}
 %    \end{macrocode}
-% \end{macro}\begin{macro}{\thesis@blocks@bibEntry}
-% The |\thesis@blocks@bibEntry| macro typesets a bibliographical
-% entry. Along with the macros required by the locale file
-% interface, the locale files need to define the following macros:
-% \begin{itemize}
-%   \item|\thesis@|\textit{locale}|@bib@author| -- The label of the
-%     author name entry
-%   \item|\thesis@|\textit{locale}|@bib@title| -- The label of the
-%     title name entry
-%   \item|\thesis@|\textit{locale}|@bib@titleEn| -- The label of the
-%     English title name entry (\cs{thesis@english@bib@titleEn}
-%     does not need to be defined)
-%   \item|\thesis@|\textit{locale}|@bib@department| -- The label of
-%     the department name entry
-%   \item|\thesis@|\textit{locale}|@bib@advisor| -- The label of
-%     the advisor name entry
-%   \item|\thesis@|\textit{locale}|@bib@year| -- The label of the
-%     year entry
-% \end{itemize}
-% \changes{v0.3.46}{2017/06/02}{Defined \cs{thesis@blocks@bibEntry}
-%   in \texttt{style/mu/fithesis-econ.sty} in accordance with the
-%   example documents. The patch was submitted by Jana Ratajská.
-%   [VN]}
-% \changes{v0.3.51}{2020/03/09}{The \cs{thesis@blocks@bibEntry}
-%   command now accomodates long titles and other information that
-%   may span multiple lines. [VN]}
+% \end{macro}\begin{macro}{\thesis@blocks@summary}
+% \changes{v1.0.0}{2021/03/11}{Macro for the summary was added. [TV]}
+% The |\thesis@blocks@summary| macro typesets the summary
+% for doctoral theses. If the thesis type is not doctoral, the
+% macro produces no output.
 %    \begin{macrocode}
-\def\thesis@blocks@bibEntry{%
-  \thesis@blocks@clear
-  {\let\@A\relax\newlength{\@A}
-   \settowidth{\@A}{{\bf\thesis@@{bib@author}}}
-   \@B=\@A
-   \settowidth{\@A}{{\bf\thesis@@{bib@thesisTitle}}}
-   \ifdim\@A>\@B\@B=\@A\fi
-   \ifthesis@english\else
-     \settowidth{\@A}{{\bf\thesis@@{bib@thesisTitleEn}}}
-     \ifdim\@A>\@B\@B=\@A\fi
-   \fi
-   \settowidth{\@A}{{\bf\thesis@@{bib@department}}}
-   \ifdim\@A>\@B\@B=\@A\fi
-   \settowidth{\@A}{{\bf\thesis@@{bib@advisor}}}
-   \ifdim\@A>\@B\@B=\@A\fi
-   \settowidth{\@A}{{\bf\thesis@@{bib@year}}}
-   \ifdim\@A>\@B\@B=\@A\fi
-   \noindent\begin{thesis@newtable@old}{@{}>{\bfseries}%
-                                        p{\dimexpr(\@B + \tabcolsep)}%
-                                        p{\dimexpr(\textwidth - \@B - 2\tabcolsep)}@{}}
-     \thesis@@{bib@author}:        & \thesis@author     \\
-     \thesis@@{bib@thesisTitle}:   & \thesis@title      \\
-   \ifthesis@english\else
-     \thesis@@{bib@thesisTitleEn}: & \thesis@titleEn    \\
-   \fi
-     \thesis@@{bib@department}:    & \thesis@department \\
-     \thesis@@{bib@advisor}:       & \thesis@advisor    \\
-     \thesis@@{bib@year}:          & \thesis@year       \\
-   \end{thesis@newtable@old}}}
+\thesis@def@extra[{
+  \thesis@placeholder@extra@summary
+}]{summary}
+
+\def\thesis@blocks@summary{%
+  \begin{alwayssingle}%
+    \thesis@blocks@clear
+    {\let\thesis@blocks@clear\relax
+    \chapter*{\thesis@@{summaryTitle}}}%
+    \noindent\thesis@extra@summary
+  \end{alwayssingle}}
 %    \end{macrocode}
 % \end{macro}
+%
 % Note that there is no direct support for the seminar paper and
 % thesis proposal types.  If you would like to change the contents
 % of the preamble and the postamble, you should modify the
@@ -337,27 +260,38 @@
 % All blocks within the autolayout preamble that are not defined
 % within this file are defined in the
 % \texttt{style/mu/fithesis-base.sty} file.
+% \changes{v1.0.0}{2021/03/22}{Reorganised the blocks to fit the
+%   faculty's requirements. [TV]}
+% \changes{v1.0.0}{2021/04/24}{^^A
+%   Change \cs{thesis@facultyLogo},
+%   \cs{thesis@blocks@facultyLogo@monochrome}, and
+%   \cs{thesis@blocks@facultyLogo@color} to use the new logotype
+%   of the Masaryk University in Brno in the correct size and
+%   localization. Add \cs{thesis@blocks@seal}. [VN]}
 %    \begin{macrocode}
 \def\thesis@blocks@preamble{%
   \thesis@blocks@coverMatter
     \thesis@blocks@cover
   \thesis@blocks@frontMatter
     \thesis@blocks@titlePage
-    \thesis@blocks@assignment
+    \thesis@blocks@seal
     \thesis@blocks@bibEntry
     \thesis@blocks@abstract
+    \thesis@blocks@bibEntryEn
     \thesis@blocks@abstractEn
-    \thesis@blocks@keywords
-    \thesis@blocks@keywordsEn
     \thesis@blocks@declaration
     \thesis@blocks@thanks
-    \thesis@blocks@toc}
+    \thesis@blocks@toc
+    \thesis@blocks@tables}
 %    \end{macrocode}
 % All blocks within the autolayout postamble that are not defined
 % within this file are defined in the \texttt{style/mu/base.sty}
 % file.
+% \changes{v1.0.0}{2021/03/11}{Added conditional to include summary
+% in doctoral theses. [TV]}
 %    \begin{macrocode}
 \def\thesis@blocks@postamble{%
+  \ifx\thesis@doctoral\thesis@type\thesis@blocks@summary\else\fi
   \thesis@blocks@bibliography
-  \thesis@blocks@tables}
+}
 %    \end{macrocode}
