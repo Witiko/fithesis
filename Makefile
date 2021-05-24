@@ -113,7 +113,7 @@ $(DISTARCHIVE): $(SOURCES) $(LATEXFILES) $(MAKES) \
 	DIR=`mktemp -d` && \
 	cp -v $(TDSARCHIVE) "$$DIR" && \
 	tar c $^ | tar xvC "$$DIR" && \
-	(cd "$$DIR" && zip -r -v -nw $@ *) && \
+	(cd "$$DIR" && zip --symlinks -r -v -nw $@ *) && \
 	mv "$$DIR"/$@ . && rm -rf "$$DIR"
 
 # This target generates a CTAN distribution file.
@@ -121,7 +121,7 @@ $(CTANARCHIVE): $(LOGOS) $(SOURCES) $(DOCS) README.md
 	DIR=`mktemp -d` && mkdir -p "$$DIR/fithesis" && \
 	cp -v $(TDSARCHIVE) "$$DIR" && \
 	tar c $^ | tar xvC "$$DIR/fithesis" && \
-	(cd "$$DIR" && zip -r -v -nw $@ *) && \
+	(cd "$$DIR" && zip --symlinks -r -v -nw $@ *) && \
 	mv "$$DIR"/$@ . && rm -rf "$$DIR"
 
 # This pseudo-target installs the class, locale, style, and logo

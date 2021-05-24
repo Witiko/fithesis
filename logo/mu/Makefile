@@ -11,6 +11,12 @@ all: $(PDFFILES)
 %.pdf: %.eps
 	epstopdf $<
 
+# These targets symlinl a Czech PDF logo to a Slovak PDF logo.
+%-slovak.pdf: %-czech.pdf
+	ln -s $< $@
+%-slovak-color.pdf: %-czech-color.pdf
+	ln -s $< $@
+
 # This target removes all PDF logos.
 implode:
 	rm -f $(PDFFILES)
