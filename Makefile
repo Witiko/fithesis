@@ -40,7 +40,8 @@ EXAMPLES=$(USEREXAMPLES) $(DEVEXAMPLES)
 MISCELLANEOUS=example/mu/example.bib $(USEREXAMPLES:.pdf=.tex) \
 	README.md
 RESOURCES=$(STYLEFILES) $(LOGOS) $(LOCALES)
-SOURCES=$(DTXFILES) $(INSFILES) LICENSE.tex VERSION.tex
+SOURCES=$(DTXFILES) $(INSFILES) LICENSE.tex
+VERSION=VERSION.tex
 AUXFILES=fithesis.aux fithesis.log fithesis.toc fithesis.ind \
 	fithesis.idx fithesis.out fithesis.ilg fithesis.gls \
 	fithesis.glo fithesis.hd fithesis.lot
@@ -91,7 +92,7 @@ $(USEREXAMPLES): $(CLASSFILES) $(RESOURCES)
 	make -BC $(dir $@)
 
 # This target typesets the technical documentation.
-$(MANUAL): $(DTXFILES)
+$(MANUAL) $(VERSION): $(DTXFILES)
 	pdflatex $<
 	pdflatex $<
 	makeindex -s gind.ist                       $(basename $@)
@@ -107,7 +108,7 @@ $(TDSARCHIVE):
 	mv "$$DIR"/$@ $@ && rm -rf "$$DIR"
 
 # This target generates a distribution file.
-$(DISTARCHIVE): $(SOURCES) $(LATEXFILES) $(MAKES) \
+$(DISTARCHIVE): $(SOURCES) $(VERSION) $(LATEXFILES) $(MAKES) \
 	$(USEREXAMPLE_SOURCES) $(DOCS) $(PDFSOURCES) $(MISCELLANEOUS) \
 	$(EXAMPLES)
 	DIR=`mktemp -d` && \
@@ -117,7 +118,7 @@ $(DISTARCHIVE): $(SOURCES) $(LATEXFILES) $(MAKES) \
 	mv "$$DIR"/$@ . && rm -rf "$$DIR"
 
 # This target generates a CTAN distribution file.
-$(CTANARCHIVE): $(LOGOS) $(SOURCES) $(DOCS) README.md
+$(CTANARCHIVE): $(LOGOS) $(SOURCES) $(VERSION) $(DOCS) README.md
 	DIR=`mktemp -d` && mkdir -p "$$DIR/fithesis" && \
 	cp -v $(TDSARCHIVE) "$$DIR" && \
 	tar c $^ | tar xvC "$$DIR/fithesis" && \
@@ -168,6 +169,10 @@ install-docs:
 	@# Documentation
 	mkdir -p "$(to)/doc/latex/fithesis"
 	tar c $(DOCS) README.md | tar xvC "$(to)/doc/latex/fithesis"
+	
+	@# Source files
+	mkdir -p "$(to)/source/latex/fithesis"
+	tar c $(VERSION) | tar xvC "$(to)/source/latex/fithesis"
 
 	@# Rebuild the hash
 	[ "$(nohash)" = "true" ] || texhash
