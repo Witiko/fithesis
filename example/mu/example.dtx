@@ -12,7 +12,7 @@
            %% to enable the default options for the printed version
            %% of a document.
 %%  color,   %% Uncomment these lines (by removing the %% at the
-%%           %% beginning) to use color in the digital version of your
+%%           %% beginning) to use color in the printed version of your
 %%           %% document
   twoside, %% The `twoside` option enables double-sided typesetting.
            %% Use at least 120 g/m² paper to prevent show-through.
@@ -632,44 +632,44 @@ document, there are [packages](https://www.ctan.org/pkg/markdown
 to it.
 
 %<*econ>
- ![logo](fithesis/logo/mu/fithesis-econ.pdf "The old-style seal
+ ![logo](fithesis/logo/mu/fithesis-econ-color "The old-style seal
          of the Faculty of Economics and Administration")
 %</econ>
 %<*fi>
- ![logo](fithesis/logo/mu/fithesis-fi "The old-style seal of the
-         Faculty of Informatics")
+ ![logo](fithesis/logo/mu/fithesis-fi-color "The old-style seal of
+         the Faculty of Informatics")
 %</fi>
 %<*fsps>
- ![logo](fithesis/logo/mu/fithesis-fsps "The old-style seal of
-         the Faculty of Sports Studies")
+ ![logo](fithesis/logo/mu/fithesis-fsps-color "The old-style seal
+         of the Faculty of Sports Studies")
 %</fsps>
 %<*fss>
- ![logo](fithesis/logo/mu/fithesis-fss "The old-style seal of the
-         Faculty of Social Studies")
+ ![logo](fithesis/logo/mu/fithesis-fss-color "The old-style seal of
+         the Faculty of Social Studies")
 %</fss>
 %<*law>
- ![logo](fithesis/logo/mu/fithesis-law "The old-style seal of the
-         Faculty of Law")
+ ![logo](fithesis/logo/mu/fithesis-law-color "The old-style seal of
+         the Faculty of Law")
 %</law>
 %<*med>
- ![logo](fithesis/logo/mu/fithesis-med "The old-style seal of the
-         Faculty of Medicine")
+ ![logo](fithesis/logo/mu/fithesis-med-color "The old-style seal of
+         the Faculty of Medicine")
 %</med>
 %<*ped>
- ![logo](fithesis/logo/mu/fithesis-ped "The old-style seal of the
-         Faculty of Education")
+ ![logo](fithesis/logo/mu/fithesis-ped-color "The old-style seal of
+         the Faculty of Education")
 %</ped>
 %<*pharm>
- ![logo](fithesis/logo/mu/fithesis-pharm "The old-style seal of the
-         Faculty of Pharmacy")
+ ![logo](fithesis/logo/mu/fithesis-pharm-color "The old-style seal
+         of the Faculty of Pharmacy")
 %</pharm>
 %<*phil>
- ![logo](fithesis/logo/mu/fithesis-phil "The old-style seal of the
-         Faculty of Arts")
+ ![logo](fithesis/logo/mu/fithesis-phil-color "The old-style seal
+         of the Faculty of Arts")
 %</phil>
 %<*sci>
- ![logo](fithesis/logo/mu/fithesis-sci "The old-style seal of the
-         Faculty of Science")
+ ![logo](fithesis/logo/mu/fithesis-sci-color "The old-style seal of
+         the Faculty of Science")
 %</sci>
 
 | Right | Left | Default | Center |
@@ -925,29 +925,30 @@ proofs.
     %% The optimum is about 250 pixels per 1 centimeter or 600
     %% pixels per 1 inch. That means that a JPG or PNG image typeset
     %% at 4 × 4 cm should be 1000 × 1000 px large or larger.
-    \includegraphics[width=4cm]{fithesis/logo/mu/fithesis-base-english-color}
+    \includegraphics[width=6.3cm]{fithesis/logo/mu/fithesis-base-english-color}
   \end{center}
 %<*econ>
   \emph{Source: <<Image Source>>}
 %</econ>
-  \caption{The logo of \acrlong{MU} at 40\,mm}
+  \caption{The logo of \acrlong{MU} at 6.3\,cm}
   \label{fig:mulogo1}
 \end{figure}
 
 \begin{figure}
   \begin{center}
-    \begin{minipage}{.66\textwidth}
+    \begin{minipage}{.5\textwidth}
       \includegraphics[width=\textwidth]{fithesis/logo/mu/fithesis-base-english-color}
     \end{minipage}
+    \hfill  % Fill the horizontal space between the images
     \begin{minipage}{.33\textwidth}
-      \includegraphics[width=\textwidth]{fithesis/logo/mu/fithesis-base-english-color} \\
+      \includegraphics[width=\textwidth]{fithesis/logo/mu/fithesis-base-english-color} \\[1em]
       \includegraphics[width=\textwidth]{fithesis/logo/mu/fithesis-base-english-color}
     \end{minipage}
   \end{center}
 %<*econ>
   \emph{Source: <<Image Source>>}
 %</econ>
-	\caption{The logo of \acrlong{MU} at $\frac23$ and
+	\caption{The logo of \acrlong{MU} at $\frac12$ and
     $\frac13$ of text width}
   \label{fig:mulogo2}
 \end{figure}
