@@ -15,12 +15,22 @@
 %%  color,   %% Uncomment these lines (by removing the %% at the
 %%           %% beginning) to use color in the digital version of your
 %%           %% document
+%<*fi>
+  oneside, %% The `oneside` option enables one-sided typesetting,
+           %% which is preferred if you are only going to submit a
+           %% digital version of your thesis. Replace with `twoside`
+           %% for double-sided typesetting if you are planning to
+           %% also print your thesis. For double-sided typesetting,
+           %% use at least 120 g/m² paper to prevent show-through.
+%</fi>
+%<*econ,fsps,fss,law,med,ped,phil,sci,pharm>
   twoside, %% The `twoside` option enables double-sided typesetting.
            %% Use at least 120 g/m² paper to prevent show-through.
            %% Replace with `oneside` to use one-sided typesetting;
            %% use only if you don’t have access to a double-sided
            %% printer, or if one-sided typesetting is a formal
            %% requirement at your faculty.
+%</econ,fsps,fss,law,med,ped,phil,sci,pharm>
   lof,     %% The `lof` option prints the List of Figures. Replace
            %% with `nolof` to hide the List of Figures.
   lot,     %% The `lot` option prints the List of Tables. Replace
@@ -31,11 +41,9 @@
 \usepackage[resetfonts]{cmap} %% We need to load the T2A font encoding
 \usepackage[T1,T2A]{fontenc}  %% to use the Cyrillic fonts with Russian texts.
 \usepackage[
-%<*econ,fi,fsps,fss,law,med,ped,phil,sci,pharm>
   main=english, %% By using `czech` or `slovak` as the main locale
                 %% instead of `english`, you can typeset the thesis
                 %% in either Czech or Slovak, respectively.
-%</econ,fi,fsps,fss,law,med,ped,phil,sci,pharm>
   english, german, russian, czech, slovak %% The additional keys allow
 ]{babel}        %% foreign texts to be typeset as follows:
 %%
