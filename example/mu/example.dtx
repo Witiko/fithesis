@@ -1,4 +1,3 @@
-%    \begin{macrocode}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% I, the copyright holder of this work, release this work into the
 %% public domain. This applies worldwide. In some countries this may
@@ -13,7 +12,7 @@
            %% to enable the default options for the printed version
            %% of a document.
 %%  color,   %% Uncomment these lines (by removing the %% at the
-%%           %% beginning) to use color in the digital version of your
+%%           %% beginning) to use color in the printed version of your
 %%           %% document
 %<*fi>
   oneside, %% The `oneside` option enables one-sided typesetting,
@@ -76,11 +75,6 @@
 %% 
 %% The following section sets up the metadata of the thesis.
 %<*econ>
-%    \end{macrocode}
-% \changes{v1.0.0}{2021/03/04}{Added elements that are used 
-%   by thesis@bibEntry and thesis@titlePage: field, fieldEn,
-%   departmentEn, programme, programmeEn. [TV]}
-%    \begin{macrocode}
 
 \thesissetup{
     date               = \the\year/\the\month/\the\day,
@@ -144,10 +138,6 @@
 }
 %</econ>
 %<*fi>
-%    \end{macrocode}
-% \changes{v1.0.0}{2021/03/04}{Added element that is used
-%   by thesis@titlePage: department. [TV]}
-%    \begin{macrocode}
 \thesissetup{
     date        = \the\year/\the\month/\the\day,
     university  = mu,
@@ -177,13 +167,6 @@
 }
 %</fi>
 %<*fsps>
-%    \end{macrocode}
-% \changes{v1.0.0}{2021/03/04}{Added elements that are used
-%   by thesis@bibEntry and thesis@titlePage: field, fieldEn,
-%   department, departmentEn, titleEn, TeXtitleEn, keywords, 
-%   keywordsEn, TeXkeywords, TeXkeywordsEn, programme,
-%   programmeEn, abstract, abstractEn. [TV]}
-%    \begin{macrocode}
 \thesissetup{
     date          = \the\year/\the\month/\the\day,
     university    = mu,
@@ -225,12 +208,6 @@
 }
 %</fsps>
 %<*fss>
-%    \end{macrocode}
-% \changes{v1.0.0}{2021/03/04}{Added elements that are used
-%   by thesis@bibEntry and thesis@titlePage: advisor, field, fieldEn,
-%   department, departmentEn, titleEn, TeXtitleEn, programme,
-%   programmeEn. [TV]}
-%    \begin{macrocode}
 \thesissetup{
     date          = \the\year/\the\month/\the\day,
     university    = mu,
@@ -279,10 +256,6 @@
 }
 %</fss>
 %<*law>
-%    \end{macrocode}
-% \changes{v1.0.0}{2021/03/04}{Added element that is used
-%   by thesis@titlePage: field [TV]}
-%    \begin{macrocode}
 \thesissetup{
     date          = \the\year/\the\month/\the\day,
     university    = mu,
@@ -322,10 +295,6 @@
 }
 %</law>
 %<*med>
-%    \end{macrocode}
-% \changes{v1.0.0}{2021/03/22}{Added element that is used
-%   by thesis@titlePage: programme [TV]}
-%    \begin{macrocode}
 \thesissetup{
     date          = \the\year/\the\month/\the\day,
     university    = mu,
@@ -367,12 +336,6 @@
 }
 %</med>
 %<*ped>
-%    \end{macrocode}
-% \changes{v1.0.0}{2021/03/04}{Added elements that are used
-%   by thesis@bibEntry and thesis@titlePage: field, fieldEn,
-%   departmentEn, titleEn, TeXtitleEn, programme, programmeEn.
-%   [TV]}
-%    \begin{macrocode}
 \thesissetup{
     date          = \the\year/\the\month/\the\day,
     university    = mu,
@@ -421,10 +384,6 @@
 }
 %</ped>
 %<*pharm>
-%    \end{macrocode}
-% \changes{v1.0.0}{2021/03/26}{Added the \texttt{thesissetup}
-%   for the Faculty of Pharmacy. [TV]}
-%    \begin{macrocode}
 \thesissetup{
     date               = \the\year/\the\month/\the\day,
     university         = mu,
@@ -473,12 +432,6 @@
 }
 %</pharm>
 %<*phil>
-%    \end{macrocode}
-% \changes{v1.0.0}{2021/03/04}{Added elements that are used
-%   by thesis@bibEntry and thesis@titlePage: fieldEn, departmentEn,
-%   titleEn, TeXtitleEn, keywordsEn, TeXkeywordsEn, abstractEn,
-%   programme, programmeEn. [TV]}
-%    \begin{macrocode}
 \thesissetup{
     date        = \the\year/\the\month/\the\day,
     university  = mu,
@@ -522,11 +475,6 @@
 }
 %</phil>
 %<*sci>
-%    \end{macrocode}
-% \changes{v1.0.0}{2021/03/22}{Added elements that are used
-%   by thesis@bibEntry and thesis@titlePage: fieldEn,
-%   departmentEn, titleEn, TeXtitleEn, programmeEn. [TV]}
-%    \begin{macrocode}
 \thesissetup{
     date            = \the\year/\the\month/\the\day,
     university      = mu,
@@ -580,16 +528,12 @@
     },
 }
 %</sci>
-%    \end{macrocode}
-% \changes{v1.0.0}{2021/03/22}{Added \textsf{glossaries} package.
-%    [TV]}
-%    \begin{macrocode}
 \usepackage{makeidx}      %% The `makeidx` package contains
 \makeindex                %% helper commands for index typesetting.
 \usepackage[acronym]{glossaries}          %% The `glossaries` package
 \renewcommand*\glspostdescription{\hfill} %% contains helper commands
-\loadglsentries{example-terms-abbrs.tex}  %% for glossary and loa
-\makenoidxglossaries                      %% typesetting.
+\loadglsentries{example-terms-abbrs.tex}  %% for typesetting glossaries
+\makenoidxglossaries                      %% and lists of abbreviations.
 %% These additional packages are used within the document:
 \usepackage{paralist} %% Compact list environments
 \usepackage{amsmath}  %% Mathematics
@@ -623,10 +567,6 @@
 \makeatother
 
 %</econ>
-%    \end{macrocode}
-% \changes{v1.0.0}{2021/03/22}{Added \cs{printnoidxglossary} to print
-%   Glossary and List of Abbreviations. [TV]}
-%    \begin{macrocode}
 %% Uncomment the following lines (by removing the %% at the beginning)
 %% and to print out List of Abbreviations and/or Glossary in your
 %% document. Titles for these tables can be changed by replacing the
@@ -699,8 +639,46 @@ document, there are [packages](https://www.ctan.org/pkg/markdown
 "Markdown") that allow you to use more lightweight markup next
 to it.
 
- ![logo](fithesis/logo/mu/fithesis-base-color.pdf "The logo of the
-  Masaryk University")
+%<*econ>
+ ![logo](fithesis/logo/mu/fithesis-econ-color "The old-style seal
+         of the Faculty of Economics and Administration")
+%</econ>
+%<*fi>
+ ![logo](fithesis/logo/mu/fithesis-fi-color "The old-style seal of
+         the Faculty of Informatics")
+%</fi>
+%<*fsps>
+ ![logo](fithesis/logo/mu/fithesis-fsps-color "The old-style seal
+         of the Faculty of Sports Studies")
+%</fsps>
+%<*fss>
+ ![logo](fithesis/logo/mu/fithesis-fss-color "The old-style seal of
+         the Faculty of Social Studies")
+%</fss>
+%<*law>
+ ![logo](fithesis/logo/mu/fithesis-law-color "The old-style seal of
+         the Faculty of Law")
+%</law>
+%<*med>
+ ![logo](fithesis/logo/mu/fithesis-med-color "The old-style seal of
+         the Faculty of Medicine")
+%</med>
+%<*ped>
+ ![logo](fithesis/logo/mu/fithesis-ped-color "The old-style seal of
+         the Faculty of Education")
+%</ped>
+%<*pharm>
+ ![logo](fithesis/logo/mu/fithesis-pharm-color "The old-style seal
+         of the Faculty of Pharmacy")
+%</pharm>
+%<*phil>
+ ![logo](fithesis/logo/mu/fithesis-phil-color "The old-style seal
+         of the Faculty of Arts")
+%</phil>
+%<*sci>
+ ![logo](fithesis/logo/mu/fithesis-sci-color "The old-style seal of
+         the Faculty of Science")
+%</sci>
 
 | Right | Left | Default | Center |
 |------:|:-----|---------|:------:|
@@ -955,29 +933,30 @@ proofs.
     %% The optimum is about 250 pixels per 1 centimeter or 600
     %% pixels per 1 inch. That means that a JPG or PNG image typeset
     %% at 4 × 4 cm should be 1000 × 1000 px large or larger.
-    \includegraphics[width=4cm]{fithesis/logo/mu/fithesis-base-color.pdf}
+    \includegraphics[width=6.3cm]{fithesis/logo/mu/fithesis-base-english-color}
   \end{center}
 %<*econ>
   \emph{Source: <<Image Source>>}
 %</econ>
-  \caption{The logo of the Masaryk University at 40\,mm}
+  \caption{The logo of \acrlong{MU} at 6.3\,cm}
   \label{fig:mulogo1}
 \end{figure}
 
 \begin{figure}
   \begin{center}
-    \begin{minipage}{.66\textwidth}
-      \includegraphics[width=\textwidth]{fithesis/logo/mu/fithesis-base-color.pdf}
+    \begin{minipage}{.5\textwidth}
+      \includegraphics[width=\textwidth]{fithesis/logo/mu/fithesis-base-english-color}
     \end{minipage}
+    \hfill  % Fill the horizontal space between the images
     \begin{minipage}{.33\textwidth}
-      \includegraphics[width=\textwidth]{fithesis/logo/mu/fithesis-base-color.pdf} \\
-      \includegraphics[width=\textwidth]{fithesis/logo/mu/fithesis-base-color.pdf}
+      \includegraphics[width=\textwidth]{fithesis/logo/mu/fithesis-base-english-color} \\[1em]
+      \includegraphics[width=\textwidth]{fithesis/logo/mu/fithesis-base-english-color}
     \end{minipage}
   \end{center}
 %<*econ>
   \emph{Source: <<Image Source>>}
 %</econ>
-	\caption{The logo of the \acrlong{MUNI} at $\frac23$ and
+	\caption{The logo of \acrlong{MU} at $\frac12$ and
     $\frac13$ of text width}
   \label{fig:mulogo2}
 \end{figure}
@@ -1003,14 +982,13 @@ proofs.
   \label{tab:weather}
 \end{table}
 
-The logo of the Masaryk University is shown in Figure
-\ref{fig:mulogo1} and Figure \ref{fig:mulogo2} at pages
-\pageref{fig:mulogo1} and \pageref{fig:mulogo2}. The weather
-forecast is shown in Table \ref{tab:weather} at page
-\pageref{tab:weather}. The following chapter is Chapter
-\ref{chap:matheq} and starts at page \pageref{chap:matheq}.
-Items \ref{item:star1}, \ref{item:star2}, and
-\ref{item:star3} are starred in the following list:
+The logo of \gls{MU} is shown in Figure \ref{fig:mulogo1} and
+Figure \ref{fig:mulogo2} at pages \pageref{fig:mulogo1} and
+\pageref{fig:mulogo2}. The weather forecast is shown in Table
+\ref{tab:weather} at page \pageref{tab:weather}. The following
+chapter is Chapter \ref{chap:matheq} and starts at page
+\pageref{chap:matheq}.  Items \ref{item:star1}, \ref{item:star2},
+and \ref{item:star3} are starred in the following list:
 \begin{compactenum}
   \item some text
   \item some other text
@@ -1256,4 +1234,3 @@ the index will be ill-sorted.
 Here you can insert the appendices of your thesis.
 
 \end{document}
-%    \end{macrocode}
