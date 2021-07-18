@@ -15,7 +15,7 @@
 % akulte_MU.pdf}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fithesis/style/mu/fithesis-mu-med}[2021/04/24]
+\ProvidesPackage{fithesis/style/mu/fithesis-mu-med}[2021/07/18]
 %    \end{macrocode}
 % The file defines the color scheme of the respective faculty. Note
 % the the color definitions are in RGB, which makes the resulting
@@ -159,19 +159,22 @@
   \pagestyle{empty}
   \parindent 1.5em
   \setcounter{page}{1}
-  \pagenumbering{roman}}
+  \pagenumbering{arabic}}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@mainMatter}
 % The |\thesis@blocks@mainMatter| macro sets up the style
 % of the main matter of the thesis. The leading is adjusted in
-% accordance with the requirements of the faculty.
+% accordance with the requirements of the faculty. The page
+% numbering doesn't reset at the beginning of the main thesis in
+% accordance with the formal requirements of the faculty.
+% \changes{v1.0.1}{2021/07/18}{^^A
+%   Display page numbers for the Faculty of Medicine starting with
+%   the declaration. [VN]}
 % \begin{macrocode}
 \def\thesis@blocks@mainMatter{%
   \thesis@blocks@clear
   \newgeometry{top=25mm,bottom=20mm,left=35mm,
     right=15mm, includeheadfoot}
-  \setcounter{page}{1}
-  \pagenumbering{arabic}
   \pagestyle{thesisheadings}
   \parindent 1.5em
   \onehalfspacing}
@@ -200,7 +203,15 @@
   \thesis@blocks@frontMatter
     \thesis@blocks@titlePage
     \thesis@blocks@seal
-    \thesis@blocks@declaration
+%    \end{macrocode}
+% \changes{v1.0.1}{2021/07/18}{^^A
+%   Display page numbers for the Faculty of Medicine starting with
+%   the declaration. [VN]}
+%    \begin{macrocode}
+    \thesis@blocks@clear
+      \pagestyle{plain}
+      \setcounter{page}{1}
+      \thesis@blocks@declaration
     \thesis@blocks@clear
       \thesis@blocks@abstract
       \thesis@blocks@keywords
