@@ -12,7 +12,7 @@
 % y_vypracovani_ZP_bc-mgr-rig.pdf}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fithesis/style/mu/fithesis-mu-fsps}[2021/04/24]
+\ProvidesPackage{fithesis/style/mu/fithesis-mu-fsps}[2021/07/18]
 %    \end{macrocode}
 % The file defines the color scheme of the respective faculty. Note
 % the the color definitions are in RGB, which makes the resulting
@@ -62,24 +62,30 @@
 % The |\thesis@blocks@frontMatter| macro sets up the style of the
 % front matter of the thesis. The leading is adjusted in
 % accordance with the requirements of the faculty.
+% \changes{v1.0.1}{2021/07/18}{^^A
+%   Display page numbers for the Faculty of Sports Studies starting
+%   with the table of contents. [VN]}
 % \begin{macrocode}
 \def\thesis@blocks@frontMatter{%
   \thesis@blocks@clear
-  \pagestyle{plain}
+  \pagestyle{empty}
   \parindent 1.5em
   \setcounter{page}{1}
-  \pagenumbering{roman}
+  \pagenumbering{arabic}
   \onehalfspacing}
 %    \end{macrocode}
 % \end{macro}\begin{macro}{\thesis@blocks@mainMatter}
 % The |\thesis@blocks@mainMatter| macro sets up the style
 % of the main matter of the thesis. The leading is adjusted in
-% accordance with the requirements of the faculty.
+% accordance with the requirements of the faculty. The page
+% numbering doesn't reset at the beginning of the main thesis in
+% accordance with the formal requirements of the faculty.
+% \changes{v1.0.1}{2021/07/18}{^^A
+%   Display page numbers for the Faculty of Sports Studies starting
+%   with the table of contents. [VN]}
 % \begin{macrocode}
 \def\thesis@blocks@mainMatter{%
   \thesis@blocks@clear
-  \setcounter{page}{1}
-  \pagenumbering{arabic}
   \pagestyle{thesisheadings}
   \parindent 1.5em
   \onehalfspacing}
@@ -160,7 +166,14 @@
     \thesis@blocks@bibEntryEn
     \thesis@blocks@abstractEn
     \thesis@blocks@thanks
-    \thesis@blocks@tables}
+%    \end{macrocode}
+% \changes{v1.0.1}{2021/07/18}{^^A
+%   Display page numbers for the Faculty of Sports Studies starting
+%   with the table of contents. [VN]}
+%    \begin{macrocode}
+    \thesis@clear
+      \pagestyle{plain}
+      \thesis@blocks@tables}
 \def\thesis@blocks@postamble{%
   \thesis@blocks@bibliography}
 %    \end{macrocode}

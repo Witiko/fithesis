@@ -12,7 +12,7 @@
 % _-_Pokyny_pro_vypracovani_bc._dipl._a_rigor.praci.pdf}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fithesis/style/mu/fithesis-mu-sci}[2021/04/24]
+\ProvidesPackage{fithesis/style/mu/fithesis-mu-sci}[2021/07/18]
 %    \end{macrocode}
 % The file defines the color scheme of the respective faculty. Note
 % the the color definitions are in RGB, which makes the resulting
@@ -80,13 +80,29 @@
 % of the front matter front matter of the thesis. The front matter
 % is typeset without any visible numbering, as mandated by the
 % formal requirements of the faculty.
+% \changes{v1.0.1}{2021/07/18}{^^A
+%   Display page numbers for the Faculty of Science starting with
+%   the table of contents. [VN]}
 %    \begin{macrocode}
 \def\thesis@blocks@frontMatter{%
   \thesis@blocks@clear
   \pagestyle{empty}
   \parindent 1.5em
   \setcounter{page}{1}
-  \pagenumbering{roman}}
+  \pagenumbering{arabic}}
+%    \end{macrocode}
+% The |\thesis@blocks@mainMatter| macro sets up the style
+% of the main matter of the thesis. The page numbering doesn't
+% reset at the beginning of the main thesis in accordance with the
+% formal requirements of the faculty.
+% \changes{v1.0.1}{2021/07/18}{^^A
+%   Display page numbers for the Faculty of Science starting with
+%   the table of contents. [VN]}
+%    \begin{macrocode}
+\def\thesis@blocks@mainMatter{%
+  \thesis@blocks@clear
+  \pagestyle{thesisheadings}
+  \parindent 1.5em\relax}
 %    \end{macrocode}
 % \end{macro}
 % \changes{v1.0.0}{2018/11/18}{^^A
@@ -117,7 +133,14 @@
     \thesis@blocks@titlePage
     \thesis@blocks@seal
     \ifx\thesis@type\thesis@proposal
-      \thesis@blocks@toc
+%    \end{macrocode}
+% \changes{v1.0.1}{2021/07/18}{^^A
+%   Display page numbers for the Faculty of Science starting with
+%   the table of contents. [VN]}
+%    \begin{macrocode}
+      \thesis@clear
+        \pagestyle{plain}
+        \thesis@blocks@toc
     \else
       \thesis@blocks@bibEntry
       \thesis@blocks@bibEntryEn
@@ -128,7 +151,14 @@
       \thesis@blocks@assignment
       \thesis@blocks@thanks
       \thesis@blocks@declaration
-      \thesis@blocks@tables
+%    \end{macrocode}
+% \changes{v1.0.1}{2021/07/18}{^^A
+%   Display page numbers for the Faculty of Science starting with
+%   the table of contents. [VN]}
+%    \begin{macrocode}
+      \thesis@clear
+        \pagestyle{plain}
+        \thesis@blocks@tables
     \fi}
 \def\thesis@blocks@postamble{%
   \thesis@blocks@bibliography}
