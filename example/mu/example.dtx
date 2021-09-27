@@ -72,7 +72,7 @@
 %% fonts:
 \newfontfamily\russianfont[Script=Cyrillic,Ligatures=TeX]{PT Serif}
 %</luatex>
-%% 
+%%
 %% The following section sets up the metadata of the thesis.
 %<*econ>
 
@@ -575,7 +575,12 @@
 %% \printnoidxglossary[title={Abbreviations}, type=\acronymtype]
 %% \printnoidxglossary[title={Glossary}]
 
+%% The \chapter* command can be used to produce unnumbered chapters:
 \chapter*{Introduction}
+%% Unlike \chapter, \chapter* does not update the headings and does not
+%% enter the chapter to the table of contents. I we want correct
+%% headings and a table of contents entry, we must add them manually:
+\markright{\textsc{Introduction}}
 \addcontentsline{toc}{chapter}{Introduction}
 
 Theses are rumoured to be \enquote{the capstones of education}, so
