@@ -7,14 +7,16 @@
 % This is the style file for the theses written at the Faculty of
 % Education at the Masaryk University in Brno. It has been prepared
 % in accordance with the formal requirements published at the
-% of the faculty\footnote{See \url{K_realizaci_zaverecnych_praci^^A
-% __bakalarskych__diplomovych__rigoroznich_a_zaverecnych_praci_CZV_},
-% and standard of the department of Pedagogy 
-% \url{http://www.ped.muni.cz/pedagogika/wp-content/uploads/2018^^A
-% /08/standard_zaverecnych_praci_katedra_pedagogiky-opravene3_08.pdf}}.
+% of the faculty\footnote{See \url{https://is.muni.cz/do/mu/Uredni_^^A
+% deska/Predpisy_MU/Pedagogicka_fakulta/Pokyny/PD2015-01/K_realizac^^A
+% _ i_zaverecnych_praci__bakalarskych__diplomovych__rigoroznich_a_z^^A
+% averecnych_praci_CZV__2021-06-10_09-07-51.pdf}, and the standard of
+% the department of Pedagogy \url{http://www.ped.muni.cz/pedagogika^^A
+% /wp-content/uploads/2018/08/standard_zaverecnych_praci_katedra_pe^^A
+% dagogiky-opravene3_08.pdf}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fithesis/style/mu/fithesis-mu-ped}[2021/04/24]
+\ProvidesPackage{fithesis/style/mu/fithesis-mu-ped}[2021/10/17]
 %    \end{macrocode}
 % The file defines the color scheme of the respective faculty. Note
 % the the color definitions are in RGB, which makes the resulting
@@ -31,9 +33,15 @@
 % \changes{v1.0.0}{2021/03/26}{^^A
 %   The Faculty of Education at the Masaryk University in Brno
 %   uses the APA citation and reference style. [VN]}
+% \changes{v1.0.2}{2021/10/17}{^^A
+%   The Faculty of Education at the Masaryk University in Brno
+%   uses the ISO 690 citation and reference style, since the
+%   \textsf{biblatex-apa} package does not support Czech and
+%   Slovak. The |iso-authoryear| citations are used and the
+%   bibliography is sorted by name, title, and year. [VN]}
 %    \begin{macrocode}
 \thesis@bibliography@setup{
-  style=apa,
+  style=iso-authoryear,
   sorting=nty}
 \thesis@bibliography@load
 %    \end{macrocode}
