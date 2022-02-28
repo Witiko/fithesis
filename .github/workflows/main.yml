@@ -3,6 +3,8 @@ on:
   push:
   pull_request:
   workflow_dispatch:
+  schedule:
+    - cron: '30 4 * * MON'
 env:
   DEBIAN_FRONTEND: noninteractive
 jobs:
