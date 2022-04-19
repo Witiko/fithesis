@@ -10,10 +10,16 @@
 % \changes{v1.0.0}{2021/03/19}{Updated urls to show the most recent
 %   requirements and recommendations used in preparation of the 
 %   template. [TV]}
+% \changes{v1.0.3}{2022/04/19}{Updated urls to show the most recent
+%   requirements and recommendations used in preparation of the 
+%   template. [VN]}
 % published at the website of the faculty\footnote{See \url{https:^^A
 % //is.muni.cz/auth/do/econ/uredni_deska/predpisy_ESF/smernice/sme^^A
-% rnice_dekana/94383996/} and \url{https://is.muni.cz/auth/do/econ^^A
-% /uredni_deska/predpisy_ESF/smernice/smernice_dekana/104768134/}}.
+% rnice/smernice_dekana/prehled/2019/smernice_c_9_2019_o_tvorbe_od^^A
+% evzdavani_zverejnovani_a_hodnoceni_bc_zaverecnych_a/SmerniceDeka^^A
+% na2019_c.9__2_FINALk_vydani.pdf} and \url{https://is.muni.cz/aut^^A
+% h/do/econ/uredni_deska/predpisy_ESF/smernice/smernice_dekana/104^^A
+% 768134/}}.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{fithesis/style/mu/fithesis-mu-econ}[2021/04/24]
@@ -281,8 +287,7 @@
     \thesis@blocks@abstractEn
     \thesis@blocks@declaration
     \thesis@blocks@thanks
-    \thesis@blocks@toc
-    \thesis@blocks@tables}
+    \thesis@blocks@toc}
 %    \end{macrocode}
 % All blocks within the autolayout postamble that are not defined
 % within this file are defined in the \texttt{style/mu/base.sty}
@@ -293,5 +298,6 @@
 \def\thesis@blocks@postamble{%
   \ifx\thesis@doctoral\thesis@type\thesis@blocks@summary\else\fi
   \thesis@blocks@bibliography
+  \thesis@blocks@tables
 }
 %    \end{macrocode}
